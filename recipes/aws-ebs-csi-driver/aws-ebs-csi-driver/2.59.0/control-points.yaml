@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.33.0"
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      policy: "no-hooks"
+      note: "no base's render contains a Helm hook object, with or without --no-hooks"
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "this base needs no CRD on the target; it is rendered for Kubernetes 1.33 or later, and the controller needs AWS permissions to manage EBS volumes, which the chart does not grant"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

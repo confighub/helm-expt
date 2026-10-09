@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:fe5fd946797f6286736a4f59ae4e775482574d89aa4fa8454841146b272f074a",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -467,15 +467,39 @@
     {
       "id": "compare",
       "label": "Compare with another version or base",
-      "state": "not-available",
-      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
       "basis": [
         "variants.known",
         "source.name",
         "flattened.format"
       ],
-      "commands": [],
-      "unblock": "A second entry for prometheus-community/prometheus-operator-crds in this format would give this step a sibling."
+      "commands": [
+        {
+          "comment": "fetch the default base at version 28.0.1",
+          "command": "curl -fsSL -o prometheus-community-prometheus-operator-crds-28-0-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 28.0.1 to 29.0.0",
+          "command": "cub config diff prometheus-community-prometheus-operator-crds-28-0-1-default.yaml prometheus-community-prometheus-operator-crds-29-0-0-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.json",
+          "version": "28.0.1",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-default.json",
+          "version": "28.0.1",
+          "base": "default",
+          "relation": "other-version"
+        }
+      ]
     },
     {
       "id": "upload",

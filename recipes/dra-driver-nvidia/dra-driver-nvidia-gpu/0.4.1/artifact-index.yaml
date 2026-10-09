@@ -1,0 +1,336 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+  chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+  version: "0.4.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.4.1"
+    appVersion: "0.4.1"
+    sourceLock: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml"
+    dependencyLock: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/dependency-lock.yaml"
+    repository: "oci://registry.k8s.io/dra-driver-nvidia/charts"
+    packageSHA256: "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+  recipe:
+    path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-plan.yaml"
+    chartDossier: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/chart-dossier.yaml"
+    controlPoints: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/control-points.yaml"
+    valueModel: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "gpu-resources"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1"
+    manifestDigest: "sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+    layerDigest: "sha256:1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414"
+    publicationReceipt: "runs/installer-oci/dra-driver-nvidia-dra-driver-nvidia-gpu/0.4.1/installer-package-publication-receipt.yaml"
+    installer: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/installer.yaml"
+    receipt: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "1df90f46d618e37b6a72f7f6d4d7c3a1ac53b801e53cf989d19b81e752019414"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/default"
+        default: true
+        description: "dra-driver-nvidia-gpu GPU allocation off, because the chart refuses to render its own defaults variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+      -
+        name: "gpu-resources"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/gpu-resources"
+        default: false
+        description: "dra-driver-nvidia-gpu GPU allocation through DRA, for nodes without the standard GPU device plugin variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+      -
+        name: "aicr-eks-training"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/aicr-eks-training"
+        default: false
+        description: "dra-driver-nvidia-gpu AICR v0.20.0 EKS training values variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/variants/default/variant.yaml"
+      namespace: "nvidia-dra-driver"
+      releaseName: "nvidia-dra-driver-gpu"
+      valuesProfile: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.34.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com"
+      packageBase:
+        name: "default"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/default"
+        default: true
+        description: "dra-driver-nvidia-gpu GPU allocation off, because the chart refuses to render its own defaults variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613 --base default --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvidia-dra-driver"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/variant-revision.yaml"
+          digest: "0a35f51a34986e34d5eb1568399a6078e5dd7d25208d1abd0dacefef1a1b313d"
+          renderedObjectSetSHA256: "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+          renderedObjects: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "00102cc2a1a5a1e73778e326dc7774090347379c52fe73c68551602d1b26f3df"
+    -
+      name: "gpu-resources"
+      variant: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/variants/gpu-resources/variant.yaml"
+      namespace: "nvidia-dra-driver"
+      releaseName: "nvidia-dra-driver-gpu"
+      valuesProfile: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/effective-values-gpu-resources.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.34.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "gpu-resources"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "gpu-resources"
+      targetFactSummary: "required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com"
+      packageBase:
+        name: "gpu-resources"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/gpu-resources"
+        default: false
+        description: "dra-driver-nvidia-gpu GPU allocation through DRA, for nodes without the standard GPU device plugin variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613 --base gpu-resources --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        helmReleaseObjectCount: 24
+        cubInstallObjectCountIncludingSupport: 25
+        semanticObjectMatches: "24/24"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvidia-dra-driver"
+      revisions:
+        -
+          name: "gpu-resources-r001"
+          revision: "r001"
+          variantRevision: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/variant-revision.yaml"
+          digest: "ce9d1b1a04ebe927376f4c027aef4d37c8eaef299034dc0b04c3cb58aacc5709"
+          renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+          renderedObjects: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/object-inventory.yaml"
+          objectCount: 24
+          helmObjectCount: 24
+          cubInstallObjectCountIncludingSupport: 25
+          semanticObjectMatches: "24/24"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/variants/aicr-eks-training/variant.yaml"
+      namespace: "nvidia-dra-driver"
+      releaseName: "nvidia-dra-driver-gpu"
+      valuesProfile: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.34.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "aicr-eks-training"
+      targetFactSummary: "required CRD computedomaincliques.resource.nvidia.com; required CRD computedomains.resource.nvidia.com"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/bases/aicr-eks-training"
+        default: false
+        description: "dra-driver-nvidia-gpu AICR v0.20.0 EKS training values variant rendered from dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvidia-dra-driver"
+        helmReleaseObjectCount: 21
+        cubInstallObjectCountIncludingSupport: 22
+        semanticObjectMatches: "21/21"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nvidia-dra-driver"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "e789d500c52288d8d068a2d001cb0b3857e9a2ada0e310ab6065ca43d9692ef4"
+          renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+          renderedObjects: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 21
+          helmObjectCount: 21
+          cubInstallObjectCountIncludingSupport: 22
+          semanticObjectMatches: "21/21"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"

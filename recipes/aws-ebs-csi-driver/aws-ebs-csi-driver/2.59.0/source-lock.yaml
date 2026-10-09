@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "aws-ebs-csi-driver"
+  repositoryURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+  chart: "aws-ebs-csi-driver"
+  version: "2.59.0"
+  appVersion: "1.59.0"
+  packageSHA256: "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118"
+  packageBytes: 30011
+  exactArtifact:
+    url: "https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/download/helm-chart-aws-ebs-csi-driver-2.59.0/aws-ebs-csi-driver-2.59.0.tgz"
+    sha256: "adb1961abcced2b66c49d4f64885d63b2fd824310c8d4f99c52c7d2c0193b118"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

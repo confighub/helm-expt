@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1"
+spec:
+  chart: "kai-scheduler/kai-scheduler"
+  version: "v0.14.1"
+  caveats:
+    - "A base alone installs the operator and deploys no scheduler. The Config object that names the services to run is in the packaged lifecycle files, and a person or a delivery workflow has to apply it."
+    - "The operator, not this chart, creates the scheduler, binder, admission and other Deployments at run time, with their webhooks. None of those objects is in any base and none was observed."
+    - "On OpenShift the chart renders different objects. These bases are not the OpenShift render."
+    - "The hook Job images are the tags the chart renders. They are not pinned by digest here."
+  openQuestions:
+    -
+      bases:
+        - "default"
+        - "aicr-eks-training"
+      question: "The kai-config object that tells the operator which scheduler services to run is delivered by a Helm hook, and no base holds it, so should it be part of the base instead of a lifecycle action that nothing runs automatically?"
+  maintainedNotes:
+    - "This package is the exact kai-scheduler@v0.14.1 chart, locked by archive URL and SHA-256."
+    - "With chart defaults kai-scheduler@v0.14.1 renders 37 objects as release kai-scheduler in namespace kai-scheduler: six CRDs, ten ClusterRoles, nine ClusterRoleBindings, four PriorityClasses, the kai-operator Deployment and ServiceAccount, a second Namespace named kai-resource-reservation with a ServiceAccount and RoleBinding in it, two Queue objects and one SchedulingShard. It renders no Secret and no webhook configuration."
+    - "The same values also render Helm hook objects that no base holds: 10 pre-install and pre-upgrade, 4 post-delete. The kai.scheduler/v1 Config object named kai-config is itself a pre-install and pre-upgrade hook object. The hook objects are packaged under prerequisites/kai-scheduler-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The aicr-eks-training base renders 37 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/011-kai-scheduler/values.yaml): every pod tolerating every taint, no runtime class set on GPU pods by the admission service, and the post-delete cleanup hook off. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object, once the 10 Helm hook objects that render also holds are set aside."
+    - "The installer package adds no Namespace object for the release namespace, because the base already holds one, kai-resource-reservation. The kai-scheduler namespace must exist on the target before the base is applied."
+    - "The Namespace, the two Queue objects and the SchedulingShard carry helm.sh/resource-policy: keep, so helm uninstall leaves them. A flattened copy has no such memory; deleting the delivered objects deletes them."
+    - "The chart uses lookup three ways. It renders the kai-resource-reservation Namespace and ServiceAccount only when the cluster does not already have them, and it adds OpenShift settings when the cluster has the ClusterVersion CRD. The bases are the offline answers: Namespace and ServiceAccount present, no OpenShift settings."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "helm-hook-lifecycle-actions"
+    - "target-facts"
+    - "production-readiness-review"

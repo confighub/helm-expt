@@ -31,6 +31,12 @@ import {
   placeholderSentences,
 } from "./lib/aicr-required-inputs.mjs";
 import {
+  HELM_OPEN_QUESTION_NEXT_ACTION,
+  helmOpenQuestionFor,
+  helmOpenQuestionsFor,
+  testHelmOpenQuestions,
+} from "./lib/helm-open-questions.mjs";
+import {
   aicrMirrorDelivery,
   aicrMirrorDeliveryProblem,
   AICR_MIRROR_STATES,
@@ -615,6 +621,9 @@ function buildHelmRecord(intent) {
           : "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
         "The inputs still required at installation are not yet fully recorded for every Helm configuration.",
         "A multi-preset installer package OCI is not the same as a single literal configuration OCI.",
+        // A Helm entry in doubt names its questions in scripts/lib/helm-open-questions.mjs.
+        ...helmOpenQuestionsFor(intent.spec.component, intent.spec.chart.version, intent.spec.baseVariant)
+          .map((question) => `Open question, marked watch. ${question}`),
       ],
     },
   };
@@ -3139,6 +3148,7 @@ function validateRecords(records) {
     const aicrRecipeEntry = aicrRecipeRecordEntries.get(record.metadata.name);
     if (aicrRecipeEntry) validateAicrRecipeRecord(record, aicrRecipeEntry);
     validateAicrOrderingFlag(record);
+    validateHelmOpenQuestionFlag(record);
     const aicrModernGeneration = aicrModernGenerationReceipts.get(record.metadata.name);
     if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
     const nimServiceEntry = nimServiceRecordEntries.get(record.metadata.name);
@@ -4430,6 +4440,7 @@ function runSelfTest() {
   execFileSync(process.execPath, ["--test", join(repoRoot, "tests/catalog-bundle-bindings.test.mjs")], { cwd: repoRoot, stdio: "inherit" });
   runAicrRecipeEntrySelfTest();
   runNimServiceEntrySelfTest();
+  runHelmOpenQuestionSelfTest();
   runNvidiaLiteralBundleSelfTest();
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
@@ -4635,6 +4646,74 @@ function expectRefusal(fn, pattern, message) {
     pattern.test(refusal),
     `${message}${refusal ? ` (it was refused with: ${refusal})` : " (it was accepted)"}`,
   );
+}
+
+// A Helm chart entry in doubt is flagged from scripts/lib/helm-open-questions.mjs.
+// The fixture is a retained Helm intent relabelled as a flagged base, so the
+// record is built and aligned by the code a real record goes through, whether
+// or not any flagged chart is published yet.
+function runHelmOpenQuestionSelfTest() {
+  testHelmOpenQuestions();
+  const intents = JSON.parse(readFileSync(intentIndexPath, "utf8")).intents ?? [];
+  const subject = intents.find(
+    (intent) => helmOpenQuestionsFor(intent.spec.component, intent.spec.chart.version, intent.spec.baseVariant).length === 0,
+  );
+  check(subject, "self-test: the Helm flag fixtures need one retained Helm intent with no open question");
+  const build = (intent) => alignRecordWithProcessingModel(buildHelmRecord(intent), intent, undefined);
+  const materializationOf = (record) => record.spec.assessment.stages.find((candidate) => candidate.id === "materialization");
+  const flaggedIntent = () => {
+    const intent = structuredClone(subject);
+    intent.spec.component = "kai-scheduler/kai-scheduler";
+    intent.spec.chart.version = "v0.16.9";
+    intent.spec.baseVariant = "default";
+    return intent;
+  };
+  const [question] = helmOpenQuestionsFor("kai-scheduler/kai-scheduler", "v0.16.9", "default");
+  check(question, "self-test: kai-scheduler v0.16.9 default no longer carries an open question, so these fixtures need a new subject");
+
+  const plain = build(structuredClone(subject));
+  validateHelmOpenQuestionFlag(plain);
+  check(materializationOf(plain).resultState === "pass", "self-test: a Helm base with no open question was flagged");
+  const flagged = build(flaggedIntent());
+  validateHelmOpenQuestionFlag(flagged);
+  check(
+    materializationOf(flagged).resultState === ATTENTION_STATE
+      && materializationOf(flagged).evidenceState === "completed"
+      && materializationOf(flagged).answer === question
+      && materializationOf(flagged).nextAction === HELM_OPEN_QUESTION_NEXT_ACTION
+      && flagged.status.limits.some((limit) => limit.includes(question)),
+    "self-test: a Helm base with an open question was not flagged with it",
+  );
+  for (const [label, makeRecord, change, pattern] of [
+    [
+      "an open question and a passing materialization stage",
+      () => build(flaggedIntent()),
+      (record) => { materializationOf(record).resultState = "pass"; },
+      /names an open question for this base, and the record does not flag the entry as watch with it/,
+    ],
+    [
+      "an open question and a flag that names another answer",
+      () => build(flaggedIntent()),
+      (record) => { materializationOf(record).answer = "Run the recorded step to produce the exact objects."; },
+      /names an open question for this base, and the record does not flag the entry as watch with it/,
+    ],
+    [
+      "an open question and no limit about it",
+      () => build(flaggedIntent()),
+      (record) => { record.status.limits = record.status.limits.filter((limit) => !limit.includes(question)); },
+      /the limits do not name the open question/,
+    ],
+    [
+      "a flag with no open question",
+      () => build(structuredClone(subject)),
+      (record) => { materializationOf(record).resultState = ATTENTION_STATE; },
+      /flags the entry as watch, and scripts\/lib\/helm-open-questions\.mjs names no open question for this base/,
+    ],
+  ]) {
+    const record = makeRecord();
+    change(record);
+    expectRefusal(() => validateHelmOpenQuestionFlag(record), pattern, `self-test: a Helm record with ${label} was accepted`);
+  }
 }
 
 function runAicrRecipeEntrySelfTest() {
@@ -5916,12 +5995,14 @@ function assessmentRecord(record, processing, lifecycle) {
   // An entry with an open question is flagged here, in one place for every
   // source type. An AICR entry is flagged when its ordering evidence holds an
   // unchecked edge. A NIMService variant is flagged when its retained bytes
-  // raise a question this repository cannot answer. The objects exist and
-  // their digest is recorded, so the evidence is complete. The result is
-  // watch, the existing word for a checked result with a limit to review, and
-  // the answer is the open question.
+  // raise a question this repository cannot answer. A Helm chart entry is
+  // flagged when scripts/lib/helm-open-questions.mjs names a question for its
+  // base. The objects exist and their digest is recorded, so the evidence is
+  // complete. The result is watch, the existing word for a checked result
+  // with a limit to review, and the answer is the open question.
   const nimServiceQuestion = nimServiceOpenQuestionFor(record);
-  const openQuestion = materialized ? aicrOpenQuestionFor(record) || nimServiceQuestion : "";
+  const helmQuestion = helmOpenQuestionFor(record);
+  const openQuestion = materialized ? aicrOpenQuestionFor(record) || nimServiceQuestion || helmQuestion : "";
 
   return {
     stages: [
@@ -5968,7 +6049,9 @@ function assessmentRecord(record, processing, lifecycle) {
           record.spec.configuration.digestRecord,
         ]),
         nextAction: openQuestion
-          ? nimServiceQuestion ? NIMSERVICE_OPEN_QUESTION_NEXT_ACTION : OPEN_QUESTION_NEXT_ACTION
+          ? nimServiceQuestion
+            ? NIMSERVICE_OPEN_QUESTION_NEXT_ACTION
+            : openQuestion === helmQuestion ? HELM_OPEN_QUESTION_NEXT_ACTION : OPEN_QUESTION_NEXT_ACTION
           : materialized
             ? "Review the exact object set and its digest."
             : "Supply the named source inputs and run the source processor before reviewing or deploying anything.",
@@ -6062,6 +6145,35 @@ function validateAicrOrderingFlag(record) {
   check(
     stage.resultState !== ATTENTION_STATE,
     `${name}: the record flags the entry as ${ATTENTION_STATE}, and every dependency edge in ${evidence.recipeRel} was checked against the rendered sync-waves`,
+  );
+}
+
+// The flag rule for a Helm chart entry. A base with a question in
+// scripts/lib/helm-open-questions.mjs must say watch, give the question as the
+// answer and name it in the limits. A Helm base with no question must not
+// carry the flag, so the word keeps its meaning.
+function validateHelmOpenQuestionFlag(record) {
+  if (record.spec?.source?.type !== "helm") return;
+  const name = record.metadata.name;
+  const stage = record.spec.assessment.stages.find((candidate) => candidate.id === "materialization");
+  const question = helmOpenQuestionFor(record);
+  if (!question) {
+    check(
+      stage.resultState !== ATTENTION_STATE,
+      `${name}: the record flags the entry as ${ATTENTION_STATE}, and scripts/lib/helm-open-questions.mjs names no open question for this base`,
+    );
+    return;
+  }
+  if (stage.evidenceState !== "completed") return;
+  const labels = record.metadata.labels;
+  check(
+    stage.resultState === ATTENTION_STATE && stage.answer === question && stage.nextAction === HELM_OPEN_QUESTION_NEXT_ACTION,
+    `${name}: scripts/lib/helm-open-questions.mjs names an open question for this base, and the record does not flag the entry as ${ATTENTION_STATE} with it`,
+  );
+  check(
+    helmOpenQuestionsFor(labels.component, labels.sourceVersion, labels.base)
+      .every((each) => record.status.limits.some((limit) => limit.includes(each))),
+    `${name}: the limits do not name the open question`,
   );
 }
 

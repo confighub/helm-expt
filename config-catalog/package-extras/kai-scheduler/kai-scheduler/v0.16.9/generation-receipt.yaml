@@ -1,0 +1,98 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0-16-9"
+spec:
+  chart: "kai-scheduler/kai-scheduler"
+  version: "v0.16.9"
+  sourceLock: "recipes/kai-scheduler/kai-scheduler/v0.16.9/source-lock.yaml"
+  chartArtifactURL: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler:v0.16.9"
+  chartPackageSha256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: null
+      totalChartObjects: 55
+      ordinaryObjects: 37
+      hookObjects: 18
+      hookJobs: 4
+      jobImages:
+        - "ghcr.io/kai-scheduler/kai-scheduler/crd-upgrader:v0.16.9"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-install,pre-upgrade"
+          path: "default/pre-install-pre-upgrade.yaml"
+          sha256: "5c4e90f9bdc7e4bf3fabdd4efae2f6017ef2a0e6463605277cd35cb4038267bc"
+          objects:
+            - "batch/v1|Job|kai-scheduler|crd-upgrader"
+            - "batch/v1|Job|kai-scheduler|topology-migration"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-scheduler-crd-manager"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-topology-migration"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-scheduler-crd-manager"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-topology-migration"
+            - "v1|ConfigMap|kai-scheduler|topology-migration-script"
+            - "v1|ServiceAccount|kai-scheduler|kai-scheduler-crd-manager"
+            - "v1|ServiceAccount|kai-scheduler|kai-topology-migration"
+        -
+          phase: "post-install,post-upgrade"
+          path: "default/post-install-post-upgrade.yaml"
+          sha256: "c93609700059e0305f395667d13daf0368b5944fe633cc90294e4386aed59604"
+          objects:
+            - "batch/v1|Job|kai-scheduler|kai-config-deployer"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-scheduler-config-deployer"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-scheduler-config-deployer"
+            - "v1|ConfigMap|kai-scheduler|kai-config-manifest"
+            - "v1|ServiceAccount|kai-scheduler|kai-config-deployer"
+        -
+          phase: "post-delete"
+          path: "default/post-delete.yaml"
+          sha256: "248b32cb6d2bd558c057fcb7eaa45bf1bb28eb9d01425b69a19e5eeabc280363"
+          objects:
+            - "batch/v1|Job|kai-scheduler|post-delete-cleanup"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||post-delete-cleanup"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||post-delete-cleanup"
+            - "v1|ServiceAccount|kai-scheduler|post-delete-cleanup"
+    -
+      name: "aicr-eks-training"
+      valuesSHA256: "802cd3325e424be2ec5f5fd0a09fe7d859ea19c951fa1b57442b68cb0f22867d"
+      totalChartObjects: 51
+      ordinaryObjects: 37
+      hookObjects: 14
+      hookJobs: 3
+      jobImages:
+        - "ghcr.io/kai-scheduler/kai-scheduler/crd-upgrader:v0.16.9"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-install,pre-upgrade"
+          path: "aicr-eks-training/pre-install-pre-upgrade.yaml"
+          sha256: "e25bff021c7e688432bd1f8c9bd7fded2768d86076b63e4ca97177c15148aedd"
+          objects:
+            - "batch/v1|Job|kai-scheduler|crd-upgrader"
+            - "batch/v1|Job|kai-scheduler|topology-migration"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-scheduler-crd-manager"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-topology-migration"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-scheduler-crd-manager"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-topology-migration"
+            - "v1|ConfigMap|kai-scheduler|topology-migration-script"
+            - "v1|ServiceAccount|kai-scheduler|kai-scheduler-crd-manager"
+            - "v1|ServiceAccount|kai-scheduler|kai-topology-migration"
+        -
+          phase: "post-install,post-upgrade"
+          path: "aicr-eks-training/post-install-post-upgrade.yaml"
+          sha256: "270929ec4260d2df3d81d0496bb5c84196e6ed049a3ecb5c3611c6b140d072c1"
+          objects:
+            - "batch/v1|Job|kai-scheduler|kai-config-deployer"
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kai-scheduler-config-deployer"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kai-scheduler-config-deployer"
+            - "v1|ConfigMap|kai-scheduler|kai-config-manifest"
+            - "v1|ServiceAccount|kai-scheduler|kai-config-deployer"

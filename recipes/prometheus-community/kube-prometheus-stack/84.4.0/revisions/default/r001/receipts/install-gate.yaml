@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kube-prometheus-stack-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the ten Prometheus Operator CRDs must be established before the custom resources in the base; the admission webhook Secret must exist before the operator can start, and the packaged pre-install lifecycle action is what creates it"

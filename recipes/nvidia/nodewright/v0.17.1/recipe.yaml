@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-nodewright"
+  version: "v0.17.1"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/nodewright/v0.17.1"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/nodewright/v0.17.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "skyhook"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

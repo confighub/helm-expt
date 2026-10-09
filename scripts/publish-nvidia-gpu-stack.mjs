@@ -11,6 +11,11 @@
 //   node scripts/publish-nvidia-gpu-stack.mjs --verify
 //   node scripts/publish-nvidia-gpu-stack.mjs --self-test
 //
+// Every mode takes --set <name> to handle another list of additions with the
+// same refusals. --set aicr-nested-charts handles exactly the packages in
+// scripts/lib/aicr-nested-charts-coverage.mjs. Without --set the scope is the
+// NVIDIA GPU stack. The scope is one list or the other, never both.
+//
 // --dry-run prints each package path, its destination reference, the committed
 // deterministic digest, and whether a publication receipt and a signature
 // receipt exist. It contacts no registry and changes nothing.
@@ -42,7 +47,7 @@ import { basename, join } from "node:path";
 import { cubEnv, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
 import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
 import { signaturePathsForPublication } from "./lib/installer-package-signatures.mjs";
-import { NVIDIA_GPU_STACK_ADDITIONS } from "./lib/nvidia-gpu-stack-coverage.mjs";
+import { COVERAGE_SETS, DEFAULT_COVERAGE_SET, coverageSetFromArgs } from "./lib/coverage-sets.mjs";
 
 const PINNED = "node scripts/run-with-pinned-installer.mjs --";
 
@@ -50,18 +55,22 @@ function check(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-export function scope(additions = NVIDIA_GPU_STACK_ADDITIONS) {
+export function scope(additions = COVERAGE_SETS[DEFAULT_COVERAGE_SET].additions, set = COVERAGE_SETS[DEFAULT_COVERAGE_SET]) {
   const rows = additions.map((item) => ({
     name: `${item.canonicalIdentity}@${item.version}`,
     packagePath: item.packagePath,
     recipePath: item.recipePath,
     ref: installerOciRefForPackagePath(item.packagePath),
   }));
-  check(rows.length > 0, "the NVIDIA GPU stack scope is empty");
-  check(new Set(rows.map((row) => row.packagePath)).size === rows.length, "the NVIDIA GPU stack scope lists a package twice");
-  check(new Set(rows.map((row) => row.ref)).size === rows.length, "the NVIDIA GPU stack scope maps two packages to one reference");
+  check(rows.length > 0, `the ${set.label} scope is empty`);
+  check(new Set(rows.map((row) => row.packagePath)).size === rows.length, `the ${set.label} scope lists a package twice`);
+  check(new Set(rows.map((row) => row.ref)).size === rows.length, `the ${set.label} scope maps two packages to one reference`);
   for (const row of rows) {
-    check(/^packages\/nvidia\/[a-z0-9-]+\/[A-Za-z0-9_.-]+$/.test(row.packagePath), `${row.packagePath} is not an exact NVIDIA package path`);
+    check(set.packagePathPattern.test(row.packagePath), `${row.packagePath} is not ${set.packagePathLabel}`);
+  }
+  // A chart version that was held out of the list must never be in scope.
+  for (const held of set.held ?? []) {
+    check(!rows.some((row) => row.packagePath === held.packagePath), `${held.packagePath} is held out of the ${set.label} list: ${held.reason}`);
   }
   return rows;
 }
@@ -206,7 +215,7 @@ function sign(rows) {
   }
 }
 
-function selfTest() {
+function selfTest(set) {
   const refuses = (fn, pattern, message) => {
     try {
       fn();
@@ -216,13 +225,25 @@ function selfTest() {
     }
     throw new Error(`self-test failed: ${message}: nothing was refused`);
   };
-  const rows = scope();
-  check(rows.every((row) => row.packagePath.startsWith("packages/nvidia/")), "self-test failed: the scope left packages/nvidia");
+  const rows = scope(set.additions, set);
+  check(rows.every((row) => set.packagePathPattern.test(row.packagePath)), `self-test failed: the scope left ${set.packagePathLabel}`);
   check(rows.every((row) => existsSync(join(repoRoot, row.packagePath, "installer.yaml"))), "self-test failed: a scoped package has no installer.yaml");
   for (const row of rows) committedDigest(row);
-  const duplicate = NVIDIA_GPU_STACK_ADDITIONS[0];
-  refuses(() => scope([duplicate, duplicate]), /lists a package twice/, "a package listed twice");
-  refuses(() => scope([{ ...duplicate, packagePath: "packages/other/chart/1.0.0" }]), /not an exact NVIDIA package path/, "a package outside packages/nvidia");
+  const duplicate = set.additions[0];
+  refuses(() => scope([duplicate, duplicate], set), /lists a package twice/, "a package listed twice");
+  refuses(() => scope([{ ...duplicate, packagePath: "packages/other/chart/1.0.0/extra" }], set), /is not an exact/, "a path that is not an exact package path");
+  if (set.name === DEFAULT_COVERAGE_SET) {
+    refuses(() => scope([{ ...duplicate, packagePath: "packages/other/chart/1.0.0" }], set), /not an exact NVIDIA package path/, "a package outside packages/nvidia");
+  }
+  // Every other list's packages are out of this list's scope, and a held-out package is refused by name.
+  for (const other of Object.values(COVERAGE_SETS)) {
+    if (other.name === set.name) continue;
+    check(!rows.some((row) => other.additions.some((item) => item.packagePath === row.packagePath)), `self-test failed: the scope holds a ${other.label} package`);
+  }
+  for (const held of set.held ?? []) {
+    check(!rows.some((row) => row.packagePath === held.packagePath), "self-test failed: a held-out package is in scope");
+    refuses(() => scope([...set.additions, held], set), /is held out of the/, "a held-out package added to the scope");
+  }
 
   const row = rows[0];
   const good = "a".repeat(64);
@@ -261,31 +282,34 @@ function selfTest() {
     /names a different reference/,
     "a receipt for another reference",
   );
-  console.log(`publish-nvidia-gpu-stack self-test passed for ${rows.length} scoped package(s); no registry was contacted`);
+  console.log(`publish-nvidia-gpu-stack self-test passed for ${rows.length} scoped ${set.label} package(s); no registry was contacted`);
 }
 
 const isMain = process.argv[1] && process.argv[1].endsWith("publish-nvidia-gpu-stack.mjs");
 if (isMain) {
-  const mode = process.argv[2] ?? "--dry-run";
   try {
-    if (mode === "--self-test") selfTest();
-    else if (mode === "--dry-run") dryRun(scope());
-    else if (mode === "--publish") publish(scope());
-    else if (mode === "--sign") sign(scope());
+    const { set, rest } = coverageSetFromArgs(process.argv.slice(2));
+    check(rest.length <= 1, `unexpected argument ${rest[1]}; one mode at a time`);
+    const mode = rest[0] ?? "--dry-run";
+    const scoped = () => scope(set.additions, set);
+    if (mode === "--self-test") selfTest(set);
+    else if (mode === "--dry-run") dryRun(scoped());
+    else if (mode === "--publish") publish(scoped());
+    else if (mode === "--sign") sign(scoped());
     else if (mode === "--verify") {
-      const rows = scope();
+      const rows = scoped();
       for (const row of rows) {
         preflight(row);
         verifyPublished(row);
       }
-      console.log(`verified ${rows.length} NVIDIA GPU stack publication(s) against the committed digests and an anonymous inspect`);
+      console.log(`verified ${rows.length} ${set.label} publication(s) against the committed digests and an anonymous inspect`);
     } else {
       console.error(`Usage:
-  node scripts/publish-nvidia-gpu-stack.mjs --dry-run
-  node scripts/publish-nvidia-gpu-stack.mjs --publish
-  node scripts/publish-nvidia-gpu-stack.mjs --sign
-  node scripts/publish-nvidia-gpu-stack.mjs --verify
-  node scripts/publish-nvidia-gpu-stack.mjs --self-test`);
+  node scripts/publish-nvidia-gpu-stack.mjs [--set <name>] --dry-run
+  node scripts/publish-nvidia-gpu-stack.mjs [--set <name>] --publish
+  node scripts/publish-nvidia-gpu-stack.mjs [--set <name>] --sign
+  node scripts/publish-nvidia-gpu-stack.mjs [--set <name>] --verify
+  node scripts/publish-nvidia-gpu-stack.mjs [--set <name>] --self-test`);
       process.exit(2);
     }
   } catch (error) {

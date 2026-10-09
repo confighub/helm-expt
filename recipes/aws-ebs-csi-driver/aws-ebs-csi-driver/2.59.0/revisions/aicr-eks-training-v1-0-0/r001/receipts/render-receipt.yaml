@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.33.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5665cbd42c1b55414462f5855e14e249405c953a733565806869c1628de6b36c"
+    dependencyLockSHA256: "de8afa533489ce68a81773238a999f8cbfebdff3e6f4c8e11fa435fb0bb2bd75"
+    effectiveValuesSHA256: "904eefc56fa94b0c38b564cb8949ad9e00738b8852eeb0a3ccbe69f54d31ce34"
+  outputs:
+    renderedObjectSetSHA256: "d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314"
+    renderedObjectInventorySHA256: "9ebc23915b6abb7b02b6b39ee1ab1c7f6cb42734c7efcc134f2988c97bc52013"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 19
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

@@ -1,0 +1,147 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "nvidia/nodewright",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright.html",
+  "counts": {
+    "versions": 2,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "v0.19.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-19-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nodewright-v0-19-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-default.json"
+          },
+          "objectCount": 20,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430",
+            "objectSetDigest": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-aicr-eks-training.json"
+          },
+          "objectCount": 20,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
+            "objectSetDigest": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v0.17.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-17-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "nvidia-nodewright-v0-17-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-default.json"
+          },
+          "objectCount": 18,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210",
+            "objectSetDigest": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "nvidia-nodewright-v0-17-1-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-aicr-eks-training.json"
+          },
+          "objectCount": 18,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed",
+            "objectSetDigest": "sha256:6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "v0.17.1",
+        "base": "default",
+        "listing": "nvidia-nodewright-v0-17-1-default"
+      },
+      "to": {
+        "version": "v0.19.0",
+        "base": "default",
+        "listing": "nvidia-nodewright-v0-19-0-default"
+      },
+      "added": 17,
+      "removed": 15,
+      "changed": 2,
+      "unchanged": 1,
+      "line": "From v0.17.1 to v0.19.0 on the default base, 2 of 18 objects change, 17 are added and 15 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

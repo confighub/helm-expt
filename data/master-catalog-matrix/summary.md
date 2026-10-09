@@ -42,23 +42,23 @@ from a different chart version's disposition row.
 
 | Metric | Value |
 | --- | ---: |
-| Chart versions | 167 |
-| Matrix rows | 558 |
-| F1 source / F2 base / candidate / F4 derived rows | 167 / 311 / 67 / 13 |
-| Layer rows | F1:167 / F2a:152 / F2b:159 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1107 / 107 / 128 / 630 / 1934 |
+| Chart versions | 180 |
+| Matrix rows | 604 |
+| F1 source / F2 base / candidate / F4 derived rows | 180 / 344 / 67 / 13 |
+| Layer rows | F1:180 / F2a:165 / F2b:179 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1141 / 107 / 128 / 798 / 2054 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 113 / 2 / 247 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 24 / 0 / 1 / 533 |
-| Render-intent lifecycle records (attached / gap / no separate route) | 12 / 14 / 285 |
-| Render-intent prerequisite records (attached / gap / none explicitly required) | 137 / 162 / 12 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 146 / 2 / 260 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 27 / 0 / 1 / 576 |
+| Render-intent lifecycle records (attached / gap / no separate route) | 12 / 17 / 315 |
+| Render-intent prerequisite records (attached / gap / none explicitly required) | 165 / 167 / 12 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
-| Cells with deferred accepted disposition | 113 |
+| Cells with deferred accepted disposition | 114 |
 
-Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.29.0`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno-policies@3.9.0`, `kyverno/kyverno@3.8.2`, `kyverno/kyverno@3.9.0`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/gpu-operator@v26.7.1`, `nvidia/k8s-nim-operator@3.1.2`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.26.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.23.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-blackbox-exporter@11.18.0`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.14`, `stakater/reloader@2.2.16`, `traefik/traefik@41.0.2`, `traefik/traefik@41.4.0`, `velero/velero@12.1.0`.
+Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.28.2`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `kai-scheduler/kai-scheduler@v0.14.1`, `kyverno/kyverno-policies@3.8.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno@3.8.1`, `kyverno/kyverno@3.8.2`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v25.10.1`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/k8s-nim-operator@3.1.0`, `nvidia/nodewright@v0.17.1`, `nvidia/nvsentinel@v1.20.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.22.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.10.0`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.12`, `stakater/reloader@2.2.14`, `traefik/traefik@40.2.0`, `traefik/traefik@41.0.2`, `velero/velero@12.1.0`.
 
 ## How To Use This Sheet
 
@@ -87,18 +87,18 @@ otherwise.
 
 | Queue | Rows | Meaning | Examples |
 | --- | ---: | --- | --- |
-| F1 source charts | 167 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
+| F1 source charts | 180 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
 | Public catalog rows | 42 | Reviewed top-20 catalog rows. Use base-readiness or the per-chart catalog page to choose the easiest first base. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `bitnami/mongodb@19.0.7/existing-secret-replicaset` |
-| Promote after review | 84 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
-| Design a more useful base | 39 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/memcached@8.5.5/default` |
+| Promote after review | 72 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
+| Design a more useful base | 46 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/memcached@8.5.5/default` |
 | Decide a limitation first | 19 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/apache@11.4.29/default`, `bitnami/apache@11.4.29/legacy`, `bitnami/contour@21.1.4/default` |
-| Complete the core proof lane | 193 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
+| Complete the core proof lane | 226 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
 | Active proof queue | 74 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
-| Deferred accepted dispositions | 34 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
+| Deferred accepted dispositions | 33 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
 | Candidate rows | 67 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/contour@21.1.4/legacy + review` |
 | Custom-discussion candidates | 56 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/contour@21.1.4/legacy + review`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
-| Decide target run scope | 298 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
+| Decide target run scope | 331 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 111 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
 ## Sources joined, and what this view compresses
@@ -188,6 +188,10 @@ when you want the user/product view with those columns visible.
 | `aws-controllers-k8s/iam-chart@1.7.3` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | eks-inference | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F3 | candidate | default + topology | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
@@ -265,11 +269,11 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | local-live | ⬜ |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | F1 | source | (source) | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
-| `cloudnative-pg/cloudnative-pg@0.29.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
+| `cloudnative-pg/cloudnative-pg@0.29.0` | F1 | source | (source) | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `cloudpirates/nginx@0.16.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `cloudpirates/rabbitmq@0.21.13` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -290,6 +294,17 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | stage | in-confighub | ⬜ |
 |  | F2c | candidate review | web-ui-existing-secret | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate review | default + review | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | gpu-resources | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | gpu-resources | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `elastic/eck-operator@3.4.0` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
@@ -444,6 +459,16 @@ when you want the user/product view with those columns visible.
 | `jetstack/trust-manager@v0.22.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
+| `k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `kai-scheduler/kai-scheduler@v0.14.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `kai-scheduler/kai-scheduler@v0.16.9` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `karpenter/karpenter@1.14.0` | F1 | source | (source) | next80 | `capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | crds-managed | next80 | `capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
@@ -451,22 +476,26 @@ when you want the user/product view with those columns visible.
 | `kedacore/keda@2.19.0` | F1 | source | (source) | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-| `kyverno/kyverno@3.8.1` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
-|  | F2c | candidate review | default-admission | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate review | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate review | ha-admission-reports | candidate | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+| `kubeflow/kubeflow-trainer@2.2.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `kyverno/kyverno@3.8.1` | F1 | source | (source) | - | - | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
+|  | F2c | candidate review | default-admission | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | external-crds | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | ha-admission-reports | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `kyverno/kyverno@3.8.2` | F1 | source | (source) | - | - | 8 observed ✅ (from @3.8.1) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | 8 observed ✅ (from @3.8.1) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `kyverno/kyverno@3.9.0` | F1 | source | (source) | - | - | 8 observed ✅ (from @3.8.1) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | 8 observed ✅ (from @3.8.1) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `kyverno/kyverno-policies@3.8.0` | F1 | source | (source) | next80 | `lookup;tpl` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `lookup;tpl` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⚠️ | ✅ | deferred | local-live | ⬜ |
+| `kyverno/kyverno@3.9.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ⬜ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | stage | lifecycle-observed | ⬜ |
+| `kyverno/kyverno-policies@3.8.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⚠️ | ✅ | deferred | local-live | ⬜ |
 | `kyverno/kyverno-policies@3.8.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `kyverno/kyverno-policies@3.9.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `kyverno/kyverno-policies@3.9.0` | F1 | source | (source) | next80 | `lookup;tpl` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `lookup;tpl` | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
 | `longhorn/longhorn@1.11.2` | F1 | source | (source) | top20 | `generated-facts;tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -511,15 +540,19 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ❌ | - | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F2c | candidate review | storage-default-reviewed | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 |  | F3 | candidate review | default + review | candidate | `capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
+| `node-feature-discovery/node-feature-discovery@0.19.0` | F1 | source | (source) | next80 | `crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `crds;cluster-rbac` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | next80 | `crds;cluster-rbac` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | next80 | `crds;cluster-rbac` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/cluster-readiness-engine@v0.6.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/gpu-operator@v25.10.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | driver-580.126.20 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | driver-595.91.07 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | external-nfd | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/gpu-operator@v25.10.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-595.91.07 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/gpu-operator@v26.3.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
@@ -535,19 +568,25 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/gpu-operator@v26.7.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+| `nvidia/gpu-operator@v26.7.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.105.08 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | driver-580.126.20 | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | external-nfd | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | preinstalled-driver-and-toolkit | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/k8s-nim-operator@3.1.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-inference | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/k8s-nim-operator@3.1.2` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/nodewright@v0.17.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | driver-580.105.08 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | driver-580.126.20 | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | external-nfd | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | preinstalled-driver-and-toolkit | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/k8s-nim-operator@3.1.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+| `nvidia/nodewright@v0.19.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-inference | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/k8s-nim-operator@3.1.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvidia-device-plugin@0.19.3` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | eks-inference | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
@@ -556,17 +595,17 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/nvsentinel@v1.20.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | aicr-eks-training | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/nvsentinel@v1.20.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `nvidia/nvsentinel@v1.25.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 |  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `nvidia/nvsentinel@v1.26.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-|  | F2b | base | no-pod-monitor | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `nvidia/nvsentinel@v1.26.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | no-pod-monitor | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `oauth2-proxy/oauth2-proxy@10.7.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `open-telemetry/opentelemetry-operator@0.114.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -579,11 +618,11 @@ when you want the user/product view with those columns visible.
 | `percona/pg-operator@3.0.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-| `percona/psmdb-operator@1.22.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-| `percona/psmdb-operator@1.23.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `percona/psmdb-operator@1.22.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+| `percona/psmdb-operator@1.23.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `percona/pxc-operator@1.19.1` | F1 | source | (source) | next80 | `lookup;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
@@ -597,6 +636,10 @@ when you want the user/product view with those columns visible.
 | `prometheus-community/alertmanager@1.37.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+| `prometheus-community/kube-prometheus-stack@84.4.0` | F1 | source | (source) | - | - | 2 observed ✅ (from @85.3.0) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v0-20-0 | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training-v1-0-0 | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | stage | live-parity | ✅ |
 |  | F2b | base | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
@@ -634,16 +677,19 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F3 | candidate | cluster-metrics-readonly + crd | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 |  | F3 | candidate | default + crd | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | F1 | source | (source) | next80 | `tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | cluster-metrics-readonly | next80 | `tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | cluster-metrics-readonly | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/prometheus-blackbox-exporter@11.15.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `prometheus-community/prometheus-blackbox-exporter@11.18.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `prometheus-community/prometheus-blackbox-exporter@11.18.0` | F1 | source | (source) | next80 | `tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `tpl;capabilities` | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `prometheus-community/prometheus-node-exporter@4.55.0` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+| `prometheus-community/prometheus-operator-crds@28.0.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | aicr-eks-training | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `prometheus-community/prometheus-operator-crds@29.0.0` | F1 | source | (source) | next80 | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;crds` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2c | candidate review | cluster-metrics-readonly | candidate | `generated-facts;crds` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
@@ -664,26 +710,26 @@ when you want the user/product view with those columns visible.
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 |  | F2b | base | sync-secret-rotation | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-| `stakater/reloader@2.2.12` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+| `stakater/reloader@2.2.12` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | controller-default-reviewed | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `stakater/reloader@2.2.14` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `stakater/reloader@2.2.16` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `stakater/reloader@2.2.16` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `strimzi/strimzi-kafka-operator@1.0.0` | F1 | source | (source) | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
-| `traefik/traefik@40.2.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
-|  | F2c | candidate review | cloud-loadbalancer | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate review | external-crds | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
-|  | F2c | candidate | internal-clusterip-dashboard-off | candidate | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+| `traefik/traefik@40.2.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
+|  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ✅ | deferred | two-cluster-kind-parity | ⬜ |
+|  | F2c | candidate review | cloud-loadbalancer | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate review | external-crds | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+|  | F2c | candidate | internal-clusterip-dashboard-off | candidate | - | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `traefik/traefik@41.0.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
-| `traefik/traefik@41.4.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `traefik/traefik@41.4.0` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `valkey/valkey@0.11.0` | F1 | source | (source) | next80 | `tpl;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `velero/velero@12.0.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

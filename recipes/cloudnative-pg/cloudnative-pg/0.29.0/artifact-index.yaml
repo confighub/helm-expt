@@ -62,18 +62,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "0/1"
       localLive: "0/1"
       gitopsLive: "0/1"
       liveParity: "0/1"
-    featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    featureSummary: "crds;webhooks;values-schema;extension-slots;remote-dependencies;dependency-range-frozen"
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/cloudnative-pg/cloudnative-pg/0.29.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178"

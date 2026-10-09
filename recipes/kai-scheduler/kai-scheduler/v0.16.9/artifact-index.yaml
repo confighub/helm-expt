@@ -1,0 +1,328 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+  chart: "kai-scheduler/kai-scheduler"
+  version: "v0.16.9"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "kai-scheduler/kai-scheduler"
+    version: "v0.16.9"
+    appVersion: "v0.16.9"
+    sourceLock: "recipes/kai-scheduler/kai-scheduler/v0.16.9/source-lock.yaml"
+    dependencyLock: "recipes/kai-scheduler/kai-scheduler/v0.16.9/dependency-lock.yaml"
+    repository: "oci://ghcr.io/kai-scheduler/kai-scheduler"
+    packageSHA256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+  recipe:
+    path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/kai-scheduler/kai-scheduler/v0.16.9/helm-plan.yaml"
+    chartDossier: "recipes/kai-scheduler/kai-scheduler/v0.16.9/chart-dossier.yaml"
+    controlPoints: "recipes/kai-scheduler/kai-scheduler/v0.16.9/control-points.yaml"
+    valueModel: "recipes/kai-scheduler/kai-scheduler/v0.16.9/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/kai-scheduler/kai-scheduler/v0.16.9/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
+    hardGap: "-"
+    nextAction: "review chart analysis and create a recipe candidate"
+  installerPackage:
+    path: "packages/kai-scheduler/kai-scheduler/v0.16.9"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9"
+    manifestDigest: "sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+    layerDigest: "sha256:3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6"
+    publicationReceipt: "runs/installer-oci/kai-scheduler-kai-scheduler/v0.16.9/installer-package-publication-receipt.yaml"
+    installer: "packages/kai-scheduler/kai-scheduler/v0.16.9/installer.yaml"
+    receipt: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/default"
+        default: true
+        description: "kai-scheduler chart defaults variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+      -
+        name: "aicr-eks-training"
+        path: "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/aicr-eks-training"
+        default: false
+        description: "kai-scheduler AICR v1.0.0 EKS training values variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/kai-scheduler/kai-scheduler/v0.16.9/variants/default/variant.yaml"
+      namespace: "kai-scheduler"
+      releaseName: "kai-scheduler"
+      valuesProfile: "recipes/kai-scheduler/kai-scheduler/v0.16.9/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "bindrequests.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "configs.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podgroups.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "queues.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "schedulingshards.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "topologies.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD bindrequests.scheduling.run.ai; required CRD configs.kai.scheduler; required CRD podgroups.scheduling.run.ai; required CRD queues.scheduling.run.ai; required CRD schedulingshards.kai.scheduler; required CRD topologies.kai.scheduler"
+      packageBase:
+        name: "default"
+        path: "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/default"
+        default: true
+        description: "kai-scheduler chart defaults variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base default --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+        helmReleaseObjectCount: 37
+        cubInstallObjectCountIncludingSupport: 37
+        semanticObjectMatches: "37/37"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          []
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+          digest: "f9eb3133dc4da7fe4703dd9f4fd02568044f7880192008e824eb2cc82e02894c"
+          renderedObjectSetSHA256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+          renderedObjects: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 37
+          helmObjectCount: 37
+          cubInstallObjectCountIncludingSupport: 37
+          semanticObjectMatches: "37/37"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/kai-scheduler/kai-scheduler/v0.16.9/variants/aicr-eks-training/variant.yaml"
+      namespace: "kai-scheduler"
+      releaseName: "kai-scheduler"
+      valuesProfile: "recipes/kai-scheduler/kai-scheduler/v0.16.9/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "bindrequests.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "configs.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podgroups.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "queues.scheduling.run.ai"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "schedulingshards.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "topologies.kai.scheduler"
+            purpose: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+            sourceVariant: "aicr-eks-training"
+      targetFactSummary: "required CRD bindrequests.scheduling.run.ai; required CRD configs.kai.scheduler; required CRD podgroups.scheduling.run.ai; required CRD queues.scheduling.run.ai; required CRD schedulingshards.kai.scheduler; required CRD topologies.kai.scheduler"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/aicr-eks-training"
+        default: false
+        description: "kai-scheduler AICR v1.0.0 EKS training values variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+        helmReleaseObjectCount: 37
+        cubInstallObjectCountIncludingSupport: 37
+        semanticObjectMatches: "37/37"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          []
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "5c4ead6d2864484b5e7b411ec148e89421c72dcd6ad3852a45cc72e66442d5c1"
+          renderedObjectSetSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+          renderedObjects: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 37
+          helmObjectCount: 37
+          cubInstallObjectCountIncludingSupport: 37
+          semanticObjectMatches: "37/37"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"

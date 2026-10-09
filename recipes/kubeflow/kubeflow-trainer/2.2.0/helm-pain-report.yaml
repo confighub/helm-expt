@@ -1,0 +1,111 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  chart:
+    name: "kubeflow/kubeflow-trainer"
+    version: "2.2.0"
+    source: "oci://ghcr.io/kubeflow/charts"
+    digest: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact kubeflow-trainer@2.2.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults kubeflow-trainer@2.2.0 renders 28 objects as release kubeflow-trainer in namespace kubeflow: four CRDs, two controller Deployments (the trainer manager and JobSet), two ServiceAccounts, RBAC, three Services, three ConfigMaps, two MutatingWebhookConfigurations, two ValidatingWebhookConfigurations and two Secrets. It renders no Helm hook."
+    - "The two Secrets, kubeflow-trainer-webhook-cert and jobset-webhook-server-cert, render with four empty data keys each. Each controller generates its own serving certificate at run time, writes it into its Secret and writes the CA into its webhook configurations, which render with no CA bundle. Nothing is generated at render time."
+    - "The aicr-eks-training-v0-20-0 base renders 28 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml): the full name set to kubeflow-trainer, the manager given resource requests and limits and tolerating every taint, and the JobSet controller tolerating every taint. Several keys in the AICR values, among them crds, manager.metrics, manager.leaderElection and webhook.enabled, are not defined in the chart's values.yaml; the render differs from the default base only in the two controller Deployments. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object."
+    - "The aicr-eks-training-v1-0-0 base renders 28 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml): the v0.20.0 values with the manager and the JobSet controller also selected onto the system-worker node group, and jobset.install written in place of jobset.enabled. Several keys in the AICR values, among them crds, manager.metrics, manager.leaderElection and webhook.enabled, are not defined in the chart's values.yaml; the render differs from the default base only in the two controller Deployments. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The packaged Chart.yaml lists two dependencies, jobset 0.11.0 and lws 0.8.0, and the archive vendors both. The archive has no Chart.lock, so the dependency lock records the Chart.yaml list."
+    - "The chart contains no lookup, no generated credential, no keep annotation and no Namespace template."
+    - "The installer round trip drops one leading blank line from the YAML configuration file held in the jobset-controller-config ConfigMap. A YAML parser ignores that line. The equivalence check admits only that whitespace difference, in that one ConfigMap, and compares everything else exactly."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "no base's render contains a Helm hook object, with or without --no-hooks"
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "crd-lifecycle is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the four CRDs must be established before the two controllers start; each controller writes its own webhook certificate into a Secret the base creates empty, and until it has, the webhook configurations reject writes to its custom resources"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; dead=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; ignored=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  answerForSkepticalHelmUser: "kubeflow/kubeflow-trainer@2.2.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

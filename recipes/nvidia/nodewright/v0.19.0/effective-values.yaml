@@ -1,0 +1,10 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nodewright-v0.19.0-default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "e5786b5f0c6d390060437ed53db1e9fd51fe39d1f1f5daaa50ef414d8b8958c8"
+  mergedValuesCaptured: false
+  values:
+    {}

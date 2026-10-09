@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0",
+        "confighub.com/package-sha256": "3a5cd56f37e0408ef8856252c9c22911e0095249d9ee9216283ee9916159572e"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

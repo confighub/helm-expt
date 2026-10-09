@@ -1,0 +1,107 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nodewright"
+    version: "v0.17.1"
+    packageSHA256: "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
+  witnessRef: "data/flattening-safety/witnesses/nvidia-nodewright-v0.17.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "this base's values render six hook objects and none is in the base: a pre-upgrade Job that deletes the controller-manager Deployment when its immutable selector would change, with a ServiceAccount, Role and RoleBinding, and two pre-delete Jobs, one that deletes every custom resource of the operator's kinds and one that removes the webhook configurations and the certificate Secret"
+      disposition: "packaged lifecycle actions under prerequisites/nodewright-lifecycle, each marked not automatic; none has been run on a cluster"
+      evidence:
+        - "templates/cleanup-skyhooks-job.yaml:8"
+        - "templates/cleanup-webhook-job.yaml:8"
+        - "templates/selector-migration-job.yaml:20"
+        - "templates/selector-migration-role.yaml:11"
+        - "templates/selector-migration-rolebinding.yaml:10"
+        - "templates/selector-migration-serviceaccount.yaml:11"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "a MutatingWebhookConfiguration and a ValidatingWebhookConfiguration render in this base with failurePolicy Fail and no caBundle, and no template supplies one. The operator mints a self-signed certificate at run time, stores it in a Secret named webhook-cert that is not in the base, and writes the CA into both configurations. Nothing is generated at render time"
+      disposition: "certificate route run by the operator itself once it starts; read from the chart's templates and not observed. A delivery that applies the base again must not strip the CA bundle the operator wrote"
+      evidence:
+        - "templates/mutating-webhook.yaml:3"
+        - "templates/validating-webhook.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "two CRDs render in this base, from the chart's templates directory; no object in the base is an instance of them"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "0 crds-directory file(s), 2 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness. The chart itself ships the pre-upgrade Job because the controller-manager Deployment's selector is immutable and has changed between chart versions"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "webhook.enable false"
+      effect: "both webhook configurations and the pre-delete webhook cleanup Job leave the render, and with them the certificate route"
+    -
+      values: "fullnameOverride"
+      effect: "renames most objects and moves no finding; the AICR base sets it to skyhook-operator"
+    -
+      values: "controllerManager.selectors or tolerations"
+      effect: "change where the operator pod runs and move no finding"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render, as release nodewright-operator in namespace skyhook. Nothing is decided at render time: the chart has no lookup, no capability branch, no generated value and no subchart, and no Secret renders. What flattening drops is the six hook objects, and what it needs is the CRDs before the operator and a certificate the operator writes for itself after it starts. Until then the webhooks, which fail closed, reject writes to the operator's custom resources. The hook objects are packaged as lifecycle actions and the CRDs as a bundle, so the lane names companions that exist in the package. No lifecycle action has been run on a cluster, and no receipt says a flattened install, upgrade or delete behaves like the Helm one. The PodDisruptionBudget carries no namespace, so a flattened copy must be applied into skyhook; that is a precondition, not a route."
+    routes:
+      - "CRD ordering declaration: the two CRDs are established before the operator starts, from the packaged CRD bundle"
+      - "pre-upgrade lifecycle action that deletes the operator Deployment when its selector would change, recorded in the package and not yet run"
+      - "pre-delete lifecycle actions that delete the custom resources and the webhook configurations while the operator still runs, recorded in the package and not yet run"
+      - "webhook certificate route run by the operator at run time; not observed"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/nvidia-nodewright-v0.17.1.yaml"
+      - "recipes/nvidia/nodewright/v0.17.1/source-lock.yaml"

@@ -1,0 +1,342 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0"
+  labels:
+    sourceType: "helm"
+    component: "kubeflow/kubeflow-trainer"
+    sourceVersion: "2.2.0"
+    base: "aicr-eks-training-v1-0-0"
+spec:
+  source:
+    type: "helm"
+    name: "kubeflow/kubeflow-trainer"
+    version: "2.2.0"
+    record: "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+    selection:
+      name: "aicr-eks-training-v1-0-0"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+  baseVariant:
+    name: "aicr-eks-training-v1-0-0"
+    revision: "r001"
+    digest: "f8e35a0d5092bee982f2da8d790e63a15b6757bbd0b94d06363f5a172b1f51a9"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
+    inventory: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
+    objectCount: 28
+    digest: "6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+      record: "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "kubeflow/kubeflow-trainer@2.2.0/aicr-eks-training-v1-0-0; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "Two webhook certificate Secrets render with empty data and the controllers fill them in at run time, so does a delivery that applies the base again overwrite the certificates the controllers wrote?"
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "watch"
+        records:
+          - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+          - "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on this base."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=kubeflow/kubeflow-trainer"
+      - "version=2.2.0"
+      - "base=aicr-eks-training-v1-0-0"
+      - "valuesProfile=recipes/kubeflow/kubeflow-trainer/2.2.0/effective-values-aicr-eks-training-v1-0-0.yaml"
+      - "namespace=kubeflow"
+      - "releaseName=kubeflow-trainer"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    installTime:
+      -
+        name: "clustertrainingruntimes.trainer.kubeflow.org"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clustertrainingruntimes.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "aicr-eks-training-v1-0-0"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+      -
+        name: "jobsets.jobset.x-k8s.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "jobsets.jobset.x-k8s.io"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "aicr-eks-training-v1-0-0"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+      -
+        name: "trainingruntimes.trainer.kubeflow.org"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "trainingruntimes.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "aicr-eks-training-v1-0-0"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+      -
+        name: "trainjobs.trainer.kubeflow.org"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "trainjobs.trainer.kubeflow.org"
+          purpose: "CRD included in this base and applied before the controllers that reconcile it"
+          sourceVariant: "aicr-eks-training-v1-0-0"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "clustertrainingruntimes.trainer.kubeflow.org"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controllers that reconcile it"
+        -
+          id: "jobsets.jobset.x-k8s.io"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controllers that reconcile it"
+        -
+          id: "trainingruntimes.trainer.kubeflow.org"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controllers that reconcile it"
+        -
+          id: "trainjobs.trainer.kubeflow.org"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controllers that reconcile it"
+      records:
+        - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "clustertrainingruntimes.trainer.kubeflow.org"
+            purpose: "CRD included in this base and applied before the controllers that reconcile it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+            packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "jobsets.jobset.x-k8s.io"
+            purpose: "CRD included in this base and applied before the controllers that reconcile it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+            packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "trainingruntimes.trainer.kubeflow.org"
+            purpose: "CRD included in this base and applied before the controllers that reconcile it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+            packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "trainjobs.trainer.kubeflow.org"
+            purpose: "CRD included in this base and applied before the controllers that reconcile it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+            packagePath: "packages/kubeflow/kubeflow-trainer/2.2.0/prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+      requirementRefs:
+        - "clustertrainingruntimes.trainer.kubeflow.org"
+        - "jobsets.jobset.x-k8s.io"
+        - "trainingruntimes.trainer.kubeflow.org"
+        - "trainjobs.trainer.kubeflow.org"
+      records:
+        - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "clustertrainingruntimes.trainer.kubeflow.org"
+      - "jobsets.jobset.x-k8s.io"
+      - "trainingruntimes.trainer.kubeflow.org"
+      - "trainjobs.trainer.kubeflow.org"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
+    - "Open question, marked watch. Two webhook certificate Secrets render with empty data and the controllers fill them in at run time, so does a delivery that applies the base again overwrite the certificates the controllers wrote?"

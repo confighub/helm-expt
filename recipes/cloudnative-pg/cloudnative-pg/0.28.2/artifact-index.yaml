@@ -61,18 +61,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "live-helm-vs-confighub-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
       localLive: "1/2"
       gitopsLive: "2/2"
       liveParity: "2/2"
-    featureSummary: "crds;webhooks;values-schema;extension-slots;remote-dependencies;dependency-range-frozen"
-    hardGap: "-"
-    nextAction: "run catalog promotion review"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
   installerPackage:
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"

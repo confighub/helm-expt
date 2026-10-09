@@ -1,0 +1,80 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1"
+spec:
+  chart:
+    repository: "kai-scheduler"
+    name: "kai-scheduler"
+    version: "v0.14.1"
+  package:
+    sha256: "7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e"
+    observedAt: "2026-10-08T13:44:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 51
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 6
+    documents: 6
+  hookValues:
+    - "post-delete"
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 9
+      files:
+        - "templates/hooks/post/post-delete-job.yaml:23"
+        - "templates/hooks/pre/crd-upgrader.yaml:16"
+        - "templates/hooks/pre/crd-upgrader.yaml:29"
+        - "templates/hooks/pre/crd-upgrader.yaml:39"
+        - "templates/hooks/pre/topology-migration/job.yaml:17"
+        - "templates/hooks/pre/topology-migration/job.yaml:30"
+        - "templates/hooks/pre/topology-migration/job.yaml:40"
+        - "templates/rbac/scc.yaml:4"
+        - "templates/services/resourcereservation-namespace.yaml:5"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 17
+      files:
+        - "templates/hooks/post/post-delete-job.yaml:10"
+        - "templates/hooks/pre/crd-upgrader.yaml:10"
+        - "templates/hooks/pre/topology-migration/configmap.yaml:11"
+        - "templates/hooks/pre/topology-migration/job.yaml:11"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:10"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:34"
+        - "templates/hooks/pre/topology-migration/rbac.yaml:43"
+        - "templates/kai-config.yaml:10"
+        - "templates/rbac/crd-manager.yaml:9"
+        - "templates/rbac/crd-manager.yaml:30"
+        - "templates/rbac/crd-manager.yaml:39"
+        - "templates/rbac/post-delete-binding.yaml:10"
+    resource-policy-keep:
+      count: 4
+      files:
+        - "templates/default-queue.yaml:10"
+        - "templates/default-queue.yaml:31"
+        - "templates/default-shard.yaml:9"
+        - "templates/services/resourcereservation-namespace.yaml:11"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 2
+      files:
+        - "templates/services/resourcereservation-namespace.yaml:7"
+        - "templates/services/scalingpod-namespace.yaml:6"
+    test-hooks:
+      count: 0
+      files:
+        []

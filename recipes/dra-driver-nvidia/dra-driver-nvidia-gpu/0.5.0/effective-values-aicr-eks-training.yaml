@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "59a688472136e1693f2e10587874623eab91e175aa8df60b1b2ded756599b4c1"
+  mergedValuesCaptured: false
+  values:
+    controller:
+      affinity:
+        nodeAffinity: null
+      nodeSelector:
+        nodeGroup: "system-worker"
+      podAnnotations:
+        aicr.run/gpu-operator-chart-version: "v26.7.1"
+      priorityClassName: ""
+      tolerations:
+        -
+          operator: "Exists"
+    fullnameOverride: "nvidia-dra-driver-gpu"
+    gpuResourcesEnabledOverride: false
+    kubeletPlugin:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      podAnnotations:
+        aicr.run/gpu-operator-chart-version: "v26.7.1"
+      priorityClassName: ""
+      tolerations:
+        -
+          operator: "Exists"
+    nameOverride: "nvidia-dra-driver-gpu"
+    nvidiaDriverRoot: "/run/nvidia/driver"
+    resources:
+      computeDomains:
+        enabled: true
+      gpus:
+        enabled: false

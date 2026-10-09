@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kai-scheduler-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the six CRDs must be established before the two Queue objects, the SchedulingShard and the operator; the kai-scheduler namespace must already exist, because the package creates only kai-resource-reservation; the Config object the operator needs is a packaged lifecycle action and is not part of the base"

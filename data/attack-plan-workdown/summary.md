@@ -11,11 +11,11 @@ existing-secret hard gaps:         12
 template-CRD/no-crds hard gaps:    3
 wave-2 variant work orders:        5
 top-20 production rows:            20
-top-100 runtime/GitOps rows:       115
+top-100 runtime/GitOps rows:       122
 top-100 rows with local runtime:   20
 latest top-20 candidates:          7
-rendered image rows reviewed:      1439
-rendered subjects with mutable/floating images: 271
+rendered image rows reviewed:      1542
+rendered subjects with mutable/floating images: 298
 ```
 
 ## Files

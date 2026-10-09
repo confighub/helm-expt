@@ -1,0 +1,408 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1"
+  chart: "prometheus-community/prometheus-operator-crds"
+  version: "28.0.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "prometheus-community/prometheus-operator-crds"
+    version: "28.0.1"
+    appVersion: "v0.90.1"
+    sourceLock: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml"
+    dependencyLock: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/dependency-lock.yaml"
+    repository: "https://prometheus-community.github.io/helm-charts"
+    packageSHA256: "bc011e24c1e053955c11b0648cf73a4204bf0f8883d9427d7c50f4553dfd0129"
+  recipe:
+    path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-plan.yaml"
+    chartDossier: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/chart-dossier.yaml"
+    controlPoints: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/control-points.yaml"
+    valueModel: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/prometheus-community/prometheus-operator-crds/28.0.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1"
+    manifestDigest: "sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+    layerDigest: "sha256:6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481"
+    publicationReceipt: "runs/installer-oci/prometheus-community-prometheus-operator-crds/28.0.1/installer-package-publication-receipt.yaml"
+    installer: "packages/prometheus-community/prometheus-operator-crds/28.0.1/installer.yaml"
+    receipt: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/default"
+        default: true
+        description: "prometheus-operator-crds chart defaults variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+      -
+        name: "aicr-eks-training"
+        path: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+        default: false
+        description: "prometheus-operator-crds AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/default/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "prometheus-operator-crds"
+      valuesProfile: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagers.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "probes.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusagents.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheuses.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusrules.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "scrapeconfigs.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "thanosrulers.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com"
+      packageBase:
+        name: "default"
+        path: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/default"
+        default: true
+        description: "prometheus-operator-crds chart defaults variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/variant-revision.yaml"
+          digest: "c1cfa64d99191cda05a7dc3538be365d99c1b6a91c5611b554ad07718b01cf4f"
+          renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+          renderedObjects: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/variants/aicr-eks-training/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "prometheus-operator-crds"
+      valuesProfile: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagers.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "probes.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusagents.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheuses.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusrules.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "scrapeconfigs.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "thanosrulers.monitoring.coreos.com"
+            purpose: "CRD included in this base; the entry exists to install it"
+            sourceVariant: "aicr-eks-training"
+      targetFactSummary: "required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training"
+        default: false
+        description: "prometheus-operator-crds AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from prometheus-community/prometheus-operator-crds@28.0.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "97cbae5cf2b70866b16e5bd58895b9b4041a214abb7614b87e9edc5baf0df152"
+          renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+          renderedObjects: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"

@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+    -
+      category: "lifecycle-policy"
+      status: "attention-required"
+      policy: "no-hooks"
+      note: "the bases are rendered with --no-hooks; the default base's values also render 9 pre-install and pre-upgrade, 5 post-install and post-upgrade, 4 post-delete Helm hook objects, and the aicr-eks-training base's values render 9 pre-install and pre-upgrade, 5 post-install and post-upgrade. They are packaged under prerequisites/kai-scheduler-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. The kai.scheduler/v1 Config object named kai-config is not a chart object at all in this version: a post-install and post-upgrade hook Job applies it with kubectl from a hook ConfigMap. Without it the operator starts and deploys no scheduler. No hook has been run on a cluster for this entry."
+    -
+      category: "crd-lifecycle"
+      status: "review-required"
+      count: 6
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "the six CRDs must be established before the two Queue objects, the SchedulingShard and the operator; the kai-scheduler namespace must already exist, because the package creates only kai-resource-reservation; the Config object the operator needs is a packaged lifecycle action and is not part of the base"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

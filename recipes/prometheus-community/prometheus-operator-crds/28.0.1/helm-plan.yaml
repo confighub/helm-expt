@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "prometheus-community/prometheus-operator-crds"
+    version: "28.0.1"
+    variants:
+      - "default"
+      - "aicr-eks-training"
+    helmObjectsByVariant:
+      default: 10
+      aicr-eks-training: 10
+    cubInstallObjectsByVariant:
+      default: 11
+      aicr-eks-training: 11
+    helmMatchByVariant:
+      default: "10/10"
+      aicr-eks-training: "10/10"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training/r001/receipts/install-gate.yaml"

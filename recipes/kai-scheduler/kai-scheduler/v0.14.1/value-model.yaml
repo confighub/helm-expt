@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "<Helm hooks>"
+      disposition: "left-at-default"
+      reason: "The chart delivers the kai-config Config object, a CRD upgrader Job and a topology migration Job through pre-install and pre-upgrade hooks, and from v0.16.9 applies the Config from a post-install hook Job. None is in a base."
+      note: "packaged as recorded lifecycle actions; the operator deploys no scheduler until the Config exists"
+      evidence: "templates/kai-config.yaml, templates/hooks/pre, templates/hooks/post"
+    -
+      path: "postCleanup.enabled"
+      disposition: "variant-axis"
+      reason: "True by chart default, which renders a post-delete cleanup Job with its ServiceAccount, ClusterRole and ClusterRoleBinding. The AICR values set it false."
+      note: "the aicr-eks-training base has no post-delete lifecycle action"
+      evidence: "templates/hooks/post/post-delete-job.yaml, templates/rbac/post-delete-clusterrole.yaml"
+    -
+      path: "<lookup results>"
+      disposition: "default-render-captured"
+      reason: "The chart asks the cluster whether the kai-resource-reservation Namespace and its ServiceAccount already exist and renders them only when they do not, and asks whether the cluster is OpenShift. An offline render answers no to all three, so the base holds the Namespace and the ServiceAccount and no OpenShift SecurityContextConstraints."
+      note: "a base rendered offline is the fresh-install, non-OpenShift render"
+      evidence: "templates/services/resourcereservation-namespace.yaml, templates/services/resourcereservation-serviceaccount.yaml, templates/rbac/scc.yaml"
+    -
+      path: "global.clusterAutoscaling"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base, so the scaling-pod Namespace does not render."
+      evidence: "templates/services/scalingpod-namespace.yaml"
+    -
+      path: "<aicr-eks-training values>"
+      variant: "aicr-eks-training"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/011-kai-scheduler/values.yaml): every pod tolerating every taint, no runtime class set on GPU pods by the admission service, and the post-delete cleanup hook off"
+      note: "adds no object to the default base and removes none; it differs only at the fields those values reach, and the proof checks the object set"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

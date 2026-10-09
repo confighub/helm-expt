@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "node-feature-discovery/node-feature-discovery"
+    version: "0.19.0"
+    variants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    helmObjectsByVariant:
+      default: 17
+      aicr-eks-training-v0-20-0: 23
+      aicr-eks-training-v1-0-0: 23
+    cubInstallObjectsByVariant:
+      default: 18
+      aicr-eks-training-v0-20-0: 24
+      aicr-eks-training-v1-0-0: 24
+    helmMatchByVariant:
+      default: "17/17"
+      aicr-eks-training-v0-20-0: "23/23"
+      aicr-eks-training-v1-0-0: "23/23"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"

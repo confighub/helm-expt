@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+  objectCount: 10
+  objects:
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "alertmanagerconfigs.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "alertmanagers.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "podmonitors.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "probes.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "prometheusagents.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "prometheuses.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusrules.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "prometheusrules.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||scrapeconfigs.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "scrapeconfigs.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||servicemonitors.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "servicemonitors.monitoring.coreos.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||thanosrulers.monitoring.coreos.com"
+      kind: "CustomResourceDefinition"
+      name: "thanosrulers.monitoring.coreos.com"
+      namespace: ""

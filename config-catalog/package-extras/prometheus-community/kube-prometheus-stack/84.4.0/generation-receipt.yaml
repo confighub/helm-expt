@@ -1,0 +1,118 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleGenerationReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-84-4-0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "84.4.0"
+  sourceLock: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/source-lock.yaml"
+  chartArtifactURL: "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-84.4.0/kube-prometheus-stack-84.4.0.tgz"
+  chartPackageSha256: "87bac65f32a358eeb52bda426cff20dd2fe3f1b61babe0b35866392bdd2721dd"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  evidenceState: "rendered-not-run"
+  bases:
+    -
+      name: "default"
+      valuesSHA256: "dd22b3db01aeb3835e2f8989021e512fd14ff6a1783bf17efb8f9589d76dafac"
+      totalChartObjects: 133
+      ordinaryObjects: 126
+      hookObjects: 7
+      hookJobs: 2
+      jobImages:
+        - "ghcr.io/jkroepke/kube-webhook-certgen:1.8.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          path: "default/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+          sha256: "243eba6bc261f4d073fa333ceaa777162c9735d546bc49529e84cfd327d972ce"
+          objects:
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-stack-admission"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-stack-admission"
+            - "rbac.authorization.k8s.io/v1|RoleBinding|monitoring|kube-prometheus-stack-admission"
+            - "rbac.authorization.k8s.io/v1|Role|monitoring|kube-prometheus-stack-admission"
+            - "v1|ServiceAccount|monitoring|kube-prometheus-stack-admission"
+        -
+          phase: "pre-install,pre-upgrade"
+          path: "default/pre-install-pre-upgrade.yaml"
+          sha256: "2b9224eac08687f199faea257f97215ae33fcacbc9dd0b4bb5e84bba4efa348c"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-stack-admission-create"
+        -
+          phase: "post-install,post-upgrade"
+          path: "default/post-install-post-upgrade.yaml"
+          sha256: "a22f6dc8304717b1eba739b5319fc386bdcc522cf0ceba0dcd78742398ce5d54"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-stack-admission-patch"
+    -
+      name: "aicr-eks-training-v0-20-0"
+      valuesSHA256: "f14791d997988e6390d562801d591a9499e95796b214f3e1b92db6ca9ee552f6"
+      totalChartObjects: 123
+      ordinaryObjects: 116
+      hookObjects: 7
+      hookJobs: 2
+      jobImages:
+        - "ghcr.io/jkroepke/kube-webhook-certgen:1.8.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          path: "aicr-eks-training-v0-20-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+          sha256: "f1e9a29ad30909485633e41b29061e8293dcd23a5a3ee4ed860f3f23f6b91f6d"
+          objects:
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|RoleBinding|monitoring|kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|Role|monitoring|kube-prometheus-admission"
+            - "v1|ServiceAccount|monitoring|kube-prometheus-admission"
+        -
+          phase: "pre-install,pre-upgrade"
+          path: "aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"
+          sha256: "ba074f9c2072648c2c1996eacca0f594c5d0e924d8b47d14bded0813592942a9"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-admission-create"
+        -
+          phase: "post-install,post-upgrade"
+          path: "aicr-eks-training-v0-20-0/post-install-post-upgrade.yaml"
+          sha256: "2700f401108e8dde6dfdb0e54edda89c82a0e2b5ddb4266a650743e608d66a2b"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-admission-patch"
+    -
+      name: "aicr-eks-training-v1-0-0"
+      valuesSHA256: "0fd2056f74174eb3435789c853f7abfed328e9efb20104fdff2c83be6473f10d"
+      totalChartObjects: 123
+      ordinaryObjects: 116
+      hookObjects: 7
+      hookJobs: 2
+      jobImages:
+        - "ghcr.io/jkroepke/kube-webhook-certgen:1.8.2"
+      jobImagesPinnedByDigest: false
+      files:
+        -
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          path: "aicr-eks-training-v1-0-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+          sha256: "f1e9a29ad30909485633e41b29061e8293dcd23a5a3ee4ed860f3f23f6b91f6d"
+          objects:
+            - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|RoleBinding|monitoring|kube-prometheus-admission"
+            - "rbac.authorization.k8s.io/v1|Role|monitoring|kube-prometheus-admission"
+            - "v1|ServiceAccount|monitoring|kube-prometheus-admission"
+        -
+          phase: "pre-install,pre-upgrade"
+          path: "aicr-eks-training-v1-0-0/pre-install-pre-upgrade.yaml"
+          sha256: "8e3437fa573f95055eb4f443de09618190643804b37a61de1832e70c673f9e13"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-admission-create"
+        -
+          phase: "post-install,post-upgrade"
+          path: "aicr-eks-training-v1-0-0/post-install-post-upgrade.yaml"
+          sha256: "c33d4fd69f94ac662d11d4c4808f535f67275942fd5b9613da98c8db5b1cfe90"
+          objects:
+            - "batch/v1|Job|monitoring|kube-prometheus-admission-patch"

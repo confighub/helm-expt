@@ -56,9 +56,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "needs-useful-variant"
+    userStatus: "proof-grade-needs-user-shaped-variant"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "0/1"
@@ -66,8 +66,8 @@ spec:
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/percona/psmdb-operator/1.23.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.23.0@sha256:d8d4593bcda2f395764b6108a564b87b5d5a336c551450df17f63d7d27b045b5"

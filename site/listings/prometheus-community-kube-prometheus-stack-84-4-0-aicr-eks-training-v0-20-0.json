@@ -1,0 +1,1175 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+      "sha256": "sha256:07e9771df6073b9ccb0964a836a1c846fe6301294aa35d6ca8d7d0e9723910b4",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+    "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json",
+    "name": "prometheus-community/kube-prometheus-stack",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "84.4.0",
+    "base": "aicr-eks-training-v0-20-0",
+    "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-84-4-0.html"
+  },
+  "discovery": {
+    "status": "classified",
+    "roles": [
+      {
+        "role": "metrics",
+        "componentType": "operator"
+      }
+    ],
+    "rationale": "The retained operator and Prometheus custom resource describe an operator-managed monitoring stack; the operator cannot start until the admission Secret exists, and the CRDs and target readiness still require checks.",
+    "assignment": {
+      "path": "data/catalog-roles/assignments.json",
+      "sha256": "sha256:449399bbc13680cf84b065b95c1aad4b014aff48376180864c81ba9346c2f8e5",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
+    },
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "prometheus-community/kube-prometheus-stack",
+    "version": "84.4.0",
+    "reference": "prometheus-community/kube-prometheus-stack@84.4.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8",
+    "record": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+    "selection": {
+      "name": "aicr-eks-training-v0-20-0",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+    },
+    "pin": {
+      "digest": "sha256:b058577082914c25ae8f22d1cdc44eb927c82743595f1d10c1fbeba9d18ebc0b",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=prometheus-community/kube-prometheus-stack",
+      "version=84.4.0",
+      "base=aicr-eks-training-v0-20-0",
+      "valuesProfile=recipes/prometheus-community/kube-prometheus-stack/84.4.0/effective-values-aicr-eks-training-v0-20-0.yaml",
+      "namespace=monitoring",
+      "releaseName=kube-prometheus-stack",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 116,
+    "digest": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "prometheus-community/kube-prometheus-stack@84.4.0/aicr-eks-training-v0-20-0; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml",
+    "retainedObjects": {
+      "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "images": {
+    "count": 7,
+    "pinnedByDigest": 0,
+    "namedByTag": 7,
+    "references": [
+      {
+        "reference": "docker.io/grafana/grafana:13.0.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/kiwigrid/k8s-sidecar:2.7.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/prometheus/alertmanager:v0.32.0",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/prometheus/node-exporter:v1.11.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/prometheus/prometheus:v3.11.3",
+        "pinned": false
+      },
+      {
+        "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
+  "variants": {
+    "base": "aicr-eks-training-v0-20-0",
+    "known": [
+      {
+        "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0",
+        "base": "aicr-eks-training-v0-20-0",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.json",
+        "self": true,
+        "digest": "sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+        "base": "aicr-eks-training-v1-0-0",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json",
+        "self": false,
+        "digest": "sha256:55c31cf72066a59e0c7f1e67c453e9487160ab7683b7320ce4ea280b00cd194a"
+      },
+      {
+        "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json",
+        "self": false,
+        "digest": "sha256:c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc. The exact objects are recorded at recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant aicr-eks-training-v0-20-0 --space prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant aicr-eks-training-v0-20-0 --space prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0 --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0 --space-pattern template:prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "gap",
+    "requirementsStatus": "gap",
+    "targetFactsStatus": "gap",
+    "resolutionStatus": "gap",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "preserve-cleanup-policy",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-delete-policy"
+      },
+      {
+        "id": "postsync-check-or-observation",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-phase"
+      },
+      {
+        "id": "preflight-or-presync",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-phase"
+      },
+      {
+        "id": "upgrade-action-with-receipt",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-phase"
+      },
+      {
+        "id": "preserve-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "hook-weight-ordering"
+      },
+      {
+        "id": "target-facts-or-preflight",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "target-facts"
+      },
+      {
+        "id": "webhook-readiness-observation",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "webhook-readiness"
+      },
+      {
+        "id": "alertmanagerconfigs.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "alertmanagers.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "podmonitors.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "probes.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "prometheusagents.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "prometheuses.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "prometheusrules.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "scrapeconfigs.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "servicemonitors.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "thanosrulers.monitoring.coreos.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+      },
+      {
+        "id": "monitoring/kube-prometheus-admission",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it"
+      }
+    ],
+    "routes": [
+      {
+        "id": "preserve-cleanup-policy",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "Kubernetes",
+        "mechanism": "Your cluster — at uninstall, automatically",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "preserve-cleanup-policy"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "postsync-check-or-observation",
+        "phase": "post-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Your delivery — a post-apply check (receipted)",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "postsync-check-or-observation"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "preflight-or-presync",
+        "phase": "preflight",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "preflight-or-presync"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "upgrade-action-with-receipt",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "upgrade-action-with-receipt"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "preserve-ordering",
+        "phase": "pre-apply",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Your applier — must apply CRDs before dependent objects",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "preserve-ordering"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "target-facts-or-preflight",
+        "phase": "preflight",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "target-facts-or-preflight"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      },
+      {
+        "id": "webhook-readiness-observation",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "direct apply"
+        ],
+        "requirementRefs": [
+          "webhook-readiness-observation"
+        ],
+        "checks": [
+          "a live receipt for 84.4.0 and this base",
+          "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        ],
+        "evidence": [
+          "data/hook-lifecycle/receipt-index.csv",
+          "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        ]
+      }
+    ],
+    "records": [
+      {
+        "name": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+        "path": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+      },
+      {
+        "name": "routes.json",
+        "path": "data/lifecycle-routes/routes.json",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+      },
+      {
+        "name": "summary.md",
+        "path": "data/lifecycle-routes/summary.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "alertmanagerconfigs.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "alertmanagers.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "podmonitors.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "probes.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "prometheusagents.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "prometheuses.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "prometheusrules.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "scrapeconfigs.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "servicemonitors.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "thanosrulers.monitoring.coreos.com",
+        "kind": "requiredCRDs",
+        "detail": "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "kube-prometheus-admission",
+        "kind": "requiredSecrets",
+        "detail": "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it. package://prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "alertmanagerconfigs.monitoring.coreos.com",
+        "alertmanagers.monitoring.coreos.com",
+        "podmonitors.monitoring.coreos.com",
+        "probes.monitoring.coreos.com",
+        "prometheusagents.monitoring.coreos.com",
+        "prometheuses.monitoring.coreos.com",
+        "prometheusrules.monitoring.coreos.com",
+        "scrapeconfigs.monitoring.coreos.com",
+        "servicemonitors.monitoring.coreos.com",
+        "thanosrulers.monitoring.coreos.com",
+        "monitoring/kube-prometheus-admission"
+      ],
+      "deliveryProtected": [
+        "preserve-cleanup-policy"
+      ],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "The other versions of this chart in the Catalog carry a packaged admission-webhook setup route with the hook image pinned by digest, and this version's hook image digest was not looked up, so should 84.4.0 get that route or keep its hooks as recorded lifecycle actions? The AICR values set the Grafana admin password to the literal value admin, and this base carries it in a Secret byte for byte: should a Catalog base ship a well-known credential?",
+        "evidenceState": "completed",
+        "resultState": "watch",
+        "nextAction": "Review the exact object set and its digest, and settle the open question before relying on this base.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "No destination answer is available yet because target facts or lifecycle handling are incomplete.",
+        "evidenceState": "pending",
+        "resultState": "pending",
+        "nextAction": "Choose the destination, record its facts, and resolve the required lifecycle work before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "path": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+          },
+          {
+            "name": "routes.json",
+            "path": "data/lifecycle-routes/routes.json",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/routes.json"
+          },
+          {
+            "name": "summary.md",
+            "path": "data/lifecycle-routes/summary.md",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+        "path": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml",
+        "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 116 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml",
+          "expect": "6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc  prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8 --base aicr-eks-training-v0-20-0 --work-dir ./prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0 --non-interactive --namespace monitoring"
+        }
+      ],
+      "notes": [
+        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit."
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-84-4-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml prometheus-community-kube-prometheus-stack-84-4-0-default.yaml --summary"
+        },
+        {
+          "comment": "fetch the default base at version 85.3.3",
+          "command": "curl -fsSL -o prometheus-community-kube-prometheus-stack-85-3-3-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changes from 84.4.0 to 85.3.3",
+          "command": "cub config diff prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml prometheus-community-kube-prometheus-stack-85-3-3-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v1-0-0.json",
+          "version": "84.4.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "relation": "other-base"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-84-4-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-84-4-0-default.json",
+          "version": "84.4.0",
+          "base": "default",
+          "relation": "other-base"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-85-3-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-85-3-3-default.json",
+          "version": "85.3.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.json",
+          "version": "85.3.3",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-86-1-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-86-1-0-default.json",
+          "version": "86.1.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-86-1-0-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.json",
+          "version": "86.1.0",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-15-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-15-1-default.json",
+          "version": "87.15.1",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-15-1-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-15-1-existing-secret.json",
+          "version": "87.15.1",
+          "base": "existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-15-1-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-15-1-no-crds.json",
+          "version": "87.15.1",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-default.json",
+          "version": "87.19.2",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-existing-secret.json",
+          "version": "87.19.2",
+          "base": "existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-minimal",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-minimal.json",
+          "version": "87.19.2",
+          "base": "minimal",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-87-19-2-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-87-19-2-no-crds.json",
+          "version": "87.19.2",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-default.json",
+          "version": "88.6.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-existing-secret",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-existing-secret.json",
+          "version": "88.6.3",
+          "base": "existing-secret",
+          "relation": "other-version"
+        },
+        {
+          "id": "prometheus-community-kube-prometheus-stack-88-6-3-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-kube-prometheus-stack-88-6-3-no-crds.json",
+          "version": "88.6.3",
+          "base": "no-crds",
+          "relation": "other-version"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload step 1's directory as a Space of Units, under names you choose",
+          "command": "cub installer upload --work-dir ./prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0 --space <your-space> --component <your-component>",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space <your-space>",
+          "needsAccount": true
+        }
+      ],
+      "notes": [
+        "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
+        "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
+        "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      }
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev <your-space> --target workshop/target --space-pattern \"template:<your-space>-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that the cluster's Argo CD pulls",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "delete the installer record, which Argo CD cannot read",
+          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish again without it",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
+        "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
+        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
+        "The walk made its cluster with `cub cluster up --no-argobot`. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
+        "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      },
+      "needs": [
+        "alertmanagerconfigs.monitoring.coreos.com",
+        "alertmanagers.monitoring.coreos.com",
+        "podmonitors.monitoring.coreos.com",
+        "probes.monitoring.coreos.com",
+        "prometheusagents.monitoring.coreos.com",
+        "prometheuses.monitoring.coreos.com",
+        "prometheusrules.monitoring.coreos.com",
+        "scrapeconfigs.monitoring.coreos.com",
+        "servicemonitors.monitoring.coreos.com",
+        "thanosrulers.monitoring.coreos.com",
+        "kube-prometheus-admission"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote <your-space>-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote <your-space>-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "delete the installer record that the promotion adds back",
+          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
+        "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      }
+    }
+  ]
+}

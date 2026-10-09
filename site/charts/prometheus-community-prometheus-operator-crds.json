@@ -8,8 +8,8 @@
   "url": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds.json",
   "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds.html",
   "counts": {
-    "versions": 1,
-    "bases": 1
+    "versions": 2,
+    "bases": 3
   },
   "versions": [
     {
@@ -41,9 +41,75 @@
           }
         }
       ]
+    },
+    {
+      "version": "28.0.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-28-0-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "prometheus-community-prometheus-operator-crds-28-0-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-default.json"
+          },
+          "objectCount": 10,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+            "objectSetDigest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.json"
+          },
+          "objectCount": 10,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123",
+            "objectSetDigest": "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+          }
+        }
+      ]
     }
   ],
-  "summaries": [],
+  "summaries": [
+    {
+      "from": {
+        "version": "28.0.1",
+        "base": "default",
+        "listing": "prometheus-community-prometheus-operator-crds-28-0-1-default"
+      },
+      "to": {
+        "version": "29.0.0",
+        "base": "default",
+        "listing": "prometheus-community-prometheus-operator-crds-29-0-0-default"
+      },
+      "added": 0,
+      "removed": 0,
+      "changed": 10,
+      "unchanged": 0,
+      "line": "From 28.0.1 to 29.0.0 on the default base, 10 of 10 objects change."
+    }
+  ],
   "compare": {
     "computedOnDemand": true,
     "core": {

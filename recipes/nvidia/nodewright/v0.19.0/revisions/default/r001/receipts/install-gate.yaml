@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nodewright-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the CRDs must be established before the operator starts; the operator mints its own webhook certificate at run time, and until it has, the webhook configurations reject writes to its custom resources; the pre-upgrade and pre-delete hook objects are packaged lifecycle actions, not part of the base"

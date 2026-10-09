@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "kai-scheduler-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "e6cfc43d8074cc7f55dd6581c2a9eb25229552e5f990fac6e83f01791fae7737"
+    dependencyLockSHA256: "5cea80f0bcc33bc4ac3e458ca16dcda170ed6da5a596da47f7e7c80524a08a8f"
+    effectiveValuesSHA256: "1d7197f82a633d423b46bdc92cbfd0dd6c2cfd4c1502356880aafe0c5e5101bc"
+  outputs:
+    renderedObjectSetSHA256: "a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46"
+    renderedObjectInventorySHA256: "486ae207bdd2a35ec33ff260081b23287e9df44f837db3ffa81e5dfcdcc6b085"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 37
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

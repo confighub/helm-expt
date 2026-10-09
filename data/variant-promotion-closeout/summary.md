@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 132 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 165 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 113 |
+| `blocked-needs-confighub-proof` | 146 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 113 |
+| `todo` | 146 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (113)
+## Blocked — needs the ConfigHub proof first (146)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -93,12 +93,23 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | run the ConfigHub proof lane first |
 | aws-controllers-k8s/iam-chart@1.7.3 | default | run the ConfigHub proof lane first |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | run the ConfigHub proof lane first |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | run the ConfigHub proof lane first |
 | cloudpirates/nginx@0.16.1 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | default | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.10.0 | default | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.10.0 | no-crds | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.7.0 | default | run the ConfigHub proof lane first |
@@ -113,9 +124,19 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | jetstack/cert-manager@v1.21.0 | default | run the ConfigHub proof lane first |
 | jetstack/cert-manager@v1.21.1 | crds-enabled | run the ConfigHub proof lane first |
 | jetstack/cert-manager@v1.21.1 | default | run the ConfigHub proof lane first |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | run the ConfigHub proof lane first |
 | karpenter/karpenter@1.14.0 | crds-managed | run the ConfigHub proof lane first |
 | karpenter/karpenter@1.14.0 | default | run the ConfigHub proof lane first |
 | karpenter/karpenter@1.14.0 | eks-inference | run the ConfigHub proof lane first |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| kubeflow/kubeflow-trainer@2.2.0 | default | run the ConfigHub proof lane first |
 | kyverno/kyverno-policies@3.8.2 | default | run the ConfigHub proof lane first |
 | kyverno/kyverno-policies@3.9.0 | default | run the ConfigHub proof lane first |
 | kyverno/kyverno@3.8.2 | default | run the ConfigHub proof lane first |
@@ -128,6 +149,9 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | metrics-server/metrics-server@3.14.0 | default | run the ConfigHub proof lane first |
 | metrics-server/metrics-server@3.14.0 | external-tls-ca | run the ConfigHub proof lane first |
 | mysql/mysql-operator@2.3.0 | default | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | run the ConfigHub proof lane first |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | run the ConfigHub proof lane first |
 | nvidia/gpu-operator@v25.10.1 | default | run the ConfigHub proof lane first |
 | nvidia/gpu-operator@v25.10.1 | driver-580.126.20 | run the ConfigHub proof lane first |
@@ -158,6 +182,10 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | nvidia/k8s-nim-operator@3.1.0 | aicr-eks-inference | run the ConfigHub proof lane first |
 | nvidia/k8s-nim-operator@3.1.0 | default | run the ConfigHub proof lane first |
 | nvidia/k8s-nim-operator@3.1.2 | default | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.17.1 | default | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.19.0 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | default | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | eks-inference | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | run the ConfigHub proof lane first |
@@ -176,6 +204,9 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | percona/psmdb-operator@1.23.0 | default | run the ConfigHub proof lane first |
 | policy-reporter/policy-reporter@3.10.0 | default | run the ConfigHub proof lane first |
 | policy-reporter/policy-reporter@3.9.1 | default | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@87.15.1 | default | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | run the ConfigHub proof lane first |
@@ -187,6 +218,8 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | prometheus-community/kube-prometheus-stack@88.6.3 | no-crds | run the ConfigHub proof lane first |
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | run the ConfigHub proof lane first |
 | prometheus-community/prometheus-blackbox-exporter@11.18.0 | default | run the ConfigHub proof lane first |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | run the ConfigHub proof lane first |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | run the ConfigHub proof lane first |
 | stakater/reloader@2.2.14 | default | run the ConfigHub proof lane first |
 | stakater/reloader@2.2.16 | default | run the ConfigHub proof lane first |
 | traefik/traefik@41.0.2 | default | run the ConfigHub proof lane first |

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.33.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "5665cbd42c1b55414462f5855e14e249405c953a733565806869c1628de6b36c"
+    dependencyLockSHA256: "de8afa533489ce68a81773238a999f8cbfebdff3e6f4c8e11fa435fb0bb2bd75"
+    effectiveValuesSHA256: "4534653875e3a3f1cc5b07099be03801144aea579f524a56765e4e2a6b0007b8"
+  outputs:
+    renderedObjectSetSHA256: "447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1"
+    renderedObjectInventorySHA256: "14a371c4ebe3dcaceb990a137e06028ca72847f9ab81f184dcb7aa08adadf6b5"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 19
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

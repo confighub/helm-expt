@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nvidia-nodewright-v0.17.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1
+  observedAt: "2026-10-08T20:38:15.579Z"
+  package:
+    path: packages/nvidia/nodewright/v0.17.1
+    sha256: b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859
+    sourceTreeSHA256: e28c3132c940d677ea6f4bdea6f88c029f09e3f3d238e167bb6ed2dcfaa94d03
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/nvidia/nodewright/v0.17.1 -o <tmp>/nvidia-nodewright-v0.17.1.tgz"
+    push: "cub installer push <tmp>/nvidia-nodewright-v0.17.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1 --json"
+  outputs:
+    manifestDigest: sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab
+    layerDigest: sha256:b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859
+    package: |
+      Bundled nvidia-nodewright@
+        output: <tmp>
+        files:  16
+        size:   45260 bytes
+        digest: sha256:b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1
+        manifest: sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab
+        layer:    sha256:b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859 (45260 bytes, 16 files)
+    inspectJSONSHA256: fcd311fa523693f707835f94e9d906a0bacb0d7130019029d4ae493e6b8e6c62
+    inspectJSONCanonicalSHA256: a710ee13d6fb71de2797cc4bd4b3a08a7c43b46486bcfc152c9055266771c336

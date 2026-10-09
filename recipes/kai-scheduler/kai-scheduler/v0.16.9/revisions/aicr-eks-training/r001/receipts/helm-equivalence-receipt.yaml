@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "kai-scheduler-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+    objectCount: 37
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 37
+    uploadedManifestFiles: 37
+    separatedSecretFiles: 0
+    semanticObjectMatches: "37/37"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    []
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

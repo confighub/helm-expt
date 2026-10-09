@@ -1,0 +1,88 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "kubeflow-kubeflow-trainer"
+  version: "2.2.0"
+spec:
+  bases:
+    -
+      default: true
+      description: "kubeflow-trainer chart defaults variant rendered from kubeflow/kubeflow-trainer@2.2.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clustertrainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD jobsets.jobset.x-k8s.io"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainjobs.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "kubeflow-trainer AICR v0.20.0 EKS training values variant rendered from kubeflow/kubeflow-trainer@2.2.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clustertrainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD jobsets.jobset.x-k8s.io"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainjobs.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training-v0-20-0"
+      path: "bases/aicr-eks-training-v0-20-0"
+    -
+      description: "kubeflow-trainer AICR v1.0.0 EKS training values variant rendered from kubeflow/kubeflow-trainer@2.2.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD clustertrainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD jobsets.jobset.x-k8s.io"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainingruntimes.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD trainjobs.trainer.kubeflow.org"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training-v1-0-0"
+      path: "bases/aicr-eks-training-v1-0-0"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

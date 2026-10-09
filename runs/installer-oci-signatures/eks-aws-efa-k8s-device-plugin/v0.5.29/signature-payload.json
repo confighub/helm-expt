@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/eks/aws-efa-k8s-device-plugin/v0.5.29",
+        "confighub.com/package-sha256": "a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

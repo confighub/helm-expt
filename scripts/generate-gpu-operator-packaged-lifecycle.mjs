@@ -2,7 +2,10 @@
 
 // Packages the Helm hook objects of the reviewed gpu-operator and
 // k8s-nim-operator chart versions as recorded lifecycle actions. --chart selects
-// the chart and defaults to gpu-operator.
+// the chart and defaults to gpu-operator. The charts the retained AICR entries
+// pin that render Helm hooks (kai-scheduler, nodewright and
+// node-feature-discovery) are packaged the same way, from the profiles in
+// scripts/lib/aicr-nested-chart-candidates.mjs.
 //
 // A base holds the ordinary objects the chart renders. The same
 // values also render hook-annotated objects that Helm runs at upgrade and delete
@@ -15,8 +18,8 @@
 //   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate [--chart <chart>] --version <version>
 //   node scripts/generate-gpu-operator-packaged-lifecycle.mjs --verify [--chart <chart>] [--version <version>]
 //
-// --generate downloads the archive named in scripts/lib/nvidia-gpu-stack-coverage.mjs,
-// checks its SHA-256 and renders it with the pinned Helm build. --verify reads
+// --generate downloads the archive named in the chart's coverage list
+// (scripts/lib/coverage-sets.mjs), checks its SHA-256 and renders it with the pinned Helm build. --verify reads
 // committed files only: no network, no cluster, no wall clock.
 
 import { execFileSync } from "node:child_process";
@@ -40,7 +43,8 @@ import {
 } from "./lib/proof-common.mjs";
 import { gpuOperatorLifecycleProfile } from "./lib/gpu-operator-bases.mjs";
 import { nimOperatorLifecycleProfile } from "./lib/k8s-nim-operator-bases.mjs";
-import { nvidiaGpuStackAddition } from "./lib/nvidia-gpu-stack-coverage.mjs";
+import { AICR_NESTED_CHART_LIFECYCLE_PROFILES } from "./lib/aicr-nested-chart-candidates.mjs";
+import { coverageAddition } from "./lib/coverage-sets.mjs";
 
 const args = process.argv.slice(2);
 const mode = args.find((arg) => ["--generate", "--verify"].includes(arg));
@@ -48,7 +52,9 @@ const versionIndex = args.indexOf("--version");
 const requestedVersion = versionIndex === -1 ? "" : args[versionIndex + 1];
 const chartIndex = args.indexOf("--chart");
 const requestedChart = chartIndex === -1 ? "gpu-operator" : args[chartIndex + 1];
-const profiles = Object.fromEntries([gpuOperatorLifecycleProfile, nimOperatorLifecycleProfile].map((item) => [item.chartName, item]));
+const profiles = Object.fromEntries(
+  [gpuOperatorLifecycleProfile, nimOperatorLifecycleProfile, ...AICR_NESTED_CHART_LIFECYCLE_PROFILES].map((item) => [item.chartName, item]),
+);
 const profile = profiles[requestedChart];
 if (!mode || !profile || (versionIndex !== -1 && (!requestedVersion || requestedVersion.startsWith("--")))) {
   console.error(`Usage:
@@ -57,6 +63,13 @@ if (!mode || !profile || (versionIndex !== -1 && (!requestedVersion || requested
   process.exit(2);
 }
 const chartName = profile.chartName;
+// The NVIDIA profiles predate the field and live under the nvidia repository.
+const repository = profile.chart.repository ?? "nvidia";
+const chartIdentity = `${repository}/${chartName}`;
+// Release name, namespace and Kubernetes version; a chart whose namespace moved between versions says so per version.
+const chartOf = (version) => profile.chartFor?.(version) ?? profile.chart;
+// A hook that runs in two phases is annotated "pre-install,pre-upgrade"; its file name drops the comma.
+const phaseFile = (phase) => phase.replaceAll(",", "-");
 const chartFlag = chartName === "gpu-operator" ? "" : ` --chart ${chartName}`;
 check(mode === "--verify" || requestedVersion, "--generate requires --version");
 const versions = requestedVersion ? [requestedVersion] : profile.reviewedVersions;
@@ -76,24 +89,24 @@ function extrasRoot(version) {
 }
 
 function recipeRoot(version) {
-  return join(repoRoot, "recipes", "nvidia", chartName, version);
+  return join(repoRoot, "recipes", repository, chartName, version);
 }
 
 function packageRoot(version) {
-  return join(repoRoot, "packages", "nvidia", chartName, version);
+  return join(repoRoot, "packages", repository, chartName, version);
 }
 
 // What each hook phase means for a delivery workflow that applies rendered
 // objects instead of running Helm. The chart's profile supplies the wording.
-function actionFor(phase, base) {
+function actionFor(phase, base, version) {
   return {
     automatic: false,
     evidenceState: "not-run",
     helmHook: phase,
     invokedBy: "delivery-workflow",
     phase,
-    ...profile.actionFor(phase, base),
-    source: `${profile.lifecycleRoot}/${base.name}/${phase}.yaml`,
+    ...profile.actionFor(phase, base, version),
+    source: `${profile.lifecycleRoot}/${base.name}/${phaseFile(phase)}.yaml`,
   };
 }
 
@@ -101,7 +114,7 @@ function lifecycleActions(version) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "PackagedLifecycleActions",
-    metadata: { name: `nvidia-${chartName}-${version.replaceAll(".", "-")}` },
+    metadata: { name: `${repository}-${chartName}-${version.replaceAll(".", "-")}` },
     spec: {
       bases: profile.bases(version).map((base) => ({
         actions: [
@@ -113,12 +126,12 @@ function lifecycleActions(version) {
             ...profile.preApply(base),
             source: profile.crdBundlePath(base.name),
           },
-          ...Object.keys(base.expected.hooks).map((phase) => actionFor(phase, base)),
+          ...Object.keys(base.expected.hooks).map((phase) => actionFor(phase, base, version)),
         ],
         name: base.name,
       })),
-      chart: `nvidia/${chartName}`,
-      namespace: profile.chart.namespace,
+      chart: chartIdentity,
+      namespace: chartOf(version).namespace,
       version,
     },
   };
@@ -128,7 +141,7 @@ function readme(version) {
   const bases = profile.bases(version);
   const lines = bases.map((base) => {
     const phases = Object.entries(base.expected.hooks)
-      .map(([phase, count]) => `\`${base.name}/${phase}.yaml\` (${count} ${count === 1 ? "object" : "objects"})`)
+      .map(([phase, count]) => `\`${base.name}/${phaseFile(phase)}.yaml\` (${count} ${count === 1 ? "object" : "objects"})`)
       .join(", ");
     return `- \`${base.name}\`: ${phases}.`;
   });
@@ -149,7 +162,7 @@ person or a delivery workflow decides whether to run each one, and records the
 result. The Job images are the tags the chart renders; they are not pinned by
 digest here.
 
-These files come from \`nvidia/${chartName}@${version}\`. Regenerate them with
+These files come from \`${chartIdentity}@${version}\`. Regenerate them with
 \`node scripts/generate-gpu-operator-packaged-lifecycle.mjs --generate${chartFlag} --version ${version}\`.
 `;
 }
@@ -162,16 +175,28 @@ function splitDocuments(text) {
 }
 
 function generate(version) {
-  const addition = nvidiaGpuStackAddition(chartName, version);
-  check(Boolean(addition), `${chartName} ${version} is not in the NVIDIA GPU stack coverage list`);
+  const addition = coverageAddition(repository, chartName, version);
+  check(Boolean(addition), `${chartIdentity} ${version} is not in a coverage list`);
+  const chart = chartOf(version);
   const tempRoot = mkdtempSync(join(tmpdir(), `${chartName}-lifecycle-`));
   try {
     const archive = join(tempRoot, `${chartName}-${version}.tgz`);
-    execFileSync("curl", ["--fail", "--location", "--retry", "3", "--silent", "--show-error", "--output", archive, addition.url], {
-      cwd: repoRoot,
-      stdio: ["ignore", "pipe", "inherit"],
-    });
-    check(sha256File(archive) === addition.sha256, `chart artifact SHA mismatch for nvidia/${chartName}@${version}`);
+    if (addition.url.startsWith("oci://")) {
+      // The same addressing the proof kit uses: the tag names the archive, the SHA-256 decides.
+      const suffix = `:${version}`;
+      const artifact = addition.url.endsWith(suffix) ? addition.url.slice(0, -suffix.length) : addition.url;
+      execFileSync("helm", ["pull", artifact, "--version", version, "--destination", tempRoot], {
+        cwd: repoRoot,
+        stdio: ["ignore", "pipe", "inherit"],
+      });
+      check(existsSync(archive), `helm pull produced no archive for ${chartIdentity}@${version}`);
+    } else {
+      execFileSync("curl", ["--fail", "--location", "--retry", "3", "--silent", "--show-error", "--output", archive, addition.url], {
+        cwd: repoRoot,
+        stdio: ["ignore", "pipe", "inherit"],
+      });
+    }
+    check(sha256File(archive) === addition.sha256, `chart artifact SHA mismatch for ${chartIdentity}@${version}`);
 
     const root = extrasRoot(version);
     rmSync(root, { recursive: true, force: true });
@@ -179,12 +204,12 @@ function generate(version) {
     for (const base of profile.bases(version)) {
       const helmArgs = [
         "template",
-        profile.chart.releaseName,
+        chart.releaseName,
         archive,
         "--namespace",
-        profile.chart.namespace,
+        chart.namespace,
         "--kube-version",
-        profile.chart.kubeVersion,
+        chart.kubeVersion,
         "--include-crds",
         "--skip-tests",
       ];
@@ -223,14 +248,14 @@ function generate(version) {
           entries.length === base.expected.hooks[phase],
           `${chartName} ${version} ${base.name} rendered ${entries.length} ${phase} hook objects; reviewed count is ${base.expected.hooks[phase]}`,
         );
-        const path = join(root, base.name, `${phase}.yaml`);
+        const path = join(root, base.name, `${phaseFile(phase)}.yaml`);
         write(path, normalizeYaml(entries.map((entry) => `---\n${entry.chunk.replace(/\n*$/, "\n")}`).join("")));
         for (const { doc } of entries) {
           for (const container of doc.spec?.template?.spec?.containers ?? []) images.add(container.image);
         }
         files.push({
           phase,
-          path: `${base.name}/${phase}.yaml`,
+          path: `${base.name}/${phaseFile(phase)}.yaml`,
           sha256: sha256File(path),
           objects: entries.map(({ doc }) => identityFor(doc)).sort(),
         });
@@ -254,17 +279,17 @@ function generate(version) {
       `${toYaml({
         apiVersion: "helm-expt.confighub.com/v1alpha1",
         kind: "PackagedLifecycleGenerationReceipt",
-        metadata: { name: `nvidia-${chartName}-${version.replaceAll(".", "-")}` },
+        metadata: { name: `${repository}-${chartName}-${version.replaceAll(".", "-")}` },
         spec: {
-          chart: `nvidia/${chartName}`,
+          chart: chartIdentity,
           version,
-          sourceLock: `recipes/nvidia/${chartName}/${version}/source-lock.yaml`,
+          sourceLock: `recipes/${repository}/${chartName}/${version}/source-lock.yaml`,
           chartArtifactURL: addition.url,
           chartPackageSha256: addition.sha256,
           renderer: {
             name: "helm",
             version: execFileSync("helm", ["version", "--short"], { encoding: "utf8" }).trim(),
-            kubeVersion: profile.chart.kubeVersion,
+            kubeVersion: chart.kubeVersion,
             flags: ["--include-crds", "--skip-tests"],
           },
           evidenceState: "rendered-not-run",
@@ -281,8 +306,8 @@ function verify(version, { checkPackage }) {
   const root = extrasRoot(version);
   const rel = (path) => relative(repoRoot, path);
   check(existsSync(root), `${rel(root)} is missing; run --generate${chartFlag} --version ${version}`);
-  const addition = nvidiaGpuStackAddition(chartName, version);
-  check(Boolean(addition), `${chartName} ${version} is not in the NVIDIA GPU stack coverage list`);
+  const addition = coverageAddition(repository, chartName, version);
+  check(Boolean(addition), `${chartIdentity} ${version} is not in a coverage list`);
   const receipt = readYaml(join(root, "generation-receipt.yaml"));
   check(receipt.kind === "PackagedLifecycleGenerationReceipt", `${rel(root)}/generation-receipt.yaml kind mismatch`);
   check(receipt.spec?.chartPackageSha256 === addition.sha256, `${version} lifecycle receipt does not bind the locked chart archive`);

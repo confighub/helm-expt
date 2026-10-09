@@ -63,6 +63,28 @@ Charts: 17 · with a real per-variant delta: 6 (argo-cd/argo-workflows, bitnami/
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
+| aicr-eks-training-v0-20-0@84.4.0 (package applies 10 CRDs first) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
+| aicr-eks-training-v1-0-0@84.4.0 (package applies 10 CRDs first) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
+| default@84.4.0 (needs 10 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 10 CRDs — apply them first through a lifecycle step or your platform) |
+| default@84.4.0 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
+| default@84.4.0 (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| default@84.4.0 (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| default@84.4.0 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| default@84.4.0 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your delivery — an explicit, receipted step | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
+| default@84.4.0 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
+| default@84.4.0 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery — an explicit, receipted step | — |
 | default@85.3.3 (package applies 10 CRDs first) | crd-install → `preflight-or-presync-crd-apply` | Handled — the generated package script applies the CRDs first | resolved (the package carries and applies the 10 CRDs before the workload (observed live)) |
 | default@85.3.3 (package applies 10 CRDs first) | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
 | default@85.3.3 (package applies 10 CRDs first) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |

@@ -1,0 +1,147 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "kai-scheduler/kai-scheduler",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler.html",
+  "counts": {
+    "versions": 2,
+    "bases": 4
+  },
+  "versions": [
+    {
+      "version": "v0.16.9",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-16-9.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kai-scheduler-kai-scheduler-v0-16-9-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-default.json"
+          },
+          "objectCount": 37,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76",
+            "objectSetDigest": "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.json"
+          },
+          "objectCount": 37,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25",
+            "objectSetDigest": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+          }
+        }
+      ]
+    },
+    {
+      "version": "v0.14.1",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kai-scheduler-kai-scheduler-v0-14-1.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kai-scheduler-kai-scheduler-v0-14-1-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-default.json"
+          },
+          "objectCount": 37,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46",
+            "objectSetDigest": "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46"
+          }
+        },
+        {
+          "base": "aicr-eks-training",
+          "default": false,
+          "listing": {
+            "id": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.json"
+          },
+          "objectCount": 37,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5",
+            "objectSetDigest": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [
+    {
+      "from": {
+        "version": "v0.14.1",
+        "base": "default",
+        "listing": "kai-scheduler-kai-scheduler-v0-14-1-default"
+      },
+      "to": {
+        "version": "v0.16.9",
+        "base": "default",
+        "listing": "kai-scheduler-kai-scheduler-v0-16-9-default"
+      },
+      "added": 2,
+      "removed": 2,
+      "changed": 8,
+      "unchanged": 27,
+      "line": "From v0.14.1 to v0.16.9 on the default base, 8 of 37 objects change, 2 are added and 2 are removed."
+    }
+  ],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

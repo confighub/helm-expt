@@ -19,27 +19,27 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 558 |
-| Variants needing at least one live command | 208 |
-| Live commands remaining | 366 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 185 |
-| Two-cluster kind parity commands | 181 |
-| Watch/blocked/review rows | 187 |
-| Ready-to-run todo rows | 179 |
+| Matrix variant rows | 604 |
+| Variants needing at least one live command | 241 |
+| Live commands remaining | 432 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 218 |
+| Two-cluster kind parity commands | 214 |
+| Watch/blocked/review rows | 190 |
+| Ready-to-run todo rows | 242 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 181 |
-| `live-parity` | 185 |
+| `kind-parity` | 214 |
+| `live-parity` | 218 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 68 |
-| `todo` | 242 |
+| `todo` | 308 |
 | `watch` | 56 |
 
 ## By Run Readiness
@@ -48,8 +48,8 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 114 |
-| `ready-to-run` | 179 |
+| `model-or-stage-first` | 117 |
+| `ready-to-run` | 242 |
 | `review-target-first` | 55 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -105,13 +105,13 @@ generated priority. They are good candidates for a serial live block.
 | aws-controllers-k8s/eks-chart | 1.16.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference |
 | aws-controllers-k8s/iam-chart | 1.7.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default |
 | aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v0-20-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v0-20-0 |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v1-0-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v1-0-0 |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default |
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
-| cloudnative-pg/cloudnative-pg | 0.29.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
+| cloudnative-pg/cloudnative-pg | 0.29.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
 | cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
-| grafana/alloy | 1.11.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.11.0 --base default |
-| grafana/alloy | 1.12.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/grafana/alloy/1.12.1 --base default |
-| grafana/grafana | 10.5.15 | customer-acme-prod | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod |
-| grafana/grafana | 10.5.15 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | aicr-eks-training | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base aicr-eks-training |
 
 ## Full Queue
 

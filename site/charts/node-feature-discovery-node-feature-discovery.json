@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "node-feature-discovery/node-feature-discovery",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "0.19.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/node-feature-discovery-node-feature-discovery-0-19-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "node-feature-discovery-node-feature-discovery-0-19-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-default.json"
+          },
+          "objectCount": 17,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995",
+            "objectSetDigest": "sha256:cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v0-20-0",
+          "default": false,
+          "listing": {
+            "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.json"
+          },
+          "objectCount": 23,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93",
+            "objectSetDigest": "sha256:371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v1-0-0",
+          "default": false,
+          "listing": {
+            "id": "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.json"
+          },
+          "objectCount": 23,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff",
+            "objectSetDigest": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

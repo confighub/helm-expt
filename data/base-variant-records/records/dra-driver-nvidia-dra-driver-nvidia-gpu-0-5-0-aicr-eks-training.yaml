@@ -1,0 +1,272 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training"
+  labels:
+    sourceType: "helm"
+    component: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    sourceVersion: "0.5.0"
+    base: "aicr-eks-training"
+spec:
+  source:
+    type: "helm"
+    name: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.5.0"
+    record: "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e"
+    selection:
+      name: "aicr-eks-training"
+      kind: "catalog-preset"
+      provider: "Config Workshop"
+      record: "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+  baseVariant:
+    name: "aicr-eks-training"
+    revision: "r001"
+    digest: "83fb522ac8113e25ebe958a644d099e153e4f8267d3cf0181aa3472b6e25a3b5"
+    digestRole: "helm-variant-revision"
+    digestRecord: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+    inventory: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+    objectCount: 21
+    digest: "282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+    digestRole: "canonical-object-set"
+    digestRecord: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+  processing:
+    sourceIntent:
+      status: "recorded"
+      record: "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    materialization:
+      method: "helm-render"
+      status: "captured"
+      outputDigest: "282e9c2dd1946fe677c2b7a9ee7d1a8d65f109f2a302ab628e2ffe1bddc3c932"
+      record: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+    flattening:
+      status: "decided"
+      verdict: "flatten-with-routes"
+      action: "retain-exact-objects-with-routes"
+      scope: "dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0/aicr-eks-training; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes"
+      record: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict-aicr-eks-training.yaml"
+    boundaries:
+      - "Helm rendered the pinned chart and values into the exact objects retained by this base."
+  assessment:
+    stages:
+      -
+        id: "inspection"
+        question: "What do I have?"
+        answer: "Inspect the helm source, choices, locks, and any existing output before selecting a destination."
+        requiredInputs:
+          - "The chart and values, a rendered object set, or a package that contains them"
+        catalogMatchRequired: false
+        sourceIntentRequired: false
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "available"
+        records:
+          - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+          - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+        nextAction: "Inspect or compare the source and exact files before choosing a destination."
+      -
+        id: "materialization"
+        question: "What will it produce?"
+        answer: "The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?"
+        requiredInputs:
+          - "The pinned chart, version, values, namespace, release name, and render capabilities"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: false
+        deploymentRequired: false
+        evidenceState: "completed"
+        resultState: "watch"
+        records:
+          - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+          - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+        nextAction: "Review the exact object set and its digest, and settle the open question before relying on this base."
+      -
+        id: "destination"
+        question: "Can this destination accept it?"
+        answer: "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass."
+        requiredInputs:
+          - "The exact candidate configuration"
+          - "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: false
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+        nextAction: "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply."
+      -
+        id: "post-deployment"
+        question: "Did it work?"
+        answer: "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly."
+        requiredInputs:
+          - "The exact delivered revision and destination"
+          - "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        catalogMatchRequired: false
+        sourceIntentRequired: true
+        destinationAccessRequired: true
+        deploymentRequired: true
+        evidenceState: "not-run"
+        resultState: "not-run"
+        records:
+          []
+        nextAction: "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately."
+  inputs:
+    fixedAtBuildTime:
+      - "chart=dra-driver-nvidia/dra-driver-nvidia-gpu"
+      - "version=0.5.0"
+      - "base=aicr-eks-training"
+      - "valuesProfile=recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/effective-values-aicr-eks-training.yaml"
+      - "namespace=nvidia-dra-driver"
+      - "releaseName=nvidia-dra-driver-gpu"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.34.0\"}"
+    installTime:
+      -
+        name: "computedomaincliques.resource.nvidia.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "computedomaincliques.resource.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      -
+        name: "computedomains.resource.nvidia.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "computedomains.resource.nvidia.com"
+          purpose: "CRD included in this base and applied before the controller that reconciles it"
+          sourceVariant: "aicr-eks-training"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+    installTimeStatus: "partly-declared"
+  lifecycle:
+    requirements:
+      status: "recorded"
+      items:
+        -
+          id: "computedomaincliques.resource.nvidia.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controller that reconciles it"
+        -
+          id: "computedomains.resource.nvidia.com"
+          origin: "base"
+          type: "target-fact"
+          detail: "CRD included in this base and applied before the controller that reconciles it"
+      records:
+        - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    routeIntent:
+      status: "required-at-destination"
+      routes:
+        []
+      records:
+        - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    targetFacts:
+      status: "recorded"
+      declared:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomaincliques.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "aicr-eks-training"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+            packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "computedomains.resource.nvidia.com"
+            purpose: "CRD included in this base and applied before the controller that reconciles it"
+            sourceVariant: "aicr-eks-training"
+            packageSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+            packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+      requirementRefs:
+        - "computedomaincliques.resource.nvidia.com"
+        - "computedomains.resource.nvidia.com"
+      records:
+        - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    resolution:
+      status: "awaits-variant-and-target"
+      rule: "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest."
+      records:
+        []
+  ownership:
+    status: "partly-declared"
+    sourceControlled:
+      - "Fields produced from the recorded chart values and render context"
+    variantControlled:
+      - "Post-render object fields recorded in ConfigHub after upload"
+    targetSupplied:
+      - "computedomaincliques.resource.nvidia.com"
+      - "computedomains.resource.nvidia.com"
+    deliveryProtected:
+      []
+    records:
+      - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+    rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "todo"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "workflow-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The inputs still required at installation are not yet fully recorded for every Helm configuration."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
+    - "Open question, marked watch. The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?"

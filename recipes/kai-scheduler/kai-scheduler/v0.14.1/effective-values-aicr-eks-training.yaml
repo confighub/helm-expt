@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "059ff4565fff7bfdddd8f2ea2a59bcdb63875d3cd66830077e3966dde3ac4187"
+  mergedValuesCaptured: false
+  values:
+    admission:
+      gpuPodRuntimeClassName: ""
+    global:
+      tolerations:
+        -
+          operator: "Exists"
+    postCleanup:
+      enabled: false

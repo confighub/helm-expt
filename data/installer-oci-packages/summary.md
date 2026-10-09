@@ -37,11 +37,11 @@ does not return the requested manifest.
 
 | Count | Value |
 | --- | ---: |
-| Installer packages | 167 |
-| Public catalog packages | 115 |
-| Package refs with publication receipts | 167 |
+| Installer packages | 180 |
+| Public catalog packages | 122 |
+| Package refs with publication receipts | 180 |
 | Assigned refs without publication receipts yet | 0 |
-| Published manifests with signature receipts | 167 |
+| Published manifests with signature receipts | 180 |
 | Published manifests without signature receipts | 0 |
 
 ## Public Examples

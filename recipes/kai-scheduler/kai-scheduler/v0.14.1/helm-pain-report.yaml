@@ -1,0 +1,110 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1"
+spec:
+  chart:
+    name: "kai-scheduler/kai-scheduler"
+    version: "v0.14.1"
+    source: "oci://ghcr.io/kai-scheduler/kai-scheduler"
+    digest: "7ae052b56e752975eeac0ebb5de381f5eadf51207872c95f98eefd2901c4be4e"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact kai-scheduler@v0.14.1 chart, locked by archive URL and SHA-256."
+    - "With chart defaults kai-scheduler@v0.14.1 renders 37 objects as release kai-scheduler in namespace kai-scheduler: six CRDs, ten ClusterRoles, nine ClusterRoleBindings, four PriorityClasses, the kai-operator Deployment and ServiceAccount, a second Namespace named kai-resource-reservation with a ServiceAccount and RoleBinding in it, two Queue objects and one SchedulingShard. It renders no Secret and no webhook configuration."
+    - "The same values also render Helm hook objects that no base holds: 10 pre-install and pre-upgrade, 4 post-delete. The kai.scheduler/v1 Config object named kai-config is itself a pre-install and pre-upgrade hook object. The hook objects are packaged under prerequisites/kai-scheduler-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The aicr-eks-training base renders 37 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/011-kai-scheduler/values.yaml): every pod tolerating every taint, no runtime class set on GPU pods by the admission service, and the post-delete cleanup hook off. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object, once the 10 Helm hook objects that render also holds are set aside."
+    - "The installer package adds no Namespace object for the release namespace, because the base already holds one, kai-resource-reservation. The kai-scheduler namespace must exist on the target before the base is applied."
+    - "The Namespace, the two Queue objects and the SchedulingShard carry helm.sh/resource-policy: keep, so helm uninstall leaves them. A flattened copy has no such memory; deleting the delivered objects deletes them."
+    - "The chart uses lookup three ways. It renders the kai-resource-reservation Namespace and ServiceAccount only when the cluster does not already have them, and it adds OpenShift settings when the cluster has the ClusterVersion CRD. The bases are the offline answers: Namespace and ServiceAccount present, no OpenShift settings."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "the bases are rendered with --no-hooks; the default base's values also render 10 pre-install and pre-upgrade, 4 post-delete Helm hook objects, and the aicr-eks-training base's values render 10 pre-install and pre-upgrade. They are packaged under prerequisites/kai-scheduler-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. The kai.scheduler/v1 Config object named kai-config is itself a pre-install and pre-upgrade hook object. Without it the operator starts and deploys no scheduler. No hook has been run on a cluster for this entry."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "attention-required"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "crd-lifecycle is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the six CRDs must be established before the two Queue objects, the SchedulingShard and the operator; the kai-scheduler namespace must already exist, because the package creates only kai-resource-reservation; the Config object the operator needs is a packaged lifecycle action and is not part of the base"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; dead=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; ignored=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  answerForSkepticalHelmUser: "kai-scheduler/kai-scheduler@v0.14.1 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

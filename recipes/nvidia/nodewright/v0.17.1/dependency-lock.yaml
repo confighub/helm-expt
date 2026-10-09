@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  chart: "nvidia/nodewright"
+  version: "v0.17.1"
+  dependencies:
+    []

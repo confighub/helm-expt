@@ -15,29 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 167
-machine checks pass: 167
+recipes reviewed: 180
+machine checks pass: 180
 machine checks fail: 0
 proof-grade: 110
-catalog-candidate: 37
+catalog-candidate: 50
 catalog-supported: 20
 blocked: 0
 default-only recipes: 61
-multi-variant recipes: 106
-recipes with warning gates: 150
+multi-variant recipes: 119
+recipes with warning gates: 163
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 80
+- `bespoke-top20`: 93
 - `next80-full`: 80
 - `successor-full`: 7
 
 ## Support Levels
 
 - `machine-proof-only`: 110
-- `promotion-review-needed`: 37
+- `promotion-review-needed`: 50
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -55,6 +55,7 @@ proof work.
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 2 | warn | run human catalog promotion review |
 | `aws-controllers-k8s/eks-chart@1.16.3` | 2 | warn | run human catalog promotion review |
 | `aws-controllers-k8s/iam-chart@1.7.3` | 2 | warn | run human catalog promotion review |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0` | 3 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.1.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
@@ -62,12 +63,11 @@ proof work.
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.7.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 3 | warn | run human catalog promotion review |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 3 | warn | run human catalog promotion review |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.10.0` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.7.0` | 2 | warn | run human catalog promotion review |
-| `external-secrets/external-secrets@2.8.0` | 2 | warn | run human catalog promotion review |
-| `jetstack/cert-manager@v1.21.0` | 2 | warn | run human catalog promotion review |
-| `jetstack/cert-manager@v1.21.1` | 2 | warn | run human catalog promotion review |
-| `karpenter/karpenter@1.14.0` | 3 | blocked | run human catalog promotion review |
 
 ## Main Gaps
 

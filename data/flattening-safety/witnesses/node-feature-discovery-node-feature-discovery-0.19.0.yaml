@@ -1,0 +1,59 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0"
+spec:
+  chart:
+    repository: "node-feature-discovery"
+    name: "node-feature-discovery"
+    version: "0.19.0"
+  package:
+    sha256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 26
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 1
+    documents: 4
+  hookValues:
+    - "post-delete"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 4
+      files:
+        - "templates/post-delete-job.yaml:10"
+        - "templates/post-delete-job.yaml:20"
+        - "templates/post-delete-job.yaml:41"
+        - "templates/post-delete-job.yaml:60"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

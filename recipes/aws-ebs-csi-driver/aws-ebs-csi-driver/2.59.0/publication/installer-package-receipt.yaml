@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  chart:
+    repository: "aws-ebs-csi-driver"
+    name: "aws-ebs-csi-driver"
+    version: "2.59.0"
+  package:
+    path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0"
+    name: "aws-ebs-csi-driver-aws-ebs-csi-driver"
+    version: "2.59.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "cc8183265b0ec74958b3e0875d60b7909d2ca41246da04532e17c711faf65d13"
+        bytes: 308
+      -
+        path: "bases/aicr-eks-training-v0-20-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v0-20-0/upstream.yaml"
+        sha256: "3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8"
+        bytes: 29583
+      -
+        path: "bases/aicr-eks-training-v1-0-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v1-0-0/upstream.yaml"
+        sha256: "d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314"
+        bytes: 29616
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1"
+        bytes: 35643
+      -
+        path: "installer.yaml"
+        sha256: "9dfb98770308257d59f3b5f915f02c4c6a0d2553cf6a87bbb051fcd58c5aa3a8"
+        bytes: 815
+  deterministicBundle:
+    command: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 -o <tmp>/aws-ebs-csi-driver-2.59.0.tgz"
+    sha256: "ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
+    -
+      variant: "aicr-eks-training-v0-20-0"
+      base: "aicr-eks-training-v0-20-0"
+      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
+    -
+      variant: "aicr-eks-training-v1-0-0"
+      base: "aicr-eks-training-v1-0-0"
+      command: "cub installer setup --pull packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"

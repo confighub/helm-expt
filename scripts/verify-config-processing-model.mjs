@@ -27,6 +27,7 @@ import {
   NIMSERVICE_SOURCE_TYPE,
 } from "./lib/nimservice-entries.mjs";
 import { nimServiceLiteralConfigOciProblem } from "./lib/nimservice-publication.mjs";
+import { helmOpenQuestionFor } from "./lib/helm-open-questions.mjs";
 import {
   NVIDIA_LITERAL_BUNDLE_CHARTS,
   literalConfigOciProblem,
@@ -599,6 +600,37 @@ for (const evidence of loadAicrOrderingEvidence({ root }).values()) {
   requireCondition(
     listingStage.resultState === ATTENTION_STATE && listingStage.answer === evidence.openQuestion,
     `${name}: ${evidence.recipeRel} declares ${unchecked} dependency edge(s) the rendered sync-waves could not check, and the listing does not flag the entry as ${ATTENTION_STATE} with the open question`,
+  );
+}
+
+// The same rule for a Helm chart entry. Its open questions are authored in
+// scripts/lib/helm-open-questions.mjs, per chart version and base. A base with
+// a question must carry the flag in its record and in its listing, with the
+// question as the answer. A Helm base with no question may not carry it.
+for (const record of records) {
+  if (record.spec?.source?.type !== "helm") continue;
+  const name = record.metadata?.name ?? "unnamed-record";
+  const stageOf = (stages) => (stages ?? []).find((stage) => stage.id === "materialization") ?? {};
+  const recordStage = stageOf(record.spec?.assessment?.stages);
+  const listingPath = join(root, "site/listings", `${name}.json`);
+  const listingStage = existsSync(listingPath)
+    ? stageOf(JSON.parse(readFileSync(listingPath, "utf8")).assessment?.stages)
+    : {};
+  const question = helmOpenQuestionFor(record);
+  if (!question) {
+    requireCondition(
+      recordStage.resultState !== ATTENTION_STATE && listingStage.resultState !== ATTENTION_STATE,
+      `${name}: the entry is flagged as ${ATTENTION_STATE}, and scripts/lib/helm-open-questions.mjs names no open question for this base`,
+    );
+    continue;
+  }
+  requireCondition(
+    recordStage.resultState === ATTENTION_STATE && recordStage.answer === question,
+    `${name}: scripts/lib/helm-open-questions.mjs names an open question for this base, and the record does not flag the entry as ${ATTENTION_STATE} with it`,
+  );
+  requireCondition(
+    listingStage.resultState === ATTENTION_STATE && listingStage.answer === question,
+    `${name}: scripts/lib/helm-open-questions.mjs names an open question for this base, and the listing does not flag the entry as ${ATTENTION_STATE} with it`,
   );
 }
 

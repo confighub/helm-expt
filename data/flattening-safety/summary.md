@@ -320,9 +320,42 @@ Each audited chart version gets one receipted answer to one question: what happe
 | nvidia/k8s-nim-operator | 3.1.0 | default | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict.yaml |
 | nvidia/k8s-nim-operator | 3.1.0 | aicr-eks-inference | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.0/publication/flattening-safety-verdict-aicr-eks-inference.yaml |
 | nvidia/k8s-nim-operator | 3.1.2 | default | flatten-with-routes | recipes/nvidia/k8s-nim-operator/3.1.2/publication/flattening-safety-verdict.yaml |
+| kai-scheduler/kai-scheduler | v0.14.1 | default | flatten-with-routes | recipes/kai-scheduler/kai-scheduler/v0.14.1/publication/flattening-safety-verdict.yaml |
+| kai-scheduler/kai-scheduler | v0.14.1 | aicr-eks-training | flatten-with-routes | recipes/kai-scheduler/kai-scheduler/v0.14.1/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| kai-scheduler/kai-scheduler | v0.16.9 | default | flatten-with-routes | recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml |
+| kai-scheduler/kai-scheduler | v0.16.9 | aicr-eks-training | flatten-with-routes | recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| nvidia/nodewright | v0.17.1 | default | flatten-with-routes | recipes/nvidia/nodewright/v0.17.1/publication/flattening-safety-verdict.yaml |
+| nvidia/nodewright | v0.17.1 | aicr-eks-training | flatten-with-routes | recipes/nvidia/nodewright/v0.17.1/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| nvidia/nodewright | v0.19.0 | default | flatten-with-routes | recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict.yaml |
+| nvidia/nodewright | v0.19.0 | aicr-eks-training | flatten-with-routes | recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | default | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/flattening-safety-verdict.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | gpu-resources | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/flattening-safety-verdict-gpu-resources.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | aicr-eks-training | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.5.0 | default | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.5.0 | gpu-resources | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict-gpu-resources.yaml |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.5.0 | aicr-eks-training | flatten-with-routes | recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| kubeflow/kubeflow-trainer | 2.2.0 | default | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict.yaml |
+| kubeflow/kubeflow-trainer | 2.2.0 | aicr-eks-training-v0-20-0 | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| kubeflow/kubeflow-trainer | 2.2.0 | aicr-eks-training-v1-0-0 | flatten-with-routes | recipes/kubeflow/kubeflow-trainer/2.2.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | default | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | aicr-eks-training-v0-20-0 | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| node-feature-discovery/node-feature-discovery | 0.19.0 | aicr-eks-training-v1-0-0 | flatten-with-routes | recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| eks/aws-efa-k8s-device-plugin | v0.5.29 | default | safe-to-flatten | recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/flattening-safety-verdict.yaml |
+| eks/aws-efa-k8s-device-plugin | v0.5.29 | aicr-eks-training | safe-to-flatten | recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/flattening-safety-verdict-aicr-eks-training.yaml |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | default | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | aicr-eks-training-v0-20-0 | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | 1.19.2 | aicr-eks-training-v1-0-0 | safe-to-flatten | recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | default | safe-to-flatten | recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/publication/flattening-safety-verdict.yaml |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v0-20-0 | safe-to-flatten | recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v1-0-0 | safe-to-flatten | recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| prometheus-community/kube-prometheus-stack | 84.4.0 | default | flatten-with-routes | recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict.yaml |
+| prometheus-community/kube-prometheus-stack | 84.4.0 | aicr-eks-training-v0-20-0 | flatten-with-routes | recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml |
+| prometheus-community/kube-prometheus-stack | 84.4.0 | aicr-eks-training-v1-0-0 | flatten-with-routes | recipes/prometheus-community/kube-prometheus-stack/84.4.0/publication/flattening-safety-verdict-aicr-eks-training-v1-0-0.yaml |
+| prometheus-community/prometheus-operator-crds | 28.0.1 | default | flatten-with-routes | recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/flattening-safety-verdict.yaml |
+| prometheus-community/prometheus-operator-crds | 28.0.1 | aicr-eks-training | flatten-with-routes | recipes/prometheus-community/prometheus-operator-crds/28.0.1/publication/flattening-safety-verdict-aicr-eks-training.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 114 charts here now have that axis answered from source, across 316 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 121 charts here now have that axis answered from source, across 349 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

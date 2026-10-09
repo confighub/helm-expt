@@ -48,18 +48,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "live-helm-vs-confighub-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "2/2"
       liveParity: "2/2"
-    featureSummary: "extension-slots"
-    hardGap: "-"
-    nextAction: "run catalog promotion review"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559"

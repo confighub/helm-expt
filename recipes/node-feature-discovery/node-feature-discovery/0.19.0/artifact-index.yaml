@@ -1,0 +1,386 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0"
+  chart: "node-feature-discovery/node-feature-discovery"
+  version: "0.19.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "node-feature-discovery/node-feature-discovery"
+    version: "0.19.0"
+    appVersion: "v0.19.0"
+    sourceLock: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml"
+    dependencyLock: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/dependency-lock.yaml"
+    repository: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+    packageSHA256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+  recipe:
+    path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-plan.yaml"
+    chartDossier: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/chart-dossier.yaml"
+    controlPoints: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/control-points.yaml"
+    valueModel: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "crds"
+    hardGap: "-"
+    nextAction: "review source/current-version drift and refresh recipe if needed"
+  installerPackage:
+    path: "packages/node-feature-discovery/node-feature-discovery/0.19.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0"
+    manifestDigest: "sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63"
+    layerDigest: "sha256:9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e"
+    publicationReceipt: "runs/installer-oci/node-feature-discovery-node-feature-discovery/0.19.0/installer-package-publication-receipt.yaml"
+    installer: "packages/node-feature-discovery/node-feature-discovery/0.19.0/installer.yaml"
+    receipt: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "9249260d7911a04453b39d2b6e088cada54e6b71f30b66982f82824becfc076e"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/default"
+        default: true
+        description: "node-feature-discovery chart defaults variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+      -
+        name: "aicr-eks-training-v0-20-0"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v0-20-0"
+        default: false
+        description: "node-feature-discovery AICR v0.20.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+      -
+        name: "aicr-eks-training-v1-0-0"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v1-0-0"
+        default: false
+        description: "node-feature-discovery AICR v1.0.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/variants/default/variant.yaml"
+      namespace: "node-feature-discovery"
+      releaseName: "nfd"
+      valuesProfile: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io"
+      packageBase:
+        name: "default"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/default"
+        default: true
+        description: "node-feature-discovery chart defaults variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base default --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        helmReleaseObjectCount: 17
+        cubInstallObjectCountIncludingSupport: 18
+        semanticObjectMatches: "17/17"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||node-feature-discovery"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/variant-revision.yaml"
+          digest: "0274ad3e9970d030864cdc1945d06769f2d161afd26d6d3c7aa2ccc53fd273a9"
+          renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+          renderedObjects: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 17
+          helmObjectCount: 17
+          cubInstallObjectCountIncludingSupport: 18
+          semanticObjectMatches: "17/17"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995"
+    -
+      name: "aicr-eks-training-v0-20-0"
+      variant: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+      namespace: "node-feature-discovery"
+      releaseName: "nfd"
+      valuesProfile: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/effective-values-aicr-eks-training-v0-20-0.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v0-20-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v0-20-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v0-20-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "noderesourcetopologies.topology.node.k8s.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v0-20-0"
+      targetFactSummary: "required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD noderesourcetopologies.topology.node.k8s.io"
+      packageBase:
+        name: "aicr-eks-training-v0-20-0"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v0-20-0"
+        default: false
+        description: "node-feature-discovery AICR v0.20.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        helmReleaseObjectCount: 23
+        cubInstallObjectCountIncludingSupport: 24
+        semanticObjectMatches: "23/23"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||node-feature-discovery"
+      revisions:
+        -
+          name: "aicr-eks-training-v0-20-0-r001"
+          revision: "r001"
+          variantRevision: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+          digest: "2b7d3dfde379f5ec54980f4da2fdab04aa44d3266001319d0865cc52c1dca28c"
+          renderedObjectSetSHA256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+          renderedObjects: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+          objectCount: 23
+          helmObjectCount: 23
+          cubInstallObjectCountIncludingSupport: 24
+          semanticObjectMatches: "23/23"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+    -
+      name: "aicr-eks-training-v1-0-0"
+      variant: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/variants/aicr-eks-training-v1-0-0/variant.yaml"
+      namespace: "node-feature-discovery"
+      releaseName: "nfd"
+      valuesProfile: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/effective-values-aicr-eks-training-v1-0-0.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturegroups.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeaturerules.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "nodefeatures.nfd.k8s-sigs.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "noderesourcetopologies.topology.node.k8s.io"
+            purpose: "CRD included in this base and applied before the components that use it"
+            sourceVariant: "aicr-eks-training-v1-0-0"
+      targetFactSummary: "required CRD nodefeaturegroups.nfd.k8s-sigs.io; required CRD nodefeaturerules.nfd.k8s-sigs.io; required CRD nodefeatures.nfd.k8s-sigs.io; required CRD noderesourcetopologies.topology.node.k8s.io"
+      packageBase:
+        name: "aicr-eks-training-v1-0-0"
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v1-0-0"
+        default: false
+        description: "node-feature-discovery AICR v1.0.0 EKS training values variant rendered from node-feature-discovery/node-feature-discovery@0.19.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace node-feature-discovery"
+        helmReleaseObjectCount: 23
+        cubInstallObjectCountIncludingSupport: 24
+        semanticObjectMatches: "23/23"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||node-feature-discovery"
+      revisions:
+        -
+          name: "aicr-eks-training-v1-0-0-r001"
+          revision: "r001"
+          variantRevision: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+          digest: "38b9588ebc7e670dc9f9602eb5e892df1108cfe3c58c7c82b94839784c8b266a"
+          renderedObjectSetSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+          renderedObjects: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
+          objectCount: 23
+          helmObjectCount: 23
+          cubInstallObjectCountIncludingSupport: 24
+          semanticObjectMatches: "23/23"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"

@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training-v1-0-0"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the target must already have the Prometheus Operator ServiceMonitor CRD, which the chart does not ship"

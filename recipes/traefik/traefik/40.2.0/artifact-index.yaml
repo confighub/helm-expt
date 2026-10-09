@@ -52,18 +52,18 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
-    strongestEvidence: "live-helm-vs-confighub-parity"
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "2/2"
       localLive: "2/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "generated-secrets;crds;webhooks;required-values;values-schema;extension-slots"
-    hardGap: "-"
-    nextAction: "run catalog promotion review"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
   installerPackage:
     path: "packages/traefik/traefik/40.2.0"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535"

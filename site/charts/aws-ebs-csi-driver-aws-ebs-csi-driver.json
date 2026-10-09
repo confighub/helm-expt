@@ -8,8 +8,8 @@
   "url": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver.json",
   "page": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver.html",
   "counts": {
-    "versions": 1,
-    "bases": 1
+    "versions": 2,
+    "bases": 4
   },
   "versions": [
     {
@@ -41,9 +41,93 @@
           }
         }
       ]
+    },
+    {
+      "version": "2.59.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.json"
+          },
+          "objectCount": 19,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1",
+            "objectSetDigest": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v0-20-0",
+          "default": false,
+          "listing": {
+            "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.json"
+          },
+          "objectCount": 19,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8",
+            "objectSetDigest": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v1-0-0",
+          "default": false,
+          "listing": {
+            "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.json"
+          },
+          "objectCount": 19,
+          "verdict": "safe-to-flatten",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314",
+            "objectSetDigest": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314"
+          }
+        }
+      ]
     }
   ],
-  "summaries": [],
+  "summaries": [
+    {
+      "from": {
+        "version": "2.59.0",
+        "base": "default",
+        "listing": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default"
+      },
+      "to": {
+        "version": "2.60.1",
+        "base": "default",
+        "listing": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default"
+      },
+      "added": 8,
+      "removed": 8,
+      "changed": 11,
+      "unchanged": 0,
+      "line": "From 2.59.0 to 2.60.1 on the default base, 11 of 19 objects change, 8 are added and 8 are removed."
+    }
+  ],
   "compare": {
     "computedOnDemand": true,
     "core": {

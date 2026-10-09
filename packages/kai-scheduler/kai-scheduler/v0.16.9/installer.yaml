@@ -1,0 +1,83 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "kai-scheduler-kai-scheduler"
+  version: "v0.16.9"
+spec:
+  bases:
+    -
+      default: true
+      description: "kai-scheduler chart defaults variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD bindrequests.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD configs.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD podgroups.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD queues.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD schedulingshards.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD topologies.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "kai-scheduler AICR v1.0.0 EKS training values variant rendered from kai-scheduler/kai-scheduler@v0.16.9"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD bindrequests.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD configs.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD podgroups.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD queues.scheduling.run.ai"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD schedulingshards.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD topologies.kai.scheduler"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

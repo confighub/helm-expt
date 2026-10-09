@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2
+  observedAt: "2026-10-08T20:38:43.353Z"
+  package:
+    path: packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2
+    sha256: 70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe
+    sourceTreeSHA256: 44b0781079aa39732e48beb44705c36d8c438f373a2ed47624a155843b76a2e3
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2 -o <tmp>/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2.tgz"
+    push: "cub installer push <tmp>/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2 --json"
+  outputs:
+    manifestDigest: sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d
+    layerDigest: sha256:70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe
+    package: |
+      Bundled k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics@
+        output: <tmp>
+        files:  12
+        size:   28358 bytes
+        digest: sha256:70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2
+        manifest: sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d
+        layer:    sha256:70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe (28358 bytes, 12 files)
+    inspectJSONSHA256: 8c8de241da76959617b9cd33134f5e17949adec0a871cb5ef135407b54c1223b
+    inspectJSONCanonicalSHA256: 08a1eb6490c93b468c315d12eb748022ac9fd347057df65ceb0a12abf3cde33f

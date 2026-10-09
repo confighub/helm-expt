@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nodewright-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+    objectCount: 20
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 21
+    uploadedManifestFiles: 21
+    separatedSecretFiles: 0
+    semanticObjectMatches: "20/20"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||nodewright"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run aicr-nested-charts-coverage:compare"

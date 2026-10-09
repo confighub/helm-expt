@@ -1,0 +1,704 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+      "sha256": "sha256:5b1aeed81d0ca205b8435ee8a586a6725875b07f692fe77d309d7eec145d849c",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
+    "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-aicr-eks-training.json",
+    "name": "nvidia/nodewright",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "v0.19.0",
+    "base": "aicr-eks-training",
+    "page": "https://confighub.github.io/helm-expt/site/charts/nvidia-nodewright-v0-19-0.html"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "nvidia/nodewright",
+    "version": "v0.19.0",
+    "reference": "nvidia/nodewright@v0.19.0",
+    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358",
+    "record": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+    "selection": {
+      "name": "aicr-eks-training",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+    },
+    "pin": {
+      "digest": "sha256:8c52ecfe85e5fe3e6dd2354e6bee0e5a6ef1ce81ff7e87f36e138283c43a185b",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=nvidia/nodewright",
+      "version=v0.19.0",
+      "base=aicr-eks-training",
+      "valuesProfile=recipes/nvidia/nodewright/v0.19.0/effective-values-aicr-eks-training.yaml",
+      "namespace=nodewright",
+      "releaseName=nodewright-operator",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.31.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 20,
+    "digest": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
+    "digestRole": "canonical-object-set",
+    "verdict": "flatten-with-routes",
+    "verdictStatus": "decided",
+    "action": "retain-exact-objects-with-routes",
+    "scope": "nvidia/nodewright@v0.19.0/aicr-eks-training; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+    "verdictRecord": "recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+    "verdictRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+    "retainedObjects": {
+      "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "images": {
+    "count": 1,
+    "pinnedByDigest": 1,
+    "namedByTag": 0,
+    "references": [
+      {
+        "reference": "ghcr.io/nvidia/nodewright/operator:v0.19.0@sha256:38e9a79125633aa633f8e499306b2219c582c6f62a7bfe4083928212e70f74a7",
+        "pinned": true
+      }
+    ],
+    "readFrom": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
+  "variants": {
+    "base": "aicr-eks-training",
+    "known": [
+      {
+        "id": "nvidia-nodewright-v0-19-0-aicr-eks-training",
+        "base": "aicr-eks-training",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-aicr-eks-training.json",
+        "self": true,
+        "digest": "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+      },
+      {
+        "id": "nvidia-nodewright-v0-19-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-default.json",
+        "self": false,
+        "digest": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf. The exact objects are recorded at recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging nvidia-nodewright-v0-19-0-aicr-eks-training --space-pattern template:nvidia-nodewright-v0-19-0-aicr-eks-training-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote nvidia-nodewright-v0-19-0-aicr-eks-training-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "deploymentpolicies.nodewright.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the operator that reconciles it"
+      },
+      {
+        "id": "deploymentpolicies.skyhook.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the operator that reconciles it"
+      },
+      {
+        "id": "nodewrights.nodewright.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the operator that reconciles it"
+      },
+      {
+        "id": "skyhooks.skyhook.nvidia.com",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "CRD included in this base and applied before the operator that reconciles it"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "deploymentpolicies.nodewright.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the operator that reconciles it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "deploymentpolicies.skyhook.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the operator that reconciles it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "nodewrights.nodewright.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the operator that reconciles it",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "skyhooks.skyhook.nvidia.com",
+        "kind": "requiredCRDs",
+        "detail": "CRD included in this base and applied before the operator that reconciles it",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "deploymentpolicies.nodewright.nvidia.com",
+        "deploymentpolicies.skyhook.nvidia.com",
+        "nodewrights.nodewright.nvidia.com",
+        "skyhooks.skyhook.nvidia.com"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+        "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-aicr-eks-training.yaml",
+        "path": "recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 20 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o nvidia-nodewright-v0-19-0-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
+          "expect": "c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf  nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358 --base aicr-eks-training --work-dir ./nvidia-nodewright-v0-19-0-aicr-eks-training --non-interactive --namespace nodewright"
+        }
+      ],
+      "notes": [
+        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit."
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o nvidia-nodewright-v0-19-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff nvidia-nodewright-v0-19-0-aicr-eks-training.yaml nvidia-nodewright-v0-19-0-default.yaml --summary"
+        },
+        {
+          "comment": "fetch the aicr-eks-training base at version v0.17.1",
+          "command": "curl -fsSL -o nvidia-nodewright-v0-17-1-aicr-eks-training.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from v0.17.1 to v0.19.0",
+          "command": "cub config diff nvidia-nodewright-v0-17-1-aicr-eks-training.yaml nvidia-nodewright-v0-19-0-aicr-eks-training.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "nvidia-nodewright-v0-17-1-aicr-eks-training",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-aicr-eks-training.json",
+          "version": "v0.17.1",
+          "base": "aicr-eks-training",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nodewright-v0-17-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-17-1-default.json",
+          "version": "v0.17.1",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "nvidia-nodewright-v0-19-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/nvidia-nodewright-v0-19-0-default.json",
+          "version": "v0.19.0",
+          "base": "default",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "upload step 1's directory as a Space of Units, under names you choose",
+          "command": "cub installer upload --work-dir ./nvidia-nodewright-v0-19-0-aicr-eks-training --space <your-space> --component <your-component>",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space <your-space>",
+          "needsAccount": true
+        }
+      ],
+      "notes": [
+        "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
+        "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
+        "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      }
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev <your-space> --target workshop/target --space-pattern \"template:<your-space>-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that the cluster's Argo CD pulls",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "delete the installer record, which Argo CD cannot read",
+          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish again without it",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
+        "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
+        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
+        "The walk made its cluster with `cub cluster up --no-argobot`. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
+        "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      },
+      "carries": [
+        "deploymentpolicies.nodewright.nvidia.com",
+        "deploymentpolicies.skyhook.nvidia.com",
+        "nodewrights.nodewright.nvidia.com",
+        "skyhooks.skyhook.nvidia.com"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote <your-space>-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote <your-space>-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "delete the installer record that the promotion adds back",
+          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
+        "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record."
+      ],
+      "liveWalk": {
+        "date": "2026-10-08",
+        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
+        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+      }
+    }
+  ]
+}

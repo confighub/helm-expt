@@ -1,0 +1,248 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+  chart: "nvidia/nodewright"
+  version: "v0.17.1"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nvidia/nodewright"
+    version: "v0.17.1"
+    appVersion: "v0.17.0"
+    sourceLock: "recipes/nvidia/nodewright/v0.17.1/source-lock.yaml"
+    dependencyLock: "recipes/nvidia/nodewright/v0.17.1/dependency-lock.yaml"
+    repository: "oci://ghcr.io/nvidia/nodewright/charts"
+    packageSHA256: "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
+  recipe:
+    path: "recipes/nvidia/nodewright/v0.17.1/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nvidia/nodewright/v0.17.1/helm-plan.yaml"
+    chartDossier: "recipes/nvidia/nodewright/v0.17.1/chart-dossier.yaml"
+    controlPoints: "recipes/nvidia/nodewright/v0.17.1/control-points.yaml"
+    valueModel: "recipes/nvidia/nodewright/v0.17.1/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/nvidia/nodewright/v0.17.1/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "crd-lifecycle"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/nvidia/nodewright/v0.17.1/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/nvidia/nodewright/v0.17.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1"
+    manifestDigest: "sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+    layerDigest: "sha256:b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859"
+    publicationReceipt: "runs/installer-oci/nvidia-nodewright/v0.17.1/installer-package-publication-receipt.yaml"
+    installer: "packages/nvidia/nodewright/v0.17.1/installer.yaml"
+    receipt: "recipes/nvidia/nodewright/v0.17.1/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nvidia/nodewright/v0.17.1/bases/default"
+        default: true
+        description: "nodewright chart defaults variant rendered from nvidia/nodewright@v0.17.1"
+      -
+        name: "aicr-eks-training"
+        path: "packages/nvidia/nodewright/v0.17.1/bases/aicr-eks-training"
+        default: false
+        description: "nodewright AICR v0.20.0 EKS training values variant rendered from nvidia/nodewright@v0.17.1"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nvidia/nodewright/v0.17.1/variants/default/variant.yaml"
+      namespace: "skyhook"
+      releaseName: "nodewright-operator"
+      valuesProfile: "recipes/nvidia/nodewright/v0.17.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "deploymentpolicies.skyhook.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "skyhooks.skyhook.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "default"
+      targetFactSummary: "required CRD deploymentpolicies.skyhook.nvidia.com; required CRD skyhooks.skyhook.nvidia.com"
+      packageBase:
+        name: "default"
+        path: "packages/nvidia/nodewright/v0.17.1/bases/default"
+        default: true
+        description: "nodewright chart defaults variant rendered from nvidia/nodewright@v0.17.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab --base default --work-dir <tmp> --non-interactive --namespace skyhook"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||skyhook"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/variant-revision.yaml"
+          digest: "bd699e486605f9493444ce357038836fb45b1f3a1c718e252890f24f99378e79"
+          renderedObjectSetSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+          renderedObjects: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: 19
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/nvidia/nodewright/v0.17.1/variants/aicr-eks-training/variant.yaml"
+      namespace: "skyhook"
+      releaseName: "nodewright-operator"
+      valuesProfile: "recipes/nvidia/nodewright/v0.17.1/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "deploymentpolicies.skyhook.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "aicr-eks-training"
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "skyhooks.skyhook.nvidia.com"
+            purpose: "CRD included in this base and applied before the operator that reconciles it"
+            sourceVariant: "aicr-eks-training"
+      targetFactSummary: "required CRD deploymentpolicies.skyhook.nvidia.com; required CRD skyhooks.skyhook.nvidia.com"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/nvidia/nodewright/v0.17.1/bases/aicr-eks-training"
+        default: false
+        description: "nodewright AICR v0.20.0 EKS training values variant rendered from nvidia/nodewright@v0.17.1"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace skyhook"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||skyhook"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "2aa3dd89389971525cbe5197f6f689c881764a67968764dc25fd9ca3afd6f46a"
+          renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+          renderedObjects: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: 19
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"

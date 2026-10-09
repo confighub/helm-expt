@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "dra-driver-nvidia-gpu-gpu-resources-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.34.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "f39af47f5d5d431f579d758fb2d883c17e3ccefc9be91453ef8b134a8198c100"
+    dependencyLockSHA256: "888cfdf5e23b928499af37cf744d6d5c6f44428e8946b1dc25d7221a721d0bc1"
+    effectiveValuesSHA256: "9c69fa90b16a19ef1cbb9ab1e3bc6793abc60f5bdb81bd613e34e75172da34d7"
+  outputs:
+    renderedObjectSetSHA256: "29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d"
+    renderedObjectInventorySHA256: "701e04e9e7275fd28f6972b73d4225e8da98edd53e02ffec5d0bc49d993a3a12"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 24
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

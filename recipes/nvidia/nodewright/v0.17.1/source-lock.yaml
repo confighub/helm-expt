@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "nvidia"
+  repositoryURL: "oci://ghcr.io/nvidia/nodewright/charts"
+  chart: "nodewright"
+  version: "v0.17.1"
+  appVersion: "v0.17.0"
+  packageSHA256: "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
+  packageBytes: 31878
+  exactArtifact:
+    url: "oci://ghcr.io/nvidia/nodewright/charts/nodewright:v0.17.1"
+    sha256: "a75b0b3183e091e13207cd9b7693e0e612ea178bac8970398e101c7b9f2b4854"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

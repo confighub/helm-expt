@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0"
+spec:
+  chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+  version: "0.5.0"
+  status: "catalog-candidate"
+  supportLevel: "promotion-review-needed"
+  supportedScopes:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  supportedVariants:
+    []
+  candidateVariants:
+    - "default"
+    - "gpu-resources"
+    - "aicr-eks-training"
+  deferredVariants: []
+  review:
+    lastReviewed: null
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."

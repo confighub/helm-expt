@@ -1,0 +1,123 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagedLifecycleActions"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-84-4-0"
+spec:
+  bases:
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the ten Prometheus Operator CRDs before the other objects"
+          detail: "The base holds Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects, which Kubernetes rejects until their CRDs are established. The bundle holds exactly the ten CRDs this base renders."
+          source: "prerequisites/target-facts/default-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade,post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          name: "Before and after an install or an upgrade, give the two admission Jobs their identity"
+          detail: "A ServiceAccount, a ClusterRole and ClusterRoleBinding, and a Role and RoleBinding that the admission-create and admission-patch Jobs run with. Helm creates them before the first Job and deletes them after the second. A workflow must apply them before either Job and may delete them once both have completed."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/default/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade"
+          name: "Before an install or an upgrade, create the admission webhook certificate Secret"
+          detail: "The admission-create Job generates a self-signed certificate and writes it into a Secret in the release namespace. It is required on a first install: the Prometheus Operator Deployment mounts that Secret and cannot start without it. The Job leaves an existing Secret alone. A workflow must run it before applying the base, wait for it to complete, then delete it."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/default/pre-install-pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "post-install,post-upgrade"
+          name: "After an install or an upgrade, write the CA into the webhook configurations"
+          detail: "The admission-patch Job reads the CA from the Secret the first Job created and writes it into the mutating and the validating webhook configuration. The base renders both with no CA bundle and failurePolicy Ignore, so until this Job runs the API server cannot call the webhooks and admits the objects unvalidated. A delivery that applies the base again can remove the CA bundle, and then the Job must run again."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/default/post-install-post-upgrade.yaml"
+      name: "default"
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the ten Prometheus Operator CRDs before the other objects"
+          detail: "The base holds Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects, which Kubernetes rejects until their CRDs are established. This base holds no CRD, because the AICR values set crds.enabled false. The bundle is a copy of the ten CRDs from the prometheus-operator-crds 28.0.1 entry, the chart the AICR entries install first."
+          source: "prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade,post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          name: "Before and after an install or an upgrade, give the two admission Jobs their identity"
+          detail: "A ServiceAccount, a ClusterRole and ClusterRoleBinding, and a Role and RoleBinding that the admission-create and admission-patch Jobs run with. Helm creates them before the first Job and deletes them after the second. A workflow must apply them before either Job and may delete them once both have completed."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade"
+          name: "Before an install or an upgrade, create the admission webhook certificate Secret"
+          detail: "The admission-create Job generates a self-signed certificate and writes it into a Secret in the release namespace. It is required on a first install: the Prometheus Operator Deployment mounts that Secret and cannot start without it. The Job leaves an existing Secret alone. A workflow must run it before applying the base, wait for it to complete, then delete it."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "post-install,post-upgrade"
+          name: "After an install or an upgrade, write the CA into the webhook configurations"
+          detail: "The admission-patch Job reads the CA from the Secret the first Job created and writes it into the mutating and the validating webhook configuration. The base renders both with no CA bundle and failurePolicy Ignore, so until this Job runs the API server cannot call the webhooks and admits the objects unvalidated. A delivery that applies the base again can remove the CA bundle, and then the Job must run again."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/post-install-post-upgrade.yaml"
+      name: "aicr-eks-training-v0-20-0"
+    -
+      actions:
+        -
+          automatic: false
+          evidenceState: "not-run"
+          invokedBy: "packaged-requirement"
+          phase: "pre-apply"
+          name: "Install and establish the ten Prometheus Operator CRDs before the other objects"
+          detail: "The base holds Prometheus, Alertmanager, PrometheusRule and ServiceMonitor objects, which Kubernetes rejects until their CRDs are established. This base holds no CRD, because the AICR values set crds.enabled false. The bundle is a copy of the ten CRDs from the prometheus-operator-crds 28.0.1 entry, the chart the AICR entries install first."
+          source: "prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade,post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade,post-install,post-upgrade"
+          name: "Before and after an install or an upgrade, give the two admission Jobs their identity"
+          detail: "A ServiceAccount, a ClusterRole and ClusterRoleBinding, and a Role and RoleBinding that the admission-create and admission-patch Jobs run with. Helm creates them before the first Job and deletes them after the second. A workflow must apply them before either Job and may delete them once both have completed."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/pre-install-pre-upgrade-post-install-post-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "pre-install,pre-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "pre-install,pre-upgrade"
+          name: "Before an install or an upgrade, create the admission webhook certificate Secret"
+          detail: "The admission-create Job generates a self-signed certificate and writes it into a Secret in the release namespace. It is required on a first install: the Prometheus Operator Deployment mounts that Secret and cannot start without it. The Job leaves an existing Secret alone. A workflow must run it before applying the base, wait for it to complete, then delete it."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/pre-install-pre-upgrade.yaml"
+        -
+          automatic: false
+          evidenceState: "not-run"
+          helmHook: "post-install,post-upgrade"
+          invokedBy: "delivery-workflow"
+          phase: "post-install,post-upgrade"
+          name: "After an install or an upgrade, write the CA into the webhook configurations"
+          detail: "The admission-patch Job reads the CA from the Secret the first Job created and writes it into the mutating and the validating webhook configuration. The base renders both with no CA bundle and failurePolicy Ignore, so until this Job runs the API server cannot call the webhooks and admits the objects unvalidated. A delivery that applies the base again can remove the CA bundle, and then the Job must run again."
+          source: "prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v1-0-0/post-install-post-upgrade.yaml"
+      name: "aicr-eks-training-v1-0-0"
+  chart: "prometheus-community/kube-prometheus-stack"
+  namespace: "monitoring"
+  version: "84.4.0"

@@ -1,0 +1,117 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nvidia-nodewright-v0.17.1-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+  objectCount: 18
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||skyhook-operator-mutating-webhook"
+      kind: "MutatingWebhookConfiguration"
+      name: "skyhook-operator-mutating-webhook"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||skyhook-operator-validating-webhook"
+      kind: "ValidatingWebhookConfiguration"
+      name: "skyhook-operator-validating-webhook"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||deploymentpolicies.skyhook.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "deploymentpolicies.skyhook.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||skyhooks.skyhook.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "skyhooks.skyhook.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|skyhook|nodewright-controller-manager"
+      kind: "Deployment"
+      name: "nodewright-controller-manager"
+      namespace: "skyhook"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|skyhook|nodewright-controller-manager-allow-all"
+      kind: "NetworkPolicy"
+      name: "nodewright-controller-manager-allow-all"
+      namespace: "skyhook"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget||nodewright-controller-manager-pdb"
+      kind: "PodDisruptionBudget"
+      name: "nodewright-controller-manager-pdb"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||skyhook-operator-manager-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "skyhook-operator-manager-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||skyhook-operator-proxy-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "skyhook-operator-proxy-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-manager-role"
+      kind: "ClusterRole"
+      name: "skyhook-operator-manager-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-metrics-reader"
+      kind: "ClusterRole"
+      name: "skyhook-operator-metrics-reader"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-proxy-role"
+      kind: "ClusterRole"
+      name: "skyhook-operator-proxy-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|skyhook|skyhook-operator-leader-election-rolebinding"
+      kind: "RoleBinding"
+      name: "skyhook-operator-leader-election-rolebinding"
+      namespace: "skyhook"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|skyhook|skyhook-operator-leader-election-role"
+      kind: "Role"
+      name: "skyhook-operator-leader-election-role"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|LimitRange|skyhook|nodewright-default-limits"
+      kind: "LimitRange"
+      name: "nodewright-default-limits"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|skyhook|nodewright-controller-manager"
+      kind: "ServiceAccount"
+      name: "nodewright-controller-manager"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|skyhook|skyhook-operator-controller-manager-metrics-service"
+      kind: "Service"
+      name: "skyhook-operator-controller-manager-metrics-service"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|skyhook|skyhook-operator-webhook-service"
+      kind: "Service"
+      name: "skyhook-operator-webhook-service"
+      namespace: "skyhook"

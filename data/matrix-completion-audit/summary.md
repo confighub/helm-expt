@@ -18,37 +18,37 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1249 non-green cells:
+1430 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 1021 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1198 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 59 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 63 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 558 |
-| `G` | 172 |
-| `P` | 172 |
-| `L` | 163 |
-| `K` | 125 |
-| `lifecycle` | 59 |
+| `promotion` | 604 |
+| `G` | 205 |
+| `P` | 205 |
+| `L` | 196 |
+| `K` | 157 |
+| `lifecycle` | 63 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 405 |
-| `blocked` | 217 |
+| `missing` | 534 |
+| `blocked` | 252 |
+| `not-applicable-source` | 180 |
 | `proven` | 179 |
-| `not-applicable-source` | 167 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
-| `todo` | 59 |
+| `todo` | 63 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (59)
+## needs-run (63)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -58,8 +58,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| cloudnative-pg/cloudnative-pg@0.29.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | ha | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -89,12 +88,18 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | karpenter/karpenter@1.14.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | karpenter/karpenter@1.14.0 | eks-inference | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
+| kyverno/kyverno@3.8.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:5) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
-| kyverno/kyverno@3.9.0 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@87.15.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
@@ -111,10 +116,9 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | rook-release/rook-ceph@v1.19.5 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| traefik/traefik@41.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (1021)
+## needs-target-or-prereq-fix (1198)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -211,6 +215,22 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 2.60.1 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml | resolve the variant's K blocker on 2.60.1; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default + topology | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | L | fail | local-live fail: cloud-or-provider-prerequisite: daemonset/ebs-csi-node: not-ready (ebs-csi-controller-8d8878fb7-24jf4[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=tru) | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
@@ -337,6 +357,49 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | dex/dex@0.24.0 | default | L | fail | local-live fail: runtime-readiness: deployment/dex: not-ready (dex-854b786b7-w67bg[CrashLoopBackOff ready=false restarts=4;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | dex/dex@0.24.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | dex/dex@0.24.0 | web-ui-existing-secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 | gpu-resources | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| eks/aws-efa-k8s-device-plugin@v0.5.29 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | elastic/eck-operator@3.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | elastic/eck-operator@3.4.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | elastic/eck-operator@3.4.0 | ha | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -565,6 +628,44 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/trust-manager@v0.22.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/trust-manager@v0.22.1 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (trust-manager-6db9f66446-c44df[PodInitializing ready=false restarts=0;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | jetstack/trust-manager@v0.22.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.14.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.14.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.16.9 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kai-scheduler/kai-scheduler@v0.16.9 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | karpenter/karpenter@1.14.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | karpenter/karpenter@1.14.0 | crds-managed | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | karpenter/karpenter@1.14.0 | crds-managed | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -584,6 +685,22 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | kedacore/keda@2.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kedacore/keda@2.19.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kedacore/keda@2.19.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| kubeflow/kubeflow-trainer@2.2.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| kubeflow/kubeflow-trainer@2.2.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| kubeflow/kubeflow-trainer@2.2.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | kyverno/kyverno-policies@3.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kyverno/kyverno-policies@3.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kyverno/kyverno-policies@3.8.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -686,6 +803,22 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| node-feature-discovery/node-feature-discovery@0.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | nvidia/cluster-readiness-engine@v0.6.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/cluster-readiness-engine@v0.6.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -843,6 +976,28 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nvidia/k8s-nim-operator@3.1.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/k8s-nim-operator@3.1.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/k8s-nim-operator@3.1.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.17.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.17.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.17.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| nvidia/nodewright@v0.19.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| nvidia/nodewright@v0.19.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | nvidia/nvidia-device-plugin@0.19.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | nvidia/nvidia-device-plugin@0.19.3 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | nvidia/nvidia-device-plugin@0.19.3 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -969,6 +1124,22 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/alertmanager@1.37.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/alertmanager@1.37.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/alertmanager@1.37.0 | ha | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| prometheus-community/kube-prometheus-stack@84.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v1-0-0 | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml | resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/kube-prometheus-stack@84.4.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | prometheus-community/kube-prometheus-stack@85.3.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 86.1.0 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml | resolve the variant's K blocker on 86.1.0; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -1046,6 +1217,16 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/prometheus-node-exporter@4.55.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| prometheus-community/prometheus-operator-crds@28.0.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | prometheus-community/prometheus-operator-crds@29.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/prometheus-operator-crds@29.0.0 | cluster-metrics-readonly | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | prometheus-community/prometheus-operator-crds@29.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |

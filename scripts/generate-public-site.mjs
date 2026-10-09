@@ -536,13 +536,13 @@ const PUBLIC_CATALOG_VERSION_FLOOR = 139;
 // deliberately so it cannot disappear into a silent "other" bucket.
 const CATALOG_COMPONENT_CATEGORIES = [
   { id: "security-secrets", label: "Security and secrets", pattern: /^(aqua\/trivy-operator|dex\/dex|external-secrets\/|falcosecurity\/|gatekeeper\/|hashicorp\/vault|jetstack\/|kyverno\/|oauth2-proxy\/|policy-reporter\/|sealed-secrets\/|secrets-store-csi-driver\/)/ },
-  { id: "monitoring-logs", label: "Monitoring and logs", pattern: /^(elastic\/(filebeat|kibana|logstash|metricbeat)|fluent\/|grafana\/|jaegertracing\/|nats\/surveyor|open-telemetry\/|opencost\/|prometheus-community\/|vm\/)/ },
+  { id: "monitoring-logs", label: "Monitoring and logs", pattern: /^(elastic\/(filebeat|kibana|logstash|metricbeat)|fluent\/|grafana\/|jaegertracing\/|nats\/surveyor|open-telemetry\/|opencost\/|prometheus-community\/|k8s-ephemeral-storage-metrics\/|vm\/)/ },
   { id: "networking-ingress", label: "Networking and ingress", pattern: /^(bitnami\/contour|coredns\/|external-dns\/|haproxytech\/|hashicorp\/consul|ingress-nginx\/|istio\/|linkerd\/|metallb\/|projectcalico\/|traefik\/)/ },
   { id: "storage-backup", label: "Storage and backup", pattern: /^(aws-ebs-csi-driver\/|longhorn\/|minio-operator\/|nfs-subdir-external-provisioner\/|rook-release\/|velero\/)/ },
   { id: "databases-messaging", label: "Databases and messaging", pattern: /^(bitnami\/(elasticsearch|memcached|mongodb|mysql|opensearch|postgresql|rabbitmq|redis|zookeeper)|cloudnative-pg\/|cloudpirates\/(rabbitmq|redis)|elastic\/eck-operator|mysql\/mysql-operator|nats\/(nack|nats)|percona\/|runix\/pgadmin4|strimzi\/|valkey\/)/ },
   { id: "delivery-automation", label: "Delivery and automation", pattern: /^(argo-cd\/|crossplane-stable\/|gitlab\/gitlab-runner|hashicorp\/terraform|stakater\/reloader)/ },
-  { id: "cluster-operations", label: "Cluster operations", pattern: /^(autoscaler\/|aws-controllers-k8s\/|descheduler\/|fairwinds-stable\/|karpenter\/|kedacore\/|metrics-server\/|nvidia\/)/ },
-  { id: "web-compute", label: "Web and compute", pattern: /^(bitnami\/(apache|nginx|phpmyadmin|spark)|cloudpirates\/nginx)/ },
+  { id: "cluster-operations", label: "Cluster operations", pattern: /^(autoscaler\/|aws-controllers-k8s\/|descheduler\/|fairwinds-stable\/|karpenter\/|kedacore\/|metrics-server\/|nvidia\/|dra-driver-nvidia\/|kai-scheduler\/|node-feature-discovery\/|eks\/aws-efa-k8s-device-plugin)/ },
+  { id: "web-compute", label: "Web and compute", pattern: /^(bitnami\/(apache|nginx|phpmyadmin|spark)|cloudpirates\/nginx|kubeflow\/)/ },
 ];
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",

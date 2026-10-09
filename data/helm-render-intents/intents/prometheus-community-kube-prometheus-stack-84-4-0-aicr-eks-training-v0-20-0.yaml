@@ -1,0 +1,821 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmRenderIntent"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0"
+  labels:
+    component: "prometheus-community/kube-prometheus-stack"
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "84.4.0"
+    base: "aicr-eks-training-v0-20-0"
+    catalogLayer: "F2b"
+spec:
+  component: "prometheus-community/kube-prometheus-stack"
+  chart:
+    name: "prometheus-community/kube-prometheus-stack"
+    version: "84.4.0"
+    sourceRepository: "https://prometheus-community.github.io/helm-charts"
+    sourceContent: ""
+  baseVariant: "aicr-eks-training-v0-20-0"
+  renderInputs:
+    recipe: "recipes/prometheus-community/kube-prometheus-stack/84.4.0"
+    variant: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+    revision: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/kube-prometheus-stack/84.4.0/bases/aicr-eks-training-v0-20-0"
+    installerPackageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+    sourceLock: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/source-lock.yaml"
+    namespace: "monitoring"
+    releaseName: "kube-prometheus-stack"
+    valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/effective-values-aicr-eks-training-v0-20-0.yaml"
+    capabilityProfile:
+      apiVersions:
+        []
+      kubeVersion: "1.30.0"
+    hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+    revision: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+    packageBase: "packages/prometheus-community/kube-prometheus-stack/84.4.0/bases/aicr-eks-training-v0-20-0"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "todo"
+    localKind: "todo"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "todo"
+    liveDualParity: "todo"
+    twoClusterKind: "todo"
+    variantPromotion: "missing-confighub-proof"
+  lifecycle:
+    routeContract: "yes"
+    routeCount: "7"
+    dispositions: "observed:7"
+    executionModes: "target-owned:3; user-executes:4"
+    safeAutomatic: "0/7"
+    contractPath: "data/lifecycle-routes/summary.md"
+    jsonPath: "data/lifecycle-routes/routes.json"
+    variantRoutes:
+      -
+        routeName: "preserve-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: ""
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — your cluster handles it"
+          flux: "none — your cluster handles it"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "postsync-check-or-observation"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "post-apply"
+        actionKind: "run-check"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a post-apply check (receipted)"
+        operatingDetails: ""
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PostSync"
+          flux: "post-apply Job / follow-on Kustomization"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "Your delivery — a post-apply check (receipted)"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PostSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "post-apply Job / follow-on Kustomization"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: ""
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: ""
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "preserve-ordering"
+        quirkClass: "hook-weight-ordering"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — must apply CRDs before dependent objects"
+        operatingDetails: ""
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "no extra hook — keep CRDs before dependent objects"
+          flux: "no extra hook — make sure CRDs are applied before workloads"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "target-facts-or-preflight"
+        quirkClass: "target-facts"
+        lifecyclePhase: "preflight"
+        actionKind: "stage-target-facts"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        operatingDetails: ""
+        command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — supply the inputs before sync"
+          flux: "none — supply the inputs before sync"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "webhook-readiness-observation"
+        quirkClass: "webhook-readiness"
+        lifecyclePhase: "observe"
+        actionKind: "observe-webhook"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness"
+        operatingDetails: ""
+        command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: "Run this route for 84.4.0 and record the result before treating it as observed for this version."
+        evidenceRequired: "a live receipt for 84.4.0 and this base"
+        sourceDrift: "route source version 85.3.0; recipe version 84.4.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"
+          flux: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "wait for the certificate handoff, then observe webhook and workload health after sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "actionable-gap"
+      reason: "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0 instead of 84.4.0."
+      evidence:
+        - "data/hook-lifecycle/receipt-index.csv"
+        - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+      nextAction: "Run the lifecycle proof for 84.4.0, then update the route source version and receipt."
+  targetFacts:
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podmonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "probes.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusagents.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheuses.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusrules.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scrapeconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        -
+          applyMode: "server-side"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "thanosrulers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+          packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+          name: "kube-prometheus-admission"
+          namespace: "monitoring"
+          purpose: "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it"
+          suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"
+    requirements:
+      -
+        category: "crd"
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "alertmanagers.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "podmonitors.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "probes.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheusagents.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheuses.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "prometheusrules.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "scrapeconfigs.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "servicemonitors.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "crd"
+        name: "thanosrulers.monitoring.coreos.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        check: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        applyMode: "server-side"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/84.4.0/prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+      -
+        category: "secret"
+        name: "monitoring/kube-prometheus-admission"
+        namespace: "monitoring"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it"
+        check: "package://prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+    actions:
+      []
+    review:
+      status: "not-recorded"
+      decision: "not-reviewed"
+      scope: ""
+      evidence:
+        []
+    coverage:
+      state: "attached"
+      reason: "11 target prerequisites declared by this base."
+      declarationSource: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/variants/aicr-eks-training-v0-20-0/variant.yaml"
+      evidence:
+        []
+      nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/84.4.0/effective-values-aicr-eks-training-v0-20-0.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 11
+      lifecycleRouteCount: 7
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
+  provenance:
+    matrixRowKind: "base"
+    catalogLayer: "F2b"
+    customizationLayer: "F2b rendered standard fork"
+    rowStatus: "real"
+    githubRecipeUrl: "https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0"
+    githubPackageBaseUrl: "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/84.4.0/bases/aicr-eks-training-v0-20-0"
+    fullModelPath:
+      - "chart/version: prometheus-community/kube-prometheus-stack@84.4.0"
+      - "recipe: recipes/prometheus-community/kube-prometheus-stack/84.4.0"
+      - "base variant: aicr-eks-training-v0-20-0"
+      - "render intent: data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-84-4-0-aicr-eks-training-v0-20-0.yaml"
+      - "rendered revision: recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+      - "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+      - "package base: packages/prometheus-community/kube-prometheus-stack/84.4.0/bases/aicr-eks-training-v0-20-0"
+      - "ConfigHub Units: created when the package is uploaded"
+      - "managed variants: created after upload with cub variant create/promote"
+      - "targets and observations: recorded by the live lanes when run"
+status:
+  disposition: "real-base-render-intent"
+  claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
+  limits:
+    - "Candidate and custom-discussion rows are not emitted as runnable render intents."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
+    - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training-v1-0-0"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "kube-system"
+  releaseName: "aws-ebs-csi-driver"
+  valuesProfile: "../../effective-values-aicr-eks-training-v1-0-0.yaml"
+  capabilityProfile:
+    kubeVersion: "1.33.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

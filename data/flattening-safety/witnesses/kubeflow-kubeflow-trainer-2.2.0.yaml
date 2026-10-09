@@ -1,0 +1,66 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  chart:
+    repository: "kubeflow"
+    name: "kubeflow-trainer"
+    version: "2.2.0"
+  package:
+    sha256: "34191da2886a91d9effb0543087ef0ad19b870b094c336c2ca34f474cba0030e"
+    observedAt: "2026-10-08T13:44:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 78
+  subcharts:
+    count: 2
+    conditions:
+      -
+        dependency: "jobset"
+        condition: "jobset.install"
+      -
+        dependency: "lws"
+        condition: "dataCache.enabled,dataCache.lws.install"
+  crds:
+    files: 5
+    documents: 5
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "charts/jobset/templates/prometheus/service_monitor.yaml:18"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 6
+      files:
+        - "charts/jobset/templates/webhook/mutating_webhook_configuration.yaml:18"
+        - "charts/jobset/templates/webhook/validating_webhook_configuration.yaml:18"
+        - "charts/lws/templates/webhook/webhook.yaml:2"
+        - "charts/lws/templates/webhook/webhook.yaml:51"
+        - "templates/webhook/mutating_webhook_configuration.yaml:18"
+        - "templates/webhook/validating_webhook_configuration.yaml:18"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

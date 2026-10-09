@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "dra-driver-nvidia-gpu-gpu-resources-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "29aaf2e6ba3dce216ef70bcb1cd14afcd8dbcbe4e30cec982c48f36befe6e93d"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for gpu-resources"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the two resource.nvidia.com CRDs must be established before the controller starts; the target must serve resource.k8s.io/v1, which Kubernetes does from 1.34, or it rejects the DeviceClass objects"

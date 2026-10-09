@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:fe5fd946797f6286736a4f59ae4e775482574d89aa4fa8454841146b272f074a",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -37,7 +37,7 @@
     "rationale": "Certificate controllers require the selected CRDs and issuer configuration; this classification does not issue a certificate.",
     "assignment": {
       "path": "data/catalog-roles/assignments.json",
-      "sha256": "sha256:eefdfe9332f2fd59e75a2a129b0202e3b5fc417fea566f8a0af309faf93c97ab",
+      "sha256": "sha256:449399bbc13680cf84b065b95c1aad4b014aff48376180864c81ba9346c2f8e5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/catalog-roles/assignments.json"
     },
     "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."

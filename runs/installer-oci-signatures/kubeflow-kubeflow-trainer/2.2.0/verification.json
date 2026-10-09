@@ -1,0 +1,17 @@
+[
+  {
+    "critical": {
+      "identity": {
+        "docker-reference": "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+      },
+      "image": {
+        "docker-manifest-digest": "sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+      },
+      "type": "https://sigstore.dev/cosign/sign/v1"
+    },
+    "optional": {
+      "confighub.com/package-path": "packages/kubeflow/kubeflow-trainer/2.2.0",
+      "confighub.com/package-sha256": "76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c"
+    }
+  }
+]

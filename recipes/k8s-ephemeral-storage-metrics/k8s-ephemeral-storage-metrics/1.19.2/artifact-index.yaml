@@ -1,0 +1,308 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2"
+  chart: "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics"
+  version: "1.19.2"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics"
+    version: "1.19.2"
+    appVersion: "1.19.2"
+    sourceLock: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml"
+    dependencyLock: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/dependency-lock.yaml"
+    repository: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+    packageSHA256: "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+  recipe:
+    path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-plan.yaml"
+    chartDossier: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/chart-dossier.yaml"
+    controlPoints: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/control-points.yaml"
+    valueModel: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "3/3"
+      inConfigHub: "0/3"
+      localLive: "0/3"
+      gitopsLive: "0/3"
+      liveParity: "0/3"
+    featureSummary: "none-recorded"
+    hardGap: "-"
+    nextAction: "review chart analysis and create a recipe candidate"
+  installerPackage:
+    path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2"
+    manifestDigest: "sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
+    layerDigest: "sha256:70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
+    publicationReceipt: "runs/installer-oci/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics/1.19.2/installer-package-publication-receipt.yaml"
+    installer: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/installer.yaml"
+    receipt: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/default"
+        default: true
+        description: "k8s-ephemeral-storage-metrics chart defaults variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      -
+        name: "aicr-eks-training-v0-20-0"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/aicr-eks-training-v0-20-0"
+        default: false
+        description: "k8s-ephemeral-storage-metrics AICR v0.20.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      -
+        name: "aicr-eks-training-v1-0-0"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/aicr-eks-training-v1-0-0"
+        default: false
+        description: "k8s-ephemeral-storage-metrics AICR v1.0.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/variants/default/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "k8s-ephemeral-storage-metrics"
+      valuesProfile: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+      targetFactSummary: "required CRD servicemonitors.monitoring.coreos.com"
+      packageBase:
+        name: "default"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/default"
+        default: true
+        description: "k8s-ephemeral-storage-metrics chart defaults variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/variant-revision.yaml"
+          digest: "9c4c82ec91fbdcc90be7abef50459a11377625e3756f77deb811ee178a627feb"
+          renderedObjectSetSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+          renderedObjects: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+    -
+      name: "aicr-eks-training-v0-20-0"
+      variant: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/variants/aicr-eks-training-v0-20-0/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "k8s-ephemeral-storage-metrics"
+      valuesProfile: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/effective-values-aicr-eks-training-v0-20-0.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+      targetFactSummary: "required CRD servicemonitors.monitoring.coreos.com"
+      packageBase:
+        name: "aicr-eks-training-v0-20-0"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/aicr-eks-training-v0-20-0"
+        default: false
+        description: "k8s-ephemeral-storage-metrics AICR v0.20.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "aicr-eks-training-v0-20-0-r001"
+          revision: "r001"
+          variantRevision: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+          digest: "c0ac53008cd84b746660bd3e688affca0375e44a64df12c5f163018713d1053d"
+          renderedObjectSetSHA256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+          renderedObjects: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+    -
+      name: "aicr-eks-training-v1-0-0"
+      variant: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/variants/aicr-eks-training-v1-0-0/variant.yaml"
+      namespace: "monitoring"
+      releaseName: "k8s-ephemeral-storage-metrics"
+      valuesProfile: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/effective-values-aicr-eks-training-v1-0-0.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            applyMode: "server-side"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@88.6.3/default"
+      targetFactSummary: "required CRD servicemonitors.monitoring.coreos.com"
+      packageBase:
+        name: "aicr-eks-training-v1-0-0"
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/aicr-eks-training-v1-0-0"
+        default: false
+        description: "k8s-ephemeral-storage-metrics AICR v1.0.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||monitoring"
+      revisions:
+        -
+          name: "aicr-eks-training-v1-0-0-r001"
+          revision: "r001"
+          variantRevision: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
+          digest: "b870bc0edbe4dd760787b364774c6477cad06dcd8ff4a498b9ec9a3500e8a31c"
+          renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+          renderedObjects: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92"

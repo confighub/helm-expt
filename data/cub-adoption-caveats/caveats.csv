@@ -33,6 +33,8 @@ coredns/coredns,1.45.2,default,no,,,,no,0,,customize;prune;ssa-conflict
 crossplane-stable/crossplane,2.3.1,default,no,,,,no,0,,customize;prune;ssa-conflict
 descheduler/descheduler,0.36.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 dex/dex,0.24.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+dra-driver-nvidia/dra-driver-nvidia-gpu,0.5.0,default,no,,,,yes,2,,customize;prune;ssa-conflict
+eks/aws-efa-k8s-device-plugin,v0.5.29,default,no,,,,no,0,,customize;prune;ssa-conflict
 elastic/eck-operator,3.4.0,default,no,,,,yes,12,no-crds,customize;prune;ssa-conflict
 elastic/filebeat,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
 elastic/kibana,8.5.1,default,no,,,,no,0,,customize;prune;ssa-conflict
@@ -67,8 +69,11 @@ jaegertracing/jaeger-operator,2.57.0,default,no,,,,yes,3,,customize;prune;ssa-co
 jetstack/cert-manager,v1.21.1,default,no,,,,yes,6,,customize;prune;ssa-conflict
 jetstack/cert-manager-csi-driver,v0.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jetstack/trust-manager,v0.22.1,default,no,,default,kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,3,no-crds,customize;prune;ssa-conflict
+k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics,1.19.2,default,no,,,,yes,1,,customize;prune;ssa-conflict
+kai-scheduler/kai-scheduler,v0.16.9,default,no,,,,yes,6,,customize;prune;ssa-conflict
 karpenter/karpenter,1.14.0,default,no,,,,yes,5,,customize;prune;ssa-conflict
 kedacore/keda,2.19.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
+kubeflow/kubeflow-trainer,2.2.0,default,no,,,,yes,4,,customize;prune;ssa-conflict
 kyverno/kyverno,3.9.0,default,no,,,,yes,22,,customize;prune;ssa-conflict
 kyverno/kyverno-policies,3.9.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 linkerd/linkerd-crds,1.8.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
@@ -82,9 +87,11 @@ nats/nack,0.34.0,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
 nats/nats,2.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 nats/surveyor,0.20.9,default,no,,,,no,0,,customize;prune;ssa-conflict
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,default,no,,,,no,0,,customize;prune;ssa-conflict
+node-feature-discovery/node-feature-discovery,0.19.0,default,no,,,,yes,3,,customize;prune;ssa-conflict
 nvidia/cluster-readiness-engine,v0.6.0,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/gpu-operator,v26.7.1,default,no,,,,yes,8,,customize;prune;ssa-conflict
 nvidia/k8s-nim-operator,3.1.2,default,no,,,,yes,9,,customize;prune;ssa-conflict
+nvidia/nodewright,v0.19.0,default,no,,,,yes,4,,customize;prune;ssa-conflict
 nvidia/nvidia-device-plugin,0.19.3,default,no,,,,no,0,,customize;prune;ssa-conflict
 nvidia/nvsentinel,v1.9.0,default,no,,,,yes,1,,customize;prune;ssa-conflict
 oauth2-proxy/oauth2-proxy,10.7.0,default,no,,,,no,0,,customize;prune;ssa-conflict

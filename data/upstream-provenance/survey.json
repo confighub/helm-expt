@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-08T05:55:00.947Z",
+  "observedAt": "2026-10-08T21:02:03.731Z",
   "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
-  "repositories": 61,
+  "repositories": 68,
   "charts": [
     {
       "lock": "recipes/aqua/trivy-operator/0.32.1/source-lock.yaml",
@@ -177,6 +177,18 @@
       "sourceType": "HelmChart",
       "provenance": "unknown",
       "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/source-lock.yaml",
+      "repositoryURL": "https://kubernetes-sigs.github.io/aws-ebs-csi-driver",
+      "chart": "aws-ebs-csi-driver",
+      "version": "2.59.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/download/helm-chart-aws-ebs-csi-driver-2.59.0/aws-ebs-csi-driver-2.59.0.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
       "detail": ""
     },
     {
@@ -519,6 +531,38 @@
       "version": "0.24.0",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/dexidp/helm-charts/releases/download/dex-0.24.0/dex-0.24.0.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml",
+      "repositoryURL": "oci://registry.k8s.io/dra-driver-nvidia/charts",
+      "chart": "dra-driver-nvidia-gpu",
+      "version": "0.4.1",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/source-lock.yaml",
+      "repositoryURL": "oci://registry.k8s.io/dra-driver-nvidia/charts",
+      "chart": "dra-driver-nvidia-gpu",
+      "version": "0.5.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/source-lock.yaml",
+      "repositoryURL": "https://aws.github.io/eks-charts",
+      "chart": "aws-efa-k8s-device-plugin",
+      "version": "v0.5.29",
+      "sourceType": "HelmChart",
+      "tarball": "https://aws.github.io/eks-charts/aws-efa-k8s-device-plugin-v0.5.29.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
@@ -1041,6 +1085,38 @@
       "detail": ""
     },
     {
+      "lock": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml",
+      "repositoryURL": "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart",
+      "chart": "k8s-ephemeral-storage-metrics",
+      "version": "1.19.2",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics/releases/download/1.19.2/k8s-ephemeral-storage-metrics-1.19.2.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/kai-scheduler/kai-scheduler/v0.14.1/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/kai-scheduler/kai-scheduler",
+      "chart": "kai-scheduler",
+      "version": "v0.14.1",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/kai-scheduler/kai-scheduler/v0.16.9/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/kai-scheduler/kai-scheduler",
+      "chart": "kai-scheduler",
+      "version": "v0.16.9",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
       "lock": "recipes/karpenter/karpenter/1.14.0/source-lock.yaml",
       "repositoryURL": "oci://public.ecr.aws/karpenter",
       "chart": "karpenter",
@@ -1060,6 +1136,16 @@
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/kubeflow/kubeflow-trainer/2.2.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/kubeflow/charts",
+      "chart": "kubeflow-trainer",
+      "version": "2.2.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
       "detail": ""
     },
     {
@@ -1315,6 +1401,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml",
+      "repositoryURL": "https://kubernetes-sigs.github.io/node-feature-discovery/charts",
+      "chart": "node-feature-discovery",
+      "version": "0.19.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/kubernetes-sigs/node-feature-discovery/releases/download/v0.19.0/node-feature-discovery-chart-0.19.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/nvidia/cluster-readiness-engine/v0.6.0/source-lock.yaml",
       "repositoryURL": "oci://ghcr.io/nvidia",
       "chart": "cluster-readiness-engine",
@@ -1394,6 +1492,26 @@
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nodewright/v0.17.1/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia/nodewright/charts",
+      "chart": "nodewright",
+      "version": "v0.17.1",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/nvidia/nodewright/v0.19.0/source-lock.yaml",
+      "repositoryURL": "oci://ghcr.io/nvidia/nodewright/charts",
+      "chart": "nodewright",
+      "version": "v0.19.0",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "oci",
       "detail": ""
     },
     {
@@ -1581,6 +1699,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/prometheus-community/kube-prometheus-stack/84.4.0/source-lock.yaml",
+      "repositoryURL": "https://prometheus-community.github.io/helm-charts",
+      "chart": "kube-prometheus-stack",
+      "version": "84.4.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-84.4.0/kube-prometheus-stack-84.4.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml",
       "repositoryURL": "https://prometheus-community.github.io/helm-charts",
       "chart": "kube-prometheus-stack",
@@ -1707,6 +1837,18 @@
       "version": "4.55.0",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-node-exporter-4.55.0/prometheus-node-exporter-4.55.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/source-lock.yaml",
+      "repositoryURL": "https://prometheus-community.github.io/helm-charts",
+      "chart": "prometheus-operator-crds",
+      "version": "28.0.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/prometheus-community/helm-charts/releases/download/prometheus-operator-crds-28.0.1/prometheus-operator-crds-28.0.1.tgz",
       "provStatus": 200,
       "provenance": "signed",
       "reason": "provenance-file-published",

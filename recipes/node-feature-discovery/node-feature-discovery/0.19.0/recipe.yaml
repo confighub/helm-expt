@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery"
+  version: "0.19.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/node-feature-discovery/node-feature-discovery/0.19.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/node-feature-discovery/node-feature-discovery/0.19.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "node-feature-discovery"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training-v0-20-0/variant.yaml"
+    - "variants/aicr-eks-training-v1-0-0/variant.yaml"

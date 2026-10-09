@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "dra-driver-nvidia"
+  repositoryURL: "oci://registry.k8s.io/dra-driver-nvidia/charts"
+  chart: "dra-driver-nvidia-gpu"
+  version: "0.4.1"
+  appVersion: "0.4.1"
+  packageSHA256: "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+  packageBytes: 20198
+  exactArtifact:
+    url: "oci://registry.k8s.io/dra-driver-nvidia/charts/dra-driver-nvidia-gpu:0.4.1"
+    sha256: "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  chart:
+    name: "nodewright"
+    repository: "nvidia"
+    version: "v0.17.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/nvidia/nodewright/v0.17.1 -o <tmp>/nodewright-v0.17.1.tgz"
+    sha256: "b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859"
+  package:
+    name: "nvidia-nodewright"
+    path: "packages/nvidia/nodewright/v0.17.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "cfeed5b6702a200d8fdb3c0768dfd1cbf3387f62501411064e4c080f632c1671"
+        bytes: 267
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+        bytes: 74389
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+        bytes: 74275
+      -
+        path: "collector/target-facts.sh"
+        sha256: "f74c7a98bd072247a3bd1bef81b3d83a7e5d90efb76bc1d30cbd9d84b58a6f19"
+        bytes: 3918
+      -
+        path: "installer.yaml"
+        sha256: "b9e2cacd144acd3b25b86281d4e7b172087032f4772c94e5c5f33dd7fb445406"
+        bytes: 1612
+      -
+        path: "prerequisites/nodewright-lifecycle/README.md"
+        sha256: "35f1147f92b4ed244d56455c378c059d0978d7185b0fd0c62ec00cec79b31185"
+        bytes: 1334
+      -
+        path: "prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
+        sha256: "9b2c0c3dc5fb14cbe5a829127fdd1a49dbe50d7be39851badcc1b3c3ec7f518e"
+        bytes: 5574
+      -
+        path: "prerequisites/nodewright-lifecycle/aicr-eks-training/pre-upgrade.yaml"
+        sha256: "7fa40ba97cc1be114e13bc24e65a392d8416ad99a5279df72845403beaf5cd6e"
+        bytes: 5589
+      -
+        path: "prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+        sha256: "bea7bda62633cd5fe80f290d1f3bd0ebcc1baf9a963cb40753d398f900a31f85"
+        bytes: 5472
+      -
+        path: "prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        sha256: "711ee83cae5d67061597c9a75c52adc71f3bb67c6b77232980cc78957250bb89"
+        bytes: 5496
+      -
+        path: "prerequisites/nodewright-lifecycle/generation-receipt.yaml"
+        sha256: "b8d8ea9b2e0a728d0c357405fefe30ff293853474607ab4b7785ecf2010d888d"
+        bytes: 3032
+      -
+        path: "prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+        sha256: "4d0f7029d26d35177ce9a803c4239078d645a29735f2bffd2d0b872f9e5d5033"
+        bytes: 4884
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "ca9012a94f3807210233460881c69e4440b6880b7f9ce07467c5b83b4bcb6d79"
+        bytes: 52855
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "66f28317d06d4d900b04baae610130652dec98a6c018bebb21fef6c9d4ddc660"
+        bytes: 52845
+    version: "v0.17.1"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||skyhook"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/nodewright/v0.17.1 --base default --work-dir <tmp> --non-interactive --namespace skyhook"
+      cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||skyhook"
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/nvidia/nodewright/v0.17.1 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace skyhook"
+      cubInstallObjectCountIncludingSupport: 19
+      helmReleaseObjectCount: 18
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"

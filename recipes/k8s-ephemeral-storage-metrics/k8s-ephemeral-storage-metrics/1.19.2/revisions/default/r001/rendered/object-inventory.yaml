@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|monitoring|k8s-ephemeral-storage-metrics"
+      kind: "Deployment"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: "monitoring"
+    -
+      apiVersion: "monitoring.coreos.com/v1"
+      identity: "monitoring.coreos.com/v1|ServiceMonitor|monitoring|k8s-ephemeral-storage-metrics"
+      kind: "ServiceMonitor"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: "monitoring"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||k8s-ephemeral-storage-metrics"
+      kind: "ClusterRoleBinding"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||k8s-ephemeral-storage-metrics"
+      kind: "ClusterRole"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|monitoring|k8s-ephemeral-storage-metrics"
+      kind: "ServiceAccount"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: "monitoring"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|monitoring|k8s-ephemeral-storage-metrics"
+      kind: "Service"
+      name: "k8s-ephemeral-storage-metrics"
+      namespace: "monitoring"

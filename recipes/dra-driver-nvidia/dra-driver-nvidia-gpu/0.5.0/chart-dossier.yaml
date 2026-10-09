@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0"
+spec:
+  chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+  version: "0.5.0"
+  caveats:
+    - "The kubelet plugin needs NVIDIA drivers on the node. The AICR values point it at /run/nvidia/driver, the path the GPU Operator's driver container uses; chart defaults use the host root."
+    - "With resources.gpus.enabled true the driver publishes GPUs itself and must not run beside the standard GPU device plugin on the same node. The gpu-resources base does not check that."
+    - "Nothing in this entry creates a ResourceClaim or a ComputeDomain. Installing the driver allocates nothing by itself."
+  openQuestions:
+    -
+      bases:
+        - "default"
+      question: "The chart refuses to render its own defaults, so the default base sets resources.gpus.enabled false: is that the right meaning of default for this entry, or should the entry have no default base?"
+    -
+      bases:
+        - "default"
+        - "gpu-resources"
+        - "aicr-eks-training"
+      question: "The DeviceClass objects are rendered as resource.k8s.io/v1, which Kubernetes serves from 1.34, although the chart accepts 1.32: does the Catalog need bases for clusters that serve only v1beta1 or v1beta2?"
+  maintainedNotes:
+    - "This package is the exact dra-driver-nvidia-gpu@0.5.0 chart, locked by archive URL and SHA-256."
+    - "dra-driver-nvidia-gpu@0.5.0 does not render with chart defaults: templates/validation.yaml stops the render while resources.gpus.enabled is true and gpuResourcesEnabledOverride is false. The default base sets resources.gpus.enabled false and renders 21 objects as release nvidia-dra-driver-gpu in namespace nvidia-dra-driver: two CRDs, two DeviceClass objects for ComputeDomain channels and daemons, the controller Deployment, the kubelet plugin DaemonSet, three ServiceAccounts, RBAC, and a ValidatingAdmissionPolicy with its binding. It renders no Secret, no webhook configuration and no Helm hook."
+    - "The gpu-resources base renders 24 objects with chart defaults with gpuResourcesEnabledOverride true, which the chart requires before it will render resources.gpus.enabled true; the chart's values.yaml and its refusal message say this driver must then not share a node with the standard GPU device plugin."
+    - "The aicr-eks-training base renders 21 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml): GPU allocation off and ComputeDomains on, the name overridden to nvidia-dra-driver-gpu, the driver root set to /run/nvidia/driver, the kubelet plugin selected onto nodes labelled nvidia.com/gpu.present, every pod tolerating every taint and annotated with gpu-operator chart version v26.7.1. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The bases are rendered for Kubernetes 1.34.0. The DeviceClass objects are resource.k8s.io/v1 in every base. The chart chooses that version from the API versions the render reports, and an offline Helm render reports v1 whatever --kube-version says, so the same bytes render for 1.32 through 1.35."
+    - "The chart contains no lookup, no generated credential, no keep annotation, no Namespace template and no subchart. Its capability branches choose the resource.k8s.io version and add OpenShift RBAC when the cluster has SecurityContextConstraints, which an offline render does not report."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "target-facts"
+    - "production-readiness-review"

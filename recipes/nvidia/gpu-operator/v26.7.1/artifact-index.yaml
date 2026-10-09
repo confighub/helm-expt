@@ -53,9 +53,9 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: ""
-    userStatus: ""
-    strongestEvidence: ""
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "7/7"
       inConfigHub: "0/7"
@@ -63,8 +63,8 @@ spec:
       gitopsLive: "0/7"
       liveParity: "0/7"
     featureSummary: "none-recorded"
-    hardGap: ""
-    nextAction: ""
+    hardGap: "-"
+    nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/nvidia/gpu-operator/v26.7.1"
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"

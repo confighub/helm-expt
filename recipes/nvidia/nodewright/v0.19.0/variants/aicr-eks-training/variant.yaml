@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "nodewright"
+  releaseName: "nodewright-operator"
+  valuesProfile: "../../effective-values-aicr-eks-training.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "deploymentpolicies.nodewright.nvidia.com"
+        sourceVariant: "aicr-eks-training"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "deploymentpolicies.skyhook.nvidia.com"
+        sourceVariant: "aicr-eks-training"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "nodewrights.nodewright.nvidia.com"
+        sourceVariant: "aicr-eks-training"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "skyhooks.skyhook.nvidia.com"
+        sourceVariant: "aicr-eks-training"
+        purpose: "CRD included in this base and applied before the operator that reconciles it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

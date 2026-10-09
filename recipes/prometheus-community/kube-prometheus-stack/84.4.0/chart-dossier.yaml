@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "84.4.0"
+  caveats:
+    - "A base alone does not give a working operator. The operator Deployment mounts the admission Secret, which only the packaged pre-install lifecycle action creates."
+    - "The webhook configurations render with failurePolicy Ignore and no CA bundle. Until the admission-patch Job writes the CA, the API server cannot call the webhooks and admits PrometheusRule and AlertmanagerConfig objects unvalidated."
+    - "The Grafana admin password in every base is known to anyone who can read this repository."
+    - "The AICR bases ask for a 50Gi volume from a StorageClass named gp3, which the target must have."
+    - "The hook image is referenced by tag. It is not pinned by digest here."
+  openQuestions:
+    -
+      bases:
+        - "default"
+        - "aicr-eks-training-v0-20-0"
+        - "aicr-eks-training-v1-0-0"
+      question: "The other versions of this chart in the Catalog carry a packaged admission-webhook setup route with the hook image pinned by digest, and this version's hook image digest was not looked up, so should 84.4.0 get that route or keep its hooks as recorded lifecycle actions?"
+    -
+      bases:
+        - "aicr-eks-training-v0-20-0"
+        - "aicr-eks-training-v1-0-0"
+      question: "The AICR values set the Grafana admin password to the literal value admin, and this base carries it in a Secret byte for byte: should a Catalog base ship a well-known credential?"
+  maintainedNotes:
+    - "This package is the exact kube-prometheus-stack@84.4.0 chart, locked by archive URL and SHA-256."
+    - "kube-prometheus-stack@84.4.0 is declared with the generic proof, not with scripts/kube-prometheus-stack-proof.mjs like the other Catalog versions of this chart. Those versions carry a packaged admission-webhook setup route whose hook image is pinned by digest. This version's hook image is ghcr.io/jkroepke/kube-webhook-certgen:1.8.2, its digest is recorded nowhere in this repository and was not looked up, and the route's scripts name objects the AICR values rename. So this entry has no such route. Its hook objects are packaged as recorded lifecycle actions instead."
+    - "The default base renders 126 objects as release kube-prometheus-stack in namespace monitoring with the Grafana admin password bound to a placeholder: ten CRDs, the Prometheus Operator, Grafana, kube-state-metrics and node exporter workloads, a Prometheus and an Alertmanager custom resource, 35 PrometheusRule objects, 13 ServiceMonitors, 31 ConfigMaps, a mutating and a validating webhook configuration, and two Secrets."
+    - "Every base's values also render seven Helm hook objects that no base holds. The admission-create Job runs before an install or upgrade and writes a self-signed certificate into a Secret; the admission-patch Job runs afterwards and writes the CA into the two webhook configurations, which render with no CA bundle. Five RBAC objects serve both Jobs. They are packaged under prerequisites/kube-prometheus-stack-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The aicr-eks-training-v0-20-0 base renders 116 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml): the chart's CRDs off, the full name overridden to kube-prometheus and the subcharts renamed, the Grafana admin password set to the literal value admin, Prometheus given 15 days of retention and a 50Gi gp3 volume, resource requests and limits set, and every pod tolerating every taint. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object, once the 7 Helm hook objects that render also holds are set aside."
+    - "The aicr-eks-training-v1-0-0 base renders 116 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml): the v0.20.0 values with every component except the node exporter also selected onto the system-worker node group. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The two Secrets in every base are the Alertmanager configuration and the Grafana admin credentials. Both are fixed by values, so nothing is generated at render time. The Grafana password is a placeholder in the default base and the literal value admin in the AICR bases."
+    - "The chart's lookup calls and its random password are all in the Grafana subchart, and none is reached: the admin password is set in every base, persistence is off and the image renderer is off."
+    - "The packaged Chart.lock lists five dependencies: crds, kube-state-metrics, prometheus-node-exporter, grafana and prometheus-windows-exporter."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "helm-hook-lifecycle-actions"
+    - "target-facts"
+    - "production-readiness-review"

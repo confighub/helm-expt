@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "jobset.install"
+      disposition: "left-at-default"
+      reason: "True by chart default and in every base, so the vendored JobSet subchart renders: its CRD, controller, webhooks and an empty certificate Secret."
+      note: "a cluster that already runs JobSet would get a second copy; that scenario is not offered as a base"
+      evidence: "Chart.yaml dependencies (jobset with condition jobset.install), charts/jobset"
+    -
+      path: "dataCache.enabled"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base, so the LeaderWorkerSet subchart and the data cache runtime do not render."
+      evidence: "Chart.yaml dependencies (lws with condition dataCache.enabled,dataCache.lws.install), values.yaml dataCache"
+    -
+      path: "runtimes.defaultEnabled"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base, so no ClusterTrainingRuntime object renders."
+      note: "the AICR entries add their runtimes through their own kubeflow-trainer-post component, which is not part of this entry"
+      evidence: "templates/runtimes, values.yaml runtimes"
+    -
+      path: "jobset.prometheus.enable"
+      disposition: "left-at-default"
+      reason: "False by chart default and in every base. Turning it on makes the JobSet subchart fail the render unless the capability set reports the ServiceMonitor API, which an offline render does not."
+      evidence: "charts/jobset/templates/prometheus/service_monitor.yaml"
+    -
+      path: "<aicr-eks-training-v0-20-0 values>"
+      variant: "aicr-eks-training-v0-20-0"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml): the full name set to kubeflow-trainer, the manager given resource requests and limits and tolerating every taint, and the JobSet controller tolerating every taint. Several keys in the AICR values, among them crds, manager.metrics, manager.leaderElection and webhook.enabled, are not defined in the chart's values.yaml; the render differs from the default base only in the two controller Deployments"
+      note: "adds no object to the default base and removes none; it differs only at the fields those values reach, and the proof checks the object set"
+    -
+      path: "<aicr-eks-training-v1-0-0 values>"
+      variant: "aicr-eks-training-v1-0-0"
+      disposition: "variant-axis"
+      reason: "the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/012-kubeflow-trainer/values.yaml): the v0.20.0 values with the manager and the JobSet controller also selected onto the system-worker node group, and jobset.install written in place of jobset.enabled. Several keys in the AICR values, among them crds, manager.metrics, manager.leaderElection and webhook.enabled, are not defined in the chart's values.yaml; the render differs from the default base only in the two controller Deployments"
+      note: "adds no object to the default base and removes none; it differs only at the fields those values reach, and the proof checks the object set"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

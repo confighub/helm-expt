@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "k8s-ephemeral-storage-metrics"
+  repositoryURL: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+  chart: "k8s-ephemeral-storage-metrics"
+  version: "1.19.2"
+  appVersion: "1.19.2"
+  packageSHA256: "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+  packageBytes: 12058
+  exactArtifact:
+    url: "https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics/releases/download/1.19.2/k8s-ephemeral-storage-metrics-1.19.2.tgz"
+    sha256: "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

@@ -1,0 +1,99 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogChart",
+  "chartVersion": "1",
+  "schema": "https://confighub.github.io/helm-expt/site/chart.schema.json",
+  "chart": "kubeflow/kubeflow-trainer",
+  "format": "helm",
+  "url": "https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer.json",
+  "page": "https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer.html",
+  "counts": {
+    "versions": 1,
+    "bases": 3
+  },
+  "versions": [
+    {
+      "version": "2.2.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/kubeflow-kubeflow-trainer-2-2-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "kubeflow-kubeflow-trainer-2-2-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-default.json"
+          },
+          "objectCount": 28,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616",
+            "objectSetDigest": "sha256:517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v0-20-0",
+          "default": false,
+          "listing": {
+            "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.json"
+          },
+          "objectCount": 28,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc",
+            "objectSetDigest": "sha256:9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc"
+          }
+        },
+        {
+          "base": "aicr-eks-training-v1-0-0",
+          "default": false,
+          "listing": {
+            "id": "kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0",
+            "url": "https://confighub.github.io/helm-expt/site/listings/kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.json"
+          },
+          "objectCount": 28,
+          "verdict": "flatten-with-routes",
+          "published": false,
+          "flagged": true,
+          "objects": {
+            "path": "recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa",
+            "objectSetDigest": "sha256:6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+          }
+        }
+      ]
+    }
+  ],
+  "summaries": [],
+  "compare": {
+    "computedOnDemand": true,
+    "core": {
+      "command": "cub config diff",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "55c51a67db2c9517e21bd3286207e28ff1a78ed3",
+      "path": "lib/config-diff.mjs",
+      "sha256": "9265ab17a157ef8b00171384f24ec58ae939aac210e5a1a4208a432dae4578b1"
+    },
+    "recipe": [
+      "curl -fsSL -o before.yaml <objects.url of the first base>",
+      "curl -fsSL -o after.yaml <objects.url of the second base>",
+      "cub config diff before.yaml after.yaml --summary"
+    ]
+  },
+  "liveExample": null
+}

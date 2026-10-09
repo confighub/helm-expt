@@ -14,6 +14,7 @@ import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
 import { check, readYaml, relativeRepo, repoRoot, toYaml, write } from "./lib/proof-common.mjs";
+import { aicrNestedChartVerdicts } from "./lib/aicr-nested-chart-verdicts.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -6545,6 +6546,8 @@ const CHARTS = [
     variantScope: [],
   },
   ...nvidiaGpuStackVerdicts(),
+  // The charts the retained AICR EKS training entries pin (scripts/lib/aicr-nested-charts-coverage.mjs).
+  ...aicrNestedChartVerdicts(),
 ];
 
 // The NVIDIA GPU stack entries (scripts/lib/nvidia-gpu-stack-coverage.mjs). Each

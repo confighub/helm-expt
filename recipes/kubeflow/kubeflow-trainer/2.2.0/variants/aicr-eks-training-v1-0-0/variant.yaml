@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training-v1-0-0"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "kubeflow"
+  releaseName: "kubeflow-trainer"
+  valuesProfile: "../../effective-values-aicr-eks-training-v1-0-0.yaml"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "clustertrainingruntimes.trainer.kubeflow.org"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "jobsets.jobset.x-k8s.io"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "trainingruntimes.trainer.kubeflow.org"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "trainjobs.trainer.kubeflow.org"
+        sourceVariant: "aicr-eks-training-v1-0-0"
+        purpose: "CRD included in this base and applied before the controllers that reconcile it"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"

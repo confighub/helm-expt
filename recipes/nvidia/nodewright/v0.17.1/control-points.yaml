@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      dependencyCount: 0
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+    -
+      category: "lifecycle-policy"
+      status: "attention-required"
+      policy: "no-hooks"
+      note: "the bases are rendered with --no-hooks; every base's values also render 4 pre-upgrade and 2 pre-delete Helm hook objects. They are packaged under prerequisites/nodewright-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
+    -
+      category: "crd-lifecycle"
+      status: "review-required"
+      count: 2
+    -
+      category: "target-facts"
+      status: "review-required"
+      note: "the CRDs must be established before the operator starts; the operator mints its own webhook certificate at run time, and until it has, the webhook configurations reject writes to its custom resources; the pre-upgrade and pre-delete hook objects are packaged lifecycle actions, not part of the base"
+    -
+      category: "catalog-coverage"
+      status: "packaged-with-controls"
+      note: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"

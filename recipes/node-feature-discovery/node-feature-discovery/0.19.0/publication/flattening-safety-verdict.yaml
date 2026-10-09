@@ -1,0 +1,100 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0"
+spec:
+  chart:
+    repository: "node-feature-discovery"
+    name: "node-feature-discovery"
+    version: "0.19.0"
+    packageSHA256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+  witnessRef: "data/flattening-safety/witnesses/node-feature-discovery-node-feature-discovery-0.19.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "four post-delete hook objects render with this base's values and none is in the base: the prune Job, which runs nfd-master -prune, with its ServiceAccount, ClusterRole and ClusterRoleBinding. The Job removes the labels, annotations, taints and extended resources NFD put on every node"
+      disposition: "packaged lifecycle action under prerequisites/node-feature-discovery-lifecycle, marked not automatic; it has not been run on a cluster. A delete that skips it leaves the node labels in place"
+      evidence:
+        - "templates/post-delete-job.yaml:10"
+        - "templates/post-delete-job.yaml:20"
+        - "templates/post-delete-job.yaml:41"
+        - "templates/post-delete-job.yaml:60"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "three CRDs render in this base and no object in the base is an instance of them. The master reads NodeFeatureRule objects and the workers write NodeFeature objects as soon as they start"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "1 crds-directory file(s), 4 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "postDeleteCleanup false"
+      effect: "the four prune hook objects leave the render and with them the post-delete route; node labels then stay on a delete"
+    -
+      values: "topologyUpdater.enable and topologyUpdater.createCRDs"
+      effect: "add the topology updater DaemonSet with its ServiceAccount, ClusterRole, ClusterRoleBinding and ConfigMap, and the fourth CRD, noderesourcetopologies.topology.node.k8s.io"
+    -
+      values: "master.nodeSelector, gc.nodeSelector and tolerations"
+      effect: "change where the pods run and move no finding"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render, as release nfd in namespace node-feature-discovery. The packaged chart has no lookup, no capability branch, no generated value, no keep annotation, no webhook, no Namespace template and no subchart, and the render agrees: no Secret and no Job. Nothing is decided at render time. What flattening drops is the four post-delete hook objects, and what it needs is the CRDs applied before the master and the workers start. The namespace is named on the namespaced objects and no Namespace object is rendered, so it must exist before the base is applied. The worker (and the topology updater, where it renders) reads the host through hostPath mounts; that is the chart's design and moves no flattening finding. The base renders 17 objects: 3 CustomResourceDefinitions, 3 ServiceAccounts, 2 ConfigMaps, 2 ClusterRoles, 2 ClusterRoleBindings, 1 Role, 1 RoleBinding, 1 DaemonSet and 2 Deployments."
+    routes:
+      - "CRD ordering declaration: the three CRDs are established before the master and the workers start, from the packaged CRD bundle"
+      - "post-delete lifecycle action that runs the prune Job, recorded in the package and not yet run"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/node-feature-discovery-node-feature-discovery-0.19.0.yaml"
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml"

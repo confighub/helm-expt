@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-28.0.1"
+spec:
+  chart:
+    name: "prometheus-operator-crds"
+    repository: "prometheus-community"
+    version: "28.0.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus-operator-crds/28.0.1 -o <tmp>/prometheus-operator-crds-28.0.1.tgz"
+    sha256: "6a601a0b29e812364d8840b2f8ea22e0e3ea66ce56e73c1038af150288257481"
+  package:
+    name: "prometheus-community-prometheus-operator-crds"
+    path: "packages/prometheus-community/prometheus-operator-crds/28.0.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "f82831c15cf0bd7f1816e2dcde7900cca61f88f58f134f8a9bb097d66fee2db4"
+        bytes: 334
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+        bytes: 4479980
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+        bytes: 4479980
+      -
+        path: "collector/target-facts.sh"
+        sha256: "a61ec59b0b0ada3d7e13fa50e05c94042b125064e370b5cb922c3736790b7cc6"
+        bytes: 9402
+      -
+        path: "installer.yaml"
+        sha256: "04c19b2c647f9840c8742fb5b0ecbbeac7cdba23186902c43402cc55fa66a13f"
+        bytes: 5353
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "9fdbf9c0bc59eb8f270d87cf8f2b4cb0a5ed14abee249eb3abc0524ddcce683b"
+        bytes: 4140522
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "acc267d1a1394c4bcaed7c146e81fc7e3ed4ba0f82d547bfd36b09d4cf00bd92"
+        bytes: 4140512
+    version: "28.0.1"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-operator-crds/28.0.1 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-operator-crds/28.0.1 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace monitoring"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"

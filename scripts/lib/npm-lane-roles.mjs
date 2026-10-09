@@ -288,6 +288,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "not run here, needs network; the packages are not published yet, so it refuses until the maintainer publishes",
   },
+  "aicr-nested-charts-oci:verify": {
+    proves: "That each installer package of the charts the retained AICR EKS training entries pin is published as the bytes this repository committed: for every package it re-packs the local tree with `cub installer package` and compares the SHA to the digest committed in the recipe's installer-package-receipt.yaml, checks the publication receipt names that package, reference and digest, then runs `cub installer inspect <oci ref> --json` against europe-west1-docker.pkg.dev with no registry credentials and checks the remote layer digest equals the committed digest and the remote manifest digest equals the receipt's.",
+    requires: "network",
+    disposition: "keep-outside",
+    status: "not run here, needs network; the packages are not published yet, so it refuses until the maintainer publishes",
+  },
   "kubara-catalog-promotion:stage:verify": {
     proves: "That the disposable staging tree .tmp/kubara-catalog-root-promotion holds root-ready proof and package trees for all seven historical Kubara components — each with a source-lock pinned to the promoted version and exact artifact URL — and that promoting them would not disturb the 120-root immutable baseline.",
     requires: "network",

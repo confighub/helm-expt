@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "grafana.adminPassword"
+      disposition: "variant-axis"
+      reason: "Empty by chart default, and the Grafana subchart then looks for an existing Secret and otherwise generates a random password, so the render is not repeatable. The default base binds a placeholder. The AICR values set the literal value admin."
+      note: "every base's Grafana Secret holds a fixed password that is readable in this repository; none is fit for production as it stands"
+      evidence: "charts/grafana/templates/_config.tpl, charts/grafana/templates/_helpers.tpl"
+    -
+      path: "crds.enabled"
+      disposition: "variant-axis"
+      reason: "True by chart default, so the default base holds the ten Prometheus Operator CRDs. The AICR values set it false and install prometheus-operator-crds 28.0.1 first."
+      note: "the AICR bases need the CRDs on the target; the package carries a copy from the prometheus-operator-crds 28.0.1 entry"
+      evidence: "Chart.yaml dependencies (crds with condition crds.enabled), charts/crds"
+    -
+      path: "prometheusOperator.admissionWebhooks.patch.enabled"
+      disposition: "left-at-default"
+      reason: "True by chart default and in every base. It renders the seven hook objects that create the webhook certificate Secret and write its CA into the two webhook configurations."
+      note: "packaged as recorded lifecycle actions; the hook image is ghcr.io/jkroepke/kube-webhook-certgen:1.8.2 by tag, not pinned by digest"
+      evidence: "templates/prometheus-operator/admission-webhooks/job-patch, values.yaml prometheusOperator.admissionWebhooks.patch"
+    -
+      path: "fullnameOverride"
+      disposition: "variant-axis"
+      reason: "Empty by chart default. The AICR values set it to kube-prometheus and rename the Grafana, kube-state-metrics and node exporter subcharts, which renames most objects."
+      evidence: "templates/_helpers.tpl"
+    -
+      path: "<aicr-eks-training-v0-20-0 values>"
+      variant: "aicr-eks-training-v0-20-0"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml): the chart's CRDs off, the full name overridden to kube-prometheus and the subcharts renamed, the Grafana admin password set to the literal value admin, Prometheus given 15 days of retention and a 50Gi gp3 volume, resource requests and limits set, and every pod tolerating every taint"
+      note: "the AICR values set crds.enabled false and fullnameOverride, so this base holds none of the ten CRDs and most objects are renamed; it is not described as objects added to or removed from the default base"
+    -
+      path: "<aicr-eks-training-v1-0-0 values>"
+      variant: "aicr-eks-training-v1-0-0"
+      disposition: "variant-axis"
+      reason: "the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/008-kube-prometheus-stack/values.yaml): the v0.20.0 values with every component except the node exporter also selected onto the system-worker node group"
+      note: "the AICR values set crds.enabled false and fullnameOverride, so this base holds none of the ten CRDs and most objects are renamed; it is not described as objects added to or removed from the default base"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

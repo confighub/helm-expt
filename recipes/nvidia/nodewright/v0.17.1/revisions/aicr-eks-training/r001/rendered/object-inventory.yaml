@@ -1,0 +1,117 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "nvidia-nodewright-v0.17.1-aicr-eks-training-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "6b25ebafd5569b97caf3dab889873641f69ec5595fa7d2ff5262042d8927b3ed"
+  objectCount: 18
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration||skyhook-operator-mutating-webhook"
+      kind: "MutatingWebhookConfiguration"
+      name: "skyhook-operator-mutating-webhook"
+      namespace: ""
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||skyhook-operator-validating-webhook"
+      kind: "ValidatingWebhookConfiguration"
+      name: "skyhook-operator-validating-webhook"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||deploymentpolicies.skyhook.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "deploymentpolicies.skyhook.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||skyhooks.skyhook.nvidia.com"
+      kind: "CustomResourceDefinition"
+      name: "skyhooks.skyhook.nvidia.com"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|skyhook|skyhook-operator-controller-manager"
+      kind: "Deployment"
+      name: "skyhook-operator-controller-manager"
+      namespace: "skyhook"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|skyhook|skyhook-operator-controller-manager-allow-all"
+      kind: "NetworkPolicy"
+      name: "skyhook-operator-controller-manager-allow-all"
+      namespace: "skyhook"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget||skyhook-operator-controller-manager-pdb"
+      kind: "PodDisruptionBudget"
+      name: "skyhook-operator-controller-manager-pdb"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||skyhook-operator-manager-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "skyhook-operator-manager-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||skyhook-operator-proxy-rolebinding"
+      kind: "ClusterRoleBinding"
+      name: "skyhook-operator-proxy-rolebinding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-manager-role"
+      kind: "ClusterRole"
+      name: "skyhook-operator-manager-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-metrics-reader"
+      kind: "ClusterRole"
+      name: "skyhook-operator-metrics-reader"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||skyhook-operator-proxy-role"
+      kind: "ClusterRole"
+      name: "skyhook-operator-proxy-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|skyhook|skyhook-operator-leader-election-rolebinding"
+      kind: "RoleBinding"
+      name: "skyhook-operator-leader-election-rolebinding"
+      namespace: "skyhook"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|skyhook|skyhook-operator-leader-election-role"
+      kind: "Role"
+      name: "skyhook-operator-leader-election-role"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|LimitRange|skyhook|skyhook-operator-default-limits"
+      kind: "LimitRange"
+      name: "skyhook-operator-default-limits"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|skyhook|skyhook-operator-controller-manager"
+      kind: "ServiceAccount"
+      name: "skyhook-operator-controller-manager"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|skyhook|skyhook-operator-controller-manager-metrics-service"
+      kind: "Service"
+      name: "skyhook-operator-controller-manager-metrics-service"
+      namespace: "skyhook"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|skyhook|skyhook-operator-webhook-service"
+      kind: "Service"
+      name: "skyhook-operator-webhook-service"
+      namespace: "skyhook"

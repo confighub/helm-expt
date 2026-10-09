@@ -1,0 +1,31 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0
+  observedAt: "2026-10-08T20:38:46.272Z"
+  package:
+    path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0
+    sha256: ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92
+    sourceTreeSHA256: 9c0c815f778bb0f0de34aeada827444c859be60233f92e20e99c8ec0ca04fd9c
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0.tgz"
+    push: "cub installer push <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0 --json"
+  outputs:
+    manifestDigest: sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd
+    layerDigest: sha256:ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92
+    package: |
+      Bundled aws-ebs-csi-driver-aws-ebs-csi-driver@
+        output: <tmp>
+        files:  8
+        size:   6345 bytes
+        digest: sha256:ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0
+        manifest: sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd
+        layer:    sha256:ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92 (6345 bytes, 8 files)
+    inspectJSONSHA256: 0a3806b3a7079e79b72d1fff295423df87e01dd0348674c5ea8f88239d4c75de
+    inspectJSONCanonicalSHA256: 2dacb4fea52cf3681bf8f542b2434e05246d9a1f6c2da17b56896f95758e6e70

@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training"
+spec:
+  files:
+    -
+      path: "effective-values-aicr-eks-training.yaml"
+      source: "inline-proof"
+      sha256: "802cd3325e424be2ec5f5fd0a09fe7d859ea19c951fa1b57442b68cb0f22867d"
+  mergedValuesCaptured: false
+  values:
+    defaultQueue:
+      childName: "default-queue"
+      createDefaultQueue: true
+      parentName: "default-parent-queue"
+    global:
+      nodeSelector:
+        nodeGroup: "system-worker"
+      tolerations:
+        -
+          operator: "Exists"
+    postCleanup:
+      enabled: false

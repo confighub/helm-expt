@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.14.1"
+spec:
+  chart: "kai-scheduler/kai-scheduler"
+  version: "v0.14.1"
+  dependencies:
+    []

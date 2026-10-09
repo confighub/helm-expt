@@ -1,0 +1,43 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-nodewright"
+  version: "v0.17.1"
+spec:
+  bases:
+    -
+      default: true
+      description: "nodewright chart defaults variant rendered from nvidia/nodewright@v0.17.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD deploymentpolicies.skyhook.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD skyhooks.skyhook.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side"
+      name: "default"
+      path: "bases/default"
+    -
+      description: "nodewright AICR v0.20.0 EKS training values variant rendered from nvidia/nodewright@v0.17.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD deploymentpolicies.skyhook.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+        -
+          kind: "ClusterFeature"
+          name: "CRD skyhooks.skyhook.nvidia.com"
+          suggestedSource: "package://prerequisites/target-facts/aicr-eks-training-crds.yaml"
+          applyMode: "server-side"
+      name: "aicr-eks-training"
+      path: "bases/aicr-eks-training"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

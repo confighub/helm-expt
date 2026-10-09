@@ -1,0 +1,249 @@
+---
+# Source: kai-scheduler/templates/hooks/pre/topology-migration/rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kai-topology-migration
+  namespace: kai-scheduler
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+---
+# Source: kai-scheduler/templates/rbac/crd-manager.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kai-scheduler-crd-manager
+  namespace: kai-scheduler
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+---
+# Source: kai-scheduler/templates/hooks/pre/topology-migration/configmap.yaml
+# Copyright 2025 NVIDIA CORPORATION
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: topology-migration-script
+  namespace: kai-scheduler
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+data:
+  migrate-topologies.sh: |
+    #!/bin/bash
+    # Copyright 2025 NVIDIA CORPORATION
+    # SPDX-License-Identifier: Apache-2.0
+
+    # Migrate Kueue Topology CRs to KAI Topology CRs
+    # This script is idempotent - it skips topologies that already exist in KAI
+
+    set -e
+
+    echo "Checking for Kueue Topology CRD..."
+
+    # Check if Kueue Topology CRD exists
+    if ! kubectl get crd topologies.kueue.x-k8s.io > /dev/null 2>&1; then
+      echo "Kueue Topology CRD not found, skipping migration."
+      exit 0
+    fi
+
+    echo "Kueue Topology CRD found. Starting migration..."
+
+    # Get all Kueue Topology names
+    TOPO_NAMES=$(kubectl get topologies.kueue.x-k8s.io -o jsonpath='{.items[*].metadata.name}' 2>/dev/null || echo "")
+
+    if [ -z "$TOPO_NAMES" ]; then
+      echo "No Kueue Topologies found to migrate."
+      exit 0
+    fi
+
+    echo "Found Kueue Topologies to migrate: $TOPO_NAMES"
+
+    # Process each topology
+    for TOPO_NAME in $TOPO_NAMES; do
+      echo "Migrating topology: $TOPO_NAME"
+
+      # Check if KAI Topology already exists
+      if kubectl get topologies.kai.scheduler "$TOPO_NAME" > /dev/null 2>&1; then
+        echo "KAI Topology '$TOPO_NAME' already exists, skipping."
+        continue
+      fi
+
+      # Extract the levels spec using go-template and create KAI Topology
+      kubectl get topologies.kueue.x-k8s.io "$TOPO_NAME" \
+        -o go-template='apiVersion: kai.scheduler/v1
+    kind: Topology
+    metadata:
+      name: {{.metadata.name}}
+      annotations:
+        kai.scheduler/migrated-from: "kueue.x-k8s.io"
+    spec:
+      levels:
+    {{- range .spec.levels}}
+      - nodeLabel: "{{.nodeLabel}}"
+    {{- end}}
+    ' | kubectl apply -f -
+
+      echo "Successfully migrated topology: $TOPO_NAME"
+    done
+
+    echo "Topology migration completed."
+---
+# Source: kai-scheduler/templates/hooks/pre/topology-migration/rbac.yaml
+# Copyright 2025 NVIDIA CORPORATION
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kai-topology-migration
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+rules:
+# Permission to check if Kueue Topology CRD exists
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  resourceNames: ["topologies.kueue.x-k8s.io"]
+  verbs: ["get"]
+# Permission to read Kueue Topologies
+- apiGroups: ["kueue.x-k8s.io"]
+  resources: ["topologies"]
+  verbs: ["get", "list"]
+# Permission to create/update KAI Topologies
+- apiGroups: ["kai.scheduler"]
+  resources: ["topologies"]
+  verbs: ["get", "list", "create", "update", "patch"]
+---
+# Source: kai-scheduler/templates/rbac/crd-manager.yaml
+# Copyright 2025 NVIDIA CORPORATION
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kai-scheduler-crd-manager
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+rules:
+- apiGroups: ["apiextensions.k8s.io"]
+  resources: ["customresourcedefinitions"]
+  resourceNames:
+    - configs.kai.scheduler
+    - schedulingshards.kai.scheduler
+    - bindrequests.scheduling.run.ai
+    - podgroups.scheduling.run.ai
+    - queues.scheduling.run.ai
+    - topologies.kai.scheduler
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+# Source: kai-scheduler/templates/hooks/pre/topology-migration/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kai-topology-migration
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kai-topology-migration
+subjects:
+- kind: ServiceAccount
+  name: kai-topology-migration
+  namespace: kai-scheduler
+---
+# Source: kai-scheduler/templates/rbac/crd-manager.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kai-scheduler-crd-manager
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kai-scheduler-crd-manager
+subjects:
+- kind: ServiceAccount
+  name: kai-scheduler-crd-manager
+  namespace: kai-scheduler
+---
+# Source: kai-scheduler/templates/hooks/pre/crd-upgrader.yaml
+# Copyright 2025 NVIDIA CORPORATION
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: crd-upgrader
+  namespace: kai-scheduler
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  template:
+    metadata:
+      labels:
+        app: crd-upgrader
+    spec:
+      serviceAccountName: kai-scheduler-crd-manager
+      containers:
+      - name: upgrader
+        image: "ghcr.io/kai-scheduler/kai-scheduler/crd-upgrader:v0.16.9"
+        imagePullPolicy: IfNotPresent
+      restartPolicy: OnFailure
+      nodeSelector:
+        nodeGroup: system-worker
+      tolerations:
+        - operator: Exists
+---
+# Source: kai-scheduler/templates/hooks/pre/topology-migration/job.yaml
+# Copyright 2025 NVIDIA CORPORATION
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: topology-migration
+  namespace: kai-scheduler
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "4"
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  template:
+    metadata:
+      labels:
+        app: topology-migration
+    spec:
+      serviceAccountName: kai-topology-migration
+      containers:
+      - name: migration
+        image: "ghcr.io/kai-scheduler/kai-scheduler/crd-upgrader:v0.16.9"
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "/scripts/migrate-topologies.sh"]
+        volumeMounts:
+        - name: migration-script
+          mountPath: /scripts
+      volumes:
+      - name: migration-script
+        configMap:
+          name: topology-migration-script
+          defaultMode: 0755
+      restartPolicy: OnFailure
+      nodeSelector:
+        nodeGroup: system-worker
+      tolerations:
+        - operator: Exists

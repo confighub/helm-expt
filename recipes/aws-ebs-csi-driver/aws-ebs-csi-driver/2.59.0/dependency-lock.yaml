@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  version: "2.59.0"
+  dependencies:
+    []

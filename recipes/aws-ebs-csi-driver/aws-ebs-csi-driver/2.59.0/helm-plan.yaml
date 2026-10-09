@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0"
+spec:
+  readiness:
+    status: "packaged-with-controls"
+    chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    version: "2.59.0"
+    variants:
+      - "default"
+      - "aicr-eks-training-v0-20-0"
+      - "aicr-eks-training-v1-0-0"
+    helmObjectsByVariant:
+      default: 19
+      aicr-eks-training-v0-20-0: 19
+      aicr-eks-training-v1-0-0: 19
+    cubInstallObjectsByVariant:
+      default: 20
+      aicr-eks-training-v0-20-0: 20
+      aicr-eks-training-v1-0-0: 20
+    helmMatchByVariant:
+      default: "19/19"
+      aicr-eks-training-v0-20-0: "19/19"
+      aicr-eks-training-v1-0-0: "19/19"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish and sign the package, then complete target-specific live qualification on an AWS target before production"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v0-20-0/r001/receipts/install-gate.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/render-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/scan-receipt.yaml"
+    - "revisions/aicr-eks-training-v1-0-0/r001/receipts/install-gate.yaml"

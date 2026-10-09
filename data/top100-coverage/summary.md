@@ -7,34 +7,34 @@ required.
 ## Summary
 
 ~~~text
-charts: 115
+charts: 122
 covered: 20
-partial: 95
-average coverage: 87%
+partial: 102
+average coverage: 85%
 ~~~
 
 ## Coverage By Item
 
 | Item | Requirement | Pass | Todo | N/A |
 | --- | --- | ---: | ---: | ---: |
-| a | pinned chart version | 115 | 0 | 0 |
-| b | reviewed named base variant | 115 | 0 | 0 |
-| c | render parity receipt | 115 | 0 | 0 |
-| d | pain report and quirk axes | 115 | 0 | 0 |
-| e | facts declared | 115 | 0 | 0 |
-| f | scan and production disposition | 20 | 95 | 0 |
-| g | live witness or routed reason | 86 | 29 | 0 |
-| h | catalog and site entry | 115 | 0 | 0 |
+| a | pinned chart version | 122 | 0 | 0 |
+| b | reviewed named base variant | 122 | 0 | 0 |
+| c | render parity receipt | 122 | 0 | 0 |
+| d | pain report and quirk axes | 122 | 0 | 0 |
+| e | facts declared | 122 | 0 | 0 |
+| f | scan and production disposition | 20 | 102 | 0 |
+| g | live witness or routed reason | 79 | 43 | 0 |
+| h | catalog and site entry | 122 | 0 | 0 |
 
 ## Coverage By Bucket
 
 | Bucket | Charts |
 | --- | ---: |
 | `try-from-public-catalog` | 20 |
-| `promote-after-review` | 40 |
-| `needs-useful-variant` | 39 |
+| `needs-useful-variant` | 46 |
+| `promote-after-review` | 34 |
 | `limitation-decision-first` | 7 |
-| `not-ready` | 9 |
+| `not-ready` | 15 |
 
 ## Lowest Coverage Rows
 
@@ -44,17 +44,17 @@ average coverage: 87%
 | `aws-controllers-k8s/eks-chart@1.16.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-controllers-k8s/iam-chart@1.7.3` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `cloudnative-pg/cloudnative-pg@0.29.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `cloudpirates/nginx@0.16.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `cloudpirates/rabbitmq@0.21.13` | 75% | `promote-after-review` | run catalog promotion review |
 | `cloudpirates/redis@0.34.11` | 75% | `promote-after-review` | run catalog promotion review |
 | `dex/dex@0.24.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
+| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
+| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 75% | `not-ready` | review chart analysis and create a recipe candidate |
 | `elastic/filebeat@8.5.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `elastic/kibana@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `elastic/metricbeat@8.5.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `gitlab/gitlab-runner@0.89.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `grafana/alloy@1.12.1` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `hashicorp/terraform@1.1.2` | 75% | `promote-after-review` | run catalog promotion review |
-| `istio/gateway@1.30.0` | 75% | `promote-after-review` | run catalog promotion review |
 
 ## Files
 

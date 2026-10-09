@@ -719,18 +719,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
-          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, no-crds. The Catalog holds 4 other versions, 86.1.0, 87.15.1, 87.19.2 and 88.6.3.</p>
+          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, no-crds. The Catalog holds 5 other versions, 84.4.0, 86.1.0, 87.15.1, 87.19.2 and 88.6.3.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the no-crds base of the same version</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff prometheus-community-kube-prometheus-stack-85-3-3-default.yaml prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml --summary
 
-<span class="term-comment"># fetch the default base at version 86.1.0</span>
-<span class="term-prompt">$</span> curl -fsSL -o prometheus-community-kube-prometheus-stack-86-1-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml
+<span class="term-comment"># fetch the default base at version 84.4.0</span>
+<span class="term-prompt">$</span> curl -fsSL -o prometheus-community-kube-prometheus-stack-84-4-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/84.4.0/revisions/default/r001/rendered/release-objects.yaml
 
-<span class="term-comment"># list what changes from 85.3.3 to 86.1.0</span>
-<span class="term-prompt">$</span> cub config diff prometheus-community-kube-prometheus-stack-85-3-3-default.yaml prometheus-community-kube-prometheus-stack-86-1-0-default.yaml --summary</code></pre>
+<span class="term-comment"># list what changed from 84.4.0 to 85.3.3</span>
+<span class="term-prompt">$</span> cub config diff prometheus-community-kube-prometheus-stack-84-4-0-default.yaml prometheus-community-kube-prometheus-stack-85-3-3-default.yaml --summary</code></pre>
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
@@ -803,7 +803,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
-          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, default. The Catalog holds 4 other versions, 86.1.0, 87.15.1, 87.19.2 and 88.6.3.</p>
+          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, default. The Catalog holds 5 other versions, 84.4.0, 86.1.0, 87.15.1, 87.19.2 and 88.6.3.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the default base of the same version</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-kube-prometheus-stack-85-3-3-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml
 

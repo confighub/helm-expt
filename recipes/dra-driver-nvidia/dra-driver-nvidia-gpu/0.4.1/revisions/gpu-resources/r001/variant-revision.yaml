@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "gpu-resources-r001"
+spec:
+  variant: "../../../variants/gpu-resources/variant.yaml"
+  revision: "r001"
+  digest: "ce9d1b1a04ebe927376f4c027aef4d37c8eaef299034dc0b04c3cb58aacc5709"
+  digestInputs:
+    recipeSHA256: "2298db9929501384e60478dd2a756f7674197b86375c7d74be0acdefd4ec2b8a"
+    variantSHA256: "a1bd274c0768a89d4f6dce8188c2509c884ee3029e9f0e6385b2287a9ae85510"
+    effectiveValuesSHA256: "fe4723e9e39dcda4a06156866908db58a7e9ce08bd2859ffec59ab2baca3b49c"
+    rendererSHA256: "ef9c36e43b56cb98411c1f8d6c280791f61948a3b385f86ad1e9e904e7a6694c"
+    renderedObjectSetSHA256: "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 24

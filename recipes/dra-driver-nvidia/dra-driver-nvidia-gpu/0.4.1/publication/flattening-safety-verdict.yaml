@@ -1,0 +1,103 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1"
+spec:
+  chart:
+    repository: "dra-driver-nvidia"
+    name: "dra-driver-nvidia-gpu"
+    version: "0.4.1"
+    packageSHA256: "c1c316f6bdcfe5fed3ff649cff1b43be50d27d0cb1aaf9d29e7bdca1eaa331ce"
+  witnessRef: "data/flattening-safety/witnesses/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present-gated"
+      detail: "the chart's ValidatingWebhookConfiguration, with its cert-manager or user-supplied certificate, renders only when webhook.enabled is true, which these values leave false. The base renders a ValidatingAdmissionPolicy and its binding instead, which need no certificate"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/validatingwebhookconfiguration.yaml:3"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "the chart picks the resource.k8s.io version of its two DeviceClass objects from the API versions the render reports, newest first, and resourceApiVersion is left empty. An offline Helm render reports resource.k8s.io/v1 whatever --kube-version says, so the base holds v1 objects, which Kubernetes serves from 1.34 although the chart accepts 1.32. A second branch adds OpenShift RBAC when the cluster reports SecurityContextConstraints, which an offline render does not"
+      disposition: "render inputs pin Kubernetes 1.34.0 and the base's target facts say the target must serve resource.k8s.io/v1; a cluster that serves only v1beta1 or v1beta2 needs its own render"
+      evidence:
+        - "templates/_helpers.tpl:190"
+        - "templates/_helpers.tpl:192"
+        - "templates/_helpers.tpl:194"
+        - "templates/rbac-compute-domain-daemon.yaml:41"
+        - "templates/rbac-kubeletplugin.yaml:80"
+        - "values.yaml:48"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "two resource.nvidia.com CRDs render in this base, from the chart's crds directory; no object in the base is an instance of them"
+      disposition: "ordering declaration ships with the bundle: the base's target facts name the CRDs and the package carries them as a CRD bundle"
+      evidence:
+        - "2 crds-directory file(s), 2 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "gpuResourcesEnabledOverride true with resources.gpus.enabled true (the gpu-resources base)"
+      effect: "adds three DeviceClass objects for GPUs, MIG devices and VFIO GPUs and changes the kubelet plugin DaemonSet; the driver must then not share a node with the standard GPU device plugin"
+    -
+      values: "resourceApiVersion set"
+      effect: "the DeviceClass objects render at that resource.k8s.io version instead of v1; the finding set does not move"
+    -
+      values: "webhook.enabled true"
+      effect: "adds a ValidatingWebhookConfiguration, a webhook Deployment and Service, and either cert-manager objects or a Secret reference; that base needs its own verdict"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Hand read of the chart against this base's render. The chart has no hook, no lookup, no generated value, no keep annotation, no Namespace template and no subchart, and no Secret renders. One thing is decided at render time: the resource.k8s.io version of the DeviceClass objects, which follows the render's capability set and is v1 here. So the companions are the two CRDs before the controller, and a target that serves resource.k8s.io/v1, recorded as a target fact. The kubelet plugin also needs NVIDIA drivers on the node, which this chart does not install. The chart refuses to render its own defaults: it stops while resources.gpus.enabled is true and gpuResourcesEnabledOverride is false. This base sets resources.gpus.enabled false, so the driver serves ComputeDomains only and publishes no GPU. Whether that is the right default base is recorded as an open question on the entry."
+    routes:
+      - "CRD ordering declaration: the two resource.nvidia.com CRDs are established before the controller starts, from the packaged CRD bundle"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1.yaml"
+      - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/source-lock.yaml"

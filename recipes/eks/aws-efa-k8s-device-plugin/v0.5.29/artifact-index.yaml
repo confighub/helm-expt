@@ -1,0 +1,207 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "eks-aws-efa-k8s-device-plugin-v0.5.29"
+  chart: "eks/aws-efa-k8s-device-plugin"
+  version: "v0.5.29"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "eks/aws-efa-k8s-device-plugin"
+    version: "v0.5.29"
+    appVersion: "v0.5.20"
+    sourceLock: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/source-lock.yaml"
+    dependencyLock: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/dependency-lock.yaml"
+    repository: "https://aws.github.io/eks-charts"
+    packageSHA256: "078610ef669714f39be77d133674c7721fb3ca123213b3d6b16938c8c0d2e034"
+  recipe:
+    path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-plan.yaml"
+    chartDossier: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/chart-dossier.yaml"
+    controlPoints: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/control-points.yaml"
+    valueModel: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "catalog-coverage"
+      - "dependency-lock"
+      - "lifecycle-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "aicr-eks-training"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: "not-ready"
+    userStatus: "not-in-current-catalog-lane"
+    strongestEvidence: "render-parity"
+    proofLanes:
+      renderParity: "2/2"
+      inConfigHub: "0/2"
+      localLive: "0/2"
+      gitopsLive: "0/2"
+      liveParity: "0/2"
+    featureSummary: "none-recorded"
+    hardGap: "-"
+    nextAction: "review chart analysis and create a recipe candidate"
+  installerPackage:
+    path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29"
+    manifestDigest: "sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+    layerDigest: "sha256:a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
+    publicationReceipt: "runs/installer-oci/eks-aws-efa-k8s-device-plugin/v0.5.29/installer-package-publication-receipt.yaml"
+    installer: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/installer.yaml"
+    receipt: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/bases/default"
+        default: true
+        description: "aws-efa-k8s-device-plugin chart defaults variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
+      -
+        name: "aicr-eks-training"
+        path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/bases/aicr-eks-training"
+        default: false
+        description: "aws-efa-k8s-device-plugin AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/variants/default/variant.yaml"
+      namespace: "kube-system"
+      releaseName: "aws-efa"
+      valuesProfile: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/bases/default"
+        default: true
+        description: "aws-efa-k8s-device-plugin chart defaults variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        helmReleaseObjectCount: 1
+        cubInstallObjectCountIncludingSupport: 2
+        semanticObjectMatches: "1/1"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kube-system"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/variant-revision.yaml"
+          digest: "32fe8e38dda7e88f9464fecbefca01bc3d44b8306f34fd20328c02adf5d41112"
+          renderedObjectSetSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+          renderedObjects: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 1
+          helmObjectCount: 1
+          cubInstallObjectCountIncludingSupport: 2
+          semanticObjectMatches: "1/1"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8"
+    -
+      name: "aicr-eks-training"
+      variant: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/variants/aicr-eks-training/variant.yaml"
+      namespace: "kube-system"
+      releaseName: "aws-efa"
+      valuesProfile: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/effective-values-aicr-eks-training.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "aicr-eks-training"
+        path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/bases/aicr-eks-training"
+        default: false
+        description: "aws-efa-k8s-device-plugin AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kube-system"
+        helmReleaseObjectCount: 1
+        cubInstallObjectCountIncludingSupport: 2
+        semanticObjectMatches: "1/1"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kube-system"
+      revisions:
+        -
+          name: "aicr-eks-training-r001"
+          revision: "r001"
+          variantRevision: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/variant-revision.yaml"
+          digest: "88d19f195329d673840fc43421827d1e8b906e7f44bbd43e58caa2d39b6574f8"
+          renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+          renderedObjects: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
+          objectCount: 1
+          helmObjectCount: 1
+          cubInstallObjectCountIncludingSupport: 2
+          semanticObjectMatches: "1/1"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"

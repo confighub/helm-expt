@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "kubeflow-trainer-aicr-eks-training-v1-0-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+  decision: "warn"
+  allowedScopes:
+    - "catalog-selection"
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for aicr-eks-training-v1-0-0"
+    - "the exact artifact and deterministic installer package are retained; the package is not published and no live run is recorded"
+    - "the four CRDs must be established before the two controllers start; each controller writes its own webhook certificate into a Secret the base creates empty, and until it has, the webhook configurations reject writes to its custom resources"

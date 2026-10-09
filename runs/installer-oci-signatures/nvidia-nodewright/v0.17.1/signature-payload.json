@@ -1,0 +1,16 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+      },
+      "annotations": {
+        "confighub.com/package-path": "packages/nvidia/nodewright/v0.17.1",
+        "confighub.com/package-sha256": "b4519204d2fe695cce42c2a26cd9c797e340710e397e68cecb62c25c05d4d859"
+      }
+    }
+  ],
+  "predicateType": "https://sigstore.dev/cosign/sign/v1",
+  "predicate": {}
+}

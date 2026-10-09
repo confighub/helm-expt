@@ -14,21 +14,21 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 167
-supported (Level 2, all 6): 162
+charts: 180
+supported (Level 2, all 6): 175
 not yet supported: 5
-variant-rich (enhancement, >1 variant): 106
+variant-rich (enhancement, >1 variant): 119
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 167/167
-- `behaviorally_complete`: 162/167
-- `readable`: 167/167
-- `usable`: 167/167
-- `verifiable`: 167/167
-- `honestly_scoped`: 167/167
-- _enhancement_ `variant_complete`: 106/167  (not a support criterion)
+- `render_equivalent`: 180/180
+- `behaviorally_complete`: 175/180
+- `readable`: 180/180
+- `usable`: 180/180
+- `verifiable`: 180/180
+- `honestly_scoped`: 180/180
+- _enhancement_ `variant_complete`: 119/180  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 

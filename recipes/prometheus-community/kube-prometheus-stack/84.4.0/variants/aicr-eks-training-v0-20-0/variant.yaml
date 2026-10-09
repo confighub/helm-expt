@@ -1,0 +1,140 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "aicr-eks-training-v0-20-0"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "monitoring"
+  releaseName: "kube-prometheus-stack"
+  valuesProfile: "../../effective-values-aicr-eks-training-v0-20-0.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "alertmanagers.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "probes.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheusagents.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheuses.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "prometheusrules.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "scrapeconfigs.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+      -
+        name: "thanosrulers.monitoring.coreos.com"
+        sourcePath: "../../../prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml"
+        sourceVariant: "prometheus-community/prometheus-operator-crds@28.0.1/default"
+        purpose: "Prometheus Operator CRD this base does not hold, because the AICR values set crds.enabled false; the AICR entries install prometheus-operator-crds 28.0.1 first, and the package carries a copy from that entry"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        applyMode: "server-side"
+    requiredSecrets:
+      -
+        namespace: "monitoring"
+        name: "kube-prometheus-admission"
+        keys:
+          - "ca"
+          - "cert"
+          - "key"
+        purpose: "Prometheus Operator admission webhook TLS material. The chart's pre-install hook Job creates it; the operator Deployment mounts it and cannot start without it"
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/aicr-eks-training-v0-20-0/pre-install-pre-upgrade.yaml"

@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "kube-prometheus-stack-aicr-eks-training-v0-20-0-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6852e478443ab96b48fa472a206e98265592ce85f8997e82f9d58b94406a7dfc"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "d80d50015a2ec7372f8bfdc47bf2c610c282c68d5e0edcb9b781c2cc34323648"
+  findingCounts:
+    critical: 0
+    high: 7
+    medium: 9
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-prometheus"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-prometheus"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||kube-state-metrics"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||kube-state-metrics"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-operator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-operator"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-prometheus"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-prometheus"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-state-metrics"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-state-metrics"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "privileged-workload-review:apps/v1|DaemonSet|monitoring|prometheus-node-exporter"
+      rule: "privileged-workload-review"
+      severity: "medium"
+      object: "apps/v1|DaemonSet|monitoring|prometheus-node-exporter"
+      message: "Workload runs privileged or in a host namespace and requires production review"
+    -
+      id: "service-selector-has-workload-match:v1|Service|kube-system|kube-prometheus-coredns"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|kube-system|kube-prometheus-coredns"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|kube-system|kube-prometheus-kube-controller-manager"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|kube-system|kube-prometheus-kube-controller-manager"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|kube-system|kube-prometheus-kube-etcd"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|kube-system|kube-prometheus-kube-etcd"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|kube-system|kube-prometheus-kube-proxy"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|kube-system|kube-prometheus-kube-proxy"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|kube-system|kube-prometheus-kube-scheduler"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|kube-system|kube-prometheus-kube-scheduler"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|monitoring|kube-prometheus-alertmanager"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|monitoring|kube-prometheus-alertmanager"
+      message: "Service selector matches no rendered workload pod template"
+    -
+      id: "service-selector-has-workload-match:v1|Service|monitoring|kube-prometheus-prometheus"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+      object: "v1|Service|monitoring|kube-prometheus-prometheus"
+      message: "Service selector matches no rendered workload pod template"

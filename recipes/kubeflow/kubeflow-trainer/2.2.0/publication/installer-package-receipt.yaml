@@ -1,0 +1,103 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "kubeflow-kubeflow-trainer-2.2.0"
+spec:
+  chart:
+    name: "kubeflow-trainer"
+    repository: "kubeflow"
+    version: "2.2.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/kubeflow/kubeflow-trainer/2.2.0 -o <tmp>/kubeflow-trainer-2.2.0.tgz"
+    sha256: "76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c"
+  package:
+    name: "kubeflow-kubeflow-trainer"
+    path: "packages/kubeflow/kubeflow-trainer/2.2.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "71ce9c2cb924f0133d9fd6d3952b03be55f4651a2610b98788e92994f215aa3b"
+        bytes: 287
+      -
+        path: "bases/aicr-eks-training-v0-20-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v0-20-0/upstream.yaml"
+        sha256: "9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc"
+        bytes: 3245201
+      -
+        path: "bases/aicr-eks-training-v1-0-0/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training-v1-0-0/upstream.yaml"
+        sha256: "6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa"
+        bytes: 3245307
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616"
+        bytes: 3244921
+      -
+        path: "collector/target-facts.sh"
+        sha256: "9a9a5dc11d386ff5dae2b5ddcb6eee8772b5a501783beded6d94de9da5ed571e"
+        bytes: 7383
+      -
+        path: "installer.yaml"
+        sha256: "15ba1a7a7da7051e45e88432d4a145f2f330faba89687b27d887c99a2699d504"
+        bytes: 3770
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v0-20-0-crds.yaml"
+        sha256: "dc3fa8edc5267a2600438b59604176aef5f6b90e66c660486ef61da9eda78a29"
+        bytes: 2772704
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-v1-0-0-crds.yaml"
+        sha256: "f3795ed9b3a6f19d2c3a19f302f48ab3814c09303381d79df6057d569b6aa8a4"
+        bytes: 2772703
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "dda0b63a7da88dd7d872deebcf7f3c529ad2d88e970d2b981978ab1ccb7782d7"
+        bytes: 2772686
+    version: "2.2.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kubeflow"
+      base: "default"
+      command: "cub installer setup --pull packages/kubeflow/kubeflow-trainer/2.2.0 --base default --work-dir <tmp> --non-interactive --namespace kubeflow"
+      cubInstallObjectCountIncludingSupport: 29
+      helmReleaseObjectCount: 28
+      semanticObjectMatches: "28/28"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kubeflow"
+      base: "aicr-eks-training-v0-20-0"
+      command: "cub installer setup --pull packages/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
+      cubInstallObjectCountIncludingSupport: 29
+      helmReleaseObjectCount: 28
+      semanticObjectMatches: "28/28"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v0-20-0"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kubeflow"
+      base: "aicr-eks-training-v1-0-0"
+      command: "cub installer setup --pull packages/kubeflow/kubeflow-trainer/2.2.0 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
+      cubInstallObjectCountIncludingSupport: 29
+      helmReleaseObjectCount: 28
+      semanticObjectMatches: "28/28"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training-v1-0-0"

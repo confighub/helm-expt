@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "kube-prometheus-stack-kube-prometheus-stack-84.4.0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "84.4.0"
+  dependencies:
+    -
+      name: "crds"
+      repository: ""
+      version: "0.0.0"
+    -
+      name: "kube-state-metrics"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "7.3.0"
+    -
+      name: "prometheus-node-exporter"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "4.53.1"
+    -
+      name: "grafana"
+      repository: "https://grafana-community.github.io/helm-charts"
+      version: "12.3.0"
+    -
+      name: "prometheus-windows-exporter"
+      repository: "https://prometheus-community.github.io/helm-charts"
+      version: "0.12.6"
+  chartLockDigest: "sha256:716a1f790cc28463498803ccc29b3d3e46f4b3a0054c47e504b12b46a313d975"

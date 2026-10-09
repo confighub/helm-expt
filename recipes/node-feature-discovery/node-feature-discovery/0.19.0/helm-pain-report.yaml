@@ -1,0 +1,110 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0"
+spec:
+  chart:
+    name: "node-feature-discovery/node-feature-discovery"
+    version: "0.19.0"
+    source: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+    digest: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact node-feature-discovery@0.19.0 chart, locked by archive URL and SHA-256."
+    - "With chart defaults node-feature-discovery@0.19.0 renders 17 objects as release nfd in namespace node-feature-discovery, the names the AICR entries use: three CRDs from the chart's crds directory, the master Deployment, the worker DaemonSet, the garbage collector Deployment, three ServiceAccounts, two ConfigMaps and RBAC. It renders no Secret and no webhook configuration."
+    - "The same values also render four post-delete Helm hook objects that no base holds: the prune Job with its ServiceAccount, ClusterRole and ClusterRoleBinding. They are packaged under prerequisites/node-feature-discovery-lifecycle with a lifecycle-actions.yaml record. Nothing runs them automatically and none has been run on a cluster."
+    - "The aicr-eks-training-v0-20-0 base renders 23 objects with the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/004-nfd/values.yaml): the topology updater on with its CRD and resource requests and limits, and the master, worker, garbage collector and topology updater tolerating every taint. Its objects equal the AICR v0.20.0 nested render of the same archive, object for object, once the 4 Helm hook objects that render also holds are set aside."
+    - "The aicr-eks-training-v1-0-0 base renders 23 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/004-nfd/values.yaml): the v0.20.0 values with the master and the garbage collector also selected onto the system-worker node group. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The chart contains no lookup, no .Capabilities branch, no generated credential, no keep annotation, no Namespace template and no subchart."
+    - "The gpu-operator chart vendors this chart as a subchart. A cluster that takes the gpu-operator default base already runs node-feature-discovery; this entry is for running it separately, as the AICR entries do with the gpu-operator's own copy turned off."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "the bases are rendered with --no-hooks; every base's values also render 4 post-delete Helm hook objects. They are packaged under prerequisites/node-feature-discovery-lifecycle with a lifecycle-actions.yaml record, and nothing runs them automatically. No hook has been run on a cluster for this entry."
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "attention-required"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "crd-lifecycle is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the CRDs must be established before the master and the workers start; the four post-delete hook objects are a packaged lifecycle action, not part of the base"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; dead=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; ignored=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  answerForSkepticalHelmUser: "node-feature-discovery/node-feature-discovery@0.19.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

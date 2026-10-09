@@ -1,0 +1,109 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0"
+spec:
+  chart:
+    name: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+    version: "0.5.0"
+    source: "oci://registry.k8s.io/dra-driver-nvidia/charts"
+    digest: "c7ca3dc31a6fa8b85c6fd5ee40948cf8d9162e32f20db9fc085113b4035e8b35"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "This package is the exact dra-driver-nvidia-gpu@0.5.0 chart, locked by archive URL and SHA-256."
+    - "dra-driver-nvidia-gpu@0.5.0 does not render with chart defaults: templates/validation.yaml stops the render while resources.gpus.enabled is true and gpuResourcesEnabledOverride is false. The default base sets resources.gpus.enabled false and renders 21 objects as release nvidia-dra-driver-gpu in namespace nvidia-dra-driver: two CRDs, two DeviceClass objects for ComputeDomain channels and daemons, the controller Deployment, the kubelet plugin DaemonSet, three ServiceAccounts, RBAC, and a ValidatingAdmissionPolicy with its binding. It renders no Secret, no webhook configuration and no Helm hook."
+    - "The gpu-resources base renders 24 objects with chart defaults with gpuResourcesEnabledOverride true, which the chart requires before it will render resources.gpus.enabled true; the chart's values.yaml and its refusal message say this driver must then not share a node with the standard GPU device plugin."
+    - "The aicr-eks-training base renders 21 objects with the values the AICR v1.0.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-helm-bundle/014-nvidia-dra-driver-gpu/values.yaml): GPU allocation off and ComputeDomains on, the name overridden to nvidia-dra-driver-gpu, the driver root set to /run/nvidia/driver, the kubelet plugin selected onto nodes labelled nvidia.com/gpu.present, every pod tolerating every taint and annotated with gpu-operator chart version v26.7.1. The AICR v1.0.0 entry retains these values and no render of this component, so this base is bound to the bundle's checksum list and its Application pin and is not compared with an AICR render."
+    - "The bases are rendered for Kubernetes 1.34.0. The DeviceClass objects are resource.k8s.io/v1 in every base. The chart chooses that version from the API versions the render reports, and an offline Helm render reports v1 whatever --kube-version says, so the same bytes render for 1.32 through 1.35."
+    - "The chart contains no lookup, no generated credential, no keep annotation, no Namespace template and no subchart. Its capability branches choose the resource.k8s.io version and add OpenShift RBAC when the cluster has SecurityContextConstraints, which an offline render does not report."
+    - "The retained root proves exact source bytes, deterministic rendering, and deterministic ConfigHub installer packaging. It does not claim publication, live convergence, or production support."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "dependency-lock requires dependency-lock.yaml"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "capability-profile is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "lifecycle-policy"
+      detectedPainPoint: "no base's render contains a Helm hook object, with or without --no-hooks"
+      evidence:
+        - "no-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "crd-lifecycle"
+      detectedPainPoint: "crd-lifecycle is detected in this chart and mapped to a ConfigHub control point"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the two resource.nvidia.com CRDs must be established before the controller starts; the target must serve resource.k8s.io/v1, which Kubernetes does from 1.34, or it rejects the DeviceClass objects"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "review-required"
+    -
+      id: "catalog-coverage"
+      detectedPainPoint: "exact source and deterministic package are retained; publication, live qualification and production support remain separate gates"
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "packaged-with-controls"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; dead=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof; ignored=not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  answerForSkepticalHelmUser: "dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0 maps its detected Helm pain to 8 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, target-fact-requirement, recipe, scan-gate, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

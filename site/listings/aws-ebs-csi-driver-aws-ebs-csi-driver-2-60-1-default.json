@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:fe5fd946797f6286736a4f59ae4e775482574d89aa4fa8454841146b272f074a",
+      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -468,15 +468,46 @@
     {
       "id": "compare",
       "label": "Compare with another version or base",
-      "state": "not-available",
-      "summary": "The Catalog holds no other version or base of this entry's source in the same format.",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
       "basis": [
         "variants.known",
         "source.name",
         "flattened.format"
       ],
-      "commands": [],
-      "unblock": "A second entry for aws-ebs-csi-driver/aws-ebs-csi-driver in this format would give this step a sibling."
+      "commands": [
+        {
+          "comment": "fetch the default base at version 2.59.0",
+          "command": "curl -fsSL -o aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 2.59.0 to 2.60.1",
+          "command": "cub config diff aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.yaml aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.json",
+          "version": "2.59.0",
+          "base": "aicr-eks-training-v0-20-0",
+          "relation": "other-version"
+        },
+        {
+          "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0.json",
+          "version": "2.59.0",
+          "base": "aicr-eks-training-v1-0-0",
+          "relation": "other-version"
+        },
+        {
+          "id": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default.json",
+          "version": "2.59.0",
+          "base": "default",
+          "relation": "other-version"
+        }
+      ]
     },
     {
       "id": "upload",

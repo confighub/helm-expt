@@ -1,0 +1,169 @@
+---
+# Source: nodewright/templates/cleanup-skyhooks-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "nodewright-skyhook-cleanup"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+    "helm.sh/hook-weight": "-5"
+spec:
+  activeDeadlineSeconds: 120
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      serviceAccountName: nodewright-controller-manager
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: kube-api-access
+        projected:
+          defaultMode: 420
+          sources:
+          - serviceAccountToken:
+              path: token
+              expirationSeconds: 3607
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+      # kubectl writes its discovery/http cache under KUBECACHEDIR; with a
+      # read-only root filesystem it needs a writable mount.
+      - name: kube-cache
+        emptyDir: {}
+      containers:
+      - name: cleanup
+        image: alpine/kubectl:1.36.2@sha256:01d138ce994b684abc62d9cfdff44de42a4c8996dcc12626dd0193afc3fb5a95
+        imagePullPolicy: Always
+        env:
+        - name: KUBECACHEDIR
+          value: /tmp/kubecache
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access
+          readOnly: true
+        - mountPath: /tmp/kubecache
+          name: kube-cache
+        # Guard against limitRange being disabled (set to null/false) with fallback defaults
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        command:
+        - /bin/sh
+        - -c
+        - |
+          # Delete all Skyhook resources (cluster-scoped)
+          # Using || true to ensure job succeeds even if delete times out
+          kubectl delete skyhooks --all --ignore-not-found || true
+          # Delete all DeploymentPolicy resources (cluster-scoped)
+          kubectl delete deploymentpolicies --all --ignore-not-found || true
+          echo "Cleanup completed"
+---
+# Source: nodewright/templates/cleanup-webhook-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "nodewright-webhook-cleanup"
+  namespace: "skyhook"
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  activeDeadlineSeconds: 120
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      serviceAccountName: nodewright-controller-manager
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: kube-api-access
+        projected:
+          defaultMode: 420
+          sources:
+          - serviceAccountToken:
+              path: token
+              expirationSeconds: 3607
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+      # kubectl writes its discovery/http cache under KUBECACHEDIR; with a
+      # read-only root filesystem it needs a writable mount.
+      - name: kube-cache
+        emptyDir: {}
+      containers:
+      - name: cleanup
+        image: alpine/kubectl:1.36.2@sha256:01d138ce994b684abc62d9cfdff44de42a4c8996dcc12626dd0193afc3fb5a95
+        imagePullPolicy: Always
+        env:
+        - name: KUBECACHEDIR
+          value: /tmp/kubecache
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access
+          readOnly: true
+        - mountPath: /tmp/kubecache
+          name: kube-cache
+        # Guard against limitRange being disabled (set to null/false) with fallback defaults
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        command:
+        - /bin/sh
+        - -c
+        - |
+          NAMESPACE="skyhook"
+          VALIDATING_WEBHOOK_CONFIGURATION_NAME="skyhook-operator-validating-webhook"
+          MUTATING_WEBHOOK_CONFIGURATION_NAME="skyhook-operator-mutating-webhook"
+          kubectl delete secret -n $NAMESPACE "webhook-cert" || true
+          kubectl delete validatingwebhookconfiguration $VALIDATING_WEBHOOK_CONFIGURATION_NAME || true
+          kubectl delete mutatingwebhookconfiguration $MUTATING_WEBHOOK_CONFIGURATION_NAME || true

@@ -1,0 +1,111 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+spec:
+  chart:
+    name: "kai-scheduler"
+    repository: "kai-scheduler"
+    version: "v0.16.9"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/kai-scheduler/kai-scheduler/v0.16.9 -o <tmp>/kai-scheduler-v0.16.9.tgz"
+    sha256: "3cf5a5c7f75cd08a373e4d8ea934687744fa34a703e4338401f18ffff6ae93e6"
+  package:
+    name: "kai-scheduler-kai-scheduler"
+    path: "packages/kai-scheduler/kai-scheduler/v0.16.9"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "075f807f17279c18bb2cac93de4dd54b88af178f0d434ef63ceae877f55695dc"
+        bytes: 286
+      -
+        path: "bases/aicr-eks-training/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/aicr-eks-training/upstream.yaml"
+        sha256: "47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+        bytes: 950388
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+        bytes: 950577
+      -
+        path: "collector/target-facts.sh"
+        sha256: "36cfe61e49bd99aa1a71fbb568b86d4ab00d34733e6391ce6114a334b6372081"
+        bytes: 7626
+      -
+        path: "installer.yaml"
+        sha256: "85b8905b1b8efae9086824c5790256a97bc99e8b7eca917ce05e3fe6037b3489"
+        bytes: 3351
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/README.md"
+        sha256: "08f4bcc206d377fc3d92aa4204cb8af29139a32da40a74b23a1e8b0391365b60"
+        bytes: 1470
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
+        sha256: "270929ec4260d2df3d81d0496bb5c84196e6ed049a3ecb5c3611c6b140d072c1"
+        bytes: 7062
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
+        sha256: "e25bff021c7e688432bd1f8c9bd7fded2768d86076b63e4ca97177c15148aedd"
+        bytes: 7530
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+        sha256: "248b32cb6d2bd558c057fcb7eaa45bf1bb28eb9d01425b69a19e5eeabc280363"
+        bytes: 2383
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
+        sha256: "c93609700059e0305f395667d13daf0368b5944fe633cc90294e4386aed59604"
+        bytes: 6856
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml"
+        sha256: "5c4e90f9bdc7e4bf3fabdd4efae2f6017ef2a0e6463605277cd35cb4038267bc"
+        bytes: 7332
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/generation-receipt.yaml"
+        sha256: "b791b14fbacc1c0d412d4d490650678034d6a74c3867b5af1379ac920427bf01"
+        bytes: 4756
+      -
+        path: "prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+        sha256: "05fbbabb2082888ef5b387bea7bcc9fe1931b33d6fa4ccc97fbb1590ef6e22f8"
+        bytes: 6250
+      -
+        path: "prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        sha256: "5f9137aadcf227a5f6011f4ef646c6bc689185afe33f819a4486908ec9ab004e"
+        bytes: 849897
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "6469b264319685ef9975e3d84e4349c8a316ca5e6bb63565ed6c9e5375f7b065"
+        bytes: 849887
+    version: "v0.16.9"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        []
+      base: "default"
+      command: "cub installer setup --pull packages/kai-scheduler/kai-scheduler/v0.16.9 --base default --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+      cubInstallObjectCountIncludingSupport: 37
+      helmReleaseObjectCount: 37
+      semanticObjectMatches: "37/37"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        []
+      base: "aicr-eks-training"
+      command: "cub installer setup --pull packages/kai-scheduler/kai-scheduler/v0.16.9 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kai-scheduler"
+      cubInstallObjectCountIncludingSupport: 37
+      helmReleaseObjectCount: 37
+      semanticObjectMatches: "37/37"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "aicr-eks-training"

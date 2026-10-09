@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "dra-driver-nvidia-gpu-aicr-eks-training-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.34.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ff56c4263d9b60dd037114778fa355a2c4d73b3c9390e5fd41a8ec75ab2d1254"
+    dependencyLockSHA256: "e4827053a0b2c4f9285d647ae8985822d3e9e3d391a991e010e30c5c23b17e65"
+    effectiveValuesSHA256: "856a610a3db0f39228687e65327f66b1dd931a152a2ee1131915bf196d5ffc44"
+  outputs:
+    renderedObjectSetSHA256: "c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+    renderedObjectInventorySHA256: "5c8917c9719fa71a8633e62557363f4a23a6214961ece09a9946fcd287456cf0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

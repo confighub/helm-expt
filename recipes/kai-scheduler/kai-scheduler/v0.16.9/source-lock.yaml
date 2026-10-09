@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "kai-scheduler"
+  repositoryURL: "oci://ghcr.io/kai-scheduler/kai-scheduler"
+  chart: "kai-scheduler"
+  version: "v0.16.9"
+  appVersion: "v0.16.9"
+  packageSHA256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+  packageBytes: 83763
+  exactArtifact:
+    url: "oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler:v0.16.9"
+    sha256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

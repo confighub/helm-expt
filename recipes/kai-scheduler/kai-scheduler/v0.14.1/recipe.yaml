@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "kai-scheduler-kai-scheduler"
+  version: "v0.14.1"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/kai-scheduler/kai-scheduler/v0.14.1"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/kai-scheduler/kai-scheduler/v0.14.1"
+      - "--non-interactive"
+      - "--namespace"
+      - "kai-scheduler"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/aicr-eks-training/variant.yaml"

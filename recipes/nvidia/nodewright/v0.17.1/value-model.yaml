@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-nodewright-v0.17.1"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "the exact chart-default render of the locked archive is captured"
+    -
+      path: "webhook.enable"
+      disposition: "left-at-default"
+      reason: "True by chart default and in every base. It renders a MutatingWebhookConfiguration and a ValidatingWebhookConfiguration with failurePolicy Fail and no CA bundle, and a pre-delete Job that removes them."
+      note: "the operator creates the certificate Secret and fills in the CA bundle at run time; nothing is generated at render time"
+      evidence: "templates/mutating-webhook.yaml, templates/validating-webhook.yaml, templates/deployment.yaml, templates/cleanup-webhook-job.yaml"
+    -
+      path: "fullnameOverride"
+      disposition: "variant-axis"
+      reason: "Empty by chart default. The AICR values set it to skyhook-operator, which renames most objects."
+      note: "the aicr-eks-training base keeps the object names AICR's nodewright-customizations component expects"
+      evidence: "templates/_helpers.tpl"
+    -
+      path: "<Helm hooks>"
+      disposition: "left-at-default"
+      reason: "Every base's values render a pre-upgrade Job that deletes the operator Deployment when its immutable selector would change, with a ServiceAccount, Role and RoleBinding, and two pre-delete Jobs: one deletes every custom resource of the operator's kinds and one removes the webhook configurations and the certificate Secret."
+      note: "packaged as recorded lifecycle actions, none automatic and none run"
+      evidence: "templates/selector-migration-job.yaml, templates/cleanup-skyhooks-job.yaml, templates/cleanup-webhook-job.yaml"
+    -
+      path: "<aicr-eks-training values>"
+      variant: "aicr-eks-training"
+      disposition: "variant-axis"
+      reason: "the values the AICR v0.20.0 EKS training entry supplies (examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-helm-bundle/005-nodewright-operator/values.yaml): the full name overridden to skyhook-operator, the manager given CPU and memory requests and limits and tolerating every taint, and the namespace LimitRange defaults set"
+      note: "the AICR values set fullnameOverride, which renames most objects, so this base is not described as objects added to or removed from the default base; it has the same number of objects and the same CRDs"
+  unknownValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  deadValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"
+  ignoredValues: "not-exhaustively-checked-by-aicr-nested-charts-coverage-proof"

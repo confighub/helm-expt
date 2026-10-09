@@ -1,0 +1,87 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0"
+spec:
+  chart:
+    repository: "k8s-ephemeral-storage-metrics"
+    name: "k8s-ephemeral-storage-metrics"
+    version: "1.19.2"
+    packageSHA256: "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+  witnessRef: "data/flattening-safety/witnesses/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2.yaml"
+  auditedBase: "aicr-eks-training-v1-0-0"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "prometheus.enable false"
+      effect: "removes the ServiceMonitor and with it the Prometheus Operator CRD precondition"
+    -
+      values: "deploy_type DaemonSet"
+      effect: "the workload renders as a DaemonSet instead of a Deployment; the finding set does not move"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "Hand read of the chart against this base's render. The packaged chart has no hook, no lookup, no capability branch, no generated value, no keep annotation, no webhook, no CRD, no Namespace template and no subchart, and the render agrees: six objects, no Secret. Nothing is decided at render time. One thing stays outside the bundle and is recorded as a precondition, not a route: the Prometheus Operator ServiceMonitor CRD must exist on the target. This base uses the values the AICR v1.0.0 EKS training entry supplies. Against the default base it changes only the Deployment. The AICR v1.0.0 entry retains these values and no render of this component, so this base was not compared with an AICR render."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2.yaml"
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml"
