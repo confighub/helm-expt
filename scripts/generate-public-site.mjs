@@ -2354,6 +2354,7 @@ function buildLlmsTxt() {
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
 - [See what a gpu-operator upgrade changes](${SITE_BASE_URL}d/docs/user/workshop-gpu-operator-upgrade-guide.html): render two versions of NVIDIA's public gpu-operator chart with \`helm template\` and compare them with \`cub config diff\`, for a version upgrade, a patch upgrade and a driver version change. The Catalog holds this chart, and [its chart page](${SITE_BASE_URL}charts/nvidia-gpu-operator.html) compares the retained versions.
 - [Make a stack from Catalog entries](${SITE_BASE_URL}d/docs/user/workshop-stack-from-catalog-guide.html): compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one local stack with \`cub stack compose\`, check them together with \`cub stack check\`, and swap one entry. Nothing is applied or uploaded.
+- [Review one change before it ships](${SITE_BASE_URL}d/docs/user/workshop-review-a-change-guide.html): take one image tag change to a small app with a dev and a prod environment. Part 1 lists the objects it affects in each environment with \`kustomize build\` and \`cub config diff\`, with no account. Parts 2 and 3 need an account. They propose the change in ConfigHub, show the gate refusing it, approve it, release it and read the record. One account wrote and approved the change in the recorded run.
 - [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
@@ -3843,7 +3844,7 @@ ${homeJourneyLinks()}
         <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
-        <a href="./promote.html">How do I review a change before it ships?</a>
+        <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
       </nav>

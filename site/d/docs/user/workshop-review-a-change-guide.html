@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review one change before it ships · ConfigHub Workshop</title>
+  <meta name="description" content="Review one change before it ships: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-review-a-change-guide.html">
+  <meta property="og:title" content="Review one change before it ships · ConfigHub Workshop">
+  <meta property="og:description" content="Review one change before it ships: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/workshop-review-a-change-guide.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout no-toc cw-guide">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#what-each-part-needs">What each part needs</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#the-answers-from-the-recorded-run">The answers from the recorded run</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-1-list-what-the-change-affects">Part 1. List what the change affects</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-2-propose-the-change-in-confighub-and-have-it-approved">Part 2. Propose the change in ConfigHub and have it approved</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-3-release-the-change-and-read-the-result">Part 3. Release the change and read the result</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#check-the-change-afterwards">Check the change afterwards</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#what-this-run-does-not-show">What this run does not show</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#where-to-go-next">Where to go next</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>In this Guide</summary><p class="cw-nav-title"><strong>In this Guide</strong></p><ul><li><a href="../../../guides.html">All Guides</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#what-each-part-needs">What each part needs</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#the-answers-from-the-recorded-run">The answers from the recorded run</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-1-list-what-the-change-affects">Part 1. List what the change affects</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-2-propose-the-change-in-confighub-and-have-it-approved">Part 2. Propose the change in ConfigHub and have it approved</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#part-3-release-the-change-and-read-the-result">Part 3. Release the change and read the result</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#check-the-change-afterwards">Check the change afterwards</a></li></ul>
+      <p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+<details><summary>More in this Guide</summary><ul><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#what-this-run-does-not-show">What this run does not show</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#a-task-for-an-assistant">A task for an assistant</a></li><li><a href="../../../d/docs/user/workshop-review-a-change-guide.html#where-to-go-next">Where to go next</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Review one change before it ships</h1>
+    <p class="lead">A change reviewer asks four things. Which objects change, and in which environment? Who approved the change? What was released? What can a person check afterwards? <a href="../../../../docs/user/workshop-review-a-change-guide.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+
+<p>This Guide answers all four for one small app with a dev and a prod environment and one change, an image tag. Every command below was run on 9 October 2026, and the <a href="live-walk-change-review-2026-10-09.html">log of that run</a> holds each command with the output it printed.</p>
+<h2 id="what-each-part-needs">What each part needs</h2>
+<table><thead><tr><th>Part</th><th>What you do</th><th>What it needs</th></tr></thead><tbody><tr><td>1</td><td>List the objects the change affects in each environment</td><td><code>cub</code>, the Workshop plugin, <code>kustomize</code> and <code>git</code>. No account and no cluster.</td></tr>
+<tr><td>2</td><td>Put the app in ConfigHub, set a gate, propose the change, preview it and approve it</td><td>A ConfigHub account. No cluster.</td></tr>
+<tr><td>3</td><td>Release the approved change and read the result</td><td>The account, plus Docker and <code>kind</code> for a throwaway local cluster.</td></tr></tbody></table>
+<p>Part 1 answers the first question on its own. Stop there if that is all you need.</p>
+<h2 id="the-answers-from-the-recorded-run">The answers from the recorded run</h2>
+<ul><li><b>Which objects change, and where.</b> One object changes, in one environment. It is the Deployment <code>apptique-prod/frontend</code>, and the field is the image of the container <code>server</code>, from <code>v1.3.0</code> to <code>v1.4.0</code>. The other three objects in prod and all four objects in dev do not change.</li><li><b>Who approved.</b> ConfigHub holds an approval record made in the dev environment against the change. The record carries the result, the time, a note in the approver's words and the approver's user id.</li><li><b>What was released.</b> Release 2 of the prod environment carries the change, and Release 1 holds prod as it stood before. Each Release has a digest.</li><li><b>What a person checks afterwards.</b> The change record lists who promoted the change into dev and into prod, when, and which Release carries it. The diff between the two Releases shows the one field.</li></ul>
+<p>The run had limits, and <a href="#what-this-run-does-not-show">the last section</a> lists them. Read it before you rely on this page. The two that matter most are that one account both wrote and approved the change, and that the app's pods never started.</p>
+<h2 id="part-1-list-what-the-change-affects">Part 1. List what the change affects</h2>
+<p>This part needs no account and no cluster.</p>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">kustomize</a>. Then install the Workshop plugin release this part was checked with (version 0.6.58).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.58</code></pre>
+<p>Fetch the example. It is a small public repository layout with a <code>base</code>, a <code>dev</code> overlay and a <code>prod</code> overlay.</p>
+<pre><code>git clone -q https://github.com/confighub/examples
+git -C examples checkout -q 7f1b8f2f
+cd examples/gitops/argo/intermediate-ci-to-gitops</code></pre>
+<p>Make the change in a copy, so that the original stays as the repository has it. The change is one line. Prod moves from image tag <code>v1.3.0</code> to <code>v1.4.0</code>, which dev already runs.</p>
+<pre><code>cp -R gitops-repo gitops-repo-change
+sed -i &quot;&quot; &quot;s/newTag: v1.3.0/newTag: v1.4.0/&quot; gitops-repo-change/environments/apptique/prod/kustomization.yaml</code></pre>
+<p>The <code>sed -i &quot;&quot;</code> form is for macOS. On Linux, write <code>sed -i</code> with no empty string after it.</p>
+<p>Render each environment before and after the change, and compare each pair.</p>
+<pre><code>for env in dev prod; do
+  kustomize build gitops-repo/environments/apptique/$env &gt; before-$env.yaml
+  kustomize build gitops-repo-change/environments/apptique/$env &gt; after-$env.yaml
+  echo &quot;== $env&quot;
+  cub config diff before-$env.yaml after-$env.yaml
+done</code></pre>
+<p>This is the output.</p>
+<pre><code>== dev
+Configuration diff: 0 added, 0 removed, 0 changed, 4 unchanged
+Local comparison only. This does not merge, protect edits or inspect a live target.
+== prod
+Configuration diff: 0 added, 0 removed, 1 changed, 3 unchanged
+  changed: apps/v1 Deployment apptique-prod/frontend
+    /spec/template/spec/containers/server/image replace: &quot;ghcr.io/confighub/apptique-frontend:v1.3.0&quot; -&gt; &quot;ghcr.io/confighub/apptique-frontend:v1.4.0&quot;
+Local comparison only. This does not merge, protect edits or inspect a live target.</code></pre>
+<p>Dev is untouched. Prod has one changed object and one changed field. That is the exact list of affected objects for each environment.</p>
+<p>Add <code>--json --out change.json</code> to keep the result as a file for a review record. Add <code>--exit-code</code> to make the command exit 1 when the two files differ, which suits a pipeline.</p>
+<p>This comparison reads two files. It does not read a cluster, and it does not say the change is safe.</p>
+<h2 id="part-2-propose-the-change-in-confighub-and-have-it-approved">Part 2. Propose the change in ConfigHub and have it approved</h2>
+<p>This part needs a ConfigHub account. It uses no cluster. Sign in with <code>cub auth login</code> first.</p>
+<p>The commands below use three names of your choosing.</p>
+<pre><code>APP=apptique-review
+WORKFLOW=dev-then-prod
+CHANGE=tag-v1-4-0</code></pre>
+<p>The recorded run used longer names with a prefix for its session. The commands are otherwise the ones in the log.</p>
+<h3 id="put-the-app-in-as-a-base-with-a-dev-and-a-prod-variant">Put the app in as a base with a dev and a prod variant</h3>
+<p>ConfigHub holds the app as one base and two variants of it. A change is made once in the base. It reaches dev first and prod second, and the server keeps that order.</p>
+<pre><code>kustomize build gitops-repo/environments/apptique/base &gt; base.yaml
+cub variant upload --component $APP --variant base --namespace apptique --create-namespace --change-desc &quot;Seed the base from the repository base directory&quot; base.yaml
+cub function set --space $APP-base --unit frontend --change-desc &quot;Run image tag v1.3.0&quot; set-container-image-reference server :v1.3.0
+cub function set --space $APP-base --unit namespace --change-desc &quot;Label the namespace as the repository overlays do&quot; set-label app.kubernetes.io/part-of apptique-examples
+cub variant create dev $APP-base --stage dev --environment Dev --namespace apptique-dev --change-desc &quot;Clone the base as dev&quot;
+cub variant create prod $APP-base --stage prod --environment Prod --namespace apptique-prod --change-desc &quot;Clone the base as prod&quot;
+cub function set --space $APP-dev --change-desc &quot;Label every object environment dev, as the dev overlay does&quot; set-label environment dev
+cub function set --space $APP-prod --change-desc &quot;Label every object environment prod, as the prod overlay does&quot; set-label environment prod
+cub function set --space $APP-prod --unit frontend --change-desc &quot;Run three replicas in prod, as the prod overlay does&quot; set-replicas 3
+cub function set --space $APP-prod --unit frontend --change-desc &quot;Give prod the requests and limits of the prod overlay&quot; set-container-resources server all 200m 128Mi 2</code></pre>
+<p>The last four commands give each variant what its overlay gives it in the repository. The run then compared what ConfigHub held for prod with the repository's render of prod, and <code>cub config diff</code> reported no difference.</p>
+<p>This model differs from the repository in one way. The repository keeps the image tag in each overlay. Here the tag lives in the base, and the change to prod is a promotion. The run tied the two together by comparing ConfigHub's copy with the repository's render before and after the change.</p>
+<h3 id="set-a-gate-that-asks-for-an-approval-before-prod">Set a gate that asks for an approval before prod</h3>
+<p>A gate takes two commands. The first makes a workflow with a dev stage and a prod stage, where entry into prod needs one approval. The second tells the Component that every change must go through that workflow.</p>
+<pre><code>cub changeworkflow create --space $APP-base $WORKFLOW --stage dev --stage prod --attestation-prerequisite approved --attestation-prerequisite-count approved=1 --attestation-prerequisite-allow-authors approved=true --attestation-prerequisite-description approved=&quot;One approval of the change as it stands in dev&quot; --stage-prerequisites prod=approved
+cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --change-workflow-required</code></pre>
+<p>Leave out <code>--attestation-prerequisite-allow-authors approved=true</code> when a second person will approve. Without that flag the server requires an approver who did not write the change. The run had one account, so it needed the flag. The run first tried without it. The server recorded the author's approval and did not count it, and it went on refusing the promotion with these words.</p>
+<pre><code>requires approved: 1 Approval attestation(s) from eligible attesters who did not write the change</code></pre>
+<p>The run did not see the default rule accept a second person, because it had no second person.</p>
+<h3 id="propose-the-change-and-take-it-into-dev">Propose the change and take it into dev</h3>
+<p>Make the change in the base, open a change order for it, and promote the change order. The first promotion takes it into dev.</p>
+<pre><code>cub function set --space $APP-base --unit frontend --change-desc &quot;Run image tag v1.4.0&quot; set-container-image-reference server :v1.4.0
+cub changeorder create --space $APP-base $CHANGE --description &quot;Run image tag v1.4.0&quot; --component $APP --change-workflow $APP-base/$WORKFLOW
+cub variant promote --change-order $APP-base/$CHANGE --change-desc &quot;Take the change order into dev&quot;</code></pre>
+<h3 id="see-that-prod-refuses-the-change-before-the-approval">See that prod refuses the change before the approval</h3>
+<pre><code>cub variant promote --change-order $APP-base/$CHANGE --target-stage prod --dry-run</code></pre>
+<p>The server refused it in the run, and it refused the real command in the same words.</p>
+<pre><code>Failed: unable to promote to stage 'prod', Variant 'dev': requires approved: 1 Approval attestation(s) from eligible attesters; frontend-service revision 4 has 0 of 1; frontend revision 9 has 0 of 1; namespace revision 4 has 0 of 1; frontend-serviceaccount revision 4 has 0 of 1</code></pre>
+<p>A promotion with no change order is refused too.</p>
+<pre><code>Failed: HTTP 400 for req &lt;request-id&gt;: component cwwalk-1009b-apptique requires a ChangeWorkflow; use a ChangeOrder that has one</code></pre>
+<h3 id="preview-what-the-approver-is-approving">Preview what the approver is approving</h3>
+<p>The gate refuses the promotion preview until the approval exists. The approver reads the change with a diff instead.</p>
+<pre><code>cub variant diff $APP-dev Before:ChangeOrder:$APP-base/$CHANGE ChangeOrder:$APP-base/$CHANGE -o mutations</code></pre>
+<p>The run printed the one field.</p>
+<pre><code>=== cwwalk-1009b-apptique-dev/frontend/8 -&gt; cwwalk-1009b-apptique-dev/frontend/9
+Resource: apps/v1/Deployment apptique-dev/frontend
+  ~ [Update] spec.template.spec.containers.?name=server.image
+      ghcr.io/confighub/apptique-frontend:v1.3.0 → ghcr.io/confighub/apptique-frontend:v1.4.0
+1 of 4 unit(s) changed between Before:ChangeOrder:cwwalk-1009b-apptique-base/cwwalk-1009b-tag-v1-4-0-third and ChangeOrder:cwwalk-1009b-apptique-base/cwwalk-1009b-tag-v1-4-0-third in cwwalk-1009b-apptique-dev (3 unchanged, 0 at neither)</code></pre>
+<h3 id="approve">Approve</h3>
+<pre><code>cub variant approve --change-order $APP-base/$CHANGE --stage dev --note &quot;Reviewed the change as it stands in dev. One field changes, the frontend image tag, from v1.3.0 to v1.4.0.&quot;</code></pre>
+<p>The run printed this.</p>
+<pre><code>Recorded pass Approval attestation b158b021-2bea-494e-b888-fe194eced1f8 in cwwalk-1009b-apptique-dev, covering 4 revision(s)</code></pre>
+<p>Read the record with <code>cub attestation get</code>, giving the dev Space and the id that the approval printed.</p>
+<pre><code>ID                 b158b021-2bea-494e-b888-fe194eced1f8
+Type               Approval
+Result             Pass
+Change Order ID    2627e22b-094d-4a93-89c8-888537bdac13
+Note               Reviewed the change as it stands in dev. One field changes, the frontend image tag, from v1.3.0 to v1.4.0.
+User ID            &lt;user-id&gt;
+Created At         2026-10-09 10:37:42.055124 +0000 UTC
+Space              cwwalk-1009b-apptique-dev</code></pre>
+<p>The record names the approver by user id. <code>cub user get &lt;user-id&gt;</code> gives the account behind the id.</p>
+<h3 id="take-the-approved-change-into-prod">Take the approved change into prod</h3>
+<pre><code>cub variant promote --change-order $APP-base/$CHANGE --target-stage prod --change-desc &quot;Take the change order into prod&quot;</code></pre>
+<p>After the approval the same command went through. The run then compared prod in ConfigHub with the repository's render of the one-line change, and <code>cub config diff</code> reported no difference.</p>
+<h3 id="see-the-same-record-in-the-confighub-web-interface">See the same record in the ConfigHub web interface</h3>
+<p>This is the change order's page after the run. It shows the one changed field at the source and the path the change took, from the base through dev to prod.</p>
+<p><img alt="The rollout page for the change, with the changed field and the promotion path" src="../../../../docs/images/change-review/confighub-rollout-change.jpg"></p>
+<p>This is the prod stage of the same page. It shows the two gates on entry to prod and the one field the promotion wrote.</p>
+<p><img alt="The prod stage, with its gates and the field the promotion wrote" src="../../../../docs/images/change-review/confighub-prod-gate.jpg"></p>
+<p>The picture was taken after the release. At that point the page marks the approval gate &quot;not evaluated&quot; and still prints its rule. The page also lists who promoted and who published, with times. The pictures here leave that list out because it names an account.</p>
+<h2 id="part-3-release-the-change-and-read-the-result">Part 3. Release the change and read the result</h2>
+<p>This part needs the account, Docker and <code>kind</code>. The run brought up a throwaway local cluster with <code>cub cluster up</code> and delivered each environment's Release to it through Argo CD.</p>
+<p>The run needed workarounds to connect variants that already existed to a new cluster, and to give prod its first Release under the gate. Step 6 of <a href="live-walk-change-review-2026-10-09.html">the log</a> has every command. This Guide does not print them as a path to copy, because that path is not yet short.</p>
+<p>Publishing the approved change is one command.</p>
+<pre><code>cub release publish --revision ChangeOrder:$APP-base/$CHANGE $APP-prod</code></pre>
+<p>The run then listed prod's Releases.</p>
+<pre><code>NUM    TAG                                                                PUBLISHED    DIGEST          LIVE    CREATED
+2      cwwalk-1009b-apptique-base/cwwalk-1009b-tag-v1-4-0-third-co-end    true         0005a406ddc9            2026-10-09 10:45:47
+1      release-1                                                          true         c587031ffa93            2026-10-09 10:42:32</code></pre>
+<p>About two minutes later the cluster carried the change. Argo CD reported the Release's digest as its synced revision, and the Deployment's image read <code>v1.4.0</code> with three replicas. These two lines come from two of the run's checks.</p>
+<pre><code>Synced Progressing revision=sha256:0005a406ddc969abd94886ffb1d529d85b3ba980fcfa7ed62d81e9739664b79d
+ghcr.io/confighub/apptique-frontend:v1.4.0  replicas=3</code></pre>
+<p>The pods did not start. The example's image cannot be pulled without credentials, so every pod stayed in <code>ImagePullBackOff</code>. The run shows that the approved configuration reached the cluster. It does not show the app running.</p>
+<h2 id="check-the-change-afterwards">Check the change afterwards</h2>
+<p>These commands read the record after the fact.</p>
+<pre><code>cub changeorder get --space $APP-base $CHANGE
+cub release list --space $APP-prod
+cub revision list --space $APP-prod frontend
+cub variant diff $APP-prod release-1 $APP-base/$CHANGE-co-end -o mutations</code></pre>
+<p>The change order joins the pieces. In the run it ended with these lines.</p>
+<pre><code>State                    Released
+Stage                    Completed
+Last Promotion           2026-10-09T10:45:40Z, stage prod (2 recorded; -o json lists them all)
+Released Spaces          cwwalk-1009b-apptique-dev (release 1), cwwalk-1009b-apptique-prod (release 2)</code></pre>
+<p>With <code>-o json</code> the change order lists each promotion with its stage, its time and the user id of the person who ran it. The diff between the two Releases prints the one field again, read from what was released.</p>
+<h2 id="what-this-run-does-not-show">What this run does not show</h2>
+<ul><li><b>One account wrote the change and approved it.</b> The gate allowed that only because the workflow was told to. No second person approved anything.</li><li><b>The app never ran.</b> Its image cannot be pulled without credentials. &quot;Released&quot; in ConfigHub meant published, and the cluster ran without the agent that reports live status back.</li><li><b>An approval covers content, and it outlives its change order.</b> An earlier approval of the same content satisfied the gate of a later change order. The run had to revoke the earlier approval to see the gate refuse.</li><li><b>A refused promotion leaves no record.</b> The change order shows who promoted and when. It does not show who tried and was refused.</li><li><b>Prod's first Release needed the requirement switched off for one command.</b> A Component that requires a workflow could not publish prod as it stood before the change.</li><li><b>The approval is recorded on dev's revisions.</b> Nobody approved prod's own revisions. The workflow has a separate setting for that, and the run did not use it.</li><li><b>No rollback of a released change was run.</b></li><li><b>Permissions were not explored.</b> The run's account manages every object, so the run says nothing about who may approve, promote or publish.</li><li><b>No pull request was opened.</b> The one-line change exists only in a scratch copy of the repository.</li></ul>
+<p>The log's section on <a href="live-walk-change-review-2026-10-09.html#what-went-wrong">what went wrong</a> has seventeen findings in all, including a mistake the run made and undid.</p>
+<h2 id="a-task-for-an-assistant">A task for an assistant</h2>
+<p>Give an assistant this task to run Part 1 for you. It needs no account.</p>
+<pre><code>Follow Part 1 of the ConfigHub Workshop Guide &quot;Review one change before it ships&quot;.
+Clone github.com/confighub/examples at commit 7f1b8f2f and work in
+gitops/argo/intermediate-ci-to-gitops. Copy gitops-repo, change the prod image
+tag from v1.3.0 to v1.4.0 in the copy, render dev and prod before and after
+with kustomize, and compare each pair with cub config diff. Report, for each
+environment, every object that changes and every field in it. Do not sign in,
+do not use a cluster, and do not say the change is safe.</code></pre>
+<h2 id="where-to-go-next">Where to go next</h2>
+<ul><li><a href="https://confighub.github.io/helm-expt/site/promote.html">Can I promote this configuration?</a> compares any two files and helps you choose the tests a change needs.</li><li><a href="workshop-gpu-operator-upgrade-guide.html">See what a gpu-operator upgrade changes</a> moves a chart version through dev and QA.</li><li><a href="what-we-refuse-to-claim.html">What we refuse to claim</a> lists the limits that apply to every page.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/workshop-review-a-change-guide.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+</div>
+</body>
+</html>
