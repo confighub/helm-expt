@@ -569,6 +569,7 @@
     <p data-chart-run-state>The Catalog rendered all 4 bases and retains the exact objects of each. The listings record an upload as a variant for 2 bases. They record no deployment for any base. A promoted change is partly recorded for 2 bases.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
+    <p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section aria-labelledby="versions">
@@ -637,7 +638,7 @@
       <noscript><p>The compare control needs JavaScript. With JavaScript off, the commands below produce the same diff with <code>cub config diff</code>.</p></noscript>
       <div class="chart-compare-result" data-compare-result aria-live="polite" hidden></div>
       <h3 id="compare-command">Run the same diff yourself</h3>
-      <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds <code>cub config diff</code>.</p>
+      <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>cub plugin install confighub/cub-workshop@v0.6.57</code> adds <code>cub config diff</code>.</p>
       <div data-compare-command><pre class="terminal-body"><code><span class="term-comment"># fetch the first retained file</span>
 <span class="term-prompt">$</span> curl -fsSL -o kyverno-kyverno-3-8-2-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kyverno/kyverno/3.8.2/revisions/default/r001/rendered/release-objects.yaml
 
@@ -667,7 +668,7 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.56</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 3.9.0, the newest version, on its default base.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.57</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 3.9.0, the newest version, on its default base.</p>
       <div data-entry-steps="kyverno-kyverno-3-9-0-default">
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

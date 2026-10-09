@@ -729,7 +729,7 @@
       <p>A Workshop stack is the same platform seen as one composition: a component for each service and a variant for each cluster. Use it to check the platform before anything runs, compose apps onto it, or publish it as OCI. Approvals and handover stay with <code>cub kubara</code>.</p>
       <p><code>cub stack from-kubara</code> runs <code>cub kubara render</code>, so the stack holds the objects Kubara's hub delivers. It needs the Workshop plugin, <code>cub kubara</code> v0.3.0 or later, <code>helm</code>, <code>node</code> and <code>oras</code>, and no account.</p>
       <pre class="terminal-body"><code><span class="term-comment"># Install the Workshop plugin release this page was checked with</span>
-<span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+<span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-comment"># Kubara's own output as one stack</span>
 <span class="term-prompt">$</span> cub stack from-kubara my-platform --out my-platform-stack

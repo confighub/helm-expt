@@ -535,8 +535,8 @@
 <p>Steps 1 to 5 run on your machine with Helm and <code>cub</code>, with no account and no cluster. The comparison reads configuration only. The Catalog holds this chart at four versions, each with several bases. This Guide renders the chart itself, so you can pass your own values. It does not test the chart on a cluster or say an upgrade is safe. Step 6 is optional. It makes the same comparisons inside ConfigHub, and it needs an account.</p>
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
-<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.56).</p>
-<pre><code>cub plugin install confighub/cub-workshop@v0.6.56</code></pre>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
 <p>The commands below were checked with cub 0.8.7 and Helm <code>v4.1.4</code>.</p>
 <h2 id="1-render-the-three-chart-versions">1. Render the three chart versions</h2>
 <p>The chart pulls from NVIDIA's public Helm repository without a login. Its version strings start with <code>v</code>. The <code>--repo</code> flag reads the repository directly, so your Helm repository list stays as it is.</p>

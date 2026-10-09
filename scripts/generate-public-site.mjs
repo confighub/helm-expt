@@ -66,7 +66,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.56";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.57";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -634,6 +634,14 @@ const INSTALLER_COMMAND_NOTE =
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 const PROBLEM_CHART_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
+const STACK_FROM_CATALOG_GUIDE_LINK = '<a href="./d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a>';
+// Guides that walk a reader through this chart. A chart page that has a Guide
+// links to it, so the reader does not have to find it in the Guides index.
+// Every chart page links the stack Guide, because any published entry can go
+// into a stack.
+const CHART_GUIDES = new Map([
+  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone" }]],
+]);
 
 // The website renders only user-facing documentation: the guides and reference
 // under docs/, and the runnable examples under examples/. Everything else the
@@ -2330,7 +2338,7 @@ function buildLlmsTxt() {
 - [CI report schema](${SITE_BASE_URL}workshop-ci-report.schema.json): the bounded Markdown/JSON report derived from WorkshopResult for local CI, pull-request comments, and AI tools.
 - [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
 - [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
-- [Completed NGINX decision chain](${SITE_BASE_URL}d/data/config-review-decision-chain/summary.html): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
+- [Completed NGINX decision chain](${GITHUB_BLOB_BASE_URL}data/config-review-decision-chain/summary.md): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Catalog listing index](${SITE_BASE_URL}listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
 - [Chart files](${SITE_BASE_URL}charts/nvidia-gpu-operator.json): one file for each Helm chart at charts/{chart-slug}.json, with its versions newest first, each base's listing, object file and SHA-256, one stored summary line for each version step, and the commands that compute any other diff. Schema: ${SITE_BASE_URL}chart.schema.json.
@@ -5439,7 +5447,7 @@ function stackHtml() {
     ${topNav(".")}
     <h1>Stacks</h1>
     <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
-    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step.</p>
+    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. To build your own from Catalog entries, follow ${STACK_FROM_CATALOG_GUIDE_LINK}, which composes three NVIDIA GPU entries.</p>
     ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
   <main>
@@ -5493,6 +5501,7 @@ function composeStackGuideHtml() {
         <h1>Compose and check a stack</h1>
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Get a stack, check it before anything runs, then run and govern it. The <a href="./stack.html">Stacks</a> list holds every shipped stack.</p>
+        <p>To build a stack from Catalog entries instead of a shipped one, follow ${STACK_FROM_CATALOG_GUIDE_LINK}.</p>
         <div class="hero-actions">
           <a class="button primary" href="#get-a-stack">Get a stack</a>
           <a class="button secondary" href="#stack-checks">Checking your stack</a>
@@ -5571,8 +5580,8 @@ cub stack check my-platform/stack.yaml</code></pre>
       ])}
       <h3>2. Download the same two component files</h3>
       ${commandBlock([
-        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/frontend-config.yaml" },
-        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/backend-config.yaml" },
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml" },
+        { cmd: "curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml" },
       ])}
       <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
@@ -5590,7 +5599,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         { cmd: "kubectl get configmap -n web frontend-config backend-config" },
       ])}
       <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
-      <p>The Workshop plugin source also contains a bounded <code>stack deploy</code> helper for <code>web-tiny</code> that performs step 3 and refuses every other stack. The help of Workshop plugin v0.6.56 does not list it, so this page keeps the explicit commands and the Guide remains runnable today.</p>
+      <p>From v0.6.57 the Workshop plugin also lists a bounded <code>stack deploy</code> helper for <code>web-tiny</code>, which performs step 3 and refuses every other stack. This page keeps the explicit commands, so each step stays visible.</p>
     </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
@@ -6885,7 +6894,7 @@ cub config diff candidate.yaml candidate-next.yaml`;
         heading: "Check your own chart",
         html: `<p><a href="./try.html#install-cub">Install the cub CLI</a>, then add the Workshop plugin. The install script fetches cub from the <a href="https://github.com/confighub/sdk/releases">confighub/sdk releases</a>, and you can download it from there yourself instead.</p>
       <pre><code>${WORKSHOP_PLUGIN_INSTALL}</code></pre>
-      <p>The command installs the plugin release this page was checked with, version 0.6.56. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
+      <p>The command installs the plugin release this page was checked with, version 0.6.57. Run the check in a new directory that holds a copy of your values file. Name your chart the way you install it. This example reads a chart from a Helm repository; for a chart in a registry, pass its <code>oci://</code> address and leave out <code>--repo</code>.</p>
       <pre><code>${escapeHtml(check)}</code></pre>
       <p>The plugin renders the chart with your values, then once more for each value with that value taken out. A key the chart has no place for comes back IGNORED. A key the chart reads but another setting switches off comes back NO EFFECT. A key that changed the objects comes back APPLIED, with the objects it changed. Exit code 1 means at least one value did nothing, and exit code 2 means the check could not finish. No value is printed.</p>
       <p>APPLIED means the rendered objects changed. Some charts copy a block such as <code>resources</code> into the object as written, so a misspelled field inside it still changes the objects. The check names a misspelled container resource field as INVALID, such as <code>resources.limit</code> where Kubernetes expects <code>limits</code>, and exits 1. It checks only container resource fields, so read any other changed field in the candidate yourself. When a key is IGNORED, the check names chart-declared candidates, such as <code>controller.replicaCount</code> for a top-level <code>replicaCount</code>. Review them before you change your values. If none fits, search the chart's defaults for what you meant, for example <code>helm show values &lt;chart&gt; | grep -n -i replica</code>.</p>
@@ -8454,7 +8463,7 @@ function aicrConfigurationsHtml(catalog) {
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
     <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
     <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the newest retained source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
+    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the most fully recorded source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
   </section>
 `,
   });
@@ -14650,6 +14659,7 @@ function chartOverviewPageHtml(model, liveExample) {
     <p data-chart-run-state>${chartRunStateSentences(model).map(escapeHtml).join(" ")}</p>
     ${entryStepsTopLinkHtml()}
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
+    ${chartGuideLinksHtml(model.chart)}
   </header>
   <main>
     ${chartVersionsSectionHtml(model)}
@@ -14737,7 +14747,14 @@ function chartOverviewJson(model, liveExample) {
 
 // A link from a version page back to the page of its chart.
 function chartOverviewLinkHtml(chart) {
-  return `<p class="chart-page-link"><a href="./${escapeHtml(chartOverviewFileName(chart))}">See every version of ${escapeHtml(chart)} and what changes between them</a>.</p>`;
+  return `<p class="chart-page-link"><a href="./${escapeHtml(chartOverviewFileName(chart))}">See every version of ${escapeHtml(chart)} and what changes between them</a>.</p>${chartGuideLinksHtml(chart)}`;
+}
+
+function chartGuideLinksHtml(chart) {
+  const own = (CHART_GUIDES.get(chart) ?? []).map((guide) => `<a href="${escapeHtml(guide.href)}">${escapeHtml(guide.text)}</a>${escapeHtml(guide.after ?? "")}`);
+  const stack = `<a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together`;
+  const sentences = [...own.map((link) => `${link}.`), `${stack}.`];
+  return `<p class="chart-guide-links"><strong>Guides.</strong> ${sentences.join(" ")}</p>`;
 }
 
 function chartPageFileName(entry) {

@@ -651,7 +651,38 @@ cub argo plan .</code></pre>
 Read 9 objects
 
 Control tree (stays as it is: this is the management record)
-  Application apptique-apps  wave 0  root, applied by hand</code></pre>
+  Application apptique-apps                  wave   0  root, applied by hand
+    Application apptique-dev                 wave   0  deploys workloads; planned below
+    Application apptique-prod                wave   0  deploys workloads; planned below
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique-dev  (Application, project default, wave 0)
+  base     argo-apptique-dev-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-dev-in-cluster  -&gt;  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-app-of-apps/manifests/apptique/dev
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+apptique-prod  (Application, project default, wave 0)
+  base     argo-apptique-prod-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-prod-in-cluster  -&gt;  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-app-of-apps/manifests/apptique/prod
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. repoint Application apptique-apps at argo-apptique-apps-children, which would hold Application apptique-dev, Application apptique-prod. Publish that Space first: a parent left syncing an empty source prunes its children. Nothing above it syncs it, so patch its spec.source in the cluster.
+  3. never delete apptique-apps, apptique-dev, apptique-prod: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
       </details>
       <p><a href="https://github.com/confighub/examples/blob/cub-argo-v0.3.0/cub-argo/docs/onboard-your-argo-estate.md#1-see-the-plan">Read the full Argo CD planning reference</a> for layouts and limits.</p>
     </section>

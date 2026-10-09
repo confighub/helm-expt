@@ -634,7 +634,7 @@
       <h2 id="try">Try it now</h2>
       <p>Install the workshop plugin, then ask an app what it needs and whether it fits a platform. Nothing here touches a cluster, and no account is needed.</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-comment"># what does this app need?</span>
 <span class="term-prompt">$</span> cub app check shop-web
@@ -670,7 +670,7 @@
       <p>This path uses one Namespace, ConfigMap, Deployment, and Service. It is deliberately small enough that you can relate the four source objects to the ConfigHub Base and dev variant, the immutable Release, the Argo CD Application, and the live workload.</p>
       <p><strong>What you need:</strong> <code>cub</code>, Docker, kind, kubectl, and a ConfigHub Cloud account. The first check is local. The cluster and ConfigHub writes begin only when the commands say so.</p>
       <h3>1. Download and check the exact input</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-prompt">$</span> curl -fsSLo acme-web.yaml https://confighub.github.io/helm-expt/site/examples/acme-web.yaml
 

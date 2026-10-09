@@ -556,7 +556,7 @@
   cat &quot;examples/plain-yaml/acme-web/$file&quot;
 done &gt; acme-web.yaml
 
-cub plugin install confighub/cub-workshop@v0.6.56
+cub plugin install confighub/cub-workshop@v0.6.57
 cub config check ./acme-web.yaml</code></pre>
 <p>The check reads four Kubernetes objects. It does not write ConfigHub data or touch a cluster. The retained <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">plain-YAML import receipt</a> records this four-object import boundary, but explicitly does not claim a live deployment.</p>
 <h2 id="2-create-one-local-cluster-and-target">2. Create one local cluster and target</h2>

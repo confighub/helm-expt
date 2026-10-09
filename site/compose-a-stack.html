@@ -733,13 +733,14 @@
   <p class="boundary-chip">Free until upload</p>
         <p class="lead">Get a stack, check it before anything runs, then run and govern it. The <a href="./stack.html">Stacks</a> list holds every shipped stack.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Compose a stack from &lt;components&gt;, check it, and show me every conflict or missing need before anything runs.”</aside>
+        <p>To build a stack from Catalog entries instead of a shipped one, follow <a href="./d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a>.</p>
         <div class="hero-actions">
           <a class="button primary" href="#get-a-stack">Get a stack</a>
           <a class="button secondary" href="#stack-checks">Checking your stack</a>
           <a class="button secondary" href="#run-and-govern">Run and govern it</a>
         </div>
       </div>
-      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
@@ -801,7 +802,7 @@ cub stack check my-platform/stack.yaml</code></pre>
       <h2 id="first-stack-live">Deploy a tiny first stack</h2>
       <p><code>web-tiny</code> is the bounded teaching path: two components, each holding one ConfigMap in the <code>web</code> namespace. The steps below continue beyond upload into two ConfigHub Bases, two target-bound dev variants, two Releases, two Argo CD Applications, and two object checks. They are a runnable path, not a retained live receipt, and they do not claim that every arbitrary stack is safe to deploy this way.</p>
       <h3>1. Check the composition and create a target</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-prompt">$</span> cub stack check web-tiny
 CHECKED; two ConfigMaps; no cluster write
@@ -812,9 +813,9 @@ CHECKED; two ConfigMaps; no cluster write
 
 <span class="term-prompt">$</span> source ~/.confighub/clusters/workshop.env</code></pre>
       <h3>2. Download the same two component files</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/frontend-config.yaml
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/frontend-config.yaml
 
-<span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.56/components/backend-config.yaml</code></pre>
+<span class="term-prompt">$</span> curl -fsSLO https://raw.githubusercontent.com/confighub/cub-workshop/v0.6.57/components/backend-config.yaml</code></pre>
       <p>Read both files. The first component owns the Namespace; the second reuses it, so two Argo Applications do not compete to manage the same Namespace object.</p>
       <h3>3. Import, place, and release each component</h3>
       <pre class="terminal-body"><code><span class="term-prompt">$</span> cub variant upload --component first-stack-frontend --variant base --namespace web --create-namespace ./frontend-config.yaml
@@ -834,7 +835,7 @@ both rows must report Synced and Healthy
 
 <span class="term-prompt">$</span> kubectl get configmap -n web frontend-config backend-config</code></pre>
       <p>The Releases prove ConfigHub accepted immutable desired configuration. The Argo rows prove the controller saw it. The ConfigMaps prove the target received both components. If one checkpoint is missing, stop there instead of calling the stack live.</p>
-      <p>The Workshop plugin source also contains a bounded <code>stack deploy</code> helper for <code>web-tiny</code> that performs step 3 and refuses every other stack. The help of Workshop plugin v0.6.56 does not list it, so this page keeps the explicit commands and the Guide remains runnable today.</p>
+      <p>From v0.6.57 the Workshop plugin also lists a bounded <code>stack deploy</code> helper for <code>web-tiny</code>, which performs step 3 and refuses every other stack. This page keeps the explicit commands, so each step stays visible.</p>
     </section>
     <section class="narrow-section">
       <details class="deep" id="shipped-stacks">
@@ -929,7 +930,7 @@ both rows must report Synced and Healthy
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.56
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.57
 
 <span class="term-comment"># CHECKED, 130 objects, no cluster</span>
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
