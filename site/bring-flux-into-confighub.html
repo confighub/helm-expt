@@ -650,7 +650,58 @@ cub flux plan . --require Healthy</code></pre>
 Read 16 objects
 
 Clusters, one stage each, in order: dev (clusters/dev), prod (clusters/prod)
-Reconcile order (dependsOn): infrastructure -&gt; apps</code></pre>
+Reconcile order (dependsOn): infrastructure -&gt; apps
+
+infrastructure
+  base     flux-infrastructure-base  from gitops/flux/beginner/infrastructure/base
+  stage dev
+    dev         variant flux-infrastructure-dev  -&gt;  Target flux-targets/dev
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/dev
+  stage prod
+    prod        variant flux-infrastructure-prod  -&gt;  Target flux-targets/prod
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/prod
+
+apps  (after infrastructure)
+  base     flux-apps-base  from gitops/flux/beginner/apps/base
+  stage dev
+    dev         variant flux-apps-dev  -&gt;  Target flux-targets/dev
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/dev
+                  adds namespace.yaml
+                  namespace apptique-dev
+                  label environment=dev
+                  Deployment/frontend replace /spec/replicas = 1
+                  Flux spec.healthChecks[0].namespace = apptique-dev
+                  Flux spec.targetNamespace = apptique-dev
+  stage prod
+    prod        variant flux-apps-prod  -&gt;  Target flux-targets/prod
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/prod
+                  adds namespace.yaml
+                  namespace apptique-prod
+                  label environment=prod
+                  Deployment/frontend replace /spec/replicas = 3
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/cpu = 200m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/memory = 128Mi
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/cpu = 400m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/memory = 256Mi
+                  Flux spec.healthChecks[0].namespace = apptique-prod
+                  Flux spec.targetNamespace = apptique-prod
+
+Sources
+  - GitRepository apptique-examples  https://github.com/confighub/examples  (gitops/flux/beginner/infrastructure/base/sources/apptique-examples.yaml)
+      branch: dev main, prod main
+
+Bootstrap (stays outside ConfigHub)
+  - gitops/flux/beginner/clusters/dev/flux-system
+  - gitops/flux/beginner/clusters/prod/flux-system
+
+Handover (apply will write it as handover.sh; plan runs nothing)
+  1. keep each layer&#39;s Flux Kustomization under its own name and switch its sourceRef to an OCIRepository on the ConfigHub gateway, so Flux keeps its inventory and nothing is reinstalled
+  2. first prove each variant renders exactly what Git renders today: infrastructure, apps prune, so anything the release lacks is deleted
+  3. leave flux-system alone: flux bootstrap owns it, like the Sveltos management record
+
+Next
+  cub flux apply . --require Healthy --out ./flux-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
       </details>
       <p><a href="https://github.com/confighub/examples/blob/cub-flux-v0.3.0/cub-flux/docs/onboard-your-flux-fleet.md#1-see-the-plan">Read the full Flux planning reference</a> for layouts and limits.</p>
     </section>

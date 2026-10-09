@@ -53,6 +53,104 @@ const guides = {
  * install and referenceUrl are supplied from the current plugin registry so a
  * page cannot silently retain an older plugin version.
  */
+// The whole output of the plan command on each public beginner fixture, at the
+// commit the page links, with the plugin release the page installs. The page
+// calls it actual output, so it is the output and not an excerpt. Run the
+// command on the fixture again when the commit or the plugin release moves.
+const ARGO_FIXTURE_PLAN = `Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 2 components, 2 variants
+Read 9 objects
+
+Control tree (stays as it is: this is the management record)
+  Application apptique-apps                  wave   0  root, applied by hand
+    Application apptique-dev                 wave   0  deploys workloads; planned below
+    Application apptique-prod                wave   0  deploys workloads; planned below
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique-dev  (Application, project default, wave 0)
+  base     argo-apptique-dev-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-dev-in-cluster  ->  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-app-of-apps/manifests/apptique/dev
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+apptique-prod  (Application, project default, wave 0)
+  base     argo-apptique-prod-base  reaches no cluster: its destination is empty
+  each variant differs from the base in spec.destination
+  stage fleet
+    in-cluster  variant argo-apptique-prod-in-cluster  ->  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-app-of-apps/manifests/apptique/prod
+  note     a plain directory of manifests, read as Argo CD reads it: every .yaml, .yml and .json file at the top level
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. repoint Application apptique-apps at argo-apptique-apps-children, which would hold Application apptique-dev, Application apptique-prod. Publish that Space first: a parent left syncing an empty source prunes its children. Nothing above it syncs it, so patch its spec.source in the cluster.
+  3. never delete apptique-apps, apptique-dev, apptique-prod: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.`;
+
+const FLUX_FIXTURE_PLAN = `Flux fleet: 2 clusters, 2 layers, 4 variants
+Read 16 objects
+
+Clusters, one stage each, in order: dev (clusters/dev), prod (clusters/prod)
+Reconcile order (dependsOn): infrastructure -> apps
+
+infrastructure
+  base     flux-infrastructure-base  from gitops/flux/beginner/infrastructure/base
+  stage dev
+    dev         variant flux-infrastructure-dev  ->  Target flux-targets/dev
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/dev
+  stage prod
+    prod        variant flux-infrastructure-prod  ->  Target flux-targets/prod
+                Kustomization flux-system/infrastructure, path gitops/flux/beginner/infrastructure/prod
+
+apps  (after infrastructure)
+  base     flux-apps-base  from gitops/flux/beginner/apps/base
+  stage dev
+    dev         variant flux-apps-dev  ->  Target flux-targets/dev
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/dev
+                  adds namespace.yaml
+                  namespace apptique-dev
+                  label environment=dev
+                  Deployment/frontend replace /spec/replicas = 1
+                  Flux spec.healthChecks[0].namespace = apptique-dev
+                  Flux spec.targetNamespace = apptique-dev
+  stage prod
+    prod        variant flux-apps-prod  ->  Target flux-targets/prod
+                Kustomization flux-system/apps, path gitops/flux/beginner/apps/prod
+                  adds namespace.yaml
+                  namespace apptique-prod
+                  label environment=prod
+                  Deployment/frontend replace /spec/replicas = 3
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/cpu = 200m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/requests/memory = 128Mi
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/cpu = 400m
+                  Deployment/frontend replace /spec/template/spec/containers/0/resources/limits/memory = 256Mi
+                  Flux spec.healthChecks[0].namespace = apptique-prod
+                  Flux spec.targetNamespace = apptique-prod
+
+Sources
+  - GitRepository apptique-examples  https://github.com/confighub/examples  (gitops/flux/beginner/infrastructure/base/sources/apptique-examples.yaml)
+      branch: dev main, prod main
+
+Bootstrap (stays outside ConfigHub)
+  - gitops/flux/beginner/clusters/dev/flux-system
+  - gitops/flux/beginner/clusters/prod/flux-system
+
+Handover (apply will write it as handover.sh; plan runs nothing)
+  1. keep each layer's Flux Kustomization under its own name and switch its sourceRef to an OCIRepository on the ConfigHub gateway, so Flux keeps its inventory and nothing is reinstalled
+  2. first prove each variant renders exactly what Git renders today: infrastructure, apps prune, so anything the release lacks is deleted
+  3. leave flux-system alone: flux bootstrap owns it, like the Sveltos management record
+
+Next
+  cub flux apply . --require Healthy --out ./flux-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.`;
+
 export function gitopsOnboardingGuide(kind, { install, referenceUrl } = {}) {
   const guide = guides[kind];
   if (!guide) throw new Error(`gitops onboarding kind must be argo or flux, not ${kind}`);
@@ -67,8 +165,8 @@ ${guide.plan}`);
   const upstreamHandover = `${referenceUrl}${guide.handoverAnchor}`;
   const upstreamStatus = `${referenceUrl}${guide.statusAnchor}`;
   const fixture = kind === "argo"
-    ? { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/argo/beginner-app-of-apps", output: "Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 2 components, 2 variants\nRead 9 objects\n\nControl tree (stays as it is: this is the management record)\n  Application apptique-apps  wave 0  root, applied by hand" }
-    : { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/flux/beginner", output: "Flux fleet: 2 clusters, 2 layers, 4 variants\nRead 16 objects\n\nClusters, one stage each, in order: dev (clusters/dev), prod (clusters/prod)\nReconcile order (dependsOn): infrastructure -> apps" };
+    ? { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/argo/beginner-app-of-apps", output: ARGO_FIXTURE_PLAN }
+    : { url: "https://github.com/confighub/examples/tree/7f1b8f2fc849bb6488bc2c58f1469172018fc9dd/gitops/flux/beginner", output: FLUX_FIXTURE_PLAN };
 
   return {
     title: guide.title,
