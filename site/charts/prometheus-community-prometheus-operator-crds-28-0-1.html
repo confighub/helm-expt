@@ -981,7 +981,16 @@ c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123  prometheus-com
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Advice And Current Status</h2>
       <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
-      <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
+      <div class="card"><table>
+        <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
+        <tbody><tr><td><a href="../d/docs/skills/hook-and-secret-lifecycle.html">Hook And Secret Lifecycle</a></td><td>uses Helm hooks, generated Secret material, or webhook certificates</td></tr><tr><td><a href="../d/docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../d/docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
         <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea</td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 2/2; Local live 0/2; Live parity 0/2)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>

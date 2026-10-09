@@ -2389,9 +2389,24 @@
     {
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
-      "top_skill": "none",
-      "matched_signals": [],
-      "applicable": []
+      "top_skill": "target-facts-and-lifecycle",
+      "matched_signals": [
+        "crds"
+      ],
+      "applicable": [
+        {
+          "slug": "target-facts-and-lifecycle",
+          "title": "Target Facts And Lifecycle",
+          "doc": "docs/skills/target-facts-and-lifecycle.md",
+          "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
     },
     {
       "chart": "nvidia/cluster-readiness-engine",
@@ -2988,18 +3003,10 @@
     {
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
-      "top_skill": "none",
-      "matched_signals": [],
-      "applicable": []
-    },
-    {
-      "chart": "prometheus-community/prometheus-operator-crds",
-      "version": "29.0.0",
       "top_skill": "hook-and-secret-lifecycle",
       "matched_signals": [
         "generated-facts",
-        "crds",
-        "live"
+        "crds"
       ],
       "applicable": [
         {
@@ -3019,7 +3026,17 @@
           "title": "Large App Evidence Funnel",
           "doc": "docs/skills/large-app-evidence-funnel.md",
           "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
-        },
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "29.0.0",
+      "top_skill": "live-parity",
+      "matched_signals": [
+        "live"
+      ],
+      "applicable": [
         {
           "slug": "live-parity",
           "title": "Live Parity",

@@ -16,15 +16,15 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-119 of 180 charts have at least one applicable skill. A chart
+121 of 180 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
 | [Live Parity](../../docs/skills/live-parity.md) | 97 |
-| [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 57 |
+| [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 58 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 49 |
-| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 34 |
+| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 35 |
 | [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 25 |
 
 ## How To Read One Row
@@ -159,7 +159,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | nats/nats@2.14.0 | 1 | live-parity | live |
 | nats/surveyor@0.20.9 | 0 | none | — |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | 1 | target-facts-and-lifecycle | stateful-storage |
-| node-feature-discovery/node-feature-discovery@0.19.0 | 0 | none | — |
+| node-feature-discovery/node-feature-discovery@0.19.0 | 2 | target-facts-and-lifecycle | crds |
 | nvidia/cluster-readiness-engine@v0.6.0 | 0 | none | — |
 | nvidia/gpu-operator@v25.10.1 | 0 | none | — |
 | nvidia/gpu-operator@v26.3.2 | 0 | none | — |
@@ -197,8 +197,8 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | prometheus-community/prometheus-blackbox-exporter@11.15.1 | 0 | none | — |
 | prometheus-community/prometheus-blackbox-exporter@11.18.0 | 0 | none | — |
 | prometheus-community/prometheus-node-exporter@4.55.0 | 3 | hook-and-secret-lifecycle | generated-facts; live |
-| prometheus-community/prometheus-operator-crds@28.0.1 | 0 | none | — |
-| prometheus-community/prometheus-operator-crds@29.0.0 | 4 | hook-and-secret-lifecycle | generated-facts; crds; live |
+| prometheus-community/prometheus-operator-crds@28.0.1 | 3 | hook-and-secret-lifecycle | generated-facts; crds |
+| prometheus-community/prometheus-operator-crds@29.0.0 | 1 | live-parity | live |
 | prometheus-community/prometheus-pushgateway@3.6.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
 | prometheus-community/prometheus@29.8.0 | 3 | hook-and-secret-lifecycle | generated-facts; stateful-storage; live |
 | prometheus-community/prometheus@29.9.0 | 1 | live-parity | live |

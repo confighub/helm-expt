@@ -18,13 +18,13 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1429 non-green cells:
+1433 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 1198 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 62 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 66 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -34,7 +34,7 @@ columns). It changes no status and runs nothing.
 | `P` | 205 |
 | `L` | 196 |
 | `K` | 157 |
-| `lifecycle` | 62 |
+| `lifecycle` | 66 |
 
 | State | Cells |
 | --- | ---: |
@@ -44,11 +44,11 @@ columns). It changes no status and runs nothing.
 | `proven` | 179 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
-| `todo` | 62 |
+| `todo` | 66 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (62)
+## needs-run (66)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -93,6 +93,9 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | kyverno/kyverno@3.8.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | kyverno/kyverno@3.9.0 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v0-20-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | aicr-eks-training-v1-0-0 | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| node-feature-discovery/node-feature-discovery@0.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/kube-prometheus-stack@84.4.0 | aicr-eks-training-v0-20-0 | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
@@ -110,7 +113,8 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| prometheus-community/prometheus-operator-crds@29.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| prometheus-community/prometheus-operator-crds@28.0.1 | aicr-eks-training | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| prometheus-community/prometheus-operator-crds@28.0.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | rook-release/rook-ceph@v1.19.5 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |

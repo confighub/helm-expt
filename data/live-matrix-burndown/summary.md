@@ -105,13 +105,13 @@ generated priority. They are good candidates for a serial live block.
 | aws-controllers-k8s/eks-chart | 1.16.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference |
 | aws-controllers-k8s/iam-chart | 1.7.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base default |
 | aws-controllers-k8s/iam-chart | 1.7.3 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference |
-| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v0-20-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v0-20-0 |
-| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v1-0-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v1-0-0 |
-| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v0-20-0 | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v0-20-0 |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v1-0-0 | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v1-0-0 |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default |
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
 | cloudnative-pg/cloudnative-pg | 0.29.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
 | cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
-| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | aicr-eks-training | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base aicr-eks-training |
+| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | aicr-eks-training | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base aicr-eks-training |
 
 ## Full Queue
 

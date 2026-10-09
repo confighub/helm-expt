@@ -1051,7 +1051,16 @@ cd6276f43fedbf192ec8a7e9e35906a2a07dedfed5eed00286e34fa5cbb8e995  node-feature-d
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Advice And Current Status</h2>
       <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
-      <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
+      <div class="card"><table>
+        <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
+        <tbody><tr><td><a href="../d/docs/skills/target-facts-and-lifecycle.html">Target Facts And Lifecycle</a></td><td>needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply</td></tr><tr><td><a href="../d/docs/skills/large-app-evidence-funnel.html">Large App Evidence Funnel</a></td><td>renders many Units, so a single pass/fail can hide where an operation is stuck</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
         <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63</td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 3/3; Local live 0/3; Live parity 0/3)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>a CRD ownership choice (crds vs no-crds base)</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td></tr><tr><td>Next action</td><td>review source/current-version drift and refresh recipe if needed</td></tr></tbody>

@@ -119,7 +119,7 @@ nats/nack,0.34.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/nats,2.14.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 nats/surveyor,0.20.9,,0,none,,
 nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,4.0.18,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
-node-feature-discovery/node-feature-discovery,0.19.0,,0,none,,
+node-feature-discovery/node-feature-discovery,0.19.0,target-facts-and-lifecycle; large-app-evidence-funnel,2,target-facts-and-lifecycle,crds,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 nvidia/cluster-readiness-engine,v0.6.0,,0,none,,
 nvidia/gpu-operator,v25.10.1,,0,none,,
 nvidia/gpu-operator,v26.3.2,,0,none,,
@@ -157,8 +157,8 @@ prometheus-community/prometheus-blackbox-exporter,11.10.0,live-parity,1,live-par
 prometheus-community/prometheus-blackbox-exporter,11.15.1,,0,none,,
 prometheus-community/prometheus-blackbox-exporter,11.18.0,,0,none,,
 prometheus-community/prometheus-node-exporter,4.55.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
-prometheus-community/prometheus-operator-crds,28.0.1,,0,none,,
-prometheus-community/prometheus-operator-crds,29.0.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,4,hook-and-secret-lifecycle,generated-facts; crds; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
+prometheus-community/prometheus-operator-crds,28.0.1,hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel,3,hook-and-secret-lifecycle,generated-facts; crds,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
+prometheus-community/prometheus-operator-crds,29.0.0,live-parity,1,live-parity,live,docs/skills/live-parity.md
 prometheus-community/prometheus-pushgateway,3.6.0,target-facts-and-lifecycle; live-parity,2,target-facts-and-lifecycle,stateful-storage; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/prometheus,29.8.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,generated-facts; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 prometheus-community/prometheus,29.9.0,live-parity,1,live-parity,live,docs/skills/live-parity.md

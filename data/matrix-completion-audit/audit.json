@@ -13,11 +13,11 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 1429,
+  "cellCount": 1433,
   "byCompletionClass": {
     "needs-target-or-prereq-fix": 1198,
     "already-decided": 124,
-    "needs-run": 62,
+    "needs-run": 66,
     "needs-modeling": 45
   },
   "byLane": {
@@ -26,7 +26,7 @@
     "P": 205,
     "L": 196,
     "K": 157,
-    "lifecycle": 62
+    "lifecycle": 66
   },
   "cells": [
     {
@@ -12185,6 +12185,20 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "aicr-eks-training-v0-20-0",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "chart has hook/lifecycle behavior with no live observation yet",
+      "next_action": "decide and record the lifecycle route, then observe it live",
+      "support_artifact": "",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "variant": "aicr-eks-training-v0-20-0",
       "lane": "P",
       "lane_label": "live-helm-vs-confighub-parity",
       "state": "missing",
@@ -12255,6 +12269,20 @@
       "chart": "node-feature-discovery/node-feature-discovery",
       "version": "0.19.0",
       "variant": "aicr-eks-training-v1-0-0",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "chart has hook/lifecycle behavior with no live observation yet",
+      "next_action": "decide and record the lifecycle route, then observe it live",
+      "support_artifact": "",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "variant": "aicr-eks-training-v1-0-0",
       "lane": "P",
       "lane_label": "live-helm-vs-confighub-parity",
       "state": "missing",
@@ -12320,6 +12348,20 @@
       "owner": "tooling/target",
       "completion_class": "needs-target-or-prereq-fix",
       "command": "npm run live-parity:run -- --recipe recipes/node-feature-discovery/node-feature-discovery/0.19.0 --base default"
+    },
+    {
+      "chart": "node-feature-discovery/node-feature-discovery",
+      "version": "0.19.0",
+      "variant": "default",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "chart has hook/lifecycle behavior with no live observation yet",
+      "next_action": "decide and record the lifecycle route, then observe it live",
+      "support_artifact": "",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
     },
     {
       "chart": "node-feature-discovery/node-feature-discovery",
@@ -18401,6 +18443,20 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
       "variant": "aicr-eks-training",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "chart has hook/lifecycle behavior with no live observation yet",
+      "next_action": "decide and record the lifecycle route, then observe it live",
+      "support_artifact": "",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
+    },
+    {
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "variant": "aicr-eks-training",
       "lane": "P",
       "lane_label": "live-helm-vs-confighub-parity",
       "state": "missing",
@@ -18457,6 +18513,20 @@
       "chart": "prometheus-community/prometheus-operator-crds",
       "version": "28.0.1",
       "variant": "default",
+      "lane": "lifecycle",
+      "lane_label": "lifecycle-observed",
+      "state": "todo",
+      "reason": "chart has hook/lifecycle behavior with no live observation yet",
+      "next_action": "decide and record the lifecycle route, then observe it live",
+      "support_artifact": "",
+      "owner": "catalog",
+      "completion_class": "needs-run",
+      "command": ""
+    },
+    {
+      "chart": "prometheus-community/prometheus-operator-crds",
+      "version": "28.0.1",
+      "variant": "default",
       "lane": "P",
       "lane_label": "live-helm-vs-confighub-parity",
       "state": "missing",
@@ -18507,20 +18577,6 @@
       "support_artifact": "",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "prometheus-community/prometheus-operator-crds",
-      "version": "29.0.0",
-      "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {
