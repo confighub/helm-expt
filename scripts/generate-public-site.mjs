@@ -4716,6 +4716,15 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
       ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
     ])}
+    <h3 id="which-aicr-configuration">Which AICR configuration is which</h3>
+    <p>The Catalog holds the same NVIDIA AICR recipe at several versions, and this page runs a smaller selection from one of them. Choose by what you want to do.</p>
+    ${markdownLikeTable([
+      ["You want to", "Use", "What it is"],
+      ["Run something now with no GPU, cluster or account", `<a href="#run-aicr">The CPU starter on this page</a>`, `Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.`],
+      ["Inspect the whole recipe and take it into ConfigHub", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a>`, "All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version."],
+      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here."],
+    ], { rawSecondColumn: true, rawThirdColumn: true })}
+    <p>None of the three has run on a GPU. Each entry page says what was and was not run for it.</p>
   </section>
 
 
