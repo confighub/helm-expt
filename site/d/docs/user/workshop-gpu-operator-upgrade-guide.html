@@ -712,6 +712,33 @@ cub variant diff -u gpu-operator-v25-10-1 Before:ChangeSet:&lt;upload&gt; Change
 <pre><code>-    version: &quot;580.105.08&quot;
 +    version: &quot;580.126.20&quot;</code></pre>
 <p>The run deleted its Spaces and its Component afterwards, and the log shows those commands. This step deploys nothing.</p>
+<h3 id="promote-a-version-step-through-dev-and-qa">Promote a version step through dev and QA</h3>
+<p>The steps above keep each version as its own variant. A second way keeps one base and moves it. An upload moves the base to the next version, and a promotion then moves each environment in turn.</p>
+<p>A walk on 2026-10-09 ran this for v26.3.2 to v26.3.3 in a hosted ConfigHub organization. The <a href="live-walk-gpu-operator-dev-qa-2026-10-09.html">walk log</a> holds every command and its output. The walk used no cluster, no Target and no Release, so it shows how the configuration moves and nothing about a deployment.</p>
+<p>These are the walk's commands with its names replaced by placeholders. Each long reference is the published literal configuration bundle of one Catalog entry.</p>
+<pre><code>cub variant upload --component &lt;your-component&gt; --variant base --namespace gpu-operator --change-desc 'Seed the base at v26.3.2 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484
+cub variant create dev &lt;your-component&gt;-base --environment Dev --change-desc 'Clone the base as dev'
+cub variant create qa &lt;your-component&gt;-dev --environment QA --change-desc 'Clone dev as qa'
+cub variant upload --yes --component &lt;your-component&gt; --variant base --namespace gpu-operator --change-desc 'Move the base to v26.3.3 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+cub variant promote &lt;your-component&gt;-dev --dry-run -o mutations
+cub variant promote &lt;your-component&gt;-dev --change-desc 'Take v26.3.3 from the base'
+cub variant promote &lt;your-component&gt;-qa --dry-run -o mutations
+cub variant promote &lt;your-component&gt;-qa --change-desc 'Take v26.3.3 from dev'
+cub unit diff --space &lt;your-component&gt;-dev cluster-policy-clusterpolicy --with-unit &lt;your-component&gt;-qa/cluster-policy-clusterpolicy -o mutations</code></pre>
+<p>The first upload makes the base Space, named <code>&lt;your-component&gt;-base</code>. The second line clones it as dev. The third clones dev as QA, so QA takes its changes from dev and not from the base.</p>
+<p>Read these five things from the walk before you rely on the commands.</p>
+<table><thead><tr><th>What the walk saw</th><th>What it means for you</th></tr></thead><tbody><tr><td>The preview for dev read &quot;Would upgrade 10 unit(s) behind their upstream&quot;, with three of them emptied and three added.</td><td>Seven Units are the chart's objects from step 3. The other six are companion documents that each bundle carries, named after the entry.</td></tr>
+<tr><td>The preview with <code>-o mutations</code> listed each changed field, such as <code>spec.devicePlugin.version</code> moving from <code>v0.19.2</code> to <code>v0.19.3</code>.</td><td>This is the diff to review before each promotion.</td></tr>
+<tr><td>Promoting QA before dev printed &quot;Upgraded 0 unit(s) behind their upstream&quot; and exited 0.</td><td>QA cannot get ahead of dev. The command does not warn that dev is itself behind, so promote dev first.</td></tr>
+<tr><td>The second upload needed <code>--yes</code>. Without it the command asked for confirmation and stopped.</td><td>An upload that replaces companion documents asks first.</td></tr>
+<tr><td>After both promotions the last command printed &quot;No changes&quot;.</td><td>Dev and QA held the same ClusterPolicy.</td></tr></tbody></table>
+<p>The walk's Spaces had no approval rule, so no promotion waited for one. The walk did not run <code>cub variant approve</code>.</p>
+<p>The walk then moved one driver version the same way, by uploading the <code>driver-595.91.07</code> base of v26.3.3 onto the same base Space. The preview for dev showed one changed field on the ClusterPolicy.</p>
+<pre><code>Changes to unit cluster-policy-clusterpolicy from promote:
+Resource: nvidia.com/v1/ClusterPolicy /cluster-policy
+  ~ [Update] spec.driver.version
+      580.126.20 → 595.91.07</code></pre>
+<p>Step 5 says what the operator does on a GPU node when that field changes. The walk did not test a rollback, a variant with a local edit, or an approval gate.</p>
 <h2 id="a-task-for-an-assistant">A task for an assistant</h2>
 <p>Start a fresh session in an empty directory with normal approvals.</p>
 <pre><code>Render the NVIDIA gpu-operator chart from https://helm.ngc.nvidia.com/nvidia
