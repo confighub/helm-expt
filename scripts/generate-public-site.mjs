@@ -640,7 +640,7 @@ const STACK_FROM_CATALOG_GUIDE_LINK = '<a href="./d/docs/user/workshop-stack-fro
 // Every chart page links the stack Guide, because any published entry can go
 // into a stack.
 const CHART_GUIDES = new Map([
-  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone" }]],
+  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone, and which changed fields can restart pods on GPU nodes" }]],
 ]);
 
 // The website renders only user-facing documentation: the guides and reference
