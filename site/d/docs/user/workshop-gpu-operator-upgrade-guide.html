@@ -536,8 +536,8 @@
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
 <p>If your question is which of these changes can restart pods on GPU nodes or take a node out of service, read <a href="#what-a-changed-field-can-do-to-a-gpu-node">what a changed field can do to a GPU node</a> after step 4.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
-<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
-<pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://helm.sh/docs/intro/install/">Helm</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.58).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.58</code></pre>
 <p>The commands below were checked with cub 0.8.7 and Helm <code>v4.1.4</code>.</p>
 <h2 id="1-render-the-three-chart-versions">1. Render the three chart versions</h2>
 <p>The chart pulls from NVIDIA's public Helm repository without a login. Its version strings start with <code>v</code>. The <code>--repo</code> flag reads the repository directly, so your Helm repository list stays as it is.</p>

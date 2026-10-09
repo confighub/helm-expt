@@ -16,7 +16,7 @@ spec:
       summary: Checks, composes and publishes configuration from the Catalog.
       repository: confighub/cub-workshop
       state: released
-      release: {tag: v0.6.57, date: "2026-10-08"}
+      release: {tag: v0.6.58, date: "2026-10-09"}
       install: cub plugin install confighub/cub-workshop
     - id: kubara
       name: Kubara

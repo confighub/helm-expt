@@ -535,9 +535,13 @@
 <p>Every step runs on your machine with <code>cub</code>, with no account and no cluster. Compose reads the live Catalog index and pulls the three public bundles anonymously with <code>oras</code>. It writes files into a new directory and applies nothing. The check reads those files only.</p>
 <p>You can run the steps yourself or <a href="#a-task-for-an-assistant">give an assistant the task</a>.</p>
 <h2 id="set-up-the-tools">Set up the tools</h2>
-<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://oras.land/docs/installation">ORAS</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.57).</p>
-<pre><code>cub plugin install confighub/cub-workshop@v0.6.57</code></pre>
-<p>Every command below was run with plugin v0.6.57. The previous release, v0.6.56, refuses these entries. It stops with <code>receiptUrl is not a supported GitHub receipt URL</code>.</p>
+<p>Install <a href="https://confighub.github.io/helm-expt/site/try.html#install-cub">the cub CLI</a> and <a href="https://oras.land/docs/installation">ORAS</a>. Then install the Workshop plugin release this Guide was checked with (version 0.6.58).</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.58</code></pre>
+<p>Every command below was run with plugin v0.6.57, and the commands in steps 1 to 3 were run again with v0.6.58. Release v0.6.56 refuses these entries. It stops with <code>receiptUrl is not a supported GitHub receipt URL</code>.</p>
+<p>From v0.6.58 the plugin also ships these three as a stack named <code>gpu-node</code>, so one command checks the same composition.</p>
+<pre><code>cub stack sandbox gpu-node</code></pre>
+<p>It reports CHECKED with the same 89 objects. Run it in a directory that holds no folder named <code>gpu-node</code>. The command reads a folder of that name before it looks for a shipped stack, and it then stops with an <code>EISDIR</code> error. This Guide writes a folder of that name in step 2, so use another directory.</p>
+<p>The rest of this Guide composes the stack by hand, which is how you make one from entries of your own choice.</p>
 <h2 id="1-find-the-three-entries">1. Find the three entries</h2>
 <p>List the entries that the Catalog files under the <code>gpu</code> role.</p>
 <pre><code>cub config list --role gpu | grep -E '^  nvidia-(cluster-readiness-engine-v0-6-0|nvsentinel-v1-25-0|gpu-operator-v26-3-3)-default '</code></pre>
@@ -644,7 +648,7 @@ cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Con
 <p>That run covers one entry. It did not include nvsentinel or cluster-readiness-engine, and it did not run on a node with a GPU. The stack of three has not been deployed.</p>
 <h2 id="a-task-for-an-assistant">A task for an assistant</h2>
 <p>Start a fresh session in an empty directory with normal approvals.</p>
-<pre><code>Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.57.
+<pre><code>Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.58.
 Run cub config list --role gpu and find the ids of the default bases of
 NVIDIA gpu-operator v26.3.3, nvsentinel v1.25.0 and cluster-readiness-engine
 v0.6.0. Compose them with cub stack compose, one --entry for each, --name
