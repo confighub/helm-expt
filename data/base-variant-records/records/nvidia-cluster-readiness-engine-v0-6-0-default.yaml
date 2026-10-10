@@ -304,11 +304,55 @@ spec:
       records:
         - "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "bandwidthmeasurements.nvcre.nvidia.com"
+            - "certifications.nvcre.nvidia.com"
+            - "goodputmeasurements.nvcre.nvidia.com"
+            - "jobs.nvcre.nvidia.com"
+            - "logprofiles.nvcre.nvidia.com"
+            - "workflows.nvcre.nvidia.com"
+            - "workloadruns.nvcre.nvidia.com"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 7 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. Then apply the other 36 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml"
+            - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        -
+          id: "crd-before-apply"
+          requirementRefs:
+            - "servicemonitors.monitoring.coreos.com"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "CRD servicemonitors.monitoring.coreos.com must exist before apply. Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "package://prerequisites/target-facts/default-crds.yaml"
+          evidence:
+            - "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+            - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+        - "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml"
+        - "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        - "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

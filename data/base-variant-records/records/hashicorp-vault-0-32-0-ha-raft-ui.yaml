@@ -147,11 +147,28 @@ spec:
       records:
         - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "topology-before-apply"
+          requirementRefs:
+            - "target topology"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "The destination must provide the recorded topology before apply. schedule the three Vault server replicas rendered by the HA Raft base."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+            - "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
       records:
         - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+        - "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

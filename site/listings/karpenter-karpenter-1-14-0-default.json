@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml",
-      "sha256": "sha256:fa8528d8f43938919dd688ae4a7124a17c1540643c902d9cf8f9ddc0f1ec3da3",
+      "sha256": "sha256:4d3a8726e9bdbdb78ed1beb73ef36e62dfdf1d6de00c862bf31cfb1d8f0c386f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -246,12 +246,18 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+      },
       {
         "id": "target topology",
         "type": "target-fact",
@@ -265,12 +271,82 @@
         "detail": "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
+        ]
+      },
+      {
+        "id": "topology-before-apply",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "target topology"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml",
+          "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
+        ]
+      },
+      {
+        "id": "value-before-render",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "The value settings.clusterName must be set before render. EKS cluster name; required with no chart default, the deployment template refuses to render without it.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "settings.clusterName"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml",
+          "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
+        ]
+      }
+    ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
+      },
       {
         "name": "karpenter-karpenter-1-14-0-default.yaml",
         "path": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
+      },
+      {
+        "name": "variant.yaml",
+        "path": "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
       }
     ]
   },

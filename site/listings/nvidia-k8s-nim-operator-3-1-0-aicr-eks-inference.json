@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
-      "sha256": "sha256:e36e6bf813f562825d5709ebd34d7cac1a9d4234761f4d8ac00d3c4ccc263163",
+      "sha256": "sha256:8dbaad454ba122bcf7a436ec1c436794c9a98c970c2ca888d98bf475468f7cd2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -246,12 +246,18 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
+      {
+        "id": "lifecycle-action-pre-upgrade",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+      },
       {
         "id": "nemocustomizers.apps.nvidia.com",
         "type": "target-fact",
@@ -319,12 +325,110 @@
         "detail": "cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. Then apply the other 12 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "nemocustomizers.apps.nvidia.com",
+          "nemodatastores.apps.nvidia.com",
+          "nemoentitystores.apps.nvidia.com",
+          "nemoevaluators.apps.nvidia.com",
+          "nemoguardrails.apps.nvidia.com",
+          "nimbuilds.apps.nvidia.com",
+          "nimcaches.apps.nvidia.com",
+          "nimpipelines.apps.nvidia.com",
+          "nimservices.apps.nvidia.com"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/crd-ordering.yaml",
+          "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-pre-upgrade",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-pre-upgrade"
+        ],
+        "checks": [
+          "stop and report; never continue past an action that did not complete"
+        ],
+        "evidence": [
+          "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/lifecycle-actions.yaml",
+          "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/k8s-nim-operator-lifecycle/aicr-eks-inference/pre-upgrade.yaml"
+        ]
+      },
+      {
+        "id": "webhook-certificate",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "cert-manager running on the target",
+        "mechanism": "The base holds a webhook configuration with no CA bundle and the cert-manager objects that ask for its certificate. Nothing in the bundle issues that certificate. cert-manager on the target issues it and injects the CA.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "certificates.cert-manager.io",
+          "issuers.cert-manager.io"
+        ],
+        "checks": [
+          "each Certificate reports Ready and each webhook configuration carries a CA bundle, before the webhook is relied on"
+        ],
+        "evidence": [
+          "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/webhook-certificate.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
         "path": "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference.yaml"
+      },
+      {
+        "name": "lifecycle-actions.yaml",
+        "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/lifecycle-actions.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/lifecycle-actions.yaml"
+      },
+      {
+        "name": "pre-upgrade.yaml",
+        "path": "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/k8s-nim-operator-lifecycle/aicr-eks-inference/pre-upgrade.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/k8s-nim-operator-lifecycle/aicr-eks-inference/pre-upgrade.yaml"
+      },
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/crd-ordering.yaml"
+      },
+      {
+        "name": "webhook-certificate.yaml",
+        "path": "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/webhook-certificate.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference/routes/webhook-certificate.yaml"
+      },
+      {
+        "name": "aicr-eks-inference-crds.yaml",
+        "path": "packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/k8s-nim-operator/3.1.0/prerequisites/target-facts/aicr-eks-inference-crds.yaml"
       }
     ]
   },

@@ -197,6 +197,16 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-pre-upgrade"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+        -
+          id: "lifecycle-action-pre-delete"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+        -
           id: "deploymentpolicies.nodewright.nvidia.com"
           origin: "base"
           type: "target-fact"
@@ -218,12 +228,72 @@ spec:
           detail: "CRD included in this base and applied before the operator that reconciles it"
       records:
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "deploymentpolicies.nodewright.nvidia.com"
+            - "deploymentpolicies.skyhook.nvidia.com"
+            - "nodewrights.nodewright.nvidia.com"
+            - "skyhooks.skyhook.nvidia.com"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Install and establish the 4 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them, so nothing is rejected if they arrive late, but the operator cannot work until they are established."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/target-facts/default-crds.yaml"
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+        -
+          id: "lifecycle-action-pre-upgrade"
+          requirementRefs:
+            - "lifecycle-action-pre-upgrade"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        -
+          id: "lifecycle-action-pre-delete"
+          requirementRefs:
+            - "lifecycle-action-pre-delete"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+            - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+        - "packages/nvidia/nodewright/v0.19.0/prerequisites/target-facts/default-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

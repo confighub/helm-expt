@@ -133,14 +133,37 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
       records:
+        - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
     targetFacts:
       status: "gap"

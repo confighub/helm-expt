@@ -177,11 +177,28 @@ spec:
       records:
         - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "replicatemplates.rollout-operator.grafana.com"
+            - "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
       records:
         - "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-no-crds.yaml"
+        - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

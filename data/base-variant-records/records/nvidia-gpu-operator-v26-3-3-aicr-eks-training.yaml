@@ -163,6 +163,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-pre-upgrade"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        -
           id: "clusterpolicies.nvidia.com"
           origin: "base"
           type: "target-fact"
@@ -174,12 +179,54 @@ spec:
           detail: "CRD included in this base and applied before the workloads that use it"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-aicr-eks-training.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.3/prerequisites/gpu-operator-lifecycle/aicr-eks-training/pre-upgrade.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "clusterpolicies.nvidia.com"
+            - "nvidiadrivers.nvidia.com"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 8 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/crd-ordering.yaml"
+            - "packages/nvidia/gpu-operator/v26.3.3/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        -
+          id: "lifecycle-action-pre-upgrade"
+          requirementRefs:
+            - "lifecycle-action-pre-upgrade"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/gpu-operator/v26.3.3/prerequisites/gpu-operator-lifecycle/aicr-eks-training/pre-upgrade.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-3-aicr-eks-training.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/crd-ordering.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-3-aicr-eks-training/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.3/prerequisites/gpu-operator-lifecycle/aicr-eks-training/pre-upgrade.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.3/prerequisites/target-facts/aicr-eks-training-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

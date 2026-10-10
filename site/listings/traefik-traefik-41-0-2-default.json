@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/traefik-traefik-41-0-2-default.yaml",
-      "sha256": "sha256:50c6bff025f0249621c50313c2ded0e33dba5fd7e56bec213f9cfb0c1cbbbbe3",
+      "sha256": "sha256:d13507ed4d7ed5278db461af834a5d55e034281406a9a9f73936eb24fdd7f623",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/traefik-traefik-41-0-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -248,9 +248,45 @@
     "targetFactsStatus": "gap",
     "resolutionStatus": "gap",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
-    "requirements": [],
-    "routes": [],
+    "requirements": [
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+      }
+    ],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+        ]
+      }
+    ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+      },
       {
         "name": "traefik-traefik-41-0-2-default.yaml",
         "path": "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml",

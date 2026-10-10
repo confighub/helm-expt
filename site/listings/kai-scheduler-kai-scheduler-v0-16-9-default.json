@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml",
-      "sha256": "sha256:88c5623bfcc03b25615d93d22e7ab7df0e7c529101cae3de3402a056b3f85a2f",
+      "sha256": "sha256:822475de45ea96bb9aa152b15b4295c22fd33c64a69e4f881625d59455195f61",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -215,12 +215,30 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
+      {
+        "id": "lifecycle-action-pre-install-pre-upgrade",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Before an install or an upgrade, move the CRDs forward and migrate topologies. Helm runs these in hook-weight order before it applies the chart's objects. The crd-upgrader Job applies the CRD files inside its image, with the kai-scheduler-crd-manager ServiceAccount and its ClusterRole and ClusterRoleBinding. The topology-migration Job runs a script from a hook ConfigMap that copies Kueue Topology objects, where a cluster has them, to KAI Topology objects, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The kai-config Config object is not in this file; the post-install action applies it. A workflow that applies this base's CRD bundle first does the crd-upgrader's work. Helm deletes the Jobs when they succeed; a workflow that applies them must delete them itself."
+      },
+      {
+        "id": "lifecycle-action-post-install-post-upgrade",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "After an install or an upgrade, apply the Config that tells the operator what to run. In this chart version the kai-config Config object is not a chart object. This Job applies it with kubectl apply --server-side from the kai-config-manifest hook ConfigMap, using the kai-config-deployer ServiceAccount and its ClusterRole and ClusterRoleBinding. It is required on a first install: the operator deploys no scheduler until the Config exists. A workflow may instead apply the Config manifest held in that ConfigMap directly."
+      },
+      {
+        "id": "lifecycle-action-post-delete",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "After a delete, remove what the operator created. The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. It renders only while postCleanup.enabled is true, which is the chart default; the AICR values turn it off. A flattened delete that skips it leaves the operator-created Deployments and the Config. The keep-annotated Namespace, Queues and SchedulingShard are deleted with the base instead of kept."
+      },
       {
         "id": "bindrequests.scheduling.run.ai",
         "type": "target-fact",
@@ -258,12 +276,115 @@
         "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Install and establish the 6 CRDs before the other objects. The base holds two Queue objects and a SchedulingShard, which Kubernetes rejects until their CRDs are established, and the operator watches all six kinds as soon as it starts. The bundle holds exactly the CRDs this base renders.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "bindrequests.scheduling.run.ai",
+          "configs.kai.scheduler",
+          "podgroups.scheduling.run.ai",
+          "queues.scheduling.run.ai",
+          "schedulingshards.kai.scheduler",
+          "topologies.kai.scheduler"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml",
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-pre-install-pre-upgrade",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Before an install or an upgrade, move the CRDs forward and migrate topologies. Helm runs these in hook-weight order before it applies the chart's objects. The crd-upgrader Job applies the CRD files inside its image, with the kai-scheduler-crd-manager ServiceAccount and its ClusterRole and ClusterRoleBinding. The topology-migration Job runs a script from a hook ConfigMap that copies Kueue Topology objects, where a cluster has them, to KAI Topology objects, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The kai-config Config object is not in this file; the post-install action applies it. A workflow that applies this base's CRD bundle first does the crd-upgrader's work. Helm deletes the Jobs when they succeed; a workflow that applies them must delete them itself.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-pre-install-pre-upgrade"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-post-install-post-upgrade",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "After an install or an upgrade, apply the Config that tells the operator what to run. In this chart version the kai-config Config object is not a chart object. This Job applies it with kubectl apply --server-side from the kai-config-manifest hook ConfigMap, using the kai-config-deployer ServiceAccount and its ClusterRole and ClusterRoleBinding. It is required on a first install: the operator deploys no scheduler until the Config exists. A workflow may instead apply the Config manifest held in that ConfigMap directly.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-post-install-post-upgrade"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-post-delete",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "After a delete, remove what the operator created. The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. It renders only while postCleanup.enabled is true, which is the chart default; the AICR values turn it off. A flattened delete that skips it leaves the operator-created Deployments and the Config. The keep-annotated Namespace, Queues and SchedulingShard are deleted with the base instead of kept.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-post-delete"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
+          "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "kai-scheduler-kai-scheduler-v0-16-9-default.yaml",
         "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+      },
+      {
+        "name": "post-delete.yaml",
+        "path": "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+      },
+      {
+        "name": "post-install-post-upgrade.yaml",
+        "path": "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
+      },
+      {
+        "name": "pre-install-pre-upgrade.yaml",
+        "path": "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml"
+      },
+      {
+        "name": "lifecycle-actions.yaml",
+        "path": "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+      },
+      {
+        "name": "default-crds.yaml",
+        "path": "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/target-facts/default-crds.yaml"
       }
     ]
   },

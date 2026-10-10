@@ -150,6 +150,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+        -
           id: "target topology"
           origin: "base"
           type: "target-fact"
@@ -160,13 +165,67 @@ spec:
           type: "target-fact"
           detail: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
       records:
+        - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
+        -
+          id: "topology-before-apply"
+          requirementRefs:
+            - "target topology"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "The destination must provide the recorded topology before apply. replicas 1 needs one schedulable non-Karpenter node on the system nodegroup."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+            - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+        -
+          id: "value-before-render"
+          requirementRefs:
+            - "controller.env[AWS_REGION]"
+          phase: "destination-resolution"
+          proposedActor: "operator"
+          proposedMechanism: "The value controller.env[AWS_REGION] must be set before render. AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+            - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+        - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:
