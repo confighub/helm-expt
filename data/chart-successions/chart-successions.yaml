@@ -51,10 +51,12 @@ spec:
             An operator, not a drop-in chart; the operating shape changes.
             Issue 1378 tracks the fuller successor entry.
     - replaces: bitnami/mysql
-      successors: []
-      planned:
-        - name: MySQL Operator for Kubernetes
+      successors:
+        - chart: mysql/mysql-operator
+          shape: operator
           note: >-
-            The survey's pick is not yet a catalog entry; issue 1377 tracks
-            it. The pinned mysql chart source still answered normally at the
-            last measurement.
+            An operator, not a drop-in database chart; the operating shape
+            changes. The catalog entry installs the operator only, and the
+            database becomes an InnoDBCluster resource, which the survey's
+            companion mysql-innodbcluster chart creates and this catalog does
+            not list yet. Issue 1377 tracks the fuller successor entry.

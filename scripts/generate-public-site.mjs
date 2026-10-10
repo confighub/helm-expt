@@ -7167,15 +7167,22 @@ cub config verify oci://YOUR-REGISTRY/redis@sha256:&lt;digest from the line abov
 // A pinned Bitnami chart whose default image no longer resolves under bitnami,
 // from the fetch receipt, and whether every Catalog base of it names the
 // bitnamilegacy copy instead, from the catalog image index.
-function bitnamiMovedImage(chart) {
-  const receipt = JSON.parse(readFileSync(join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json"), "utf8"));
-  const row = receipt.rows.find((item) => item.chart === chart && item.image?.status === "not-found");
+// Read once: the Catalog readiness label asks this for every chart row.
+function bitnamiFetchReceipt() {
+  bitnamiFetchReceipt.cached ??= JSON.parse(readFileSync(join(repoRoot, "runs/bitnami-source-fetch/all-originals-receipt.json"), "utf8"));
+  return bitnamiFetchReceipt.cached;
+}
+
+function bitnamiMovedImage(chart, version) {
+  const row = bitnamiFetchReceipt().rows.find((item) => item.chart === chart
+    && (!version || item.version === version)
+    && item.image?.status === "not-found");
   if (!row) return null;
   const index = JSON.parse(readFileSync(join(repoRoot, "data/catalog-images/images.json"), "utf8"));
   const prefix = `${chart.replace("/", "-")}-${row.version.replace(/\./g, "-")}-`;
   const bases = (index.entries ?? []).filter((entry) => entry.id.startsWith(prefix));
   const legacy = bases.length > 0 && bases.every((entry) => entry.images.some((image) => image.reference.includes("/bitnamilegacy/")));
-  return { reference: row.image.reference, legacy };
+  return { reference: row.image.reference, legacy, observedOn: String(row.observedAt).slice(0, 10) };
 }
 
 function bitnamiFetchSummary() {
@@ -7197,7 +7204,7 @@ function bitnamiFetchSummary() {
   const third = moved.length === 0
     ? "Every default image still resolved."
     : `${cap(count(moved.length))} ${moved.length === 1 ? "chart" : "charts"}, ${list(moved.map(name))}, ${moved.length === 1 ? "names an image tag" : "name image tags"} that no longer ${moved.length === 1 ? "exists" : "exist"} under bitnami${legacyOnly.length === moved.length ? ", only under bitnamilegacy" : ""}.`;
-  const fourth = moved.length === 0 ? "" : ` ${moved.length === 1 ? "That chart installs, and its pods" : "Those charts install, and their pods"} cannot pull the image. ${legacyOnly.length === moved.length ? "The bitnamilegacy copies receive no updates." : ""}`;
+  const fourth = moved.length === 0 ? "" : ` ${moved.length === 1 ? "That chart installs, and its pods" : "Those charts install, and their pods"} cannot pull the image. ${legacyOnly.length === moved.length ? "The receipt shows only that the bitnamilegacy copies resolved, not whether they are patched or will stay available." : ""}`;
   const fifth = floating.length ? ` The other ${count(floating.length)} run an image tagged latest, which resolves today but is not pinned.` : "";
   return `${first} ${second} ${third}${fourth}${fifth}`.replace(/\s+/g, " ").trim();
 }
@@ -11466,6 +11473,18 @@ function catalogReadiness(entry, row) {
       detail: "This is a planned configuration, not a runnable package.",
     };
   }
+  // The Bitnami fetch receipt outranks the lanes here: a chart whose default
+  // image was not found is never ready to try, even though its bases passed.
+  const movedImage = bitnamiMovedImage(entry.chart, entry.version);
+  if (movedImage) {
+    return {
+      id: "review-before-use",
+      label: "Review before use",
+      detail: movedImage.legacy
+        ? "Its default image no longer pulls, and the Catalog bases pin a bitnamilegacy copy instead."
+        : "Its default image no longer pulls. Read the chart page before use.",
+    };
+  }
   if (entry.proof_surface === "top20-catalog-supported") {
     return {
       id: "ready-to-try",
@@ -12802,7 +12821,7 @@ function successionCalloutHtml(catalog, chart) {
   const sentences = [];
   const moved = bitnamiMovedImage(chart);
   if (moved) {
-    sentences.push(`<strong>A plain install of this chart does not start.</strong> Its default image <code>${escapeHtml(moved.reference)}</code> no longer exists under bitnami, so its pods cannot pull it.${moved.legacy ? " Every Catalog base of this chart sets the same tag from <code>bitnamilegacy</code> instead, which still pulls but receives no updates." : ""} <a href="../did-your-bitnami-chart-stop-pulling.html">Did your Bitnami chart stop pulling?</a> shows the check and the successor.`);
+    sentences.push(`<strong>A plain install of this chart does not start.</strong> Its default image <code>${escapeHtml(moved.reference)}</code> no longer exists under bitnami, so its pods cannot pull it.${moved.legacy ? ` Every Catalog base of this chart sets the same tag from <code>bitnamilegacy</code> instead. That copy still resolved on ${escapeHtml(moved.observedOn)}, and the receipt does not show whether it is patched or will stay available.` : ""} <a href="../did-your-bitnami-chart-stop-pulling.html">Did your Bitnami chart stop pulling?</a> shows the check and the successor.`);
   }
   if (exposure && Number(exposure.httpStatus) >= 400) {
     sentences.push(`The pinned upstream source download for this component returned HTTP ${escapeHtml(String(exposure.httpStatus))} when measured on ${escapeHtml(catalog.upstreamExposureMeasuredAt)}. The retained packages and publications recorded here stay pullable from this catalog's registry.`);

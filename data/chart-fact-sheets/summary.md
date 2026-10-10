@@ -13,7 +13,7 @@ never one without the other. Read-only projection over
 [chart-skills](../chart-skills/skills.csv). The browser board is
 [fact-sheets.html](fact-sheets.html).
 
-Covers **122 charts**. By support status: needs-better-base-variant 46 · works-with-operator-review 35 · ready-to-try 20 · works-with-target-prerequisites 14 · not-ready-yet 7.
+Covers **122 charts**. By support status: needs-better-base-variant 46 · works-with-operator-review 37 · ready-to-try 18 · works-with-target-prerequisites 14 · not-ready-yet 7.
 
 After any apply, the honest check is **cub-scout** — `object-set-matches`,
 `prerequisites-met`, `workloads-converged` — because "created" is not "working".
@@ -44,11 +44,11 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 ## bitnami/mysql@14.0.3
 
-- **Status:** Ready to try (`ready-to-try`)
+- **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
-- **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
+- **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2) on Catalog bases that pin a bitnamilegacy image. The chart's own default image was not found.
 - **Recommended base:** `existing-secret`
-- **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
+- **You must provide/decide:** a choice between the image the Catalog bases pin (docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1) and the recorded successor, because the default image docker.io/bitnami/mysql:9.4.0-debian-12-r1 was not found on 2026-09-17; an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
@@ -80,11 +80,11 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 ## bitnami/rabbitmq@16.0.14
 
-- **Status:** Ready to try (`ready-to-try`)
+- **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
-- **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
+- **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2) on Catalog bases that pin a bitnamilegacy image. The chart's own default image was not found.
 - **Recommended base:** `existing-secret`
-- **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
+- **You must provide/decide:** a choice between the image the Catalog bases pin (docker.io/bitnamilegacy/rabbitmq:4.1.3-debian-12-r1) and the recorded successor, because the default image docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1 was not found on 2026-09-17; an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
