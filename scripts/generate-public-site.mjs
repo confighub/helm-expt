@@ -4985,19 +4985,29 @@ function configHtml(catalog) {
 
   <section aria-labelledby="flatten">
     <h2 id="flatten">3. See whether a configuration can be flattened</h2>
+    <h3 id="why-routes">Why some entries come with routes</h3>
+    <p>Take Helm. It does more than write YAML. It applies CRDs before the objects that need them. It also runs hook Jobs at set moments, such as before an upgrade.</p>
+    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships the notes in the same bundle as the objects. A route is one of those notes.</p>
+    <h3 id="what-a-route-is">What the GPU Operator's routes say</h3>
+    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents.</p>
+    ${markdownLikeTable([
+      ["Document", "What it tells you to do"],
+      ["Target requirements", "Create the namespace <code>gpu-operator</code> first. The bundle does not contain it."],
+      ["Route for CRD ordering", "Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects."],
+      ["Route for lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
+    ], { rawSecondColumn: true })}
+    <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
+    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does. Under Argo CD the CRD route means sync waves, and the Catalog has not run that for this chart.</p>
+    <p>The 24 objects are final. A route never renders them again.</p>
+    <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
-    <p>Every Catalog entry has one of four verdicts. The verdict tells you how the entry is kept and what you do with it.</p>
+    <p>Every Catalog entry has one of four verdicts.</p>
     <ul>
-      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a> means the entry is kept as exact Kubernetes objects, and nothing else has to travel with them.</li>
-      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a> means the entry is kept as exact objects, plus a short list of steps that plain YAML cannot carry. Those steps are the routes.</li>
-      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a> means the entry is not delivered as flattened objects. Its source is rendered at install time.</li>
-      <li><a href="#verdict-born-flattened"><code>born-flattened</code></a> means the source was already exact objects, so nothing was rendered.</li>
+      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There are no routes.</li>
+      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with routes, as the GPU Operator's do.</li>
+      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
+      <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
-    <h3 id="what-a-route-is">What a route is, and what you do with one</h3>
-    <p>A route is one named step that has to happen around the objects. The usual ones are a CRD that must exist before the objects that use it, a hook, and a setup Job. A Secret or certificate that you supply is another.</p>
-    <p>The objects are complete, and nothing is rendered again for a route. NVIDIA's GPU Operator is an example. <a href="./charts/nvidia-gpu-operator.html">Its entry</a> is kept as exact objects. The step around them is that its CRDs must be established before the objects that use them.</p>
-    <p>Some entries also leave values for the destination to supply, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
-    <p>You can put an entry with routes into ConfigHub as it is. The published OCI bundle carries the routes beside the objects. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> uploads one and promotes it through dev and QA.</p>
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
     <h3 id="four-verdicts">The four verdicts</h3>
