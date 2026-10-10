@@ -24,6 +24,8 @@ npm run top100:user-readiness:verify   # check committed outputs
 | [`data/chart-facts/chart-facts.csv`](../../data/chart-facts/chart-facts.csv) | Per-chart quirk facts for all 100 charts: hooks, CRDs, generated and existing Secrets, webhooks, extension slots, required values, install-vs-upgrade divergence. |
 | [`data/top20-base-readiness/base-readiness.csv`](../../data/top20-base-readiness/base-readiness.csv) | The reviewed recommended first base for catalog-supported charts. |
 | [`data/outcome-coverage/base-outcomes.csv`](../../data/outcome-coverage/base-outcomes.csv) | Per-base evidence used to choose the strongest visible base when a chart does not yet have a reviewed catalog recommendation. |
+| [`runs/bitnami-source-fetch/all-originals-receipt.json`](../../runs/bitnami-source-fetch/all-originals-receipt.json) | Whether each pinned Bitnami chart's default image still resolved under `bitnami`, and when that was measured. |
+| [`data/catalog-images/images.json`](../../data/catalog-images/images.json) | The images each Catalog base names, so a row can say which image its lanes ran. |
 
 ## Bucket Rules
 
@@ -42,9 +44,9 @@ whether the next step is mostly a target prerequisite or an operator review.
 
 | Bucket | Rule |
 | --- | --- |
-| `ready-to-try` | `catalog_tier = top20-catalog-supported`. Every such chart has a reviewed `recommended_first` base whose readiness is `start-here`. |
+| `ready-to-try` | `catalog_tier = top20-catalog-supported`, unless the Bitnami fetch receipt records the chart's default image as not found. Every such chart has a reviewed `recommended_first` base whose readiness is `start-here`. |
 | `works-with-target-prerequisites` | `workability = works-as-proof-needs-catalog-review` **and** the named gap text matches a prerequisite shape (existing Secret, StorageClass, CRD owner, pull secret, IngressClass). |
-| `works-with-operator-review` | The remaining `works-as-proof-needs-catalog-review` charts: the gap is the review itself (hooks, lifecycle, HA teaching, variant naming), not a missing cluster input. |
+| `works-with-operator-review` | The remaining `works-as-proof-needs-catalog-review` charts: the gap is the review itself (hooks, lifecycle, HA teaching, variant naming), not a missing cluster input. A chart whose default image the Bitnami fetch receipt records as not found also lands here, whatever its tier, because a plain install of it does not start. |
 | `needs-better-base-variant` | `workability = not-yet-a-good-catalog-offer`: the mechanism is proven, but the install shapes a real user wants are not built or reviewed. |
 | `not-ready-yet` | `workability = decision-needed-before-promotion`: a named limitation needs a support / disclose / defer decision. |
 
@@ -56,10 +58,10 @@ plain Helm; the bucket says this catalog will not yet vouch for it.
 
 | Column | Derivation |
 | --- | --- |
-| `current_proof` | `user_status` plus the populated lane fractions (render parity, local live, live parity). |
-| `recommended_first_base` | The reviewed `recommended_first` base for catalog-supported charts. For everything else, the base with the strongest committed evidence, marked `(unreviewed first guess)` — an honest hint, not a catalog recommendation. |
+| `current_proof` | `user_status` plus the populated lane fractions (render parity, local live, live parity). When the default image was not found, it also says that the lanes ran on Catalog bases that pin a `bitnamilegacy` image. The exact references and date are in `user_must_provide`. |
+| `recommended_first_base` | The reviewed `recommended_first` base wherever one is recorded. For everything else, the base with the strongest committed evidence, marked `(unreviewed first guess)` — an honest hint, not a catalog recommendation. |
 | `quirks` | Union of chart-facts flags (hooks, crds, generated-secrets, existing-secret, webhooks, extension-slots, install-vs-upgrade-divergence, required-values) and `source_features` tokens (lookup, capabilities, tpl, rbac, storage, generated-facts). |
-| `user_must_provide` | Assembled from the prerequisite-shaped flags: existing Secret detail, storage decision, CRD ownership choice, webhook readiness, target facts, mandatory inputs — plus the bucket-level caveat for not-ready and needs-variant rows. |
+| `user_must_provide` | Assembled from the prerequisite-shaped flags: existing Secret detail, storage decision, CRD ownership choice, webhook readiness, target facts, mandatory inputs — plus the bucket-level caveat for not-ready and needs-variant rows. A chart with a missing default image first asks for a choice between the image the Catalog bases pin and the recorded successor. |
 | `confighub_absorbs` | Assembled from the quirk flags: exact rendered objects with parity and receipts always; separated generated Secrets, CRD bases, hook classification and routing, reviewed extension slots, captured install-vs-upgrade divergence, lookups lifted to target facts — where flagged. |
 | `next_action` | Passed through verbatim from the curated top-100 readiness row. |
 | `pain_report` | The chart's Helm pain report path, for full per-chart detail. |
