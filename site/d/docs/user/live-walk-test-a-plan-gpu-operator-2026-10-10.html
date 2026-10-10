@@ -692,8 +692,105 @@ NAME                                         DESIRED   CURRENT   READY   UP-TO-D
 gpu-operator-node-feature-discovery-worker   1         1         1       1            1           &lt;none&gt;          48s
 observed 2026-10-10T20:36:06Z</code></pre>
 <p>The first look came 10 seconds after the script ended, while three images were still being pulled. The second look shows all four pods running.</p>
-<h2 id="what-went-wrong">What went wrong</h2>
+<h2 id="what-went-wrong-in-the-first-run">What went wrong in the first run</h2>
 <ol><li><b>The script applies the CRDs twice.</b> It first applies the packaged CRD file with server-side apply and waits. It then applies every rendered object with a plain <code>kubectl apply</code>, and the rendered objects include the same eight CRDs. Kubernetes prints one warning for each CRD about a missing <code>last-applied-configuration</code> annotation. Nothing failed. A reader will still wonder what the eight warnings mean.</li><li><b>The closing line says more than the script did.</b> It ends with &quot;with the packaged lifecycle steps checked&quot;. The script carried out the install steps. It did not run the Job the plan names for before an upgrade, or the Job it names for after a delete.</li></ol>
+<h2 id="the-script-was-corrected-and-run-again">The script was corrected, and run again</h2>
+<p>Both faults above were fixed in the script generator the same day. The corrected script applies each CRD once, and its last lines say only what it did. It was run twice more, on a second throwaway cluster, with the system's bash 3.2.</p>
+<p>The first of the two runs was on the empty cluster. It printed no warning and exited 0 in 6 seconds. Its last line named the steps it had not run, in an earlier wording that also listed <code>pre-apply</code>. That was wrong, because the script does run the CRD step, and the wording was corrected before the second run. This is that first run from the namespace step on.</p>
+<pre><code>$ /bin/bash ./try.sh
+&gt;&gt; Ensure the gpu-operator namespace exists
+namespace/gpu-operator created
+
+&gt;&gt; Check 8 CRDs included with this package
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+
+&gt;&gt; Apply the rendered objects, except the CRDs already settled above
+clusterpolicy.nvidia.com/cluster-policy created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrole.rbac.authorization.k8s.io/gpu-operator created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator created
+configmap/gpu-operator-node-feature-discovery-master-conf created
+configmap/gpu-operator-node-feature-discovery-worker-conf created
+daemonset.apps/gpu-operator-node-feature-discovery-worker created
+deployment.apps/gpu-operator-node-feature-discovery-gc created
+deployment.apps/gpu-operator-node-feature-discovery-master created
+deployment.apps/gpu-operator created
+namespace/gpu-operator configured
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+role.rbac.authorization.k8s.io/gpu-operator created
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+rolebinding.rbac.authorization.k8s.io/gpu-operator created
+serviceaccount/gpu-operator created
+serviceaccount/node-feature-discovery created
+
+&gt;&gt; Done. The cluster received the files in ./nvidia-gpu-operator-v26-7-1-default/out. Its CRDs were settled first, from the package.
+
+&gt;&gt; Not run by this script: the pre-apply and pre-upgrade and pre-delete and post-delete steps of this base's plan. Those belong to an upgrade or a delete.
+[exit 0]
+finished 2026-10-10T21:31:56Z</code></pre>
+<p>The second run used the final script on the same cluster, where everything already existed. It left the eight CRDs alone, reported every other object unchanged, printed no warning and exited 0 in 5 seconds.</p>
+<pre><code>$ /bin/bash ./try.sh
+&gt;&gt; Ensure the gpu-operator namespace exists
+namespace/gpu-operator configured
+
+&gt;&gt; Check 8 CRDs included with this package
+
+&gt;&gt; The required CRDs already exist; leave them under their current owner
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+
+&gt;&gt; Apply the rendered objects, except the CRDs already settled above
+clusterpolicy.nvidia.com/cluster-policy unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+configmap/gpu-operator-node-feature-discovery-master-conf unchanged
+configmap/gpu-operator-node-feature-discovery-worker-conf unchanged
+daemonset.apps/gpu-operator-node-feature-discovery-worker configured
+deployment.apps/gpu-operator-node-feature-discovery-gc configured
+deployment.apps/gpu-operator-node-feature-discovery-master configured
+deployment.apps/gpu-operator configured
+namespace/gpu-operator configured
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+role.rbac.authorization.k8s.io/gpu-operator unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+serviceaccount/gpu-operator unchanged
+serviceaccount/node-feature-discovery unchanged
+
+&gt;&gt; Done. The cluster received the files in ./nvidia-gpu-operator-v26-7-1-default/out. Its CRDs were settled first, from the package.
+
+&gt;&gt; Not run by this script: the pre-upgrade, pre-delete and post-delete steps of this base's plan. The entry page says who runs each one.
+[exit 0]
+finished 2026-10-10T21:34:45Z</code></pre>
+<p>After it, the four pods were running and the ClusterPolicy reported <code>ready</code>. The second cluster was deleted in the same way as the first.</p>
 <h2 id="what-the-walk-did-not-cover">What the walk did not cover</h2>
 <ul><li>No GPU. The ClusterPolicy's <code>Ready</code> condition carries the reason <code>NFDLabelsMissing</code>, and no driver, toolkit or device-plugin DaemonSet was created.</li><li>The upgrade and delete steps of the plan were not run.</li><li>One run, on one machine, with one node.</li><li>Only the <code>default</code> base of one version. The other bases of this chart have their own scripts, and they were not run here.</li><li>The plain-objects bundle was not used. The script renders the installer package locally.</li></ul>
 <h2 id="clean-up">Clean-up</h2>
@@ -704,7 +801,7 @@ Deleted nodes: [&quot;cwtest-1010-gpuop-control-plane&quot;]</code></pre>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#make-the-cluster">Make the cluster</a></li><li><a href="#fetch-the-script-and-run-it">Fetch the script and run it</a></li><li><a href="#watch-what-the-cluster-did">Watch what the cluster did</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#clean-up">Clean-up</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#make-the-cluster">Make the cluster</a></li><li><a href="#fetch-the-script-and-run-it">Fetch the script and run it</a></li><li><a href="#watch-what-the-cluster-did">Watch what the cluster did</a></li><li><a href="#what-went-wrong-in-the-first-run">What went wrong in the first run</a></li><li><a href="#the-script-was-corrected-and-run-again">The script was corrected, and run again</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#clean-up">Clean-up</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

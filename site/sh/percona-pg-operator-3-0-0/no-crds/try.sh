@@ -96,7 +96,20 @@ if [ -d ./percona-pg-operator-3-0-0-no-crds/out/secrets ]; then
   kubectl apply -f ./percona-pg-operator-3-0-0-no-crds/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./percona-pg-operator-3-0-0-no-crds/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" crunchybridgeclusters.upstream.pgv2.percona.com perconapgbackups.pgv2.percona.com perconapgclusters.pgv2.percona.com perconapgrestores.pgv2.percona.com perconapgupgrades.pgv2.percona.com pgadmins.upstream.pgv2.percona.com pgupgrades.upstream.pgv2.percona.com postgresclusters.upstream.pgv2.percona.com "
+manifest_args=()
+for manifest in ./percona-pg-operator-3-0-0-no-crds/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./percona-pg-operator-3-0-0-no-crds/out."
+say "Done. The cluster received the files in ./percona-pg-operator-3-0-0-no-crds/out. Its CRDs were settled first, from the package."

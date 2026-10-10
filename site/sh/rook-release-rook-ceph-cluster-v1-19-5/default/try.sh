@@ -87,7 +87,20 @@ if [ -d ./rook-release-rook-ceph-cluster-v1-19-5-default/out/secrets ]; then
   kubectl apply -f ./rook-release-rook-ceph-cluster-v1-19-5-default/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./rook-release-rook-ceph-cluster-v1-19-5-default/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" cephblockpools.ceph.rook.io cephclusters.ceph.rook.io cephfilesystems.ceph.rook.io cephfilesystemsubvolumegroups.ceph.rook.io cephobjectstores.ceph.rook.io "
+manifest_args=()
+for manifest in ./rook-release-rook-ceph-cluster-v1-19-5-default/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./rook-release-rook-ceph-cluster-v1-19-5-default/out."
+say "Done. The cluster received the files in ./rook-release-rook-ceph-cluster-v1-19-5-default/out. Its CRDs were settled first, from the package."

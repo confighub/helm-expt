@@ -169,7 +169,20 @@ if [ -d ./external-secrets-external-secrets-2-5-0-no-crds/out/secrets ]; then
   kubectl apply -f ./external-secrets-external-secrets-2-5-0-no-crds/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./external-secrets-external-secrets-2-5-0-no-crds/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" acraccesstokens.generators.external-secrets.io cloudsmithaccesstokens.generators.external-secrets.io clusterexternalsecrets.external-secrets.io clustergenerators.generators.external-secrets.io clusterpushsecrets.external-secrets.io clustersecretstores.external-secrets.io ecrauthorizationtokens.generators.external-secrets.io externalsecrets.external-secrets.io fakes.generators.external-secrets.io gcraccesstokens.generators.external-secrets.io generatorstates.generators.external-secrets.io githubaccesstokens.generators.external-secrets.io grafanas.generators.external-secrets.io mfas.generators.external-secrets.io passwords.generators.external-secrets.io pushsecrets.external-secrets.io quayaccesstokens.generators.external-secrets.io secretstores.external-secrets.io sshkeys.generators.external-secrets.io stssessiontokens.generators.external-secrets.io uuids.generators.external-secrets.io vaultdynamicsecrets.generators.external-secrets.io webhooks.generators.external-secrets.io "
+manifest_args=()
+for manifest in ./external-secrets-external-secrets-2-5-0-no-crds/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./external-secrets-external-secrets-2-5-0-no-crds/out."
+say "Done. The cluster received the files in ./external-secrets-external-secrets-2-5-0-no-crds/out. Its CRDs were settled first, from the package."

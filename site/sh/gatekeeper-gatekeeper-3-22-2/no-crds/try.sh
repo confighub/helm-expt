@@ -132,7 +132,20 @@ if [ -d ./gatekeeper-gatekeeper-3-22-2-no-crds/out/secrets ]; then
   kubectl apply -f ./gatekeeper-gatekeeper-3-22-2-no-crds/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./gatekeeper-gatekeeper-3-22-2-no-crds/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" assign.mutations.gatekeeper.sh assignimage.mutations.gatekeeper.sh assignmetadata.mutations.gatekeeper.sh configs.config.gatekeeper.sh configpodstatuses.status.gatekeeper.sh connections.connection.gatekeeper.sh connectionpodstatuses.status.gatekeeper.sh constraintpodstatuses.status.gatekeeper.sh constrainttemplates.templates.gatekeeper.sh constrainttemplatepodstatuses.status.gatekeeper.sh expansiontemplate.expansion.gatekeeper.sh expansiontemplatepodstatuses.status.gatekeeper.sh modifyset.mutations.gatekeeper.sh mutatorpodstatuses.status.gatekeeper.sh providers.externaldata.gatekeeper.sh providerpodstatuses.status.gatekeeper.sh syncsets.syncset.gatekeeper.sh "
+manifest_args=()
+for manifest in ./gatekeeper-gatekeeper-3-22-2-no-crds/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./gatekeeper-gatekeeper-3-22-2-no-crds/out."
+say "Done. The cluster received the files in ./gatekeeper-gatekeeper-3-22-2-no-crds/out. Its CRDs were settled first, from the package."
