@@ -905,7 +905,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <details class="entry-inputs" data-entry-plan="argo-cd-argo-workflows-1-0-14-minimal-crds">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead. Who: selected applier. <em>Seen in a recorded run.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead. Who: whatever applies the objects. <em>Seen in a recorded run.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/argo-cd-argo-workflows-1-0-14/minimal-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>

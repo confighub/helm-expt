@@ -15952,11 +15952,16 @@ function entryPlanHtml(listing, siteHref) {
   const rows = shown.map((step) => {
     const state = PLAN_STEP_STATE.get(step.sourceStatus)
       ?? `Recorded as ${String(step.sourceStatus ?? "unknown")}.`;
-    const actor = step.actor ? ` Who: ${escapeHtml(String(step.actor).replace(/\.$/, ""))}.` : "";
-    // Two sentences say what the step is. The listing holds the full text.
-    const sentences = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+    // The record's "selected applier" means whichever tool applies the objects.
+    const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
+    const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
+    // Two sentences say what the step is, the instruction first. A leading
+    // sentence that only gives the reason ("Without ...") is left to the
+    // listing, which holds the full text.
+    const all = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+    const sentences = all.length > 1 && /^Without\b/.test(all[0]) ? all.slice(1) : all;
     const brief = shortInputDetail(sentences.slice(0, 2).join(" "));
-    const rest = sentences.length > 2 && !brief.endsWith("The listing gives the rest.") ? " The listing gives the rest." : "";
+    const rest = all.length > 2 && !brief.endsWith("The listing gives the rest.") ? " The listing gives the rest." : "";
     return `<li><strong>${escapeHtml(when(step))}.</strong> ${escapeHtml(brief)}${rest}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
