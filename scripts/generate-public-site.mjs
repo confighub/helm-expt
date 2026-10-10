@@ -5032,6 +5032,7 @@ function configHtml(catalog) {
       <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
+<<<<<<< HEAD
     <h3 id="two-ways-to-ship">The Catalog ships a chart two ways</h3>
     <p>Every chart version in the Catalog is published as an installer package. The package holds the chart itself, and Helm still runs when you install it.</p>
     <p>Where the verdict allows, the Catalog can also publish the plain objects as a bundle. Helm does not run when you deliver a bundle. Each entry page says whether its bundle is published.</p>
@@ -5039,6 +5040,8 @@ function configHtml(catalog) {
     <details class="deep">
       <summary>Why both ways are kept</summary>
       <div class="deep-body">
+=======
+>>>>>>> origin/main
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
       </div>
