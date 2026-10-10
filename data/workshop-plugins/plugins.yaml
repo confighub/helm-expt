@@ -69,7 +69,7 @@ spec:
       summary: Explores and maps GitOps in your clusters.
       repository: confighub/cub-scout
       state: released
-      release: {tag: v2.13.2, date: "2026-10-07"}
+      release: {tag: v2.13.4, date: "2026-10-09"}
       install: cub plugin install confighub/cub-scout
     - id: scan
       name: Scan
@@ -85,7 +85,7 @@ spec:
       summary: Installs a self-hosted ConfigHub server.
       repository: confighub/cub-server
       state: released
-      release: {tag: v0.2.3, date: "2026-10-05"}
+      release: {tag: v0.2.4, date: "2026-10-09"}
       install: cub plugin install confighub/cub-server
     - id: demo
       name: Demo
