@@ -88,7 +88,21 @@ if [ -d ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out/secrets ]; t
   kubectl apply -f ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" bindrequests.scheduling.run.ai configs.kai.scheduler podgroups.scheduling.run.ai queues.scheduling.run.ai schedulingshards.kai.scheduler topologies.kai.scheduler "
+manifest_args=()
+for manifest in ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out, with the packaged lifecycle steps checked."
+say "Done. The cluster received the files in ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out. Its CRDs were settled first, from the package."
+say "Not run by this script: the pre-install/pre-upgrade and post-install/post-upgrade steps of this base's plan. The entry page says who runs each one."

@@ -80,7 +80,21 @@ if [ -d ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training
   kubectl apply -f ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" nodefeaturegroups.nfd.k8s-sigs.io nodefeaturerules.nfd.k8s-sigs.io nodefeatures.nfd.k8s-sigs.io noderesourcetopologies.topology.node.k8s.io "
+manifest_args=()
+for manifest in ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/out, with the packaged lifecycle steps checked."
+say "Done. The cluster received the files in ./node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/out. Its CRDs were settled first, from the package."
+say "Not run by this script: the post-delete step of this base's plan. The entry page says who runs it."

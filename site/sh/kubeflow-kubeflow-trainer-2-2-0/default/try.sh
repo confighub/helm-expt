@@ -80,7 +80,20 @@ if [ -d ./kubeflow-kubeflow-trainer-2-2-0-default/out/secrets ]; then
   kubectl apply -f ./kubeflow-kubeflow-trainer-2-2-0-default/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./kubeflow-kubeflow-trainer-2-2-0-default/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" clustertrainingruntimes.trainer.kubeflow.org jobsets.jobset.x-k8s.io trainingruntimes.trainer.kubeflow.org trainjobs.trainer.kubeflow.org "
+manifest_args=()
+for manifest in ./kubeflow-kubeflow-trainer-2-2-0-default/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./kubeflow-kubeflow-trainer-2-2-0-default/out."
+say "Done. The cluster received the files in ./kubeflow-kubeflow-trainer-2-2-0-default/out. Its CRDs were settled first, from the package."

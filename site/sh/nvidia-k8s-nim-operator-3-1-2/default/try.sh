@@ -100,7 +100,21 @@ if [ -d ./nvidia-k8s-nim-operator-3-1-2-default/out/secrets ]; then
   kubectl apply -f ./nvidia-k8s-nim-operator-3-1-2-default/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./nvidia-k8s-nim-operator-3-1-2-default/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" nemocustomizers.apps.nvidia.com nemodatastores.apps.nvidia.com nemoentitystores.apps.nvidia.com nemoevaluators.apps.nvidia.com nemoguardrails.apps.nvidia.com nimbuilds.apps.nvidia.com nimcaches.apps.nvidia.com nimpipelines.apps.nvidia.com nimservices.apps.nvidia.com "
+manifest_args=()
+for manifest in ./nvidia-k8s-nim-operator-3-1-2-default/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./nvidia-k8s-nim-operator-3-1-2-default/out, with the packaged lifecycle steps checked."
+say "Done. The cluster received the files in ./nvidia-k8s-nim-operator-3-1-2-default/out. Its CRDs were settled first, from the package."
+say "Not run by this script: the pre-upgrade step of this base's plan. The entry page says who runs it."
