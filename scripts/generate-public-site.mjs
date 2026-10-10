@@ -251,7 +251,7 @@ function listingVerdictText(facts) {
 const VERDICT_GLOSS = {
   "born-flattened": "The source was already exact Kubernetes objects. Nothing was rendered.",
   "safe-to-flatten": "Kept as exact Kubernetes objects. Nothing else has to travel with them.",
-  "flatten-with-routes": "Kept as exact Kubernetes objects, plus named steps such as a CRD order, a hook or a Secret you supply.",
+  "flatten-with-routes": "Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.",
   "unsafe-to-flatten": "Not delivered as flattened objects. The source is rendered at install time.",
 };
 
@@ -4887,7 +4887,7 @@ function configHtml(catalog) {
       ["Run", "A controller such as Argo CD applies the result to a cluster.", "Done once, on a cluster with no GPUs."],
     ])}
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a route is carried out.</p>
+    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
       <summary>The five stages in the Catalog's own terms</summary>
       <div class="deep-body">
@@ -5009,27 +5009,38 @@ function configHtml(catalog) {
 
   <section aria-labelledby="flatten">
     <h2 id="flatten">3. See whether a configuration can be flattened</h2>
-    <h3 id="why-routes">Why some entries come with routes</h3>
+    <h3 id="why-routes">Why some entries come with a plan</h3>
     <p>Take Helm. It does more than write YAML. It applies CRDs before the objects that need them. It also runs hook Jobs at set moments, such as before an upgrade.</p>
-    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships the notes in the same bundle as the objects. A route is one of those notes.</p>
-    <h3 id="what-a-route-is">What the GPU Operator's routes say</h3>
-    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents.</p>
+    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships that list in the same bundle as the objects. The list is the entry's plan.</p>
+    <p>The Catalog's records call the steps in a plan routes. That is where the verdict name <code>flatten-with-routes</code> comes from.</p>
+    <h3 id="what-a-route-is">What the GPU Operator's plan says</h3>
+    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents. The three documents are its plan.</p>
     ${markdownLikeTable([
       ["Document", "What it tells you to do"],
       ["Target requirements", "Create the namespace <code>gpu-operator</code> first. The bundle does not contain it."],
-      ["Route for CRD ordering", "Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects."],
-      ["Route for lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
+      ["CRD ordering", "Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects."],
+      ["Lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
     ], { rawSecondColumn: true })}
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
-    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does.</p>
-    <p>Under Argo CD the CRD route says to use sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
-    <p>The 24 objects are final. A route never renders them again.</p>
-    <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
+    <p>ConfigHub stores the plan. It does not carry it out. You do, or your pipeline does.</p>
+    <p>Under Argo CD the plan says to order the CRDs with sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
+    <p>The 24 objects are final. The plan never renders them again.</p>
+    <h3 id="what-a-plan-holds">What a plan can hold</h3>
+    <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
+    ${markdownLikeTable([
+      ["Kind of step", "Example", "When it is due"],
+      ["Something the cluster must already have", "GPU Operator. The namespace <code>gpu-operator</code> must exist.", "Before you deliver"],
+      ["The order to apply things in", "GPU Operator. Apply the CRDs first.", "When you deliver"],
+      ["A job to run at a set moment", "GPU Operator. Run the CRD Job before an upgrade.", "On upgrade or delete"],
+      ["A choice that is still open", "An AICR recipe. Replace the placeholder node selector with your own cluster's label.", "Before you deliver, by making a variant"],
+      ["Rendering that is still to come", "An AICR recipe. Argo CD renders the charts that its Applications point at.", "When you deliver, on the cluster"],
+    ], { rawSecondColumn: true })}
+    <p>The GPU Operator's plan has the first three kinds, so nothing is rendered again. An AICR recipe's plan also has the last two. Every entry page lists the open choices under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
     <p>Every Catalog entry has one of four verdicts.</p>
     <ul>
-      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There are no routes.</li>
-      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with routes, as the GPU Operator's do.</li>
+      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There is no plan.</li>
+      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with a plan, as the GPU Operator's do.</li>
       <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
@@ -5057,7 +5068,7 @@ function configHtml(catalog) {
     ], { rawFirstColumn: true })}
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How many entries have each verdict</h3>
-    <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with routes. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
+    <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with a plan. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
     <p>${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
       <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} entries.</li>
@@ -12022,7 +12033,7 @@ function catalogMovedSections(catalog) {
         ["The package", "The chart itself, pinned and signed. Helm runs when you install it.", "NVIDIA's chart at 26.3.3, as a signed installer package."],
         ["The bases", "The chart rendered for one set of values. An entry can have several.", "A default base, one for each driver version, and one for nodes that already have the driver."],
         ["The bundle", "One base's plain objects, published as an OCI image.", "The default base's 24 objects."],
-        ["The routes", "The written notes for work Helm used to do.", "CRD ordering, and two lifecycle actions."],
+        ["The plan", "The written list of work Helm used to do.", "CRD ordering, and two lifecycle actions."],
         ["The receipt", "The record of what was checked, with digests.", "The render was compared with Helm's own output. Nothing was run on a GPU."],
       ])}`;
   const entryContainsDetailHtml = `<p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
