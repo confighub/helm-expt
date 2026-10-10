@@ -11,22 +11,20 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 
 | Bucket | Charts | Meaning |
 | --- | --- | --- |
-| ready-to-try | 20 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
+| ready-to-try | 18 | Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects. |
 | works-with-target-prerequisites | 14 | Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership). |
-| works-with-operator-review | 35 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
+| works-with-operator-review | 37 | Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it. |
 | needs-better-base-variant | 46 | The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet. |
 | not-ready-yet | 7 | A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted. |
 
-## ready-to-try (20)
+## ready-to-try (18)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
 | argo-cd/argo-cd@9.5.15 | default | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first |
-| bitnami/mysql@14.0.3 | existing-secret | an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | bitnami/nginx@24.0.2 | http-clusterip | an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time | choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first |
 | bitnami/postgresql@18.6.7 | existing-secret | an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first |
-| bitnami/rabbitmq@16.0.14 | existing-secret | an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | bitnami/redis@25.5.3 | reuse-existing-secret | an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | choose whether default is in production scope; close or document its render-only live-readiness issue first |
 | external-secrets/external-secrets@2.5.0 | default | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | grafana/grafana@10.5.15 | existing-secret-ingress | nothing beyond a cluster and namespace | resolve image digests for each affected variant before production OCI support |
@@ -61,10 +59,12 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | sealed-secrets/sealed-secrets@2.18.6 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | velero/velero@12.0.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 
-## works-with-operator-review (35)
+## works-with-operator-review (37)
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
+| bitnami/mysql@14.0.3 | existing-secret | a choice between the image the Catalog bases pin (docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1) and the recorded successor, because the default image docker.io/bitnami/mysql:9.4.0-debian-12-r1 was not found on 2026-09-17; an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
+| bitnami/rabbitmq@16.0.14 | existing-secret | a choice between the image the Catalog bases pin (docker.io/bitnamilegacy/rabbitmq:4.1.3-debian-12-r1) and the recorded successor, because the default image docker.io/bitnami/rabbitmq:4.1.3-debian-12-r1 was not found on 2026-09-17; an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | kedacore/keda@2.19.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
 | prometheus-community/alertmanager@1.37.0 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | elastic/logstash@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
