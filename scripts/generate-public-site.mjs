@@ -5519,6 +5519,28 @@ function loadCertifiedBundleStackFacts() {
   return { eksInferenceBundleCount: eksInferenceBundles.length };
 }
 
+// Every stack the Workshop plugin ships, for the Guide's "stacks that ship".
+// The platform stacks are the rows of site/stacks.json. The stacks made to be
+// refused and the fixtures stay out of that file, so they come from the pinned
+// snapshot it is generated from.
+function loadShippedStacks() {
+  const snapshot = readYaml(join(repoRoot, "data", "workshop-stacks", "stacks.yaml")).spec.stacks;
+  const platforms = sectionRows("stacks");
+  const guideOnly = snapshot.filter((stack) => stack.role !== "platform");
+  for (const stack of guideOnly) {
+    check(["refusal", "fixture"].includes(stack.role), `stack ${stack.id}: the Guide has no table for role ${stack.role}`);
+  }
+  const snapshotPlatformIds = snapshot.filter((stack) => stack.role === "platform").map((stack) => stack.id).sort();
+  check(
+    JSON.stringify(platforms.map((row) => row.id).sort()) === JSON.stringify(snapshotPlatformIds),
+    "site/stacks.json and the platform stacks in data/workshop-stacks/stacks.yaml disagree: run npm run site:sections",
+  );
+  return [
+    ...platforms.map((row) => ({ id: row.id, role: "platform", parts: row.parts, checked: row.checked })),
+    ...guideOnly.map((stack) => ({ id: stack.id, role: stack.role, parts: stack.components, checked: stack.receipts === stack.components.length })),
+  ];
+}
+
 // Progressive disclosure for the top pages: reference-depth sections fold into
 // a bordered card so the page's action spine reads cleanly, with the detail one
 // click away. Shared so every page that folds a section looks the same.
@@ -5571,29 +5593,42 @@ function stackHtml() {
 
 function composeStackGuideHtml() {
   const bundleFacts = loadCertifiedBundleStackFacts();
-  const fullStackRows = [
-    ["eks-inference", `${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} digest-pinned bundles with receipts across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload`, "CHECKED, 130 objects"],
-  ];
-  const platformStackRows = [
-    ["kubara-platform", "the catalog's reviewed renders for a Kubara platform", "CHECKED, 86 objects"],
-    ["kubara-shop-platform", "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", "CHECKED, 135 objects, every app need carried"],
-    ["web-platform", "cert-manager, ingress-nginx, kube-prometheus-stack", "CHECKED; carries what an app like shop-web depends on"],
-    ["shop-platform", "cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app", "CHECKED, 192 objects, every app need carried"],
-    ["kubara-gitops-shop", "Kubara components with Argo CD and the adapted shop app", "CHECKED, 184 objects; a static composition only"],
-    ["gpu-node", "NVIDIA's GPU Operator, NVSentinel and cluster-readiness-engine, from the Catalog's published bundles", "CHECKED, 89 objects; a static composition only, and nothing runs on a GPU"],
-    ["observability-base", "cert-manager, metrics-server, kube-prometheus-stack", "CHECKED, 175 objects, 10 CRDs before 50 custom resources"],
-    ["gitops-secrets", "cert-manager, external-secrets, argo-cd", "CHECKED, 26 CRDs composed together"],
-    ["data-services", "redis, postgresql, rabbitmq", "CHECKED, 31 objects, no CRDs"],
-    ["app-platform", "database, cache, ingress, certificates, and monitoring", "CHECKED"],
-    ["redis-platform", "redis, external-secrets, kube-prometheus-stack", "CHECKED"],
-    ["web-tiny", "two authored ConfigMaps, sized for a live upload", "CHECKED"],
-  ];
-  const refusedStackRows = [
-    ["kubara-shop-first-try", "the Kubara platform as first picked, with the shop app placed on it", "REFUSED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither"],
-    ["metrics-double", "metrics-server, twice", "REFUSED: nine objects claimed twice"],
-    ["conflict-demo", "two authored components, one ConfigMap defined two ways", "REFUSED"],
-  ];
-  const shippedStackCount = fullStackRows.length + platformStackRows.length + refusedStackRows.length;
+  // What is hand-kept about a shipped stack: a phrase for what it is composed
+  // from where the part names say too little, and the result cub stack check
+  // printed. Which stacks ship, their roles and their parts come from the data.
+  const stackNotes = {
+    "eks-inference": { fullStack: true, from: `${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} digest-pinned bundles with receipts across all three planes: a cloud network, an EKS cluster, node autoscaling, a GPU runtime, and the inference workload`, result: "CHECKED, 130 objects" },
+    "kubara-platform": { from: "the catalog's reviewed renders for a Kubara platform", result: "CHECKED, 86 objects" },
+    "kubara-shop-platform": { from: "the Kubara platform grown by external-secrets, with the app adapted to Traefik's class", result: "CHECKED, 135 objects, every app need carried" },
+    "web-platform": { result: "CHECKED; carries what an app like shop-web depends on" },
+    "shop-platform": { from: "cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, and the shop app", result: "CHECKED, 192 objects, every app need carried" },
+    "kubara-gitops-shop": { from: "Kubara components with Argo CD and the adapted shop app", result: "CHECKED, 184 objects; a static composition only" },
+    "gpu-node": { from: "NVIDIA's GPU Operator, NVSentinel and cluster-readiness-engine, from the Catalog's published bundles", result: "CHECKED, 89 objects; a static composition only, and nothing runs on a GPU" },
+    "observability-base": { result: "CHECKED, 175 objects, 10 CRDs before 50 custom resources" },
+    "gitops-secrets": { result: "CHECKED, 26 CRDs composed together" },
+    "data-services": { result: "CHECKED, 31 objects, no CRDs" },
+    "app-platform": { result: "CHECKED" },
+    "redis-platform": { result: "CHECKED" },
+    "web-tiny": { from: "two authored ConfigMaps, sized for a live upload", result: "CHECKED" },
+    "kubara-shop-first-try": { from: "the Kubara platform as first picked, with the shop app placed on it", result: "REFUSED: the app asks for the nginx ingress class and a Prometheus operator, and the platform carries neither" },
+    "metrics-double": { from: "metrics-server, twice", result: "REFUSED: nine objects claimed twice" },
+    "conflict-demo": { from: "two authored components, one ConfigMap defined two ways", result: "REFUSED" },
+  };
+  const shippedStacks = loadShippedStacks();
+  for (const id of Object.keys(stackNotes)) {
+    check(shippedStacks.some((stack) => stack.id === id), `the Guide keeps a note for stack ${id}, which data/workshop-stacks/stacks.yaml does not ship`);
+  }
+  const stackRow = (stack) => {
+    const note = stackNotes[stack.id] ?? {};
+    const derivedResult = stack.role === "refusal" ? "REFUSED" : stack.checked ? "Every part has a receipt." : "Not every part has a receipt.";
+    return [stack.id, note.from ?? stack.parts.join(", "), note.result ?? derivedResult];
+  };
+  const isFullStack = (stack) => stack.role === "platform" && stackNotes[stack.id]?.fullStack === true;
+  const fullStackRows = shippedStacks.filter(isFullStack).map(stackRow);
+  // A fixture is small enough to deploy live, so it sits with the platforms.
+  const platformStackRows = shippedStacks.filter((stack) => stack.role !== "refusal" && !isFullStack(stack)).map(stackRow);
+  const refusedStackRows = shippedStacks.filter((stack) => stack.role === "refusal").map(stackRow);
+  const shippedStackCount = shippedStacks.length;
   return `<!doctype html>
 <html lang="en">
 <head>
