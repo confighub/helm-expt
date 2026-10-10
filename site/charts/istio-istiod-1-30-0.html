@@ -715,6 +715,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent.. kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f - <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="istio-istiod-1-30-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Namespace istio-system must exist before apply. The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent. Carried out by operator. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/istio-istiod-1-30-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 17 objects in one file.</p>

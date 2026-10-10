@@ -15824,7 +15824,7 @@ function entryStepsListingHtml(listing, siteHref) {
     ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
         `
     : "";
-  return `${flag}${entryInputsHtml(listing)}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
+  return `${flag}${entryInputsHtml(listing)}${entryPlanHtml(listing, siteHref)}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
 }
 
 // What the listing records as fixed when the entry was built, beside what the
@@ -15899,6 +15899,71 @@ function entryInputsHtml(listing) {
         <summary>What is fixed, and what you supply</summary>
         ${fixedHtml}
         ${suppliedHtml}
+      </details>
+        `;
+}
+
+// The plan for one listing: its recorded steps, who carries each out and what
+// the Catalog knows about it, then the script that tests the install steps.
+// The maps are built inside the function for the same reason as above.
+function entryPlanHtml(listing, siteHref) {
+  const PLAN_STEP_STATE = new Map([
+    ["recorded-not-run", "Written down. Not run by the Catalog."],
+    ["recorded-not-live", "Written down. Not run on a cluster."],
+    ["generated-not-live", "Generated. Not run on a cluster."],
+    ["not-evaluated", "Not evaluated."],
+    ["not-run", "Not run."],
+    ["observed", "Seen in a recorded run."],
+    ["live-pass", "Passed in a live run."],
+  ]);
+  // The dated logs of scripts the Catalog has run itself, by listing id.
+  const SCRIPT_RUN_LOGS = new Map([
+    ["nvidia-gpu-operator-v26-7-1-default", "d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html"],
+  ]);
+  const PLAN_STEP_LIMIT = 8;
+  const steps = listing.routing?.routes ?? [];
+  const withPlanVerdict = listing.flattened?.verdict === "flatten-with-routes";
+  if (steps.length === 0 && !withPlanVerdict) return "";
+  const when = (step) => {
+    const id = String(step.id ?? "");
+    if (/install/.test(id)) return "Around an install";
+    if (/upgrade/.test(id) && /delete/.test(id)) return "Around an upgrade or a delete";
+    if (/upgrade|rollback/.test(id)) return "Around an upgrade";
+    if (/delete/.test(id)) return "Around a delete";
+    if (["pre-apply", "preflight"].includes(step.phase)) return "Before you deliver";
+    if (step.phase === "apply") return "When you deliver";
+    if (["post-apply", "observe"].includes(step.phase)) return "After you deliver";
+    return "Once the destination is known";
+  };
+  const shown = steps.slice(0, PLAN_STEP_LIMIT);
+  const rows = shown.map((step) => {
+    const state = PLAN_STEP_STATE.get(step.sourceStatus)
+      ?? `Recorded as ${String(step.sourceStatus ?? "unknown")}.`;
+    const actor = step.actor ? ` Carried out by ${escapeHtml(String(step.actor).replace(/\.$/, ""))}.` : "";
+    return `<li><strong>${escapeHtml(when(step))}.</strong> ${escapeHtml(shortInputDetail(step.mechanism || step.id || ""))}${actor} <em>${escapeHtml(state)}</em></li>`;
+  }).join("");
+  const more = steps.length > shown.length
+    ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`
+    : "";
+  const stepsHtml = steps.length > 0
+    ? `<p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list">${rows}</ul>
+        ${more}`
+    : `<p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>`;
+  const pageStem = String(listing.identity?.page ?? "").split("/").pop().replace(/\.html$/, "");
+  const baseSlug = String(listing.identity?.base ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const scriptRel = pageStem && baseSlug ? `sh/${pageStem}/${baseSlug}/try.sh` : "";
+  const runLog = SCRIPT_RUN_LOGS.get(listing.identity.id);
+  const scriptHtml = scriptRel && existsSync(join(siteRoot, scriptRel))
+    ? `<p><strong>Test the install steps yourself.</strong> <a href="${siteHref}/${scriptRel}">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. ${runLog
+        ? `The Catalog ran it on a local cluster, and <a href="${siteHref}/${runLog}">the log</a> has every line.`
+        : "The Catalog has no recorded run of this script."}</p>`
+    : "";
+  return `<details class="entry-inputs" data-entry-plan="${escapeHtml(listing.identity.id)}">
+        <summary>This entry's plan, and how to test it</summary>
+        ${stepsHtml}
+        ${scriptHtml}
+        <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         `;
 }

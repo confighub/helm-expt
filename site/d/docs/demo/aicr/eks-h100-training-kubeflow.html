@@ -653,6 +653,14 @@ oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-tra
         <ul class="entry-inputs-list"><li><code>accelerator</code> is <code>h100</code></li><li><code>intent</code> is <code>training</code></li><li><code>os</code> is <code>ubuntu</code></li><li><code>platform</code> is <code>kubeflow</code></li><li><code>service</code> is <code>eks</code></li><li><code>acceleratedNodeSelector</code> is <code>nvidia.com/gpu.present=true</code></li><li><code>storageClass</code> is <code>gp3</code></li><li><code>workloadSelector</code> is <code>app.kubernetes.io/part-of=training</code></li><li><code>namespace</code> is <code>argocd</code></li><li><code>repoURL</code> is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt</code></li><li><code>targetRevision</code> is <code>0.14.0</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="aicr-eks-h100-training-kubeflow-v0-14-0-argocd">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> AICR assigned the 16 component Applications to sync waves 0 through 15. Carried out by not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest. Carried out by not selected. <em>Recorded as published.</em></li></ul>
+        
+        
+        <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 17 Argo CD Applications as files that one inventory lists.</p>
@@ -728,6 +736,14 @@ fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801  aicr-eks-h100-
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>accelerator</code> is <code>h100</code></li><li><code>intent</code> is <code>training</code></li><li><code>os</code> is <code>ubuntu</code></li><li><code>platform</code> is <code>kubeflow</code></li><li><code>service</code> is <code>eks</code></li><li><code>acceleratedNodeSelector</code> is <code>nvidia.com/gpu.present=true</code></li><li><code>storageClass</code> is <code>gp3</code></li><li><code>workloadSelector</code> is <code>app.kubernetes.io/part-of=training</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
+      </details>
+        <details class="entry-inputs" data-entry-plan="aicr-eks-h100-training-kubeflow-v0-14-0-base">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target. Carried out by not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller. Carried out by not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact. Carried out by not selected. <em>Not run.</em></li></ul>
+        
+        
+        <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

@@ -585,6 +585,14 @@ timoni -n redis build redis oci://ghcr.io/stefanprodan/modules/redis -v 8.10.1 -
         <ul class="entry-inputs-list"><li>redis <em>Required. Not checked in a live run.</em></li><li>1.20.0 or newer <em>Required. Not checked in a live run.</em></li><li>standard <em>Required. Not checked in a live run.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="timoni-redis-8-10-1-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing. Carried out by selected destination actor. <em>Recorded as recorded-source-behavior.</em></li><li><strong>When you deliver.</strong> Apply the read-only replica Deployment and Service after the master is ready. Carried out by selected destination actor. <em>Recorded as recorded-source-behavior.</em></li><li><strong>After you deliver.</strong> Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled. Carried out by selected destination actor. <em>Recorded as disabled-by-default.</em></li></ul>
+        
+        
+        <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 7 objects in one file.</p>

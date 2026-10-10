@@ -714,6 +714,12 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>grafana/rollout-operator</code></li><li><code>version</code> is <code>0.49.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/grafana/rollout-operator/0.49.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>rollout-operator</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="grafana-rollout-operator-0-49-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/grafana-rollout-operator-0-49-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 15 objects in one file.</p>
@@ -799,6 +805,14 @@ dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763  grafana-rollou
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>ReplicaTemplate CRD managed outside this no-crds preset. kubectl apply -f &lt;rollout-operator-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset. kubectl apply -f &lt;rollout-operator-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li></ul>
         
+      </details>
+        <details class="entry-inputs" data-entry-plan="grafana-rollout-operator-0-49-0-no-crds">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload. Carried out by delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/grafana-rollout-operator-0-49-0/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

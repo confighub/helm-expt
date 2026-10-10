@@ -713,6 +713,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>rook-release/rook-ceph</code></li><li><code>version</code> is <code>v1.19.5</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/rook-release/rook-ceph/v1.19.5/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>rook-ceph</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="rook-release-rook-ceph-v1-19-5-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects. Carried out by selected applier. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete. Carried out by selected applier. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/rook-release-rook-ceph-v1-19-5/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 133 objects in one file.</p>

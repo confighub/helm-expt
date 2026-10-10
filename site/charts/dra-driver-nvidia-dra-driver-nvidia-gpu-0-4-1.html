@@ -614,6 +614,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload. Carried out by delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
@@ -707,6 +715,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The installer package includes these CRDs as prerequisites/target-facts/aicr-eks-training-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload. Carried out by delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
@@ -799,6 +815,14 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the controller that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
+      </details>
+        <details class="entry-inputs" data-entry-plan="dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The installer package includes these CRDs as prerequisites/target-facts/gpu-resources-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload. Carried out by delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

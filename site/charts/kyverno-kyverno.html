@@ -681,6 +681,14 @@ ce364621e5802e6a4ce33666345a33139edcb7a6948062ed65e8df8bbfc1291a  kyverno-kyvern
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>kyverno/kyverno</code></li><li><code>version</code> is <code>3.9.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/kyverno/kyverno/3.9.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>kyverno</code></li><li><code>releaseName</code> is <code>kyverno</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="kyverno-kyverno-3-9-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Around a delete.</strong> Webhook and APIService cleanup belongs to delete or rollback policy. Carried out by Kubernetes. <em>Recorded as routed.</em></li><li><strong>Around an upgrade.</strong> Resource migration after upgrade must be recorded as an upgrade operation. Carried out by delivery workflow. <em>Recorded as routed.</em></li><li><strong>After you deliver.</strong> Test hooks become checks, not hidden install behavior. Carried out by CI or operator. <em>Recorded as routed.</em></li><li><strong>Before you deliver.</strong> Your applier - must apply CRDs before dependent objects Carried out by selected applier. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> # create the required target facts (Secret/StorageClass/etc.) before apply Carried out by operator. <em>Seen in a recorded run.</em></li></ul>
+        
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/kyverno-kyverno-3-9-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 69 objects in one file.</p>

@@ -574,6 +574,14 @@
         <ul class="entry-inputs-list"><li>1.21.0 <em>Required. Not checked in a live run.</em></li><li>source, kustomize, helm, notification, and watcher controllers <em>Required. Not checked in a live run.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="timoni-flux-aio-2-9-4-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources. Carried out by selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li><li><strong>After you deliver.</strong> Observe source, kustomize, helm, notification, and watcher controller readiness after apply. Carried out by selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li></ul>
+        
+        
+        <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>

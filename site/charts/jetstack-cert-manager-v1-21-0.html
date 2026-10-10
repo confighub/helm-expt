@@ -613,6 +613,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD staged before the default chart and its startup API check <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="jetstack-cert-manager-v1-21-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete. Carried out by selected applier. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> 6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check. Carried out by operator. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 40 objects in one file.</p>
@@ -702,6 +710,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>jetstack/cert-manager</code></li><li><code>version</code> is <code>v1.21.0</code></li><li><code>base</code> is <code>crds-enabled</code></li><li><code>valuesProfile</code> is <code>recipes/jetstack/cert-manager/v1.21.0/effective-values-crds-enabled.yaml</code></li><li><code>namespace</code> is <code>cert-manager</code></li><li><code>releaseName</code> is <code>cert-manager</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
+      </details>
+        <details class="entry-inputs" data-entry-plan="jetstack-cert-manager-v1-21-0-crds-enabled">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 40 objects. Carried out by selected applier. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 6 objects. The rule when one leaves the desired state is to leave in place and report, never delete. Carried out by selected applier. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
