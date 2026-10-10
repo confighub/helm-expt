@@ -5021,7 +5021,8 @@ function configHtml(catalog) {
       ["Route for lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
     ], { rawSecondColumn: true })}
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
-    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does. Under Argo CD the CRD route means sync waves, and the Catalog has not run that for this chart.</p>
+    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does.</p>
+    <p>Under Argo CD the CRD route says to use sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
     <p>The 24 objects are final. A route never renders them again.</p>
     <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
@@ -5059,11 +5060,11 @@ function configHtml(catalog) {
     <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with routes. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
     <p>${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
-      <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} bases.</li>
-      <li><code>flatten-with-routes</code>: ${laneTally["flatten-with-routes"]} bases.</li>
-      <li><code>unsafe-to-flatten</code>: ${laneTally["unsafe-to-flatten"]} bases.</li>
-      <li><code>born-flattened</code>: ${laneTally["born-flattened"]} bases.</li>
-      <li>not assessed yet: ${laneTally["not-assessed"]} bases.</li>
+      <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} entries.</li>
+      <li><code>flatten-with-routes</code>: ${laneTally["flatten-with-routes"]} entries.</li>
+      <li><code>unsafe-to-flatten</code>: ${laneTally["unsafe-to-flatten"]} entries.</li>
+      <li><code>born-flattened</code>: ${laneTally["born-flattened"]} entries.</li>
+      <li>not assessed yet: ${laneTally["not-assessed"]} entries.</li>
     </ul>
     <p>Two plain examples of what a flattened render would lose:</p>
     <ul>
@@ -12015,15 +12016,26 @@ function catalogMovedSections(catalog) {
       <p>We have caught ${retention.upstream_republished_version_pairs} cases where an upstream publisher changed the bytes behind an existing version string. The catalog keeps the reviewed bytes and records both digests so you can see the change. <a href="./d/data/upstream-drift/summary.html">Read those cases</a>.</p>
       <p>A chart is listed only after its license evidence is recorded. Normal refreshes are additive. If a legal or factual correction is required, the change must be named rather than hidden. <a href="./d/docs/reference/how-the-catalog-is-built.html">Read the retention policy</a>.</p>`;
   const entryContainsHtml = `<h2 id="entry-contains">5. What each catalog entry contains</h2>
-      <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
+      <p>Open any entry and you find the same five things. Here they are for NVIDIA's GPU Operator 26.3.3.</p>
+      ${markdownLikeTable([
+        ["Part", "What it is", "For the GPU Operator"],
+        ["The package", "The chart itself, pinned and signed. Helm runs when you install it.", "NVIDIA's chart at 26.3.3, as a signed installer package."],
+        ["The bases", "The chart rendered for one set of values. An entry can have several.", "A default base, one for each driver version, and one for nodes that already have the driver."],
+        ["The bundle", "One base's plain objects, published as an OCI image.", "The default base's 24 objects."],
+        ["The routes", "The written notes for work Helm used to do.", "CRD ordering, and two lifecycle actions."],
+        ["The receipt", "The record of what was checked, with digests.", "The render was compared with Helm's own output. Nothing was run on a GPU."],
+      ])}`;
+  const entryContainsDetailHtml = `<p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
   const severalConfigsHtml = `<h2 id="base-variants">7. Why the catalog offers several configurations</h2>
-      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
-      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
-      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <p>A Helm chart can expose hundreds of values. Nobody can test every combination. So the Catalog renders each chart for a few common choices and keeps each result.</p>
+      <p>Each result is a base. Its page records the values that were used, the rendered YAML, the setup it needs, and what was checked.</p>
+      <p>The choices differ by chart. The GPU Operator has a default base, one for each driver version, and one for nodes that already have the driver. Redis has one that reuses a Secret you supply.</p>
       <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
-      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it. Redis <code>default</code> writes a password into a rendered Secret. So the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
-      <p>Every value in a configuration is recorded with where it came from. It can be a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
-      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p>The <strong>default</strong> base is the chart's own defaults, with the image pinned by digest.</p>
+      <p>Sometimes a chart's default is unsafe. Redis <code>default</code> writes a password into a rendered Secret. The Catalog keeps that base, so you can see the problem. It adds <code>reuse-existing-secret</code> beside it, which names a Secret you supply and puts no password in the render.</p>
+      <p>Every value in a base is recorded with where it came from. It is a chart default, a Catalog rule such as pinning the image, or a generated value such as a password.</p>
+      <p>Each base's render is compared with Helm's own output. A new base is added when a real choice needs one, and it must pass that comparison first.</p>
+      <p>The Catalog has checked these named bases. It has not checked your own values file. Render and check that yourself with <a href="./ask.html">Is my configuration right?</a></p>
       <p><a href="./variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="./d/data/base-variant-records/summary.html">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>`;
   const helmDocLinks = [
@@ -12071,6 +12083,10 @@ function catalogMovedSections(catalog) {
 `,
     entryContains: `    <section aria-labelledby="entry-contains">
       ${entryContainsHtml}
+      <details class="deep">
+        <summary>Where each part is explained</summary>
+        <div class="deep-body">
+      ${entryContainsDetailHtml}
       <p>Every entry carries the same parts, and each one is explained on <a href="./config.html">Config</a>.</p>
       <ul>
         <li><strong>The package.</strong> The pinned source and its inputs. <a href="./config.html#lifecycle">See the recipe step</a>.</li>
@@ -12079,6 +12095,8 @@ function catalogMovedSections(catalog) {
         <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
       </ul>
+        </div>
+      </details>
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links">${helmDocLinks}</ul>
       <h3 id="actions">How the catalog handles required setup</h3>
@@ -12087,6 +12105,18 @@ function catalogMovedSections(catalog) {
 `,
     readResults: `    <section aria-labelledby="read-results">
       <h2 id="read-results">6. Read each result correctly</h2>
+      <p>A Catalog page answers four questions about an entry. The first two need only the page. The last two need a real cluster.</p>
+      ${markdownLikeTable([
+        ["Question", "What answers it", "For the GPU Operator 26.3.3"],
+        ["What do I have?", "The source and its version.", "NVIDIA's Helm chart, 26.3.3."],
+        ["What will it produce?", "The exact objects.", "24 objects, linked from the entry page."],
+        ["Can my cluster accept it?", "A check against one named cluster.", "Not checked. The entry lists what a cluster must have first."],
+        ["Did it work?", "A recorded run.", "One run, on a cluster with no GPUs."],
+      ])}
+      <p>When a check could not run, the page says blocked or not run. That is a different result from a check that failed.</p>
+      <details class="deep">
+        <summary>The four questions in the Catalog's own terms</summary>
+        <div class="deep-body">
       <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
       ${markdownLikeTable([
         ["Question", "What the Catalog shows", "What it needs"],
@@ -12096,6 +12126,8 @@ function catalogMovedSections(catalog) {
         ["Did it work?", "The recorded controller, resource, workload, runtime, drift, and rollback results that were actually checked.", "The exact selected revision must have been deployed."],
       ])}
       <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
+        </div>
+      </details>
       <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="./config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="./quirks.html">what your chart hides</a>.</p>
     </section>
 `,

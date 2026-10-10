@@ -829,7 +829,8 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
-    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does. Under Argo CD the CRD route means sync waves, and the Catalog has not run that for this chart.</p>
+    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does.</p>
+    <p>Under Argo CD the CRD route says to use sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
     <p>The 24 objects are final. A route never renders them again.</p>
     <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
@@ -870,11 +871,11 @@
     <p>Of 528 entries, 520 have a verdict. 314 come with routes. 107 need Helm at install time, so they have an installer package and no bundle.</p>
     <p>137 of those 314 verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
-      <li><code>safe-to-flatten</code>: 96 bases.</li>
-      <li><code>flatten-with-routes</code>: 314 bases.</li>
-      <li><code>unsafe-to-flatten</code>: 107 bases.</li>
-      <li><code>born-flattened</code>: 3 bases.</li>
-      <li>not assessed yet: 8 bases.</li>
+      <li><code>safe-to-flatten</code>: 96 entries.</li>
+      <li><code>flatten-with-routes</code>: 314 entries.</li>
+      <li><code>unsafe-to-flatten</code>: 107 entries.</li>
+      <li><code>born-flattened</code>: 3 entries.</li>
+      <li>not assessed yet: 8 entries.</li>
     </ul>
     <p>Two plain examples of what a flattened render would lose:</p>
     <ul>
@@ -908,6 +909,20 @@
   <p><a href="./choose-a-tool.html">Choose a tool and start</a> picks the tool for what you want to do now. It also covers a chart the Catalog does not have.</p>
     <section aria-labelledby="entry-contains">
       <h2 id="entry-contains">4. What each catalog entry contains</h2>
+      <p>Open any entry and you find the same five things. Here they are for NVIDIA's GPU Operator 26.3.3.</p>
+      <div class="card"><table>
+        <thead><tr><th>Part</th><th>What it is</th><th>For the GPU Operator</th></tr></thead>
+        <tbody><tr><td>The package</td><td>The chart itself, pinned and signed. Helm runs when you install it.</td><td>NVIDIA's chart at 26.3.3, as a signed installer package.</td></tr><tr><td>The bases</td><td>The chart rendered for one set of values. An entry can have several.</td><td>A default base, one for each driver version, and one for nodes that already have the driver.</td></tr><tr><td>The bundle</td><td>One base's plain objects, published as an OCI image.</td><td>The default base's 24 objects.</td></tr><tr><td>The routes</td><td>The written notes for work Helm used to do.</td><td>CRD ordering, and two lifecycle actions.</td></tr><tr><td>The receipt</td><td>The record of what was checked, with digests.</td><td>The render was compared with Helm's own output. Nothing was run on a GPU.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <details class="deep">
+        <summary>Where each part is explained</summary>
+        <div class="deep-body">
       <p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
       <p>Every entry carries the same parts, and each one is explained on <a href="./config.html">Config</a>.</p>
       <ul>
@@ -917,6 +932,8 @@
         <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
       </ul>
+        </div>
+      </details>
       <h3 id="helm-charts">Helm charts</h3>
       <ul class="doc-links"><li><a href="./d/docs/user/chart-hooks-what-happens.html">If My Chart Has Hooks, What Happens?</a></li><li><a href="./d/docs/user/hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></li><li><a href="./d/docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li><li><a href="./d/docs/user/helm-render-intents.html">Helm Render Intents</a></li><li><a href="./d/docs/user/extension-slots.html">Extension Slots</a></li><li><a href="./d/docs/user/helm-pain-points.html">Helm Pain Points</a></li><li><a href="./d/docs/user/helm-to-cub-migration.html">Coming from Helm? How your habits map to cub</a></li><li><a href="./d/docs/reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></li><li><a href="./d/docs/user/how-the-harness-works.html">How The Harness Works</a></li><li><a href="./d/docs/user/target-prerequisites.html">Target Prerequisites</a></li><li><a href="./d/docs/user/prometheus-high-fanout.html">Prometheus High-Fanout Example</a></li><li><a href="./d/docs/user/nginx-configuration-files.html">NGINX Configuration Files</a></li></ul>
       <h3 id="actions">How the catalog handles required setup</h3>
@@ -924,6 +941,21 @@
     </section>
     <section aria-labelledby="read-results">
       <h2 id="read-results">5. Read each result correctly</h2>
+      <p>A Catalog page answers four questions about an entry. The first two need only the page. The last two need a real cluster.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>What answers it</th><th>For the GPU Operator 26.3.3</th></tr></thead>
+        <tbody><tr><td>What do I have?</td><td>The source and its version.</td><td>NVIDIA's Helm chart, 26.3.3.</td></tr><tr><td>What will it produce?</td><td>The exact objects.</td><td>24 objects, linked from the entry page.</td></tr><tr><td>Can my cluster accept it?</td><td>A check against one named cluster.</td><td>Not checked. The entry lists what a cluster must have first.</td></tr><tr><td>Did it work?</td><td>A recorded run.</td><td>One run, on a cluster with no GPUs.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>When a check could not run, the page says blocked or not run. That is a different result from a check that failed.</p>
+      <details class="deep">
+        <summary>The four questions in the Catalog's own terms</summary>
+        <div class="deep-body">
       <p>The Catalog can give you a source and exact objects without a cluster. Destination and live answers appear only when the required target or deployment evidence exists.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>What the Catalog shows</th><th>What it needs</th></tr></thead>
@@ -936,17 +968,21 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
+        </div>
+      </details>
       <p>Each row also carries a flattening verdict, in the "Flattens as plain YAML?" column. <a href="./config.html#flatten">See what each verdict means and how many bases fall in each lane</a>. A row's hook or CRD signal links to <a href="./quirks.html">what your chart hides</a>.</p>
     </section>
     <section aria-labelledby="base-variants">
       <h2 id="base-variants">6. Why the catalog offers several configurations</h2>
-      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
-      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
-      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <p>A Helm chart can expose hundreds of values. Nobody can test every combination. So the Catalog renders each chart for a few common choices and keeps each result.</p>
+      <p>Each result is a base. Its page records the values that were used, the rendered YAML, the setup it needs, and what was checked.</p>
+      <p>The choices differ by chart. The GPU Operator has a default base, one for each driver version, and one for nodes that already have the driver. Redis has one that reuses a Secret you supply.</p>
       <h4 id="how-values-chosen">How the values for each configuration are chosen</h4>
-      <p>We do not guess. The <strong>default</strong> configuration is the chart's own defaults, with the image pinned by digest. When a chart's default is unsafe, we keep it visible as an honest example and add a recommended one beside it. Redis <code>default</code> writes a password into a rendered Secret. So the catalog also ships <code>reuse-existing-secret</code>, which names the Secret you supply and puts no credential in the render.</p>
-      <p>Every value in a configuration is recorded with where it came from. It can be a chart default, a catalog policy such as pinning the image, or a generated value like a password. And every configuration's render is compared against Helm's own output, so a base variant is verified, not asserted. New configurations are added when a real choice needs one, gated by that comparison.</p>
-      <p><strong>Here is what this does and does not prove.</strong> The catalog proves these named configurations. It does not prove every possible values file. Your own values still need to be rendered and checked, which is what <a href="./ask.html">Is my configuration right?</a> is for.</p>
+      <p>The <strong>default</strong> base is the chart's own defaults, with the image pinned by digest.</p>
+      <p>Sometimes a chart's default is unsafe. Redis <code>default</code> writes a password into a rendered Secret. The Catalog keeps that base, so you can see the problem. It adds <code>reuse-existing-secret</code> beside it, which names a Secret you supply and puts no password in the render.</p>
+      <p>Every value in a base is recorded with where it came from. It is a chart default, a Catalog rule such as pinning the image, or a generated value such as a password.</p>
+      <p>Each base's render is compared with Helm's own output. A new base is added when a real choice needs one, and it must pass that comparison first.</p>
+      <p>The Catalog has checked these named bases. It has not checked your own values file. Render and check that yourself with <a href="./ask.html">Is my configuration right?</a></p>
       <p><a href="./variants.html#fields">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
       <p>Every maintained entry uses the same <a href="./d/docs/user/model-and-vocabulary.html">configuration processing model</a>. The generated <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/summary.md">alignment report</a> shows which records have complete flattening, ownership, and destination-route evidence and which still have gaps.</p>
     </section>
