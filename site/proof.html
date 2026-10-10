@@ -670,7 +670,7 @@
       <h2 id="serious">3. Check the harder charts</h2>
       <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack and cert-manager, and any chart with hooks, CRDs, or webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
       <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
-      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
+      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle plan, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="d/docs/user/prometheus-high-fanout.html">High-fanout guide</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
         <div class="card"><h3>Upgrade crash example</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">How a high-risk Helm upgrade becomes staged, gated, and observed</a>.</p></div>
@@ -723,7 +723,7 @@
       <h2 id="refusals">6. See what this project does not claim</h2>
       <div class="card"><table>
         <thead><tr><th>Refusal</th><th>Why it matters</th></tr></thead>
-        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, test, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and routed; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
+        <tbody><tr><td>No blanket chart support</td><td>Every claim names chart, version, base, test, and target profile.</td></tr><tr><td>No whole-values-space proof</td><td>The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts.</td></tr><tr><td>No universal hook execution</td><td>Hooks are inventoried and assigned a step; execution is claimed only with live evidence.</td></tr><tr><td>No production claim from render parity</td><td>Production support requires target-scoped decisions and fresh receipts.</td></tr><tr><td>No signature-as-safety shortcut</td><td>Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

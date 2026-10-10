@@ -812,7 +812,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         <textarea id="comparison-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste chart defaults, a prior version, production, or another exact object set."></textarea>
         <details style="margin:18px 0">
           <summary><strong>Add a Catalog source and intent record</strong></summary>
-          <p>If the candidate starts from a Catalog configuration, add its <code>BaseVariantRecord</code>. It connects the source, rendered objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.</p>
+          <p>If the candidate starts from a Catalog configuration, add its <code>BaseVariantRecord</code>. It connects the source, rendered objects, OCI package, prerequisites, lifecycle steps, policy, and evidence status.</p>
           <p><input id="check-source-record-file" type="file" accept=".json,.yaml,.yml,application/json,text/yaml"></p>
           <textarea id="check-source-record" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste a Catalog BaseVariantRecord as JSON or YAML."></textarea>
         </details>
@@ -1027,7 +1027,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>I already run Argo or Flux. What changes?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>You keep your controller. Point it at the OCI bundle that ConfigHub publishes from reviewed Units. The controller no longer rerenders Helm values from Git. Hooks become recorded routes with named execution steps.</p>
+        <p>You keep your controller. Point it at the OCI bundle that ConfigHub publishes from reviewed Units. The controller no longer rerenders Helm values from Git. Hooks become steps in a recorded plan, with named execution.</p>
         <p class="faq-links"><a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
       </article>
           <article class="faq-card answered">
@@ -1048,7 +1048,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>What happens to hooks, CRDs, and other required setup?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Each chart page names the hidden work and gives it a route: a lifecycle phase, who runs it, and one of five dispositions. Every route stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.</p>
+        <p>Each chart page names the hidden work and gives it a step: a lifecycle phase, who runs it, and one of five dispositions. Every step stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.</p>
         <p class="faq-links"><a href="./quirks.html">What charts hide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">Lifecycle route actions</a></p>
       </article>
           <article class="faq-card answered">
@@ -1216,7 +1216,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <h3>My Helm chart broke. Can this help me triage it?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Start by comparing the rendered objects. Inspect cluster prerequisites, lifecycle routes, image pulls, controller status, and workload health. Then classify the problem as a recipe gap or a cluster runtime gap.</p>
+        <p>Start by comparing the rendered objects. Inspect cluster prerequisites, lifecycle steps, image pulls, controller status, and workload health. Then classify the problem as a recipe gap or a cluster runtime gap.</p>
         <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Problem chart issue template</a> · <a href="d/docs/user/reading-the-matrix.html">Reading the matrix</a></p>
       </article>
           <article class="faq-card later">

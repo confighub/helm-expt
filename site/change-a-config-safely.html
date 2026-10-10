@@ -644,7 +644,7 @@
       <p>Ask three questions in order. Does the change alter what Helm renders? If not, does it only refine an already-rendered object? If neither, is it a prerequisite that must be true before the OCI artifact ships?</p>
       <pre><code>Changes Helm render inputs or rendered objects -> base variant.
 Changes the operating context after render -> derived ConfigHub variant.
-Needs a cluster or external system -> target fact, route, or setup step.</code></pre>
+Needs a cluster or external system -> target fact, plan step, or setup step.</code></pre>
       <p>Read the <a href="d/docs/user/change-routing-before-oci.html">full routing rule</a> for the complete decision tree and its delivery-prerequisite checklist.</p>
 
       <h3 id="routing-table">Quick routing table</h3>
@@ -740,7 +740,7 @@ promotion dry-run lists mutations before apply</code></pre>
       <p>These examples show the same rule in different chart shapes.</p>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Redis</td><td>Secret strategy changes the rendered objects, so it belongs in a base variant.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Prometheus</td><td>A small server-only base can become environment-specific ConfigHub variants.</td><td><a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus</a></td></tr><tr><td>kube-prometheus-stack</td><td>A serious chart needs variants that carry target facts, lifecycle routes, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack</a></td></tr></tbody>
+        <tbody><tr><td>Redis</td><td>Secret strategy changes the rendered objects, so it belongs in a base variant.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Prometheus</td><td>A small server-only base can become environment-specific ConfigHub variants.</td><td><a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus</a></td></tr><tr><td>kube-prometheus-stack</td><td>A serious chart needs variants that carry target facts, lifecycle steps, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
