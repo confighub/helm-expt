@@ -4876,8 +4876,22 @@ function configHtml(catalog) {
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
+    <p>Every configuration goes through the same five stages. Here they are for one real entry, NVIDIA's GPU Operator.</p>
     <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
+    ${markdownLikeTable([
+      ["Stage", "What it is", "For the GPU Operator"],
+      ["Source", "What you start from.", "NVIDIA's Helm chart, version 26.3.3."],
+      ["Base", "The source turned into exact Kubernetes objects, once, and kept.", "The chart rendered with its default values. That gives 24 objects."],
+      ["Variant", "A copy of the base for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub."],
+      ["Deliver", "A change is compared, approved and moved from one environment to the next.", "An upgrade from 26.3.2 to 26.3.3 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
+      ["Run", "A controller such as Argo CD applies the result to a cluster.", "Done once, on a cluster with no GPUs."],
+    ])}
+    <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
+    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a route is carried out.</p>
+    <details class="deep">
+      <summary>The five stages in the Catalog's own terms</summary>
+      <div class="deep-body">
+    <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <ol>
       <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
       <li><strong>Base.</strong> Materialize the exact Kubernetes objects, and capture the revision and its digest. Note the lifecycle requirements, decide the flattening lane, and retain a reviewed base.</li>
@@ -4886,6 +4900,8 @@ function configHtml(catalog) {
       <li><strong>Run.</strong> Reconcile the objects, do the lifecycle work, observe, and record receipts.</li>
     </ol>
     <p>This is not a one-way pipeline. A source upgrade rematerializes the base, a variant can add a prerequisite, and a destination can pick a different route without changing the objects.</p>
+      </div>
+    </details>
     <details class="deep">
       <summary>What the model keeps apart</summary>
       <div class="deep-body">
@@ -4941,7 +4957,15 @@ function configHtml(catalog) {
 
   <section aria-labelledby="formats">
     <h2 id="formats">2. See what each format becomes</h2>
+    <p>Whatever you start from, you end with Kubernetes objects. What differs is the tool that produces them.</p>
+    <p>Helm renders a chart. Timoni builds a module. AICR generates Argo CD Applications that point at charts. Plain YAML is already objects.</p>
+    <p>AICR needs one caution. A recipe's verdict covers the Applications it generates. The charts those Applications point at are judged separately, and they can still need Helm at install time.</p>
+    <details class="deep">
+      <summary>The same point in the Catalog's own terms</summary>
+      <div class="deep-body">
     <p>Every source ends as the same exact objects, but each takes a different path there and is checked for different things. Flattening is evaluated at each processing boundary, so an AICR Application set can be flattened while the Helm charts it references stay render-late.</p>
+      </div>
+    </details>
     ${markdownLikeTable([
       ["Source", "Materialize", "Flattening result", "What is checked", "Example"],
       ["Helm chart", "Run Helm with the recorded values and render context.", `<a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a>`, "Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.", `<a href="./charts/bitnami-redis-25-5-3.html">Redis</a>`],
@@ -5008,9 +5032,18 @@ function configHtml(catalog) {
       <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
+    <h3 id="two-ways-to-ship">The Catalog ships a chart two ways</h3>
+    <p>Every chart version in the Catalog is published as an installer package. The package holds the chart itself, and Helm still runs when you install it.</p>
+    <p>Where the verdict allows, the Catalog can also publish the plain objects as a bundle. Helm does not run when you deliver a bundle. Each entry page says whether its bundle is published.</p>
+    <p>An <code>unsafe-to-flatten</code> chart has the installer package only.</p>
+    <details class="deep">
+      <summary>Why both ways are kept</summary>
+      <div class="deep-body">
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
-    <h3 id="four-verdicts">The four verdicts</h3>
+      </div>
+    </details>
+    <h3 id="four-verdicts">What has to travel with each verdict</h3>
     ${markdownLikeTable([
       ["Verdict", "Use it when", "What must travel with the YAML"],
       ["<code id=\"verdict-born-flattened\">born-flattened</code>", "Literal YAML or configuration OCI already contains the exact objects.", "Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements."],
@@ -5019,8 +5052,9 @@ function configHtml(catalog) {
       ["<code id=\"verdict-unsafe-to-flatten\">unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
     ], { rawFirstColumn: true })}
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
-    <h3 id="lane-counts">How the audited bases fall today</h3>
-    <p>Of ${totalBases} retained bases, ${auditedBases} have a decided verdict. ${refuseFlatten} of those refuse a flattened bundle and stay render-late through their installer package. ${withRoutes} can be flattened only when named companion routes travel with the bundle. ${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe.</p>
+    <h3 id="lane-counts">How many entries have each verdict</h3>
+    <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with routes. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
+    <p>${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
       <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} bases.</li>
       <li><code>flatten-with-routes</code>: ${laneTally["flatten-with-routes"]} bases.</li>
@@ -5034,7 +5068,13 @@ function configHtml(catalog) {
       <li>A chart that generates a password in a hook produces a fresh secret each install. Flattened, that generation step is gone, so the rendered Secret carries one fixed value instead.</li>
     </ul>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
-    <h3 id="pipeline">One shape, from source to a synced digest</h3>
+    <h3 id="pipeline">What happens after the verdict</h3>
+    <p>An entry whose verdict allows plain objects follows the five stages in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
+    <p>An <code>unsafe-to-flatten</code> entry is installed from its installer package, and Helm runs at that point.</p>
+    <p>A published bundle shows that the objects were rendered and packaged as recorded. It does not show that they run.</p>
+    <details class="deep">
+      <summary>The build steps, in the Catalog's own terms</summary>
+      <div class="deep-body">
     <p>A source whose verdict permits flattening flows through one shape, whether it is a Helm chart, a Kubara-generated tree, an AICR recipe, or raw YAML. The verdicts that permit it are <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, and <code>born-flattened</code>.</p>
     <ol>
       <li>Render or flatten once, with declared inputs, at build time and never in the delivery path.</li>
@@ -5046,6 +5086,8 @@ function configHtml(catalog) {
     </ol>
     <p>An <code>unsafe-to-flatten</code> source skips this build-time pipeline. Its processor runs late, at install time, through its installer package, which stays its certified route.</p>
     <p>The receipt certifies rendering and packaging, not runtime health, and convergence receipts stay separate. A decided lane does not mean a bundle exists or ever will. Publication is a separate step, gated on the lane permitting it, and an <code>unsafe-to-flatten</code> entry must never carry a certified-bundle receipt.</p>
+      </div>
+    </details>
     <p>The rules are in <a href="./d/docs/reference/flattening-alignment.html">when to flatten configuration</a>, <a href="./d/docs/reference/deciding-a-flattening-lane.html">deciding a flattening lane</a>, and <a href="./d/docs/reference/certified-bundle-spec.html">the certified bundle spec</a>. The <a href="./d/data/certified-bundles/summary.html">certified bundles record</a> lists the flattened ones so far.</p>
   </section>
 
