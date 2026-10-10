@@ -5,7 +5,7 @@ immutable module by version and manifest digest, supply typed values, and
 build the exact objects locally, with no cluster and no registry login for
 the build step itself. The Workshop treats a Timoni entry the same way it
 treats every other source: build the exact objects, check what they need,
-keep the reviewed result, and carry its lifecycle routes with it rather than
+keep the reviewed result, and carry its plan with it rather than
 losing them at the moment you flatten to plain YAML.
 
 The Catalog holds two Timoni entries today. Redis 8.10.1 builds 7 objects.
@@ -224,7 +224,7 @@ declares `maxmemory: *512 | int & >=64` (an integer, at least 64), `persistence:
 {enabled: *true | bool, storageClass: *"standard" | string, size: *"8Gi" |
 string}`, `image: {repository, tag, digest: *"sha256:becdda6c7f4b3fb42e42fd7f120bbf5c54c4caaaf16f26da24e4563d2c1f0576",
 pullPolicy}`, and `test: {enabled: *false | bool}`, the field behind the
-optional ping test the base's lifecycle route calls disabled by default.
+optional ping test the base's plan calls disabled by default.
 Setting `test.enabled` to a string, or `maxmemory` to a value under 64, fails
 the build before any object is produced.
 
@@ -293,9 +293,9 @@ first with a readiness wait, then the read-only replica, plus an optional
 post-apply test disabled by default; both are recorded the same way, at a
 much smaller scale.
 
-**Check the agent.** Ask it to name both Flux routes and say who runs each
+**Check the agent.** Ask it to name both Flux steps and say who runs each
 one. Both name `selected destination actor`, not Timoni and not ConfigHub,
-because route resolution has not happened yet for this entry. Run the gate:
+because those steps have not been resolved yet for this entry. Run the gate:
 
 ```sh
 npm run timoni-flux-aio:verify
@@ -309,12 +309,12 @@ values, and rendered output in turn, plus swaps in a stub `timoni` binary
 reporting a different client version, and confirms every one of those eight
 mutations is rejected before it could reach the record.
 
-**What this does not prove.** Retaining the CRD count and the route text is
+**What this does not prove.** Retaining the CRD count and the plan text is
 not the same as watching those CRDs reach Established, or watching the five
 named controllers report ready. Both remain destination-specific work the
 record marks `not-run`.
 
-**Where it goes next.** Resolve both routes for the destination you have
+**Where it goes next.** Resolve both steps for the destination you have
 chosen before asking any controller to reconcile a Flux custom resource.
 [The flattening verdict](../../examples/timoni/flux-aio-2-9-4-0/flattening-safety-verdict.yaml)
 says to recheck this if the module version or manifest digest changes, if

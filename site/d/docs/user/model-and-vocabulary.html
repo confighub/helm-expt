@@ -603,6 +603,7 @@ lifecycle handling
 <tr><td><b>Receipt</b></td><td>The recorded result of a generation, check, route, promotion, delivery, or runtime test.</td><td>Committed evidence or ConfigHub history.</td></tr>
 <tr><td><b>Base variant</b></td><td>One named, reviewed starting configuration.</td><td>A package and, after upload, a root ConfigHub Space.</td></tr>
 <tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table>
+<p>The site calls an entry's routes its plan and one route a step.</p>
 <p>In one sentence: <b>materialize exact objects, keep the source and lifecycle context, then retain reviewed changes as variants that can be promoted and delivered.</b></p>
 <h2 id="source-specific-words">Source-specific words</h2>
 <table><thead><tr><th>Word</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Helm recipe</b></td><td>The chart, version, values, named preset configurations, and declared lifecycle choices used by a Helm installer package.</td></tr>

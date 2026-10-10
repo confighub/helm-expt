@@ -162,7 +162,7 @@ to be recorded beside them rather than discovered at apply time.
 
 **Read the record**, in the evidence checkout:
 [the route intent](../../examples/kubara/local-platform/route-intent.yaml)
-names four routes, each `status: recorded-not-live`.
+names four steps, each `status: recorded-not-live`.
 
 - `argocd-crds-first` applies the three Argo CD CRDs and waits for Established
   before applying Argo CD custom resources.
@@ -177,9 +177,9 @@ names four routes, each `status: recorded-not-live`.
   `cluster-kubernetes.default.svc` through an approved Secret path, because
   `cub variant upload` does not upload rendered Secret objects.
 
-**Check the agent.** Ask it which of these four routes has to finish before
+**Check the agent.** Ask it which of these four steps has to finish before
 any Argo CD custom resource is applied, and confirm it names
-`argocd-crds-first` specifically, not the Job or the ExternalSecret route.
+`argocd-crds-first` specifically, not the Job or the ExternalSecret step.
 Then run the gate:
 
 ```sh

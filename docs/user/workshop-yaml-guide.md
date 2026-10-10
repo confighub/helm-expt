@@ -181,32 +181,32 @@ generate objects from a template, a module, a recipe, or a platform
 description, and each of those source types can declare ordering, waits, or
 setup work that has to travel with the exact objects. Plain YAML has no
 generation step to declare that work during, so the Catalog records this
-base's lifecycle-route status as a gap rather than as "none needed."
+base's plan as a gap rather than as "none needed."
 
 **Read the record**, in the evidence checkout:
 [the BaseVariantRecord](../../data/base-variant-records/records/kubernetes-yaml-acme-web-base.yaml).
 Its `lifecycle.requirements.status` is `"gap"`, its `routeIntent.status` is
 `"gap"`, and both `items` and `routes` are empty lists. That is a real
 finding, not a placeholder: nobody has recorded destination facts or
-lifecycle-route work for this exact base, so a gap in the record is the
+a plan for this exact base, so a gap in the record is the
 honest state, not proof that no such work exists once you point these four
 objects at a real destination.
 
 **Check the agent.** Ask it whether "no CRDs, no hooks, no Jobs" from question
-1 is the same claim as "no lifecycle route work." It is not: question 1
+1 is the same claim as "no lifecycle work." It is not: question 1
 reports what `cub config check` can read out of the object fields, and this
 question reports what the Catalog has separately assessed and recorded for
 this base. A gap in one does not fill the gap in the other. There is no gate
 to run for this question, because there is no recorded routing decision yet
 to check an agent's answer against.
 
-**What this does not prove.** A gap in the lifecycle-route fields is not a
+**What this does not prove.** A gap in the plan fields is not a
 green light. The record's own `resolution` rule says to re-resolve after a
 destination is assigned, the same rule every other base in this Catalog
 carries.
 
 **Where it goes next.** Choose a destination, record its facts, and resolve
-the lifecycle-route question before treating this base as ready to apply, the
+the plan before treating this base as ready to apply, the
 same next step the record itself names.
 
 ## Give an assistant the whole YAML path
@@ -245,7 +245,7 @@ count or exit code says.
 This base carries a `born-flattened` verdict: the four files already are the
 exact objects, so there is no separate materialization step to recheck after
 a source change the way a chart render or a module build needs one. There is
-still a destination to choose, target facts to record, and the lifecycle-route
+still a destination to choose, target facts to record, and the plan
 gap from question 3 to resolve before any controller applies these objects.
 
 The object counts and digests cited throughout this Guide are the committed
