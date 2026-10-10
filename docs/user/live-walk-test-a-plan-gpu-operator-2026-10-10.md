@@ -189,10 +189,128 @@ observed 2026-10-10T20:36:06Z
 The first look came 10 seconds after the script ended, while three images were
 still being pulled. The second look shows all four pods running.
 
-## What went wrong
+## What went wrong in the first run
 
 1. **The script applies the CRDs twice.** It first applies the packaged CRD file with server-side apply and waits. It then applies every rendered object with a plain `kubectl apply`, and the rendered objects include the same eight CRDs. Kubernetes prints one warning for each CRD about a missing `last-applied-configuration` annotation. Nothing failed. A reader will still wonder what the eight warnings mean.
 2. **The closing line says more than the script did.** It ends with "with the packaged lifecycle steps checked". The script carried out the install steps. It did not run the Job the plan names for before an upgrade, or the Job it names for after a delete.
+
+## The script was corrected, and run again
+
+Both faults above were fixed in the script generator the same day. The
+corrected script applies each CRD once, and its last lines say only what it
+did. It was run twice more, on a second throwaway cluster, with the system's
+bash 3.2.
+
+The first of the two runs was on the empty cluster. It printed no warning and
+exited 0 in 6 seconds. Its last line named the steps it had not run, in an
+earlier wording that also listed `pre-apply`. That was wrong, because the
+script does run the CRD step, and the wording was corrected before the second
+run. This is that first run from the namespace step on.
+
+```
+$ /bin/bash ./try.sh
+>> Ensure the gpu-operator namespace exists
+namespace/gpu-operator created
+
+>> Check 8 CRDs included with this package
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+
+>> Apply the rendered objects, except the CRDs already settled above
+clusterpolicy.nvidia.com/cluster-policy created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrole.rbac.authorization.k8s.io/gpu-operator created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator created
+configmap/gpu-operator-node-feature-discovery-master-conf created
+configmap/gpu-operator-node-feature-discovery-worker-conf created
+daemonset.apps/gpu-operator-node-feature-discovery-worker created
+deployment.apps/gpu-operator-node-feature-discovery-gc created
+deployment.apps/gpu-operator-node-feature-discovery-master created
+deployment.apps/gpu-operator created
+namespace/gpu-operator configured
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+role.rbac.authorization.k8s.io/gpu-operator created
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+rolebinding.rbac.authorization.k8s.io/gpu-operator created
+serviceaccount/gpu-operator created
+serviceaccount/node-feature-discovery created
+
+>> Done. The cluster received the files in ./nvidia-gpu-operator-v26-7-1-default/out. Its CRDs were settled first, from the package.
+
+>> Not run by this script: the pre-apply and pre-upgrade and pre-delete and post-delete steps of this base's plan. Those belong to an upgrade or a delete.
+[exit 0]
+finished 2026-10-10T21:31:56Z
+```
+
+The second run used the final script on the same cluster, where everything
+already existed. It left the eight CRDs alone, reported every other object
+unchanged, printed no warning and exited 0 in 5 seconds.
+
+```
+$ /bin/bash ./try.sh
+>> Ensure the gpu-operator namespace exists
+namespace/gpu-operator configured
+
+>> Check 8 CRDs included with this package
+
+>> The required CRDs already exist; leave them under their current owner
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomaincliques.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/computedomains.resource.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/gpuclusters.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+
+>> Apply the rendered objects, except the CRDs already settled above
+clusterpolicy.nvidia.com/cluster-policy unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+configmap/gpu-operator-node-feature-discovery-master-conf unchanged
+configmap/gpu-operator-node-feature-discovery-worker-conf unchanged
+daemonset.apps/gpu-operator-node-feature-discovery-worker configured
+deployment.apps/gpu-operator-node-feature-discovery-gc configured
+deployment.apps/gpu-operator-node-feature-discovery-master configured
+deployment.apps/gpu-operator configured
+namespace/gpu-operator configured
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+role.rbac.authorization.k8s.io/gpu-operator unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+serviceaccount/gpu-operator unchanged
+serviceaccount/node-feature-discovery unchanged
+
+>> Done. The cluster received the files in ./nvidia-gpu-operator-v26-7-1-default/out. Its CRDs were settled first, from the package.
+
+>> Not run by this script: the pre-upgrade, pre-delete and post-delete steps of this base's plan. The entry page says who runs each one.
+[exit 0]
+finished 2026-10-10T21:34:45Z
+```
+
+After it, the four pods were running and the ClusterPolicy reported `ready`.
+The second cluster was deleted in the same way as the first.
 
 ## What the walk did not cover
 

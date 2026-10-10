@@ -83,7 +83,20 @@ if [ -d ./grafana-tempo-1-24-4-s3-query-observability/out/secrets ]; then
   kubectl apply -f ./grafana-tempo-1-24-4-s3-query-observability/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./grafana-tempo-1-24-4-s3-query-observability/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" servicemonitors.monitoring.coreos.com "
+manifest_args=()
+for manifest in ./grafana-tempo-1-24-4-s3-query-observability/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./grafana-tempo-1-24-4-s3-query-observability/out."
+say "Done. The cluster received the files in ./grafana-tempo-1-24-4-s3-query-observability/out. Its CRDs were settled first, from the package."

@@ -84,7 +84,21 @@ if [ -d ./nvidia-gpu-operator-v26-7-1-external-nfd/out/secrets ]; then
   kubectl apply -f ./nvidia-gpu-operator-v26-7-1-external-nfd/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./nvidia-gpu-operator-v26-7-1-external-nfd/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" clusterpolicies.nvidia.com computedomaincliques.resource.nvidia.com computedomains.resource.nvidia.com gpuclusters.nvidia.com nvidiadrivers.nvidia.com "
+manifest_args=()
+for manifest in ./nvidia-gpu-operator-v26-7-1-external-nfd/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./nvidia-gpu-operator-v26-7-1-external-nfd/out, with the packaged lifecycle steps checked."
+say "Done. The cluster received the files in ./nvidia-gpu-operator-v26-7-1-external-nfd/out. Its CRDs were settled first, from the package."
+say "Not run by this script: the pre-upgrade and pre-delete steps of this base's plan. The entry page says who runs each one."

@@ -93,10 +93,23 @@ if [ -d ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/secrets 
   kubectl apply -f ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" alertmanagerconfigs.monitoring.coreos.com alertmanagers.monitoring.coreos.com podmonitors.monitoring.coreos.com probes.monitoring.coreos.com prometheusagents.monitoring.coreos.com prometheuses.monitoring.coreos.com prometheusrules.monitoring.coreos.com scrapeconfigs.monitoring.coreos.com servicemonitors.monitoring.coreos.com thanosrulers.monitoring.coreos.com "
+manifest_args=()
+for manifest in ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
 say "Patch and check the admission webhook"
 bash ./prometheus-community-kube-prometheus-stack-85-3-3-default/package/prerequisites/kube-prometheus-stack-lifecycle/finish.sh monitoring
 
-say "Done. The cluster received exactly the files in ./prometheus-community-kube-prometheus-stack-85-3-3-default/out, with the packaged lifecycle steps checked."
+say "Done. The cluster received the files in ./prometheus-community-kube-prometheus-stack-85-3-3-default/out. Its CRDs were settled first, from the package. One packaged check ran after the apply."

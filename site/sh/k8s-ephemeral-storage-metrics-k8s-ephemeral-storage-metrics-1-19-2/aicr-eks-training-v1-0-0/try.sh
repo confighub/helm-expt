@@ -68,7 +68,20 @@ if [ -d ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aic
   kubectl apply -f ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" servicemonitors.monitoring.coreos.com "
+manifest_args=()
+for manifest in ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/out."
+say "Done. The cluster received the files in ./k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/out. Its CRDs were settled first, from the package."

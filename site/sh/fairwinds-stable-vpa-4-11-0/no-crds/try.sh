@@ -85,7 +85,20 @@ if [ -d ./fairwinds-stable-vpa-4-11-0-no-crds/out/secrets ]; then
   kubectl apply -f ./fairwinds-stable-vpa-4-11-0-no-crds/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./fairwinds-stable-vpa-4-11-0-no-crds/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" verticalpodautoscalercheckpoints.autoscaling.k8s.io verticalpodautoscalers.autoscaling.k8s.io "
+manifest_args=()
+for manifest in ./fairwinds-stable-vpa-4-11-0-no-crds/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./fairwinds-stable-vpa-4-11-0-no-crds/out."
+say "Done. The cluster received the files in ./fairwinds-stable-vpa-4-11-0-no-crds/out. Its CRDs were settled first, from the package."

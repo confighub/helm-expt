@@ -112,7 +112,20 @@ if [ -d ./aqua-trivy-operator-0-32-1-no-crds/out/secrets ]; then
   kubectl apply -f ./aqua-trivy-operator-0-32-1-no-crds/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./aqua-trivy-operator-0-32-1-no-crds/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" clustercompliancereports.aquasecurity.github.io clusterconfigauditreports.aquasecurity.github.io clusterinfraassessmentreports.aquasecurity.github.io clusterrbacassessmentreports.aquasecurity.github.io clustersbomreports.aquasecurity.github.io clustervulnerabilityreports.aquasecurity.github.io configauditreports.aquasecurity.github.io exposedsecretreports.aquasecurity.github.io infraassessmentreports.aquasecurity.github.io rbacassessmentreports.aquasecurity.github.io sbomreports.aquasecurity.github.io vulnerabilityreports.aquasecurity.github.io "
+manifest_args=()
+for manifest in ./aqua-trivy-operator-0-32-1-no-crds/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./aqua-trivy-operator-0-32-1-no-crds/out."
+say "Done. The cluster received the files in ./aqua-trivy-operator-0-32-1-no-crds/out. Its CRDs were settled first, from the package."

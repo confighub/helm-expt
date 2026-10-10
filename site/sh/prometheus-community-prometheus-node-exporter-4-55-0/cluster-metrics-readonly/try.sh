@@ -68,7 +68,20 @@ if [ -d ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-r
   kubectl apply -f ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" servicemonitors.monitoring.coreos.com "
+manifest_args=()
+for manifest in ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out."
+say "Done. The cluster received the files in ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out. Its CRDs were settled first, from the package."

@@ -68,7 +68,20 @@ if [ -d ./nvidia-nvsentinel-v1-26-0-default/out/secrets ]; then
   kubectl apply -f ./nvidia-nvsentinel-v1-26-0-default/out/secrets
 fi
 
-say "Apply the rendered objects"
-kubectl apply -f ./nvidia-nvsentinel-v1-26-0-default/out/manifests
+say "Apply the rendered objects, except the CRDs already settled above"
+settled_crds=" podmonitors.monitoring.coreos.com "
+manifest_args=()
+for manifest in ./nvidia-nvsentinel-v1-26-0-default/out/manifests/*.yaml; do
+  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then
+    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"
+    case "$settled_crds" in
+      *" $crd_name "*) continue ;;
+    esac
+  fi
+  manifest_args+=(-f "$manifest")
+done
+if [ "${#manifest_args[@]}" -gt 0 ]; then
+  kubectl apply "${manifest_args[@]}"
+fi
 
-say "Done. The cluster received exactly the files in ./nvidia-nvsentinel-v1-26-0-default/out."
+say "Done. The cluster received the files in ./nvidia-nvsentinel-v1-26-0-default/out. Its CRDs were settled first, from the package."

@@ -5037,7 +5037,7 @@ function configHtml(catalog) {
 bash ./try.sh</code></pre>
     <p>The script creates the namespace, applies the eight CRDs and waits for each one, then applies the rest. Its output names each step as it runs.</p>
     <p>The Catalog ran it on 10 October 2026 on a local cluster with no GPUs. It finished in 8 seconds. The operator and the node-feature-discovery pods came up, and the ClusterPolicy reported ready. The <a href="./d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">log of that run</a> has every line.</p>
-    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete. Each entry page links its own script under "Advanced: apply it or upload it".</p>
+    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. Each entry page links its own script under "Advanced: apply it or upload it".</p>
     <h3 id="what-a-plan-holds">What a plan can hold</h3>
     <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
     ${markdownLikeTable([
@@ -12715,9 +12715,37 @@ function presetTryScript(entry, row) {
     `  kubectl apply -f ${workDir}/out/secrets`,
     "fi",
     "",
-    'say "Apply the rendered objects"',
-    `kubectl apply -f ${workDir}/out/manifests`,
   );
+  // A CRD the prerequisite step above already settled is applied once. The
+  // rendered copy is skipped, so kubectl prints no second-apply warning and a
+  // CRD that already had an owner stays with that owner.
+  const settledCrdNames = packagedCrdRequirements
+    .map((requirement) => /^CRD\s+(.+)$/.exec(String(requirement.name ?? ""))?.[1])
+    .filter(Boolean);
+  if (settledCrdNames.length > 0) {
+    lines.push(
+      'say "Apply the rendered objects, except the CRDs already settled above"',
+      `settled_crds=" ${settledCrdNames.join(" ")} "`,
+      "manifest_args=()",
+      `for manifest in ${workDir}/out/manifests/*.yaml; do`,
+      `  if grep -q '^kind: CustomResourceDefinition$' "$manifest"; then`,
+      `    crd_name="$(awk '/^metadata:/{m=1; next} m && /^  name:/{print $2; exit}' "$manifest")"`,
+      '    case "$settled_crds" in',
+      '      *" $crd_name "*) continue ;;',
+      "    esac",
+      "  fi",
+      '  manifest_args+=(-f "$manifest")',
+      "done",
+      'if [ "${#manifest_args[@]}" -gt 0 ]; then',
+      '  kubectl apply "${manifest_args[@]}"',
+      "fi",
+    );
+  } else {
+    lines.push(
+      'say "Apply the rendered objects"',
+      `kubectl apply -f ${workDir}/out/manifests`,
+    );
+  }
   for (const action of lifecycleActions.filter(
     (candidate) =>
       candidate.invokedBy === "generated-try-script"
@@ -12731,13 +12759,37 @@ function presetTryScript(entry, row) {
       `bash ${workDir}/package/${scriptPath} ${entry.namespace}`,
     );
   }
+  // Say only what this script did. A plan can also name steps for an upgrade
+  // or a delete, and an install script never runs those.
+  const ranActions = lifecycleActions.filter(
+    (candidate) =>
+      candidate.invokedBy === "generated-try-script"
+      && ["post-apply", "observe"].includes(candidate.phase),
+  );
+  const notRunPhases = [...new Set(
+    lifecycleActions
+      .filter((candidate) => !ranActions.includes(candidate))
+      .map((candidate) => String(candidate.phase ?? "").trim().replace(/\s*,\s*/g, "/"))
+      .filter((phase) => /install|upgrade|delete|rollback/.test(phase)),
+  )];
+  const notRunList = notRunPhases.length > 1
+    ? `${notRunPhases.slice(0, -1).join(", ")} and ${notRunPhases[notRunPhases.length - 1]}`
+    : notRunPhases[0];
+  const received = settledCrdNames.length > 0
+    ? `The cluster received the files in ${workDir}/out. Its CRDs were settled first, from the package.`
+    : `The cluster received exactly the files in ${workDir}/out.`;
   lines.push(
     "",
-    lifecycleActions.length > 0
-      ? `say "Done. The cluster received exactly the files in ${workDir}/out, with the packaged lifecycle steps checked."`
-      : `say "Done. The cluster received exactly the files in ${workDir}/out."`,
-    "",
+    ranActions.length > 0
+      ? `say "Done. ${received} ${ranActions.length === 1 ? "One packaged check ran" : `${ranActions.length} packaged checks ran`} after the apply."`
+      : `say "Done. ${received}"`,
   );
+  if (notRunPhases.length > 0) {
+    lines.push(
+      `say "Not run by this script: the ${notRunList} ${notRunPhases.length === 1 ? "step" : "steps"} of this base's plan. The entry page says who runs ${notRunPhases.length === 1 ? "it" : "each one"}."`,
+    );
+  }
+  lines.push("");
   return lines.join("\n");
 }
 
