@@ -23,6 +23,8 @@ const SOURCES = {
   chartFacts: "data/chart-facts/chart-facts.csv",
   baseReadiness: "data/top20-base-readiness/base-readiness.csv",
   baseOutcomes: "data/outcome-coverage/base-outcomes.csv",
+  bitnamiImageReceipt: "runs/bitnami-source-fetch/all-originals-receipt.json",
+  catalogImages: "data/catalog-images/images.json",
 };
 
 const OUTPUTS = {
@@ -139,7 +141,31 @@ function quirkTokens(facts, sourceFeatures) {
 
 const PREREQ_PATTERN = /existing-secret|existing secret|storageclass|storage class|crd owner|pull secret|ingressclass/i;
 
-function classify(row, facts) {
+// A chart whose default image the Bitnami fetch receipt records as not found
+// cannot be ready to try, whatever its lanes say: a plain install of it does not
+// start. The lanes stay as recorded, because they ran the Catalog bases, and the
+// row names the image those bases pin so the reader sees what the lanes proved.
+function movedDefaultImages() {
+  const receipt = JSON.parse(readFileSync(join(repoRoot, SOURCES.bitnamiImageReceipt), "utf8"));
+  const index = JSON.parse(readFileSync(join(repoRoot, SOURCES.catalogImages), "utf8"));
+  const moved = new Map();
+  for (const row of receipt.rows ?? []) {
+    if (row.image?.status !== "not-found") continue;
+    const prefix = `${row.chart.replace("/", "-")}-${row.version.replace(/\./g, "-")}-`;
+    const baseImages = (index.entries ?? [])
+      .filter((entry) => entry.id.startsWith(prefix))
+      .flatMap((entry) => entry.images.map((image) => image.reference));
+    moved.set(`${row.chart}@${row.version}`, {
+      reference: row.image.reference,
+      observedOn: String(row.observedAt).slice(0, 10),
+      basePins: [...new Set(baseImages)].sort(),
+    });
+  }
+  return moved;
+}
+
+function classify(row, facts, movedImage) {
+  if (movedImage) return "works-with-operator-review";
   if (row.catalog_tier === "top20-catalog-supported") return "ready-to-try";
   if (row.workability === "decision-needed-before-promotion") return "not-ready-yet";
   if (row.workability === "not-yet-a-good-catalog-offer") return "needs-better-base-variant";
@@ -151,8 +177,11 @@ function classify(row, facts) {
   return "works-with-operator-review";
 }
 
-function userMustProvide(bucket, row, facts, tokens) {
+function userMustProvide(bucket, row, facts, tokens, movedImage) {
   const needs = [];
+  if (movedImage) {
+    needs.push(`a choice between the image the Catalog bases pin (${movedImage.basePins.join(", ") || "none recorded"}) and the recorded successor, because the default image ${movedImage.reference} was not found on ${movedImage.observedOn}`);
+  }
   if (flagged(facts?.existing_secret)) needs.push(`an existing Secret for some bases (${facts.existing_secret.trim()})`);
   if (tokens.includes("storage")) needs.push("a StorageClass / storage decision");
   if (tokens.includes("crds")) needs.push("a CRD ownership choice (crds vs no-crds base)");
@@ -179,12 +208,17 @@ function confighubAbsorbs(facts, tokens) {
   return absorbs.join("; ");
 }
 
-function proofStatus(row) {
+function proofStatus(row, movedImage) {
   const lanes = [];
   if (row.render_parity) lanes.push(`render parity ${row.render_parity}`);
   if (row.local_live && row.local_live !== "0/0") lanes.push(`local live ${row.local_live}`);
   if (row.live_parity && row.live_parity !== "0/0") lanes.push(`live parity ${row.live_parity}`);
-  return `${row.user_status}${lanes.length ? ` (${lanes.join(", ")})` : ""}`;
+  const status = `${row.user_status}${lanes.length ? ` (${lanes.join(", ")})` : ""}`;
+  if (!movedImage) return status;
+  // Plain words only: the chart page splits this field on commas and semicolons
+  // and turns hyphens into spaces. The exact references and date travel in
+  // user_must_provide, which renders verbatim.
+  return `${status} on Catalog bases that pin a bitnamilegacy image. The chart's own default image was not found.`;
 }
 
 function evidenceScore(row) {
@@ -216,6 +250,7 @@ function buildReport() {
   const top100 = readCsv(SOURCES.top100);
   const facts = new Map(readCsv(SOURCES.chartFacts).map((row) => [row.chart, row]));
   const evidenceBase = strongestEvidenceBase();
+  const moved = movedDefaultImages();
   const recommendedBase = new Map();
   for (const row of readCsv(SOURCES.baseReadiness)) {
     if (row.recommended_first === "yes") recommendedBase.set(splitChartVersion(row.chart).chart, row.base);
@@ -225,17 +260,18 @@ function buildReport() {
     const { chart, version } = splitChartVersion(row.chart);
     const chartFacts = facts.get(chart);
     const tokens = quirkTokens(chartFacts, row.source_features);
-    const bucket = classify(row, chartFacts);
+    const movedImage = moved.get(row.chart);
+    const bucket = classify(row, chartFacts, movedImage);
     const firstBase = recommendedBase.get(chart) ?? evidenceBase.get(row.chart) ?? (row.variants ? row.variants.split(";")[0] : "");
     return {
       rank: row.proof_surface_rank,
       chart,
       version,
       bucket,
-      current_proof: proofStatus(row),
-      recommended_first_base: bucket === "ready-to-try" ? firstBase : firstBase ? `${firstBase} (unreviewed first guess)` : "",
+      current_proof: proofStatus(row, movedImage),
+      recommended_first_base: recommendedBase.has(chart) ? firstBase : firstBase ? `${firstBase} (unreviewed first guess)` : "",
       quirks: tokens.join(";") || "none-flagged",
-      user_must_provide: userMustProvide(bucket, row, chartFacts, tokens),
+      user_must_provide: userMustProvide(bucket, row, chartFacts, tokens, movedImage),
       confighub_absorbs: confighubAbsorbs(chartFacts, tokens),
       next_action: row.next_action,
       pain_report: row.helm_pain_report ?? "",
