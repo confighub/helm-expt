@@ -237,11 +237,32 @@ spec:
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "challenges.acme.cert-manager.io"
+            - "orders.acme.cert-manager.io"
+            - "certificaterequests.cert-manager.io"
+            - "certificates.cert-manager.io"
+            - "clusterissuers.cert-manager.io"
+            - "issuers.cert-manager.io"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+        - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

@@ -208,6 +208,16 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-pre-upgrade"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        -
+          id: "lifecycle-action-pre-delete"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before deleting, remove a chart-managed GPUCluster and wait for it to go. The Job deletes the chart-managed GPUCluster object and waits until it is gone, so the operator can drain workloads under its finalizer while it is still running. It uses the base's own gpu-operator ServiceAccount, so run it and wait for it before deleting the base objects. It does nothing when no GPUCluster exists, which is the case for this base as rendered."
+        -
           id: "clusterpolicies.nvidia.com"
           origin: "base"
           type: "target-fact"
@@ -234,12 +244,76 @@ spec:
           detail: "CRD included in this base and applied before the workloads that use it"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-external-nfd.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-delete.yaml"
+        - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-upgrade.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "clusterpolicies.nvidia.com"
+            - "computedomaincliques.resource.nvidia.com"
+            - "computedomains.resource.nvidia.com"
+            - "gpuclusters.nvidia.com"
+            - "nvidiadrivers.nvidia.com"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 7 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/crd-ordering.yaml"
+            - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/target-facts/external-nfd-crds.yaml"
+        -
+          id: "lifecycle-action-pre-upgrade"
+          requirementRefs:
+            - "lifecycle-action-pre-upgrade"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-upgrade.yaml"
+        -
+          id: "lifecycle-action-pre-delete"
+          requirementRefs:
+            - "lifecycle-action-pre-delete"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before deleting, remove a chart-managed GPUCluster and wait for it to go. The Job deletes the chart-managed GPUCluster object and waits until it is gone, so the operator can drain workloads under its finalizer while it is still running. It uses the base's own gpu-operator ServiceAccount, so run it and wait for it before deleting the base objects. It does nothing when no GPUCluster exists, which is the case for this base as rendered."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-delete.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-external-nfd.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/crd-ordering.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-external-nfd/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-delete.yaml"
+        - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/gpu-operator-lifecycle/external-nfd/pre-upgrade.yaml"
+        - "packages/nvidia/gpu-operator/v26.7.1/prerequisites/target-facts/external-nfd-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

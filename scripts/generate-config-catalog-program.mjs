@@ -243,6 +243,20 @@ const nimServiceRecordEntries = new Map();
 // The bases of the four NVIDIA charts that have a literal configuration bundle
 // plan, by record name. Each holds its artifact and its publication state.
 const nvidiaLiteralBundleEntries = new Map();
+// The plan steps a flatten-with-routes record can name from committed files.
+// recordPlanSteps says where they come from. A derived step says not run,
+// or observed where its document records one observed run.
+const PLAN_STEP_VERDICT = "flatten-with-routes";
+const PLAN_STEP_NOT_RUN = "recorded-not-run";
+const PLAN_STEP_OBSERVED = "observed";
+const PACKAGED_LIFECYCLE_KIND = "PackagedLifecycleActions";
+const packagedLifecycleByRoot = new Map();
+// The phases schemas/catalog-listing.schema.json accepts for a route. A Helm
+// hook phase such as pre-upgrade is not one of them, so a step for a hook
+// keeps the phase every unplaced route has, and its id and first sentence
+// say when it applies.
+const PLAN_STEP_PHASES = ["preflight", "destination-resolution", "pre-apply", "apply", "post-apply", "observe"];
+const PLAN_STEP_DEFAULT_PHASE = "destination-resolution";
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -380,6 +394,9 @@ function buildReport() {
     ))
     .map((record) => attachPublishedBundle(record, bundleCandidates))
     .map((record) => attachNvidiaLiteralBundle(record, nvidiaLiteralBundleEntries.get(record.metadata.name)))
+    // The bundle binding names the route files, so the plan steps are read
+    // after it.
+    .map((record) => recordPlanSteps(record, intentByName.get(record.metadata.name)))
     .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
   for (const sourceCatalogImport of sourceCatalogImports) {
@@ -3149,6 +3166,7 @@ function validateRecords(records) {
     if (aicrRecipeEntry) validateAicrRecipeRecord(record, aicrRecipeEntry);
     validateAicrOrderingFlag(record);
     validateHelmOpenQuestionFlag(record);
+    validatePlanSteps(record);
     const aicrModernGeneration = aicrModernGenerationReceipts.get(record.metadata.name);
     if (aicrModernGeneration) validateAicrModernRecordAgainstReceipt(record, aicrModernGeneration);
     const nimServiceEntry = nimServiceRecordEntries.get(record.metadata.name);
@@ -4635,6 +4653,67 @@ function runSelfTest() {
 
 // A refusal is only proved when the right guard fired, so these fixtures match
 // the message as well as the failure.
+// A flatten-with-routes Helm record with no route in its source record gets
+// its steps from the committed package, each one not automatic and not run.
+// The fixtures then break the rule three ways and each must be refused.
+function testPlanSteps() {
+  const intents = JSON.parse(readFileSync(intentIndexPath, "utf8")).intents ?? [];
+  const build = (intent) => recordPlanSteps(
+    alignRecordWithProcessingModel(buildHelmRecord(structuredClone(intent)), intent, undefined),
+    intent,
+  );
+  const subject = intents.find((intent) => {
+    if ((intent.spec.lifecycle.variantRoutes ?? []).length > 0) return false;
+    const record = alignRecordWithProcessingModel(buildHelmRecord(structuredClone(intent)), intent, undefined);
+    return record.spec.processing.flattening.verdict === PLAN_STEP_VERDICT
+      && packagePrerequisiteSteps(record, intent).some((step) => step.id.startsWith("lifecycle-action-"));
+  });
+  check(subject, "self-test: the plan-step fixtures need one flatten-with-routes Helm intent with a packaged lifecycle action and no route of its own");
+  const record = build(subject);
+  const routes = record.spec.lifecycle.routeIntent.routes;
+  check(routes.length > 0, "self-test: a base with packaged prerequisites was given no plan step");
+  check(
+    routes.every((route) => route.automatic === false
+      && route.sourceStatus === PLAN_STEP_NOT_RUN
+      && route.status === "requires-destination-resolution"
+      && route.evidence.length > 0),
+    "self-test: a derived plan step is automatic, says it ran or cites nothing",
+  );
+  const requirementIds = record.spec.lifecycle.requirements.items.map((item) => item.id);
+  check(
+    routes.every((route) => route.requirementRefs.length > 0 && route.requirementRefs.every((id) => requirementIds.includes(id))),
+    "self-test: a derived plan step points at a requirement the record does not list",
+  );
+  check(
+    record.spec.lifecycle.resolution.status === alignRecordWithProcessingModel(buildHelmRecord(structuredClone(subject)), subject, undefined).spec.lifecycle.resolution.status,
+    "self-test: deriving plan steps changed the record's resolution",
+  );
+  validatePlanSteps(record);
+  for (const [label, change, pattern] of [
+    [
+      "a route that cites a missing file",
+      (candidate) => { candidate.spec.lifecycle.routeIntent.routes[0].evidence = ["data/no-such-directory/no-such-route.yaml"]; },
+      /cites data\/no-such-directory\/no-such-route\.yaml, and that file does not exist/,
+    ],
+    [
+      "a not-run route marked automatic",
+      (candidate) => { candidate.spec.lifecycle.routeIntent.routes[0].automatic = true; },
+      /must not be automatic/,
+    ],
+    [
+      "no route beside requirements that state one",
+      (candidate) => { candidate.spec.lifecycle.routeIntent.routes = []; },
+      /names no route, and it has .+ that states one/,
+    ],
+  ]) {
+    const candidate = structuredClone(record);
+    change(candidate);
+    expectRefusal(() => validatePlanSteps(candidate), pattern, `self-test: a record with ${label} was accepted`);
+  }
+  const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
+  expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
+}
+
 function expectRefusal(fn, pattern, message) {
   let refusal = "";
   try {
@@ -4654,6 +4733,7 @@ function expectRefusal(fn, pattern, message) {
 // or not any flagged chart is published yet.
 function runHelmOpenQuestionSelfTest() {
   testHelmOpenQuestions();
+  testPlanSteps();
   const intents = JSON.parse(readFileSync(intentIndexPath, "utf8")).intents ?? [];
   const subject = intents.find(
     (intent) => helmOpenQuestionsFor(intent.spec.component, intent.spec.chart.version, intent.spec.baseVariant).length === 0,
@@ -7019,11 +7099,7 @@ function normalizeRouteIntent(route, index) {
   if (/flux/i.test(routeText)) supportedRuntimes.add("Flux");
   if (/cub installer/i.test(routeText)) supportedRuntimes.add("cub installer");
   if (/direct|kubectl/i.test(routeText)) supportedRuntimes.add("direct apply");
-  const status = /blocked|gap|refused/i.test(sourceStatus)
-    ? "blocked"
-    : /not[- ]run|not[- ]live|not[- ]evaluated|generated/i.test(sourceStatus)
-      ? "requires-destination-resolution"
-      : "recorded";
+  const status = routeStatusFor(sourceStatus);
   return {
     id,
     requirementRefs: [id],
@@ -7049,6 +7125,400 @@ function normalizeRouteIntent(route, index) {
       ? { orderHint: Number.isInteger(route.order) ? route.order : String(route.order).trim() }
       : {}),
   };
+}
+
+function routeStatusFor(sourceStatus) {
+  return /blocked|gap|refused/i.test(sourceStatus)
+    ? "blocked"
+    : /not[- ]run|not[- ]live|not[- ]evaluated|generated/i.test(sourceStatus)
+      ? "requires-destination-resolution"
+      : "recorded";
+}
+
+// --- plan steps a record can name from committed files ----------------------
+//
+// A flatten-with-routes verdict says the exact objects travel with written
+// steps. When the source record names no route, the steps are still written
+// down in this repository. This pass reads three places, in this order, and
+// records one route for each step they state:
+//
+//   1. the route documents of the entry's published bundle, which the record
+//      already lists under delivery.literalConfigOci.routes;
+//   2. the installer package's prerequisites: the CRD file a target
+//      requirement names, and each action in its PackagedLifecycleActions
+//      document;
+//   3. the target requirements of the source record that no step from 1 or 2
+//      covers.
+//
+// It reads and never invents. Every route cites the file it came from, and
+// the generator stops when a cited file is missing. A derived route is not
+// automatic and says not run, unless its document records an observed run,
+// and then it says observed. spec.lifecycle.resolution is left as it was.
+// A record with no listed requirement, no bundle route document and no
+// packaged prerequisite is left alone, because nothing committed names a
+// step for it.
+function recordPlanSteps(record, intent) {
+  const lifecycle = record.spec.lifecycle;
+  if (record.spec.processing?.flattening?.verdict !== PLAN_STEP_VERDICT) return record;
+  if (lifecycle.routeIntent.routes.length > 0) return record;
+  const steps = derivePlanSteps(record, intent);
+  if (steps.length === 0) return record;
+
+  const name = record.metadata.name;
+  const listedIds = new Set(lifecycle.requirements.items.map((item) => item.id));
+  // A step that no listed requirement states brings its own, as every route
+  // of a source record does.
+  const ownRequirements = steps
+    .filter((step) => step.requirementRefs.length === 0)
+    .map((step) => {
+      check(!listedIds.has(step.id), `${name}: the derived step ${step.id} has the id of a listed requirement`);
+      return { id: step.id, origin: "base", type: "lifecycle-action", detail: step.mechanism };
+    });
+  const routes = steps.map((step) => {
+    for (const path of step.evidence) {
+      check(existsRepo(path), `${name}: the derived step ${step.id} cites ${path}, and that file does not exist`);
+    }
+    return {
+      id: step.id,
+      requirementRefs: step.requirementRefs.length > 0 ? step.requirementRefs : [step.id],
+      phase: PLAN_STEP_PHASES.includes(step.phase) ? step.phase : PLAN_STEP_DEFAULT_PHASE,
+      proposedActor: step.actor,
+      proposedMechanism: step.mechanism,
+      automatic: false,
+      status: routeStatusFor(step.sourceStatus),
+      sourceStatus: step.sourceStatus,
+      supportedRuntimes: step.supportedRuntimes,
+      checks: step.checks,
+      evidence: step.evidence,
+    };
+  });
+  const cited = routes.flatMap((route) => route.evidence);
+  const withCited = (records, extra) => [...new Set([...records, ...extra])].sort();
+  lifecycle.requirements = {
+    ...lifecycle.requirements,
+    status: lifecycle.requirements.status === "gap" ? "gap" : "recorded",
+    items: [...ownRequirements, ...lifecycle.requirements.items],
+    records: withCited(
+      lifecycle.requirements.records,
+      steps.filter((step) => step.requirementRefs.length === 0).flatMap((step) => step.evidence),
+    ),
+  };
+  // A gap in the source record stays a gap. The steps are recorded beside it.
+  lifecycle.routeIntent = {
+    ...lifecycle.routeIntent,
+    status: lifecycle.routeIntent.status === "gap" ? "gap" : "recorded",
+    routes,
+    records: withCited(lifecycle.routeIntent.records, cited),
+  };
+  return record;
+}
+
+function derivePlanSteps(record, intent) {
+  const name = record.metadata.name;
+  const listedIds = record.spec.lifecycle.requirements.items.map((item) => item.id);
+  const steps = [];
+  // The bundle's own route documents come first. A packaged step with the
+  // same id describes the same work and is not recorded twice.
+  const addAll = (found, source) => {
+    const ids = found.map((step) => step.id);
+    check(ids.length === new Set(ids).size, `${name}: ${source} states two steps with one id (${ids.join(", ")})`);
+    for (const step of found) {
+      if (!steps.some((candidate) => candidate.id === step.id)) steps.push(step);
+    }
+  };
+  addAll(
+    (record.spec.delivery?.literalConfigOci?.routes ?? []).flatMap((file) => bundleRouteSteps(name, file.path)),
+    "the bundle's route documents",
+  );
+  addAll(packagePrerequisiteSteps(record, intent), "the installer package's prerequisites");
+  const withRefs = (step) => { step.requirementRefs = listedIds.filter((id) => step.names.includes(id)); };
+  steps.forEach(withRefs);
+  const covered = new Set(steps.flatMap((step) => step.requirementRefs));
+  addAll(targetRequirementSteps(record, intent, covered), "the source record's target requirements");
+  steps.forEach(withRefs);
+  return steps;
+}
+
+// The steps one BundleRoute document states. A lifecycle-action document
+// states one step for each hook phase. Any other document states one step.
+function bundleRouteSteps(name, path) {
+  check(existsRepo(path), `${name}: the bundle names the route file ${path}, and that file does not exist`);
+  const doc = readYaml(join(repoRoot, path));
+  check(doc?.kind === "BundleRoute" && doc.spec?.discharges, `${name}: ${path} is not a BundleRoute document that says what it discharges`);
+  const spec = doc.spec;
+  const declaration = spec.declaration ?? {};
+  const executedBy = spec.executedBy ?? {};
+  const runtimes = Array.isArray(executedBy.runtimes) ? executedBy.runtimes : [];
+  check(
+    runtimes.every((runtime) => runtime.proven !== true) && planStepNotRun(executedBy),
+    `${name}: ${path} says a runtime ran this route. A derived step can only say not run, so record that run in the source record`,
+  );
+  const supportedRuntimes = runtimes.map((runtime) => String(runtime.name)).sort();
+  const stem = path.split("/").at(-1).replace(/\.ya?ml$/, "");
+
+  if (Array.isArray(declaration.actions)) {
+    return declaration.actions.map((action) => {
+      check(
+        action.automatic !== true && planStepNotRun(action),
+        `${name}: the ${action.phase} action in ${path} is no longer recorded as not automatic and not run`,
+      );
+      return {
+        id: `lifecycle-action-${planStepSlug(action.phase)}`,
+        phase: String(action.phase),
+        actor: planStepActor(action.invokedBy ?? executedBy.invokedBy),
+        mechanism: planSentences(action.name, action.detail),
+        sourceStatus: PLAN_STEP_NOT_RUN,
+        supportedRuntimes,
+        checks: [declaration.onActionFailure].filter(Boolean).map(String),
+        evidence: planStepEvidence(path, action.objects?.repositoryPath),
+        names: collectPathStrings(action),
+      };
+    });
+  }
+
+  const stages = (Array.isArray(declaration.stages) ? declaration.stages : [])
+    .slice()
+    .sort((left, right) => Number(left.order ?? 0) - Number(right.order ?? 0));
+  const step = {
+    id: stem,
+    phase: PLAN_STEP_DEFAULT_PHASE,
+    actor: executedBy.invokedBy ? String(executedBy.invokedBy) : runtimes.length > 0 ? "selected applier" : "not selected",
+    mechanism: String(spec.discharges),
+    sourceStatus: PLAN_STEP_NOT_RUN,
+    supportedRuntimes,
+    checks: [stages[0]?.waitFor, declaration.waitFor, declaration.onStageFailure].filter(Boolean).map(String),
+    evidence: planStepEvidence(path, declaration.packagedCopy?.repositoryPath),
+    names: collectPathStrings(declaration),
+  };
+  if (spec.routeKind === "apply-ordering" && stages.length > 0) {
+    step.phase = "apply";
+    step.mechanism = planSentences(spec.discharges, ...applyOrderingSentences(stages));
+  } else if (Array.isArray(declaration.protect) && declaration.onRemovalFromDesiredState) {
+    step.mechanism = planSentences(
+      spec.discharges,
+      `This route protects ${planCount(declaration.protect.length, "object")}`,
+      `The rule when one leaves the desired state is to ${declaration.onRemovalFromDesiredState}`,
+    );
+  } else if (stages.length > 0) {
+    // The stages carry the evidence of one recorded run. That run is what the
+    // document observed. It is not a delivery runtime executing the route.
+    if (stages.some((stage) => stage.evidence)) step.sourceStatus = PLAN_STEP_OBSERVED;
+    step.mechanism = planSentences(spec.discharges, `The ordered stages are ${stages.map((stage) => stage.name).join(", ")}`);
+  }
+  return [step];
+}
+
+function applyOrderingSentences(stages) {
+  return stages.flatMap((stage, index) => {
+    const kinds = (stage.selector?.kinds ?? []).filter((kind) => kind !== "*");
+    const count = Number(stage.objectCount ?? 0);
+    if (count === 0) return [];
+    const what = kinds.length > 0 ? planCount(count, `${kinds.join(" and ")} object`) : planCount(count, "object");
+    const apply = index === 0
+      ? `Apply the ${what} first${stage.applyMode ? `, ${stage.applyMode}` : ""}`
+      : `Then apply the ${kinds.length > 0 ? what : `other ${what}`}`;
+    return stage.waitFor ? [apply, `Wait until ${stage.waitFor}`] : [apply];
+  });
+}
+
+// The steps the installer package of this chart version carries for this
+// base: the CRD file a target requirement names, and each packaged action.
+function packagePrerequisiteSteps(record, intent) {
+  const source = record.spec.source;
+  if (source.type !== "helm") return [];
+  const name = record.metadata.name;
+  const packageRoot = `packages/${source.name}/${source.version}`;
+  if (!existsRepo(`${packageRoot}/installer.yaml`)) return [];
+  const packaged = packagedLifecycleFor(packageRoot);
+  const actions = (packaged?.doc.spec?.bases ?? [])
+    .find((candidate) => candidate.name === record.spec.baseVariant.name)?.actions ?? [];
+  for (const action of actions) {
+    check(
+      action.automatic !== true && planStepNotRun(action),
+      `${name}: the ${action.phase} action in ${packaged.path} is no longer recorded as not automatic and not run`,
+    );
+  }
+
+  const crdFiles = new Map();
+  for (const requirement of intent?.spec?.targetFacts?.requirements ?? []) {
+    const relative = packagedPrerequisitePath(requirement.check);
+    if (requirement.category !== "crd" || !relative || !existsRepo(`${packageRoot}/${relative}`)) continue;
+    crdFiles.set(relative, [...(crdFiles.get(relative) ?? []), requirement]);
+  }
+  const steps = [];
+  const used = new Set();
+  for (const [relative, requirements] of crdFiles) {
+    const action = actions.find((candidate) => candidate.source === relative);
+    if (action) used.add(action);
+    const locked = requirements.some((requirement) => requirement.applyMode === "server-side-force-conflicts");
+    steps.push({
+      id: crdFiles.size === 1 ? "crd-ordering" : `crd-ordering-${planStepSlug(relative.split("/").at(-1).replace(/\.ya?ml$/, ""))}`,
+      phase: String(action?.phase ?? "pre-apply"),
+      actor: "delivery workflow",
+      // The package's own words where it has them. Otherwise the words the
+      // generated try script uses for the same file.
+      mechanism: action
+        ? planSentences(action.name, action.detail)
+        : planSentences(
+          `The installer package includes ${requirements.length === 1 ? "this CRD" : "these CRDs"} as ${relative}`,
+          locked
+            ? `Apply the ${planCount(requirements.length, "locked CRD")} before the workload with the chart's server-side, force-conflicts apply mode`
+            : "Apply the missing CRDs server-side and leave existing CRDs under their current owner",
+          "Wait for every CRD to become established before the workload",
+        ),
+      sourceStatus: PLAN_STEP_NOT_RUN,
+      supportedRuntimes: [],
+      checks: [],
+      evidence: planStepEvidence(`${packageRoot}/${relative}`, action ? packaged.path : ""),
+      names: requirements.map((requirement) => String(requirement.name)),
+    });
+  }
+  for (const action of actions) {
+    if (used.has(action)) continue;
+    const file = action.source ?? action.script;
+    steps.push({
+      id: `lifecycle-action-${planStepSlug(action.phase)}`,
+      phase: String(action.phase),
+      actor: planStepActor(action.invokedBy),
+      mechanism: planSentences(action.name, action.detail),
+      sourceStatus: PLAN_STEP_NOT_RUN,
+      supportedRuntimes: [],
+      checks: [],
+      evidence: planStepEvidence(packaged.path, file ? `${packageRoot}/${file}` : ""),
+      names: [],
+    });
+  }
+  return steps;
+}
+
+// One step for each kind of target requirement that no bundle or package step
+// covers. The step says what the source record says and nothing more.
+function targetRequirementSteps(record, intent, covered) {
+  const listedIds = new Set(record.spec.lifecycle.requirements.items.map((item) => item.id));
+  const groups = new Map();
+  for (const [index, requirement] of (intent?.spec?.targetFacts?.requirements ?? []).entries()) {
+    // The id lifecycleRecord gave this requirement.
+    const id = String(requirement.name ?? `${requirement.category ?? "target-fact"}-${index + 1}`);
+    if (covered.has(id) || !listedIds.has(id)) continue;
+    const category = String(requirement.category ?? "target-fact");
+    const before = String(requirement.requiredBefore ?? "apply");
+    const key = `${category}-before-${before}`;
+    const group = groups.get(key) ?? { category, before, ids: [], requirements: [] };
+    group.ids.push(id);
+    group.requirements.push(requirement);
+    groups.set(key, group);
+  }
+  return [...groups.entries()].map(([key, group]) => {
+    const { requirements } = group;
+    const word = { crd: "CRD", secret: "Secret", namespace: "Namespace", value: "value" }[group.category];
+    const one = requirements.length === 1;
+    const subject = one ? `${word} ${group.ids[0]}` : planCount(requirements.length, word ?? "");
+    const need = group.category === "value"
+      ? `${one ? `The ${subject}` : subject} must be set before ${group.before}`
+      : word
+        ? `${subject} must exist before ${group.before}`
+        : `The destination must provide the recorded ${group.category} before ${group.before}`;
+    const purposes = [...new Set(requirements.map(targetRequirementDetail))];
+    return {
+      id: planStepSlug(key),
+      phase: `pre-${group.before}`,
+      actor: "operator",
+      mechanism: planSentences(need, ...purposes),
+      sourceStatus: PLAN_STEP_NOT_RUN,
+      supportedRuntimes: [],
+      checks: [...new Set(requirements.map((requirement) => String(requirement.check ?? "").trim()).filter(Boolean))],
+      evidence: planStepEvidence(
+        record.spec.source.record,
+        ...requirements.map((requirement) => requirement.declarationPath),
+      ),
+      names: group.ids,
+    };
+  });
+}
+
+// What every record must hold about its routes, whoever wrote them. A route
+// cites only files that exist. A route that says recorded-not-run is not
+// automatic, still awaits a destination and cites the file that states it.
+// A flatten-with-routes record names no route only when no listed
+// requirement, bundle route document or packaged action could give it one.
+function validatePlanSteps(record) {
+  const name = record.metadata.name;
+  const lifecycle = record.spec.lifecycle;
+  const routes = lifecycle.routeIntent.routes;
+  for (const route of routes) {
+    for (const path of route.evidence ?? []) {
+      check(existsRepo(path), `${name}: the route ${route.id} cites ${path}, and that file does not exist`);
+    }
+    if (route.sourceStatus !== PLAN_STEP_NOT_RUN) continue;
+    check(
+      route.automatic === false
+        && route.status === "requires-destination-resolution"
+        && (route.evidence ?? []).length > 0,
+      `${name}: the route ${route.id} says ${PLAN_STEP_NOT_RUN}, so it must not be automatic, must still await a destination and must cite the file that states it`,
+    );
+  }
+  if (record.spec.processing?.flattening?.verdict !== PLAN_STEP_VERDICT || routes.length > 0) return;
+  const source = record.spec.source;
+  const packaged = source.type === "helm" ? packagedLifecycleFor(`packages/${source.name}/${source.version}`) : null;
+  const unnamed = [
+    lifecycle.requirements.items.length > 0 ? `${planCount(lifecycle.requirements.items.length, "listed requirement")}` : "",
+    (record.spec.delivery?.literalConfigOci?.routes ?? []).length > 0 ? "a bundle route document" : "",
+    (packaged?.doc.spec?.bases ?? []).some((base) => base.name === record.spec.baseVariant.name && (base.actions ?? []).length > 0)
+      ? `a packaged action in ${packaged.path}`
+      : "",
+  ].filter(Boolean);
+  check(
+    unnamed.length === 0,
+    `${name}: the verdict is ${PLAN_STEP_VERDICT} and the record names no route, and it has ${unnamed.join(" and ")} that states one`,
+  );
+}
+
+function packagedLifecycleFor(packageRoot) {
+  if (!packagedLifecycleByRoot.has(packageRoot)) {
+    const prerequisites = join(repoRoot, packageRoot, "prerequisites");
+    const found = (existsSync(prerequisites) && statSync(prerequisites).isDirectory() ? readdirSync(prerequisites) : [])
+      .map((directory) => `${packageRoot}/prerequisites/${directory}/lifecycle-actions.yaml`)
+      .filter(existsRepo)
+      .map((path) => ({ path, doc: readYaml(join(repoRoot, path)) }))
+      .filter((candidate) => candidate.doc?.kind === PACKAGED_LIFECYCLE_KIND);
+    check(found.length <= 1, `${packageRoot} contains more than one ${PACKAGED_LIFECYCLE_KIND} document`);
+    packagedLifecycleByRoot.set(packageRoot, found[0] ?? null);
+  }
+  return packagedLifecycleByRoot.get(packageRoot);
+}
+
+function packagedPrerequisitePath(value) {
+  const match = /^package:\/\/([a-zA-Z0-9._/-]+)$/.exec(String(value ?? "").trim());
+  return match && !match[1].split("/").includes("..") ? match[1] : "";
+}
+
+function planStepNotRun(source) {
+  return [undefined, "not-run"].includes(source?.evidenceState);
+}
+
+function planStepActor(invokedBy) {
+  return String(invokedBy ?? "").trim().replaceAll("-", " ") || "not selected";
+}
+
+function planStepSlug(value) {
+  return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function planStepEvidence(...paths) {
+  return [...new Set(paths.filter((path) => typeof path === "string" && path.trim()))];
+}
+
+function planCount(count, word) {
+  return `${count} ${word}${count === 1 ? "" : "s"}`;
+}
+
+// Each part becomes one sentence that ends with a full stop.
+function planSentences(...parts) {
+  return parts
+    .map((part) => String(part ?? "").trim())
+    .filter(Boolean)
+    .map((part) => (/[.!?]$/.test(part) ? part : `${part}.`))
+    .join(" ");
 }
 
 function targetRequirementDetail(requirement) {

@@ -157,11 +157,28 @@ spec:
       records:
         - "data/helm-render-intents/intents/istio-istiod-1-30-0-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "namespace-before-apply"
+          requirementRefs:
+            - "istio-system"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "Namespace istio-system must exist before apply. The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+          evidence:
+            - "data/helm-render-intents/intents/istio-istiod-1-30-0-default.yaml"
+            - "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
       records:
         - "data/helm-render-intents/intents/istio-istiod-1-30-0-default.yaml"
+        - "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

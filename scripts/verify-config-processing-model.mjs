@@ -231,6 +231,24 @@ const allowedAssessmentResultStates = new Set([
   "not-applicable",
 ]);
 
+let flattenWithRoutes = 0;
+let flattenWithRoutesNamingNoStep = 0;
+// The actions the installer package of a Helm record's chart version carries
+// for its base, read from the package's PackagedLifecycleActions document.
+function packagedActionsFor(spec) {
+  if (spec.source?.type !== "helm") return [];
+  const prerequisites = join(root, "packages", String(spec.source.name), String(spec.source.version), "prerequisites");
+  if (!existsSync(prerequisites) || !statSync(prerequisites).isDirectory()) return [];
+  return readdirSync(prerequisites)
+    .map((directory) => join(prerequisites, directory, "lifecycle-actions.yaml"))
+    .filter((path) => existsSync(path))
+    .map((path) => readYaml(path))
+    .filter((doc) => doc?.kind === "PackagedLifecycleActions")
+    .flatMap((doc) => doc.spec?.bases ?? [])
+    .filter((base) => base.name === spec.baseVariant?.name)
+    .flatMap((base) => base.actions ?? []);
+}
+
 for (const record of records) {
   const name = record.metadata?.name ?? "unnamed-record";
   const spec = record.spec ?? {};
@@ -365,6 +383,44 @@ for (const record of records) {
       typeof route.automatic === "boolean" && route.proposedActor && route.proposedMechanism,
       `${name}/${route.id}: route intent is incomplete`,
     );
+  }
+
+  // A route cites only files that exist. A route recorded as not run is not
+  // automatic, still awaits a destination and cites the file that states it.
+  for (const route of routeIntents) {
+    for (const path of route.evidence ?? []) {
+      requireCondition(
+        existsSync(join(root, path)),
+        `${name}/${route.id}: the route cites ${path}, and that file does not exist`,
+      );
+    }
+    if (route.sourceStatus !== "recorded-not-run") continue;
+    requireCondition(
+      route.automatic === false
+        && route.status === "requires-destination-resolution"
+        && (route.evidence ?? []).length > 0,
+      `${name}/${route.id}: a route recorded as not run must not be automatic, must still await a destination and must cite the file that states it`,
+    );
+  }
+  // A flatten-with-routes verdict says steps travel with the objects. The
+  // record may name none only when nothing committed states one for it: no
+  // listed requirement, no route document in its published bundle and no
+  // packaged action for its base. This check reads the package itself and
+  // does not trust the generator's own pass.
+  if (spec.processing?.flattening?.verdict === "flatten-with-routes") {
+    flattenWithRoutes += 1;
+    if (routeIntents.length === 0) {
+      flattenWithRoutesNamingNoStep += 1;
+      const stated = [
+        requirements.length > 0 ? `${requirements.length} listed requirement(s)` : "",
+        (spec.delivery?.literalConfigOci?.routes ?? []).length > 0 ? "a bundle route document" : "",
+        packagedActionsFor(spec).length > 0 ? "a packaged lifecycle action" : "",
+      ].filter(Boolean);
+      requireCondition(
+        stated.length === 0,
+        `${name}: the verdict is flatten-with-routes and the record names no route, and it has ${stated.join(" and ")} that states one`,
+      );
+    }
   }
 
   const targetFacts = spec.lifecycle?.targetFacts;
@@ -1081,5 +1137,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt); NVIDIA chart bases with a literal bundle plan, a record and a listing=${nvidiaBundleEntriesWithListing}/${nvidiaBundleEntries.length} (${nvidiaBundleEntriesPublished} published with a receipt)`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; flatten-with-routes records that name a step=${flattenWithRoutes - flattenWithRoutesNamingNoStep}/${flattenWithRoutes} (${flattenWithRoutesNamingNoStep} with nothing committed that states one); retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt); NVIDIA chart bases with a literal bundle plan, a record and a listing=${nvidiaBundleEntriesWithListing}/${nvidiaBundleEntries.length} (${nvidiaBundleEntriesPublished} published with a receipt)`,
 );

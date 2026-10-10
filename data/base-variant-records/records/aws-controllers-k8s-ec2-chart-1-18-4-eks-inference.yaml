@@ -153,6 +153,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 22 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+        -
           id: "ack-system/aws-creds"
           origin: "base"
           type: "target-fact"
@@ -163,13 +168,67 @@ spec:
           type: "target-fact"
           detail: "AWS region for the controller; rendered as the ConfigHub sentinel so an unbound environment fails vet-placeholders instead of reaching a cluster"
       records:
+        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 22 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/crd-ordering.yaml"
+        -
+          id: "secret-before-apply"
+          requirementRefs:
+            - "ack-system/aws-creds"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "Secret ack-system/aws-creds must exist before apply. AWS shared-credentials file mounted read-only at /var/run/secrets/aws."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+            - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/eks-inference/variant.yaml"
+        -
+          id: "value-before-render"
+          requirementRefs:
+            - "aws.region"
+          phase: "destination-resolution"
+          proposedActor: "operator"
+          proposedMechanism: "The value aws.region must be set before render. AWS region for the controller; rendered as the ConfigHub sentinel so an unbound environment fails vet-placeholders instead of reaching a cluster."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+            - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/eks-inference/variant.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+        - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/eks-inference/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

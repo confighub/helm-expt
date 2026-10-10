@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
-      "sha256": "sha256:05f58640aa7e492ec8d8d136b94ad4c22c760aff861c72d61d5152037859430a",
+      "sha256": "sha256:c42f8b3182e863497c09567507fe1b78184e87646ba119a8d1a9c7ae4d86e902",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -239,12 +239,18 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+      },
       {
         "id": "ack-system/aws-creds",
         "type": "target-fact",
@@ -258,12 +264,82 @@
         "detail": "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
+        ]
+      },
+      {
+        "id": "secret-before-apply",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "Secret ack-system/aws-creds must exist before apply. AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "ack-system/aws-creds"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
+          "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+        ]
+      },
+      {
+        "id": "value-before-render",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "The value aws.region must be set before render. AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "aws.region"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
+          "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+        ]
+      }
+    ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
+      },
       {
         "name": "aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
         "path": "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
+      },
+      {
+        "name": "variant.yaml",
+        "path": "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
       }
     ]
   },

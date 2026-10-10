@@ -215,11 +215,63 @@ spec:
       records:
         - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "certificates.cert-manager.io"
+            - "issuers.cert-manager.io"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+        -
+          id: "namespace-before-apply"
+          requirementRefs:
+            - "cert-manager"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "Namespace cert-manager must exist before apply. trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
+            - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        -
+          id: "secret-before-apply"
+          requirementRefs:
+            - "default/trust-manager-tls"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "Secret default/trust-manager-tls must exist before apply. trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
+            - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
       records:
         - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
+        - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
+        - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

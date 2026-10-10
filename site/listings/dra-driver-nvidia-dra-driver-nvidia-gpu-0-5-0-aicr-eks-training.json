@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml",
-      "sha256": "sha256:5e8178bb10367cd1ffc581546d2c2629e7809266c3f6b5e8b1594807019e8920",
+      "sha256": "sha256:527267f59dd22f9b4821f1e2fd8ae670e791ed534359790fbdd5f8499458cede",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -233,7 +233,7 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
@@ -252,12 +252,36 @@
         "detail": "CRD included in this base and applied before the controller that reconciles it"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "The installer package includes these CRDs as prerequisites/target-facts/aicr-eks-training-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "computedomaincliques.resource.nvidia.com",
+          "computedomains.resource.nvidia.com"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml",
         "path": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.yaml"
+      },
+      {
+        "name": "aicr-eks-training-crds.yaml",
+        "path": "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/aicr-eks-training-crds.yaml"
       }
     ]
   },

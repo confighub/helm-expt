@@ -277,6 +277,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-pre-upgrade"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        -
           id: "nemocustomizers.apps.nvidia.com"
           origin: "base"
           type: "target-fact"
@@ -323,12 +328,61 @@ spec:
           detail: "CRD included in this base and applied before the operator that reconciles it"
       records:
         - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+        - "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "nemocustomizers.apps.nvidia.com"
+            - "nemodatastores.apps.nvidia.com"
+            - "nemoentitystores.apps.nvidia.com"
+            - "nemoevaluators.apps.nvidia.com"
+            - "nemoguardrails.apps.nvidia.com"
+            - "nimbuilds.apps.nvidia.com"
+            - "nimcaches.apps.nvidia.com"
+            - "nimpipelines.apps.nvidia.com"
+            - "nimservices.apps.nvidia.com"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. Then apply the other 8 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/crd-ordering.yaml"
+            - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/target-facts/default-crds.yaml"
+        -
+          id: "lifecycle-action-pre-upgrade"
+          requirementRefs:
+            - "lifecycle-action-pre-upgrade"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-k8s-nim-operator-3-1-2-default.yaml"
+        - "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/crd-ordering.yaml"
+        - "data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/k8s-nim-operator-lifecycle/default/pre-upgrade.yaml"
+        - "packages/nvidia/k8s-nim-operator/3.1.2/prerequisites/target-facts/default-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

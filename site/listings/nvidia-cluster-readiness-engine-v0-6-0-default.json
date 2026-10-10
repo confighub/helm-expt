@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
-      "sha256": "sha256:d1152d033859deedc0b1591f7cc9c124abcfdc64e0cb75ce4f5938b6a706eb33",
+      "sha256": "sha256:9e3b076efc786c1d28092573df741ec483ef8186268be67af59113663e6833fe",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -239,7 +239,7 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
@@ -294,12 +294,78 @@
         "detail": "Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 7 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. Then apply the other 36 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "bandwidthmeasurements.nvcre.nvidia.com",
+          "certifications.nvcre.nvidia.com",
+          "goodputmeasurements.nvcre.nvidia.com",
+          "jobs.nvcre.nvidia.com",
+          "logprofiles.nvcre.nvidia.com",
+          "workflows.nvcre.nvidia.com",
+          "workloadruns.nvcre.nvidia.com"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml",
+          "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+        ]
+      },
+      {
+        "id": "crd-before-apply",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "CRD servicemonitors.monitoring.coreos.com must exist before apply. Prometheus Operator ServiceMonitor CRD required before Kubernetes accepts the rendered ServiceMonitor object; the chart does not ship it.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "servicemonitors.monitoring.coreos.com"
+        ],
+        "checks": [
+          "package://prerequisites/target-facts/default-crds.yaml"
+        ],
+        "evidence": [
+          "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
+          "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
         "path": "data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-cluster-readiness-engine-v0-6-0-default.yaml"
+      },
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/nvidia-literal-bundles/nvidia-cluster-readiness-engine-v0-6-0-default/routes/crd-ordering.yaml"
+      },
+      {
+        "name": "default-crds.yaml",
+        "path": "packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/cluster-readiness-engine/v0.6.0/prerequisites/target-facts/default-crds.yaml"
+      },
+      {
+        "name": "variant.yaml",
+        "path": "recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/cluster-readiness-engine/v0.6.0/variants/default/variant.yaml"
       }
     ]
   },

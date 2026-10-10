@@ -177,11 +177,28 @@ spec:
       records:
         - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "computedomaincliques.resource.nvidia.com"
+            - "computedomains.resource.nvidia.com"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/default-crds.yaml"
       records:
         - "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default.yaml"
+        - "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/prerequisites/target-facts/default-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml",
-      "sha256": "sha256:ebba891c367bf5526184f19f534aab6fe9b9b12a9cc9ffcf4bbb7aadf3021c58",
+      "sha256": "sha256:3ef2862210110fe7f2ce551a1508491e409dd156262639abc68e8037cab0ffe7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -215,7 +215,7 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
@@ -234,12 +234,40 @@
         "detail": "Sensitive Terraform workspace variables mounted at /tmp/secrets"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "secret-before-apply",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "operator",
+        "mechanism": "2 Secrets must exist before apply. Terraform CLI credentials mounted at /etc/terraform/.terraformrc. Sensitive Terraform workspace variables mounted at /tmp/secrets.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "default/terraformrc",
+          "default/workspacesecrets"
+        ],
+        "checks": [
+          "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>",
+          "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+        ],
+        "evidence": [
+          "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml",
+          "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "hashicorp-terraform-1-1-2-default.yaml",
         "path": "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+      },
+      {
+        "name": "variant.yaml",
+        "path": "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
       }
     ]
   },

@@ -208,6 +208,16 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-pre-upgrade"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+        -
+          id: "lifecycle-action-post-delete"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately."
+        -
           id: "clusterpolicies.nvidia.com"
           origin: "base"
           type: "target-fact"
@@ -234,12 +244,76 @@ spec:
           detail: "CRD included in this base and applied before the workloads that use it"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/post-delete.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/pre-upgrade.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "clusterpolicies.nvidia.com"
+            - "nodefeaturegroups.nfd.k8s-sigs.io"
+            - "nodefeaturerules.nfd.k8s-sigs.io"
+            - "nodefeatures.nfd.k8s-sigs.io"
+            - "nvidiadrivers.nvidia.com"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml"
+            - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
+        -
+          id: "lifecycle-action-pre-upgrade"
+          requirementRefs:
+            - "lifecycle-action-pre-upgrade"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/pre-upgrade.yaml"
+        -
+          id: "lifecycle-action-post-delete"
+          requirementRefs:
+            - "lifecycle-action-post-delete"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "stop and report; never continue past an action that did not complete"
+          evidence:
+            - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml"
+            - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/post-delete.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/crd-ordering.yaml"
+        - "data/nvidia-literal-bundles/nvidia-gpu-operator-v26-3-2-preinstalled-driver-and-toolkit/routes/lifecycle-actions.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/post-delete.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/gpu-operator-lifecycle/preinstalled-driver-and-toolkit/pre-upgrade.yaml"
+        - "packages/nvidia/gpu-operator/v26.3.2/prerequisites/target-facts/preinstalled-driver-and-toolkit-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

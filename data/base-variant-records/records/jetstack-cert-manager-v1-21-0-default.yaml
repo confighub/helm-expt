@@ -217,6 +217,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
+        -
           id: "challenges.acme.cert-manager.io"
           origin: "base"
           type: "target-fact"
@@ -247,13 +252,55 @@ spec:
           type: "target-fact"
           detail: "cert-manager CRD staged before the default chart and its startup API check"
       records:
+        - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "lifecycle"
+          requirementRefs:
+            - "lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "stop and report; never continue past a stage that did not pass"
+          evidence:
+            - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
+        -
+          id: "crd-before-apply"
+          requirementRefs:
+            - "challenges.acme.cert-manager.io"
+            - "orders.acme.cert-manager.io"
+            - "certificaterequests.cert-manager.io"
+            - "certificates.cert-manager.io"
+            - "clusterissuers.cert-manager.io"
+            - "issuers.cert-manager.io"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
+            - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
+        - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

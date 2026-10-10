@@ -183,11 +183,30 @@ spec:
       records:
         - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "secret-before-apply"
+          requirementRefs:
+            - "default/terraformrc"
+            - "default/workspacesecrets"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "2 Secrets must exist before apply. Terraform CLI credentials mounted at /etc/terraform/.terraformrc. Sensitive Terraform workspace variables mounted at /tmp/secrets."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            - "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+            - "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+          evidence:
+            - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+            - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
       records:
         - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+        - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:

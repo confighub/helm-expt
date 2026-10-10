@@ -181,6 +181,11 @@ spec:
       status: "recorded"
       items:
         -
+          id: "lifecycle-action-post-delete"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "After a delete, remove what NFD put on the nodes. The prune Job runs nfd-master with -prune, which removes the labels, annotations, taints and extended resources NFD created on every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that deletes this base must apply these four objects afterwards, wait for the Job to complete, then delete them. Skipping it leaves the node labels in place."
+        -
           id: "nodefeaturegroups.nfd.k8s-sigs.io"
           origin: "base"
           type: "target-fact"
@@ -197,12 +202,52 @@ spec:
           detail: "CRD included in this base and applied before the components that use it"
       records:
         - "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+        - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/default/post-delete.yaml"
+        - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/lifecycle-actions.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "nodefeaturegroups.nfd.k8s-sigs.io"
+            - "nodefeaturerules.nfd.k8s-sigs.io"
+            - "nodefeatures.nfd.k8s-sigs.io"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "Install and establish the 3 CRDs before the master and the workers start. The workers write NodeFeature objects and the master reads NodeFeatureRule objects as soon as they start. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/target-facts/default-crds.yaml"
+            - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/lifecycle-actions.yaml"
+        -
+          id: "lifecycle-action-post-delete"
+          requirementRefs:
+            - "lifecycle-action-post-delete"
+          phase: "destination-resolution"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "After a delete, remove what NFD put on the nodes. The prune Job runs nfd-master with -prune, which removes the labels, annotations, taints and extended resources NFD created on every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that deletes this base must apply these four objects afterwards, wait for the Job to complete, then delete them. Skipping it leaves the node labels in place."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/lifecycle-actions.yaml"
+            - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/default/post-delete.yaml"
       records:
         - "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-default.yaml"
+        - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/default/post-delete.yaml"
+        - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/lifecycle-actions.yaml"
+        - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/target-facts/default-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

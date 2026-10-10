@@ -345,11 +345,36 @@ spec:
       records:
         - "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "alertmanagerconfigs.monitoring.coreos.com"
+            - "alertmanagers.monitoring.coreos.com"
+            - "podmonitors.monitoring.coreos.com"
+            - "probes.monitoring.coreos.com"
+            - "prometheusagents.monitoring.coreos.com"
+            - "prometheuses.monitoring.coreos.com"
+            - "prometheusrules.monitoring.coreos.com"
+            - "scrapeconfigs.monitoring.coreos.com"
+            - "servicemonitors.monitoring.coreos.com"
+            - "thanosrulers.monitoring.coreos.com"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/aicr-eks-training-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
       records:
         - "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
+        - "packages/prometheus-community/prometheus-operator-crds/28.0.1/prerequisites/target-facts/aicr-eks-training-crds.yaml"
     targetFacts:
       status: "recorded"
       declared:

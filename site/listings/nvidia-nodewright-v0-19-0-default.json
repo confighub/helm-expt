@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b50f9f5caf8de7d88ac8b7945a3795ffb4afc177e72f21c8db1a9d099f5ba05c",
+      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nodewright-v0-19-0-default.yaml",
-      "sha256": "sha256:bb3883436d8fc9e712fbd912871ee1b5b90f94fd60ef34d4bdcfa0f809d72aa5",
+      "sha256": "sha256:07b046c76f1119072103442e73b64c71086fbf1d7a82cf325ca66d9b9c66b36d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-19-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -215,12 +215,24 @@
     }
   },
   "routing": {
-    "routeStatus": "required-at-destination",
+    "routeStatus": "recorded",
     "requirementsStatus": "recorded",
     "targetFactsStatus": "recorded",
     "resolutionStatus": "awaits-variant-and-target",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
+      {
+        "id": "lifecycle-action-pre-upgrade",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+      },
+      {
+        "id": "lifecycle-action-pre-delete",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+      },
       {
         "id": "deploymentpolicies.nodewright.nvidia.com",
         "type": "target-fact",
@@ -246,12 +258,90 @@
         "detail": "CRD included in this base and applied before the operator that reconciles it"
       }
     ],
-    "routes": [],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "pre-apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Install and establish the 4 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The bundle holds exactly the CRDs this base renders. No object in the base is an instance of them, so nothing is rejected if they arrive late, but the operator cannot work until they are established.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "deploymentpolicies.nodewright.nvidia.com",
+          "deploymentpolicies.skyhook.nvidia.com",
+          "nodewrights.nodewright.nvidia.com",
+          "skyhooks.skyhook.nvidia.com"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/target-facts/default-crds.yaml",
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-pre-upgrade",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-pre-upgrade"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml",
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle-action-pre-delete",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery workflow",
+        "mechanism": "Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "lifecycle-action-pre-delete"
+        ],
+        "checks": [],
+        "evidence": [
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml",
+          "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "nvidia-nodewright-v0-19-0-default.yaml",
         "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
+      },
+      {
+        "name": "pre-delete.yaml",
+        "path": "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+      },
+      {
+        "name": "pre-upgrade.yaml",
+        "path": "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
+      },
+      {
+        "name": "lifecycle-actions.yaml",
+        "path": "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+      },
+      {
+        "name": "default-crds.yaml",
+        "path": "packages/nvidia/nodewright/v0.19.0/prerequisites/target-facts/default-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/packages/nvidia/nodewright/v0.19.0/prerequisites/target-facts/default-crds.yaml"
       }
     ]
   },

@@ -355,11 +355,54 @@ spec:
       records:
         - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
     routeIntent:
-      status: "required-at-destination"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "backups.postgresql.cnpg.io"
+            - "clusterimagecatalogs.postgresql.cnpg.io"
+            - "clusters.postgresql.cnpg.io"
+            - "databases.postgresql.cnpg.io"
+            - "failoverquorums.postgresql.cnpg.io"
+            - "imagecatalogs.postgresql.cnpg.io"
+            - "poolers.postgresql.cnpg.io"
+            - "publications.postgresql.cnpg.io"
+            - "scheduledbackups.postgresql.cnpg.io"
+            - "subscriptions.postgresql.cnpg.io"
+          phase: "pre-apply"
+          proposedActor: "delivery workflow"
+          proposedMechanism: "The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
+        -
+          id: "secret-before-apply"
+          requirementRefs:
+            - "default/cnpg-webhook-cert"
+          phase: "pre-apply"
+          proposedActor: "operator"
+          proposedMechanism: "Secret default/cnpg-webhook-cert must exist before apply. CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+            - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
       records:
         - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+        - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
     targetFacts:
       status: "recorded"
       declared:
