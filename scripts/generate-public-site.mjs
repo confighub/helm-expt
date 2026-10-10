@@ -12778,12 +12778,25 @@ function presetTryScript(entry, row) {
   const received = settledCrdNames.length > 0
     ? `The cluster received the files in ${workDir}/out. Its CRDs were settled first, from the package.`
     : `The cluster received exactly the files in ${workDir}/out.`;
+  // An install-phase step the script leaves out means the install is not
+  // finished, so it is named on its own and before the upgrade and delete steps.
+  const installStepsNotRun = lifecycleActions.filter(
+    (candidate) => !ranActions.includes(candidate) && /install/.test(String(candidate.phase ?? "")),
+  );
+  const doneWord = installStepsNotRun.length > 0 ? "Applied." : "Done.";
   lines.push(
     "",
     ranActions.length > 0
-      ? `say "Done. ${received} ${ranActions.length === 1 ? "One packaged check ran" : `${ranActions.length} packaged checks ran`} after the apply."`
-      : `say "Done. ${received}"`,
+      ? `say "${doneWord} ${received} ${ranActions.length === 1 ? "One packaged check ran" : `${ranActions.length} packaged checks ran`} after the apply."`
+      : `say "${doneWord} ${received}"`,
   );
+  if (installStepsNotRun.length > 0) {
+    lines.push(
+      `say "This install is not finished. The plan has ${installStepsNotRun.length === 1 ? "an install step" : `${installStepsNotRun.length} install steps`} that this script does not run:"`,
+      ...installStepsNotRun.map((candidate) =>
+        `printf '   - %s\\n' "${shellStepText(candidate.name || `the ${candidate.phase} step`)}"`),
+    );
+  }
   if (notRunPhases.length > 0) {
     lines.push(
       `say "Not run by this script: the ${notRunList} ${notRunPhases.length === 1 ? "step" : "steps"} of this base's plan. The entry page says who runs ${notRunPhases.length === 1 ? "it" : "each one"}."`,

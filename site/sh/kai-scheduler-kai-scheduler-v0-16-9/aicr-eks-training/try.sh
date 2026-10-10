@@ -104,5 +104,8 @@ if [ "${#manifest_args[@]}" -gt 0 ]; then
   kubectl apply "${manifest_args[@]}"
 fi
 
-say "Done. The cluster received the files in ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out. Its CRDs were settled first, from the package."
+say "Applied. The cluster received the files in ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/out. Its CRDs were settled first, from the package."
+say "This install is not finished. The plan has 2 install steps that this script does not run:"
+printf '   - %s\n' "Before an install or an upgrade, move the CRDs forward and migrate topologies"
+printf '   - %s\n' "After an install or an upgrade, apply the Config that tells the operator what to run"
 say "Not run by this script: the pre-install/pre-upgrade and post-install/post-upgrade steps of this base's plan. The entry page says who runs each one."
