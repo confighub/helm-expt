@@ -215,11 +215,11 @@ delivery.
 retained `model.yaml` and `nodes.yaml` pair built for that exercise. No
 equivalent pairing exists in this repository for this recipe's own 17
 Applications, so this Guide does not invent one. What is retained instead is
-the fit question itself, recorded as a named lifecycle route.
+the fit question itself, recorded as a named step.
 
 **Read the record**, in the evidence checkout:
 [the v0.20.0 route intent](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml)
-names `source-variant-target-match` as a route: "compare observed destination
+names `source-variant-target-match` as a step: "compare observed destination
 facts with the intended NVIDIA source variant," owned by "platform operator
 or admission policy," with status `recorded-not-run`, requiring "target
 snapshot, selected source-catalog digest, and an explained match or
@@ -243,7 +243,7 @@ node facts and runs the comparison. Treat "the criteria say H100" as the
 recipe's declared intent, not as a passed match.
 
 **Where it goes next.** Collect a target snapshot from the destination
-cluster, then run the fit comparison the route already names before treating
+cluster, then run the fit comparison the step already names before treating
 this recipe as validated for that cluster. That snapshot-and-compare step is
 the pending live trial, not a local rung this Guide can complete today.
 
@@ -281,8 +281,8 @@ root has no sync-wave, because it deploys first by definition.
 `gpu-operator` and its dependents, ending with `nvsentinel` and
 `prometheus-adapter`.
 [The v0.20.0 route intent](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml)
-records this as the `component-order` route, owned by Argo CD, status
-`recorded-not-run`, and records a fourth route, `downstream-chart-lifecycle`,
+records this as the `component-order` step, owned by Argo CD, status
+`recorded-not-run`, and records a fourth step, `downstream-chart-lifecycle`,
 for the CRDs, hooks, certificates, and setup Jobs each of the sixteen
 referenced charts may carry on its own.
 
@@ -301,7 +301,7 @@ is the retained source for the exact command that produced these bytes.
 as watching that CRD reach Established, and "no Helm hook objects found" in
 this rendering pass does not certify that no future chart version adds one.
 `aicr-node-inspection` and `aicr-configuration-validation`, the last two
-routes the same record names, are recorded `available-not-run-for-this-entry`
+steps the same record names, are recorded `available-not-run-for-this-entry`
 and `not-run`.
 
 **Where it goes next.** Resolve `argocd-prerequisite` and `component-order`

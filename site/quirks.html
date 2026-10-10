@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>See what happens to your chart's hooks, CRDs, and setup work · ConfigHub Workshop</title>
-  <meta name="description" content="The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.">
+  <meta name="description" content="The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a plan.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/quirks.html">
   <meta property="og:title" content="See what happens to your chart's hooks, CRDs, and setup work · ConfigHub Workshop">
-  <meta property="og:description" content="The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.">
+  <meta property="og:description" content="The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a plan.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/quirks.html">
   <style>
@@ -630,15 +630,15 @@
     
     <h1>See what happens to your chart's hooks, CRDs, and setup work.</h1>
     <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
-    <p>This page names each hidden requirement and states the contract the catalog holds every chart to. It also says how a certified image carries the work as a route. Then open the exact chart page for what has been recorded and tested.</p>
+    <p>This page names each hidden requirement and states the contract the catalog holds every chart to. It also says how a certified image carries the work as a plan. Then open the exact chart page for what has been recorded and tested.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="#contract">Read the contract</a> · <a href="./handle-hooks-and-crds.html#crd-menu">Decide who owns a CRD</a> · <a href="./charts/index.html">Browse charts</a> · <a href="./matrix.html">Open matrix</a></p>
   </header>
   <main>
     <section aria-labelledby="contract">
       <h2 id="contract">1. Know the phases, the dispositions, and who runs the work</h2>
-      <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a route: a lifecycle phase, who runs it, and whether it is automatic.</p>
-      <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each route also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
-      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook route for you. The certified-bundle routes <a href="#bundle-routes">below</a> are a separate model, where a declarative, idempotent route such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt. Read the disposition, supply what it needs, and run only the action that is actually supported. The route becomes <code>observed</code> once a passing receipt covers that scope.</p>
+      <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a step: a lifecycle phase, who runs it, and whether it is automatic.</p>
+      <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each step also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
+      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook step for you. The certified-bundle steps <a href="#bundle-routes">below</a> are a separate model, where a declarative, idempotent step such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt. Read the disposition, supply what it needs, and run only the action that is actually supported. The step becomes <code>observed</code> once a passing receipt covers that scope.</p>
       <p>Who runs it today is you, your cluster or controller, or, not yet, the product itself.</p>
       <p>This follows <a href="./d/docs/reference/what-hook-support-means.html">what hook support means</a> and <a href="./d/docs/user/hook-lifecycle-strategy.html">the hook lifecycle strategy</a>. Both name the same evidence with their own vocabulary, so read this page first and those two for the deeper detail.</p>
     </section>
@@ -662,26 +662,26 @@
     </section>
 
     <section aria-labelledby="routes-tell">
-      <h2 id="routes-tell">3. See what a route tells you</h2>
+      <h2 id="routes-tell">3. See what a step tells you</h2>
       <ul>
         <li><strong>Where it goes.</strong> A lifecycle phase: <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, or <code>refuse</code>.</li>
         <li><strong>Who runs it.</strong> You, your cluster or controller, or, not yet, the product.</li>
-        <li><strong>Whether it is automatic.</strong> The route record says which exact implementation ran. A direct script result does not prove the Argo CD or Flux version of the same step. Top-level <code>automatic</code> stays <code>false</code> until every delivery path named by the claim has its own receipt.</li>
-        <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the route can be called supported.</li>
+        <li><strong>Whether it is automatic.</strong> The step's record says which exact implementation ran. A direct script result does not prove the Argo CD or Flux version of the same step. Top-level <code>automatic</code> stays <code>false</code> until every delivery path named by the claim has its own receipt.</li>
+        <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the step can be called supported.</li>
       </ul>
-      <p>The machine-readable form is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md">lifecycle routes</a>. The per-chart view, each chart's routes, disposition, and whether a skill applies, is <a href="https://github.com/confighub/helm-expt/blob/main/data/per-chart-hooks/summary.md">per-chart hooks</a>, shown as colored cards.</p>
-      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a route, and the worked examples. It also says who owns each CRD, and how to stage target prerequisites.</p>
+      <p>The machine-readable form is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-route-actions/summary.md">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="https://github.com/confighub/helm-expt/blob/main/data/lifecycle-routes/summary.md">lifecycle routes</a>. The per-chart view, each chart's steps, disposition, and whether a skill applies, is <a href="https://github.com/confighub/helm-expt/blob/main/data/per-chart-hooks/summary.md">per-chart hooks</a>, shown as colored cards.</p>
+      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a plan, and the worked examples. It also says who owns each CRD, and how to stage target prerequisites.</p>
     </section>
 
 
 
 
     <section aria-labelledby="bundle-routes">
-      <h2 id="bundle-routes">4. See how a bundle carries routes with the objects</h2>
-      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle. How to apply the configuration then never depends on whoever happened to flatten the chart.</p>
-      <p>A route names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it. It also carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
-      <p>The first route is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this route is marked automatic; a route that runs a Job is not, and stays manual until observed.</p>
-      <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every route.</p>
+      <h2 id="bundle-routes">4. See how a bundle carries a plan with the objects</h2>
+      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are the steps of its plan, and they travel inside the bundle. How to apply the configuration then never depends on whoever happened to flatten the chart.</p>
+      <p>A step names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it. It also carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
+      <p>The first step is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this step is marked automatic; a step that runs a Job is not, and stays manual until observed.</p>
+      <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every step.</p>
       <h3>Hooks under GitOps</h3>
       <p>A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook. For one chart the right answer may be a preflight check. For another it may be an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The catalog should say which answer applies and what evidence exists.</p>
       <p><a href="./d/docs/user/gitops-adopter-guide.html#hooks-under-gitops">Read the full GitOps adopter guide</a>, and see <a href="./d/docs/user/pathway-route-hooks-transparently.html">routing hooks transparently</a> for the pathway behind it.</p>
@@ -705,13 +705,13 @@
     <section aria-labelledby="before-deploy">
       <h2 id="before-deploy">6. Check what remains before deployment</h2>
       <p><strong>A matching render is only the first check.</strong> The cluster may still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller.</p>
-      <p><strong>A recorded route does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
+      <p><strong>A recorded step does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
       <p><strong>A watch or blocked result needs action.</strong> Follow the stated setup, decision, or evidence link before deployment.</p>
     </section>
   </main>
   <footer>Generated from committed helm-expt evidence. Use the chart page and matrix for exact status.</footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#contract">1. Know the phases, the dispositions, and who runs the work</a></li><li><a href="#choices">2. Read the short answer and your practical choices</a></li><li><a href="#routes-tell">3. See what a route tells you</a></li><li><a href="#bundle-routes">4. See how a bundle carries routes with the objects</a></li><li><a href="#requirements">5. Understand each tracked requirement, chart by chart</a></li><li><a href="#before-deploy">6. Check what remains before deployment</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./how-confighub-works.html">How ConfigHub works &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#contract">1. Know the phases, the dispositions, and who runs the work</a></li><li><a href="#choices">2. Read the short answer and your practical choices</a></li><li><a href="#routes-tell">3. See what a step tells you</a></li><li><a href="#bundle-routes">4. See how a bundle carries a plan with the objects</a></li><li><a href="#requirements">5. Understand each tracked requirement, chart by chart</a></li><li><a href="#before-deploy">6. Check what remains before deployment</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./how-confighub-works.html">How ConfigHub works &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

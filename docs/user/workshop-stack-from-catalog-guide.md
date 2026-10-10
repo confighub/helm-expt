@@ -121,12 +121,12 @@ gpu-node/stack.yaml
 | `rendered.yaml` | All 89 objects in one file, which is the input you would compare or hand to a tool. |
 | `result.json` | The check result that compose recorded, with the hash of each file in the workspace. |
 | `provenance.json` | The Catalog listing of each entry, as it was when you composed. |
-| `evidence/` | For each entry that carries routes, the publication receipt with its bundle digest and the routes. nvsentinel carries none, so it has no folder. |
+| `evidence/` | For each entry that comes with a plan, the publication receipt with its bundle digest and the plan. nvsentinel has none, so it has no folder. |
 | `evidence/original-stack.yaml` | A copy of the manifest as compose wrote it. |
 
-The routes are the Catalog's notes on work a chart needs beyond its objects.
-For gpu-operator they name the CRD ordering and the `pre-upgrade` and
-`post-delete` hook Jobs. The workspace keeps them as files and runs none of
+The plan is the Catalog's note on work a chart needs beyond its objects.
+For gpu-operator it names the CRD ordering and the `pre-upgrade` and
+`post-delete` hook Jobs. The workspace keeps its steps as files and runs none of
 them. Each carries the state `declared-unexecuted`.
 
 ## 3. Check them together
@@ -246,9 +246,9 @@ does not show that the three run next to each other. It does not show that the
 driver matches your hardware. Each entry carries its own publication proof, and the Catalog does not inherit
 runtime proof from it.
 
-### Routes are recorded and not executed
+### The plan is recorded and not executed
 
-The workspace holds the CRD ordering routes and the gpu-operator hook routes as
+The workspace holds the CRD ordering steps and the gpu-operator hook steps as
 files. It runs no hook. Whoever delivers the stack must decide who applies the
 `pre-upgrade` Job, as the [hooks and CRDs Guide](./workshop-lifecycle-guide.md)
 explains.

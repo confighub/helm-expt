@@ -106,7 +106,7 @@ const checks = [
   // commands, the swapped entry, and the limits of a static check.
   {
     file: "site/d/docs/user/workshop-stack-from-catalog-guide.html",
-    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.58", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "Routes are recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
+    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.58", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "The plan is recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
   },
   {
     file: "site/index.html",
@@ -205,7 +205,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["Here they are for one real entry, NVIDIA's GPU Operator", "The Catalog ships a chart two ways", "Why some entries come with routes", "What the GPU Operator's routes say", "It does not carry them out", "A route never renders them again", "What each verdict means", "id=\"verdict-flatten-with-routes\"", "verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "What has to travel with each verdict", "How many entries have each verdict", "What happens after the verdict"],
+    terms: ["Here they are for one real entry, NVIDIA's GPU Operator", "The Catalog ships a chart two ways", "Why some entries come with a plan", "What the GPU Operator's plan says", "It does not carry it out", "The plan never renders them again", "What a plan can hold", "The Catalog's records call the steps in a plan routes", "What each verdict means", "id=\"verdict-flatten-with-routes\"", "verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "What has to travel with each verdict", "How many entries have each verdict", "What happens after the verdict"],
   },
   {
     file: "site/demo.html",
@@ -225,11 +225,11 @@ const checks = [
   },
   {
     file: "site/formats.html",
-    terms: ["model variants)", "An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.", "<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes</a>, wrapper only, route recorded", "config.html#verdict-flatten-with-routes", "flagged for review"],
+    terms: ["model variants)", "An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.", "<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes</a>, wrapper only, plan recorded", "config.html#verdict-flatten-with-routes", "flagged for review"],
   },
   {
     file: "site/charts/index.html",
-    terms: ["flatten-with-routes, wrapper only, route recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+    terms: ["flatten-with-routes, wrapper only, plan recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
   },
   // Site IA phase 4, step 3: the Catalog page's explanation moved to How
   // configuration works, its trust and verification to Why trust it, and its
@@ -325,7 +325,7 @@ const checks = [
   },
   {
     file: "site/quirks.html",
-    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a route tells you", "4. See how a bundle carries routes with the objects", "5. Understand each tracked requirement, chart by chart", "6. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
+    terms: ["See what happens to your chart's hooks, CRDs, and setup work", "1. Know the phases, the dispositions, and who runs the work", "2. Read the short answer and your practical choices", "3. See what a step tells you", "4. See how a bundle carries a plan with the objects", "5. Understand each tracked requirement, chart by chart", "6. Check what remains before deployment", "automatic: false", "observe, then execute, then emit a receipt", "per-target", "target prerequisites", "Helm hooks", "CRDs", "Cluster lookups"],
   },
   // Site IA phase 4, step 7b: acting on hooks and CRDs moved to its Guide.
   {
@@ -1688,13 +1688,13 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   const published = variants.filter(isPublished).length;
   const clause = published === 0
     ? "none is published as OCI yet"
-    : published === count ? "all are published as OCI with their routes" : `${published} of them ${published === 1 ? "is" : "are"} published as OCI`;
+    : published === count ? "all are published as OCI with their plans" : `${published} of them ${published === 1 ? "is" : "are"} published as OCI`;
   const readSite = (file) => (fs.existsSync(path.join(root, file)) ? fs.readFileSync(path.join(root, file), "utf8") : "");
   if (count > 0) {
     const home = readSite("site/index.html");
     const line = home.match(/(\d+) configurations\. (\d+) are tested and rendered to the exact objects they install\. (\d+) are AICR recipes[^<]*/)?.[0] ?? "";
     const [total, tested, aicr] = (line.match(/\d+/g) ?? []).map(Number);
-    if (!line.includes(`${count} are NIMService model variants kept as exact objects with their routes, and ${clause}.`)) {
+    if (!line.includes(`${count} are NIMService model variants kept as exact objects with their plans, and ${clause}.`)) {
       failures.push(`site/index.html: the Configs line does not say that ${count} NIMService model variants are kept as exact objects and that ${clause}`);
     }
     if (tested + aicr + count !== total) {
@@ -1733,8 +1733,8 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
     const catalogRows = [...catalogPage.matchAll(/<tr data-chart-row data-kind="kubernetes-yaml" data-nimservice-entry[\s\S]*?<\/tr>/g)].map((match) => match[0]);
     if (catalogRows.length !== 1) failures.push(`site/charts/index.html: the nimservice entry has ${catalogRows.length} rows, and it must have one`);
     const publishedText = published === 0 ? "not published" : published === count ? "published" : `${published} of ${count} published`;
-    if (catalogRows[0] && !catalogRows[0].includes(`<td>flatten-with-routes, route recorded, ${publishedText}</td>`)) {
-      failures.push(`site/charts/index.html: the nimservice row does not read ${JSON.stringify(`flatten-with-routes, route recorded, ${publishedText}`)}`);
+    if (catalogRows[0] && !catalogRows[0].includes(`<td>flatten-with-routes, plan recorded, ${publishedText}</td>`)) {
+      failures.push(`site/charts/index.html: the nimservice row does not read ${JSON.stringify(`flatten-with-routes, plan recorded, ${publishedText}`)}`);
     }
   }
 }

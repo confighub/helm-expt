@@ -508,10 +508,10 @@ carries no Helm hooks, so it teaches CRD ordering rather than hook execution.
 The [lifecycle Guide](./workshop-lifecycle-guide.md) renders a hook fixture with
 and without `--no-hooks` and shows that rendering a hook Job never runs it. The
 [hook lifecycle data](../../data/hook-lifecycle/summary.md) records which
-routes have been observed and which remain doctrine.
+steps have been observed and which remain doctrine.
 
 **Where it goes next.** Check, then release through the controller you already
-run. A route needs an owner and an order before delivery, not after.
+run. A step needs an owner and an order before delivery, not after.
 
 ## 7. Where does this vulnerable image run, and how can I update it safely?
 

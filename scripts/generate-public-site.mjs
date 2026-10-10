@@ -242,7 +242,7 @@ function listingVerdictText(facts) {
   return [
     facts.verdict,
     ...(facts.wrapperOnly ? ["wrapper only"] : []),
-    ...(facts.routeRecorded && facts.verdict === "flatten-with-routes" ? ["route recorded"] : []),
+    ...(facts.routeRecorded && facts.verdict === "flatten-with-routes" ? ["plan recorded"] : []),
   ].join(", ");
 }
 
@@ -251,7 +251,7 @@ function listingVerdictText(facts) {
 const VERDICT_GLOSS = {
   "born-flattened": "The source was already exact Kubernetes objects. Nothing was rendered.",
   "safe-to-flatten": "Kept as exact Kubernetes objects. Nothing else has to travel with them.",
-  "flatten-with-routes": "Kept as exact Kubernetes objects, plus named steps such as a CRD order, a hook or a Secret you supply.",
+  "flatten-with-routes": "Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.",
   "unsafe-to-flatten": "Not delivered as flattened objects. The source is rendered at install time.",
 };
 
@@ -304,7 +304,7 @@ const nimServiceVersion = displayVersion(nimServiceFacts[0]?.version ?? "");
 // cases are none, all and some, and each is one plain clause.
 function nimServicePublishedClause() {
   if (nimServicePublishedCount === 0) return "none is published as OCI yet";
-  if (nimServicePublishedCount === nimServiceVariantCount) return "all are published as OCI with their routes";
+  if (nimServicePublishedCount === nimServiceVariantCount) return "all are published as OCI with their plans";
   return `${nimServicePublishedCount} of them ${nimServicePublishedCount === 1 ? "is" : "are"} published as OCI`;
 }
 
@@ -313,7 +313,7 @@ function nimServicePublishedClause() {
 // counted as tested and rendered, whether or not it is published.
 function nimServiceCountSentence() {
   if (nimServiceVariantCount === 0) return "";
-  return ` ${nimServiceVariantCount} are NIMService model variants kept as exact objects with their routes, and ${nimServicePublishedClause()}.`;
+  return ` ${nimServiceVariantCount} are NIMService model variants kept as exact objects with their plans, and ${nimServicePublishedClause()}.`;
 }
 
 // Which page carries the five steps for which entries. A Helm entry, and the
@@ -406,25 +406,25 @@ function entryStepsDocPlan() {
 const NON_HELM_FORMAT_INFO = {
   aicr: {
     label: "AICR",
-    sentence: "AICR selects and composes a recipe into component configuration, and the Workshop retains routes for component order, nested sources, and infrastructure prerequisites.",
+    sentence: "AICR selects and composes a recipe into component configuration, and the Workshop retains a plan for component order, nested sources, and infrastructure prerequisites.",
     learnHref: "./try-aicr.html",
     learnLabel: "Try AICR",
   },
   timoni: {
     label: "Timoni",
-    sentence: "Timoni builds a module or bundle into exact objects, and the Workshop retains routes for ordered apply sets, waits, tests, and health checks.",
+    sentence: "Timoni builds a module or bundle into exact objects, and the Workshop retains a plan for ordered apply sets, waits, tests, and health checks.",
     learnHref: "./config.html",
     learnLabel: "How configuration works",
   },
   "cub-installer": {
     label: "cub installer",
-    sentence: "cub installer selects a packaged base and renders it, and the Workshop retains its recorded prerequisites, setup checks, and base-specific routes.",
+    sentence: "cub installer selects a packaged base and renders it, and the Workshop retains its recorded prerequisites, setup checks, and base-specific steps.",
     learnHref: "./config.html",
     learnLabel: "How configuration works",
   },
   kubara: {
     label: "Kubara",
-    sentence: "Kubara selects components and generates platform configuration, and the Workshop retains routes for bootstrap, Git handoff, controller ownership, and application ordering.",
+    sentence: "Kubara selects components and generates platform configuration, and the Workshop retains a plan for bootstrap, Git handoff, controller ownership, and application ordering.",
     learnHref: "./bring-kubara-into-confighub.html",
     learnLabel: "Kubara platforms",
   },
@@ -930,7 +930,7 @@ const PAGE_DESCRIPTIONS = {
   "demo.html": "In ten minutes you go from checking one chart to generating a governed fleet, checking a whole inference platform on the way, most of it free and copy-paste.",
   "how-it-works.html": "Release a reviewed configuration, promote it to the next environment, gate it with approvals, and roll it back.",
   "config.html": "Follow one configuration from source to running: the lifecycle model, how each format is rendered and flattened, what a flattening verdict decides, and which tool to start with.",
-  "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
+  "deployment-reference.html": "Technical details for source records, base variants, plans, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "oci.html": "See every OCI shape this catalog produces, who produces and consumes each one, which layout each consumer needs, and which shapes are signed today.",
   [NIMSERVICE_ENTRY_PAGE_FILE]: "Choose one of the NIMService model variants kept from NVIDIA's k8s-nim-operator samples, read what it needs first, and see whether it is published as OCI.",
@@ -963,7 +963,7 @@ const PAGE_DESCRIPTIONS = {
   "docs-reference.html": "Browse the complete technical guide and evidence index for ConfigHub Workshop and helm-expt.",
   "verification.html": "Choose one ConfigHub Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "See how far each claim was tested, rerun one check yourself, and review security before release: verified, certified, signed.",
-  "quirks.html": "The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a route.",
+  "quirks.html": "The setup a rendered chart hides, hooks, CRDs, webhooks, and setup Jobs, and how a certified image carries that work as a plan.",
   "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
   "known-gaps.html": "See which ConfigHub Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "compare.html": "The comparison page retired; the home page says what ConfigHub Workshop is and does.",
@@ -4096,7 +4096,7 @@ function legacyDashboardHtml(catalog) {
     ["Pick a safe starting point", "Choose a reviewed base variant instead of guessing through a large values file."],
     ["See the real objects", "Review the rendered Kubernetes objects, object counts, CRDs, RBAC, Secrets model, and extension slots before install."],
     ["Build apps on the data", "Rendered objects are held as queryable data, so tools such as RBAC review can run across the catalog without a cluster or a fresh Helm render."],
-    ["Make prerequisites explicit", "Target facts, lifecycle routes, hook dispositions, and controller-owned fields are named before they surprise the rollout."],
+    ["Make prerequisites explicit", "Target facts, lifecycle steps, hook dispositions, and controller-owned fields are named before they surprise the rollout."],
     ["Operate the same objects", "After upload, ConfigHub Units can be diffed, scanned, approved, promoted, observed, and audited."],
     ["Keep Helm semantics visible", "The selected live lane currently has zero semantic parity defects across committed Helm-vs-ConfigHub receipts."],
     ["Know the boundary", "Watch, blocked, refused, and not-yet-run rows stay visible instead of becoming hidden product claims."],
@@ -4135,7 +4135,7 @@ function legacyDashboardHtml(catalog) {
     ["3. Shape base variants", "Name the install shapes that change Helm inputs or object shape."],
     ["4. Scan and gate", "Scan the exact rendered objects and record allow, warn, or block decisions."],
     ["5. Settle prerequisites", "Record target facts, preflight needs, approvals, signatures, and delivery requirements."],
-    ["6. Publish and deploy", "Publish or apply the approved object set and route lifecycle behavior."],
+    ["6. Publish and deploy", "Publish or apply the approved object set and carry out its lifecycle steps."],
     ["7. Observe and operate", "Record live state, freshness, drift, promotion, upgrade, and rollback evidence."],
   ];
   return `<!doctype html>
@@ -4892,7 +4892,7 @@ function configHtml(catalog) {
       ["Run", "A controller such as Argo CD applies the result to a cluster.", "Done once, on a cluster with no GPUs."],
     ])}
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a route is carried out.</p>
+    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
       <summary>The five stages in the Catalog's own terms</summary>
       <div class="deep-body">
@@ -4913,7 +4913,7 @@ function configHtml(catalog) {
     <ul>
       <li><strong>Produce or read the exact objects.</strong> Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and configuration OCI are read as they are.</li>
       <li><strong>Keep the identities separate.</strong> The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI each have their own digest. A receipt names both sides of a handoff rather than treating unlike hashes as one.</li>
-      <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
+      <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded plan steps, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
       </div>
@@ -4928,7 +4928,7 @@ function configHtml(catalog) {
       <li><strong>Exact configuration revision</strong> is the accepted object set, inventory, and digest for one revision.</li>
       <li><strong>Flatten</strong> means retain those exact objects so delivery does not rerun the source processor. The verdict is <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, <code>unsafe-to-flatten</code>, or <code>born-flattened</code>.</li>
       <li><strong>Lifecycle requirement</strong> records work or target state needed around ordinary apply, such as CRDs, hooks, setup Jobs, certificates, cloud resources, controllers, or prerequisite Secrets.</li>
-      <li><strong>Route intent</strong> records portable handling the source or base proposes. A <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
+      <li><strong>Plan step</strong> records portable handling the source or base proposes, and the records call it a route intent. A <strong>resolved lifecycle step</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
       </div>
@@ -4974,11 +4974,11 @@ function configHtml(catalog) {
     ${markdownLikeTable([
       ["Source", "Materialize", "Flattening result", "What is checked", "Example"],
       ["Helm chart", "Run Helm with the recorded values and render context.", `<a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a>`, "Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.", `<a href="./charts/bitnami-redis-25-5-3.html">Redis</a>`],
-      ["Timoni module or bundle", "Build the pinned OCI module with its typed values.", `<a href="#flatten">Flatten, flatten with routes, or run the workflow late.</a>`, "Typed schema and selected values; ordered apply sets, waits, and target lookups.", `<a href="./charts/index.html">Timoni Redis</a>`],
-      ["AICR", "Run its declared composition step, including nested Helm work it declares.", `<a href="#flatten">Flatten the generated layer, flatten with routes, or process part late.</a>`, "Component order, required controllers, GPU or cloud facts, and nested sources.", `<a href="./try-aicr.html">Inference platforms</a>`],
-      ["Kubara or another generator", "Run its declared generation step, including nested sources it declares.", `<a href="#flatten">Flatten the generated layer, keep routes beside it, or process the source late.</a>`, "Platform prerequisites, component ownership, and controller work.", `<a href="./bring-kubara-into-confighub.html">Build a platform</a>`],
+      ["Timoni module or bundle", "Build the pinned OCI module with its typed values.", `<a href="#flatten">Flatten, flatten with a plan, or run the workflow late.</a>`, "Typed schema and selected values; ordered apply sets, waits, and target lookups.", `<a href="./charts/index.html">Timoni Redis</a>`],
+      ["AICR", "Run its declared composition step, including nested Helm work it declares.", `<a href="#flatten">Flatten the generated layer, flatten with a plan, or process part late.</a>`, "Component order, required controllers, GPU or cloud facts, and nested sources.", `<a href="./try-aicr.html">Inference platforms</a>`],
+      ["Kubara or another generator", "Run its declared generation step, including nested sources it declares.", `<a href="#flatten">Flatten the generated layer, keep a plan beside it, or process the source late.</a>`, "Platform prerequisites, component ownership, and controller work.", `<a href="./bring-kubara-into-confighub.html">Build a platform</a>`],
       ["Installer or source OCI", "Pull by digest, then invoke the processor it declares.", `<a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a>`, "Package role, processor, selections, and receipts.", `<a href="./try.html">Try Redis</a>`],
-      ["Literal configuration OCI", "Pull by digest and read the objects it already contains.", `<a href="#flatten">born-flattened; record whether routes or protected inputs travel beside it.</a>`, "Object inventory, provenance, and any prior transformation.", `<a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a>`],
+      ["Literal configuration OCI", "Pull by digest and read the objects it already contains.", `<a href="#flatten">born-flattened; record whether a plan or protected inputs travel beside it.</a>`, "Object inventory, provenance, and any prior transformation.", `<a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a>`],
       ["Sveltos", "Read the literal fleet configuration; materialize each referenced source separately.", `<a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a>`, "The literal ClusterProfile objects, plus each nested source on its own.", `<a href="./stack.html">Stacks and fleets</a>`],
       ["Plain Kubernetes YAML", "Read, parse, and canonicalize the files.", `<a href="#flatten">born-flattened, or flatten-with-routes when an operator or a Secret comes first; record requirements, ownership, and later packaging.</a>`, "File checksums, object inventory, and checks.", `<a href="./ask.html">Check my config</a>`],
       ["ConfigHub Units or release OCI", "Read the retained objects and revision history.", `<a href="#flatten">Already retained as data.</a>`, "Space, revisions, approvals, release digest, and receipts.", `<a href="./confighub.html">What ConfigHub adds</a>`],
@@ -5005,7 +5005,7 @@ function configHtml(catalog) {
       <div class="deep-body">
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
-    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat. Record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
+    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat. Record their source and digest, attach any required steps, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
       </div>
@@ -5014,27 +5014,38 @@ function configHtml(catalog) {
 
   <section aria-labelledby="flatten">
     <h2 id="flatten">3. See whether a configuration can be flattened</h2>
-    <h3 id="why-routes">Why some entries come with routes</h3>
+    <h3 id="why-routes">Why some entries come with a plan</h3>
     <p>Take Helm. It does more than write YAML. It applies CRDs before the objects that need them. It also runs hook Jobs at set moments, such as before an upgrade.</p>
-    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships the notes in the same bundle as the objects. A route is one of those notes.</p>
-    <h3 id="what-a-route-is">What the GPU Operator's routes say</h3>
-    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents.</p>
+    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships that list in the same bundle as the objects. The list is the entry's plan.</p>
+    <p>The Catalog's records call the steps in a plan routes. That is where the verdict name <code>flatten-with-routes</code> comes from.</p>
+    <h3 id="what-a-route-is">What the GPU Operator's plan says</h3>
+    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents. The three documents are its plan.</p>
     ${markdownLikeTable([
       ["Document", "What it tells you to do"],
       ["Target requirements", "Create the namespace <code>gpu-operator</code> first. The bundle does not contain it."],
-      ["Route for CRD ordering", "Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects."],
-      ["Route for lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
+      ["CRD ordering", "Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects."],
+      ["Lifecycle actions", "Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes."],
     ], { rawSecondColumn: true })}
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
-    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does.</p>
-    <p>Under Argo CD the CRD route says to use sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
-    <p>The 24 objects are final. A route never renders them again.</p>
-    <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
+    <p>ConfigHub stores the plan. It does not carry it out. You do, or your pipeline does.</p>
+    <p>Under Argo CD the plan says to order the CRDs with sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
+    <p>The 24 objects are final. The plan never renders them again.</p>
+    <h3 id="what-a-plan-holds">What a plan can hold</h3>
+    <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
+    ${markdownLikeTable([
+      ["Kind of step", "Example", "When it is due"],
+      ["Something the cluster must already have", "GPU Operator. The namespace <code>gpu-operator</code> must exist.", "Before you deliver"],
+      ["The order to apply things in", "GPU Operator. Apply the CRDs first.", "When you deliver"],
+      ["A job to run at a set moment", "GPU Operator. Run the CRD Job before an upgrade.", "On upgrade or delete"],
+      ["A choice that is still open", "An AICR recipe. Replace the placeholder node selector with your own cluster's label.", "Before you deliver, by making a variant"],
+      ["Rendering that is still to come", "An AICR recipe. Argo CD renders the charts that its Applications point at.", "When you deliver, on the cluster"],
+    ], { rawSecondColumn: true })}
+    <p>The GPU Operator's plan has the first three kinds, so nothing is rendered again. An AICR recipe's plan also has the last two. Every entry page lists the open choices under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
     <p>Every Catalog entry has one of four verdicts.</p>
     <ul>
-      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There are no routes.</li>
-      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with routes, as the GPU Operator's do.</li>
+      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There is no plan.</li>
+      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with a plan, as the GPU Operator's do.</li>
       <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
@@ -5054,12 +5065,12 @@ function configHtml(catalog) {
       ["Verdict", "Use it when", "What must travel with the YAML"],
       ["<code id=\"verdict-born-flattened\">born-flattened</code>", "Literal YAML or configuration OCI already contains the exact objects.", "Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements."],
       ["<code id=\"verdict-safe-to-flatten\">safe-to-flatten</code>", "The exact source configuration has no required processor behavior outside the materialized objects.", "Pinned source inputs, object inventory, digest, checks, and evidence."],
-      ["<code id=\"verdict-flatten-with-routes\">flatten-with-routes</code>", "The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.", "The same records, plus route intents for each requirement, resolved after the variant and destination are known."],
-      ["<code id=\"verdict-unsafe-to-flatten\">unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
+      ["<code id=\"verdict-flatten-with-routes\">flatten-with-routes</code>", "The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.", "The same records, plus a plan step for each requirement, resolved after the variant and destination are known."],
+      ["<code id=\"verdict-unsafe-to-flatten\">unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate plan for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
     ], { rawFirstColumn: true })}
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How many entries have each verdict</h3>
-    <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with routes. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
+    <p>Of ${totalBases} entries, ${auditedBases} have a verdict. ${withRoutes} come with a plan. ${refuseFlatten} need Helm at install time, so they have an installer package and no bundle.</p>
     <p>${wrapperOnlyRoutes} of those ${withRoutes} verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
       <li><code>safe-to-flatten</code>: ${laneTally["safe-to-flatten"]} entries.</li>
@@ -6025,7 +6036,7 @@ function allReferencesHtml(catalog) {
     ["Kubara + ConfigHub technical mini-IDP", "The complete maintainer-grade v0.13.0 runbook: four clusters, seven platform roles, two apps, exact catalog generation, Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and receipt-gated ConfigHub platform surfaces.", "../docs/demo/kubara/single-platform.md"],
     ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
-    ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
+    ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked plan steps, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
     ["Try AICR", "Pull and verify one AICR-derived seven-Application configuration without a ConfigHub account, cluster, cloud account, or GPU.", "./try-aicr.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
@@ -6057,11 +6068,11 @@ function allReferencesHtml(catalog) {
     ["GitOps adopter guide", "How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Secrets, credentials, scan points, and what should never be printed or copied casually.", "../docs/user/security-end-to-end.md"],
     ["Day-2 upgrade and rollback", "How to review and rehearse an upgrade, then observe what happened.", "../docs/user/day2-upgrade-rollback.md"],
-    ["Helm render intents", "The record behind a catalog base variant: chart version, values, namespace, release name, lifecycle routes, target prerequisites, and evidence links.", "../docs/user/helm-render-intents.md"],
+    ["Helm render intents", "The record behind a catalog base variant: chart version, values, namespace, release name, lifecycle steps, target prerequisites, and evidence links.", "../docs/user/helm-render-intents.md"],
     ["Coming from Helm", "How common Helm flags map to cub inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["AI-assisted changes", "Let AI suggest a change, then review exact files, diffs, checks, and approval records.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "Sort a failure into render, target, lifecycle, runtime, or unsupported behavior.", "../docs/user/broken-chart-triage.md"],
-    ["Known gaps we surface", "Current watch findings and blockers before you trust a route.", "../docs/user/known-gaps-we-surface.md"],
+    ["Known gaps we surface", "Current watch findings and blockers before you trust a plan.", "../docs/user/known-gaps-we-surface.md"],
     ["Per-chart cub adoption caveats", "Where cub is rougher than plain Helm on first run, and how each caveat is managed.", "../data/cub-adoption-caveats/summary.html"],
     ["Custom overlays", "Wrapper charts, customer values, and changes that go beyond normal values files.", "../docs/user/custom-overlays.md"],
     ["Verify it yourself", "Practical commands for local checks, rendered installs, parity receipts, and scout receipts.", "../docs/user/verify-it-yourself.md"],
@@ -6074,10 +6085,10 @@ function allReferencesHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
-    ["Base variant records", "Source-neutral records joining literal objects, source inputs, routes, policy, evidence, and OCI handoffs.", "../data/base-variant-records/summary.md"],
+    ["Base variant records", "Source-neutral records joining literal objects, source inputs, plans, policy, evidence, and OCI handoffs.", "../data/base-variant-records/summary.md"],
     ["Operational class examples", "Worked examples showing who owns a user workload, shared service, or system configuration, where it runs, which checks apply, and how it rolls out.", "../data/operational-class-examples/summary.md"],
     ["Apply policy profile", "The common checks, approval rules for production and system configuration, scope assertions, and self-test.", "../data/apply-policy-profiles/summary.md"],
-    ["Hooks and CRDs App", "The Kube Prometheus Stack route plan, the proven hook fixture, and the live ApplyGate rejection receipt.", "../data/hooks-crds-app/summary.md"],
+    ["Hooks and CRDs App", "The Kube Prometheus Stack plan, the proven hook fixture, and the live ApplyGate rejection receipt.", "../data/hooks-crds-app/summary.md"],
     ["Demonstration status", "Current status and evidence for the source pathways and five ConfigHub App examples.", "../data/demo-program/summary.md"],
     ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
@@ -6107,7 +6118,7 @@ function allReferencesHtml(catalog) {
         ["1", "Chart page", "Which base variants are supported and what still needs work."],
         ["2", "Full rendered YAML", "The Kubernetes objects captured from one base variant. This is the output of the render."],
         ["3", "Render intent", "The Helm chart version, values, namespace, release name, capability profile, source lock, output path, and evidence links."],
-        ["4", "Hooks, CRDs, and setup work", "The route decisions for chart behavior that is not just static YAML."],
+        ["4", "Hooks, CRDs, and setup work", "The plan steps for chart behavior that is not just static YAML."],
         ["5", "Check one claim", "The commands and receipts that back a claim."],
       ])}
     </section>
@@ -6588,7 +6599,7 @@ ${CHECK_RENDERED_FILES_COMMAND}</code></pre>
         <textarea id="comparison-yaml" rows="10" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste chart defaults, a prior version, production, or another exact object set."></textarea>
         <details style="margin:18px 0">
           <summary><strong>Add a Catalog source and intent record</strong></summary>
-          <p>If the candidate starts from a Catalog configuration, add its <code>BaseVariantRecord</code>. It connects the source, rendered objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.</p>
+          <p>If the candidate starts from a Catalog configuration, add its <code>BaseVariantRecord</code>. It connects the source, rendered objects, OCI package, prerequisites, lifecycle steps, policy, and evidence status.</p>
           <p><input id="check-source-record-file" type="file" accept=".json,.yaml,.yml,application/json,text/yaml"></p>
           <textarea id="check-source-record" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste a Catalog BaseVariantRecord as JSON or YAML."></textarea>
         </details>
@@ -6948,7 +6959,7 @@ deploy or contact a target. Explain which checks have not run.</code></pre>
           <p><input id="candidate-source-file" type="file" accept=".yaml,.yml,text/yaml,application/yaml"></p>
           <textarea id="candidate-source-yaml" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="The new chart or package render, before later edits."></textarea>
           <h4>Catalog source and intent record</h4>
-          <p>Add a <code>BaseVariantRecord</code> when this configuration comes from the Catalog. It carries the exact source, rendered objects, OCI reference, prerequisites, routes, policy, and evidence status.</p>
+          <p>Add a <code>BaseVariantRecord</code> when this configuration comes from the Catalog. It carries the exact source, rendered objects, OCI reference, prerequisites, plan, policy, and evidence status.</p>
           <p><input id="source-record-file" type="file" accept=".json,.yaml,.yml,application/json,text/yaml"></p>
           <textarea id="source-record" rows="8" style="width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace" placeholder="Paste a Catalog BaseVariantRecord as JSON or YAML."></textarea>
         </details>
@@ -7721,9 +7732,9 @@ function workshopGuideLinksHtml() {
       <article class="card"><p><strong><a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">See what a gpu-operator upgrade changes</a></strong></p><p>Render three versions of NVIDIA's public gpu-operator chart, then compare a version upgrade, a patch upgrade and a driver version change field by field.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-lifecycle-guide.html">Find hook and CRD work</a></strong></p><p>Inspect a hook without running it, preserve an API refusal and identify what delivery still requires.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-timoni-guide.html">Answer the questions Timoni users ask</a></strong></p><p>Build a typed module's exact objects, check the typed schema and the CRD ordering, and see which module bytes are digest-bound.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-route status is a recorded gap.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order routes.</p></article>
-      <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap routes, and see why a fleet-wide placement is still pending.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-yaml-guide.html">Answer the questions plain YAML users ask</a></strong></p><p>Check what four files will install, compare two versions with one edit, and read why this base's lifecycle-plan status is a recorded gap.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-aicr-guide.html">Answer the questions AICR users ask</a></strong></p><p>Compose an H100 training recipe's exact objects, compare three retained versions, and read the recorded accelerator-fit and component-order steps.</p></article>
+      <article class="card"><p><strong><a href="./d/docs/user/workshop-kubara-guide.html">Answer the questions Kubara users ask</a></strong></p><p>Check what a generated platform contains, read its recorded CRD, secret and bootstrap steps, and see why a fleet-wide placement is still pending.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-argocd-hardening-guide.html">Harden Argo CD before production</a></strong></p><p>Turn security advice into a checked variant of the Catalog's Argo CD base, compare it with the base, and keep it with a staging and production path.</p></article>
       <article class="card"><p><strong><a href="./d/docs/user/workshop-byo-charts-guide.html">Bring your own Helm chart</a></strong></p><p>Render your own chart and values, an AI-written one included, then check, diff, adapt a field, and keep the reviewed objects for your own Argo CD or Flux.</p></article>
     </div>
@@ -7883,7 +7894,7 @@ function quirksTables(catalog) {
     ["It must already exist in the target cluster.", "Target prerequisite / target fact."],
     ["It is a post-render environment, region, customer, target, label, approval, or observation choice.", "Derived ConfigHub variant."],
     ["It is produced by a controller after apply.", "Lifecycle observation."],
-    ["It is cluster-dependent hook behavior.", "Hook lifecycle route, observation, or support decision."],
+    ["It is cluster-dependent hook behavior.", "Hook lifecycle step, observation, or support decision."],
   ];
   const shortWorkedExamples = [
     ["cert-manager / External Secrets", "observed", `cert-manager's <code>startupapicheck</code> post-install hook becomes a post-apply readiness check, and CRD ownership is a per-target decision. External Secrets has no Helm hook, but its controller populates Secret data and a webhook CA bundle after apply. <a href="./d/data/lifecycle-observations/cert-manager-eso/summary.html">Read the lifecycle result</a>.`],
@@ -7908,15 +7919,15 @@ function quirksHtml(catalog) {
     ${topNav(".")}
     <h1>See what happens to your chart's hooks, CRDs, and setup work.</h1>
     <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
-    <p>This page names each hidden requirement and states the contract the catalog holds every chart to. It also says how a certified image carries the work as a route. Then open the exact chart page for what has been recorded and tested.</p>
+    <p>This page names each hidden requirement and states the contract the catalog holds every chart to. It also says how a certified image carries the work as a plan. Then open the exact chart page for what has been recorded and tested.</p>
     ${humanLinks([["Read the contract", "#contract"], ["Decide who owns a CRD", "./handle-hooks-and-crds.html#crd-menu"], ["Browse charts", "./charts/index.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
     <section aria-labelledby="contract">
       <h2 id="contract">1. Know the phases, the dispositions, and who runs the work</h2>
-      <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a route: a lifecycle phase, who runs it, and whether it is automatic.</p>
-      <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each route also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
-      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook route for you. The certified-bundle routes <a href="#bundle-routes">below</a> are a separate model, where a declarative, idempotent route such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt. Read the disposition, supply what it needs, and run only the action that is actually supported. The route becomes <code>observed</code> once a passing receipt covers that scope.</p>
+      <p>A certified image renders your chart's ordinary objects without running its Helm hooks. For each hidden requirement it records a step: a lifecycle phase, who runs it, and whether it is automatic.</p>
+      <p>The phases are <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, and <code>refuse</code>. Each step also carries one of five reader-facing dispositions. <code>observed</code> means a passing receipt exists for that exact chart, version, preset, and target scope, and <code>routed</code> means the method is recorded but not run. <code>per-target</code> means the right method depends on your cluster. <code>blocked</code> means a prerequisite or evidence is missing, and <code>refused</code> means it was deliberately not run. The linked machine-readable sources use a finer vocabulary, including <code>not-run</code> and <code>recipe-needed</code>, so a per-chart view may show states beyond these five.</p>
+      <p>Every lifecycle action packet today is <code>automatic: false</code>. ConfigHub does not yet choose or run a chart-specific hook step for you. The certified-bundle steps <a href="#bundle-routes">below</a> are a separate model, where a declarative, idempotent step such as CRD ordering can be automatic. The pattern stays observe, then execute, then emit a receipt. Read the disposition, supply what it needs, and run only the action that is actually supported. The step becomes <code>observed</code> once a passing receipt covers that scope.</p>
       <p>Who runs it today is you, your cluster or controller, or, not yet, the product itself.</p>
       <p>This follows <a href="./d/docs/reference/what-hook-support-means.html">what hook support means</a> and <a href="./d/docs/user/hook-lifecycle-strategy.html">the hook lifecycle strategy</a>. Both name the same evidence with their own vocabulary, so read this page first and those two for the deeper detail.</p>
     </section>
@@ -7934,26 +7945,26 @@ function quirksHtml(catalog) {
     </section>
 
     <section aria-labelledby="routes-tell">
-      <h2 id="routes-tell">3. See what a route tells you</h2>
+      <h2 id="routes-tell">3. See what a step tells you</h2>
       <ul>
         <li><strong>Where it goes.</strong> A lifecycle phase: <code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, or <code>refuse</code>.</li>
         <li><strong>Who runs it.</strong> You, your cluster or controller, or, not yet, the product.</li>
-        <li><strong>Whether it is automatic.</strong> The route record says which exact implementation ran. A direct script result does not prove the Argo CD or Flux version of the same step. Top-level <code>automatic</code> stays <code>false</code> until every delivery path named by the claim has its own receipt.</li>
-        <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the route can be called supported.</li>
+        <li><strong>Whether it is automatic.</strong> The step's record says which exact implementation ran. A direct script result does not prove the Argo CD or Flux version of the same step. Top-level <code>automatic</code> stays <code>false</code> until every delivery path named by the claim has its own receipt.</li>
+        <li><strong>What is needed next.</strong> The target facts to supply, and the evidence required before the step can be called supported.</li>
       </ul>
-      <p>The machine-readable form is <a href="./d/data/lifecycle-route-actions/summary.html">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="./d/data/lifecycle-routes/summary.html">lifecycle routes</a>. The per-chart view, each chart's routes, disposition, and whether a skill applies, is <a href="./d/data/per-chart-hooks/summary.html">per-chart hooks</a>, shown as colored cards.</p>
-      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a route, and the worked examples. It also says who owns each CRD, and how to stage target prerequisites.</p>
+      <p>The machine-readable form is <a href="./d/data/lifecycle-route-actions/summary.html">the lifecycle route actions</a>: an agent reads <code>actions.json</code> and turns a row into a preflight, action, and observe plan. The route contract behind it is <a href="./d/data/lifecycle-routes/summary.html">lifecycle routes</a>. The per-chart view, each chart's steps, disposition, and whether a skill applies, is <a href="./d/data/per-chart-hooks/summary.html">per-chart hooks</a>, shown as colored cards.</p>
+      <p><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a> has the six steps that act on a plan, and the worked examples. It also says who owns each CRD, and how to stage target prerequisites.</p>
     </section>
 
 
 
 
     <section aria-labelledby="bundle-routes">
-      <h2 id="bundle-routes">7. See how a bundle carries routes with the objects</h2>
-      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle. How to apply the configuration then never depends on whoever happened to flatten the chart.</p>
-      <p>A route names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it. It also carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
-      <p>The first route is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this route is marked automatic; a route that runs a Job is not, and stays manual until observed.</p>
-      <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every route.</p>
+      <h2 id="bundle-routes">7. See how a bundle carries a plan with the objects</h2>
+      <p>A <code>flatten-with-routes</code> verdict names the companion artifacts a bundle must ship. Those are the steps of its plan, and they travel inside the bundle. How to apply the configuration then never depends on whoever happened to flatten the chart.</p>
+      <p>A step names the quirk class it discharges and states what breaks without it. It carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The <code>executedBy</code> block lists the runtimes that can execute it and how each expresses it. It also carries <code>automatic</code>, which defaults to false and is earned by observation.</p>
+      <p>The first step is traefik's CRD ordering. Its verdict requires an ordering declaration for 25 CRDs: definitions first, with a wait for establishment, then everything else. Ordering is declarative and idempotent, so this step is marked automatic; a step that runs a Job is not, and stays manual until observed.</p>
+      <p>Schema: <a href="./d/docs/reference/certified-bundle-spec.html#routes-travel-inside-the-bundle"><code>BundleRoute</code></a>. The full spec also covers the Space guide and the boundaries that ship beside every step.</p>
       <h3>Hooks under GitOps</h3>
       <p>A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook. For one chart the right answer may be a preflight check. For another it may be an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The catalog should say which answer applies and what evidence exists.</p>
       <p><a href="./d/docs/user/gitops-adopter-guide.html#hooks-under-gitops">Read the full GitOps adopter guide</a>, and see <a href="./d/docs/user/pathway-route-hooks-transparently.html">routing hooks transparently</a> for the pathway behind it.</p>
@@ -7971,7 +7982,7 @@ function quirksHtml(catalog) {
     <section aria-labelledby="before-deploy">
       <h2 id="before-deploy">9. Check what remains before deployment</h2>
       <p><strong>A matching render is only the first check.</strong> The cluster may still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller.</p>
-      <p><strong>A recorded route does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
+      <p><strong>A recorded step does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
       <p><strong>A watch or blocked result needs action.</strong> Follow the stated setup, decision, or evidence link before deployment.</p>
     </section>
   </main>
@@ -8138,7 +8149,7 @@ function changeSafelyGuideHtml(catalog) {
       <p>Ask three questions in order. Does the change alter what Helm renders? If not, does it only refine an already-rendered object? If neither, is it a prerequisite that must be true before the OCI artifact ships?</p>
       <pre><code>Changes Helm render inputs or rendered objects -> base variant.
 Changes the operating context after render -> derived ConfigHub variant.
-Needs a cluster or external system -> target fact, route, or setup step.</code></pre>
+Needs a cluster or external system -> target fact, plan step, or setup step.</code></pre>
       <p>Read the <a href="../docs/user/change-routing-before-oci.md">full routing rule</a> for the complete decision tree and its delivery-prerequisite checklist.</p>
 
       <h3 id="routing-table">Quick routing table</h3>
@@ -8222,10 +8233,10 @@ function hooksGuideHtml(catalog) {
   return splitGuideHtml({
     title: "Handle hooks and CRDs",
     lead: "A chart can need work beyond its objects: hooks, CRDs, setup jobs and target facts. Find that work before delivery, decide who runs each part, and stage what the target needs first.",
-    ask: "“Read the routes for &lt;chart&gt; at &lt;version&gt;, tell me which hooks, CRDs and target facts it needs, and who runs each one. Change nothing yet.”",
+    ask: "“Read the plan for &lt;chart&gt; at &lt;version&gt;, tell me which hooks, CRDs and target facts it needs, and who runs each one. Change nothing yet.”",
     body: `    <section aria-labelledby="six-steps">
       <h2 id="six-steps">1. Do the six steps</h2>
-      <p>A route names the work a chart needs. These six steps take it from named to observed for your target.</p>
+      <p>A plan names the work a chart needs. These six steps take it from named to observed for your target.</p>
       <ol>
         <li><strong>Choose the chart preset.</strong> Start from the chart page, not a generated package folder.</li>
         <li><strong>Read the chart extras.</strong> Look for hooks, CRDs, setup jobs, webhooks, generated Secrets, and target facts.</li>
@@ -8234,7 +8245,7 @@ function hooksGuideHtml(catalog) {
         <li><strong>Run only the actions that are supported for that chart and target.</strong> A placeholder command is not a support claim.</li>
         <li>The behavior becomes <code>observed</code> for your scope once a passing receipt covers it.</li>
       </ol>
-      <p>A known route is not an executed one. Every lifecycle action packet stays <code>automatic: false</code> today, while <a href="./quirks.html#bundle-routes">the declarative certified-bundle routes</a> can be automatic. The value now is clear chart-specific guidance: you, a reviewer, or an agent can see where each hidden behavior goes and what it needs, instead of reverse-engineering Helm during an install.</p>
+      <p>A known step is not an executed one. Every lifecycle action packet stays <code>automatic: false</code> today, while <a href="./quirks.html#bundle-routes">the declarative certified-bundle steps</a> can be automatic. The value now is clear chart-specific guidance: you, a reviewer, or an agent can see where each hidden behavior goes and what it needs, instead of reverse-engineering Helm during an install.</p>
       <p>Making the product execute observed or routed steps is separate, continuing work (<a href="https://github.com/confighub/helm-expt/issues/688">issue 688</a>).</p>
     </section>
     <section aria-labelledby="examples">
@@ -8251,7 +8262,7 @@ function hooksGuideHtml(catalog) {
       </ol>
       <p>The order matters. A live CRD test showed that applying a custom resource before its CRD is established fails on a new cluster. Applying the CRD first, waiting, and then applying the custom resource works.</p>
       <p>The <code>no-crds</code> render leaves CRDs out of the chart object set, but the installer package still carries the ten checked CRDs as a separate prerequisite. Its direct script keeps compatible CRDs that are already present, or applies the packaged copies on a new cluster, then waits before applying the workload.</p>
-      <p>These are the receipted routes for that same install order, by delivery path:</p>
+      <p>These are the receipted steps for that same install order, by delivery path:</p>
       ${markdownLikeTable(hookExampleTableRows, { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
       <p>The Argo CD sync-wave order and the Flux <code>dependsOn</code> chain in that table are generated by the catalog's staged OCI packaging for the <code>no-crds</code> base. The direct-apply sequence above it is advice: you run those steps yourself with <code>kubectl</code>.</p>
       <p>ConfigHub does not yet select the Kube Prometheus Stack route automatically. A person or automation still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply has fresh-install evidence for both bases and 85.3.3-to-86.1.0 upgrade evidence for the <code>default</code> package route; Argo CD and Flux add fresh-install and the same upgrade for <code>no-crds</code>.</p>
@@ -8283,7 +8294,7 @@ function hooksGuideHtml(catalog) {
       <p>Kubara's generated umbrella charts assume the whole platform exists: they guard their <code>ServiceMonitor</code> behind the Prometheus-operator CRD, and cert-manager's <code>ClusterIssuer</code> is a custom resource that needs its CRD established first. So the bring-up order is CRDs, then controllers, then custom resources.</p>
       <p>A CRD-guarded object is one the chart only applies once its CRD already exists, the way a <code>ServiceMonitor</code> needs the Prometheus-operator CRD and a <code>ClusterIssuer</code> needs the cert-manager CRD. Install the CRD, wait for Kubernetes to report it established, and only then apply the guarded object.</p>
       <p>A hard chart carries one or more signals from the catalog's own matrix: CRDs, webhooks, cluster RBAC, stateful storage, generated values, cluster lookups, or Helm hooks. Kube Prometheus Stack and cert-manager carry several at once, which is why they anchor <a href="./proof.html#serious">the harder-chart examples</a>.</p>
-      <p>The required-setup vocabulary stays the same across the catalog. A <strong>target prerequisite</strong>, also called a <strong>target fact</strong>, is something the cluster must already provide. A <strong>lifecycle route</strong> is the recorded way a hook-like requirement gets handled. A <strong>disposition</strong> is one of the five words above. <a href="#targets">See how target prerequisites are staged</a>.</p>
+      <p>The required-setup vocabulary stays the same across the catalog. A <strong>target prerequisite</strong>, also called a <strong>target fact</strong>, is something the cluster must already provide. A <strong>lifecycle step</strong> is the recorded way a hook-like requirement gets handled. A <strong>disposition</strong> is one of the five words above. <a href="#targets">See how target prerequisites are staged</a>.</p>
       <p>Across the catalog, an Argo CD sync wave or a Flux <code>dependsOn</code> chain is generated only where a staged OCI package proves the ordering. Everywhere else, a CRD-first sequence like the one above is advice for you to encode yourself.</p>
     </section>
     <section aria-labelledby="targets">
@@ -8293,7 +8304,7 @@ function hooksGuideHtml(catalog) {
       <ul>
         ${targetPrerequisiteExamples.map((example) => `<li>${example}</li>`).join("\n        ")}
       </ul>
-      <p>Before deploying a base, check the per-chart catalog page and the variant file. The chart page links the render intent that keeps the declaration, rendered objects, lifecycle routes, and Argo CD or Flux handling together.</p>
+      <p>Before deploying a base, check the per-chart catalog page and the variant file. The chart page links the render intent that keeps the declaration, rendered objects, lifecycle steps, and Argo CD or Flux handling together.</p>
       <p>If the base lists target prerequisites:</p>
       <ol>
         <li>Stage them before applying the base, or choose a base that includes them.</li>
@@ -8762,7 +8773,7 @@ function proofHtml(catalog) {
   const refusalRows = [
     ["No blanket chart support", "Every claim names chart, version, base, test, and target profile."],
     ["No whole-values-space proof", "The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts."],
-    ["No universal hook execution", "Hooks are inventoried and routed; execution is claimed only with live evidence."],
+    ["No universal hook execution", "Hooks are inventoried and assigned a step; execution is claimed only with live evidence."],
     ["No production claim from render parity", "Production support requires target-scoped decisions and fresh receipts."],
     ["No signature-as-safety shortcut", "Signatures prove origin/integrity. Scans, policies, and live evidence carry safety claims."],
   ];
@@ -8812,7 +8823,7 @@ function proofHtml(catalog) {
       <h2 id="serious">4. Check the harder charts</h2>
       <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack and cert-manager, and any chart with hooks, CRDs, or webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
       <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
-      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
+      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle plan, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
         <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, gated, and observed</a>.</p></div>
@@ -8990,7 +9001,7 @@ function faqSectionsHtml(catalog) {
 	          status: "answered",
 	          question: "I already run Argo or Flux. What changes?",
 	          answer:
-	            "You keep your controller. Point it at the OCI bundle that ConfigHub publishes from reviewed Units. The controller no longer rerenders Helm values from Git. Hooks become recorded routes with named execution steps.",
+	            "You keep your controller. Point it at the OCI bundle that ConfigHub publishes from reviewed Units. The controller no longer rerenders Helm values from Git. Hooks become steps in a recorded plan, with named execution.",
           links: [["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"], ["Deployment path", "../docs/user/cub-deployment-path.md"]],
         },
 	        {
@@ -9009,7 +9020,7 @@ function faqSectionsHtml(catalog) {
           status: "answered",
           question: "What happens to hooks, CRDs, and other required setup?",
           answer:
-            "Each chart page names the hidden work and gives it a route: a lifecycle phase, who runs it, and one of five dispositions. Every route stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.",
+            "Each chart page names the hidden work and gives it a step: a lifecycle phase, who runs it, and one of five dispositions. Every step stays automatic: false until ConfigHub can select and run it for you, so a green render never proves a hook, a CRD, or a target fact is handled.",
           links: [["What charts hide", "./quirks.html"], ["Lifecycle route actions", "../data/lifecycle-route-actions/summary.md"]],
         },
         {
@@ -9160,7 +9171,7 @@ function faqSectionsHtml(catalog) {
 	          status: "answered",
 	          question: "My Helm chart broke. Can this help me triage it?",
 	          answer:
-	            "Start by comparing the rendered objects. Inspect cluster prerequisites, lifecycle routes, image pulls, controller status, and workload health. Then classify the problem as a recipe gap or a cluster runtime gap.",
+	            "Start by comparing the rendered objects. Inspect cluster prerequisites, lifecycle steps, image pulls, controller status, and workload health. Then classify the problem as a recipe gap or a cluster runtime gap.",
           links: [["Problem chart issue template", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"], ["Reading the matrix", "../docs/user/reading-the-matrix.md"]],
         },
         {
@@ -9397,10 +9408,10 @@ function hooksWhoRunsSection(catalog) {
   return `
     <section aria-labelledby="whoruns">
       <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
-      <p>Per chart and per built variant, in plain words. Render parity delivers the objects. Hooks still need an owner. This view lists each hook as a lifecycle step, then says whether it belongs to your delivery pipeline, a GitOps action where evidence exists, a cub action, an opt-in check, or a current blocker. The public product does not auto-execute these yet (<code>automatic: false</code>); automatic execution with receipts is tracked in <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per route</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
+      <p>Per chart and per built variant, in plain words. Render parity delivers the objects. Hooks still need an owner. This view lists each hook as a lifecycle step, then says whether it belongs to your delivery pipeline, a GitOps action where evidence exists, a cub action, an opt-in check, or a current blocker. The public product does not auto-execute these yet (<code>automatic: false</code>); automatic execution with receipts is tracked in <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per step</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
       ${withVariants.map(chartBlock).join("\n")}
       <h3>Charts without a per-variant difference yet</h3>
-      <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
+      <p>These have hook steps but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
       ${simpleList(flat.map((c) => [c.chart, c.note]))}
     </section>`;
 }
@@ -9485,7 +9496,7 @@ function variantsTables(catalog) {
   const settingLivesRows = [
     ["Helm values", "Choices that change what Helm renders: components, object count or fields, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology.", "Open the base variant's <code>valuesProfile</code> link in its <code>HelmRenderIntent</code>, then open the rendered YAML it produced."],
     ["ConfigHub changes", "Exact post-render edits when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.", "Open the Unit revision history or derived variant. The public catalog base itself has no ConfigHub edits."],
-    ["Install work", "Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects.", "Open the base variant's prerequisites and lifecycle routes. These are not hidden as values or post-render edits."],
+    ["Install work", "Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects.", "Open the base variant's prerequisites and lifecycle steps. These are not hidden as values or post-render edits."],
     ["Live cluster", "What actually ran.", "Compare observations with the reviewed Units. A live-only edit is drift until it is recorded as an intended ConfigHub revision or removed."],
   ];
   const claimExampleRows = [
@@ -9519,7 +9530,7 @@ function variantsTables(catalog) {
   const exampleRows = [
     ["Redis", "Secret strategy changes the rendered objects, so it belongs in a base variant.", "./charts/bitnami-redis-25-5-3.html"],
     ["Prometheus", "A small server-only base can become environment-specific ConfigHub variants.", "../docs/user/prometheus-overlay-promotion-example.md"],
-    ["kube-prometheus-stack", "A serious chart needs variants that carry target facts, lifecycle routes, and upgrade checks.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
+    ["kube-prometheus-stack", "A serious chart needs variants that carry target facts, lifecycle steps, and upgrade checks.", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"],
   ];
   return { modelRows, layerRows, baseReferentRows, routeRows, quickRoutingRows, firmAnswerRows, journeyRows, settingLivesRows, claimExampleRows, presetRecordRows, shortModelTermRows, exampleRows };
 }
@@ -9729,7 +9740,7 @@ function ociHtml(catalog) {
 <main>
   <section aria-labelledby="shapes">
     <h2 id="shapes">1. Tell the OCI shapes apart, and match each to its consumer</h2>
-    <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus routes and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
+    <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus a plan and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
     <p>The consumer still decides what runs. <code>cub installer</code> renders the objects, and ConfigHub stores and changes the records. Argo CD or Flux reconciles them, a cloud controller provisions infrastructure, and a model server answers inference requests.</p>
     <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
     <p>The literal upload bundle and the portable deployment bundle can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
@@ -9866,7 +9877,7 @@ function formatsHtml() {
             Math.min(...objectCounts) === Math.max(...objectCounts)
               ? `${objectCounts[0]} each`
               : `${Math.min(...objectCounts)} or ${Math.max(...objectCounts)} each`,
-            `${verdictLinkHtml("flatten-with-routes", "./")}, route recorded${nimServiceFlaggedCount > 0 ? `, ${nimServiceFlaggedCount} flagged for review` : ""}`,
+            `${verdictLinkHtml("flatten-with-routes", "./")}, plan recorded${nimServiceFlaggedCount > 0 ? `, ${nimServiceFlaggedCount} flagged for review` : ""}`,
             nimServicePublishedCount === 0
               ? "Not published"
               : nimServicePublishedCount === variantEntries.length ? "Published" : `${nimServicePublishedCount} of ${variantEntries.length} published`,
@@ -9948,7 +9959,7 @@ function nimServiceStateSentences() {
   }
   if (nimServicePublishedCount === count) {
     return [
-      `All ${count} variants are published as OCI, each with its exact objects and its route files.`,
+      `All ${count} variants are published as OCI, each with its exact objects and its plan files.`,
       nimServiceNeverRun ? "No variant has run on a cluster." : "",
     ].filter(Boolean);
   }
@@ -9977,9 +9988,9 @@ function nimServiceCatalogRow() {
         <td><a href="${pageHref}">${NIMSERVICE_ENTRY_NAME}</a><br><span style="color:var(--muted);font-size:.85rem">NIMService model variants, kept from NVIDIA's k8s-nim-operator samples</span></td>
         <td class="mono">${escapeHtml(nimServiceVersion)}</td>
         <td><a href="${pageHref}">Choose a model variant</a> · <a href="${pageHref}#${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</a></td>
-        <td>${nimServiceVariantCount} model variants are kept as exact objects with their routes. ${escapeHtml(nimServiceStateSentences()[0])}${escapeHtml(flag)}</td>
+        <td>${nimServiceVariantCount} model variants are kept as exact objects with their plans. ${escapeHtml(nimServiceStateSentences()[0])}${escapeHtml(flag)}</td>
         <td>The NIM Operator, your own NGC Secrets and the GPU request of the variant you choose.</td>
-        <td>flatten-with-routes, route recorded, ${escapeHtml(published)}</td>
+        <td>flatten-with-routes, plan recorded, ${escapeHtml(published)}</td>
         <td>${nimServiceVariantCount} model variants. <a href="${pageHref}#variants">See them in one table</a></td>
       </tr>`;
 }
@@ -10027,7 +10038,7 @@ function nimServiceEntryHtml() {
   <main>
     <section aria-labelledby="variants">
       <h2 id="variants">Pick a model variant</h2>
-      <p>Every variant is <code>flatten-with-routes</code>. Its objects are kept as they are, and its routes name the NIM Operator, the image pull Secret, the model API key Secret and the model storage that come first.</p>
+      <p>Every variant is <code>flatten-with-routes</code>. Its objects are kept as they are, and its plan names the NIM Operator, the image pull Secret, the model API key Secret and the model storage that come first.</p>
       <p>NVIDIA gates the images and the model weights. The Catalog did not pull them, does not hold them and never redistributes them.</p>
       ${flagSentence}
       ${table}
@@ -10949,7 +10960,7 @@ function examplesHtml(catalog) {
         [
           "How should hooks and CRDs run?",
           `<a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html"><strong>Install and upgrade Kube Prometheus Stack</strong></a>`,
-          `See the install order and the disposition each route earns on <a href="./quirks.html">what charts hide</a>, then check the <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">lifecycle proof</a>.`,
+          `See the install order and the disposition each step earns on <a href="./quirks.html">what charts hide</a>, then check the <a href="./d/data/kps-gitops-lifecycle-proof/summary.html">lifecycle proof</a>.`,
         ],
         [
           "Can I build a platform from tested parts?",
@@ -12078,7 +12089,7 @@ function catalogMovedSections(catalog) {
         ["The package", "The chart itself, pinned and signed. Helm runs when you install it.", "NVIDIA's chart at 26.3.3, as a signed installer package."],
         ["The bases", "The chart rendered for one set of values. An entry can have several.", "A default base, one for each driver version, and one for nodes that already have the driver."],
         ["The bundle", "One base's plain objects, published as an OCI image.", "The default base's 24 objects."],
-        ["The routes", "The written notes for work Helm used to do.", "CRD ordering, and two lifecycle actions."],
+        ["The plan", "The written list of work Helm used to do.", "CRD ordering, and two lifecycle actions."],
         ["The receipt", "The record of what was checked, with digests.", "The render was compared with Helm's own output. Nothing was run on a GPU."],
       ])}`;
   const entryContainsDetailHtml = `<p>Every version has a local detail page for its package, configurations, and receipt. The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>`;
@@ -12148,7 +12159,7 @@ function catalogMovedSections(catalog) {
         <li><strong>The package.</strong> The pinned source and its inputs. <a href="./config.html#lifecycle">See the recipe step</a>.</li>
         <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="./variants.html">See what a base variant is</a>.</li>
         <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="./config.html#flatten">See when a configuration can be flattened</a> and <a href="./oci.html">see the bundle's OCI shape</a>.</li>
-        <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
+        <li><strong>The plan.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
       </ul>
         </div>
@@ -12852,7 +12863,7 @@ function chartStatStrip(catalog, entry, firstRunnableRow) {
   if (objects) stats.push(`<strong>${objects}</strong> rendered objects`);
   stats.push(`<strong>${images}</strong> image${images === 1 ? "" : "s"}`);
   if (intent) stats.push(`<strong>${prerequisites}</strong> target prerequisite${prerequisites === 1 ? "" : "s"}`);
-  stats.push(`<strong>${routes}</strong> hook or setup route${routes === 1 ? "" : "s"}`);
+  stats.push(`<strong>${routes}</strong> hook or setup step${routes === 1 ? "" : "s"}`);
   if (lanesScored) stats.push(`<strong>${lanesPassing}/${lanesScored}</strong> checks passing`);
   return `<p class="stat-strip">${variant} configuration: ${stats.join(" · ")}. These counts come from the linked test records.</p>`;
 }
@@ -13750,7 +13761,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         ["Compare development and production, audit an exact diff, promote, or roll back", `<a href="../promote.html#promotion-inputs">Build a promotion review</a> or <a href="../promote.html#rollback-release">read the bounded rollback example</a>.`],
         ["Assign the configuration to clusters and operate a small fleet", `<a href="../operate-a-fleet.html#fleet-record">Choose targets, preview a wave, and inspect every result</a>.`],
         ["Check delivery limits", `<a href="../known-gaps.html">Read the current limits before choosing kubectl, Argo CD, or Flux</a>.`],
-        ...(chartNeedsCrdHandling ? [["Handle CRDs on the first install", `<a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and route</a>.`]] : []),
+        ...(chartNeedsCrdHandling ? [["Handle CRDs on the first install", `<a href="../known-gaps.html">Read the CRD ordering risk and first-install guide</a>, then check <a href="#lifecycle">this chart's recorded owner and plan</a>.`]] : []),
         ...(chartHasCredentialStartingPoint ? [["Fix placeholder or static credentials", `<a href="../known-gaps.html">Use an existing Secret or another reviewed credential path before production</a>.`]] : []),
       ], { rawSecondColumn: true })}
     </section>
@@ -13828,18 +13839,18 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>${basePrerequisiteRows.length ? `
       <h3>What each base needs before apply</h3>
-      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
+      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle steps, and evidence together.</p>
       ${markdownLikeTable([
         ["Base variant", "Required resource", "How to provide it", "Full record"],
         ...basePrerequisiteRows,
       ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+      <p>If no plan is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 ${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> both 85.3.3 catalog bases passed fresh installs on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. Argo CD and Flux then installed the 85.3.3 no-crds staged OCI and upgraded it to the 86.1.0 staged digest on separate clusters. Both replaced the completed setup Jobs and passed the runtime checks after upgrade. Open the <a href="../../${kpsLifecycleProofPath}">default direct receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds direct receipt</a>` : ""}${kpsPublicPackageProofPath ? `, the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}${kpsGitOpsLifecycleProofPath ? `, or the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>` : ""}. The controller receipt is limited to this version pair and does not prove rollback, long soak, or automatic ConfigHub route selection.</p>` : kpsGitOpsLifecycleProofPath ? `      <p><strong>Tested upgrade target:</strong> the 86.1.0 package carries its own checked CRDs and admission setup files. Argo CD and Flux each upgraded the 85.3.3 no-crds staged OCI to the 86.1.0 staged digest, replaced both completed setup Jobs, and passed the runtime checks. This is a bounded upgrade result, not a standalone 86.1.0 fresh-install claim. Open the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>.</p>` : ""}${kpsConfigHubPromotionPath ? `      <p><strong>Managed promotion:</strong> ConfigHub retained 85.3.3 as the base and 86.1.0 as the staging variant, required approval, published an exact release OCI for each, and delivered both through Argo CD. The destination check preserved the chart's <code>monitoring</code> and <code>kube-system</code> namespaces, supplied the two recorded Secrets, established ten CRDs, replaced two setup Jobs, and used server-side apply for the large CRDs. <a href="../../${kpsConfigHubPromotionPath}">Read the ConfigHub promotion result</a>. It covers this exact version pair and test target; rollback and automatic route selection have not run.</p>` : ""}
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length
           ? markdownLikeTable([
-              ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],
+              ["Behavior", "Step", "Who runs it", "Off-ramps", "Safe to automate?"],
               ...lifecycleRows,
             ])
           : lifecyclePolicyRows.length
@@ -14128,7 +14139,7 @@ function renderIntentInstallWorkSummary(intent) {
     parts.push(`${prerequisites} prerequisite${prerequisites === 1 ? "" : "s"}`);
   }
   if (routes > 0) {
-    parts.push(`${routes} hook or setup route${routes === 1 ? "" : "s"}`);
+    parts.push(`${routes} hook or setup step${routes === 1 ? "" : "s"}`);
   }
   if (parts.length) return `${parts.join(" and ")} recorded.`;
   if (
@@ -14144,16 +14155,16 @@ function lifecycleContractText(intent, packagedActions = []) {
   if (!intent) return "No render-intent record is available for this base.";
   if (intent.lifecycle_contract_state === "attached") {
     const count = Number(intent.lifecycle_route_count || 0);
-    return `${count} chart-specific lifecycle route${count === 1 ? " is" : "s are"} recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run.`;
+    return `${count} chart-specific lifecycle step${count === 1 ? " is" : "s are"} recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run.`;
   }
   if (packagedActions.length > 0) {
     return `The package contains ${packagedActions.length === 1 ? "a setup action" : `${packagedActions.length} setup actions`} that the generated try script runs before apply. Controller-specific execution is claimed only when that path has its own receipt.`;
   }
   if (intent.lifecycle_contract_state === "no-route-required") {
-    return "The current review found no separate hook or setup route for this base.";
+    return "The current review found no separate hook or setup step for this base.";
   }
   if (Number(intent.lifecycle_route_count || 0) > 0) {
-    return `${intent.lifecycle_contract_reason} Run the lifecycle checks for this chart version before treating the routes as current proof.`;
+    return `${intent.lifecycle_contract_reason} Run the lifecycle checks for this chart version before treating the steps as current proof.`;
   }
   return `${intent.lifecycle_contract_reason} Decide how the work should run with direct commands, Argo CD, and Flux, then record the result.`;
 }
@@ -14242,7 +14253,7 @@ function matrixRowCard(row, entry, catalog) {
     ["Helm output", row.lane_render_parity],
     ["Saved in ConfigHub", row.lane_confighub_scan_ops],
     ["Local cluster", row.lane_local_kind],
-    ["Setup route", row.lane_lifecycle_observed],
+    ["Setup step", row.lane_lifecycle_observed],
     ["GitOps and OCI", row.lane_gitops_oci_live],
     ["Live Helm comparison", row.lane_live_dual_parity],
     ["Two clusters", row.lane_two_cluster_kind],
@@ -14275,7 +14286,7 @@ function matrixRowCard(row, entry, catalog) {
         <div class="lane-strip" aria-label="Checks for ${escapeHtml(title)}">
           ${laneBadges.map(([label, value]) => lanePill(label, value)).join("")}
         </div>${renderIntent && Number(renderIntent.target_requirement_count || 0) > 0 && normalizeLaneValue(row.lane_lifecycle_observed) === "na"
-          ? "<p class=\"small\"><strong>Prerequisites still apply.</strong> &ldquo;Not needed&rdquo; under Setup route means there is no separate hook or setup runner for this configuration; it does not remove the prerequisite listed above.</p>"
+          ? "<p class=\"small\"><strong>Prerequisites still apply.</strong> &ldquo;Not needed&rdquo; under Setup step means there is no separate hook or setup runner for this configuration; it does not remove the prerequisite listed above.</p>"
           : ""}
         ${rowLinks.length ? `<p class="row-links">${rowLinks.join(" · ")}</p>` : ""}
       </article>`;
@@ -14402,15 +14413,15 @@ function matrixHookSummary(row, packagedActions = []) {
     const hookCount = Number(row.hook_count);
     parts.push(`${row.hook_count} source hook${hookCount === 1 ? "" : "s"}`);
   }
-  if (row.hook_disposition) parts.push(`hook route: ${row.hook_disposition}`);
+  if (row.hook_disposition) parts.push(`hook step: ${row.hook_disposition}`);
   if (row.hook_live_status && row.hook_live_status !== "n/a") {
     parts.push(`live action receipt: ${row.hook_live_status}`);
   }
   if (row.lifecycle_route_contract && row.lifecycle_route_contract !== "n/a") {
     const routeCount = Number(row.lifecycle_route_count || 0);
     parts.push(routeCount > 0
-      ? `${routeCount} recorded lifecycle route${routeCount === 1 ? "" : "s"}`
-      : "lifecycle route needs review");
+      ? `${routeCount} recorded lifecycle step${routeCount === 1 ? "" : "s"}`
+      : "lifecycle step needs review");
   }
   if (packagedActions.length > 0) {
     parts.push(`packaged setup: ${packagedActions.join(", ")}`);
@@ -14438,9 +14449,9 @@ function matrixActionOwnerSummary(row, packagedActions = []) {
       ) {
         return "The generated try script runs each packaged step at its recorded point. The no-crds base also has linked Argo CD and Flux receipts.";
       }
-      return "The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.";
+      return "The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded plan.";
     }
-    if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
+    if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the step receipt before delivery";
     return "No separate action runner for this row.";
   }
   const labels = [...new Set(modes)].map((mode) => {
@@ -15136,7 +15147,7 @@ function baseReadinessLabelRows() {
     ["runtime-watch", "Object parity passed, but the live target did not fully settle during the run."],
     ["runtime-review-needed", "Runtime state needs investigation before the base is presented as easy."],
     ["target-prerequisite-needed", "The target must provide a prerequisite such as CRDs, APIs, Secrets, or storage."],
-    ["hook-lifecycle-review-needed", "Helm hook or hook-like lifecycle behavior needs an explicit route and receipt."],
+    ["hook-lifecycle-review-needed", "Helm hook or hook-like lifecycle behavior needs an explicit step and receipt."],
   ];
 }
 
@@ -15180,7 +15191,7 @@ function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
     ? `Yes. ${packagedCrds.length} CRD${packagedCrds.length === 1 ? "" : "s"} must exist first. The public package contains the bootstrap, and its generated <code>try.sh</code> applies it and waits for the CRDs before installing the main objects.`
     : crdRoute
       ? `Yes. ${escapeHtml(crdRoute.operatingDetails || "Follow the recorded CRD setup step before applying the main objects.")}`
-      : `Yes. ${escapeHtml(caveat?.crd_count || "Some")} CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat?.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`;
+      : `Yes. ${escapeHtml(caveat?.crd_count || "Some")} CRD object(s) are recorded. Follow the base's recorded plan: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat?.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`;
   const rows = [
     ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.`],
     [
@@ -15284,7 +15295,7 @@ function executionModeMeaning(value) {
     "product-executes": "The product owns the lifecycle action and evidence must prove it.",
     "user-executes": "The user runs the lifecycle action explicitly, with receipts or checks where available.",
     "target-owned": "The Kubernetes target, GitOps controller, or another controller owns the behavior.",
-    "not-yet-executable": "The route is modeled, but no executable product path is claimed yet.",
+    "not-yet-executable": "The step is modeled, but no executable product path is claimed yet.",
   }[value] ?? "Review the route contract before using this mode.";
 }
 
@@ -15350,7 +15361,7 @@ function supportDecisionWorkstreams(rows) {
     [
       "Lifecycle decision or observation",
       rows.filter((row) => ["needs-lifecycle-support-boundary", "route-selected-observation-needed"].includes(row.lifecycle_decision)),
-      "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle route.",
+      "Record the lifecycle boundary, or execute and observe the selected hook/lifecycle step.",
     ],
     [
       "Runtime or missing-lane decision",

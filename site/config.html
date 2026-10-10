@@ -688,7 +688,7 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a route is carried out.</p>
+    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
       <summary>The five stages in the Catalog's own terms</summary>
       <div class="deep-body">
@@ -709,7 +709,7 @@
     <ul>
       <li><strong>Produce or read the exact objects.</strong> Helm renders, Timoni builds, AICR and Kubara generate; literal YAML and configuration OCI are read as they are.</li>
       <li><strong>Keep the identities separate.</strong> The base revision, exact object set, source OCI, ConfigHub Unit, and release OCI each have their own digest. A receipt names both sides of a handoff rather than treating unlike hashes as one.</li>
-      <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded route intents, resolved once the variant and destination are known.</li>
+      <li><strong>Plan the work around ordinary apply.</strong> CRDs, hooks, setup Jobs, and prerequisites become recorded plan steps, resolved once the variant and destination are known.</li>
       <li><strong>Change, promote, and deliver a reviewed variant.</strong> A derived variant edits a base after render; ConfigHub reviews, approves, promotes, and releases it, keeping non-overlapping changes on upgrade.</li>
     </ul>
       </div>
@@ -724,7 +724,7 @@
       <li><strong>Exact configuration revision</strong> is the accepted object set, inventory, and digest for one revision.</li>
       <li><strong>Flatten</strong> means retain those exact objects so delivery does not rerun the source processor. The verdict is <code>safe-to-flatten</code>, <code>flatten-with-routes</code>, <code>unsafe-to-flatten</code>, or <code>born-flattened</code>.</li>
       <li><strong>Lifecycle requirement</strong> records work or target state needed around ordinary apply, such as CRDs, hooks, setup Jobs, certificates, cloud resources, controllers, or prerequisite Secrets.</li>
-      <li><strong>Route intent</strong> records portable handling the source or base proposes. A <strong>resolved lifecycle route</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
+      <li><strong>Plan step</strong> records portable handling the source or base proposes, and the records call it a route intent. A <strong>resolved lifecycle step</strong> binds it to an exact variant, destination, runtime, order, actor, and checks. An explicit <code>no route required</code> decision is different from a missing record.</li>
       <li><strong>Protected local field</strong> records downstream field ownership, so a source refresh does not silently overwrite an environment's own value.</li>
     </ul>
       </div>
@@ -774,7 +774,7 @@
     </details>
     <div class="card"><table>
         <thead><tr><th>Source</th><th>Materialize</th><th>Flattening result</th><th>What is checked</th><th>Example</th></tr></thead>
-        <tbody><tr><td>Helm chart</td><td>Run Helm with the recorded values and render context.</td><td><a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a></td><td>Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Timoni module or bundle</td><td>Build the pinned OCI module with its typed values.</td><td><a href="#flatten">Flatten, flatten with routes, or run the workflow late.</a></td><td>Typed schema and selected values; ordered apply sets, waits, and target lookups.</td><td><a href="./charts/index.html">Timoni Redis</a></td></tr><tr><td>AICR</td><td>Run its declared composition step, including nested Helm work it declares.</td><td><a href="#flatten">Flatten the generated layer, flatten with routes, or process part late.</a></td><td>Component order, required controllers, GPU or cloud facts, and nested sources.</td><td><a href="./try-aicr.html">Inference platforms</a></td></tr><tr><td>Kubara or another generator</td><td>Run its declared generation step, including nested sources it declares.</td><td><a href="#flatten">Flatten the generated layer, keep routes beside it, or process the source late.</a></td><td>Platform prerequisites, component ownership, and controller work.</td><td><a href="./bring-kubara-into-confighub.html">Build a platform</a></td></tr><tr><td>Installer or source OCI</td><td>Pull by digest, then invoke the processor it declares.</td><td><a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a></td><td>Package role, processor, selections, and receipts.</td><td><a href="./try.html">Try Redis</a></td></tr><tr><td>Literal configuration OCI</td><td>Pull by digest and read the objects it already contains.</td><td><a href="#flatten">born-flattened; record whether routes or protected inputs travel beside it.</a></td><td>Object inventory, provenance, and any prior transformation.</td><td><a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a></td></tr><tr><td>Sveltos</td><td>Read the literal fleet configuration; materialize each referenced source separately.</td><td><a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a></td><td>The literal ClusterProfile objects, plus each nested source on its own.</td><td><a href="./stack.html">Stacks and fleets</a></td></tr><tr><td>Plain Kubernetes YAML</td><td>Read, parse, and canonicalize the files.</td><td><a href="#flatten">born-flattened, or flatten-with-routes when an operator or a Secret comes first; record requirements, ownership, and later packaging.</a></td><td>File checksums, object inventory, and checks.</td><td><a href="./ask.html">Check my config</a></td></tr><tr><td>ConfigHub Units or release OCI</td><td>Read the retained objects and revision history.</td><td><a href="#flatten">Already retained as data.</a></td><td>Space, revisions, approvals, release digest, and receipts.</td><td><a href="./confighub.html">What ConfigHub adds</a></td></tr></tbody>
+        <tbody><tr><td>Helm chart</td><td>Run Helm with the recorded values and render context.</td><td><a href="#flatten">safe-to-flatten, flatten-with-routes, or unsafe-to-flatten</a></td><td>Render matches Helm's own output; hooks, CRDs, and generated state are inventoried.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Timoni module or bundle</td><td>Build the pinned OCI module with its typed values.</td><td><a href="#flatten">Flatten, flatten with a plan, or run the workflow late.</a></td><td>Typed schema and selected values; ordered apply sets, waits, and target lookups.</td><td><a href="./charts/index.html">Timoni Redis</a></td></tr><tr><td>AICR</td><td>Run its declared composition step, including nested Helm work it declares.</td><td><a href="#flatten">Flatten the generated layer, flatten with a plan, or process part late.</a></td><td>Component order, required controllers, GPU or cloud facts, and nested sources.</td><td><a href="./try-aicr.html">Inference platforms</a></td></tr><tr><td>Kubara or another generator</td><td>Run its declared generation step, including nested sources it declares.</td><td><a href="#flatten">Flatten the generated layer, keep a plan beside it, or process the source late.</a></td><td>Platform prerequisites, component ownership, and controller work.</td><td><a href="./bring-kubara-into-confighub.html">Build a platform</a></td></tr><tr><td>Installer or source OCI</td><td>Pull by digest, then invoke the processor it declares.</td><td><a href="#flatten">Decide from the produced objects; a source OCI is not automatically deployable.</a></td><td>Package role, processor, selections, and receipts.</td><td><a href="./try.html">Try Redis</a></td></tr><tr><td>Literal configuration OCI</td><td>Pull by digest and read the objects it already contains.</td><td><a href="#flatten">born-flattened; record whether a plan or protected inputs travel beside it.</a></td><td>Object inventory, provenance, and any prior transformation.</td><td><a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a></td></tr><tr><td>Sveltos</td><td>Read the literal fleet configuration; materialize each referenced source separately.</td><td><a href="#flatten">born-flattened for the fleet objects; the referenced Helm stays a later boundary.</a></td><td>The literal ClusterProfile objects, plus each nested source on its own.</td><td><a href="./stack.html">Stacks and fleets</a></td></tr><tr><td>Plain Kubernetes YAML</td><td>Read, parse, and canonicalize the files.</td><td><a href="#flatten">born-flattened, or flatten-with-routes when an operator or a Secret comes first; record requirements, ownership, and later packaging.</a></td><td>File checksums, object inventory, and checks.</td><td><a href="./ask.html">Check my config</a></td></tr><tr><td>ConfigHub Units or release OCI</td><td>Read the retained objects and revision history.</td><td><a href="#flatten">Already retained as data.</a></td><td>Space, revisions, approvals, release digest, and receipts.</td><td><a href="./confighub.html">What ConfigHub adds</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -804,7 +804,7 @@
       <div class="deep-body">
     <p><strong>If you think in plain Helm:</strong> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version and keeps its changes through upgrades.</p>
     <p><strong>If you think in Kustomize:</strong> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The overlay is a ConfigHub Space with revisions, gates, and an upstream link.</p>
-    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat. Record their source and digest, attach any required routes, and retain them as a base. Do not pretend they passed through Helm.</p>
+    <p><strong>If you start with literal YAML or configuration OCI:</strong> the objects are already flat. Record their source and digest, attach any required steps, and retain them as a base. Do not pretend they passed through Helm.</p>
     <p><strong>If you start with AICR:</strong> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state. That path needs no recipe and tells you what differs, not what the node should contain. Select the provider-curated leaf variant before judging the difference, then retain the exact objects as a base.</p>
     <p><strong>If you start with Timoni:</strong> pin the module or bundle OCI, keep its typed schema and selected values, and build the exact objects. Record any ordered apply sets, waits, or target lookups that must still run. The built objects are an exact configuration revision, not a Helm render variant.</p>
       </div>
@@ -813,14 +813,15 @@
 
   <section aria-labelledby="flatten">
     <h2 id="flatten">3. See whether a configuration can be flattened</h2>
-    <h3 id="why-routes">Why some entries come with routes</h3>
+    <h3 id="why-routes">Why some entries come with a plan</h3>
     <p>Take Helm. It does more than write YAML. It applies CRDs before the objects that need them. It also runs hook Jobs at set moments, such as before an upgrade.</p>
-    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships the notes in the same bundle as the objects. A route is one of those notes.</p>
-    <h3 id="what-a-route-is">What the GPU Operator's routes say</h3>
-    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents.</p>
+    <p>When the Catalog keeps a chart as plain objects, Helm is no longer there to do that work. So the Catalog writes each of those jobs down. It ships that list in the same bundle as the objects. The list is the entry's plan.</p>
+    <p>The Catalog's records call the steps in a plan routes. That is where the verdict name <code>flatten-with-routes</code> comes from.</p>
+    <h3 id="what-a-route-is">What the GPU Operator's plan says</h3>
+    <p>The published bundle for <a href="./charts/nvidia-gpu-operator.html">NVIDIA's GPU Operator</a> 26.3.3 holds 24 Kubernetes objects and three documents. The three documents are its plan.</p>
     <div class="card"><table>
         <thead><tr><th>Document</th><th>What it tells you to do</th></tr></thead>
-        <tbody><tr><td>Target requirements</td><td>Create the namespace <code>gpu-operator</code> first. The bundle does not contain it.</td></tr><tr><td>Route for CRD ordering</td><td>Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects.</td></tr><tr><td>Route for lifecycle actions</td><td>Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes.</td></tr></tbody>
+        <tbody><tr><td>Target requirements</td><td>Create the namespace <code>gpu-operator</code> first. The bundle does not contain it.</td></tr><tr><td>CRD ordering</td><td>Apply the five CRDs first. Wait until each one is established. Then apply the other 19 objects.</td></tr><tr><td>Lifecycle actions</td><td>Before an upgrade, run the chart's Job that moves the CRDs to the new version. After a delete, run the Job that removes the node-feature-discovery labels from the nodes.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -829,15 +830,27 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
-    <p>ConfigHub stores the routes. It does not carry them out. You do, or your pipeline does.</p>
-    <p>Under Argo CD the CRD route says to use sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
-    <p>The 24 objects are final. A route never renders them again.</p>
-    <p>Some entries also leave values for you to fill in, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
+    <p>ConfigHub stores the plan. It does not carry it out. You do, or your pipeline does.</p>
+    <p>Under Argo CD the plan says to order the CRDs with sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
+    <p>The 24 objects are final. The plan never renders them again.</p>
+    <h3 id="what-a-plan-holds">What a plan can hold</h3>
+    <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
+    <div class="card"><table>
+        <thead><tr><th>Kind of step</th><th>Example</th><th>When it is due</th></tr></thead>
+        <tbody><tr><td>Something the cluster must already have</td><td>GPU Operator. The namespace <code>gpu-operator</code> must exist.</td><td>Before you deliver</td></tr><tr><td>The order to apply things in</td><td>GPU Operator. Apply the CRDs first.</td><td>When you deliver</td></tr><tr><td>A job to run at a set moment</td><td>GPU Operator. Run the CRD Job before an upgrade.</td><td>On upgrade or delete</td></tr><tr><td>A choice that is still open</td><td>An AICR recipe. Replace the placeholder node selector with your own cluster's label.</td><td>Before you deliver, by making a variant</td></tr><tr><td>Rendering that is still to come</td><td>An AICR recipe. Argo CD renders the charts that its Applications point at.</td><td>When you deliver, on the cluster</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    <p>The GPU Operator's plan has the first three kinds, so nothing is rendered again. An AICR recipe's plan also has the last two. Every entry page lists the open choices under "What is fixed, and what you supply".</p>
     <h3 id="what-each-verdict-means">What each verdict means</h3>
     <p>Every Catalog entry has one of four verdicts.</p>
     <ul>
-      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There are no routes.</li>
-      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with routes, as the GPU Operator's do.</li>
+      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There is no plan.</li>
+      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with a plan, as the GPU Operator's do.</li>
       <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
@@ -855,7 +868,7 @@
     <h3 id="four-verdicts">What has to travel with each verdict</h3>
     <div class="card"><table>
         <thead><tr><th>Verdict</th><th>Use it when</th><th>What must travel with the YAML</th></tr></thead>
-        <tbody><tr><td><code id="verdict-born-flattened">born-flattened</code></td><td>Literal YAML or configuration OCI already contains the exact objects.</td><td>Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements.</td></tr><tr><td><code id="verdict-safe-to-flatten">safe-to-flatten</code></td><td>The exact source configuration has no required processor behavior outside the materialized objects.</td><td>Pinned source inputs, object inventory, digest, checks, and evidence.</td></tr><tr><td><code id="verdict-flatten-with-routes">flatten-with-routes</code></td><td>The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.</td><td>The same records, plus route intents for each requirement, resolved after the variant and destination are known.</td></tr><tr><td><code id="verdict-unsafe-to-flatten">unsafe-to-flatten</code></td><td>The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.</td><td>The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time.</td></tr></tbody>
+        <tbody><tr><td><code id="verdict-born-flattened">born-flattened</code></td><td>Literal YAML or configuration OCI already contains the exact objects.</td><td>Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements.</td></tr><tr><td><code id="verdict-safe-to-flatten">safe-to-flatten</code></td><td>The exact source configuration has no required processor behavior outside the materialized objects.</td><td>Pinned source inputs, object inventory, digest, checks, and evidence.</td></tr><tr><td><code id="verdict-flatten-with-routes">flatten-with-routes</code></td><td>The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.</td><td>The same records, plus a plan step for each requirement, resolved after the variant and destination are known.</td></tr><tr><td><code id="verdict-unsafe-to-flatten">unsafe-to-flatten</code></td><td>The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate plan for this use.</td><td>The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -865,7 +878,7 @@
       </style>
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How many entries have each verdict</h3>
-    <p>Of 528 entries, 520 have a verdict. 314 come with routes. 107 need Helm at install time, so they have an installer package and no bundle.</p>
+    <p>Of 528 entries, 520 have a verdict. 314 come with a plan. 107 need Helm at install time, so they have an installer package and no bundle.</p>
     <p>137 of those 314 verdicts cover only the Argo CD Application wrapper of an AICR recipe. They say nothing about the charts inside it.</p>
     <ul>
       <li><code>safe-to-flatten</code>: 96 entries.</li>
@@ -909,7 +922,7 @@
       <p>Open any entry and you find the same five things. Here they are for NVIDIA's GPU Operator 26.3.3.</p>
       <div class="card"><table>
         <thead><tr><th>Part</th><th>What it is</th><th>For the GPU Operator</th></tr></thead>
-        <tbody><tr><td>The package</td><td>The chart itself, pinned and signed. Helm runs when you install it.</td><td>NVIDIA's chart at 26.3.3, as a signed installer package.</td></tr><tr><td>The bases</td><td>The chart rendered for one set of values. An entry can have several.</td><td>A default base, one for each driver version, and one for nodes that already have the driver.</td></tr><tr><td>The bundle</td><td>One base's plain objects, published as an OCI image.</td><td>The default base's 24 objects.</td></tr><tr><td>The routes</td><td>The written notes for work Helm used to do.</td><td>CRD ordering, and two lifecycle actions.</td></tr><tr><td>The receipt</td><td>The record of what was checked, with digests.</td><td>The render was compared with Helm's own output. Nothing was run on a GPU.</td></tr></tbody>
+        <tbody><tr><td>The package</td><td>The chart itself, pinned and signed. Helm runs when you install it.</td><td>NVIDIA's chart at 26.3.3, as a signed installer package.</td></tr><tr><td>The bases</td><td>The chart rendered for one set of values. An entry can have several.</td><td>A default base, one for each driver version, and one for nodes that already have the driver.</td></tr><tr><td>The bundle</td><td>One base's plain objects, published as an OCI image.</td><td>The default base's 24 objects.</td></tr><tr><td>The plan</td><td>The written list of work Helm used to do.</td><td>CRD ordering, and two lifecycle actions.</td></tr><tr><td>The receipt</td><td>The record of what was checked, with digests.</td><td>The render was compared with Helm's own output. Nothing was run on a GPU.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -926,7 +939,7 @@
         <li><strong>The package.</strong> The pinned source and its inputs. <a href="./config.html#lifecycle">See the recipe step</a>.</li>
         <li><strong>The bases.</strong> One reviewed starting configuration per tested choice. <a href="./variants.html">See what a base variant is</a>.</li>
         <li><strong>The bundle</strong>, where the lane permits it. The exact objects kept as a certified OCI image. <a href="./config.html#flatten">See when a configuration can be flattened</a> and <a href="./oci.html">see the bundle's OCI shape</a>.</li>
-        <li><strong>The routes.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
+        <li><strong>The plan.</strong> The CRDs, hooks, and setup work, in order. <a href="./quirks.html">See what a chart hides</a>.</li>
         <li><strong>The receipt.</strong> What was checked, and the digests it names. <a href="./proof.html#trust">Check why you can trust it</a>.</li>
       </ul>
         </div>

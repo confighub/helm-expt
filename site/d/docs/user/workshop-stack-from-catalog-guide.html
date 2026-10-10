@@ -578,9 +578,9 @@ gpu-node/stack.yaml</code></pre>
 <tr><td><code>rendered.yaml</code></td><td>All 89 objects in one file, which is the input you would compare or hand to a tool.</td></tr>
 <tr><td><code>result.json</code></td><td>The check result that compose recorded, with the hash of each file in the workspace.</td></tr>
 <tr><td><code>provenance.json</code></td><td>The Catalog listing of each entry, as it was when you composed.</td></tr>
-<tr><td><code>evidence/</code></td><td>For each entry that carries routes, the publication receipt with its bundle digest and the routes. nvsentinel carries none, so it has no folder.</td></tr>
+<tr><td><code>evidence/</code></td><td>For each entry that comes with a plan, the publication receipt with its bundle digest and the plan. nvsentinel has none, so it has no folder.</td></tr>
 <tr><td><code>evidence/original-stack.yaml</code></td><td>A copy of the manifest as compose wrote it.</td></tr></tbody></table>
-<p>The routes are the Catalog's notes on work a chart needs beyond its objects. For gpu-operator they name the CRD ordering and the <code>pre-upgrade</code> and <code>post-delete</code> hook Jobs. The workspace keeps them as files and runs none of them. Each carries the state <code>declared-unexecuted</code>.</p>
+<p>The plan is the Catalog's note on work a chart needs beyond its objects. For gpu-operator it names the CRD ordering and the <code>pre-upgrade</code> and <code>post-delete</code> hook Jobs. The workspace keeps its steps as files and runs none of them. Each carries the state <code>declared-unexecuted</code>.</p>
 <h2 id="3-check-them-together">3. Check them together</h2>
 <p>Check the stack manifest.</p>
 <pre><code>cub stack check ./gpu-node/stack.yaml</code></pre>
@@ -639,8 +639,8 @@ cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Con
 <p>Compose wrote files and the check read them. No object reached a cluster, and no cluster was contacted. The check line says target availability is not checked, and <code>result.json</code> records application health as <code>not-checked</code>.</p>
 <h3 id="a-passing-composition-is-not-runtime-compatibility">A passing composition is not runtime compatibility</h3>
 <p>The check looks at names, kinds, ordering and references inside the files. It does not show that the three run next to each other. It does not show that the driver matches your hardware. Each entry carries its own publication proof, and the Catalog does not inherit runtime proof from it.</p>
-<h3 id="routes-are-recorded-and-not-executed">Routes are recorded and not executed</h3>
-<p>The workspace holds the CRD ordering routes and the gpu-operator hook routes as files. It runs no hook. Whoever delivers the stack must decide who applies the <code>pre-upgrade</code> Job, as the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> explains.</p>
+<h3 id="the-plan-is-recorded-and-not-executed">The plan is recorded and not executed</h3>
+<p>The workspace holds the CRD ordering steps and the gpu-operator hook steps as files. It runs no hook. Whoever delivers the stack must decide who applies the <code>pre-upgrade</code> Job, as the <a href="workshop-lifecycle-guide.html">hooks and CRDs Guide</a> explains.</p>
 <h3 id="the-stack-is-not-in-confighub">The stack is not in ConfigHub</h3>
 <p>The workspace is a local directory. Nothing was uploaded to ConfigHub, no Space or Unit exists for it, and nobody has approved it.</p>
 <h3 id="one-entry-was-delivered-and-the-stack-was-not">One entry was delivered, and the stack was not</h3>

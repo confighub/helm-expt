@@ -121,6 +121,6 @@ API compatibility from target/controller readiness and data migration safety.
 The outcome is source fixtures → retained manifests/comparisons/refusal → local
 review. ConfigHub representation is not created; delivery, observation and live
 rollback are not run. The next edit belongs to the authored chart or maintained
-lifecycle route under its owner. See [chart hooks](./chart-hooks-what-happens.md)
+lifecycle step under its owner. See [chart hooks](./chart-hooks-what-happens.md)
 for the broader model and [upgrade review](./workshop-upgrade-guide.md) to combine
 this checklist with an exact candidate diff.

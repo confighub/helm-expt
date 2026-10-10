@@ -165,6 +165,8 @@ the process back to an earlier decision.
 | **Base variant** | One named, reviewed starting configuration. | A package and, after upload, a root ConfigHub Space. |
 | **Derived variant** | A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm. | ConfigHub. |
 
+The site calls an entry's routes its plan and one route a step.
+
 In one sentence: **materialize exact objects, keep the source and lifecycle context,
 then retain reviewed changes as variants that can be promoted and delivered.**
 
