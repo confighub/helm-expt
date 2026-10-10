@@ -719,7 +719,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <details class="entry-inputs" data-entry-plan="hashicorp-terraform-1-1-2-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> 2 Secrets must exist before apply. Terraform CLI credentials mounted at /etc/terraform/.terraformrc. Sensitive Terraform workspace variables mounted at /tmp/secrets. Carried out by operator. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> 2 Secrets must exist before apply. Terraform CLI credentials mounted at /etc/terraform/.terraformrc. The listing gives the rest. Who: operator. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/hashicorp-terraform-1-1-2/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>

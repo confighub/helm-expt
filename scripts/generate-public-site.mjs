@@ -15939,8 +15939,12 @@ function entryPlanHtml(listing, siteHref) {
   const rows = shown.map((step) => {
     const state = PLAN_STEP_STATE.get(step.sourceStatus)
       ?? `Recorded as ${String(step.sourceStatus ?? "unknown")}.`;
-    const actor = step.actor ? ` Carried out by ${escapeHtml(String(step.actor).replace(/\.$/, ""))}.` : "";
-    return `<li><strong>${escapeHtml(when(step))}.</strong> ${escapeHtml(shortInputDetail(step.mechanism || step.id || ""))}${actor} <em>${escapeHtml(state)}</em></li>`;
+    const actor = step.actor ? ` Who: ${escapeHtml(String(step.actor).replace(/\.$/, ""))}.` : "";
+    // Two sentences say what the step is. The listing holds the full text.
+    const sentences = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+    const brief = shortInputDetail(sentences.slice(0, 2).join(" "));
+    const rest = sentences.length > 2 && !brief.endsWith("The listing gives the rest.") ? " The listing gives the rest." : "";
+    return `<li><strong>${escapeHtml(when(step))}.</strong> ${escapeHtml(brief)}${rest}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`
