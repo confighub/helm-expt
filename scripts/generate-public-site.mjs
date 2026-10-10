@@ -246,6 +246,29 @@ function listingVerdictText(facts) {
   ].join(", ");
 }
 
+// One line on what each verdict means for a reader, shown as the link's title
+// wherever a verdict is printed. The Config page defines each one in full.
+const VERDICT_GLOSS = {
+  "born-flattened": "The source was already exact Kubernetes objects. Nothing was rendered.",
+  "safe-to-flatten": "Kept as exact Kubernetes objects. Nothing else has to travel with them.",
+  "flatten-with-routes": "Kept as exact Kubernetes objects, plus named steps such as a CRD order, a hook or a Secret you supply.",
+  "unsafe-to-flatten": "Not delivered as flattened objects. The source is rendered at install time.",
+};
+
+// A verdict as a link to its definition on the Config page. An unknown word is
+// printed as it is, so a new lane never gets a wrong gloss.
+function verdictLinkHtml(verdict, siteHref) {
+  const gloss = VERDICT_GLOSS[verdict];
+  if (!gloss) return escapeHtml(verdict);
+  return `<a href="${siteHref}config.html#verdict-${escapeHtml(verdict)}" title="${escapeHtml(gloss)}">${escapeHtml(verdict)}</a>`;
+}
+
+// listingVerdictText with the verdict linked. The qualifiers stay plain text.
+function listingVerdictHtml(facts, siteHref) {
+  const [verdict, ...rest] = listingVerdictText(facts).split(", ");
+  return [verdictLinkHtml(verdict, siteHref), ...rest.map((part) => escapeHtml(part))].join(", ");
+}
+
 function listingPublishedText(facts) {
   return facts.published ? "Published" : "Not published";
 }
@@ -4962,15 +4985,28 @@ function configHtml(catalog) {
 
   <section aria-labelledby="flatten">
     <h2 id="flatten">3. See whether a configuration can be flattened</h2>
+    <h3 id="verdicts-in-plain-words">The four verdicts in plain words</h3>
+    <p>Every Catalog entry carries one of four words. Each one says how the entry is kept and what you do with it.</p>
+    <ul>
+      <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a> means the entry is kept as exact Kubernetes objects, and nothing else has to travel with them.</li>
+      <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a> means the entry is kept as exact objects, plus a short list of steps that plain YAML cannot carry. Those steps are the routes.</li>
+      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a> means the entry is not delivered as flattened objects. Its source is rendered at install time.</li>
+      <li><a href="#verdict-born-flattened"><code>born-flattened</code></a> means the source was already exact objects, so nothing was rendered.</li>
+    </ul>
+    <h3 id="what-a-route-is">What a route is, and what you do with one</h3>
+    <p>A route is one named step that has to happen around the objects. The usual ones are a CRD that must exist before the objects that use it, a hook, and a setup Job. A Secret or certificate that you supply is another.</p>
+    <p>The objects are complete, and nothing is rendered again for a route. NVIDIA's GPU Operator is an example. <a href="./charts/nvidia-gpu-operator.html">Its entry</a> is kept as exact objects, and its routes are its CRDs, which must be established before the objects that use them.</p>
+    <p>Some entries also leave values for the destination to supply, and each AICR recipe is one. Every entry page lists them under "What is fixed, and what you supply".</p>
+    <p>You can put an entry with routes into ConfigHub as it is. The published OCI bundle carries the routes beside the objects. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> uploads one and promotes it through dev and QA.</p>
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
     <h3 id="four-verdicts">The four verdicts</h3>
     ${markdownLikeTable([
       ["Verdict", "Use it when", "What must travel with the YAML"],
-      ["<code>born-flattened</code>", "Literal YAML or configuration OCI already contains the exact objects.", "Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements."],
-      ["<code>safe-to-flatten</code>", "The exact source configuration has no required processor behavior outside the materialized objects.", "Pinned source inputs, object inventory, digest, checks, and evidence."],
-      ["<code>flatten-with-routes</code>", "The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.", "The same records, plus route intents for each requirement, resolved after the variant and destination are known."],
-      ["<code>unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
+      ["<code id=\"verdict-born-flattened\">born-flattened</code>", "Literal YAML or configuration OCI already contains the exact objects.", "Source identity, checksums or digest, inventory, checks, ownership, and any lifecycle requirements."],
+      ["<code id=\"verdict-safe-to-flatten\">safe-to-flatten</code>", "The exact source configuration has no required processor behavior outside the materialized objects.", "Pinned source inputs, object inventory, digest, checks, and evidence."],
+      ["<code id=\"verdict-flatten-with-routes\">flatten-with-routes</code>", "The objects are usable once named CRDs, hooks, certificates, Secrets, setup Jobs, or ordering steps are handled deliberately.", "The same records, plus route intents for each requirement, resolved after the variant and destination are known."],
+      ["<code id=\"verdict-unsafe-to-flatten\">unsafe-to-flatten</code>", "The source depends on live lookup, generated state, or destructive lifecycle behavior that has no adequate route for this use.", "The source and inputs stay authoritative. Process the source late (render late for Helm) and record what must still be checked at deployment time."],
     ], { rawFirstColumn: true })}
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
     <h3 id="lane-counts">How the audited bases fall today</h3>
@@ -9730,7 +9766,7 @@ function formatsHtml() {
             Math.min(...objectCounts) === Math.max(...objectCounts)
               ? `${objectCounts[0]} each`
               : `${Math.min(...objectCounts)} or ${Math.max(...objectCounts)} each`,
-            `flatten-with-routes, route recorded${nimServiceFlaggedCount > 0 ? `, ${nimServiceFlaggedCount} flagged for review` : ""}`,
+            `${verdictLinkHtml("flatten-with-routes", "./")}, route recorded${nimServiceFlaggedCount > 0 ? `, ${nimServiceFlaggedCount} flagged for review` : ""}`,
             nimServicePublishedCount === 0
               ? "Not published"
               : nimServicePublishedCount === variantEntries.length ? "Published" : `${nimServicePublishedCount} of ${variantEntries.length} published`,
@@ -9743,7 +9779,7 @@ function formatsHtml() {
           listing.name,
           `${displayVersion(listing.version)} (${listing.base})`,
           String(listing.objectCount),
-          `${listingVerdictText(facts.get(listing.id))}${facts.get(listing.id).flagged ? ", flagged for review" : ""}`,
+          `${listingVerdictHtml(facts.get(listing.id), "./")}${facts.get(listing.id).flagged ? ", flagged for review" : ""}`,
           listingPublishedText(facts.get(listing.id)),
           `<a href="./listings/${escapeHtml(listing.id)}.json">Listing record</a>`,
           `<a href="${escapeHtml(info.learnHref)}">${escapeHtml(info.learnLabel)}</a>`,
@@ -9752,7 +9788,7 @@ function formatsHtml() {
       ];
       const table = markdownLikeTable(
         [["Entry", "Version (base)", "Objects", "Flattening", "Published", "Listing record", "Learn more"], ...rows],
-        { rawColumns: [5, 6] },
+        { rawColumns: [3, 5, 6] },
       );
       return `<section aria-labelledby="${format}">
       <h2 id="${format}">${escapeHtml(info.label)}</h2>
@@ -11355,7 +11391,7 @@ function flatteningVerdictCell(catalog, entry) {
   const parts = decided.split(";").map((part) => part.trim()).filter(Boolean);
   const lines = parts.map((part) => {
     const [base, verdict] = part.split(":").map((piece) => (piece || "").trim());
-    return `${escapeHtml(base)}: <strong>${escapeHtml(verdict)}</strong>`;
+    return `${escapeHtml(base)}: <strong>${verdictLinkHtml(verdict, "../")}</strong>`;
   }).join("<br>");
   return `<span data-flattening="decided">${lines}</span>`;
 }
@@ -14585,7 +14621,7 @@ function chartVersionsSectionHtml(model) {
       return [
         `${escapeHtml(base.base)}${base.isDefault ? ` <span class="status">default</span>` : ""}`,
         String(facts.objectCount),
-        escapeHtml(listingVerdictText(facts)),
+        listingVerdictHtml(facts, "../"),
         escapeHtml(listingPublishedText(facts)),
         facts.flagged ? `<span class="status warn" title="${escapeHtml(facts.flagQuestion)}">watch</span>` : "None",
         `<a href="${escapeHtml(facts.objectsUrl)}">exact objects</a> · <a href="../listings/${escapeHtml(facts.id)}.json">listing</a>`,

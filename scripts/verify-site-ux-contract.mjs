@@ -205,7 +205,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest"],
+    terms: ["The four verdicts in plain words", "What a route is, and what you do with one", "nothing is rendered again for a route", "id=\"verdict-flatten-with-routes\"", "verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "The four verdicts", "How the audited bases fall today", "One shape, from source to a synced digest"],
   },
   {
     file: "site/demo.html",
@@ -225,7 +225,7 @@ const checks = [
   },
   {
     file: "site/formats.html",
-    terms: ["model variants)", "An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.", "<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes, wrapper only, route recorded", "flagged for review"],
+    terms: ["model variants)", "An entry that needs nothing installed first is born flattened, and an entry that needs an operator or a Secret first is flatten-with-routes.", "<th>Published</th>", "Not published", "published as OCI", "flatten-with-routes</a>, wrapper only, route recorded", "config.html#verdict-flatten-with-routes", "flagged for review"],
   },
   {
     file: "site/charts/index.html",
