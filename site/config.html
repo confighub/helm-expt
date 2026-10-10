@@ -833,6 +833,14 @@
     <p>ConfigHub stores the plan. It does not carry it out. You do, or your pipeline does.</p>
     <p>Under Argo CD the plan says to order the CRDs with sync waves. The Catalog has not run it that way. In its one recorded delivery of this chart, Argo CD applied the CRDs before the other objects in a single sync.</p>
     <p>The 24 objects are final. The plan never renders them again.</p>
+    <h3 id="test-a-plan">Test a plan yourself</h3>
+    <p>You do not have to take a plan on trust. Every packaged base has a script that carries out the install part of its plan. It uses <code>kubectl</code> on a cluster you choose and needs no account.</p>
+    <p>This is the script for the GPU Operator 26.7.1 default base. Read it first, and point <code>kubectl</code> at a throwaway cluster.</p>
+    <pre><code>curl -s -o try.sh https://confighub.github.io/helm-expt/site/sh/nvidia-gpu-operator-v26-7-1/default/try.sh
+bash ./try.sh</code></pre>
+    <p>The script creates the namespace, applies the eight CRDs and waits for each one, then applies the rest. Its output names each step as it runs.</p>
+    <p>The Catalog ran it on 10 October 2026 on a local cluster with no GPUs. It finished in 8 seconds. The operator and the node-feature-discovery pods came up, and the ClusterPolicy reported ready. The <a href="./d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">log of that run</a> has every line.</p>
+    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete. Each entry page links its own script under "Advanced: apply it or upload it".</p>
     <h3 id="what-a-plan-holds">What a plan can hold</h3>
     <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
     <div class="card"><table>
