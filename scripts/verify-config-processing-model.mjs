@@ -126,7 +126,9 @@ for (const text of [
   "provider-curated",
   "Route intent",
   "Resolved lifecycle route",
-  "Recipe is not the general name for a configuration",
+  "A recipe is the pinned inputs that produce one base",
+  "Source → Base → Variant → Deliver → Run",
+  "Pack → Recipe → Bundle → Variant",
   "Digest roles",
   "Do not describe these as \"the same digest.\"",
 ]) {
