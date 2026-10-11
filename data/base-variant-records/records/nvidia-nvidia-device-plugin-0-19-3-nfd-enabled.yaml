@@ -133,15 +133,57 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "hooks"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base."
       records:
         - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+        - "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "hooks"
+          requirementRefs:
+            - "hooks"
+          phase: "destination-resolution"
+          proposedActor: "delivery runtime"
+          proposedMechanism: "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
       records:
         - "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+        - "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
     targetFacts:
       status: "gap"
       declared:

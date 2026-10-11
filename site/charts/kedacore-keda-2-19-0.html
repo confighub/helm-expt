@@ -716,7 +716,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </details>
         <details class="entry-inputs" data-entry-plan="kedacore-keda-2-19-0-default">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/kedacore-keda-2-19-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/kedacore-keda-default/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>

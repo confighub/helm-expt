@@ -614,7 +614,9 @@
       </details>
         <details class="entry-inputs" data-entry-plan="metallb-metallb-0-16-1-default">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders. 22 occurrence(s) in the packaged chart. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>

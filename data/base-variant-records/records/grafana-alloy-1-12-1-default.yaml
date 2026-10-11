@@ -133,15 +133,36 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD ordering declaration for the 1 definition(s) this base renders. 4 occurrence(s) in the packaged chart."
       records:
         - "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml"
+        - "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 1 definition(s) this base renders. 4 occurrence(s) in the packaged chart."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
       records:
         - "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml"
+        - "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:

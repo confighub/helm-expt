@@ -133,15 +133,36 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "webhook-certificate"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
       records:
         - "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "webhook-certificate"
+          requirementRefs:
+            - "webhook-certificate"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
       records:
         - "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
     targetFacts:
       status: "gap"
       declared:

@@ -257,6 +257,19 @@ const packagedLifecycleByRoot = new Map();
 // say when it applies.
 const PLAN_STEP_PHASES = ["preflight", "destination-resolution", "pre-apply", "apply", "post-apply", "observe"];
 const PLAN_STEP_DEFAULT_PHASE = "destination-resolution";
+// What a route names when its source names nobody to carry it out. The
+// records already use these words for a route that awaits a destination.
+const PLAN_STEP_UNASSIGNED_ACTOR = "selected destination actor";
+// The kinds of route a flattening verdict names in one line, the id each
+// gets, and the disposition class in the same file that is about it. The
+// first kind whose words appear in the line wins, so a line about a webhook
+// certificate is not read as a hook because it says "lifecycle route".
+const VERDICT_ROUTE_KINDS = [
+  { id: "crd-ordering", class: "crd-ordering", pattern: /\bCRD ordering\b/i },
+  { id: "prune-protection", class: "resource-policy-keep", pattern: /\bprune protection\b/i },
+  { id: "webhook-certificate", class: "webhook-ca", pattern: /\bwebhook\b|\bcaBundle\b|\bcert-manager\b|\bcertgen\b/i },
+  { id: "hooks", class: "helm-hooks", pattern: /\bhooks?\b|\blifecycle route\b/i },
+];
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -4710,6 +4723,43 @@ function testPlanSteps() {
     change(candidate);
     expectRefusal(() => validatePlanSteps(candidate), pattern, `self-test: a record with ${label} was accepted`);
   }
+  // A base whose only statement of a step is its verdict file gets one step
+  // for each route the verdict names, and may not be left with none.
+  const verdictSubject = intents.find((intent) => {
+    if ((intent.spec.lifecycle.variantRoutes ?? []).length > 0) return false;
+    const candidate = alignRecordWithProcessingModel(buildHelmRecord(structuredClone(intent)), intent, undefined);
+    return candidate.spec.processing.flattening.verdict === PLAN_STEP_VERDICT
+      && candidate.spec.lifecycle.requirements.items.length === 0
+      && packagePrerequisiteSteps(candidate, intent).length === 0
+      && verdictRouteNames(candidate.spec.processing.flattening.record).length > 0;
+  });
+  check(verdictSubject, "self-test: the plan-step fixtures need one flatten-with-routes Helm intent whose verdict file is the only place that names a route");
+  const fromVerdict = build(verdictSubject);
+  const verdictPath = fromVerdict.spec.processing.flattening.record;
+  const verdictRoutes = fromVerdict.spec.lifecycle.routeIntent.routes;
+  check(
+    verdictRoutes.length === verdictRouteNames(verdictPath).length
+      && verdictRoutes.every((route) => route.automatic === false
+        && route.sourceStatus === PLAN_STEP_NOT_RUN
+        && route.status === "requires-destination-resolution"
+        && route.evidence.includes(verdictPath)
+        && route.proposedActor),
+    "self-test: a base whose verdict file names routes did not get one not-run step for each, citing the verdict file",
+  );
+  check(
+    new Set(verdictRoutes.map((route) => route.id)).size === verdictRoutes.length,
+    "self-test: two steps from one verdict file share an id",
+  );
+  validatePlanSteps(fromVerdict);
+  const noStep = structuredClone(fromVerdict);
+  noStep.spec.lifecycle.routeIntent.routes = [];
+  noStep.spec.lifecycle.requirements.items = [];
+  expectRefusal(() => validatePlanSteps(noStep), /names no route, and it has the verdict file \S+ that states one/, "self-test: a record with no route beside a verdict file that names one was accepted");
+  check(
+    VERDICT_ROUTE_KINDS.find((kind) => kind.pattern.test("route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders"))?.id === "webhook-certificate"
+      && VERDICT_ROUTE_KINDS.find((kind) => kind.pattern.test("lifecycle route for the packaged chart's 8 non-test hook occurrence(s)"))?.id === "hooks",
+    "self-test: a webhook certificate route and a hook route are no longer told apart",
+  );
   const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
   expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
 }
@@ -7139,7 +7189,7 @@ function routeStatusFor(sourceStatus) {
 //
 // A flatten-with-routes verdict says the exact objects travel with written
 // steps. When the source record names no route, the steps are still written
-// down in this repository. This pass reads three places, in this order, and
+// down in this repository. This pass reads four places, in this order, and
 // records one route for each step they state:
 //
 //   1. the route documents of the entry's published bundle, which the record
@@ -7148,15 +7198,18 @@ function routeStatusFor(sourceStatus) {
 //      requirement names, and each action in its PackagedLifecycleActions
 //      document;
 //   3. the target requirements of the source record that no step from 1 or 2
-//      covers.
+//      covers;
+//   4. the routes the flattening verdict file itself names, read only when
+//      the first three state nothing. Such a step is a name and no more: the
+//      verdict says the route is needed, and nobody has written it out.
 //
 // It reads and never invents. Every route cites the file it came from, and
 // the generator stops when a cited file is missing. A derived route is not
 // automatic and says not run, unless its document records an observed run,
 // and then it says observed. spec.lifecycle.resolution is left as it was.
-// A record with no listed requirement, no bundle route document and no
-// packaged prerequisite is left alone, because nothing committed names a
-// step for it.
+// A record with no listed requirement, no bundle route document, no packaged
+// prerequisite and no route named by its verdict file is left alone, because
+// nothing committed names a step for it.
 function recordPlanSteps(record, intent) {
   const lifecycle = record.spec.lifecycle;
   if (record.spec.processing?.flattening?.verdict !== PLAN_STEP_VERDICT) return record;
@@ -7235,8 +7288,60 @@ function derivePlanSteps(record, intent) {
   steps.forEach(withRefs);
   const covered = new Set(steps.flatMap((step) => step.requirementRefs));
   addAll(targetRequirementSteps(record, intent, covered), "the source record's target requirements");
+  if (steps.length === 0) addAll(verdictRouteSteps(record), "the flattening verdict file");
   steps.forEach(withRefs);
   return steps;
+}
+
+// The routes the record's own flattening verdict file names, one step each.
+// The verdict gives a route one line and no instructions, so the step says
+// that line and, where one disposition in the same file is about the same
+// kind of route and found it present, that disposition's detail. Nothing
+// else is known about the step, and nothing else is written.
+function verdictRouteSteps(record) {
+  const path = record.spec.processing?.flattening?.record;
+  const named = verdictRouteNames(path);
+  if (named.length === 0) return [];
+  const dispositions = readYaml(join(repoRoot, path)).spec?.dispositions;
+  const taken = new Map();
+  return named.map((sentence) => {
+    const kind = VERDICT_ROUTE_KINDS.find((candidate) => candidate.pattern.test(sentence));
+    const stem = kind?.id ?? planStepSlug(sentence);
+    const seen = (taken.get(stem) ?? 0) + 1;
+    taken.set(stem, seen);
+    const matching = (Array.isArray(dispositions) ? dispositions : [])
+      .filter((candidate) => kind && candidate.class === kind.class && candidate.finding === "present");
+    const disposition = matching.length === 1 ? matching[0] : null;
+    // The actor is the one the verdict file names for this kind of route.
+    const executedBy = /\bexecuted by (?:the )?([a-z][a-z -]*[a-z])\s*$/i.exec(String(disposition?.disposition ?? ""));
+    return {
+      id: seen === 1 ? stem : `${stem}-${seen}`,
+      phase: PLAN_STEP_DEFAULT_PHASE,
+      actor: executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
+      mechanism: planSentences(planCapital(sentence), planCapital(disposition?.detail)),
+      sourceStatus: PLAN_STEP_NOT_RUN,
+      supportedRuntimes: [],
+      checks: [],
+      evidence: planStepEvidence(path),
+      names: [],
+    };
+  });
+}
+
+// The route names a flattening verdict file lists, or none when the file is
+// missing, is not a verdict for this lane, or lists no route.
+function verdictRouteNames(path) {
+  if (!path || !existsRepo(path) || !/\.ya?ml$/.test(path)) return [];
+  const verdict = readYaml(join(repoRoot, path))?.spec?.verdict;
+  if (verdict?.lane !== PLAN_STEP_VERDICT || !Array.isArray(verdict.routes)) return [];
+  return verdict.routes.map((route) => String(route ?? "").trim()).filter(Boolean);
+}
+
+// A first word in plain lower-case letters takes a capital. Any other first
+// word, such as post-delete or a count, is left as the file wrote it.
+function planCapital(text) {
+  const value = String(text ?? "").trim();
+  return /^[a-z]+(?=\s|$)/.test(value) ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
 }
 
 // The steps one BundleRoute document states. A lifecycle-action document
@@ -7440,7 +7545,8 @@ function targetRequirementSteps(record, intent, covered) {
 // cites only files that exist. A route that says recorded-not-run is not
 // automatic, still awaits a destination and cites the file that states it.
 // A flatten-with-routes record names no route only when no listed
-// requirement, bundle route document or packaged action could give it one.
+// requirement, bundle route document, packaged action or route named by its
+// verdict file could give it one.
 function validatePlanSteps(record) {
   const name = record.metadata.name;
   const lifecycle = record.spec.lifecycle;
@@ -7465,6 +7571,9 @@ function validatePlanSteps(record) {
     (record.spec.delivery?.literalConfigOci?.routes ?? []).length > 0 ? "a bundle route document" : "",
     (packaged?.doc.spec?.bases ?? []).some((base) => base.name === record.spec.baseVariant.name && (base.actions ?? []).length > 0)
       ? `a packaged action in ${packaged.path}`
+      : "",
+    verdictRouteNames(record.spec.processing.flattening.record).length > 0
+      ? `the verdict file ${record.spec.processing.flattening.record}`
       : "",
   ].filter(Boolean);
   check(

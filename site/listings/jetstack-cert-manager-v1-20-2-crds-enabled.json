@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
+      "sha256": "sha256:deb854c69e71f7dbd5f0f89a03649df5905dde857d6a06fb28c388a84ab6b5ce",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
-      "sha256": "sha256:96a15cb284cce306da5bceebb24efc6aad593c3e4d00cf2338dd1e6b96a38141",
+      "sha256": "sha256:7501ecf5c921ff4478a841b65e48cd674382de3f1cfdf76806339c10af416531",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -223,18 +223,117 @@
     }
   },
   "routing": {
-    "routeStatus": "not-required",
-    "requirementsStatus": "not-required",
+    "routeStatus": "recorded",
+    "requirementsStatus": "recorded",
     "targetFactsStatus": "not-required",
     "resolutionStatus": "not-required",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
-    "requirements": [],
-    "routes": [],
+    "requirements": [
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 6 occurrence(s) in the packaged chart."
+      },
+      {
+        "id": "prune-protection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Prune protection for the 6 keep-annotated object(s) this base renders. 7 occurrence(s) in the packaged chart."
+      },
+      {
+        "id": "webhook-certificate",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart."
+      },
+      {
+        "id": "hooks",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). 3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read."
+      }
+    ],
+    "routes": [
+      {
+        "id": "crd-ordering",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 6 occurrence(s) in the packaged chart.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        ]
+      },
+      {
+        "id": "prune-protection",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Prune protection for the 6 keep-annotated object(s) this base renders. 7 occurrence(s) in the packaged chart.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "prune-protection"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        ]
+      },
+      {
+        "id": "webhook-certificate",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "webhook-certificate"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        ]
+      },
+      {
+        "id": "hooks",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery runtime",
+        "mechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). 3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "hooks"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
         "path": "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-crds-enabled.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
       }
     ]
   },
