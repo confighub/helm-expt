@@ -724,6 +724,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog ran it on a local cluster, and <a href="../d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">the log</a> has every line.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         <p><strong>Upgrade and delete.</strong> The Catalog carried out this entry's upgrade and delete steps by hand on a local cluster, and <a href="../d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html">the log</a> has every line.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -826,6 +827,7 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/aicr-eks-training/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/aicr-eks-training/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -928,6 +930,7 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-105-08/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-105-08/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1030,6 +1033,7 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-126-20/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-126-20/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1132,6 +1136,7 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/external-nfd/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/external-nfd/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1234,6 +1239,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1336,6 +1342,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver-and-toolkit/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver-and-toolkit/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

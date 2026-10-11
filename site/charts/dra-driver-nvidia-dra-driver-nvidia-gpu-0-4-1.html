@@ -621,6 +621,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -724,6 +725,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1/aicr-eks-training/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -827,6 +829,7 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1/gpu-resources/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

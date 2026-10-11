@@ -615,6 +615,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p>The record lists no plan step for this entry.</p>
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/prometheus-community-prometheus-blackbox-exporter-11-15-1/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

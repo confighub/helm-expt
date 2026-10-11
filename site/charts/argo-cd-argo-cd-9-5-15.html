@@ -724,6 +724,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/argo-cd-argo-cd-9-5-15/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/argo-cd-argo-cd-9-5-15/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -826,6 +827,7 @@ e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0  argo-cd-argo-c
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/argo-cd-argo-cd-9-5-15/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/argo-cd-argo-cd-9-5-15/no-crds/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script stops before it applies anything. 2 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

@@ -33,6 +33,7 @@ import {
   retainedObjectsScript,
   retainedObjectsScriptDir,
   retainedObjectsScriptEligibility,
+  retainedObjectsScriptLimits,
 } from "./lib/retained-objects-script.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
@@ -16134,6 +16135,42 @@ function entryPlanHtml(listing, siteHref) {
     : scriptHtml
       ? `<p><strong>Test the plain objects.</strong> <a href="${siteHref}/${objectsRel}">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. ${objectsRun}</p>`
       : `<p><strong>Test the plain objects yourself.</strong> <a href="${siteHref}/${objectsRel}">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. ${objectsRun}</p>`;
+  // What the tests cannot show, said on the entry's own page. Where an entry
+  // has no plain-objects test, the page says why.
+  const eligibility = retainedObjectsScriptEligibility(listing);
+  const verdict = listing.flattened?.verdict;
+  const noTestReason = eligibility.eligible ? "" : listing.identity?.format === "aicr"
+    ? "This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no such test yet."
+    : ({
+    "no-retained-objects": "The Catalog keeps no single retained file for this entry, so it has no plain-objects test.",
+    "verdict": verdict === "unsafe-to-flatten"
+      ? "This entry needs Helm when it is installed, so it has no plain-objects test."
+      : "The Catalog has not decided how this entry is kept, so it has no plain-objects test.",
+    "needs-argo-cd": "This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no such test yet.",
+    "no-entry-page": "This entry has no page of its own in the listing yet, so no plain-objects test is generated for it.",
+    "file-holds-a-placeholder": "The retained file still holds a placeholder value, so it cannot be applied as it is. It has no plain-objects test.",
+  })[eligibility.reason] ?? "";
+  const limitSentences = [];
+  if (objectsRel) {
+    const retainedText = readFileSync(join(repoRoot, String(listing.flattened.retainedObjects.path)), "utf8");
+    const limits = retainedObjectsScriptLimits({ listing, text: retainedText });
+    if (limits.stop > 0) {
+      limitSentences.push(`The plain-objects script stops before it applies anything. ${limits.stop === 1 ? "One step of the plan is" : `${limits.stop} steps of the plan are`} yours to do first, and it prints ${limits.stop === 1 ? "it" : "them"}.`);
+      limitSentences.push("When you run it again it applies the objects and ends. It does not wait for the workloads to start.");
+    } else {
+      limitSentences.push("The plain-objects script applies the objects and ends. It does not wait for the workloads to start.");
+    }
+  }
+  if (scriptHtml || objectsRel) {
+    limitSentences.push(`${scriptHtml && objectsRel ? "Neither script runs" : "The script does not run"} the steps the plan names for an upgrade or a delete.`);
+    if ((listing.discovery?.roles ?? []).some((role) => role.role === "gpu")) {
+      limitSentences.push("A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.");
+    }
+  }
+  const limitsHtml = [
+    limitSentences.length > 0 ? `<p><strong>${scriptHtml && objectsRel ? "What these tests do not show" : "What this test does not show"}.</strong> ${limitSentences.join(" ")}</p>` : "",
+    noTestReason ? `<p><strong>Why there is no plain-objects test.</strong> ${noTestReason}</p>` : "",
+  ].filter(Boolean).join("\n        ");
   // The two-cluster comparison with plain Helm, where one is recorded for
   // this exact chart, version and base. The rows are read once.
   entryPlanHtml.parityRows ??= parseCsv(readFileSync(join(repoRoot, "data/live-kind-parity/summary.csv"), "utf8"));
@@ -16151,8 +16188,9 @@ function entryPlanHtml(listing, siteHref) {
     : parity.result === "pass"
       ? `<p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched.${parityReceipt}</p>`
       : `<p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as ${escapeHtml(parity.result)}${parity.reason ? `, with the reason "${escapeHtml(parity.reason)}"` : ""}.${parityReceipt}</p>`;
-  // An entry with no step, no script and no comparison has nothing to show.
-  if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !objectsHtml && !parityHtml) return "";
+  // An entry with no step, no script, no comparison and no stated limit has
+  // nothing to show.
+  if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !objectsHtml && !parityHtml && !limitsHtml) return "";
   const lifecycleLog = LIFECYCLE_RUN_LOGS.get(listing.identity.id);
   const lifecycleHtml = lifecycleLog
     ? `<p><strong>Upgrade and delete.</strong> The Catalog carried out this entry's upgrade and delete steps by hand on a local cluster, and <a href="${siteHref}/${lifecycleLog}">the log</a> has every line.</p>`
@@ -16162,7 +16200,8 @@ function entryPlanHtml(listing, siteHref) {
         ${stepsHtml}
         ${scriptHtml}${objectsHtml ? `
         ${objectsHtml}` : ""}${lifecycleHtml ? `
-        ${lifecycleHtml}` : ""}
+        ${lifecycleHtml}` : ""}${limitsHtml ? `
+        ${limitsHtml}` : ""}
         ${parityHtml}
         <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

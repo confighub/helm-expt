@@ -721,6 +721,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -816,6 +817,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Before you deliver.</strong> Secret ack-system/aws-creds must exist before apply. AWS shared credentials file mounted read-only at /var/run/secrets/aws. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The value aws.region must be set before render. AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target. Who: operator. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/aws-controllers-k8s-eks-chart-1-16-3/eks-inference/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The script does not run the steps the plan names for an upgrade or a delete.</p>
+        <p><strong>Why there is no plain-objects test.</strong> The retained file still holds a placeholder value, so it cannot be applied as it is. It has no plain-objects test.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
