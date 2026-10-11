@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-cloudpirates-rabbitmq-0.21.13-existing-secret"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/rabbitmq-0.21.13-existing-secret/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:2b831d1542c4e59a885ebfe79c5f6f005a298c3ef9fb69c8bc96c8025f7c5ba1"
+  layerDigest: "sha256:b0a20573c6b477aba93802355113e4e3f3e5da8fa98448e4edc75e95c5336116"
+  layerBytes: 2316
+  observedAt: "2026-10-11T15:05:53.356Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret.tar.gz"

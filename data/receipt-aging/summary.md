@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 138 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 206 |
+| 0 to 30 days | 221 |
 | 31 to 90 days | 455 |
 | 91 to 180 days | 1471 |
 | over 180 days | 0 |
@@ -37,7 +37,7 @@ receipt, and the full table is in the CSV for the rest.
 | `installer-oci-signatures` | 180 | 46 | 46 | none |
 | `live-kind-parity` | 179 | 118 | 127 | none |
 | `next80-local-kind` | 176 | 122 | 122 | none |
-| `certified-bundles` | 104 | 64 | 64 | none |
+| `certified-bundles` | 119 | 64 | 64 | none |
 | `catalog-literal-bundles` | 41 | 3 | 3 | none |
 | `latest-top20-refresh` | 40 | 138 | 138 | none |
 | `nimservice-variants` | 37 | 3 | 3 | none |
@@ -66,7 +66,7 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-Every one of the 2132 committed receipts records a date, so none of
+Every one of the 2147 committed receipts records a date, so none of
 this repository's evidence is beyond ageing. The count is still published and
 still ratcheted. A receipt that records no date raises it above the recorded
 baseline of zero and the lane refuses, which is why this section stays here now

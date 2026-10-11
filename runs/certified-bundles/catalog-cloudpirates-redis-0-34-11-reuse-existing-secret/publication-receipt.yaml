@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-cloudpirates-redis-0.34.11-reuse-existing-secret"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/redis-0.34.11-reuse-existing-secret/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+  layerDigest: "sha256:bca79d57c1a6c11a21546ed9f98ccbedb16a96f389056b8958a646343b5f2b61"
+  layerBytes: 2417
+  observedAt: "2026-10-11T15:05:56.586Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret.tar.gz"

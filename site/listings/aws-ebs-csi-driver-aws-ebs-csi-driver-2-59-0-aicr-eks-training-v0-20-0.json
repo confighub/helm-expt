@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.yaml",
-      "sha256": "sha256:d192832182f79237448660818feeafbc8cfd6df994a97b3f9b21804643260ba7",
+      "sha256": "sha256:204bdc97cb24029770c3d2060ac1bf1005c7d0cd1b352db07e3c916d40ebc44a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0:latest@sha256:4d9de3b1f6368e6910e28528e224b68a168c293a573110ecbec8da93edc5d680",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:47db5c7c29f55a572484cb57ea64ce906d74e10218e4c63b2c8748eb9af2d07b"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:3b032ca75cd078d1d2a01301274206372351765c04f1223526de40189f2a2feb"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:1bae54188a677a258ff407e99c5c77daf2dced5d2c5ab3aac20df678c129f3c9"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:4d9de3b1f6368e6910e28528e224b68a168c293a573110ecbec8da93edc5d680"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v0-20-0/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v0-20-0/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
