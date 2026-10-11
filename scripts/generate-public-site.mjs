@@ -27,6 +27,13 @@ import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NE
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
 import { LIVE_EXAMPLES_PATH, liveExampleSectionHtml, validateLiveExamples } from "./lib/catalog-live-examples.mjs";
 import { VENDORED_DIFF_SOURCE, diffConfigFiles, vendoredDiffRecord } from "./lib/vendored-config-diff.mjs";
+import {
+  OBJECTS_SCRIPT_NAME,
+  planStepTiming,
+  retainedObjectsScript,
+  retainedObjectsScriptDir,
+  retainedObjectsScriptEligibility,
+} from "./lib/retained-objects-script.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
 // read from data reads the way the surrounding hand-written numbers already
@@ -5039,6 +5046,7 @@ bash ./try.sh</code></pre>
     <p>The Catalog ran it on 10 October 2026 on a local cluster with no GPUs. It finished in 8 seconds. The operator and the node-feature-discovery pods came up, and the ClusterPolicy reported ready. The <a href="./d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">log of that run</a> has every line.</p>
     <p>On a cluster that already holds older CRDs, the script stops and says how to let it apply the package's own.</p>
     <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. The Catalog carried out those steps by hand for the GPU Operator on 11 October 2026, from 26.3.3 to 26.7.1. The pre-upgrade Job moved the CRDs, and the post-delete Job removed all 55 node-feature-discovery labels. The <a href="./d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html">log of that run</a> has every line.</p>
+    <p>A second script, <code>try-objects.sh</code>, tests the retained objects themselves. It fetches the retained file, checks its SHA-256 and applies it with <code>kubectl</code>, so it needs no <code>cub</code>. The Catalog ran seven of these scripts on local clusters on 11 October 2026, and the <a href="./d/docs/user/live-walk-test-plain-objects-2026-10-11.html">log of that walk</a> shows each run.</p>
     <p>Each entry page links its own script under "Advanced: apply it or upload it".</p>
     <h3 id="what-a-plan-holds">What a plan can hold</h3>
     <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
@@ -12979,6 +12987,27 @@ function buildPresetScripts(catalog) {
       );
     }
   }
+  // The second script of an entry tests its retained objects themselves. It
+  // is built from the entry's listing and from the retained file, and the
+  // file must be the one the listing's digest names.
+  const taken = new Set(scripts.map((script) => script.relPath));
+  for (const listing of entryStepsListings()) {
+    if (!retainedObjectsScriptEligibility(listing).eligible) continue;
+    const id = listing.identity.id;
+    const retained = listing.flattened.retainedObjects;
+    const retainedPath = join(repoRoot, String(retained.path ?? ""));
+    check(retained.path && existsSync(retainedPath), `${id}: the retained file ${retained.path} is missing`);
+    const bytes = readFileSync(retainedPath);
+    check(retained.sha256 === `sha256:${sha256(bytes)}`, `${id}: the retained file differs from the digest its listing records`);
+    const relPath = `${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}`;
+    check(!taken.has(relPath), `two entries would both write site/${relPath}`);
+    taken.add(relPath);
+    scripts.push({
+      relPath,
+      path: join(siteRoot, relPath),
+      content: retainedObjectsScript({ listing, text: bytes.toString("utf8"), stepBrief: planStepBrief }),
+    });
+  }
   return scripts;
 }
 
@@ -16017,6 +16046,18 @@ function entryInputsHtml(listing) {
         `;
 }
 
+// The words for one plan step, on the entry page and in the script that tests
+// the retained objects. Two sentences say what the step is, the instruction
+// first. A leading sentence that only gives the reason ("Without ...") is left
+// to the listing, which holds the full text.
+function planStepBrief(step) {
+  const all = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+  const sentences = all.length > 1 && /^Without\b/.test(all[0]) ? all.slice(1) : all;
+  const brief = shortInputDetail(sentences.slice(0, 2).join(" "));
+  const rest = all.length > 2 && !brief.endsWith("The listing gives the rest.") ? " The listing gives the rest." : "";
+  return `${brief}${rest}`;
+}
+
 // The plan for one listing: its recorded steps, who carries each out and what
 // the Catalog knows about it, then the script that tests the install steps.
 // The maps are built inside the function for the same reason as above.
@@ -16039,20 +16080,19 @@ function entryPlanHtml(listing, siteHref) {
   const LIFECYCLE_RUN_LOGS = new Map([
     ["nvidia-gpu-operator-v26-7-1-default", "d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html"],
   ]);
+  // The dated log of the scripts that test retained objects, by listing id.
+  const OBJECTS_SCRIPT_RUN_LOG = "d/docs/user/live-walk-test-plain-objects-2026-10-11.html";
+  const OBJECTS_SCRIPT_RUNS = new Set([
+    "nvidia-gpu-operator-v26-3-3-default",
+    "prometheus-community-prometheus-blackbox-exporter-11-18-0-default",
+    "valkey-valkey-0-11-0-default",
+    "argo-cd-argo-cd-10-1-3-default",
+    "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default",
+    "prometheus-community-prometheus-operator-crds-28-0-1-default",
+  ]);
   const PLAN_STEP_LIMIT = 8;
   const steps = listing.routing?.routes ?? [];
   const withPlanVerdict = listing.flattened?.verdict === "flatten-with-routes";
-  const when = (step) => {
-    const id = String(step.id ?? "");
-    if (/install/.test(id)) return "Around an install";
-    if (/upgrade/.test(id) && /delete/.test(id)) return "Around an upgrade or a delete";
-    if (/upgrade|rollback/.test(id)) return "Around an upgrade";
-    if (/delete/.test(id)) return "Around a delete";
-    if (["pre-apply", "preflight"].includes(step.phase)) return "Before you deliver";
-    if (step.phase === "apply") return "When you deliver";
-    if (["post-apply", "observe"].includes(step.phase)) return "After you deliver";
-    return "Once the destination is known";
-  };
   const shown = steps.slice(0, PLAN_STEP_LIMIT);
   const rows = shown.map((step) => {
     const state = PLAN_STEP_STATE.get(step.sourceStatus)
@@ -16060,14 +16100,7 @@ function entryPlanHtml(listing, siteHref) {
     // The record's "selected applier" means whichever tool applies the objects.
     const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
     const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
-    // Two sentences say what the step is, the instruction first. A leading
-    // sentence that only gives the reason ("Without ...") is left to the
-    // listing, which holds the full text.
-    const all = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
-    const sentences = all.length > 1 && /^Without\b/.test(all[0]) ? all.slice(1) : all;
-    const brief = shortInputDetail(sentences.slice(0, 2).join(" "));
-    const rest = all.length > 2 && !brief.endsWith("The listing gives the rest.") ? " The listing gives the rest." : "";
-    return `<li><strong>${escapeHtml(when(step))}.</strong> ${escapeHtml(brief)}${rest}${actor} <em>${escapeHtml(state)}</em></li>`;
+    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(planStepBrief(step))}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`
@@ -16088,6 +16121,19 @@ function entryPlanHtml(listing, siteHref) {
         ? `The Catalog ran it on a local cluster, and <a href="${siteHref}/${runLog}">the log</a> has every line.`
         : "The Catalog has no recorded run of this script."}</p>`
     : "";
+  // The second script tests the retained objects themselves. An entry with
+  // no packaged base has this script alone.
+  const objectsRel = retainedObjectsScriptEligibility(listing).eligible
+    ? `${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}`
+    : "";
+  const objectsRun = OBJECTS_SCRIPT_RUNS.has(listing.identity.id)
+    ? `The Catalog ran it on a local cluster, and <a href="${siteHref}/${OBJECTS_SCRIPT_RUN_LOG}">the log</a> shows the run.`
+    : "The Catalog has no recorded run of this script.";
+  const objectsHtml = !objectsRel
+    ? ""
+    : scriptHtml
+      ? `<p><strong>Test the plain objects.</strong> <a href="${siteHref}/${objectsRel}">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. ${objectsRun}</p>`
+      : `<p><strong>Test the plain objects yourself.</strong> <a href="${siteHref}/${objectsRel}">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. ${objectsRun}</p>`;
   // The two-cluster comparison with plain Helm, where one is recorded for
   // this exact chart, version and base. The rows are read once.
   entryPlanHtml.parityRows ??= parseCsv(readFileSync(join(repoRoot, "data/live-kind-parity/summary.csv"), "utf8"));
@@ -16106,7 +16152,7 @@ function entryPlanHtml(listing, siteHref) {
       ? `<p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched.${parityReceipt}</p>`
       : `<p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as ${escapeHtml(parity.result)}${parity.reason ? `, with the reason "${escapeHtml(parity.reason)}"` : ""}.${parityReceipt}</p>`;
   // An entry with no step, no script and no comparison has nothing to show.
-  if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !parityHtml) return "";
+  if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !objectsHtml && !parityHtml) return "";
   const lifecycleLog = LIFECYCLE_RUN_LOGS.get(listing.identity.id);
   const lifecycleHtml = lifecycleLog
     ? `<p><strong>Upgrade and delete.</strong> The Catalog carried out this entry's upgrade and delete steps by hand on a local cluster, and <a href="${siteHref}/${lifecycleLog}">the log</a> has every line.</p>`
@@ -16114,7 +16160,8 @@ function entryPlanHtml(listing, siteHref) {
   return `<details class="entry-inputs" data-entry-plan="${escapeHtml(listing.identity.id)}">
         <summary>This entry's plan, and how to test it</summary>
         ${stepsHtml}
-        ${scriptHtml}${lifecycleHtml ? `
+        ${scriptHtml}${objectsHtml ? `
+        ${objectsHtml}` : ""}${lifecycleHtml ? `
         ${lifecycleHtml}` : ""}
         ${parityHtml}
         <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>

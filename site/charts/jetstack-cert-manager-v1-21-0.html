@@ -619,6 +619,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest. Who: whatever applies the objects. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> 6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check. Who: operator. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/jetstack-cert-manager-v1-21-0/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -718,6 +719,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/jetstack-cert-manager-v1-21-0/crds-enabled/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
