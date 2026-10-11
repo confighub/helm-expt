@@ -300,3 +300,43 @@ export function planDisagreements({ record, documents }) {
   }
   return problems;
 }
+
+// The bundles below were published before this rule. Their bytes are fixed in
+// a registry, so they keep the companion files they were published with. A
+// name stays here only while its publication receipt exists. Republishing one
+// under the rule means removing its name.
+export const PUBLISHED_BEFORE_THE_PLAN_RULE = new Set([
+  "catalog-argo-cd-argo-cd-9.5.15-default",
+  "catalog-argo-cd-argo-events-2.4.21-default",
+  "catalog-argo-cd-argo-rollouts-2.40.9-default",
+  "catalog-argo-cd-argocd-image-updater-1.2.2-default",
+  "catalog-aws-controllers-k8s-ec2-chart-1.18.4-default",
+  "catalog-aws-controllers-k8s-ec2-chart-1.18.4-eks-inference",
+  "catalog-aws-controllers-k8s-eks-chart-1.16.3-default",
+  "catalog-aws-controllers-k8s-eks-chart-1.16.3-eks-inference",
+  "catalog-aws-controllers-k8s-iam-chart-1.7.3-default",
+  "catalog-aws-controllers-k8s-iam-chart-1.7.3-eks-inference",
+  "catalog-external-dns-external-dns-1.21.1-default",
+  "catalog-external-secrets-external-secrets-2.5.0-default",
+  "catalog-external-secrets-external-secrets-2.8.0-default",
+  "catalog-grafana-alloy-1.11.0-default",
+  "catalog-grafana-alloy-1.8.2-default",
+  "catalog-jetstack-cert-manager-v1.20.2-default",
+  "catalog-jetstack-cert-manager-v1.21.0-default",
+  "catalog-karpenter-karpenter-1.14.0-default",
+  "catalog-karpenter-karpenter-1.14.0-eks-inference",
+  "catalog-linkerd-linkerd-crds-1.8.0-default",
+  "catalog-minio-operator-operator-7.1.1-default",
+  "catalog-nats-nack-0.34.0-default",
+  "catalog-prometheus-community-prometheus-operator-crds-29.0.0-default",
+  "catalog-rook-release-rook-ceph-v1.19.5-default",
+  "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default",
+  "catalog-strimzi-strimzi-kafka-operator-1.0.0-default",
+  // These five are built by their own functions in the receipt generator, and
+  // were also published before the rule.
+  "catalog-gatekeeper-gatekeeper-3.22.2-default",
+  "catalog-jetstack-cert-manager-v1.21.0-crds-enabled",
+  "catalog-projectcalico-tigera-operator-v3.32.0-default",
+  "catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal",
+  "catalog-traefik-traefik-41.0.2-default",
+]);

@@ -26,6 +26,7 @@ import {
   isPlanStepRole,
   isRenderRouteRole,
   planDisagreements,
+  PUBLISHED_BEFORE_THE_PLAN_RULE,
 } from "./lib/catalog-bundle-plan.mjs";
 
 const mode = process.argv[2] ?? "--verify";
@@ -435,10 +436,13 @@ function verifyPlan(name, receipt, readInputs = readPlanInputs) {
     if (planFiles.length > 0)
       refuse(name, `the bundle ships ${planFiles[0].path}, which is written from a record, and its receipt names no record`);
     if (!coveredByPlanRule(receipt)) return { planned: 0, steps: 0, beforeRule: 0 };
-    if (spec.bundle.manifestDigest) return { planned: 0, steps: 0, beforeRule: 1 };
+    // Being published is not enough. Only the bundles named as published
+    // before the rule are excused, so a later bundle cannot lose its plan and
+    // still be admitted.
+    if (spec.bundle.manifestDigest && PUBLISHED_BEFORE_THE_PLAN_RULE.has(receipt.metadata?.name)) return { planned: 0, steps: 0, beforeRule: 1 };
     refuse(
       name,
-      "an unpublished flatten-with-routes bundle must carry the plan its record names, and its receipt names no record. Only a bundle published before the plan rule keeps the files it was published with.",
+      "a flatten-with-routes bundle must carry the plan its record names, and its receipt names no record. Only a bundle named as published before the plan rule keeps the files it was published with.",
     );
   }
   if (!coveredByPlanRule(receipt))
