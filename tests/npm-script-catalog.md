@@ -10,14 +10,14 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 1169
+scripts: 1170
 ```
 
 ## By Category
 
 | Chain role | Scripts |
 | --- | ---: |
-| `not-a-gate` | 613 |
+| `not-a-gate` | 614 |
 | `in-verify-chain` | 502 |
 | `gate-shaped-outside-chain` | 54 |
 
@@ -39,8 +39,8 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 | `confighub-proof` | 23 |
 | `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
+| `scale-proof` | 9 |
 | `local-live-evidence` | 8 |
-| `scale-proof` | 8 |
 | `user-install-verification` | 7 |
 | `oci-evidence` | 6 |
 | `oci-inspection` | 4 |
@@ -53,7 +53,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 490 |
+| `verify` | 491 |
 | `generate-or-run` | 423 |
 | `run` | 162 |
 | `self-test` | 84 |
@@ -64,7 +64,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 1097 |
+| `none-for-verify` | 1098 |
 | `confighub-or-live-cluster` | 28 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |
