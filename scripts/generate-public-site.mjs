@@ -8115,7 +8115,7 @@ ${moved.verify}    <section aria-labelledby="verify-routing">
         <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
         <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
       </ol>
-      <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+      <p>These four commands cover the shapes listed above them. A release, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
     </section>
 `,
   });
@@ -9705,14 +9705,26 @@ Variants:
 function ociHtml(catalog) {
   const shapeRows = [
     ["Installer / source package OCI", "Not named; a multi-file OCI image (<code>installer.yaml</code>, presets, <code>records/</code>)", "<code>installer.yaml</code> plus preset configs plus <code>records/</code> (source-and-intent and Helm-render-intent files)", "The catalog publisher, with <code>npm run installer-oci:publish</code>", "<code>cub installer setup --pull</code>, <code>cub installer inspect</code>", "Google Artifact Registry, public read", "Yes: a dedicated Google service account, Sigstore keyless"],
-    ["Literal configuration bundle (upload layout)", "Not named", "Kubernetes YAML in a tar layer, or in one layer for each file; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
-    ["Portable deployment bundle (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
-    ["ConfigHub release bundle (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
-    ["Certified bundle", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload oci://…</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
+    ["Upload layout (literal configuration)", "Not named", "Kubernetes YAML in a tar layer, or in one layer for each file; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
+    ["Rendered objects (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
+    ["Release (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
+    ["Bundle (certified bundle)", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload oci://…</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
     ["Bundle receipt (referrer record)", "<code>application/vnd.confighub.record.v1+json</code>", "One JSON record, attached to the bundle's manifest digest as a referrer", "The same command that pushes the bundle it describes", "<code>cub config verify</code>, <code>oras discover</code>", "The same registry as the bundle it describes", "Not stated separately from the bundle"],
     ["Stack index", "An OCI image index; no dedicated type named", "Entries are component bundles by digest; the manifest and check verdict attach to the index digest", "<code>cub stack publish &lt;name&gt; --out oci://…</code>", "Today: the Catalog itself. Planned: <code>cub stack sandbox oci://…index@sha256:…</code>", "Wherever <code>--out oci://…</code> points", "Not stated; the verdict is a record, not a signature"],
     ["Stack release (flattened stack image)", "Not named", "The whole stack rendered into one manifest, not an index", "<code>cub stack sandbox &lt;name&gt; --out oci://…</code>", "A reconciler; it pulls one manifest", "Wherever <code>--out oci://…</code> points", "Not stated"],
     ["Runtime image OCI", "Not named", "Not detailed in these docs", "Not named; built outside this catalog", "Kubernetes, as the workload it runs", "Not discussed in these docs", "Not addressed by this catalog's signing scheme"],
+  ];
+  // Whether each shape carries a plan, in the order of shapeRows.
+  const shapePlanCells = [
+    "Yes, as the files under its <code>prerequisites/</code> directory",
+    "Only when the artifact holds plan documents",
+    "No",
+    "Not stated",
+    "Where the entry needs one",
+    "No. It is a record.",
+    "Not stated",
+    "Not stated",
+    "No",
   ];
   const digestRows = [
     ["Base-revision digest", "The complete base record, including source inputs and processing context", "A Helm variant-revision digest, or an AICR platform-index digest"],
@@ -9723,10 +9735,10 @@ function ociHtml(catalog) {
   ];
   const signingRows = [
     ["Installer / source package OCI", "Yes", "Sigstore keyless cosign, a dedicated Google service account identity"],
-    ["Literal configuration bundle", "Not stated", "Not discussed in these docs"],
-    ["Portable deployment bundle", "Not stated", "Not discussed in these docs"],
-    ["ConfigHub release bundle", "Not stated", "Not discussed in these docs"],
-    ["Certified bundle", "Open item", "Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts"],
+    ["Upload layout", "Not stated", "Not discussed in these docs"],
+    ["Rendered objects", "Not stated", "Not discussed in these docs"],
+    ["Release", "Not stated", "Not discussed in these docs"],
+    ["Bundle", "Open item", "Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts"],
     ["Bundle receipt (referrer record)", "Not stated separately", "Not discussed in these docs"],
     ["Stack index", "Not stated", "The check verdict is a record, not a signature"],
     ["Stack release", "Not stated", "Not discussed in these docs"],
@@ -9750,10 +9762,12 @@ function ociHtml(catalog) {
 <main>
   <section aria-labelledby="shapes">
     <h2 id="shapes">1. Tell the OCI shapes apart, and match each to its consumer</h2>
+    <p><strong>OCI is at both ends.</strong> A bundle in the Catalog is an OCI artifact that is ready to be uploaded and used. A release from ConfigHub is an OCI artifact that is ready to run.</p>
+    <p>This page keeps the word bundle for the first of those. A bundle holds the flattened objects of one entry and their record. It carries a plan where the entry needs one. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines it.</p>
     <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus a plan and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
     <p>The consumer still decides what runs. <code>cub installer</code> renders the objects, and ConfigHub stores and changes the records. Argo CD or Flux reconciles them, a cloud controller provisions infrastructure, and a model server answers inference requests.</p>
-    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
-    <p>The literal upload bundle and the portable deployment bundle can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
+    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. The table below calls the last three an upload layout, rendered objects and a release. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
+    <p>An upload layout and rendered objects can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
     <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, and a rendered OCI holds one chosen result. A ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
     <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
     <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, and a Space release holds one selected and reviewed configuration. An installer-package URL is never a Space-release URL.</p>
@@ -9761,9 +9775,9 @@ function ociHtml(catalog) {
     <h3 id="shapes-table">Nine shapes, side by side</h3>
     <p>Every claim in this table cites its own source doc. Where a fact is missing, the cell says so instead of guessing.</p>
     ${markdownLikeTable([
-      ["Shape", "Media type", "Layout", "Producer", "Consumer", "Registry", "Signed by"],
-      ...shapeRows,
-    ], { rawColumns: [0, 1, 2, 3, 4, 5, 6] })}
+      ["Shape", "Media type", "Layout", "Producer", "Consumer", "Registry", "Signed by", "Carries a plan"],
+      ...shapeRows.map((row, index) => [...row, shapePlanCells[index]]),
+    ], { rawColumns: [0, 1, 2, 3, 4, 5, 6, 7] })}
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
