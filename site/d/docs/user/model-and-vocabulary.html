@@ -541,8 +541,16 @@
 
 <h2 id="the-model-in-five-words">The model in five words</h2>
 <p><b>Pack → Recipe → Bundle → Variant → Deployment</b></p>
-<p>Source configuration is modelled as packs and recipes. A generator turns one recipe into one bundle.</p>
-<table><thead><tr><th></th><th>What it is</th><th>How many</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Pack</b></td><td>Your overrides, laid over a source. The source is what a provider publishes, such as a chart or NVIDIA's AICR catalog.</td><td>One or more for a source</td><td>For Helm, the values behind each preset, kept under <code>recipes/</code>. For AICR, a data pack.</td></tr>
+<p>Source configuration is modelled as packs and recipes. A generator turns one recipe into one bundle. Pack is short for data pack, which is NVIDIA's term for the same thing in AICR.</p>
+<p>A source catalog comes first, and the five words start after it. A source catalog is what a provider publishes, such as a Helm repository of charts, NVIDIA's AICR catalog or a Kubara catalog. It is the provider's. The five words are what you hold.</p>
+<p><b>A data pack goes in. A generator runs once. A bundle comes out. Everything after that stays data.</b></p>
+<table><thead><tr><th></th><th>Data or code</th><th>Whose</th></tr></thead><tbody><tr><td>Source catalog</td><td>Code and defaults, such as templates, a command-line tool or a built-in catalog</td><td>The provider's</td></tr>
+<tr><td>Data pack</td><td>Data</td><td>Yours</td></tr>
+<tr><td>Recipe</td><td>Data</td><td>Yours, and pinned</td></tr>
+<tr><td>Generator</td><td>Code. It runs once.</td><td>The provider's tool</td></tr>
+<tr><td>Bundle, variant, deployment</td><td>Data</td><td>Yours</td></tr></tbody></table>
+<p>A Helm chart's templates are code and a values file is data, so a values file is a data pack over a chart. The generator is the only place where code runs. ConfigHub works on what comes out of it.</p>
+<table><thead><tr><th></th><th>What it is</th><th>How many</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Pack</b></td><td>A data pack. Your overrides, written as data and laid over an item in a source catalog.</td><td>One or more for a source</td><td>For Helm, the values behind each preset, kept under <code>recipes/</code>. For AICR, a data pack.</td></tr>
 <tr><td><b>Recipe</b></td><td>One pinned choice made from a source and its pack.</td><td>Many for a source</td><td>In the Catalog's record.</td></tr>
 <tr><td><b>Bundle</b></td><td>The flattened objects, the plan, and the record of how they were made, for one recipe.</td><td>One for a recipe</td><td>In this repository, and in OCI where one is published.</td></tr>
 <tr><td><b>Variant</b></td><td>A reviewed change to a bundle for one environment, region or customer.</td><td>Many for a bundle</td><td>In ConfigHub.</td></tr>
@@ -663,8 +671,8 @@ lifecycle handling
 <tr><td><b>Render</b></td><td>Helm's materialization step. It produces exact Kubernetes objects but does not apply them.</td></tr>
 <tr><td><b>Helm render intent</b></td><td>The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render.</td></tr>
 <tr><td><b>Helm render variant</b></td><td>The captured object output for one base and revision, linked to its intent and digest.</td></tr></tbody></table>
-<h3 id="pack">Pack</h3>
-<p><b>A pack is your overrides, laid over a source.</b> It is versioned, and one source can have several.</p>
+<h3 id="data-pack">Data pack</h3>
+<p><b>A data pack is your overrides, written as data and laid over a source catalog.</b> It is versioned, and one source can have several. This page also calls it a pack.</p>
 <table><thead><tr><th>Format</th><th>What its pack is</th></tr></thead><tbody><tr><td>Helm</td><td>The values behind each named preset of a chart. They are kept under <code>recipes/</code>.</td></tr>
 <tr><td>AICR</td><td>A data pack, which adds overlays, components or validators to NVIDIA's built-in catalog.</td></tr>
 <tr><td>Timoni</td><td>The typed values for a module.</td></tr>

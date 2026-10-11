@@ -4880,7 +4880,7 @@ function configHtml(catalog) {
     <p class="stage-flow"><strong>Pack &rarr; Recipe &rarr; Bundle &rarr; Variant &rarr; Deployment</strong></p>
     ${markdownLikeTable([
       ["Word", "What it is", "For the GPU Operator"],
-      ["Pack", "Your overrides, laid over a source.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
+      ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
       ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
       ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept with its plan.", "24 objects and three plan documents."],
       ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],

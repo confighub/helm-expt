@@ -11,11 +11,32 @@ the rules in full.
 **Pack → Recipe → Bundle → Variant → Deployment**
 
 Source configuration is modelled as packs and recipes. A generator turns one
-recipe into one bundle.
+recipe into one bundle. Pack is short for data pack, which is NVIDIA's term
+for the same thing in AICR.
+
+A source catalog comes first, and the five words start after it. A source
+catalog is what a provider publishes, such as a Helm repository of charts,
+NVIDIA's AICR catalog or a Kubara catalog. It is the provider's. The five
+words are what you hold.
+
+**A data pack goes in. A generator runs once. A bundle comes out. Everything
+after that stays data.**
+
+| | Data or code | Whose |
+| --- | --- | --- |
+| Source catalog | Code and defaults, such as templates, a command-line tool or a built-in catalog | The provider's |
+| Data pack | Data | Yours |
+| Recipe | Data | Yours, and pinned |
+| Generator | Code. It runs once. | The provider's tool |
+| Bundle, variant, deployment | Data | Yours |
+
+A Helm chart's templates are code and a values file is data, so a values file
+is a data pack over a chart. The generator is the only place where code runs.
+ConfigHub works on what comes out of it.
 
 | | What it is | How many | Where it lives |
 | --- | --- | --- | --- |
-| **Pack** | Your overrides, laid over a source. The source is what a provider publishes, such as a chart or NVIDIA's AICR catalog. | One or more for a source | For Helm, the values behind each preset, kept under `recipes/`. For AICR, a data pack. |
+| **Pack** | A data pack. Your overrides, written as data and laid over an item in a source catalog. | One or more for a source | For Helm, the values behind each preset, kept under `recipes/`. For AICR, a data pack. |
 | **Recipe** | One pinned choice made from a source and its pack. | Many for a source | In the Catalog's record. |
 | **Bundle** | The flattened objects, the plan, and the record of how they were made, for one recipe. | One for a recipe | In this repository, and in OCI where one is published. |
 | **Variant** | A reviewed change to a bundle for one environment, region or customer. | Many for a bundle | In ConfigHub. |
@@ -310,10 +331,11 @@ then retain reviewed changes as variants that can be promoted and delivered.**
 | **Helm render intent** | The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render. |
 | **Helm render variant** | The captured object output for one base and revision, linked to its intent and digest. |
 
-### Pack
+### Data pack
 
-**A pack is your overrides, laid over a source.** It is versioned, and one
-source can have several.
+**A data pack is your overrides, written as data and laid over a source
+catalog.** It is versioned, and one source can have several. This page also
+calls it a pack.
 
 | Format | What its pack is |
 | --- | --- |

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `d877636c76`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `525abc018d`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 489 |
-| Fresh (no linked source newer than the doc) | 67 |
-| **Review-due** | 94 |
+| Fresh (no linked source newer than the doc) | 68 |
+| **Review-due** | 93 |
 | No linked evidence sources (cannot auto-trigger) | 328 |
 
 ## Review queue
@@ -78,7 +78,6 @@ most recently changed triggers.
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 62 | `data/aicr-version-diff/summary.md (2026-10-09)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
-| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-09 | 61 | `data/certified-bundles/summary.md (2026-10-09)`<br>`tests/doctrine.md (2026-09-02)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-08-15 | 55 | `data/chart-use-guide/summary.md (2026-10-09)`<br>`data/master-catalog-matrix/matrix.html (2026-10-09)`<br>`data/outcome-evidence-contract/summary.md (2026-10-09)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.md) | demo | 2026-08-22 | 48 | `data/aicr-version-diff/summary.md (2026-10-09)`<br>`data/aicr-v0-19-0-nested-sources/summary.md (2026-10-08)` |
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
