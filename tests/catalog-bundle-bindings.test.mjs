@@ -133,9 +133,12 @@ test("the bound bundle object count must match the selected configuration", () =
   assert.equal(findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), altered), null);
 });
 
-test("an unpublished bundle built under the plan rule gives its record only the route files written from the render", () => {
+test("a bundle built under the plan rule gives its record only the route files written from the render", () => {
   const argo = record("argo-cd-argo-cd-10-1-3-default");
-  assert.equal(findCatalogBundleBinding(argo, candidates), null, "the bundle is not published");
+  // This bundle was published on 2026-10-11, so it also binds to its record.
+  const binding = findCatalogBundleBinding(argo, candidates);
+  assert.match(binding.ociRef, /catalog-argo-cd-argo-cd-10-1-3-default/);
+  assert.ok(binding.requirementFiles.some((file) => file.path.endsWith("/target-requirements.yaml")));
   const plan = findCatalogBundlePlan(argo, candidates);
   assert.equal(plan.receipt, "data/certified-bundles/receipts/catalog/argo-cd-10.1.3-default/receipt.yaml");
   assert.deepEqual(plan.renderRoutes.map((file) => file.path), [
