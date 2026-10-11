@@ -646,7 +646,28 @@ lifecycle handling
 <tr><td>AICR</td><td>A data pack, which adds overlays, components or validators to NVIDIA's built-in catalog.</td></tr>
 <tr><td>Timoni</td><td>The typed values for a module.</td></tr>
 <tr><td>Literal OCI, plain YAML</td><td>There is none. Nothing is overridden.</td></tr></tbody></table>
+<p>A pack holds presets. A Helm recipe is the chart plus one preset. One chart version has one installer package, so three presets in it give three recipes and three bundles. The ECK operator chart 3.4.0 is a real case.</p>
+<pre><code>1 chart version, eck-operator 3.4.0
+  1 pack, its installer package
+    preset &quot;default&quot;   -&gt; recipe -&gt; bundle
+    preset &quot;ha&quot;        -&gt; recipe -&gt; bundle
+    preset &quot;no-crds&quot;   -&gt; recipe -&gt; bundle
+                                    each bundle can have variants in ConfigHub</code></pre>
+<p>AICR has the same shape under other names.</p>
+<table><thead><tr><th></th><th>The pack</th><th>One item in it</th><th>What picks an item</th></tr></thead><tbody><tr><td>Helm, in the Catalog</td><td>Installer package</td><td>Preset</td><td>The base name</td></tr>
+<tr><td>AICR</td><td>Data pack</td><td>Overlay</td><td>The criteria</td></tr></tbody></table>
+<p>An AICR recipe can use several overlays at once, because they stack. A source can also have more than one pack, such as NVIDIA's catalog with a company pack laid over it.</p>
 <p>No Catalog entry is built from an AICR data pack today.</p>
+<h3 id="pack-or-variant">Pack or variant</h3>
+<p><b>A pack changes what gets made. A variant changes what was made.</b></p>
+<table><thead><tr><th>Change</th><th>Where it goes</th><th>Why</th></tr></thead><tbody><tr><td>Turn a component or a subchart on or off</td><td>Pack</td><td>It changes which objects exist, and only the source's processor can do that.</td></tr>
+<tr><td>Add your own component, or a GPU type the provider does not list</td><td>Pack</td><td>The same reason. This is what an AICR data pack is for.</td></tr>
+<tr><td>A default shared by every cluster, such as a registry mirror</td><td>Pack</td><td>It is one input used by many recipes.</td></tr>
+<tr><td>A choice the provider locks, such as an AICR profile</td><td>Pack</td><td>AICR refuses the change after the bundle is made.</td></tr>
+<tr><td>Replicas, limits or a storage class for one environment</td><td>Variant</td><td>The objects stay and a field changes. The change needs review and promotion.</td></tr>
+<tr><td>The difference between staging and production</td><td>Variant</td><td>The same reason.</td></tr></tbody></table>
+<p>A pack also carries you to a new upstream version. You make the new bundle from the new source and the same pack, and then promote it to the variants.</p>
+<p>The line is less sharp for AICR. An AICR bundle is a set of Argo CD Applications with chart values written inside them, so a variant can change a value that Argo CD renders later.</p>
 <h3 id="recipe">Recipe</h3>
 <p><b>A recipe is the pinned inputs that produce one base.</b> Every format has one. A recipe is inputs. It is not the configuration they produce, which is the base.</p>
 <table><thead><tr><th>Format</th><th>What its recipe holds</th></tr></thead><tbody><tr><td>Helm</td><td>The chart, its version, the values, the named presets and the declared lifecycle choices.</td></tr>

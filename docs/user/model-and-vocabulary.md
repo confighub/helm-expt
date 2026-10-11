@@ -259,7 +259,51 @@ source can have several.
 | Timoni | The typed values for a module. |
 | Literal OCI, plain YAML | There is none. Nothing is overridden. |
 
+A pack holds presets. A Helm recipe is the chart plus one preset. One chart
+version has one installer package, so three presets in it give three recipes
+and three bundles. The ECK operator chart 3.4.0 is a real case.
+
+```text
+1 chart version, eck-operator 3.4.0
+  1 pack, its installer package
+    preset "default"   -> recipe -> bundle
+    preset "ha"        -> recipe -> bundle
+    preset "no-crds"   -> recipe -> bundle
+                                    each bundle can have variants in ConfigHub
+```
+
+AICR has the same shape under other names.
+
+| | The pack | One item in it | What picks an item |
+| --- | --- | --- | --- |
+| Helm, in the Catalog | Installer package | Preset | The base name |
+| AICR | Data pack | Overlay | The criteria |
+
+An AICR recipe can use several overlays at once, because they stack. A source
+can also have more than one pack, such as NVIDIA's catalog with a company pack
+laid over it.
+
 No Catalog entry is built from an AICR data pack today.
+
+### Pack or variant
+
+**A pack changes what gets made. A variant changes what was made.**
+
+| Change | Where it goes | Why |
+| --- | --- | --- |
+| Turn a component or a subchart on or off | Pack | It changes which objects exist, and only the source's processor can do that. |
+| Add your own component, or a GPU type the provider does not list | Pack | The same reason. This is what an AICR data pack is for. |
+| A default shared by every cluster, such as a registry mirror | Pack | It is one input used by many recipes. |
+| A choice the provider locks, such as an AICR profile | Pack | AICR refuses the change after the bundle is made. |
+| Replicas, limits or a storage class for one environment | Variant | The objects stay and a field changes. The change needs review and promotion. |
+| The difference between staging and production | Variant | The same reason. |
+
+A pack also carries you to a new upstream version. You make the new bundle
+from the new source and the same pack, and then promote it to the variants.
+
+The line is less sharp for AICR. An AICR bundle is a set of Argo CD
+Applications with chart values written inside them, so a variant can change a
+value that Argo CD renders later.
 
 ### Recipe
 
