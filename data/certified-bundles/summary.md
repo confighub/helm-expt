@@ -9,6 +9,58 @@ One receipt shape covers a bundle from every producer. These four reference rece
 | config-workshop-catalog | jetstack-cert-manager-v1.21.0-crds-enabled | cert-manager v1.21.0 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | gatekeeper-gatekeeper-3.22.2-default | gatekeeper 3.22.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | projectcalico-tigera-operator-v3.32.0-default | tigera-operator v3.32.0 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest` | flatten-with-routes | certified |
+| config-workshop-catalog | argo-cd-argo-cd-10.7.0-default | argo-cd 10.7.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | argo-cd-argo-cd-10.7.0-no-crds | argo-cd 10.7.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v0-20-0 | aws-ebs-csi-driver 2.59.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0 | aws-ebs-csi-driver 2.59.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-default | aws-ebs-csi-driver 2.59.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | cloudnative-pg-cloudnative-pg-0.29.0-default | cloudnative-pg 0.29.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | cloudpirates-nginx-0.16.1-default | nginx 0.16.1 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | cloudpirates-rabbitmq-0.21.13-existing-secret | rabbitmq 0.21.13 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | cloudpirates-redis-0.34.11-reuse-existing-secret | redis 0.34.11 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-default | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-gpu-resources | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-aicr-eks-training | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-default | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-gpu-resources | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | eks-aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training | aws-efa-k8s-device-plugin v0.5.29 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | eks-aws-efa-k8s-device-plugin-v0.5.29-default | aws-efa-k8s-device-plugin v0.5.29 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | external-secrets-external-secrets-2.10.0-default | external-secrets 2.10.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | external-secrets-external-secrets-2.10.0-no-crds | external-secrets 2.10.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | grafana-alloy-1.12.1-default | alloy 1.12.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | jetstack-cert-manager-v1.21.1-crds-enabled | cert-manager v1.21.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | jetstack-cert-manager-v1.21.1-default | cert-manager v1.21.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0 | k8s-ephemeral-storage-metrics 1.19.2 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0 | k8s-ephemeral-storage-metrics 1.19.2 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default | k8s-ephemeral-storage-metrics 1.19.2 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training | kai-scheduler v0.14.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.14.1-default | kai-scheduler v0.14.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training | kai-scheduler v0.16.9 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.16.9-default | kai-scheduler v0.16.9 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kubeflow-kubeflow-trainer-2.2.0-aicr-eks-training-v0-20-0 | kubeflow-trainer 2.2.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kubeflow-kubeflow-trainer-2.2.0-aicr-eks-training-v1-0-0 | kubeflow-trainer 2.2.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kubeflow-kubeflow-trainer-2.2.0-default | kubeflow-trainer 2.2.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | metrics-server-metrics-server-3.14.0-default | metrics-server 3.14.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | mysql-mysql-operator-2.3.0-default | mysql-operator 2.3.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0 | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0 | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-default | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.17.1-aicr-eks-training | nodewright v0.17.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.17.1-default | nodewright v0.17.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.19.0-aicr-eks-training | nodewright v0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.19.0-default | nodewright v0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nvidia-device-plugin-0.19.3-nfd-enabled | nvidia-device-plugin 0.19.3 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | percona-psmdb-operator-1.23.0-default | psmdb-operator 1.23.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | policy-reporter-policy-reporter-3.10.0-default | policy-reporter 3.10.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | prometheus-community-kube-prometheus-stack-84.4.0-aicr-eks-training-v0-20-0 | kube-prometheus-stack 84.4.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-kube-prometheus-stack-84.4.0-aicr-eks-training-v1-0-0 | kube-prometheus-stack 84.4.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-kube-prometheus-stack-84.4.0-default | kube-prometheus-stack 84.4.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-prometheus-blackbox-exporter-11.18.0-default | prometheus-blackbox-exporter 11.18.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training | prometheus-operator-crds 28.0.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-prometheus-operator-crds-28.0.1-default | prometheus-operator-crds 28.0.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | stakater-reloader-2.2.16-default | reloader 2.2.16 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | traefik-traefik-41.4.0-default | traefik 41.4.0 | not published | flatten-with-routes | certified |
 | config-workshop-catalog | argo-cd-argo-cd-9.5.15-default | argo-cd 9.5.15 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-15-default:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | aws-controllers-k8s-ec2-chart-1.18.4-default | ec2-chart 1.18.4 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | aws-controllers-k8s-ec2-chart-1.18.4-eks-inference | ec2-chart 1.18.4 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference:latest` | flatten-with-routes | certified |

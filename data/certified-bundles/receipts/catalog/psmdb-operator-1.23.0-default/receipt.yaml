@@ -1,0 +1,129 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-percona-psmdb-operator-1.23.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://percona.github.io/percona-helm-charts/"
+        name: "psmdb-operator"
+        version: "1.23.0"
+        packageSHA256: "1b3c74e100e80a17d7333bada040116c8dfca9c7340548c3f3d6925d7574b81e"
+    evidence:
+      - "recipes/percona/psmdb-operator/1.23.0/source-lock.yaml"
+      - "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/percona/psmdb-operator/1.23.0/bases/default/upstream.yaml"
+        sha256: "3a78993717302f1bae0a460466174a9211d04eb873f105a45e39b8fc49535bab"
+        bytes: 1572031
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/percona-psmdb-operator-1.23.0-default/crd-ordering.yaml"
+        sha256: "c3fe8c2aa5a28e469e4ad1bde69e1694291d1d4694bf6b5e1bceeacf4989c85a"
+        bytes: 2069
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/psmdb-operator-1.23.0-default/space-guide.md"
+        sha256: "88c88e353acb5cfd2f8206309881057fbcda4a8e62e742303dd9f61f892fdd67"
+        bytes: 1194
+        role: "space-guide"
+    objectCount: 8
+    objectInventoryRef: "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "percona/percona-server-mongodb-operator:1.23.0"
+          pinnedBy: "tag"
+        -
+          reference: "properties:"
+          pinnedBy: "tag"
+        -
+          reference: "type: string"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "4 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/percona-psmdb-operator-1.23.0-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 4 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/percona/psmdb-operator/1.23.0/source-lock.yaml"
+      - "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/percona/psmdb-operator/1.23.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/percona/psmdb-operator/1.23.0/bases/default/upstream.yaml"

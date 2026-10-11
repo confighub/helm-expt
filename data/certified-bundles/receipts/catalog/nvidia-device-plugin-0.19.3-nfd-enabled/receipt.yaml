@@ -1,0 +1,124 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-nvidia-nvidia-device-plugin-0.19.3-nfd-enabled"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://nvidia.github.io/k8s-device-plugin"
+        name: "nvidia-device-plugin"
+        version: "0.19.3"
+        packageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+    evidence:
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled/upstream.yaml"
+        sha256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+        bytes: 65089
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/nvidia-nvidia-device-plugin-0.19.3-nfd-enabled/crd-ordering.yaml"
+        sha256: "1f9299068db3445d2350926aa2c041e6607ee71b670690b0c71c3cc92b9fec99"
+        bytes: 2001
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/nvidia-device-plugin-0.19.3-nfd-enabled/space-guide.md"
+        sha256: "5fc45363828780279aa2ef67b55cf6df52e269495c0c81ba63b86ba507efa5b9"
+        bytes: 1244
+        role: "space-guide"
+    objectCount: 26
+    objectInventoryRef: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "registry.k8s.io/nfd/node-feature-discovery:v0.17.3"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "4 object(s) carry helm.sh/hook in the committed nfd-enabled render"
+      disposition: "lifecycle route executed by the delivery runtime"
+      companionRequired: "lifecycle-job"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed nfd-enabled render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed nfd-enabled render; the chart's template-level evidence is recorded in recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed nfd-enabled render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed nfd-enabled render; the chart's template-level evidence is recorded in recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed nfd-enabled render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "3 CustomResourceDefinition(s) in the committed nfd-enabled render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/nvidia-nvidia-device-plugin-0.19.3-nfd-enabled/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed nfd-enabled render; the chart's template-level evidence is recorded in recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed nfd-enabled render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+    notes: "This base needs a companion for the 3 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml"
+      - "packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled/upstream.yaml"

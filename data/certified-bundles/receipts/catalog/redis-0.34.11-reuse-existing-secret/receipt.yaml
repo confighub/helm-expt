@@ -1,0 +1,117 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-cloudpirates-redis-0.34.11-reuse-existing-secret"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://registry-1.docker.io/cloudpirates/redis"
+        name: "redis"
+        version: "0.34.11"
+        packageSHA256: "b7677d3692b8126a34113498f1a3ff1674a69899a2fd68c9542755ad1e90845f"
+    evidence:
+      - "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+      - "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+      - "recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret/upstream.yaml"
+        sha256: "20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1"
+        bytes: 7700
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/redis-0.34.11-reuse-existing-secret/space-guide.md"
+        sha256: "abc9caff8b566caf6eb064bca34871de31911d3165d408f109d038a646339a25"
+        bytes: 1007
+        role: "space-guide"
+    objectCount: 5
+    objectInventoryRef: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 1
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        -
+          reference: "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c"
+          pinnedBy: "digest"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed reuse-existing-secret render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed reuse-existing-secret render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed reuse-existing-secret render; the chart's template-level evidence is recorded in recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed reuse-existing-secret render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed reuse-existing-secret render; the chart's template-level evidence is recorded in recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed reuse-existing-secret render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed reuse-existing-secret render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed reuse-existing-secret render; the chart's template-level evidence is recorded in recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed reuse-existing-secret render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/cloudpirates/redis/0.34.11/publication/flattening-safety-verdict-reuse-existing-secret.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+      - "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
+      - "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
+      - "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret/upstream.yaml"
