@@ -714,6 +714,12 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>kedacore/keda</code></li><li><code>version</code> is <code>2.19.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/kedacore/keda/2.19.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>keda</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="kedacore-keda-2-19-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/kedacore-keda-2-19-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 29 objects in one file.</p>
@@ -799,6 +805,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li><li>KEDA CRD managed outside this no-crds preset. kubectl apply -f &lt;keda-crds.yaml&gt; <em>Declared. Not checked on any destination.</em></li></ul>
         
+      </details>
+        <details class="entry-inputs" data-entry-plan="kedacore-keda-2-19-0-no-crds">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>After you deliver.</strong> The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods. Who: delivery workflow. <em>Seen in a recorded run.</em></li></ul>
+        
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/kedacore-keda-2-19-0/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

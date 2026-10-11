@@ -94,6 +94,13 @@ const checks = [
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
     terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.58", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
+  // An entry page shows its plan beside its steps. It must say that ConfigHub
+  // stores the plan and does not carry it out, name what the Catalog knows
+  // about each step, and link the script that tests the install steps.
+  {
+    file: "site/charts/nvidia-gpu-operator-v26-7-1.html",
+    terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html"],
+  },
   // The change-review Guide rests on one recorded run, so it must keep the
   // part that needs no account, the approval command, and the two limits a
   // reviewer has to know: one account wrote and approved, and the app never ran.

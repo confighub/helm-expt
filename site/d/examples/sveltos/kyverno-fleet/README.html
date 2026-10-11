@@ -615,6 +615,14 @@ npm run sveltos-oci-delivery:verify</code></pre>
         <ul class="entry-inputs-list"><li>Kubernetes v1.35.0 with Sveltos v1.12.0 <em>Checked in a live run.</em></li><li>SveltosCluster labeled environment=staging <em>Checked in a live run.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="sveltos-kyverno-fleet-3-8-1-staging">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three. Who: not selected. <em>Passed in a live run.</em></li></ul>
+        
+        
+        <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog retains its 1 object in one file, exactly as supplied.</p>

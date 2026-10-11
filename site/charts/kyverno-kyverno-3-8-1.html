@@ -611,6 +611,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>kyverno/kyverno</code></li><li><code>version</code> is <code>3.8.1</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/kyverno/kyverno/3.8.1/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>kyverno</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="kyverno-kyverno-3-8-1-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Around a delete.</strong> Webhook and APIService cleanup belongs to delete or rollback policy. Who: Kubernetes. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> Resource migration after upgrade must be recorded as an upgrade operation. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> Test hooks become checks, not hidden install behavior. Who: CI or operator. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> Your applier - must apply CRDs before dependent objects Who: whatever applies the objects. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> # create the required target facts (Secret/StorageClass/etc.) before apply Who: operator. <em>Seen in a recorded run.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 69 objects in one file.</p>
@@ -702,6 +710,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>Kyverno CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li></ul>
         <p>The listing records 22 of these. This list shows the first 12.</p>
+      </details>
+        <details class="entry-inputs" data-entry-plan="kyverno-kyverno-3-8-1-no-crds">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Around a delete.</strong> Your cluster - at uninstall, automatically Who: Kubernetes. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> Your cluster - at uninstall, automatically Who: Kubernetes. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> kubectl apply -f &lt;action-job&gt;; kubectl wait --for=condition=complete job/&lt;name&gt; Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> # run the chart's test/check (helm test equivalent) Who: CI or operator. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> CRD-first ordering is not needed in a base that installs no CRDs Who: whatever applies the objects. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> this base needs 22 CRDs supplied before deploy (the default base installs them for you) Who: operator. <em>Seen in a recorded run.</em></li></ul>
+        
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
