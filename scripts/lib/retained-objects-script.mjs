@@ -243,6 +243,31 @@ function moveLines(objects, group) {
 }
 
 // stepBrief: the words the entry page prints for one plan step.
+// What the script will do about each step of this entry's plan, as counts a
+// page can state. It reads the retained file the same way the script does.
+export function retainedObjectsScriptLimits({ listing, text }) {
+  const file = describeRetainedFile(text, listing.identity.id);
+  const builtFor = (listing.source?.fixedAtBuildTime ?? [])
+    .map((item) => /^namespace=(.+)$/.exec(String(item))?.[1])
+    .filter(Boolean);
+  const unplacedNamespace = file.unplaced.length > 0 ? builtFor[0] ?? "" : "";
+  const ensuredNamespaces = new Set([
+    ...[...file.namedNamespaces, unplacedNamespace].filter(Boolean),
+    ...file.definedNamespaces,
+  ]);
+  const roles = planStepRoles(listing, file, ensuredNamespaces);
+  const count = (role) => roles.filter((entry) => entry.role === role).length;
+  const order = roles.filter((entry) => entry.role === "later" && planStepTiming(entry.step) === "When you deliver").length;
+  return {
+    stop: count("stop"),
+    installAfter: count("install-after"),
+    later: count("later"),
+    done: count("done"),
+    order,
+    outsideKinds: file.outsideKinds.length,
+  };
+}
+
 export function retainedObjectsScript({ listing, text, stepBrief }) {
   const id = listing.identity.id;
   if (!NAME_PATTERN.test(String(id))) throw new Error(`${id}: the listing id cannot name a directory`);

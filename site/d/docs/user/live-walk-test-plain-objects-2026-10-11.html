@@ -1019,7 +1019,36 @@ servicemonitor.monitoring.coreos.com/k8s-ephemeral-storage-metrics created
 <h2 id="what-went-wrong">What went wrong</h2>
 <ul><li>No generated script failed. Two faults of wording were found by reading the scripts, and both were fixed in the generator. A script whose file holds only CRDs ended with &quot;The 10 CRDs of this entry's retained file were applied first&quot;, and &quot;first&quot; meant nothing there. That was fixed before that script ran. A script whose file holds one CRD said &quot;The 1 CRD were applied first&quot;. That was fixed after the walk, and no such script was run. After each fix the scripts that had already run were compared by SHA-256, and none had changed.</li><li>Two of the walk's own checks were wrong, and both are shown above. One search matched a ServiceAccount that Kubernetes ships. One filter did not drop the lines it was meant to drop.</li><li>Three commands pipe a script into <code>sed</code> or <code>grep</code>, so the exit code under them is the pipeline's. Each of those scripts has its own exit code in the same command or in the one after it.</li></ul>
 <h2 id="what-the-walk-did-not-cover">What the walk did not cover</h2>
-<ul><li>No GPU. No driver, toolkit or device-plugin workload ran.</li><li>One walk, on one machine, with one node per cluster.</li><li>Seven scripts ran, out of the 228 the site ships. The other 221 passed <code>/bin/bash -n</code> and were not run.</li><li>The scripts ran from a checkout. No script was fetched from the published site.</li><li>No script ran with <code>APPLY_CRDS=1</code>, so the case where the script replaces differing CRDs was not exercised.</li><li>No upgrade, delete or rollback step of any plan was run. Each script names those steps in its last lines and leaves them to the reader.</li><li>The walk checked that workloads started. It did not check that any of them did useful work. Valkey, Argo CD and the blackbox exporter were given no request.</li><li>Linux was not tested. The scripts fall back to <code>sha256sum</code> where <code>shasum</code> is missing, and that branch did not run.</li></ul>
+<ul><li>No GPU. No driver, toolkit or device-plugin workload ran.</li><li>One walk, on one machine, with one node per cluster.</li><li>Seven scripts ran, out of the 228 the site ships. The other 221 passed <code>/bin/bash -n</code> and were not run.</li><li>The scripts ran from a checkout. No script was fetched from the published site.</li><li>No script ran with <code>APPLY_CRDS=1</code>, so the case where the script replaces differing CRDs was not exercised.</li><li>No upgrade, delete or rollback step of any plan was run. Each script names those steps in its last lines and leaves them to the reader.</li><li>The walk checked that workloads started. It did not check that any of them did useful work. Valkey, Argo CD and the blackbox exporter were given no request.</li><li>Linux was not tested. The scripts fall back to <code>sha256sum</code> where <code>shasum</code> is missing. That branch did not run in this walk. The section below records a later run of it on macOS.</li></ul>
+<h2 id="added-later-the-same-day-the-sha256sum-branch">Added later the same day: the <code>sha256sum</code> branch</h2>
+<p>The scripts use <code>shasum</code> and fall back to <code>sha256sum</code>. This run gave one script a tool directory that holds <code>sha256sum</code> and no <code>shasum</code>, and no cluster. It used the metrics-server 3.14.0 <code>default</code> script from a checkout.</p>
+<pre><code>$ env -i HOME=&lt;work&gt; PATH=&lt;work&gt;/bin KUBECONFIG=&lt;work&gt;/no-such-kubeconfig bash -c 'command -v shasum || echo shasum-is-not-on-PATH; command -v sha256sum'
+shasum-is-not-on-PATH
+&lt;work&gt;/bin/sha256sum
+[exit 0 at 10:28:38Z]
+
+$ env -i HOME=&lt;work&gt; PATH=&lt;work&gt;/bin KUBECONFIG=&lt;work&gt;/no-such-kubeconfig bash ./try-objects.sh
+
+&gt;&gt; Fetch the retained objects into ./metrics-server-metrics-server-3-14-0-default-objects/objects.yaml
+
+&gt;&gt; Check the file against the SHA-256 in the listing
+The file matches: sha256 6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2
+
+&gt;&gt; Split the file into its 9 objects. The cluster is untouched so far
+doc-0001.yaml
+doc-0002.yaml
+doc-0003.yaml
+doc-0004.yaml
+doc-0005.yaml
+doc-0006.yaml
+doc-0007.yaml
+doc-0008.yaml
+doc-0009.yaml
+
+&gt;&gt; Check that kubectl reaches a cluster
+kubectl cannot reach a cluster. Point it at a throwaway cluster and re-run this script.
+[exit 1 at 10:28:39Z]</code></pre>
+<p>The script took the fallback, matched the SHA-256 in the listing, split the file, and stopped because it had no cluster. The <code>sha256sum</code> here is the one macOS ships. A Linux machine was still not used.</p>
 <h2 id="clean-up">Clean-up</h2>
 <p>Both clusters were deleted, and no cluster of this walk was left.</p>
 <pre><code>$ kind delete cluster --name cwtest-1011-obj-2 --kubeconfig ./kubeconfig; kind get clusters | grep cwtest-1011-obj || echo &quot;no cwtest-1011-obj cluster is left&quot;
@@ -1032,7 +1061,7 @@ no cwtest-1011-obj cluster is left
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/live-walk-test-plain-objects-2026-10-11.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#run-1-the-gpu-operator-v2633-which-has-no-other-test-script">Run 1. The GPU Operator v26.3.3, which has no other test script</a></li><li><a href="#run-2-two-entries-with-the-verdict-safe-to-flatten">Run 2. Two entries with the verdict safe-to-flatten</a></li><li><a href="#run-3-an-entry-whose-plan-has-a-step-the-script-must-stop-for">Run 3. An entry whose plan has a step the script must stop for</a></li><li><a href="#run-4-a-file-that-uses-a-kind-it-does-not-define">Run 4. A file that uses a kind it does not define</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#clean-up">Clean-up</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#run-1-the-gpu-operator-v2633-which-has-no-other-test-script">Run 1. The GPU Operator v26.3.3, which has no other test script</a></li><li><a href="#run-2-two-entries-with-the-verdict-safe-to-flatten">Run 2. Two entries with the verdict safe-to-flatten</a></li><li><a href="#run-3-an-entry-whose-plan-has-a-step-the-script-must-stop-for">Run 3. An entry whose plan has a step the script must stop for</a></li><li><a href="#run-4-a-file-that-uses-a-kind-it-does-not-define">Run 4. A file that uses a kind it does not define</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#added-later-the-same-day-the-sha256sum-branch">Added later the same day: the sha256sum branch</a></li><li><a href="#clean-up">Clean-up</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

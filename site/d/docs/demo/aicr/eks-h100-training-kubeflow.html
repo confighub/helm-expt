@@ -659,6 +659,7 @@ oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-tra
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> AICR assigned the 16 component Applications to sync waves 0 through 15. Who: not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest. Who: not selected. <em>Recorded as published.</em></li></ul>
         
         
+        <p><strong>Why there is no plain-objects test.</strong> This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no test script for it.</p>
         
         <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -744,6 +745,7 @@ fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801  aicr-eks-h100-
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target. Who: not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller. Who: not selected. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact. Who: not selected. <em>Not run.</em></li></ul>
         
         
+        <p><strong>Why there is no plain-objects test.</strong> This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no test script for it.</p>
         
         <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

@@ -592,6 +592,7 @@ timoni -n redis build redis oci://ghcr.io/stefanprodan/modules/redis -v 8.10.1 -
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../../../../sh/entries/timoni-redis-8-10-1-default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The plan names an order for the objects in 2 steps. The script applies them all at once and does not follow it. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

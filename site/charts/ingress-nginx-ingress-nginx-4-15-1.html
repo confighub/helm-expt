@@ -722,6 +722,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -816,6 +817,7 @@ a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a  ingress-nginx-
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -909,6 +911,8 @@ ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e  ingress-nginx-
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The script does not run the steps the plan names for an upgrade or a delete.</p>
+        <p><strong>Why there is no plain-objects test.</strong> This entry needs Helm when it is installed, so it has no plain-objects test.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
