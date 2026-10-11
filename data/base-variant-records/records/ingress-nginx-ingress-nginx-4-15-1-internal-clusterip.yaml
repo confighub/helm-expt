@@ -209,8 +209,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip:latest@sha256:e7fc8a67ca6d6648a79e292a43e4de68137dec6416a08c0c2852c9b5bbbe3167"
+      manifestDigest: "sha256:e7fc8a67ca6d6648a79e292a43e4de68137dec6416a08c0c2852c9b5bbbe3167"
+      layerDigest: "sha256:c6d702a7e7fe35cfde7ef2b98de1fc1a9d56e32e570eb402850a693dd3fc8915"
+      objectSetSha256: "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+      receipt: "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-internal-clusterip/receipt.yaml"
+      receiptSha256: "sha256:481a1a45b57a7c4e7ea474e5f19c7d28d842b13f4e49c8dd02e8c5213fa67b50"
+      publicationReceipt: "runs/certified-bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e88a1354de934fe8db00ed4260b2c6fdd2bdbbf5296b83a3ce5672c454d33f3f"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-internal-clusterip/hooks.yaml"
+          sha256: "sha256:92086414edb9b6206c421603bee146c3c6be3f052de28c6b772e148aa0cca146"
+          role: "route: plan-step hooks"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

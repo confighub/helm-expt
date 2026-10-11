@@ -31,7 +31,7 @@ The operator mounts kedaorg-certs as optional, starts certificate rotation, and 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-kedacore-keda-2.19.0-no-crds --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-kedacore-keda-2.19.0-no-crds --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

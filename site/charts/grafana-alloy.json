@@ -31,7 +31,7 @@
           },
           "objectCount": 7,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -107,9 +107,9 @@
             "id": "grafana-alloy-1-8-2-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/grafana-alloy-1-8-2-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml",

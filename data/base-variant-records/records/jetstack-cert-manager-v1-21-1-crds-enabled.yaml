@@ -212,8 +212,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9"
+      manifestDigest: "sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9"
+      layerDigest: "sha256:29e8f703d061c27cb252cf3afc6642c4e9888c1b406075d40351152059698c49"
+      objectSetSha256: "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+      receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.1-crds-enabled/receipt.yaml"
+      receiptSha256: "sha256:eb2b6a3fdb61ae6c9b994b47481614578cc591416f16392ca1621121cc91d8ab"
+      publicationReceipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:8e3a7dc6947ebc4309edc17dab97cb41450f90585352a899885f95a4e2b76484"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.1-crds-enabled/crd-ordering.yaml"
+          sha256: "sha256:2182ccd4e3e47918769d217f9f2b9edb760d1bf346aa34dd4a32f6153f001c58"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.1-crds-enabled/prune-protection.yaml"
+          sha256: "sha256:ca221543e2d3a984ac94e85c714463126a17b4a76abab9a04e7fa16c998dc931"
+          role: "route: resource-policy-keep"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

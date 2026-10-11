@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-metallb-metallb-0.16.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+  layerDigest: "sha256:b039abe00ca06281d83e633b74364babfcc4b845dae22bd18a005ed4c90313eb"
+  layerBytes: 20688
+  observedAt: "2026-10-11T17:51:45.201Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/webhook-certificate.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-metallb-metallb-0-16-1-default.tar.gz"

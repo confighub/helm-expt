@@ -31,7 +31,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml",
@@ -67,7 +67,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml",

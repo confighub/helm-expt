@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 13
     digest: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"

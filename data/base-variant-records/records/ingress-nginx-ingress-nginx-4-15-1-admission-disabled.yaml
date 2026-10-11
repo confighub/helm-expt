@@ -209,8 +209,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:latest@sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a"
+      manifestDigest: "sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a"
+      layerDigest: "sha256:17284e0b6e6195cc337a2d07250d6a006a0da83ba0377fa805f07b2cbdbf77dd"
+      objectSetSha256: "sha256:ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+      receipt: "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-admission-disabled/receipt.yaml"
+      receiptSha256: "sha256:dd9883b9b564e37fb3f3c7800bfb8c4691bf06899614c03ee2dbeb02f4fe5b8a"
+      publicationReceipt: "runs/certified-bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e99cc54dc42a8fad3d02c2bc9f685062a42870d28ac4b67361ede6b990ae3e85"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-admission-disabled/hooks.yaml"
+          sha256: "sha256:afb9211b751176ba23b7974e007799413edd3a365ea3c234a59282111b42ff76"
+          role: "route: plan-step hooks"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

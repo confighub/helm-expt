@@ -38,8 +38,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/external-secrets-2.10.0-default/space-guide.md"
-        sha256: "83b3fd2ae26b672c78712b2bca56d5501268c554f8c7886cf2b4f9eec365a99a"
-        bytes: 2016
+        sha256: "17c43be361bce9304121c9e2498328b0a8459544487074c6226f1a1f76d07f82"
+        bytes: 2135
         role: "space-guide"
     objectCount: 44
     objectInventoryRef: "recipes/external-secrets/external-secrets/2.10.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -67,6 +67,11 @@ spec:
         -
           reference: "ghcr.io/external-secrets/external-secrets:v2.10.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-10-0-default:latest"
+    manifestDigest: "sha256:ffc52ed91c4ebca685ef1c8a47d6127680fad743dde69aa8e30d579af0f70263"
+    layerDigest: "sha256:f5bdba540070bbf9406ee36d4eeaa16be117176545d4634830473d316d9843e1"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -141,3 +146,4 @@ spec:
       - "recipes/external-secrets/external-secrets/2.10.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/external-secrets/external-secrets/2.10.0/bases/default/upstream.yaml"
       - "data/base-variant-records/records/external-secrets-external-secrets-2-10-0-default.yaml"
+      - "runs/certified-bundles/catalog-external-secrets-external-secrets-2-10-0-default/publication-receipt.yaml"

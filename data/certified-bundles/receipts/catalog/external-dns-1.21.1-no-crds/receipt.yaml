@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/external-dns-1.21.1-no-crds/space-guide.md"
-        sha256: "cf84fe4bfb20566913d9599c64ad44e8db362bd2ab8447ecdfb1ba04cb372ad4"
-        bytes: 989
+        sha256: "d8f88e3d0f5801aa19f3fe9823731685ba7b4c7f576e5e74b2ef9c9af1e6a0f6"
+        bytes: 1100
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "registry.k8s.io/external-dns/external-dns:v0.21.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-no-crds:latest"
+    manifestDigest: "sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83"
+    layerDigest: "sha256:e35c82fc02dde9eb313148412a7aba99f455729e6361d75546455f2eab6419fd"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/external-dns/external-dns/1.21.1/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-no-crds/publication-receipt.yaml"

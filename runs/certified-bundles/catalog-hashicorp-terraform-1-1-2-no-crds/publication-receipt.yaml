@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-hashicorp-terraform-1.1.2-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/terraform-1.1.2-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+  layerDigest: "sha256:47578ed12d7c190ebbca844c3772b8ccee9f75c479a7e92c3e920d9ae69c6698"
+  layerBytes: 1727
+  observedAt: "2026-10-11T15:25:48.451Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-hashicorp-terraform-1-1-2-no-crds.tar.gz"

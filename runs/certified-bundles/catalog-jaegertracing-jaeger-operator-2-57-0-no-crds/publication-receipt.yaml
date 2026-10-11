@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-jaegertracing-jaeger-operator-2.57.0-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/jaeger-operator-2.57.0-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487"
+  layerDigest: "sha256:ffcaf0c7552ef6fa1324aba331eb2640c3c17a5a3fe56f4a5b0c022bc0dce7f2"
+  layerBytes: 3087
+  observedAt: "2026-10-11T17:51:36.419Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds.tar.gz"

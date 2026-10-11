@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 37
     digest: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
@@ -222,8 +222,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds:latest@sha256:86c94673823afbdbe27258d7565400412959dd913322b5213994aa11a7397064"
+      manifestDigest: "sha256:86c94673823afbdbe27258d7565400412959dd913322b5213994aa11a7397064"
+      layerDigest: "sha256:d7517df3bf63d3e509a3ba288545a97d227dabcba467bf77dac757fb498b272e"
+      objectSetSha256: "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+      receipt: "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-no-crds/receipt.yaml"
+      receiptSha256: "sha256:1d0e28f2b17ebe21202d839ded38525b09f16dc07b6dacf2b4d062a4c32cd3bf"
+      publicationReceipt: "runs/certified-bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:0655cb1ae12166b25dc6159b3c09033043970e3c0e098ec1596faf444ae03d94"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/target-requirements.yaml"
+          sha256: "sha256:f6e7649f9eefe3a99b6d74f6897a22dda2cf50f5429d341b1f86c843d0c63066"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

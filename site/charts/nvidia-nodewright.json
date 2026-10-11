@@ -31,7 +31,7 @@
           },
           "objectCount": 20,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 20,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nodewright/v0.19.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 18,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nodewright/v0.17.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 18,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nvidia/nodewright/v0.17.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

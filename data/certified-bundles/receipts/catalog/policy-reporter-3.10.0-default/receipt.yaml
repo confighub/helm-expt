@@ -1,0 +1,124 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-policy-reporter-policy-reporter-3.10.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://kyverno.github.io/policy-reporter"
+        name: "policy-reporter"
+        version: "3.10.0"
+        packageSHA256: "9bd9f4ab3ddd16662f8982f1c1588197346978aa2062cc9fe131c8ae70781a72"
+    evidence:
+      - "recipes/policy-reporter/policy-reporter/3.10.0/source-lock.yaml"
+      - "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/policy-reporter/policy-reporter/3.10.0/bases/default/upstream.yaml"
+        sha256: "a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10"
+        bytes: 13708
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/policy-reporter-3.10.0-default/space-guide.md"
+        sha256: "3927e725fba5d5ca3096539fa1c4cef6ba8d49737a84b1bc805188913782260d"
+        bytes: 1119
+        role: "space-guide"
+    objectCount: 8
+    objectInventoryRef: "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ghcr.io/kyverno/policy-reporter:3.10.0"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default:latest"
+    manifestDigest: "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+    layerDigest: "sha256:128801390e55224f453163c84c29779ac7d3f9b0e3a483ed863797689d232ca3"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 Secret object(s) carry data in the committed default render; a flattened bundle freezes one draw into a public artifact"
+      disposition: "external Secret reference required before certification"
+      companionRequired: "external-secret-reference"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/policy-reporter/policy-reporter/3.10.0/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/policy-reporter/policy-reporter/3.10.0/source-lock.yaml"
+      - "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/policy-reporter/policy-reporter/3.10.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/policy-reporter/policy-reporter/3.10.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-policy-reporter-policy-reporter-3-10-0-default/publication-receipt.yaml"

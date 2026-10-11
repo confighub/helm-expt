@@ -31,7 +31,7 @@
           },
           "objectCount": 5,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml",
@@ -47,9 +47,9 @@
             "id": "hashicorp-terraform-1-1-2-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/hashicorp-terraform-1-1-2-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 4,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml",

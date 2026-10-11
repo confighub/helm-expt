@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nodewright-v0-19-0-default.yaml",
-      "sha256": "sha256:5e9d1b35daef535e8549df86b16f9a5f230a09d682b8e27760372e5d194939fc",
+      "sha256": "sha256:1d2c20d0e2adc72cb6dae754a9d9a0bb5fd07b34fcbba2dcc635fdc5821092cd",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-19-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default:latest@sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:923fdfd077f38a57c0bab44125703abb8d2d31769b86ae15389533bfc39731c7"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:d313b2c0dc4de1c8dbe58a4f2c1a113e1a1923aca224d4d9cc79eeecdbdeb4aa"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:03f4d5d9ffbafa6a57183c081e9f2742fb9f6e8007da168aa879cf5643f2e424"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -345,6 +369,11 @@
       }
     ],
     "records": [
+      {
+        "name": "prune-protection.yaml",
+        "path": "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml"
+      },
       {
         "name": "nvidia-nodewright-v0-19-0-default.yaml",
         "path": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml",

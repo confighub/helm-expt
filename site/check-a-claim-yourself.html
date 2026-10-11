@@ -699,7 +699,7 @@
         <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
         <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
       </ol>
-      <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+      <p>These four commands cover the shapes listed above them. A release, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
     </section>
   </main>
 </div>

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml",
-      "sha256": "sha256:948cd5dbf221683adb4910d8d63e5668cf90dcf488549cad1a9ba1895f9351a7",
+      "sha256": "sha256:666ac4d6cb2bcba9cb07a7dcdd3bdc6770fc3cc3f737cc59f5bf83bdf17e75fa",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 10,
     "digest": "sha256:6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-no-crds:latest@sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:80dfa5e5a73d025350c7762777e3b24c08bdde1720d7599b98ba41feff3717a2"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:908067444839263fa5d18d6fdd93c0bfd18265cd1bc47c873c7c37fd1666a17f"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:fa42abc69cc67e3237d7be4d97b7da4274b9f7c3fdf27848dd2408a4f50fd135"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -480,7 +504,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 10 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

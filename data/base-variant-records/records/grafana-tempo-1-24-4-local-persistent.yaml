@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-local-persistent:latest@sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b"
+      manifestDigest: "sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b"
+      layerDigest: "sha256:aeab0cb2b6db347e6dd29596c370f7f312648eb42d985392baef831ebddce8c5"
+      objectSetSha256: "sha256:df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
+      receipt: "data/certified-bundles/receipts/catalog/tempo-1.24.4-local-persistent/receipt.yaml"
+      receiptSha256: "sha256:845ed23b9a778c83612edfd9a22f05b7aa506c201027b4487be7e2f5f37e31ac"
+      publicationReceipt: "runs/certified-bundles/catalog-grafana-tempo-1-24-4-local-persistent/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:7dd88247eaae9c072a9c88fc30e452dc41e94493cc362b6f6f2a275d92714c4b"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

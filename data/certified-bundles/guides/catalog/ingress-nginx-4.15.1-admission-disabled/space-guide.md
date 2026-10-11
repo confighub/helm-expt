@@ -31,7 +31,7 @@ Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eigh
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-ingress-nginx-ingress-nginx-4.15.1-admission-disabled --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-ingress-nginx-ingress-nginx-4.15.1-admission-disabled --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

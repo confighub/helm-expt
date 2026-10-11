@@ -33,8 +33,8 @@ spec:
         role: "route: plan-step webhook-readiness-observation"
       -
         path: "data/certified-bundles/guides/catalog/keda-2.19.0-no-crds/space-guide.md"
-        sha256: "42ce182d1881ab8f51d50ddfdffa4f7f1f7d48dfd9c990bbc12857198ff320cc"
-        bytes: 1670
+        sha256: "c1fac257519d3f6b01df1d3e87819bf233caa944f19519b46ecaea99c906bfaa"
+        bytes: 1769
         role: "space-guide"
     objectCount: 23
     objectInventoryRef: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -63,6 +63,11 @@ spec:
         -
           reference: "ghcr.io/kedacore/keda:2.19.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds:latest"
+    manifestDigest: "sha256:383c82dbee0234a0e5ebdc4a441dd4afa03dad62a25ceb772549d05f93a6f9be"
+    layerDigest: "sha256:bbc5b25e9ad1e24ddb37804f7ebe0408bbe7913125e324deda0435f39c02e0b2"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -136,3 +141,4 @@ spec:
       - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/kedacore/keda/2.19.0/bases/no-crds/upstream.yaml"
       - "data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml"
+      - "runs/certified-bundles/catalog-kedacore-keda-2-19-0-no-crds/publication-receipt.yaml"

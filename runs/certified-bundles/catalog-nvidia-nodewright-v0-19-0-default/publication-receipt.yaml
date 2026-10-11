@@ -1,0 +1,21 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nvidia-nodewright-v0.19.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+  layerDigest: "sha256:923fdfd077f38a57c0bab44125703abb8d2d31769b86ae15389533bfc39731c7"
+  layerBytes: 26352
+  observedAt: "2026-10-11T17:52:28.191Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-pre-delete.yaml"
+    - "routes/lifecycle-action-pre-upgrade.yaml"
+    - "routes/prune-protection.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nvidia-nodewright-v0-19-0-default.tar.gz"

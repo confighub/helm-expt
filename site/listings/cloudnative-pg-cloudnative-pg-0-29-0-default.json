@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
-      "sha256": "sha256:8d8115ce1692068801751eadab5d51178f8579acf79de6ec0a30b94f8f4d33b0",
+      "sha256": "sha256:2607721fc0ac571aafcac9911ea008279accfc2be6f4ca0d97b31a06e56c5fd2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default:latest@sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:fdfe2d12dc2ea7c2794bfe772366b9b18058ad4cf1ef493873de778a8d283c8d"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:106cce4a85944f35c9022efb6749732a29abdf06c67dca3566a9f28c45a471ae"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:bb6c677025c19c33c2da72cc3878f1b36e04b8f87880ccfd457f481acbb511b6"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/cloudnative-pg-0.29.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cloudnative-pg-0.29.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

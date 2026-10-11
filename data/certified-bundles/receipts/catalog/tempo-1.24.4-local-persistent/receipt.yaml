@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/tempo-1.24.4-local-persistent/space-guide.md"
-        sha256: "58a617b0fd3f15aa6c015ecd8028889a4b4652003ed351331ac0d8cc66a16f5a"
-        bytes: 973
+        sha256: "9fa03f3d26d79765b77c398259190dc0b7bffd57a84f8ba54b85dd27528b833c"
+        bytes: 1081
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.io/grafana/tempo:2.9.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-local-persistent:latest"
+    manifestDigest: "sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b"
+    layerDigest: "sha256:aeab0cb2b6db347e6dd29596c370f7f312648eb42d985392baef831ebddce8c5"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml"
       - "recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml"
       - "packages/grafana/tempo/1.24.4/bases/local-persistent/upstream.yaml"
+      - "runs/certified-bundles/catalog-grafana-tempo-1-24-4-local-persistent/publication-receipt.yaml"

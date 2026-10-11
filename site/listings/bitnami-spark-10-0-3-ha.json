@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-spark-10-0-3-ha.yaml",
-      "sha256": "sha256:5a250889fe1e06b72e2bab1e861703ba9457dd054ed31159e6d9021182d8093c",
+      "sha256": "sha256:aec32846905497b3ef46304df1e43af9de90119837966072df3ef6a65f3a7827",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-spark-10-0-3-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 10,
     "digest": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -432,7 +432,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 10 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

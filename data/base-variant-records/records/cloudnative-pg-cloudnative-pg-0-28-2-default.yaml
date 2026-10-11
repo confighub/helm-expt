@@ -242,8 +242,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-default:latest@sha256:3084b1063d8bdd88e3eedb133b10093ff54b875fe368d10105b80124396d9720"
+      manifestDigest: "sha256:3084b1063d8bdd88e3eedb133b10093ff54b875fe368d10105b80124396d9720"
+      layerDigest: "sha256:180037ce23a22eec4cfa1194520a598cef734d9bf1fe676a376c9543c97f4b8a"
+      objectSetSha256: "sha256:67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+      receipt: "data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-default/receipt.yaml"
+      receiptSha256: "sha256:f02c7a2d3416b93e70949e86075d440bee1275e9173b7e22a1968b3fe48b41c9"
+      publicationReceipt: "runs/certified-bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:32a0dfd832ce7ba8842ac71f02deb58d2a2c138f929dc99b40840ce7c8ac6db6"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/crd-ordering.yaml"
+          sha256: "sha256:d318a7f5fe45ba3d1da5f75bc11af180fe11914d145793c81c920d150cc7b788"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/prune-protection.yaml"
+          sha256: "sha256:89925706cf3904116a25bf6f44723cee2a906a43a3477b4227c0631de3a258ab"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/webhook-certificate.yaml"
+          sha256: "sha256:65ea650b61409c55caf8fbf65f87df91a4d95240462fa4ad63b01409654c5238"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

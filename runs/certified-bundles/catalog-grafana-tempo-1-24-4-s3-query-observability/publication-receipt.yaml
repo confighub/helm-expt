@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-tempo-1.24.4-s3-query-observability"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/tempo-1.24.4-s3-query-observability/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-s3-query-observability:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+  layerDigest: "sha256:34cbe4c29c144966bc5ecfa48b229e7a119c48196fff3f7a7647dec4bc980bb8"
+  layerBytes: 2702
+  observedAt: "2026-10-11T15:25:46.681Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-s3-query-observability:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-tempo-1-24-4-s3-query-observability.tar.gz"

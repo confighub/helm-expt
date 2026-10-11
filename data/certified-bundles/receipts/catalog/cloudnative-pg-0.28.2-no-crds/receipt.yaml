@@ -33,10 +33,10 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/cloudnative-pg-0.28.2-no-crds/space-guide.md"
-        sha256: "6cf60e07c4cd91b9d8239bb8d9093833afe47fb95afddfc51e6ff75807ef4c71"
-        bytes: 2188
+        sha256: "930489ba814a0952d6a8af81a8bcdae113c77a6647968e593b8be7507d9892bc"
+        bytes: 2303
         role: "space-guide"
-    objectCount: 18
+    objectCount: 11
     objectInventoryRef: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
     plan:
       record: "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
@@ -58,6 +58,11 @@ spec:
         -
           reference: "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest"
+    manifestDigest: "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+    layerDigest: "sha256:996d6dcd169a293b44e0cdfc7803a850115af641e85665c9ecc3234f638eb6c6"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -131,3 +136,4 @@ spec:
       - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds/upstream.yaml"
       - "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+      - "runs/certified-bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds/publication-receipt.yaml"

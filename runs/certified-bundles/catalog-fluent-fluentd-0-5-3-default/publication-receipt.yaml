@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-fluent-fluentd-0.5.3-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/fluentd-0.5.3-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+  layerDigest: "sha256:a54dc9351f7199cbb0b3e4618c5614cf58d63345a6b13f7de0017d5e57fc33fd"
+  layerBytes: 7388
+  observedAt: "2026-10-11T15:06:59.462Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-fluent-fluentd-0-5-3-default.tar.gz"

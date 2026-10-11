@@ -31,7 +31,7 @@
           },
           "objectCount": 14,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -47,9 +47,9 @@
             "id": "jetstack-trust-manager-v0-22-1-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-trust-manager-v0-22-1-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 13,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml",

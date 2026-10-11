@@ -31,7 +31,7 @@
           },
           "objectCount": 3,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml",

@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 10
     digest: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"

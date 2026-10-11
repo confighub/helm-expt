@@ -29,7 +29,7 @@ Without an ordering declaration, per-file Units apply in no guaranteed order, so
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

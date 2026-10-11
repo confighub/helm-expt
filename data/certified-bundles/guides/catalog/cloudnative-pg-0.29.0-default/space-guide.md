@@ -41,7 +41,7 @@ Webhook caBundle supplied by the operator after it starts. A mutating and a vali
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-cloudnative-pg-cloudnative-pg-0.29.0-default --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-cloudnative-pg-cloudnative-pg-0.29.0-default --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/istio-istiod-1-30-0-default.yaml",
-      "sha256": "sha256:50cdf0b1a051d84d9800a22d02ce6d06ef846a14b9f4009147879a2d8c889b77",
+      "sha256": "sha256:240ded0998c37eada5ad039ee815dca34a85003e40a3fcf7e5bdf811e268b6b6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/istio-istiod-1-30-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-istiod-1-30-0-default:latest@sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:2fb9654e69f1c68219e1363849fe9c0ccd169d85bd84d6275dcac75564486d3a"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:ee0e03fc838bb6c614201d84c348bcc0a245fcd9fc013119cd84759994d4cd53"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:573d7f6f90dc4b6253b51ed0306a6830a232c29f5731e7e63bfb41f05dbd50be"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/istiod-1.30.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/istiod-1.30.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

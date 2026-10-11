@@ -53,8 +53,8 @@ spec:
         role: "route: plan-step lifecycle-action-post-delete"
       -
         path: "data/certified-bundles/guides/catalog/kai-scheduler-v0.16.9-default/space-guide.md"
-        sha256: "3cd4e789dadc82bc4ce669f840f960a20db1069b962681303ae3fe1ed1e2b8c6"
-        bytes: 4610
+        sha256: "89be4dafa1e121d239ed4f8494c98920fbe0c6151115af139b835e90035af256"
+        bytes: 4724
         role: "space-guide"
     objectCount: 37
     objectInventoryRef: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/object-inventory.yaml"
@@ -103,6 +103,11 @@ spec:
         -
           reference: "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.16.9"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default:latest"
+    manifestDigest: "sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5"
+    layerDigest: "sha256:1682e8d8ed952d7c7b6c94b15b7dd19a59be57bd16e3361bb95348892b29b7b5"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -178,3 +183,4 @@ spec:
       - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/default/upstream.yaml"
       - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+      - "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default/publication-receipt.yaml"

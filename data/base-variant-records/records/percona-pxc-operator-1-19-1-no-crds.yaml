@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 4
     digest: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"

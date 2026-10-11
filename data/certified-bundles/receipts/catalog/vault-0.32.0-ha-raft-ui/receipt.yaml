@@ -33,8 +33,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/vault-0.32.0-ha-raft-ui/space-guide.md"
-        sha256: "e7bf568e123541458740c5b83907a1bacc9ae0461668438202b7d8a2a9669df4"
-        bytes: 1666
+        sha256: "db9acd1d7786f86433e0ad8184519a09dc248a6ba4b187be57c7eab68f4edffc"
+        bytes: 1770
         role: "space-guide"
     objectCount: 18
     objectInventoryRef: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"
@@ -60,6 +60,11 @@ spec:
         -
           reference: "hashicorp/vault:1.21.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-ha-raft-ui:latest"
+    manifestDigest: "sha256:4d3fbdac6cfb218d8e2e516e1ea3c365f1b3a07f89913a6c9522aa79cfa7faef"
+    layerDigest: "sha256:ed4da20022f19e838882199d95fcb4176c3f657346f45e735e69b592c0e563a2"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -133,3 +138,4 @@ spec:
       - "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
       - "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui/upstream.yaml"
       - "data/base-variant-records/records/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+      - "runs/certified-bundles/catalog-hashicorp-vault-0-32-0-ha-raft-ui/publication-receipt.yaml"

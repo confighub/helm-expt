@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-cloudnative-pg-cloudnative-pg-0.28.2-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+  layerDigest: "sha256:996d6dcd169a293b44e0cdfc7803a850115af641e85665c9ecc3234f638eb6c6"
+  layerBytes: 8278
+  observedAt: "2026-10-11T17:51:02.470Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds.tar.gz"

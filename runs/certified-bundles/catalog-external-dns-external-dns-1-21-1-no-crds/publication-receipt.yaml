@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-external-dns-external-dns-1.21.1-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/external-dns-1.21.1-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83"
+  layerDigest: "sha256:e35c82fc02dde9eb313148412a7aba99f455729e6361d75546455f2eab6419fd"
+  layerBytes: 1632
+  observedAt: "2026-10-11T15:06:57.368Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-external-dns-external-dns-1-21-1-no-crds.tar.gz"

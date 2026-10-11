@@ -264,8 +264,30 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-2-1-default:latest@sha256:c4d1b297d17bbcb0d786d698fa4ac0166019fa34fba1109c642c2d4f7c4066d0"
+      manifestDigest: "sha256:c4d1b297d17bbcb0d786d698fa4ac0166019fa34fba1109c642c2d4f7c4066d0"
+      layerDigest: "sha256:f9f8b7c6e967fc8cc723e63a38c29bb00ba7282728517a19a510b1b8bc4e7f9c"
+      objectSetSha256: "sha256:a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780"
+      receipt: "data/certified-bundles/receipts/catalog/argo-cd-10.2.1-default/receipt.yaml"
+      receiptSha256: "sha256:684559404b76b65eb33d70e6250f716c01311e9465d5d43b7ae4e3920fb1eb7e"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-cd-10-2-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:99bfe1f1dd0f613c7c6022f5b6a99cf48896d5759408332b9544987f03020c9c"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/crd-ordering.yaml"
+          sha256: "sha256:8742d8334064896be31aaee8c7164326126aa84adc0ccfef3c86af719cc8419f"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/prune-protection.yaml"
+          sha256: "sha256:c2e85df6847eda78af4fb90b8e6fddb02c7c71ffd2ee3a825248f29b1184eddf"
+          role: "route: resource-policy-keep"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/target-requirements.yaml"
+          sha256: "sha256:cd2aacb864fa96aaee38cb5c365436864deb3637eb9872d8064a3f9e3080b2f4"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

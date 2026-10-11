@@ -47,9 +47,9 @@
             "id": "elastic-logstash-8-5-1-ha",
             "url": "https://confighub.github.io/helm-expt/site/listings/elastic-logstash-8-5-1-ha.json"
           },
-          "objectCount": 0,
+          "objectCount": 3,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml",

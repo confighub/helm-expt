@@ -1,0 +1,20 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-workflows-1.0.14-minimal-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/argo-workflows-1.0.14-minimal-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc"
+  layerDigest: "sha256:92adcc58a1640a9d3b6826b7fef7496029631331e6b48c13c12a409180b3a584"
+  layerBytes: 57525
+  observedAt: "2026-10-11T17:50:56.413Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/prune-protection.yaml"
+    - "routes/self-contained-crd-base.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds.tar.gz"

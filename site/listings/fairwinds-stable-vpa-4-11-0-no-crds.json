@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml",
-      "sha256": "sha256:2e85509484ad0546f59b83ef866abee7940464ca3b4472b1e5c81840dda888e3",
+      "sha256": "sha256:da5d996dcb98bd4f0f2d09a271fa12d7bcca132971410f28a643ce7eb2d0a6fc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 26,
     "digest": "sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187",
     "digestRole": "canonical-object-set",
     "verdict": "not-assessed",
@@ -468,7 +468,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 26 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-istio-istiod-1.30.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/istiod-1.30.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-istiod-1-30-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+  layerDigest: "sha256:2fb9654e69f1c68219e1363849fe9c0ccd169d85bd84d6275dcac75564486d3a"
+  layerBytes: 17687
+  observedAt: "2026-10-11T17:51:30.064Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-istiod-1-30-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-istio-istiod-1-30-0-default.tar.gz"

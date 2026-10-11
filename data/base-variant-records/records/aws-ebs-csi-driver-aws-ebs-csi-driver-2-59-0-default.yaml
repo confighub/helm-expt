@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default:latest@sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+      manifestDigest: "sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+      layerDigest: "sha256:33ca5f4d6653833281f40dfb6413cac962a8a3939902213d24cff8c4e4ab5b6e"
+      objectSetSha256: "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1"
+      receipt: "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-default/receipt.yaml"
+      receiptSha256: "sha256:045d81085b378d341d48f3f7bd085c3bfadbf0fce0846cea33c17fb7de4796f7"
+      publicationReceipt: "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:a791a916f51fb4b20ef6c1de7440f411240c3e828e17a17a5264ffbcbcf90380"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

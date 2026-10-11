@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-ingress-nginx-ingress-nginx-4.15.1-admission-disabled"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-admission-disabled/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a"
+  layerDigest: "sha256:17284e0b6e6195cc337a2d07250d6a006a0da83ba0377fa805f07b2cbdbf77dd"
+  layerBytes: 3168
+  observedAt: "2026-10-11T17:51:26.290Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/hooks.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled.tar.gz"

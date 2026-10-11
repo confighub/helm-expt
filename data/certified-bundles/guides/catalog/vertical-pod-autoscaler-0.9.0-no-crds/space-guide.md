@@ -31,7 +31,7 @@ Secret default/vpa-tls-certs must exist before apply. Webhook serving certificat
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-autoscaler-vertical-pod-autoscaler-0.9.0-no-crds --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-autoscaler-vertical-pod-autoscaler-0.9.0-no-crds --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

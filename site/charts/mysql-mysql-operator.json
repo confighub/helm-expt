@@ -31,7 +31,7 @@
           },
           "objectCount": 13,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/mysql/mysql-operator/2.3.0/revisions/default/r001/rendered/release-objects.yaml",

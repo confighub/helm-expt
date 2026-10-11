@@ -253,8 +253,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:latest@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+      manifestDigest: "sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+      layerDigest: "sha256:a50e8d16ff19da2598f9c4d2a395b139fb028a3b4219979576225c354d0ff324"
+      objectSetSha256: "sha256:8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183"
+      receipt: "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-gpu-resources/receipt.yaml"
+      receiptSha256: "sha256:857752cfccdb56ed0dbd1eecbc4f6b36db51e3170cc1d21fa0ca425082afb52a"
+      publicationReceipt: "runs/certified-bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:ce02b6db31856d48214f8d900d404d0df914e55f5168c23da8c74e4374ea8353"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-gpu-resources/crd-ordering.yaml"
+          sha256: "sha256:e69080326a407ddd75844b3fcc5d4d1de26ae7605ca339cad9d328601573cb80"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

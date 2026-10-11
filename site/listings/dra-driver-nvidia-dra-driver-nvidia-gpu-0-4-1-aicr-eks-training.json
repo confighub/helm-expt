@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml",
-      "sha256": "sha256:c2c0e29c17abf7dfd2feb3e29cf585c1313f8a4163017032b027f843bc82855f",
+      "sha256": "sha256:92a0ec5591d8026e69d8fae221b2602003254da937f7ded1ab047e66b189dc89",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:latest@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:1e03b3183366ea1e11b5d0ef4282ec7385a3e5961514cb6c88fbdcdd0ddf9446"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:54a890016137e7e06e19dfda0edc78df549b993cde898d3caf4cca9e5e12bc09"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:4a39db883636d2380050e218f9e1a839b90db2b9ff40119efc97f4d6755d431b"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-aicr-eks-training/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-aicr-eks-training/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

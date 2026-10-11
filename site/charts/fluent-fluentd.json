@@ -31,7 +31,7 @@
           },
           "objectCount": 10,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml",

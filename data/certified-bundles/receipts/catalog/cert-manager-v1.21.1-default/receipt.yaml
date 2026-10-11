@@ -33,8 +33,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/cert-manager-v1.21.1-default/space-guide.md"
-        sha256: "af624e0085257f6806746bc9f60d61d1797bf4ff023ebc59057305a43fe35279"
-        bytes: 1776
+        sha256: "67aa90b6d77600f61896d6d4d1ccaee4bce23af342cb90ac86834f9f02080129"
+        bytes: 1884
         role: "space-guide"
     objectCount: 40
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -63,6 +63,11 @@ spec:
         -
           reference: "quay.io/jetstack/cert-manager-webhook:v1.21.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-default:latest"
+    manifestDigest: "sha256:9d819144de3afe9a941cba7ed3ffdaa4a51ce32f1f12554b9fbf8049cbfdf75d"
+    layerDigest: "sha256:f0f3cacc70e2dc4c62d8fba05907aac611432e107be43d613a725dfe019ce0c9"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -136,3 +141,4 @@ spec:
       - "recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jetstack/cert-manager/v1.21.1/bases/default/upstream.yaml"
       - "data/base-variant-records/records/jetstack-cert-manager-v1-21-1-default.yaml"
+      - "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-1-default/publication-receipt.yaml"

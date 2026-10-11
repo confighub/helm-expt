@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-workflows-1.0.14-controller-default-reviewed"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/argo-workflows-1.0.14-controller-default-reviewed/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-controller-default-reviewed:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:558a9630a97ac9c2ff32897ba07b4c1c7b02a98d5cfe9c3f453ac5f49ec0557f"
+  layerDigest: "sha256:f26660a165c4f8bd397fc4409018a5329de57dc9d4261b6bba70f0301b202a48"
+  layerBytes: 3630
+  observedAt: "2026-10-11T17:50:54.785Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/preflight-or-presync-crd-apply.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-controller-default-reviewed:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-argo-cd-argo-workflows-1-0-14-controller-default-reviewed.tar.gz"

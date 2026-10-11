@@ -43,8 +43,8 @@ spec:
         role: "route: plan-step webhook-certificate"
       -
         path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-ha/space-guide.md"
-        sha256: "d26d8817283d330f97d21c9f829961a5b8e0664589a5c4443abc6b035807c1aa"
-        bytes: 2387
+        sha256: "009e6eb3b6675be39e66e9f23c60b27c47af8dd5731048b6117e32382bc5aaee"
+        bytes: 2487
         role: "space-guide"
     objectCount: 22
     objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/object-inventory.yaml"
@@ -104,6 +104,11 @@ spec:
         -
           reference: "description: Image is the Logstash Docker image to deploy. Version"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-ha:latest"
+    manifestDigest: "sha256:1e0fb08e1bdbc381b77954fa953279e6d9067565402635553bb94c9cda45a847"
+    layerDigest: "sha256:d8974f2be0f4ccf0637471718091f25a1dff22099835e30c270de632d27abf4e"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -179,3 +184,4 @@ spec:
       - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
       - "packages/elastic/eck-operator/3.4.0/bases/ha/upstream.yaml"
       - "data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml"
+      - "runs/certified-bundles/catalog-elastic-eck-operator-3-4-0-ha/publication-receipt.yaml"

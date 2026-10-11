@@ -33,8 +33,8 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/dra-driver-nvidia-gpu-0.5.0-gpu-resources/space-guide.md"
-        sha256: "603daf1d3b857b3fc90a859d2ec44a3af312399a0ba98281e28f82eb502a8567"
-        bytes: 1688
+        sha256: "805cfe9168e7dfea0c238aef89310cfbc5947ed1a013156f4d2f437bc1f4f2f5"
+        bytes: 1818
         role: "space-guide"
     objectCount: 24
     objectInventoryRef: "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/object-inventory.yaml"
@@ -57,6 +57,11 @@ spec:
         -
           reference: "registry.k8s.io/dra-driver-nvidia/dra-driver-nvidia-gpu:v0.5.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources:latest"
+    manifestDigest: "sha256:ccd076e6ca3ff675686483e85c70c465aff36943347c5094276022fda2b90e3d"
+    layerDigest: "sha256:fef1c7b59f9119292d766d7d0bc3754a8ffa379fee199c4d063e51d754f85cd7"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -131,3 +136,4 @@ spec:
       - "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml"
       - "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/bases/gpu-resources/upstream.yaml"
       - "data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources.yaml"
+      - "runs/certified-bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources/publication-receipt.yaml"

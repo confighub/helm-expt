@@ -48,8 +48,8 @@ spec:
         role: "route: plan-step lifecycle-action-pre-delete"
       -
         path: "data/certified-bundles/guides/catalog/nodewright-v0.19.0-default/space-guide.md"
-        sha256: "2f1fa94001bfb4a4e0bd55ad3ec6543d64688e594bf21213352b51172dae177f"
-        bytes: 3488
+        sha256: "1fdb72bca6465ec557bacf440104df25d3ba45447b6489b1311755c5d1383a38"
+        bytes: 3592
         role: "space-guide"
     objectCount: 20
     objectInventoryRef: "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -93,6 +93,11 @@ spec:
         -
           reference: "ghcr.io/nvidia/nodewright/operator:v0.19.0@sha256:38e9a79125633aa633f8e499306b2219c582c6f62a7bfe4083928212e70f74a7"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default:latest"
+    manifestDigest: "sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+    layerDigest: "sha256:923fdfd077f38a57c0bab44125703abb8d2d31769b86ae15389533bfc39731c7"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -168,3 +173,4 @@ spec:
       - "recipes/nvidia/nodewright/v0.19.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/nvidia/nodewright/v0.19.0/bases/default/upstream.yaml"
       - "data/base-variant-records/records/nvidia-nodewright-v0-19-0-default.yaml"
+      - "runs/certified-bundles/catalog-nvidia-nodewright-v0-19-0-default/publication-receipt.yaml"

@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default:latest@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+      manifestDigest: "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+      layerDigest: "sha256:128801390e55224f453163c84c29779ac7d3f9b0e3a483ed863797689d232ca3"
+      objectSetSha256: "sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10"
+      receipt: "data/certified-bundles/receipts/catalog/policy-reporter-3.10.0-default/receipt.yaml"
+      receiptSha256: "sha256:21e543c04f443c32364b303ac4df5900bf4417f1ba5da02a02a6a6c2dfb4584a"
+      publicationReceipt: "runs/certified-bundles/catalog-policy-reporter-policy-reporter-3-10-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:0974b72d6a8be6a580bafa4653867ca410d31f236dd56bf99ad4415883c06df6"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -55,7 +55,7 @@ Secret default/trust-manager-tls must exist before apply. trust-manager admissio
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-jetstack-trust-manager-v0.22.1-default --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-jetstack-trust-manager-v0.22.1-default --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-default
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

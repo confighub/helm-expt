@@ -473,8 +473,33 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-default:latest@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+      manifestDigest: "sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+      layerDigest: "sha256:7ec9b07e6b3f74e3084ebb2624760ea8871fa97d0fcb7c82d423b01f3d51421a"
+      objectSetSha256: "sha256:a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46"
+      receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-default/receipt.yaml"
+      receiptSha256: "sha256:c042ddce239c539f9e36205662eb7ad89d819f9cbfbccdcd79db2cc3488fb544"
+      publicationReceipt: "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:6ba3d9810184c28579fbbe69870f7e1603210192ce121f70eda185dc7d679cb3"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-default/crd-ordering.yaml"
+          sha256: "sha256:c05ab5fcfbfe87a8723d16cf69e032ffbc6bf75e5f5c616a7910e0b1ceda5ca0"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-default/prune-protection.yaml"
+          sha256: "sha256:5e0ec16eb5081bd476cccd239a27aca782f5645fefadf1793b9b5d55cda59d09"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-default/lifecycle-action-pre-install-pre-upgrade.yaml"
+          sha256: "sha256:f9c82e0d54fc194994f166e05fe54c8e81ed45db6e365d9177ade8b701d49b66"
+          role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-default/lifecycle-action-post-delete.yaml"
+          sha256: "sha256:15f196de9cbf628759f9e067f9a7dbe0ffc1ea59a3fa8306764e55ee790e24d3"
+          role: "route: plan-step lifecycle-action-post-delete"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

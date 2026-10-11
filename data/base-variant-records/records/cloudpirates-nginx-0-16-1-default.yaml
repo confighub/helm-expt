@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-nginx-0-16-1-default:latest@sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392"
+      manifestDigest: "sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392"
+      layerDigest: "sha256:9fcbe106b90dadc6d49562623895ead8bea9178f7064f68ee221ff5b3e507fb1"
+      objectSetSha256: "sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
+      receipt: "data/certified-bundles/receipts/catalog/nginx-0.16.1-default/receipt.yaml"
+      receiptSha256: "sha256:ebae581b239ee641a03e7d05d0a954d089f25e46619157a061d092fff748d667"
+      publicationReceipt: "runs/certified-bundles/catalog-cloudpirates-nginx-0-16-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e7b615c0788a104564230b6f3718e7b7a31094b76544d32fa8d1157798a914dc"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

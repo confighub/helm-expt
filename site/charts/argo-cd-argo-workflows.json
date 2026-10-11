@@ -31,7 +31,7 @@
           },
           "objectCount": 19,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 19,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",
@@ -65,9 +65,9 @@
             "id": "argo-cd-argo-workflows-1-0-14-minimal-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-workflows-1-0-14-minimal-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 27,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml",

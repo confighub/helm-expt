@@ -401,8 +401,33 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:latest@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb"
+      manifestDigest: "sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb"
+      layerDigest: "sha256:ce774119a4136dac0b55904751cf311146b962c848fe9ca50abe42a7569ea81d"
+      objectSetSha256: "sha256:c97795fc53613bceb0e6c6080a3b225dba75152fe36ceb1a51be5d891d706baf"
+      receipt: "data/certified-bundles/receipts/catalog/nodewright-v0.19.0-aicr-eks-training/receipt.yaml"
+      receiptSha256: "sha256:855e1aa3ea1509282ea0467ed813ed9793f805a9dff9f39ad01f705185a259d0"
+      publicationReceipt: "runs/certified-bundles/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:48357c69ebfa21b8cc28f11b3dec8cbbd5a8309e6072ddc8fb35e61c2fb7122d"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/crd-ordering.yaml"
+          sha256: "sha256:b7a2781bf93b9c3fc12104b6ecb49377c2c5ecfaa9ada1d2cbac87c57d0d98a1"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/prune-protection.yaml"
+          sha256: "sha256:bd3963ef24ccc535802dc8e91442a1eac8446ec19f8d9b9d1580c05095305fa8"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/lifecycle-action-pre-upgrade.yaml"
+          sha256: "sha256:2d77c7c309aad0ee8854498c1a1f8275b33ad2935d479fa7e791479455415cca"
+          role: "route: plan-step lifecycle-action-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/lifecycle-action-pre-delete.yaml"
+          sha256: "sha256:fed40fb277790271d71d276efde0e2f5e134095104b4e313c8224caf9802f2a3"
+          role: "route: plan-step lifecycle-action-pre-delete"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

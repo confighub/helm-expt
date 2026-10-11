@@ -819,6 +819,10 @@ The word OCI covers four related artifacts in this work.
 An entry must name which kind of OCI artifact it links to. A multi-preset installer
 package is not automatically a literal configuration bundle.
 
+The [model page](../user/model-and-vocabulary.md) keeps the word bundle for the
+certified bundle. It calls the last three rows of this table an upload layout,
+rendered objects and a release.
+
 The literal upload bundle and portable deployment bundle may contain the same
 Kubernetes objects while using different OCI layer layouts. The consumer determines
 the required layout. The front door must check the package it produces with the

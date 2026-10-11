@@ -1,0 +1,20 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nvidia-nodewright-v0.17.1-aicr-eks-training"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nodewright-v0.17.1-aicr-eks-training/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-17-1-aicr-eks-training:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:f9c202986b8cfec2012a5c4e3b583a0471ed1641521390a8e5f1f3da510f4380"
+  layerDigest: "sha256:b9d08646e4e2910cfd783168b1e5f2bcd1730222eb239afe45531fbea914e578"
+  layerBytes: 14591
+  observedAt: "2026-10-11T17:52:22.788Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-pre-delete.yaml"
+    - "routes/lifecycle-action-pre-upgrade.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-17-1-aicr-eks-training:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nvidia-nodewright-v0-17-1-aicr-eks-training.tar.gz"

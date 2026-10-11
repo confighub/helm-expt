@@ -625,10 +625,10 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
   const crdNames = [...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g)].map((m) => m[1]);
   // Most variant-revision.yaml files record objectCount directly. A handful of
   // older alternate-base revisions (e.g. several no-crds bases) predate that
-  // field, so this falls back to the document count already computed from the
-  // same committed render (scanRendered's docCount), never overriding a
-  // recorded count when one exists.
-  const objectCountMatch = revision.match(/objectCount:\s*(\d+)/);
+  // field. The object inventory beside the render always states the count, so
+  // that is read next. The document count is the last resort, because a render
+  // can hold documents with no object in them.
+  const objectCountMatch = revision.match(/objectCount:\s*(\d+)/) ?? inventory.match(/objectCount:\s*(\d+)/);
   const objectCount = objectCountMatch ? Number(objectCountMatch[1]) : scan.docCount;
 
   // Which rendered objects carry the keep promise, read from the render rather
@@ -1160,6 +1160,21 @@ function buildObservedLifecycleRoute({ name, observationRel, hookDocCount, verdi
 // is absent until an observation exists to route them, which is why nvidia's
 // nfd-enabled base is not here.
 const CATALOG_BUNDLES = [
+  { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "aicr-eks-training-v0-20-0" },
+  { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "aicr-eks-training-v1-0-0" },
+  { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "default" },
+  { repo: "cloudpirates", chart: "nginx", version: "0.16.1", base: "default" },
+  { repo: "cloudpirates", chart: "rabbitmq", version: "0.21.13", base: "existing-secret" },
+  { repo: "cloudpirates", chart: "redis", version: "0.34.11", base: "reuse-existing-secret" },
+  { repo: "eks", chart: "aws-efa-k8s-device-plugin", version: "v0.5.29", base: "aicr-eks-training" },
+  { repo: "eks", chart: "aws-efa-k8s-device-plugin", version: "v0.5.29", base: "default" },
+  { repo: "k8s-ephemeral-storage-metrics", chart: "k8s-ephemeral-storage-metrics", version: "1.19.2", base: "aicr-eks-training-v0-20-0" },
+  { repo: "k8s-ephemeral-storage-metrics", chart: "k8s-ephemeral-storage-metrics", version: "1.19.2", base: "aicr-eks-training-v1-0-0" },
+  { repo: "k8s-ephemeral-storage-metrics", chart: "k8s-ephemeral-storage-metrics", version: "1.19.2", base: "default" },
+  { repo: "metrics-server", chart: "metrics-server", version: "3.14.0", base: "default" },
+  { repo: "policy-reporter", chart: "policy-reporter", version: "3.10.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-blackbox-exporter", version: "11.18.0", base: "default" },
+  { repo: "stakater", chart: "reloader", version: "2.2.16", base: "default" },
   { repo: "argo-cd", chart: "argo-cd", version: "9.5.15", base: "default" },
   { repo: "aws-controllers-k8s", chart: "ec2-chart", version: "1.18.4", base: "default" },
   { repo: "aws-controllers-k8s", chart: "ec2-chart", version: "1.18.4", base: "eks-inference" },

@@ -31,7 +31,7 @@
           },
           "objectCount": 55,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 52,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 55,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 52,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
@@ -127,7 +127,7 @@
           },
           "objectCount": 55,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml",
@@ -145,7 +145,7 @@
           },
           "objectCount": 52,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/rendered/release-objects.yaml",
@@ -175,7 +175,7 @@
           },
           "objectCount": 49,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/rendered/release-objects.yaml",
@@ -193,7 +193,7 @@
           },
           "objectCount": 46,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml",
@@ -241,7 +241,7 @@
           },
           "objectCount": 46,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml",

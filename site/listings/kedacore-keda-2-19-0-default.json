@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kedacore-keda-2-19-0-default.yaml",
-      "sha256": "sha256:ab015475c34c4b22221e04051ec3ce48e72b7ca3b84e8a3a334c344dd51c63f5",
+      "sha256": "sha256:1aaf288bb5a0966ba79e116425441ccc08c41a47a402a39826263ead1e702377",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kedacore-keda-2-19-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-default:latest@sha256:cb0a7e1f4a1b87a1d934c33fc2529e597b67a93b56fbf6cf9f78ab3d358cdfcb",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:36a85847284416a37388b84cc0ef2c01f9fc89a6a64a36bee6a4106842478931"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:71f02141c65294d9823306ba639eb4fa1ca520deae99ef2f6c73d46d110efef9"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:8251bb080993a86e126329b3310e5d4695432b3149a21ccdf16abca8ad76fb75"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:cb0a7e1f4a1b87a1d934c33fc2529e597b67a93b56fbf6cf9f78ab3d358cdfcb"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/keda-2.19.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/keda-2.19.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

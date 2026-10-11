@@ -38,8 +38,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/vertical-pod-autoscaler-0.9.0-default/space-guide.md"
-        sha256: "7464fe4d1ed33150c64a596dc581372045acb5cf84d45b75a2f141b2d21240cf"
-        bytes: 2030
+        sha256: "96e5c077756656c57dda803ff25b16a8d6331f1acb12e8f498759d98bf74deb9"
+        bytes: 2149
         role: "space-guide"
     objectCount: 39
     objectInventoryRef: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -73,6 +73,11 @@ spec:
         -
           reference: "registry.k8s.io/autoscaling/vpa-updater:1.6.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest"
+    manifestDigest: "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7"
+    layerDigest: "sha256:661bc94cb2fce3c8e194ed7bd91cdebcdbd94c8a5ebc6b9c086cb3cbd461e8a3"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -147,3 +152,4 @@ spec:
       - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default/upstream.yaml"
       - "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+      - "runs/certified-bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default/publication-receipt.yaml"

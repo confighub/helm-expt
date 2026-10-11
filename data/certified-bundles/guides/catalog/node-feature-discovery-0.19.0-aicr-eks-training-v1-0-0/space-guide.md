@@ -36,7 +36,7 @@ After a delete, remove what NFD put on the nodes. The prune Job runs nfd-master 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0 --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0 --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

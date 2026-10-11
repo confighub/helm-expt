@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-elastic-eck-operator-3.4.0-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+  layerDigest: "sha256:80dfa5e5a73d025350c7762777e3b24c08bdde1720d7599b98ba41feff3717a2"
+  layerBytes: 4581
+  observedAt: "2026-10-11T17:51:07.906Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/webhook-certificate.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-elastic-eck-operator-3-4-0-no-crds.tar.gz"

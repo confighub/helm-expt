@@ -204,8 +204,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed:latest@sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+      manifestDigest: "sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+      layerDigest: "sha256:3322ebc273238e05cf8996c9f9958fd7e08aef27f765ef6880f87ded4e3f9d52"
+      objectSetSha256: "sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
+      receipt: "data/certified-bundles/receipts/catalog/cluster-autoscaler-9.57.0-controller-default-reviewed/receipt.yaml"
+      receiptSha256: "sha256:1b4879b95a9810e849c5a0b993c673fbf26c851d8db80e793ef0b15d7c3c77d0"
+      publicationReceipt: "runs/certified-bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:80115e0e499638dddb8ea70da05e5dd892506256493ca09762ed1a0d8bbd254a"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

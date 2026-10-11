@@ -38,8 +38,8 @@ spec:
         role: "route: plan-step webhook-certificate"
       -
         path: "data/certified-bundles/guides/catalog/metallb-0.16.1-default/space-guide.md"
-        sha256: "225c6dd593af06f988880f672d7ef50492d5a9379f3d166ab03d1e007125cf72"
-        bytes: 2063
+        sha256: "b360a5bc1ced8d7d11a87594f53982052e79fa410ed1f60378a24032f7ec5bf8"
+        bytes: 2164
         role: "space-guide"
     objectCount: 42
     objectInventoryRef: "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -76,6 +76,11 @@ spec:
         -
           reference: "quay.io/metallb/speaker:v0.16.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default:latest"
+    manifestDigest: "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+    layerDigest: "sha256:b039abe00ca06281d83e633b74364babfcc4b845dae22bd18a005ed4c90313eb"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -150,3 +155,4 @@ spec:
       - "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/metallb/metallb/0.16.1/bases/default/upstream.yaml"
       - "data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml"
+      - "runs/certified-bundles/catalog-metallb-metallb-0-16-1-default/publication-receipt.yaml"

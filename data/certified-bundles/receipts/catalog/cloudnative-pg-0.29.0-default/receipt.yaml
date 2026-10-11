@@ -43,8 +43,8 @@ spec:
         role: "route: plan-step webhook-certificate"
       -
         path: "data/certified-bundles/guides/catalog/cloudnative-pg-0.29.0-default/space-guide.md"
-        sha256: "34f447d43b434e8d85127823aafe9f0c6e5392e7eb11e6be52ba348ed9466223"
-        bytes: 2385
+        sha256: "26e2b6a446efb72b437de2e750b4b2b145970fbe2822aed04bb6ae09b34209a1"
+        bytes: 2500
         role: "space-guide"
     objectCount: 22
     objectInventoryRef: "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -95,6 +95,11 @@ spec:
         -
           reference: "ghcr.io/cloudnative-pg/cloudnative-pg:1.30.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default:latest"
+    manifestDigest: "sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f"
+    layerDigest: "sha256:fdfe2d12dc2ea7c2794bfe772366b9b18058ad4cf1ef493873de778a8d283c8d"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -170,3 +175,4 @@ spec:
       - "recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/cloudnative-pg/cloudnative-pg/0.29.0/bases/default/upstream.yaml"
       - "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+      - "runs/certified-bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default/publication-receipt.yaml"

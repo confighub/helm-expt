@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
-      "sha256": "sha256:9c4b4dff2f49cdb60c77c234d455022ec9f7c3fc6fea3a5c1ab8f9e4486257d3",
+      "sha256": "sha256:247747597d888fd91ce0703b92b960210632eb7d871934bffa083792b5758e95",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training:latest@sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:ef577f35bcce79826222f281e817fa36a6d5943f6586084de0eaa835abd6c907"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:2d56ab582400d803ff764a16ecd9c3a59938628804d95d366b15ec3793409b2f"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:c9adf35f3ca47e8e44999c73e3eea55c7c8d251e8d5adb9d5dd95900bb8b7ea3"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -359,6 +383,11 @@
       }
     ],
     "records": [
+      {
+        "name": "prune-protection.yaml",
+        "path": "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml"
+      },
       {
         "name": "kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",
         "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml",

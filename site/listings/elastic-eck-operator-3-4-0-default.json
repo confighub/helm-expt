@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-eck-operator-3-4-0-default.yaml",
-      "sha256": "sha256:14787bda9c4a26154ad1465a1c816f0c4517dd381d2a993c3d81e0e3c669a8cb",
+      "sha256": "sha256:f61c6b7daa8698b68c74ae1cc68eba61793f3ce162cbc4869c48e3326d2bcac1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-default:latest@sha256:b5272cf564961a1295ffb0ad601ba8b778e400df205c053236deb072263698e1",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:595cda5926e929d9272171a6e5eade33e986cac0d4b4ee16ae6de18eb4c80b8c"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:7f7c6377e249424d1478c04012df559ce9264db432486a95d4554ca010f96c8d"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:d98245dbfe491095cf0a02ca42eae8236a07f4aa2d7215f60476efcb07ecb25a"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:b5272cf564961a1295ffb0ad601ba8b778e400df205c053236deb072263698e1"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/eck-operator-3.4.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/eck-operator-3.4.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

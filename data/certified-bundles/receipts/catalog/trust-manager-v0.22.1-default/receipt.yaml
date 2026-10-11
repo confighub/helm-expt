@@ -43,8 +43,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/trust-manager-v0.22.1-default/space-guide.md"
-        sha256: "f4835e538d6e2c8b965722a5fcd19c733cec358690937dae997a7a2889083c7d"
-        bytes: 3171
+        sha256: "62887204ff27f74ff27d048013469075a4b7bfdddb462e15644baa1e6c6b4dca"
+        bytes: 3280
         role: "space-guide"
     objectCount: 14
     objectInventoryRef: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -82,6 +82,11 @@ spec:
         -
           reference: "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-default:latest"
+    manifestDigest: "sha256:9d558499c3c36205639c249afe763badeeefd2c0b7073001f79dd4c802832471"
+    layerDigest: "sha256:48e91080901e85f2f4ebbacd7a8b158d8fd0868dee3df9c38895b37f5cc56abe"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -157,3 +162,4 @@ spec:
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jetstack/trust-manager/v0.22.1/bases/default/upstream.yaml"
       - "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-default.yaml"
+      - "runs/certified-bundles/catalog-jetstack-trust-manager-v0-22-1-default/publication-receipt.yaml"

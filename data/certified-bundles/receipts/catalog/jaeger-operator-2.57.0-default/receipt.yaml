@@ -38,8 +38,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/jaeger-operator-2.57.0-default/space-guide.md"
-        sha256: "c5088866556f469ecebf8b7dbe484ca99f5e72af0c94c69018fb8a32c0e3a910"
-        bytes: 2087
+        sha256: "041ae45ff05588b57472b129047480729c7cc87d1a99910b12178eaa480a4a9a"
+        bytes: 2202
         role: "space-guide"
     objectCount: 11
     objectInventoryRef: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -70,6 +70,11 @@ spec:
         -
           reference: "type: string"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-default:latest"
+    manifestDigest: "sha256:49bdb730b0f52201373c43d4d2eceef40a00aedb50f4b58d533d51b6d735323e"
+    layerDigest: "sha256:4b5caa05fa48e7575a36a2a7f94058a3645eb052be344604ca79fbd39353062b"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -144,3 +149,4 @@ spec:
       - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jaegertracing/jaeger-operator/2.57.0/bases/default/upstream.yaml"
       - "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-default.yaml"
+      - "runs/certified-bundles/catalog-jaegertracing-jaeger-operator-2-57-0-default/publication-receipt.yaml"

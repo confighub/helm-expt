@@ -36,7 +36,7 @@ Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The cha
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

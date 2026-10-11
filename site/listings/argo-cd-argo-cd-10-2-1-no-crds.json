@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argo-cd-10-2-1-no-crds.yaml",
-      "sha256": "sha256:288e785c71f99554e9925a98a2810709fb9bc8c675c8f688e22d91e3492915d6",
+      "sha256": "sha256:947bfd76473818728f7cd898624e3dc3cc404e9fdd570930df0c6c1e0daa6efc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-cd-10-2-1-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-2-1-no-crds:latest@sha256:76e6a0b9c0a2a38e1451b457e594d1f70f59683ff50168cde5ef80be56477b80",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:ce6fef490f6d805a6fe21e67723d7349545749c87e6adc31c528674dfb034426"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:ddf7fff7f4e9ac212637bdc221c120496a51908cdd356eb9ec81fbde46f7c759"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:04330fdad1c37b6987d8ee8a677003d7e134bf8c21dab5368ad30b6b1ea436bd"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:76e6a0b9c0a2a38e1451b457e594d1f70f59683ff50168cde5ef80be56477b80"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/argo-cd-10.2.1-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/argo-cd-10.2.1-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

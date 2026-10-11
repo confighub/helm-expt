@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-kube-state-metrics-7.4.0-cluster-metrics-readonly"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/kube-state-metrics-7.4.0-cluster-metrics-readonly/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:0657ae53d7f22d99f529be45b5ad6e71cff91840a5d826bd98f54d6df80845b6"
+  layerDigest: "sha256:602f897edcb52d17f8714dd553915598a1c3068ee16ea173711d005354aa5ffb"
+  layerBytes: 2121
+  observedAt: "2026-10-11T15:25:57.582Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.tar.gz"

@@ -1,0 +1,21 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69"
+  layerDigest: "sha256:ef577f35bcce79826222f281e817fa36a6d5943f6586084de0eaa835abd6c907"
+  layerBytes: 76811
+  observedAt: "2026-10-11T17:52:12.788Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-post-install-post-upgrade.yaml"
+    - "routes/lifecycle-action-pre-install-pre-upgrade.yaml"
+    - "routes/prune-protection.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.tar.gz"

@@ -31,7 +31,7 @@
           },
           "objectCount": 37,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 37,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 37,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 37,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

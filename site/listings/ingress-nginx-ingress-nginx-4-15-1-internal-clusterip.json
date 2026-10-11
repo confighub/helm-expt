@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
-      "sha256": "sha256:5074439c0be2886e8c0dd4fb1edbf228add647c49275ece940741d3a52ecae6e",
+      "sha256": "sha256:6acbe165e32605dddd9ce1215ea7e8c751850a323a5fe965e8fa5900b769817d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip:latest@sha256:e7fc8a67ca6d6648a79e292a43e4de68137dec6416a08c0c2852c9b5bbbe3167",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:c6d702a7e7fe35cfde7ef2b98de1fc1a9d56e32e570eb402850a693dd3fc8915"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:481a1a45b57a7c4e7ea474e5f19c7d28d842b13f4e49c8dd02e8c5213fa67b50"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:e88a1354de934fe8db00ed4260b2c6fdd2bdbbf5296b83a3ce5672c454d33f3f"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:e7fc8a67ca6d6648a79e292a43e4de68137dec6416a08c0c2852c9b5bbbe3167"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-internal-clusterip/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-internal-clusterip/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

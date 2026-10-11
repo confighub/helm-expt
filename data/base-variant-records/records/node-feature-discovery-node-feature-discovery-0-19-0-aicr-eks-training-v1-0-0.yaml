@@ -352,8 +352,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:latest@sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+      manifestDigest: "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+      layerDigest: "sha256:ece7f1653b25a108f448fd1e43ec4c9752e4dd6ce5b76519e5d0541cb651be5d"
+      objectSetSha256: "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+      receipt: "data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/receipt.yaml"
+      receiptSha256: "sha256:fedde779bd8dcecb05f86c6710ff70c60645e3fdfced3db299884ffa9df7b900"
+      publicationReceipt: "runs/certified-bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:bccc3c24cafa7719531c6218c6261412ab1e01fafe91a4ccd1f6b021e56a8ec6"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/crd-ordering.yaml"
+          sha256: "sha256:219dc2501ca58a8f5a7a49de62dcd4a4afaaf57f00ee297bb5779b084c154ae7"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/lifecycle-action-post-delete.yaml"
+          sha256: "sha256:07ea35055dbd6c5836b9b84ec30a127e3f24d463c28aa7e78d630fe28442e027"
+          role: "route: plan-step lifecycle-action-post-delete"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

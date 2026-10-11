@@ -33,8 +33,8 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-operator-crds-28.0.1-aicr-eks-training/space-guide.md"
-        sha256: "96b7f3e7282b606f70028e9c409e7cdc0a92b2b9c21487c6bc4040fe940cc246"
-        bytes: 1736
+        sha256: "9c6069a91e8d616e5de3c1bcf055ff10a64d283c6dd5d0aab960d46a4ff8ddf5"
+        bytes: 1877
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
@@ -60,6 +60,11 @@ spec:
         -
           reference: "description: |-"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training:latest"
+    manifestDigest: "sha256:f3f3d43d1b9a0f36663551679c5a991ffaf5b22558f4d7f0f4137e4a29097c0d"
+    layerDigest: "sha256:aa11c452cf5b1ffe2d15d8f66a69a17bb2e35d03fc002987bc85eca5bbd56e56"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -134,3 +139,4 @@ spec:
       - "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus-operator-crds/28.0.1/bases/aicr-eks-training/upstream.yaml"
       - "data/base-variant-records/records/prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training/publication-receipt.yaml"

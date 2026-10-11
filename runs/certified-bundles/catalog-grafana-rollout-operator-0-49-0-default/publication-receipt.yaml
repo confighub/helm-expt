@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-rollout-operator-0.49.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-rollout-operator-0-49-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648"
+  layerDigest: "sha256:43e1aa448d10a1efc1b759a6e150f12ea4dc70c9d559b8aee935775ad2b34347"
+  layerBytes: 4491
+  observedAt: "2026-10-11T17:51:16.679Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/webhook-certificate.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-rollout-operator-0-49-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-rollout-operator-0-49-0-default.tar.gz"

@@ -253,8 +253,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:latest@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c"
+      manifestDigest: "sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c"
+      layerDigest: "sha256:1e03b3183366ea1e11b5d0ef4282ec7385a3e5961514cb6c88fbdcdd0ddf9446"
+      objectSetSha256: "sha256:c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779"
+      receipt: "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-aicr-eks-training/receipt.yaml"
+      receiptSha256: "sha256:54a890016137e7e06e19dfda0edc78df549b993cde898d3caf4cca9e5e12bc09"
+      publicationReceipt: "runs/certified-bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:4a39db883636d2380050e218f9e1a839b90db2b9ff40119efc97f4d6755d431b"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training/crd-ordering.yaml"
+          sha256: "sha256:e24d4165f8813896b763306d14d96a1d130da9769699a15a8eca068f9d8b138e"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

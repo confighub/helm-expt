@@ -43,8 +43,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/argo-cd-10.1.3-default/space-guide.md"
-        sha256: "b3653bc9315476641b108897c33d1694112ef880d624722d9d758397ab88675f"
-        bytes: 2274
+        sha256: "938c1b2704439b14889eb0b84d7944c3e458ff775b99e215f535065a6690a6c9"
+        bytes: 2375
         role: "space-guide"
     objectCount: 55
     objectInventoryRef: "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/object-inventory.yaml"
@@ -83,6 +83,11 @@ spec:
         -
           reference: "quay.io/argoproj/argocd:v3.4.5"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-1-3-default:latest"
+    manifestDigest: "sha256:25b394e0fcc9afc3a1a797c3dbd735f2d8169fdac9ab2ab8a4f864c773151bd6"
+    layerDigest: "sha256:ff44158ae58ef166abfbfac3327173ba1314177caadb632cff3797a5e39e5333"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -158,3 +163,4 @@ spec:
       - "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-cd/10.1.3/bases/default/upstream.yaml"
       - "data/base-variant-records/records/argo-cd-argo-cd-10-1-3-default.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-cd-10-1-3-default/publication-receipt.yaml"

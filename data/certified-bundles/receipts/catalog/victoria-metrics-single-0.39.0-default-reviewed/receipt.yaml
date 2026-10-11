@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/victoria-metrics-single-0.39.0-default-reviewed/space-guide.md"
-        sha256: "95701a9dc8cd5f7a821f03d117e8c6f9dda337d709bffb916c05f1a0d3ce19e7"
-        bytes: 1030
+        sha256: "ec7e1463e6a4dceb833309a091a896488386e93a5eba916486053f77b25755e1"
+        bytes: 1151
         role: "space-guide"
     objectCount: 3
     objectInventoryRef: "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "victoriametrics/victoria-metrics:v1.144.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed:latest"
+    manifestDigest: "sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+    layerDigest: "sha256:bf2055606b13beb2f69a37f7a111776a721d76abb2cc4a70a6362a0504801d83"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml"
       - "recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed/upstream.yaml"
+      - "runs/certified-bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed/publication-receipt.yaml"

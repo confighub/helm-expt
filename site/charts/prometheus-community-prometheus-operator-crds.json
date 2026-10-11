@@ -61,7 +61,7 @@
           },
           "objectCount": 10,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -79,7 +79,7 @@
           },
           "objectCount": 10,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/prometheus-operator-crds/28.0.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

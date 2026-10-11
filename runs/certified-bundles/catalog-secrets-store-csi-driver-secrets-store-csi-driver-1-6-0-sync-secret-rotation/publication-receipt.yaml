@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/secrets-store-csi-driver-1.6.0-sync-secret-rotation/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:0d7936e8e9c14ee5a7b1d52d42cc64662ef24664222e850c3842c5168cfe725e"
+  layerDigest: "sha256:d9695d112edc2c8279d030b2bb2456992708b045cc8e64c63e38a6213aa4734e"
+  layerBytes: 5224
+  observedAt: "2026-10-11T17:51:46.509Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/hooks.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.tar.gz"

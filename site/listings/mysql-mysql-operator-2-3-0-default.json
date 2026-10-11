@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml",
-      "sha256": "sha256:50b1465e8eefb3367473e3d5ddcd459c38d2cb82cc4369374780dc661661ba1d",
+      "sha256": "sha256:efb821aea2204cb75a459a6be3b9541eecaa2a21275bd627c7265f7ba4754624",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/mysql-mysql-operator-2-3-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-mysql-mysql-operator-2-3-0-default:latest@sha256:4683e4f30dc990ddd230bc37868d4ff4235e9591afac937893771c7ffee1a707",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:44ca6ffa2f4378a4c9672819f387b543bb908e6a492cb3a1d29b33549c2eb776"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:de17bf30bc561f95a3bfc2785a8578ed45d26c41c5036cffed7ba45ec971e5f6"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:feedfbc22537800cdea6d97a972619e1e22c6b96c35dbc0d102920072919bf46"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:4683e4f30dc990ddd230bc37868d4ff4235e9591afac937893771c7ffee1a707"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:d9ed07b28ae9b972c1b7f8c47e00e7dd79b1af2445596f5d6e994eb05a983957"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/mysql-operator-2.3.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/mysql-operator-2.3.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

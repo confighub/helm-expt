@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart"
+        name: "k8s-ephemeral-storage-metrics"
+        version: "1.19.2"
+        packageSHA256: "50efd37764505551f24752c3806e63458be775fc8c10fb1c68fe1f62b5ed4cf1"
+    evidence:
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml"
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/variant-revision.yaml"
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/default/upstream.yaml"
+        sha256: "80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8"
+        bytes: 6616
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/k8s-ephemeral-storage-metrics-1.19.2-default/space-guide.md"
+        sha256: "b158a3ecac6220c57314896b65f5d413e415d4ba0cc8a7885b35ab423ea8d04d"
+        bytes: 1245
+        role: "space-guide"
+    objectCount: 6
+    objectInventoryRef: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ghcr.io/jmcgrath207/k8s-ephemeral-storage-metrics:1.19.2"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default:latest"
+    manifestDigest: "sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+    layerDigest: "sha256:a6c6c948a19b24d1614087c1d71146370014f505a0591a039169f5e81cffcb40"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/source-lock.yaml"
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/variant-revision.yaml"
+      - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default/publication-receipt.yaml"

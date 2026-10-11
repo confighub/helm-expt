@@ -38,8 +38,8 @@ spec:
         role: "requirement: target"
       -
         path: "data/certified-bundles/guides/catalog/terraform-1.1.2-default/space-guide.md"
-        sha256: "c701ea3b4970717f3614f7d4e0f995b733f72f581e0056c5a81a87f5701d1dd3"
-        bytes: 1943
+        sha256: "e88ac9055b69911192290f2444353614a6eb03d1338528117de65b5e3f0bd6d8"
+        bytes: 2047
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/object-inventory.yaml"
@@ -67,6 +67,11 @@ spec:
         -
           reference: "hashicorp/terraform-k8s:1.1.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-default:latest"
+    manifestDigest: "sha256:63b95efeb1ece5e033b61c3f84aca03dd2f33f61d98f9db6604afb521924a6ba"
+    layerDigest: "sha256:3b67c69ee46c78a4d6383595f0f68383fa8087cba680cfded250ab79c6ba858a"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -141,3 +146,4 @@ spec:
       - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/hashicorp/terraform/1.1.2/bases/default/upstream.yaml"
       - "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"
+      - "runs/certified-bundles/catalog-hashicorp-terraform-1-1-2-default/publication-receipt.yaml"

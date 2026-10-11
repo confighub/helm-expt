@@ -41,7 +41,7 @@ Before an install or an upgrade, move the CRDs forward, migrate topologies and a
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

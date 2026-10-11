@@ -43,8 +43,8 @@ spec:
         role: "route: plan-step self-contained-crd-base"
       -
         path: "data/certified-bundles/guides/catalog/argo-workflows-1.0.14-minimal-crds/space-guide.md"
-        sha256: "00a300e8bd61d528b4d325a9842bfbc88379bd2a475e7042ba2e4b248d915743"
-        bytes: 2331
+        sha256: "82758507fc04fd6ca1d76be44d3627705d0b52c62bc2c9ffd43d96dcadf08787"
+        bytes: 2444
         role: "space-guide"
     objectCount: 27
     objectInventoryRef: "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/object-inventory.yaml"
@@ -86,6 +86,11 @@ spec:
         -
           reference: "type: string"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds:latest"
+    manifestDigest: "sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc"
+    layerDigest: "sha256:92adcc58a1640a9d3b6826b7fef7496029631331e6b48c13c12a409180b3a584"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -161,3 +166,4 @@ spec:
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds/upstream.yaml"
       - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds/publication-receipt.yaml"

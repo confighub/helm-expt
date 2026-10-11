@@ -33,8 +33,8 @@ spec:
         role: "route: plan-step webhook-certificate"
       -
         path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-no-crds/space-guide.md"
-        sha256: "fddfc702d46ea821f52ca15ab0197b6b30d69c63b175b8db02c649d57a08f65a"
-        bytes: 1809
+        sha256: "e5192fb2c211628c3772dd429743d5b5b423f3779902104bd65906f62e1d398c"
+        bytes: 1914
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -55,6 +55,11 @@ spec:
       boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
       references:
         []
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-no-crds:latest"
+    manifestDigest: "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+    layerDigest: "sha256:80dfa5e5a73d025350c7762777e3b24c08bdde1720d7599b98ba41feff3717a2"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -128,3 +133,4 @@ spec:
       - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/elastic/eck-operator/3.4.0/bases/no-crds/upstream.yaml"
       - "data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml"
+      - "runs/certified-bundles/catalog-elastic-eck-operator-3-4-0-no-crds/publication-receipt.yaml"

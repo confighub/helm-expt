@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 18
     digest: "4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml"

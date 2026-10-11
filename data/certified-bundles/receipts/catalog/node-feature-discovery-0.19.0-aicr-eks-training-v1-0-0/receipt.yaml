@@ -38,8 +38,8 @@ spec:
         role: "route: plan-step lifecycle-action-post-delete"
       -
         path: "data/certified-bundles/guides/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/space-guide.md"
-        sha256: "2e1b9acaf7b438302056e5857028a23e0d9e7450939c77c4d8f29a846bcecd83"
-        bytes: 2425
+        sha256: "f9e0f5b408538f3151317f458ecddbd33a16ae0ae8ff8ebdf4d8594bc05f6c81"
+        bytes: 2573
         role: "space-guide"
     objectCount: 23
     objectInventoryRef: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
@@ -67,6 +67,11 @@ spec:
         -
           reference: "registry.k8s.io/nfd/node-feature-discovery:v0.19.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:latest"
+    manifestDigest: "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+    layerDigest: "sha256:ece7f1653b25a108f448fd1e43ec4c9752e4dd6ce5b76519e5d0541cb651be5d"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -141,3 +146,4 @@ spec:
       - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
       - "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v1-0-0/upstream.yaml"
       - "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.yaml"
+      - "runs/certified-bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/publication-receipt.yaml"

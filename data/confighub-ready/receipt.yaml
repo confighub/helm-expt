@@ -1,19 +1,19 @@
 apiVersion: "evidence.confighub.com/v1alpha1"
 kind: "ConfigHubReadyLane"
 metadata:
-  recordedAt: "2026-09-24T14:35:00.364Z"
-  server: "http://localhost:32380"
+  recordedAt: "2026-10-11T17:55:12.720Z"
+  server: "http://localhost:32180"
 spec:
   claim: "Every certified image uploads into a ConfigHub organization as a base variant with the Units its receipt implies, or its refusal is recorded verbatim."
   method: "Rows without uploadMode are historical --granularity per-file runs. Rows marked server-resources use released cub server-side resource splitting without --granularity. Each rerun records its exact client and server versions, uploads one base variant at a time, counts Units, then deletes the Space."
   summary:
-    total: 163
-    pass: 162
+    total: 208
+    pass: 207
     notApplicable: 1
     fail: 0
-    units: 306
+    units: 1253
     historicalPerFile: 162
-    serverResources: 1
+    serverResources: 46
   bundles:
     -
       message: ""
@@ -1474,22 +1474,922 @@ spec:
       status: "pass"
       units: 1
     -
+      clientServer:
+        client:
+          buildDate: "2026-09-24T03:17:22Z"
+          commit: "de397e66e2d2eb1af80514b74b8a496b7cf931ed"
+          version: "v0.5.5"
+        server:
+          buildDate: "2026-09-24T03:16:42Z"
+          commit: "9994e0a583ecc60a59b4e731230c8f534a4b61d5"
+          url: "http://localhost:32380"
+          version: "v0.5.5"
+      message: ""
       name: "catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal"
       producer: "config-workshop-catalog"
+      seconds: 5.5
       source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
       space: "catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal-base"
+      status: "pass"
+      units: 27
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v0-20-0"
+      producer: "config-workshop-catalog"
+      seconds: 3.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0@sha256:4d9de3b1f6368e6910e28528e224b68a168c293a573110ecbec8da93edc5d680"
+      space: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0-base"
+      status: "pass"
+      units: 19
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0"
+      producer: "config-workshop-catalog"
+      seconds: 2.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0@sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+      space: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0-base"
+      status: "pass"
+      units: 19
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.59.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default@sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+      space: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default-base"
+      status: "pass"
+      units: 19
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-cloudpirates-nginx-0.16.1-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-nginx-0-16-1-default@sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392"
+      space: "catalog-cloudpirates-nginx-0-16-1-default-base"
+      status: "pass"
+      units: 3
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-cloudpirates-rabbitmq-0.21.13-existing-secret"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret@sha256:2b831d1542c4e59a885ebfe79c5f6f005a298c3ef9fb69c8bc96c8025f7c5ba1"
+      space: "catalog-cloudpirates-rabbitmq-0-21-13-existing-secret-base"
+      status: "pass"
+      units: 5
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-cloudpirates-redis-0.34.11-reuse-existing-secret"
+      producer: "config-workshop-catalog"
+      seconds: 1.6
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret@sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+      space: "catalog-cloudpirates-redis-0-34-11-reuse-existing-secret-base"
+      status: "pass"
+      units: 5
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-eks-aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      seconds: 1.5
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+      space: "catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training-base"
+      status: "pass"
+      units: 1
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-eks-aws-efa-k8s-device-plugin-v0.5.29-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.3
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default@sha256:d9a17a32a2906855aa2fc2d5f8c6c9db7ee668a7cee257b938accfd1b496b048"
+      space: "catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default-base"
+      status: "pass"
+      units: 1
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0"
+      producer: "config-workshop-catalog"
+      seconds: 1.8
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0@sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d"
+      space: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0-base"
+      status: "pass"
+      units: 6
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0"
+      producer: "config-workshop-catalog"
+      seconds: 1.2
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0@sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+      space: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0-base"
+      status: "pass"
+      units: 6
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default@sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+      space: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default-base"
+      status: "pass"
+      units: 6
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-metrics-server-metrics-server-3.14.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c"
+      space: "catalog-metrics-server-metrics-server-3-14-0-default-base"
+      status: "pass"
+      units: 9
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-policy-reporter-policy-reporter-3.10.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+      space: "catalog-policy-reporter-policy-reporter-3-10-0-default-base"
+      status: "pass"
+      units: 7
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.18.0-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.6
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-18-0-default@sha256:8d7f2dbd7a86354268bd590ab9d177742bba623f3cc8b5b7bb5ee3eed01f44af"
+      space: "catalog-prometheus-community-prometheus-blackbox-exporter-11-18-0-default-base"
+      status: "pass"
+      units: 4
+      uploadMode: "server-resources"
+    -
+      clientServer:
+        client:
+          buildDate: "2026-10-07T02:31:58Z"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          version: "v0.8.7"
+        server:
+          buildDate: "2026-10-08T23:04:43Z"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+      message: ""
+      name: "catalog-stakater-reloader-2.2.16-default"
+      producer: "config-workshop-catalog"
+      seconds: 1.7
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-16-default@sha256:f5d88a760e6981dfe1dfe4e908950ce8965a31c11f7e9f919f33e3dcbb3eb4f8"
+      space: "catalog-stakater-reloader-2-2-16-default-base"
+      status: "pass"
+      units: 6
+      uploadMode: "server-resources"
+    -
+      name: "catalog-argo-cd-argo-cd-10.7.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a"
+      space: "catalog-argo-cd-argo-cd-10-7-0-default-base"
       uploadMode: "server-resources"
       clientServer:
         client:
-          version: "v0.5.5"
-          commit: "de397e66e2d2eb1af80514b74b8a496b7cf931ed"
-          buildDate: "2026-09-24T03:17:22Z"
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
         server:
-          url: "http://localhost:32380"
-          version: "v0.5.5"
-          commit: "9994e0a583ecc60a59b4e731230c8f534a4b61d5"
-          buildDate: "2026-09-24T03:16:42Z"
-      units: 27
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 56
       status: "pass"
       message: ""
-      seconds: 5.5
+      seconds: 8.9
+    -
+      name: "catalog-argo-cd-argo-cd-10.7.0-no-crds"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-no-crds@sha256:b638722b62274c51e701bef7c51d92f3e55a0e5ca79ac99df6d52faedd989b1a"
+      space: "catalog-argo-cd-argo-cd-10-7-0-no-crds-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 51
+      status: "pass"
+      message: ""
+      seconds: 5.7
+    -
+      name: "catalog-cloudnative-pg-cloudnative-pg-0.29.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default@sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f"
+      space: "catalog-cloudnative-pg-cloudnative-pg-0-29-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 25
+      status: "pass"
+      message: ""
+      seconds: 2.9
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 22
+      status: "pass"
+      message: ""
+      seconds: 1.7
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default@sha256:8debad0a35dda159c475218282a8eb624357f73210603b15e0fd816d9b4ae9b3"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 22
+      status: "pass"
+      message: ""
+      seconds: 1.9
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-gpu-resources"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 25
+      status: "pass"
+      message: ""
+      seconds: 1.4
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training@sha256:97f16127cedadfae16195678d5e660b4dab7d9478b614059f280abe1405cfafb"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 22
+      status: "pass"
+      message: ""
+      seconds: 1.4
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default@sha256:4060c4ec358dbc05775319f0c9c878490dcfb3af026ebfff0908672bb0c81838"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 22
+      status: "pass"
+      message: ""
+      seconds: 1.3
+    -
+      name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-gpu-resources"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources@sha256:ccd076e6ca3ff675686483e85c70c465aff36943347c5094276022fda2b90e3d"
+      space: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 25
+      status: "pass"
+      message: ""
+      seconds: 1.7
+    -
+      name: "catalog-external-secrets-external-secrets-2.10.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-10-0-default@sha256:ffc52ed91c4ebca685ef1c8a47d6127680fad743dde69aa8e30d579af0f70263"
+      space: "catalog-external-secrets-external-secrets-2-10-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 45
+      status: "pass"
+      message: ""
+      seconds: 6.6
+    -
+      name: "catalog-external-secrets-external-secrets-2.10.0-no-crds"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-10-0-no-crds@sha256:9d9e1c6f91936603ad70792943d49f8ce3d9947cadb742e84cd47114766eb0f4"
+      space: "catalog-external-secrets-external-secrets-2-10-0-no-crds-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 19
+      status: "pass"
+      message: ""
+      seconds: 2.1
+    -
+      name: "catalog-grafana-alloy-1.12.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-12-1-default@sha256:0c484cee50c5b8cc8a3ac428adfc7471dc812601a1224468b075b5afd9d6cb1a"
+      space: "catalog-grafana-alloy-1-12-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 8
+      status: "pass"
+      message: ""
+      seconds: 1.2
+    -
+      name: "catalog-jetstack-cert-manager-v1.21.1-crds-enabled"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9"
+      space: "catalog-jetstack-cert-manager-v1-21-1-crds-enabled-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 48
+      status: "pass"
+      message: ""
+      seconds: 6
+    -
+      name: "catalog-jetstack-cert-manager-v1.21.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-default@sha256:9d819144de3afe9a941cba7ed3ffdaa4a51ce32f1f12554b9fbf8049cbfdf75d"
+      space: "catalog-jetstack-cert-manager-v1-21-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 41
+      status: "pass"
+      message: ""
+      seconds: 2.8
+    -
+      name: "catalog-kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training@sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8"
+      space: "catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 40
+      status: "pass"
+      message: ""
+      seconds: 6
+    -
+      name: "catalog-kai-scheduler-kai-scheduler-v0.14.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-default@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+      space: "catalog-kai-scheduler-kai-scheduler-v0-14-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 41
+      status: "pass"
+      message: ""
+      seconds: 10.7
+    -
+      name: "catalog-kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training@sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69"
+      space: "catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 41
+      status: "pass"
+      message: ""
+      seconds: 9.2
+    -
+      name: "catalog-kai-scheduler-kai-scheduler-v0.16.9-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default@sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5"
+      space: "catalog-kai-scheduler-kai-scheduler-v0-16-9-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 42
+      status: "pass"
+      message: ""
+      seconds: 4
+    -
+      name: "catalog-mysql-mysql-operator-2.3.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-mysql-mysql-operator-2-3-0-default@sha256:4683e4f30dc990ddd230bc37868d4ff4235e9591afac937893771c7ffee1a707"
+      space: "catalog-mysql-mysql-operator-2-3-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 14
+      status: "pass"
+      message: ""
+      seconds: 1.5
+    -
+      name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab"
+      space: "catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 25
+      status: "pass"
+      message: ""
+      seconds: 3.2
+    -
+      name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0@sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+      space: "catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 25
+      status: "pass"
+      message: ""
+      seconds: 3.3
+    -
+      name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-default@sha256:14b343fa497545ce1f3e7b147ce1e5126b92466745e68cff2b3cc9af272610ae"
+      space: "catalog-node-feature-discovery-node-feature-discovery-0-19-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 19
+      status: "pass"
+      message: ""
+      seconds: 3.1
+    -
+      name: "catalog-nvidia-nodewright-v0.17.1-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-17-1-aicr-eks-training@sha256:f9c202986b8cfec2012a5c4e3b583a0471ed1641521390a8e5f1f3da510f4380"
+      space: "catalog-nvidia-nodewright-v0-17-1-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 21
+      status: "pass"
+      message: ""
+      seconds: 2.4
+    -
+      name: "catalog-nvidia-nodewright-v0.17.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-17-1-default@sha256:588f4066bae34eed7be82e5342804eca9b217f8a475185c5b8fdf520679b8292"
+      space: "catalog-nvidia-nodewright-v0-17-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 21
+      status: "pass"
+      message: ""
+      seconds: 2.2
+    -
+      name: "catalog-nvidia-nodewright-v0.19.0-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb"
+      space: "catalog-nvidia-nodewright-v0-19-0-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 24
+      status: "pass"
+      message: ""
+      seconds: 10.5
+    -
+      name: "catalog-nvidia-nodewright-v0.19.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default@sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+      space: "catalog-nvidia-nodewright-v0-19-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 24
+      status: "pass"
+      message: ""
+      seconds: 4.6
+    -
+      name: "catalog-percona-psmdb-operator-1.23.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-percona-psmdb-operator-1-23-0-default@sha256:8e4cce8894256eaa1fa653a29624ae086e50973c8f2640969f87987955f09ff8"
+      space: "catalog-percona-psmdb-operator-1-23-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 9
+      status: "pass"
+      message: ""
+      seconds: 4.5
+    -
+      name: "catalog-prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training@sha256:f3f3d43d1b9a0f36663551679c5a991ffaf5b22558f4d7f0f4137e4a29097c0d"
+      space: "catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 11
+      status: "pass"
+      message: ""
+      seconds: 15.2
+    -
+      name: "catalog-prometheus-community-prometheus-operator-crds-28.0.1-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default@sha256:57f1d06c76995588a6e85d4f03e955c6e350176aac33879d2a9fcf28cb5e9b22"
+      space: "catalog-prometheus-community-prometheus-operator-crds-28-0-1-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 11
+      status: "pass"
+      message: ""
+      seconds: 7.3
+    -
+      name: "catalog-traefik-traefik-41.4.0-default"
+      producer: "config-workshop-catalog"
+      source: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573"
+      space: "catalog-traefik-traefik-41-4-0-default-base"
+      uploadMode: "server-resources"
+      clientServer:
+        client:
+          version: "v0.8.7"
+          commit: "072585f257783af26f03e70b338d9ea96ea28055"
+          buildDate: "2026-10-07T02:31:58Z"
+        server:
+          url: "http://localhost:32180"
+          version: "v0.8.10"
+          commit: "28e0fc849f2db6dd5796408cdab15619c7ae4fba"
+          buildDate: "2026-10-08T23:04:43Z"
+      units: 32
+      status: "pass"
+      message: ""
+      seconds: 2.6

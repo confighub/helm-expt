@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-jetstack-trust-manager-v0.22.1-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/trust-manager-v0.22.1-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:d089a3cece6a7b366cb903fd88148353c564ba361b4da2be590f329501c3c667"
+  layerDigest: "sha256:c45429ad1e2e5cc9e430fd20928c07d0fd0c29af27d684b95fc0b126367a5159"
+  layerBytes: 3560
+  observedAt: "2026-10-11T17:51:41.082Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-jetstack-trust-manager-v0-22-1-no-crds.tar.gz"

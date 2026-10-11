@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml",
-      "sha256": "sha256:da58d3c93efbd92b9beba8f958dfbbbabea6389369b5a10034052fb5ef9949a3",
+      "sha256": "sha256:78fe22fbc9b1af91f5110b6cb07ecf207d6cb59532f47f4e33987118b7318d34",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector:latest@sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:3cef46e494cc9929bcbfc37b24f69fcaf7e56aa365a8f5d613f3aee460c436ba"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:46ee447b4cae32011976bc2a331e9a8f4c850c168c3e81d1ed65662c1adc7528"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:f4579fcb36709ca730835ba70d63fbd870b1a3ae8fb16bff73cecffe70185790"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/filebeat-8.5.1-node-or-cluster-collector/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/filebeat-8.5.1-node-or-cluster-collector/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

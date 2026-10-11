@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/valkey-0.11.0-default/space-guide.md"
-        sha256: "76a885078348c26878d277bf7d5042330c9ce0b315b3bf5cef05fa34c068980d"
-        bytes: 939
+        sha256: "6154eaedc5bcf16a668d566d7377e68c10b279651c6b4b963fc2479ebae21225"
+        bytes: 1038
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/valkey/valkey/0.11.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.io/valkey/valkey:9.1.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-valkey-valkey-0-11-0-default:latest"
+    manifestDigest: "sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+    layerDigest: "sha256:5395ded9227168b35cb8402cde2130bc3d357c6bfd6ac99d2831cdca5b4e35f5"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/valkey/valkey/0.11.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/valkey/valkey/0.11.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/valkey/valkey/0.11.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-valkey-valkey-0-11-0-default/publication-receipt.yaml"

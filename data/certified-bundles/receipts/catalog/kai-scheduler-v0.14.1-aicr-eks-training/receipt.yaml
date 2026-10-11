@@ -43,8 +43,8 @@ spec:
         role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
       -
         path: "data/certified-bundles/guides/catalog/kai-scheduler-v0.14.1-aicr-eks-training/space-guide.md"
-        sha256: "c2f5cd1c8845cf02f182206a4748e77b1d1bedf3cc56aec3a2b2397b865a021e"
-        bytes: 3217
+        sha256: "e7ae8e5e984ce3ba86cef4248964a1fc17c98c6ac31cddbc941fcef2532587df"
+        bytes: 3341
         role: "space-guide"
     objectCount: 37
     objectInventoryRef: "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/object-inventory.yaml"
@@ -83,6 +83,11 @@ spec:
         -
           reference: "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.14.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training:latest"
+    manifestDigest: "sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8"
+    layerDigest: "sha256:72917e0ff6abb1286c132d493ac4093ccb9f8ffe06ca7ced69a103c0bc7c8b2c"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -158,3 +163,4 @@ spec:
       - "recipes/kai-scheduler/kai-scheduler/v0.14.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml"
       - "packages/kai-scheduler/kai-scheduler/v0.14.1/bases/aicr-eks-training/upstream.yaml"
       - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
+      - "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training/publication-receipt.yaml"

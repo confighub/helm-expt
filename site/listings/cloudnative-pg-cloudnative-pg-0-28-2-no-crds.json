@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
-      "sha256": "sha256:905d8986dee4f6ff3dca9f84a86733adaaaa388d561cf4fe8a47b35db6f77650",
+      "sha256": "sha256:ee462a7e125589b9bff71e73f8c641ab4f339e8dff1d045c5e782d881e81ad17",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 11,
     "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:996d6dcd169a293b44e0cdfc7803a850115af641e85665c9ecc3234f638eb6c6"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:5bf1bfa2fd76ce8adf6eee900c3ea54a905b71e1cfd1e136929913d6788b9c0a"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:0d9d89470416d99ed79221d0c0fb67cba6ce5094b7bf66b53a653d7d4cc30211"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -626,7 +650,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 11 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

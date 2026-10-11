@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-external-dns-external-dns-1.21.1-dry-run-txt-registry"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/external-dns-1.21.1-dry-run-txt-registry/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+  layerDigest: "sha256:31600905facb26295c66fbf2f38c2bfd286ff715f7c8eed9ade459b0a6c00bb9"
+  layerBytes: 3472
+  observedAt: "2026-10-11T17:51:09.435Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry.tar.gz"

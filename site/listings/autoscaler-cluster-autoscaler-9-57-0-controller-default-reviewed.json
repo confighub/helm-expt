@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml",
-      "sha256": "sha256:35f1b491f8eea8ec753fa6fe415a1e30cb1e02c06e29bb828b7f0caa4ae839ba",
+      "sha256": "sha256:fa6f88c4106ab73312480336dd03d64a83525489eb9523253820ea95758f8847",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed:latest@sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:3322ebc273238e05cf8996c9f9958fd7e08aef27f765ef6880f87ded4e3f9d52"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:1b4879b95a9810e849c5a0b993c673fbf26c851d8db80e793ef0b15d7c3c77d0"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:80115e0e499638dddb8ea70da05e5dd892506256493ca09762ed1a0d8bbd254a"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/cluster-autoscaler-9.57.0-controller-default-reviewed/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cluster-autoscaler-9.57.0-controller-default-reviewed/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

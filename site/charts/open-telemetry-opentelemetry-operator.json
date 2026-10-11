@@ -47,7 +47,7 @@
             "id": "open-telemetry-opentelemetry-operator-0-114-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/open-telemetry-opentelemetry-operator-0-114-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 13,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

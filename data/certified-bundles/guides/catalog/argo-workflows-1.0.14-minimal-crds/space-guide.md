@@ -41,7 +41,7 @@ Argo Workflows default full CRDs are installed through a Helm hook using server-
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-argo-cd-argo-workflows-1.0.14-minimal-crds --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-argo-cd-argo-workflows-1.0.14-minimal-crds --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

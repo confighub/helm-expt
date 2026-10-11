@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/traefik-traefik-41-4-0-default.yaml",
-      "sha256": "sha256:c771e77aff44d39e395a386e12b6a3acc42eddb52db8a0c24519e94d9a4c8217",
+      "sha256": "sha256:4fd6e96d5fab9e24dfe4274ef6e69e0e241bb1a1e5a1a74823f83b8580b3fad6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/traefik-traefik-41-4-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-4-0-default:latest@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:775af435b21b47e2696439adfb7f8198476070fe5a816d8a18053edb69481c50"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:201fcae393a58bcf68b868f8f118cbdb3d920dcf1b112de0ba672d7c21717e90"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:d71be3409cba46fffa33eb046abe51944197f9fc0d17b28b677f7da79440d07a"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:8e17fdeb313402d3b8cc3f7827c1f35d278e6809cf93ea0d7a9be31ea82c464b"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/traefik-41.4.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/traefik-41.4.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

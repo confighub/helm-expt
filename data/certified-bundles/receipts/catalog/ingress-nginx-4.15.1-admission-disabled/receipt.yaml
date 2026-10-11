@@ -33,8 +33,8 @@ spec:
         role: "route: plan-step hooks"
       -
         path: "data/certified-bundles/guides/catalog/ingress-nginx-4.15.1-admission-disabled/space-guide.md"
-        sha256: "13f1d1f727d3b051a65c412b0410fc5d0e85197cf6f35d177e29fb0e5a5b21b4"
-        bytes: 1805
+        sha256: "0addf1f77a15c8891cedcd7401c17de9539bdf93ca438a07343f8a8e4d13b89c"
+        bytes: 1929
         role: "space-guide"
     objectCount: 9
     objectInventoryRef: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml"
@@ -57,6 +57,11 @@ spec:
         -
           reference: "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:latest"
+    manifestDigest: "sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a"
+    layerDigest: "sha256:17284e0b6e6195cc337a2d07250d6a006a0da83ba0377fa805f07b2cbdbf77dd"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -130,3 +135,4 @@ spec:
       - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
       - "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled/upstream.yaml"
       - "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+      - "runs/certified-bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled/publication-receipt.yaml"

@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:14b343fa497545ce1f3e7b147ce1e5126b92466745e68cff2b3cc9af272610ae"
+  layerDigest: "sha256:ea4f46aaeabb12343630b3f29435e4b32c6343af0eeb3f2e48da1131c9ef3be2"
+  layerBytes: 7834
+  observedAt: "2026-10-11T17:52:20.581Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-post-delete.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-node-feature-discovery-node-feature-discovery-0-19-0-default.tar.gz"

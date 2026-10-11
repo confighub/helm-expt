@@ -36,7 +36,7 @@ Route to cert-manager or a certgen lifecycle route for the 2 webhook configurati
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-metallb-metallb-0.16.1-default --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-metallb-metallb-0.16.1-default --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

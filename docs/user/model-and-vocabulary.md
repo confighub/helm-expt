@@ -85,9 +85,10 @@ A generator is the tool that turns a recipe into exact objects.
 | Source | Its generator | When it runs |
 | --- | --- | --- |
 | Helm chart | Helm | Once, when the Catalog builds the objects of a recipe. |
-| AICR | `aicr bundle` | Before the bundle is kept. Argo CD still renders the charts that its Applications name, at deployment. |
+| AICR | `aicr recipe`, then `aicr bundle` with the `argocd-helm` deployer, then `helm template` for the Applications | Before the bundle is kept. Argo CD still renders the charts that its Applications name, at deployment. |
 | Timoni module | `timoni build` | Before the bundle is kept. |
-| Kubara, Sveltos | `cub kubara`, `cub sveltos` | Before the bundle is kept. |
+| Kubara | `kubara generate`, then `helm template` | Before the bundle is kept. |
+| Sveltos | None | The entry is kept as it was written. |
 | Plain YAML, literal OCI | None | The source is already objects. |
 
 **A bundle is flattened when no generator has to run after it is made.** The
@@ -134,6 +135,43 @@ evidence bundle. The first two are the same as here. AICR's third part is the
 record of one run on one cluster, so it belongs to a deployment. This model's
 third part is the configuration itself, which can be read, compared and
 changed before anything is installed. The variant is the part this model adds.
+
+### The same model for every format
+
+**Every format ends as the same thing, a bundle in OCI.** `cub variant upload`
+reads a bundle from OCI and makes the base Space. Argo CD and Flux pull a
+bundle, or a release, from OCI. `cub config verify` checks a bundle against its
+receipt.
+
+| | Helm chart | cub installer package | AICR | Timoni | Plain YAML |
+| --- | --- | --- | --- | --- | --- |
+| **Source catalog** | A Helm repository | The Catalog's package registry, in OCI | NVIDIA's AICR catalog, inside the `aicr` release | A module registry, in OCI | The files themselves |
+| **Data pack** | The values for each preset, under `recipes/` | The presets inside the package | A data pack. No entry uses one today. | The typed values file | None |
+| **Recipe** | Chart, version and preset | Package digest and preset | AICR release and criteria | Module version, digest and values | The digest of the files |
+| **Generated once, by the Catalog** | `helm template`, with hooks and tests left out | Nothing more. The package holds the rendered objects. | `aicr recipe`, `aicr bundle`, then `helm template` | `timoni build` | Nothing. The source is already objects. |
+| **Repeat the render and verify it** | Run `helm template` with the recorded flags and values. Compare the SHA-256 with `renderedObjectSetSHA256` in the render receipt. | Run `cub installer setup --pull` with the package digest and the preset. It writes the objects under `out/manifests`. | `node scripts/generate-aicr-digest-index.mjs --verify --example <entry>` checks the retained bytes. | Run the recorded `timoni build`. Compare `objectSetSha256` in the generation receipt. | Hash the files. |
+| **Published as OCI** | Each entry page says whether its bundle is published. | Every package, signed with Sigstore. | A few entries. | One of the two entries. | Most NIMService variants. The plain YAML example is not. |
+| **The plan** | CRD order, hooks, Secrets, webhook certificates | The package's `prerequisites/` directory | Sync order, the charts inside the Applications, placeholders | Apply order and waits | For a NIMService, the operator, two Secrets and storage first |
+| **Customise before the bundle** | A new preset. It gives a new recipe and a new bundle. | Choose another preset. | A data pack or a profile, then generate again. | New values, then build again. | Edit the file. |
+| **Customise after the bundle** | A variant in ConfigHub | A variant in ConfigHub | A variant in ConfigHub | A variant in ConfigHub | A variant in ConfigHub |
+| **What is recorded** | Render, scan and Helm-comparison receipts | A publication receipt and a signature receipt | A generation receipt and checksums | A generation receipt | An upload receipt |
+
+For the Catalog's own charts, the Helm column and the cub installer column
+describe the same entry. One starts from the chart and the other from the
+package.
+
+The plan names the choices that are still open. A variant settles them. After
+a variant changes, the plan is checked again.
+
+A receipt records one operation on configuration, such as a render, a
+publication, an upload or a delivery. It does not show that a component came
+up healthy on a cluster. AICR's evidence bundle does show that, on real
+hardware. The Catalog has not run `aicr validate` and holds no AICR evidence
+bundle.
+
+The Catalog has a script that repeats the Helm render and compares it for one
+chart, Redis. For the other charts it compares the output of `cub installer
+setup` with the stored Helm render.
 
 ### The earlier five stages
 
@@ -605,16 +643,15 @@ configuration revision, not a Helm render variant.
 
 ## Open points
 
+A bundle on this page, and on the [OCI page](../../site/oci.html), is the
+certified bundle. The other OCI shapes are called an upload layout, rendered
+objects and a release. An evidence bundle always keeps its adjective. That
+point is settled.
+
 A verdict on this page is always a flattening verdict, which is about a
 bundle. AICR's word for the outcome of a run is written here as a validation
 result, which is about a deployment. That point is settled.
 
-- **Bundle on the OCI page.** In this model a bundle is the certified bundle,
-  which is flattened objects, a record, and a plan where one is needed. The
-  [OCI page](../../site/oci.html) uses the word for four shapes. The likely
-  answer is to keep it for the certified bundle and to call the other three
-  rendered objects, an upload layout and a release. The OCI page has not been
-  changed. An evidence bundle always keeps its adjective.
 - **Where a receipt lives.** One design attaches it to the bundle in the
   registry, and another keeps it beside the bundle. The
   [OCI page](../../site/oci.html) carries the same open point.

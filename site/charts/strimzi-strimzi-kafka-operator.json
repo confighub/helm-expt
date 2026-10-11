@@ -47,9 +47,9 @@
             "id": "strimzi-strimzi-kafka-operator-1-0-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/strimzi-strimzi-kafka-operator-1-0-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 17,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml",

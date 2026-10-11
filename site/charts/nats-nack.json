@@ -47,9 +47,9 @@
             "id": "nats-nack-0-34-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/nats-nack-0-34-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 4,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml",
