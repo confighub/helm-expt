@@ -6,62 +6,151 @@ other pages apply it. Where another page defines a word differently, this page
 is right. The [catalog doctrine](../reference/config-catalog-doctrine.md) holds
 the rules in full.
 
-## The short model
+## The model in five words
 
-**Pack → Recipe → Bundle → Variant**
+**Pack → Recipe → Bundle → Variant → Deployment**
+
+Source configuration is modelled as packs and recipes. A generator turns one
+recipe into one bundle. Pack is short for data pack, which is NVIDIA's term
+for the same thing in AICR.
+
+A source catalog comes first, and the five words start after it. A source
+catalog is what a provider publishes, such as a Helm repository of charts,
+NVIDIA's AICR catalog or a Kubara catalog. It is the provider's. The five
+words are what you hold.
+
+**A data pack goes in. A generator runs once. A bundle comes out. Everything
+after that stays data.**
+
+| | Data or code | Whose |
+| --- | --- | --- |
+| Source catalog | Code and defaults, such as templates, a command-line tool or a built-in catalog | The provider's |
+| Data pack | Data | Yours |
+| Recipe | Data | Yours, and pinned |
+| Generator | Code. It runs once. | The provider's tool |
+| Bundle, variant, deployment | Data | Yours |
+
+A Helm chart's templates are code and a values file is data, so a values file
+is a data pack over a chart. The generator is the only place where code runs.
+ConfigHub works on what comes out of it.
 
 | | What it is | How many | Where it lives |
 | --- | --- | --- | --- |
-| **Pack** | Your overrides, laid over a source. The source is what a provider publishes, such as a chart or NVIDIA's AICR catalog. | One or more for a source | For Helm, the values files and presets in an installer package. For AICR, a data pack. |
+| **Pack** | A data pack. Your overrides, written as data and laid over an item in a source catalog. | One or more for a source | For Helm, the values behind each preset, kept under `recipes/`. For AICR, a data pack. |
 | **Recipe** | One pinned choice made from a source and its pack. | Many for a source | In the Catalog's record. |
-| **Bundle** | The flattened objects, the plan, and the record of how they were made, for one recipe. | One for a recipe | In this repository, and in OCI where one is published. |
+| **Bundle** | The flattened objects and the record of how they were made, for one recipe. It carries a plan where the entry needs one. | One for a recipe | In this repository, and in OCI where one is published. |
 | **Variant** | A reviewed change to a bundle for one environment, region or customer. | Many for a bundle | In ConfigHub. |
-
-Then you deliver a bundle or a variant, and run it.
+| **Deployment** | One variant, or one bundle, on one cluster. The plan is carried out there and the result is recorded. | One for each cluster | On the cluster. A receipt records it. |
 
 The plan is the part of a bundle that plain objects cannot carry, such as an
-order, a job at an upgrade, or a choice that is still open. The bundle of a
+order, a job at an upgrade, or a choice that is still open. An entry that
+needs none of that has a bundle with no plan. The bundle of a
 recipe is its base variant, in the form that is kept and shipped.
 
-Some entries are not flattened. For those the installer package does the
-bundle's job, and Helm still runs at install. The flattening verdict says
-which case an entry is in.
+This page writes deployment in lower case for the fifth word. `Deployment` in
+code type is the Kubernetes kind.
+
+### Where ConfigHub starts
+
+```text
+Pack → Recipe → Bundle   |   Variant → Deployment
+no account needed        |   ConfigHub
+```
+
+- **Left of the line needs no account.** A generator makes a bundle, and the
+  repository keeps it. Where one is published, it is an OCI artifact that
+  anyone can pull, read, compare and verify.
+- **The upload is the crossing.** `cub variant upload` reads the bundle and
+  makes the base Space, with one Unit for each object. The plan travels in
+  with it. ConfigHub stores the plan and does not carry it out.
+- **Right of the line is what ConfigHub adds.** That is the variants, the
+  review and promotion, and the release that goes back out as OCI for Argo CD
+  or Flux.
+
+OCI is at both ends. A bundle in the Catalog is an OCI artifact that is ready
+to be uploaded and used. A release from ConfigHub is an OCI artifact that is
+ready to run.
+
+A deployment does not have to go through ConfigHub. The test scripts on the
+entry pages apply a bundle with `kubectl`, and Argo CD or Flux can pull a
+published bundle directly. That deployment has no variants and no review.
+
+Every entry has its objects in this repository. Some entries have no published
+OCI bundle yet.
+
+### Generators
+
+A generator is the tool that turns a recipe into exact objects.
+
+| Source | Its generator | When it runs |
+| --- | --- | --- |
+| Helm chart | Helm | Once, when the Catalog builds the objects of a recipe. |
+| AICR | `aicr bundle` | Before the bundle is kept. Argo CD still renders the charts that its Applications name, at deployment. |
+| Timoni module | `timoni build` | Before the bundle is kept. |
+| Kubara, Sveltos | `cub kubara`, `cub sveltos` | Before the bundle is kept. |
+| Plain YAML, literal OCI | None | The source is already objects. |
+
+**A bundle is flattened when no generator has to run after it is made.** The
+flattening verdict says which case an entry is in.
+
+| Verdict | What it means |
+| --- | --- |
+| `safe-to-flatten` | Flattened. No generator runs again, and the plan has no step. |
+| `flatten-with-routes` | Flattened, with a plan to carry out. For an AICR entry the outer layer is flattened, and Argo CD still renders the charts inside it. |
+| `unsafe-to-flatten` | The objects are kept, and no bundle is published. The chart depends on a live lookup, generated state or a destructive step, and the Catalog has no adequate plan for it. |
+| `born-flattened` | The source never had a generator. |
+
+`cub installer` is not a generator, and it installs nothing on a cluster. It
+reads an installer package. A package holds the objects of every preset of one
+chart version, already rendered, with their prerequisites. `cub installer
+setup` writes the objects of one preset to files.
+
+### Two OCI forms are kept, by decision
+
+Every Helm entry is in OCI inside its chart's installer package. Where the
+flattening verdict permits, the entry also has a published bundle, which is
+one preset's flattened objects and its plan. Each entry page says which it
+has.
+
+This was decided, and it is recorded in three places.
+
+| Date | Where | What it says |
+| --- | --- | --- |
+| 8 August 2026 | [The certified-bundle closing record](../planning/certified-bundle-track-conclusion.md) | The Catalog offers two products, a certified bundle and an installer package for every entry. |
+| 8 August 2026 | [Doctrine rule 11](../../tests/doctrine.md) | A bundle is permitted for `safe-to-flatten`, permitted for `flatten-with-routes` once it ships what its verdict names, and forbidden for `unsafe-to-flatten`. The installer package is the certified route where a bundle is forbidden. |
+| 4 September 2026 | Issue 1736 | The goal is as many flattened bundles as possible. Every preset that is safe to flatten gets one. An unsafe one keeps its installer package, which is still OCI, and no bundle is forced onto it. |
+
+Those records call the installer package's route render-late. A package holds
+objects that Helm has already rendered. The render that remains is the one
+`cub installer setup` does on your machine, and it runs no Helm.
+
+Older sections of this page call a generator a source processor, and call
+generating materializing. The records use those words.
+
+### How AICR's three parts compare
 
 AICR describes itself in three parts, a data pack, a resolved recipe and an
 evidence bundle. The first two are the same as here. AICR's third part is the
-record of one run on one cluster. This model's third part is the configuration
-itself, which can be read, compared and changed before anything is installed.
-The variant is the part this model adds.
+record of one run on one cluster, so it belongs to a deployment. This model's
+third part is the configuration itself, which can be read, compared and
+changed before anything is installed. The variant is the part this model adds.
 
-The rest of this page is the general model. The short model maps onto it like
-this.
+### The earlier five stages
 
-| Short model | General stage | AICR's words |
+Earlier pages named five stages, **Source → Base → Variant → Deliver → Run**.
+They map onto the five words like this.
+
+| Five words | Earlier stage | AICR's words |
 | --- | --- | --- |
 | Pack | Source | data pack |
 | Recipe | Source | criteria, profile, resolved recipe |
 | Bundle | Base | bundle. Its `deploy.sh` installs the components in order, which is a plan written as a script. |
-| Variant | Variant | AICR has none after the base. A profile is chosen before it. |
-| What you do with them | Deliver, Run | validation, evidence bundle |
+| Variant | Variant | AICR has none after the bundle. A profile is chosen before it. |
+| Deployment | Deliver, Run | validation, evidence bundle |
 
-## The five stages
-
-The short model names the four things you hold. The five stages also cover
-what you do with them. Every entry passes through them, whatever its format.
-
-**Source → Base → Variant → Deliver → Run**
-
-| Stage | What happens | What does it, by format |
-| --- | --- | --- |
-| **Source** | A provider publishes something. A recipe pins the choices made from it. | Helm has a chart version and a values file for each base. AICR has a release with a built-in catalog, and five criteria that select from it. Timoni has a module. Plain YAML is its own source. |
-| **Base** | The format's processor turns the recipe into exact objects. The Catalog retains them with a flattening verdict and a plan. | `cub installer` renders a Helm chart. `aicr bundle` writes an AICR bundle, and the Catalog retains its Argo CD form. `timoni build`, `cub kubara` and `cub sveltos` do the same job for their sources. Plain YAML needs no processor. |
-| **Variant** | A reviewed change to a base for one environment, region or customer. | `cub variant upload` makes the base Space in ConfigHub. `cub variant create` makes a variant from it. The source is not processed again. |
-| **Deliver** | A reviewed revision reaches a cluster, and the steps of the plan are carried out. | Argo CD or Flux pulls a release, or `kubectl` applies the objects. For AICR, Argo CD also renders the charts that the Applications name. |
-| **Run** | Someone observes the result and records it. | A receipt records one run. |
-
-Two tools are involved in a base, at different stages. The format's processor
-produces the base objects. `cub variant upload` then makes the base Space from
-those objects. Earlier pages named only one of the two.
+Two tools are involved in a bundle, at different stages. The generator
+produces the objects. `cub variant upload` then makes the base Space from
+them. Earlier pages named only one of the two.
 
 ## Start with the question
 
@@ -247,25 +336,26 @@ then retain reviewed changes as variants that can be promoted and delivered.**
 | **Helm render intent** | The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render. |
 | **Helm render variant** | The captured object output for one base and revision, linked to its intent and digest. |
 
-### Pack
+### Data pack
 
-**A pack is your overrides, laid over a source.** It is versioned, and one
-source can have several.
+**A data pack is your overrides, written as data and laid over a source
+catalog.** It is versioned, and one source can have several. This page also
+calls it a pack.
 
 | Format | What its pack is |
 | --- | --- |
-| Helm | The values files and named presets for a chart. An installer package carries them. |
+| Helm | The values behind each named preset of a chart. They are kept under `recipes/`. |
 | AICR | A data pack, which adds overlays, components or validators to NVIDIA's built-in catalog. |
 | Timoni | The typed values for a module. |
 | Literal OCI, plain YAML | There is none. Nothing is overridden. |
 
-A pack holds presets. A Helm recipe is the chart plus one preset. One chart
-version has one installer package, so three presets in it give three recipes
-and three bundles. The ECK operator chart 3.4.0 is a real case.
+A pack holds presets. A Helm recipe is the chart plus one preset. Three
+presets give three recipes and three bundles. The ECK operator chart 3.4.0 is
+a real case.
 
 ```text
 1 chart version, eck-operator 3.4.0
-  1 pack, its installer package
+  1 pack, the values for its three presets
     preset "default"   -> recipe -> bundle
     preset "ha"        -> recipe -> bundle
     preset "no-crds"   -> recipe -> bundle
@@ -276,7 +366,7 @@ AICR has the same shape under other names.
 
 | | The pack | One item in it | What picks an item |
 | --- | --- | --- | --- |
-| Helm, in the Catalog | Installer package | Preset | The base name |
+| Helm, in the Catalog | The values for a chart's presets | Preset | The preset name |
 | AICR | Data pack | Overlay | The criteria |
 
 An AICR recipe can use several overlays at once, because they stack. A source
@@ -327,7 +417,7 @@ this repository's `recipes/` directory already use it this way.
 
 ### AICR's own words
 
-NVIDIA's AICR has names for the stages before the base and after delivery.
+NVIDIA's AICR has names for what comes before the bundle and for a deployment.
 This model uses them for AICR entries.
 
 | AICR word | What it means | Where it sits in this model |
@@ -335,11 +425,11 @@ This model uses them for AICR entries.
 | **criteria** | The five fields that select a recipe: `service`, `accelerator`, `intent`, `os` and `platform`. | Source. The variant layers table calls an AICR choice a leaf, and these fields pick it. |
 | **data pack** | A directory laid over AICR's built-in catalog. It adds overlays, components or validators without a fork. | Source. No Catalog entry is built from one today. |
 | **profile** | A named alternative inside a recipe, chosen with `--profile`. AICR refuses an override of a field the profile owns. | Source. It is the nearest AICR thing to a base variant. |
-| **constraint** | A precondition a machine can check, such as a Kubernetes version. | Plan. It is a step that is due before you deliver. |
-| **bundle** | The output of `aicr bundle`, with a checksum file. | Base. |
-| **validation** | Named checks that AICR runs against a cluster, in phases. | Run. |
-| **evidence bundle** | The recipe, a cluster snapshot and the check results from one run. A pointer file names it by digest, and it can be signed. | Run. [AICR evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md) compares it with a receipt. |
-| **drift check** | Validation run again later with deploy turned off. | Run. |
+| **constraint** | A precondition a machine can check, such as a Kubernetes version. | Bundle. It is a plan step that is due before a deployment. |
+| **bundle** | The output of `aicr bundle`, with a checksum file. | Bundle. |
+| **validation** | Named checks that AICR runs against a cluster, in phases. This page calls the outcome a validation result, and never a verdict. | Deployment. |
+| **evidence bundle** | The recipe, a cluster snapshot and the check results from one run. A pointer file names it by digest, and it can be signed. | Deployment. [AICR evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md) compares it with a receipt. |
+| **drift check** | Validation run again later with deploy turned off. | Deployment. |
 
 AICR has no word for the steps between a constraint and validation. Its
 installer carries them out in order. This model writes them down as the plan.
@@ -515,13 +605,16 @@ configuration revision, not a Helm render variant.
 
 ## Open points
 
-- **Verdict.** This model and AICR both use the word. Here a verdict is a
-  flattening verdict, and AICR's is the result of one validation run. How the
-  site tells them apart is not decided.
-- **Bundle on the OCI page.** In this model a bundle is the flattened objects,
-  the plan and the record. The [OCI page](../../site/oci.html) uses the word
-  for four shapes, and three of them need another noun. An evidence bundle
-  always keeps its adjective.
+A verdict on this page is always a flattening verdict, which is about a
+bundle. AICR's word for the outcome of a run is written here as a validation
+result, which is about a deployment. That point is settled.
+
+- **Bundle on the OCI page.** In this model a bundle is the certified bundle,
+  which is flattened objects, a record, and a plan where one is needed. The
+  [OCI page](../../site/oci.html) uses the word for four shapes. The likely
+  answer is to keep it for the certified bundle and to call the other three
+  rendered objects, an upload layout and a release. The OCI page has not been
+  changed. An evidence bundle always keeps its adjective.
 - **Where a receipt lives.** One design attaches it to the bundle in the
   registry, and another keeps it beside the bundle. The
   [OCI page](../../site/oci.html) carries the same open point.

@@ -266,7 +266,7 @@ const VERDICT_GLOSS = {
   "born-flattened": "The source was already exact Kubernetes objects. Nothing was rendered.",
   "safe-to-flatten": "Kept as exact Kubernetes objects. Nothing else has to travel with them.",
   "flatten-with-routes": "Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.",
-  "unsafe-to-flatten": "Not delivered as flattened objects. The source is rendered at install time.",
+  "unsafe-to-flatten": "The objects are kept, and no bundle is published. The chart depends on something plain objects cannot carry safely.",
 };
 
 // A verdict as a link to its definition on the Config page. An unknown word is
@@ -4876,21 +4876,24 @@ function configHtml(catalog) {
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every configuration goes through the same five stages. Here they are for one real entry, NVIDIA's GPU Operator.</p>
-    <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
+    <p>Every configuration is described with the same five words. Here they are for one real entry, NVIDIA's GPU Operator.</p>
+    <p class="stage-flow"><strong>Pack &rarr; Recipe &rarr; Bundle &rarr; Variant &rarr; Deployment</strong></p>
     ${markdownLikeTable([
-      ["Stage", "What it is", "For the GPU Operator"],
-      ["Source", "What you start from.", "NVIDIA's Helm chart, version 26.3.3."],
-      ["Base", "The source turned into exact Kubernetes objects, once, and kept.", "The chart rendered with its default values. That gives 24 objects."],
-      ["Variant", "A copy of the base for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub."],
-      ["Deliver", "A change is compared, approved and moved from one environment to the next.", "An upgrade from 26.3.2 to 26.3.3 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
-      ["Run", "A controller such as Argo CD applies the result to a cluster.", "Done once, on a cluster with no GPUs."],
+      ["Word", "What it is", "For the GPU Operator"],
+      ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
+      ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
+      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept in OCI. It carries a plan where one is needed.", "24 objects and three plan documents."],
+      ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
+      ["Deployment", "One variant on one cluster, applied by a controller such as Argo CD.", "Done once, on a cluster with no GPUs."],
     ])}
+    <p>A generator turns a recipe into a bundle. Here the generator is Helm, and the Catalog ran it once.</p>
+    <p>Everything up to the bundle needs no account. ConfigHub starts at the variant. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines each word.</p>
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
+    <p>You can go round again at any point. A new chart version makes a new bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
-      <summary>The five stages in the Catalog's own terms</summary>
+      <summary>The earlier five stages, in the Catalog's own terms</summary>
       <div class="deep-body">
+    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Pack and recipe are the source, the bundle is the base, and a deployment covers deliver and run.</p>
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <ol>
       <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
@@ -5052,17 +5055,18 @@ bash ./try.sh</code></pre>
     <ul>
       <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There is no plan.</li>
       <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with a plan, as the GPU Operator's do.</li>
-      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
+      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart depends on something plain objects cannot carry safely, so the Catalog publishes no bundle for it. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
     <h3 id="two-ways-to-ship">The Catalog ships a chart two ways</h3>
-    <p>Every chart version in the Catalog is published as an installer package. The package holds the chart itself, and Helm still runs when you install it.</p>
-    <p>Where the verdict allows, the Catalog can also publish the plain objects as a bundle. Helm does not run when you deliver a bundle. Each entry page says whether its bundle is published.</p>
+    <p>Every chart version in the Catalog is published as an installer package. The package holds the objects of every preset, already rendered. <code>cub installer</code> reads it and runs no Helm.</p>
+    <p>Where the verdict allows, the Catalog can also publish one preset as a bundle. A bundle holds that preset's objects and its plan. Each entry page says whether its bundle is published.</p>
     <p>An <code>unsafe-to-flatten</code> chart has the installer package only.</p>
     <details class="deep">
       <summary>Why both ways are kept</summary>
       <div class="deep-body">
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
+    <p>The next paragraph is earlier wording, and one claim in it is wrong. The installer packages in the Catalog hold rendered objects, and none carries an un-rendered chart.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
       </div>
     </details>
@@ -5093,7 +5097,7 @@ bash ./try.sh</code></pre>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">What happens after the verdict</h3>
     <p>An entry whose verdict allows plain objects follows the five stages in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
-    <p>An <code>unsafe-to-flatten</code> entry is installed from its installer package, and Helm runs at that point.</p>
+    <p>An <code>unsafe-to-flatten</code> entry has its installer package and no bundle.</p>
     <p>A published bundle shows that the objects were rendered and packaged as recorded. It does not show that they run.</p>
     <details class="deep">
       <summary>The build steps, in the Catalog's own terms</summary>
@@ -5107,7 +5111,7 @@ bash ./try.sh</code></pre>
       <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
       <li>Receipts close the loop where convergence is recorded.</li>
     </ol>
-    <p>An <code>unsafe-to-flatten</code> source skips this build-time pipeline. Its processor runs late, at install time, through its installer package, which stays its certified route.</p>
+    <p>An <code>unsafe-to-flatten</code> source is rendered too, and its objects are in its installer package. No bundle is published for it.</p>
     <p>The receipt certifies rendering and packaging, not runtime health, and convergence receipts stay separate. A decided lane does not mean a bundle exists or ever will. Publication is a separate step, gated on the lane permitting it, and an <code>unsafe-to-flatten</code> entry must never carry a certified-bundle receipt.</p>
       </div>
     </details>
@@ -16139,7 +16143,7 @@ function entryPlanHtml(listing, siteHref) {
     : ({
     "no-retained-objects": "The Catalog keeps no single retained file for this entry, so it has no plain-objects test.",
     "verdict": verdict === "unsafe-to-flatten"
-      ? "This entry needs Helm when it is installed, so it has no plain-objects test."
+      ? "The Catalog publishes no plain objects for this entry, because its verdict is unsafe-to-flatten. It has no plain-objects test."
       : "The Catalog has not decided how this entry is kept, so it has no plain-objects test.",
     "needs-argo-cd": "This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no such test yet.",
     "needs-sveltos": "This entry is one instruction to Sveltos on a management cluster. A test needs Sveltos and the clusters it selects, so the entry has no plain-objects test.",
