@@ -619,6 +619,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 2 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nodewright-v0-17-1/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -720,6 +721,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 2 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nodewright-v0-17-1/aicr-eks-training/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

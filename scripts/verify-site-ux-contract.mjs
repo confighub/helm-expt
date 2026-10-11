@@ -101,6 +101,13 @@ const checks = [
     file: "site/charts/nvidia-gpu-operator-v26-7-1.html",
     terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "carried out this entry's upgrade and delete steps by hand"],
   },
+  // An entry with no packaged base still has a script that tests its retained
+  // objects. Its page must offer that script, say what it needs, and link the
+  // dated log of its run.
+  {
+    file: "site/charts/nvidia-gpu-operator-v26-3-3.html",
+    terms: ["Test the plain objects yourself", "sh/nvidia-gpu-operator-v26-3-3/default/try-objects.sh", "tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account", "live-walk-test-plain-objects-2026-10-11.html"],
+  },
   // The change-review Guide rests on one recorded run, so it must keep the
   // part that needs no account, the approval command, and the two limits a
   // reviewer has to know: one account wrote and approved, and the app never ran.
@@ -212,7 +219,7 @@ const checks = [
   },
   {
     file: "site/config.html",
-    terms: ["Here they are for one real entry, NVIDIA's GPU Operator", "The Catalog ships a chart two ways", "Why some entries come with a plan", "What the GPU Operator's plan says", "It does not carry it out", "The plan never renders them again", "Test a plan yourself", "the script stops and says how to let it apply the package's own", "live-walk-gpu-operator-upgrade-delete-2026-10-11.html", "It does not run the Jobs the plan names for an upgrade or a delete", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "What a plan can hold", "The Catalog's records call the steps in a plan routes", "What each verdict means", "id=\"verdict-flatten-with-routes\"", "verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "What has to travel with each verdict", "How many entries have each verdict", "What happens after the verdict"],
+    terms: ["Here they are for one real entry, NVIDIA's GPU Operator", "The Catalog ships a chart two ways", "Why some entries come with a plan", "What the GPU Operator's plan says", "It does not carry it out", "The plan never renders them again", "Test a plan yourself", "the script stops and says how to let it apply the package's own", "A second script, <code>try-objects.sh</code>, tests the retained objects themselves", "live-walk-test-plain-objects-2026-10-11.html", "live-walk-gpu-operator-upgrade-delete-2026-10-11.html", "It does not run the Jobs the plan names for an upgrade or a delete", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "What a plan can hold", "The Catalog's records call the steps in a plan routes", "What each verdict means", "id=\"verdict-flatten-with-routes\"", "verdicts cover only the Argo CD Application wrapper of an AICR recipe", "A simple model for all your config, templates and recipes", "Start from what you have", "1. Follow one configuration from source to running", "2. See what each format becomes", "3. See whether a configuration can be flattened", "What each step means", "Four questions, asked in order", "What do I have?", "Can this destination accept it?", "The command at each stage", "Where ConfigHub fits", "defines what comes next", "The ways a configuration enters", "In terms you already use", "What has to travel with each verdict", "How many entries have each verdict", "What happens after the verdict"],
   },
   {
     file: "site/demo.html",

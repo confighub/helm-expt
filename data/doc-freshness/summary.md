@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `a5b85b2499`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `6c8d74de03`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 485 |
+| Authored docs tracked | 486 |
 | Fresh (no linked source newer than the doc) | 64 |
 | **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 325 |
+| No linked evidence sources (cannot auto-trigger) | 326 |
 
 ## Review queue
 
@@ -438,6 +438,7 @@ into this freshness model.
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)
 - [docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md](../../docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md)
 - [docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md](../../docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md)
+- [docs/user/live-walk-test-plain-objects-2026-10-11.md](../../docs/user/live-walk-test-plain-objects-2026-10-11.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
 - [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)
