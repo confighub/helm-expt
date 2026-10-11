@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1.19.2-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+  layerDigest: "sha256:a6c6c948a19b24d1614087c1d71146370014f505a0591a039169f5e81cffcb40"
+  layerBytes: 1867
+  observedAt: "2026-10-11T15:06:29.505Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default.tar.gz"

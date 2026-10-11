@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c"
+      manifestDigest: "sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c"
+      layerDigest: "sha256:8ef87213375cccfb0c2ee8773f377a01e299b9e016d84b189a433d17adc13e4a"
+      objectSetSha256: "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2"
+      receipt: "data/certified-bundles/receipts/catalog/metrics-server-3.14.0-default/receipt.yaml"
+      receiptSha256: "sha256:3a05944c896c0c693f6cda81164d778b941878ce5dad3b4014ffd03cb478474e"
+      publicationReceipt: "runs/certified-bundles/catalog-metrics-server-metrics-server-3-14-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:3f05f920d7f8c52f89baa9f2de5e39e6d78d5d1d56a3bc6d59158002b6089c7e"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

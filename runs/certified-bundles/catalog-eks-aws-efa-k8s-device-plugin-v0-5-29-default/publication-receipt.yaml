@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-eks-aws-efa-k8s-device-plugin-v0.5.29-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:d9a17a32a2906855aa2fc2d5f8c6c9db7ee668a7cee257b938accfd1b496b048"
+  layerDigest: "sha256:3aa61952965d9c5aff51eb06d79a8461df661968fc6e3f4e2034cbc047bda846"
+  layerBytes: 2563
+  observedAt: "2026-10-11T15:06:01.666Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default.tar.gz"

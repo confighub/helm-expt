@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training.yaml",
-      "sha256": "sha256:fbf2beb536e2c0d553ee5ad2a9710ff63c4fa3df31b67e6befc728e278f7655a",
+      "sha256": "sha256:cc75bf79e5f7ec26437cd210930ebddc2b7093fdcd9143da170b5e7864c22d9a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training:latest@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:471e56634d8d1c3f711838d969eaca1e759cce089a6af666c8e4dcb2ae811b32"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:db0be691e55bcea75ef563de4a9efaf7dce7e6ca3f8437f24ce35946f9ca2247"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:6ad2fe7f7ae612985ae7a8c35cbde242710f279963ab232e712198fbf9d376f8"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
