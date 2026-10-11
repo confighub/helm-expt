@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `52a4f0484a`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `1c16f0c127`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 489 |
-| Fresh (no linked source newer than the doc) | 68 |
-| **Review-due** | 93 |
+| Authored docs tracked | 490 |
+| Fresh (no linked source newer than the doc) | 70 |
+| **Review-due** | 92 |
 | No linked evidence sources (cannot auto-trigger) | 328 |
 
 ## Review queue
@@ -90,7 +90,6 @@ most recently changed triggers.
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 45 | `data/app-readiness/summary.md (2026-10-09)`<br>`data/chart-use-guide/summary.md (2026-10-09)` |
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 45 | `data/helm-render-intents/contract-gaps.csv (2026-10-09)`<br>`data/helm-render-intents/contract-gaps.md (2026-10-09)`<br>`data/helm-render-intents/contract.md (2026-10-09)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 45 | `data/installer-oci-packages/packages.csv (2026-10-09)`<br>`data/installer-oci-packages/packages.json (2026-10-09)`<br>`data/installer-oci-packages/summary.md (2026-10-09)` |
-| [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) | user | 2026-08-26 | 45 | `data/cub-adoption-caveats/summary.md (2026-10-09)`<br>`data/serverless-install-parity-proof/summary.md (2026-08-26)`<br>`data/serverless-oci-gitops-proof/summary.md (2026-08-26)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 45 | `data/master-catalog-matrix/summary.md (2026-10-09)` |
 | [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 45 | `data/outcome-coverage/summary.md (2026-10-09)`<br>`data/status-dashboard/summary.md (2026-10-09)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
