@@ -481,6 +481,7 @@
     "next80:generate": "node scripts/generate-next80-full-proofs.mjs --generate",
     "next80:verify": "node scripts/generate-next80-full-proofs.mjs --verify",
     "next80:verify:packages": "node scripts/generate-next80-full-proofs.mjs --verify-packages",
+    "next80:verify-packages": "npm run next80:verify:packages",
     "next80:verify:self-test": "node scripts/generate-next80-full-proofs.mjs --self-test",
     "top20:confighub-proof": "node scripts/run-top20-confighub-proof.mjs",
     "top20:confighub-proof:all": "node scripts/run-top20-confighub-proof.mjs --all --force",

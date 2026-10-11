@@ -72,6 +72,23 @@ spec:
     - id: training-v0200-applications
       description: The Argo CD Applications the v0.20.0 training entry renders.
       compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v0-20-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v100-applications
+      description: The Argo CD Applications the v1.0.0 training entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v100-overlays
+      description: The overlays AICR resolved to produce the v1.0.0 training recipe.
+      compute: { kind: number, file: examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml, path: spec.result.overlaysResolved }
+    - id: version-diff-v0200-to-v100-version-moves
+      description: >-
+        Components whose chart version moved between the v0.20.0 and v1.0.0
+        training entries. It reads the fourth recorded transition, which is
+        the one between those two versions.
+      compute:
+        kind: countWhere
+        file: data/aicr-version-diff/diff.json
+        path: transitions.3.components.changed
+        key: change
+        equals: version
     - id: training-v0200-components-with-crds
       description: The v0.20.0 nested components whose selected local render contains CRDs.
       compute: { kind: number, file: data/aicr-v0-20-0-nested-sources/catalog.json, path: summary.componentsWithCrds }
@@ -1589,6 +1606,18 @@ spec:
       page: eks-h100-training-kubeflow-v0-19-0.md
       phrases: ["15 components"]
 
+    - id: v100-page-renders-seventeen
+      quantity: training-v100-applications
+      page: eks-h100-training-kubeflow-v1-0-0.md
+      phrases: ["17 Applications", "17 Application objects"]
+    - id: v100-page-cites-version-moves
+      quantity: version-diff-v0200-to-v100-version-moves
+      page: eks-h100-training-kubeflow-v1-0-0.md
+      phrases: ["Eight components"]
+    - id: v100-page-resolves-overlays
+      quantity: training-v100-overlays
+      page: eks-h100-training-kubeflow-v1-0-0.md
+      phrases: ["nine overlays"]
     - id: v0200-page-renders-seventeen
       quantity: training-v0200-applications
       page: eks-h100-training-kubeflow-v0-20-0.md

@@ -72,6 +72,18 @@ spec:
         - v0.20.0 training entry
         - AICR v0.20.0 entry
 
+    - id: eks-h100-training-kubeflow-v1-0-0
+      page: docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.md
+      retainedVersion: v1.0.0
+      versionSource: >-
+        AICR's release tag. This append-only entry uses the same EKS, H100,
+        Ubuntu, training, and Kubeflow criteria as the earlier versions. Its
+        source verification binds the signed v1.0.0 CLI, recipe catalog, SBOM,
+        and generated Applications. It is not published as OCI.
+      names:
+        - v1.0.0 training entry
+        - AICR v1.0.0 entry
+
     - id: eks-h100-inference-nim
       page: docs/demo/aicr/eks-h100-inference-nim.md
       retainedVersion: v0.14.0
