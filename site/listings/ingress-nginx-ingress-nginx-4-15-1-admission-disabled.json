@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
-      "sha256": "sha256:8002dd57ab95cd6a7f0d32ccf25c179843cf20c0c861024417c5c80a359be883",
+      "sha256": "sha256:9610631695060e875d0812da95b045eb07e51363c7f51da795c2bbef2b59efa6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -232,38 +232,74 @@
         "id": "hooks",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+        "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
       }
     ],
     "routes": [
       {
         "id": "hooks",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
         "actor": "delivery runtime",
-        "mechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+        "mechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "hooks"
         ],
         "checks": [],
         "evidence": [
-          "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
     "records": [
+      {
+        "name": "ingress-nginx-ingress-nginx-4.15.1.yaml",
+        "path": "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+      },
       {
         "name": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
         "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
+        "name": "effective-values-admission-disabled.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml"
+      },
+      {
         "name": "flattening-safety-verdict-admission-disabled.yaml",
         "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "source-lock.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
       }
     ]
   },

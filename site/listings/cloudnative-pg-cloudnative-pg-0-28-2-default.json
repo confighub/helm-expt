@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
-      "sha256": "sha256:9b43b74a030ebc21e161aa2a94ab34d2e6908b930d86cc83823ae6c29c80aced",
+      "sha256": "sha256:ec971c036cfe986b472e8ad997b542365fdebc356de308531fc4ba14e24428ea",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -237,7 +237,7 @@
         "id": "webhook-certificate",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The CloudNativePG operator makes its own certificate after it starts and fills the caBundle of both webhook configurations, so you do nothing for this step."
       }
     ],
     "routes": [
@@ -277,19 +277,22 @@
       },
       {
         "id": "webhook-certificate",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
-        "actor": "selected destination actor",
-        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+        "actor": "the CloudNativePG operator",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The CloudNativePG operator makes its own certificate after it starts and fills the caBundle of both webhook configurations, so you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "webhook-certificate"
         ],
         "checks": [],
         "evidence": [
-          "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+          "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
@@ -300,9 +303,24 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
       }
     ]
   },

@@ -123,6 +123,7 @@ smallest generated surface that answers it.
 | [nginx-config-checks/checks.csv](./nginx-config-checks/checks.csv) | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
 | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits. |
 | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | Webhook certificate lifecycle evidence: rows where explicit staged certificate material makes a local live workload converge. |
+| [plan-step-readings/README.md](./plan-step-readings/README.md) | Hand-written readings of what one plan step asks of one base. Each says who supplies a webhook certificate or which hooks apply, cites the object that shows it, and names the live run that saw it. |
 | [hook-coverage/summary.md](./hook-coverage/summary.md) | Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans. |
 | [apiservice-coverage/summary.md](./apiservice-coverage/summary.md) | Top-100 APIService coverage bridge: separates rendered APIService object evidence from aggregated API availability evidence. |
 | [apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md) | Assignable APIService proof-wave work orders: KEDA first, source-only import rows next, and Metrics Server keep-fresh pattern. |

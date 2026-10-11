@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-import { readYaml } from "./lib/proof-common.mjs";
+import { parseObjects, readYaml } from "./lib/proof-common.mjs";
 import {
   aicrMirrorDeliveryProblem,
   LITERAL_CONFIG,
@@ -1137,6 +1137,141 @@ for (const match of corpus.matchAll(/full rendering/gi)) {
   }
 }
 
+// Plan step readings. data/plan-step-readings/readings.yaml is written by
+// hand, so nothing in it is taken on trust. Every reading names a record that
+// exists and a step that record takes from its own verdict file. Every file it
+// cites exists. Every object it names is in the file it cites, matched by
+// kind, namespace and name after the file is parsed. Every kind it says is
+// absent is absent. A log it says holds the live run exists. The record's step
+// then has to say what the reading says, and no more: the phase the reading
+// gives, observed only beside a committed log, and never automatic.
+const planStepReadingsPath = "data/plan-step-readings/readings.yaml";
+const planStepReadingPhases = new Map([
+  ["workload-supplies", "observe"],
+  ["needs-component-first", "pre-apply"],
+  ["not-needed-in-this-base", "observe"],
+  ["hook-job", "destination-resolution"],
+  ["check-after-install", "post-apply"],
+  ["unknown", "destination-resolution"],
+]);
+let planStepReadingsChecked = 0;
+if (existsSync(join(root, planStepReadingsPath))) {
+  const readingsDocument = readYaml(join(root, planStepReadingsPath));
+  const readings = readingsDocument?.spec?.readings;
+  requireCondition(
+    readingsDocument?.kind === "PlanStepReadings" && Array.isArray(readings) && readings.length > 0,
+    `${planStepReadingsPath}: not a PlanStepReadings document with at least one reading`,
+  );
+  const recordsByName = new Map(records.map((record) => [record.metadata?.name, record]));
+  const isFile = (path) => {
+    const full = join(root, String(path ?? ""));
+    return Boolean(path) && existsSync(full) && statSync(full).isFile();
+  };
+  const objectsByPath = new Map();
+  const objectsIn = (path) => {
+    if (!objectsByPath.has(path)) objectsByPath.set(path, parseObjects(read(path)));
+    return objectsByPath.get(path);
+  };
+  // "Kind namespace/name", or "Kind name" for an object with no namespace.
+  const namedObject = (text) => {
+    const match = /^(\S+) (?:([^\s/]+)\/)?(\S+)$/.exec(String(text ?? "").trim());
+    return match ? { kind: match[1], namespace: match[2] ?? "", name: match[3] } : null;
+  };
+  const seenReadings = new Set();
+  for (const reading of Array.isArray(readings) ? readings : []) {
+    const at = `${planStepReadingsPath}: ${reading?.record ?? "a reading with no record"}/${reading?.step ?? "no step"}`;
+    planStepReadingsChecked += 1;
+    requireCondition(!seenReadings.has(`${reading.record}/${reading.step}`), `${at}: read twice`);
+    seenReadings.add(`${reading.record}/${reading.step}`);
+    requireCondition(planStepReadingPhases.has(reading.reading), `${at}: ${JSON.stringify(reading.reading)} is not a known reading`);
+    const instruction = String(reading.instruction ?? "").trim();
+    requireCondition(instruction.length > 0, `${at}: the reading gives no instruction`);
+    requireCondition(
+      reading.reading !== "workload-supplies" || String(reading.suppliedBy ?? "").trim().length > 0,
+      `${at}: the reading says the workload supplies it and names no workload in suppliedBy`,
+    );
+
+    const evidence = Array.isArray(reading.evidence) ? reading.evidence : [];
+    requireCondition(evidence.length > 0, `${at}: the reading cites no evidence`);
+    for (const item of evidence) {
+      requireCondition(String(item?.shows ?? "").trim().length > 0, `${at}: evidence at ${item?.path} does not say what it shows`);
+      if (!isFile(item?.path)) {
+        requireCondition(false, `${at}: the reading cites ${item?.path}, and that file does not exist`);
+        continue;
+      }
+      if (item.object !== undefined) {
+        const wanted = namedObject(item.object);
+        requireCondition(Boolean(wanted), `${at}: ${JSON.stringify(item.object)} is not written as "Kind namespace/name" or "Kind name"`);
+        if (wanted) {
+          const found = objectsIn(item.path).filter((object) => (
+            object.kind === wanted.kind && object.namespace === wanted.namespace && object.name === wanted.name
+          ));
+          requireCondition(
+            found.length === 1,
+            `${at}: the reading names ${item.object}, and ${item.path} holds ${found.length === 0 ? "no such object" : `${found.length} of them`}`,
+          );
+        }
+      }
+      for (const kind of item.absentKinds ?? []) {
+        const present = objectsIn(item.path).filter((object) => object.kind === kind);
+        requireCondition(
+          present.length === 0,
+          `${at}: the reading says ${item.path} holds no ${kind}, and it holds ${present.length}`,
+        );
+      }
+    }
+
+    const log = reading.observed === undefined ? "" : String(reading.observed?.log ?? "").trim();
+    if (reading.observed !== undefined) {
+      requireCondition(isFile(log), `${at}: the reading says a live run is in ${log || "a log it does not name"}, and that file does not exist`);
+      requireCondition(String(reading.observed?.result ?? "").trim().length > 0, `${at}: the observed block does not say what the run saw`);
+    }
+
+    const record = recordsByName.get(reading.record);
+    requireCondition(Boolean(record), `${at}: no record has that name`);
+    if (!record) continue;
+    const verdictPath = String(record.spec?.processing?.flattening?.record ?? "");
+    const step = (record.spec?.lifecycle?.routeIntent?.routes ?? []).find((route) => route.id === reading.step);
+    requireCondition(
+      Boolean(step) && verdictRoutesFor(record.spec).length > 0 && (step.evidence ?? []).includes(verdictPath),
+      `${at}: the record takes no step of that id from its verdict file, and a reading can only refine such a step`,
+    );
+    if (!step) continue;
+    const observed = Boolean(log) && isFile(log);
+    requireCondition(
+      step.phase === planStepReadingPhases.get(reading.reading),
+      `${at}: the reading is ${reading.reading} and the record's step has the phase ${step.phase}`,
+    );
+    requireCondition(
+      step.automatic === false && step.sourceStatus === (observed ? "observed" : "recorded-not-run"),
+      `${at}: the record's step is automatic or says ${step.sourceStatus}, and the reading ${observed ? "records a live run" : "records no live run"}`,
+    );
+    requireCondition(
+      String(step.proposedMechanism ?? "").endsWith(/[.!?]$/.test(instruction) ? instruction : `${instruction}.`),
+      `${at}: the record's step does not end with the reading's instruction`,
+    );
+    requireCondition(
+      reading.reading !== "workload-supplies" || step.proposedActor === String(reading.suppliedBy ?? "").trim(),
+      `${at}: the record's step does not name the workload the reading names`,
+    );
+    const cited = [planStepReadingsPath, ...evidence.map((item) => item?.path), ...(observed ? [log] : [])];
+    requireCondition(
+      cited.every((path) => (step.evidence ?? []).includes(path)),
+      `${at}: the record's step does not cite the readings file, every file the reading cites and its log`,
+    );
+  }
+  // A step that says it was observed because of a reading needs that reading.
+  for (const record of records) {
+    for (const step of record.spec?.lifecycle?.routeIntent?.routes ?? []) {
+      if (!(step.evidence ?? []).includes(planStepReadingsPath)) continue;
+      requireCondition(
+        seenReadings.has(`${record.metadata?.name}/${step.id}`),
+        `${record.metadata?.name}/${step.id}: the step cites ${planStepReadingsPath}, and that file holds no reading of it`,
+      );
+    }
+  }
+}
+
 if (failures.length) {
   console.error(`configuration processing model failed with ${failures.length} issue(s):`);
   for (const failure of failures) console.error(`- ${failure}`);
@@ -1148,5 +1283,5 @@ const sourceSummary = [...sourceCounts.entries()]
   .map(([source, count]) => `${source}=${count}`)
   .join(", ");
 console.log(
-  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; flatten-with-routes records that name a step=${flattenWithRoutes - flattenWithRoutesNamingNoStep}/${flattenWithRoutes} (${flattenWithRoutesNamingNoStep} with nothing committed that states one); retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt); NVIDIA chart bases with a literal bundle plan, a record and a listing=${nvidiaBundleEntriesWithListing}/${nvidiaBundleEntries.length} (${nvidiaBundleEntriesPublished} published with a receipt)`,
+  `verified ${records.length}/${records.length} Catalog records against the cross-format model (${sourceSummary}); flattening decided=${flatteningDecided}, routes resolved=${routesResolved}, ownership declared=${ownershipDeclared}; flatten-with-routes records that name a step=${flattenWithRoutes - flattenWithRoutesNamingNoStep}/${flattenWithRoutes} (${flattenWithRoutesNamingNoStep} with nothing committed that states one); retained AICR recipe directories with their own record and listing=${aicrRecipeEntriesWithRecord}/${aicrRecipeEntries.length}; all AICR recipe directories with one record=${aicrRecipeDirectoriesWithRecord}/${aicrRecipeDirectories.length}; AICR entries flagged ${ATTENTION_STATE} for an unchecked ordering edge=${aicrEntriesFlagged}; retained NIMService samples with their own record and listing=${nimServiceEntriesWithRecord}/${nimServiceFiles.length} (${nimServiceEntriesMarkedWatch} flagged ${ATTENTION_STATE}, ${nimServiceEntriesPublished} published with a receipt); NVIDIA chart bases with a literal bundle plan, a record and a listing=${nvidiaBundleEntriesWithListing}/${nvidiaBundleEntries.length} (${nvidiaBundleEntriesPublished} published with a receipt); plan step readings checked against their records and cited objects=${planStepReadingsChecked}`,
 );

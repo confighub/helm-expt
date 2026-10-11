@@ -137,10 +137,13 @@ spec:
           id: "webhook-certificate"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step."
       records:
         - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+        - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -148,21 +151,27 @@ spec:
           id: "webhook-certificate"
           requirementRefs:
             - "webhook-certificate"
-          phase: "destination-resolution"
-          proposedActor: "selected destination actor"
-          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+          phase: "observe"
+          proposedActor: "the Vault agent injector"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
+          status: "recorded"
+          sourceStatus: "observed"
           supportedRuntimes:
             []
           checks:
             []
           evidence:
             - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
       records:
         - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+        - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
     targetFacts:
       status: "gap"
       declared:
