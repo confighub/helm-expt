@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+  layerDigest: "sha256:ece7f1653b25a108f448fd1e43ec4c9752e4dd6ce5b76519e5d0541cb651be5d"
+  layerBytes: 9452
+  observedAt: "2026-10-11T17:52:18.887Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-post-delete.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.tar.gz"

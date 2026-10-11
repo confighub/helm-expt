@@ -27,12 +27,27 @@ spec:
         bytes: 22406
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.8.0-no-crds/target-requirements.yaml"
+        sha256: "84911c2be9e212597073b4e42113156a88bc1fc38f454b994fc1e72f62d42f9d"
+        bytes: 6125
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/external-secrets-2.8.0-no-crds/space-guide.md"
-        sha256: "c4dc8b306a3d1d861c715d986646cbd54f76482361f847c8e601f5c44f9f5069"
-        bytes: 1154
+        sha256: "1d039bbe0b78094919f03df706d7e939e0780b482b373f521edbfb8bfba8d9c0"
+        bytes: 2177
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-secrets-external-secrets-2-8-0-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.8.0-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-before-apply"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -43,6 +58,11 @@ spec:
         -
           reference: "ghcr.io/external-secrets/external-secrets:v2.8.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-no-crds:latest"
+    manifestDigest: "sha256:e90fc07ef38fe652267439fed447e2bec1bd8f4fd1b6f90f882cf007e9b2cdb0"
+    layerDigest: "sha256:2ef02c48c252101354a43b291889033a8384703a4bc946c85ce47124d8964606"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +135,5 @@ spec:
       - "recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/external-secrets/external-secrets/2.8.0/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-8-0-no-crds.yaml"
+      - "runs/certified-bundles/catalog-external-secrets-external-secrets-2-8-0-no-crds/publication-receipt.yaml"

@@ -27,12 +27,26 @@ spec:
         bytes: 28773
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/kedacore-keda-2.19.0-no-crds/webhook-readiness-observation.yaml"
+        sha256: "0693196a3d26b80e72da1f0a5cbb0907d2dc6ab896bff7754bb89386a6d0e45e"
+        bytes: 1660
+        role: "route: plan-step webhook-readiness-observation"
+      -
         path: "data/certified-bundles/guides/catalog/keda-2.19.0-no-crds/space-guide.md"
-        sha256: "ac8ed983b53da4dcf119633a2003f9a2745bdb3e31a4a1c337209c6594d71cc4"
-        bytes: 1086
+        sha256: "c1fac257519d3f6b01df1d3e87819bf233caa944f19519b46ecaea99c906bfaa"
+        bytes: 1769
         role: "space-guide"
     objectCount: 23
     objectInventoryRef: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/kedacore-keda-2.19.0-no-crds/webhook-readiness-observation.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-readiness-observation"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -49,6 +63,11 @@ spec:
         -
           reference: "ghcr.io/kedacore/keda:2.19.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds:latest"
+    manifestDigest: "sha256:383c82dbee0234a0e5ebdc4a441dd4afa03dad62a25ceb772549d05f93a6f9be"
+    layerDigest: "sha256:bbc5b25e9ad1e24ddb37804f7ebe0408bbe7913125e324deda0435f39c02e0b2"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -121,3 +140,5 @@ spec:
       - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/kedacore/keda/2.19.0/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml"
+      - "runs/certified-bundles/catalog-kedacore-keda-2-19-0-no-crds/publication-receipt.yaml"

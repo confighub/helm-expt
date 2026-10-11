@@ -242,8 +242,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-ha:latest@sha256:1e0fb08e1bdbc381b77954fa953279e6d9067565402635553bb94c9cda45a847"
+      manifestDigest: "sha256:1e0fb08e1bdbc381b77954fa953279e6d9067565402635553bb94c9cda45a847"
+      layerDigest: "sha256:d8974f2be0f4ccf0637471718091f25a1dff22099835e30c270de632d27abf4e"
+      objectSetSha256: "sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
+      receipt: "data/certified-bundles/receipts/catalog/eck-operator-3.4.0-ha/receipt.yaml"
+      receiptSha256: "sha256:3630b329af542d53ddb47e1fd789676312000862734fd0d94288e844d80a82da"
+      publicationReceipt: "runs/certified-bundles/catalog-elastic-eck-operator-3-4-0-ha/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:cc68aedf6605fc13ad6a15575dc6285d38a6d72b7c7c1f505c49df7a25d482c9"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/crd-ordering.yaml"
+          sha256: "sha256:324a49608c3766f8ceb5cb1e16478bfff120ed39bc231a2968bcaf6821ae25c7"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/prune-protection.yaml"
+          sha256: "sha256:df3cb025de88e720efcbfd4994efd6292bce3504ee50cc6dcbf123bb7e8c51a4"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/webhook-certificate.yaml"
+          sha256: "sha256:7ea401f86b40a06c1400719db504129207fc8ba12d52060fd198bada04b21cb9"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

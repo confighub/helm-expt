@@ -37,12 +37,46 @@ spec:
         bytes: 2316
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/webhook-certificate.yaml"
+        sha256: "ea0140b16fa4fe89a8caf2d5bd152a5967321b2372a991b5d7ccbda541448854"
+        bytes: 1814
+        role: "route: plan-step webhook-certificate"
+      -
+        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/hooks.yaml"
+        sha256: "aeaabc3b9592696db467c22f3612634054e0bb478fbc13c7fafb6f6605d10fde"
+        bytes: 2101
+        role: "route: plan-step hooks"
+      -
         path: "data/certified-bundles/guides/catalog/cert-manager-v1.20.2-crds-enabled/space-guide.md"
-        sha256: "59c9c66c3efc625ea53b428a72c4efd53a23f118775763f665564d7ebb71daa8"
-        bytes: 1360
+        sha256: "ddabdbc1bda8086763d5b601eaed39930b8920b96eadc0f6f2d45eee51628ecc"
+        bytes: 2978
         role: "space-guide"
     objectCount: 48
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-crds-enabled/hooks.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "hooks"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -59,6 +93,11 @@ spec:
         -
           reference: "quay.io/jetstack/cert-manager-webhook:v1.20.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled:latest"
+    manifestDigest: "sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+    layerDigest: "sha256:6ec64ceffef1cbed033ef588d7b768ab764d18c3db83802afde046eeed2e64eb"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -133,3 +172,5 @@ spec:
       - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml"
       - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
       - "packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+      - "runs/certified-bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled/publication-receipt.yaml"

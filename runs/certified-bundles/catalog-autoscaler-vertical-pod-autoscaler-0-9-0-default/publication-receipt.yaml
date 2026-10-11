@@ -1,0 +1,19 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-autoscaler-vertical-pod-autoscaler-0.9.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7"
+  layerDigest: "sha256:661bc94cb2fce3c8e194ed7bd91cdebcdbd94c8a5ebc6b9c086cb3cbd461e8a3"
+  layerBytes: 10205
+  observedAt: "2026-10-11T17:50:57.861Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default.tar.gz"

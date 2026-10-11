@@ -6,22 +6,32 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 1 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-ha-raft-ui.yaml
 
-## What its routes owe
+## The plan
 
-This bundle's lane requires companion artifacts and it ships none yet. Treat its ordering and lifecycle work as unresolved until a route arrives.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/hashicorp-vault-0-32-0-ha-raft-ui.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
+
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `topology-before-apply` | `requirements/target-requirements.yaml` | the record |
+
+### topology-before-apply
+
+This step is due before you deliver. The record names `operator` for it and marks it `recorded-not-run`.
+
+The destination must provide the recorded topology before apply. schedule the three Vault server replicas rendered by the HA Raft base.
 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-hashicorp-vault-0.32.0-ha-raft-ui --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-hashicorp-vault-0.32.0-ha-raft-ui --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-ha-raft-ui
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

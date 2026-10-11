@@ -1,0 +1,36 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2-crds-enabled-webhook-certificate"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step."
+  declaration:
+    step: "webhook-certificate"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-certificate"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+      - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "the cert-manager webhook and cainjector"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+    verdictRef: "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"

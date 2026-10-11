@@ -37,12 +37,36 @@ spec:
         bytes: 1974
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/target-requirements.yaml"
+        sha256: "a9da0c5514c7c216ed38fc96e8c5141f2bd09ae4e8597d4043bfe679c1083de6"
+        bytes: 1612
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/argo-cd-10.1.3-default/space-guide.md"
-        sha256: "f4ee44eb9cab74273c1efe6e789cc7ca9a5c172d36d89829fbc740197a8c681e"
-        bytes: 1286
+        sha256: "938c1b2704439b14889eb0b84d7944c3e458ff775b99e215f535065a6690a6c9"
+        bytes: 2375
         role: "space-guide"
     objectCount: 55
     objectInventoryRef: "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-cd-10-1-3-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -59,6 +83,11 @@ spec:
         -
           reference: "quay.io/argoproj/argocd:v3.4.5"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-1-3-default:latest"
+    manifestDigest: "sha256:25b394e0fcc9afc3a1a797c3dbd735f2d8169fdac9ab2ab8a4f864c773151bd6"
+    layerDigest: "sha256:ff44158ae58ef166abfbfac3327173ba1314177caadb632cff3797a5e39e5333"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -133,3 +162,5 @@ spec:
       - "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-cd/10.1.3/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-cd-10-1-3-default.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-cd-10-1-3-default/publication-receipt.yaml"

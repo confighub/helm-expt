@@ -212,7 +212,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
     routeIntent:
       status: "recorded"
@@ -268,7 +274,26 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
             - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
         - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/default-crds.yaml"
         - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
@@ -352,8 +377,30 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-default:latest@sha256:9d558499c3c36205639c249afe763badeeefd2c0b7073001f79dd4c802832471"
+      manifestDigest: "sha256:9d558499c3c36205639c249afe763badeeefd2c0b7073001f79dd4c802832471"
+      layerDigest: "sha256:48e91080901e85f2f4ebbacd7a8b158d8fd0868dee3df9c38895b37f5cc56abe"
+      objectSetSha256: "sha256:50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+      receipt: "data/certified-bundles/receipts/catalog/trust-manager-v0.22.1-default/receipt.yaml"
+      receiptSha256: "sha256:fca46423af43fcf84ff9df13fa5aae55b76cdd63d2436c356ccf209939922d43"
+      publicationReceipt: "runs/certified-bundles/catalog-jetstack-trust-manager-v0-22-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:cf6e46a2ab2f31de81f42e1652b716ad2f8caa6862b884c06e777f188cac2183"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/crd-ordering.yaml"
+          sha256: "sha256:94020038c781a1e80e156ee720e2aacd1a714198b1d8760a2391cff6a065e895"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/prune-protection.yaml"
+          sha256: "sha256:5719e856f375dae58e5794e0d76f2c204ae2a2affc401bf8fb65d96e8095b39a"
+          role: "route: resource-policy-keep"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/target-requirements.yaml"
+          sha256: "sha256:417f31c4da7f8471dbe6eb8822171d692c152fbf4dd9079a41250b56c7a88b41"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

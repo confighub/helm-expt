@@ -32,12 +32,31 @@ spec:
         bytes: 2086
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/hooks.yaml"
+        sha256: "9e102ab7334d72726c6f25e77ad7de3b1a412257edaade5df437e53d98fc6f2d"
+        bytes: 2151
+        role: "route: plan-step hooks"
+      -
         path: "data/certified-bundles/guides/catalog/secrets-store-csi-driver-1.6.0-sync-secret-rotation/space-guide.md"
-        sha256: "2e25acded5a293624de8d0be508b7ff37ff02e32eb7789bbce336b4468997ed6"
-        bytes: 1367
+        sha256: "96c4bee357ca332cb4724dd4e94ffcc4a5c74cef9b373751e0bfb5e65c5c9b5b"
+        bytes: 2401
         role: "space-guide"
     objectCount: 12
     objectInventoryRef: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/hooks.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "hooks"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -54,6 +73,11 @@ spec:
         -
           reference: "registry.k8s.io/sig-storage/livenessprobe:v2.18.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation:latest"
+    manifestDigest: "sha256:0d7936e8e9c14ee5a7b1d52d42cc64662ef24664222e850c3842c5168cfe725e"
+    layerDigest: "sha256:d9695d112edc2c8279d030b2bb2456992708b045cc8e64c63e38a6213aa4734e"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -127,3 +151,5 @@ spec:
       - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml"
       - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
       - "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation/upstream.yaml"
+      - "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml"
+      - "runs/certified-bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation/publication-receipt.yaml"

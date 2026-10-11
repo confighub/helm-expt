@@ -1,0 +1,21 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-jetstack-cert-manager-v1.20.2-crds-enabled"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.20.2-crds-enabled/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+  layerDigest: "sha256:6ec64ceffef1cbed033ef588d7b768ab764d18c3db83802afde046eeed2e64eb"
+  layerBytes: 98336
+  observedAt: "2026-10-11T17:51:38.173Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/hooks.yaml"
+    - "routes/prune-protection.yaml"
+    - "routes/webhook-certificate.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-jetstack-cert-manager-v1-20-2-crds-enabled.tar.gz"

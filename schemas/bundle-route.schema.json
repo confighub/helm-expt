@@ -34,7 +34,6 @@
     "spec": {
       "type": "object",
       "required": [
-        "quirkClass",
         "routeKind",
         "discharges",
         "declaration",
@@ -44,7 +43,7 @@
       "additionalProperties": false,
       "properties": {
         "quirkClass": {
-          "description": "The flattening-safety quirk class this route discharges. It must match a disposition row in the receipt that ships the route.",
+          "description": "The flattening-safety quirk class this route discharges. It must match a disposition row in the receipt that ships the route. A recorded-plan-step route names no quirk class, because it repeats a record's step and discharges no companion.",
           "enum": [
             "helm-hooks",
             "resource-policy-keep",
@@ -65,11 +64,13 @@
             "lifecycle-job",
             "prune-protection",
             "external-secret-reference",
-            "versioned-replacement"
-          ]
+            "versioned-replacement",
+            "recorded-plan-step"
+          ],
+          "description": "recorded-plan-step is one plan step of the entry's BaseVariantRecord, repeated in the bundle. The other kinds are written from the render or from an observed run."
         },
         "discharges": {
-          "description": "What breaks without this route, in one sentence.",
+          "description": "What breaks without this route, in one sentence. For a recorded-plan-step it is the record's own statement of the step.",
           "type": "string"
         },
         "declaration": {
@@ -138,9 +139,6 @@
         "executedBy": {
           "description": "Which runtimes could express this route intent, how each expresses it, and whether an exact run has been observed. The selected runtime is recorded later in a LifecycleRouteResolution.",
           "type": "object",
-          "required": [
-            "runtimes"
-          ],
           "additionalProperties": false,
           "properties": {
             "runtimes": {
@@ -193,6 +191,16 @@
             "automatic": {
               "description": "Whether this portable intent permits automatic execution after a destination-specific resolution selects a runtime and satisfies its checks. This flag is not execution proof; runtime.proven and a receipt record observed execution.",
               "type": "boolean"
+            },
+            "invokedBy": {
+              "description": "Who the record names for a recorded plan step.",
+              "type": "string"
+            },
+            "evidenceState": {
+              "description": "not-run when the record marks a recorded plan step as recorded and not run.",
+              "enum": [
+                "not-run"
+              ]
             }
           }
         },
@@ -221,7 +229,113 @@
             }
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "routeKind": {
+                "const": "recorded-plan-step"
+              }
+            },
+            "required": [
+              "routeKind"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "quirkClass"
+              ]
+            },
+            "properties": {
+              "executedBy": {
+                "required": [
+                  "invokedBy",
+                  "automatic"
+                ],
+                "properties": {
+                  "automatic": {
+                    "const": false
+                  }
+                }
+              },
+              "declaration": {
+                "required": [
+                  "step",
+                  "phase",
+                  "requirementRefs",
+                  "supportedRuntimes",
+                  "checks",
+                  "recorded",
+                  "evidence"
+                ],
+                "properties": {
+                  "step": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "phase": {
+                    "type": "string"
+                  },
+                  "requirementRefs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "supportedRuntimes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "checks": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "recorded": {
+                    "type": "object",
+                    "required": [
+                      "status",
+                      "sourceStatus"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "status": {
+                        "type": "string"
+                      },
+                      "sourceStatus": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "quirkClass"
+            ],
+            "properties": {
+              "executedBy": {
+                "required": [
+                  "runtimes"
+                ]
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

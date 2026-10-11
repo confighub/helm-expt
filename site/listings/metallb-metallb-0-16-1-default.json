@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml",
-      "sha256": "sha256:16ce3475c836b99778617f49967106bb890a15cf6bdf1de4ea13eb05258de20e",
+      "sha256": "sha256:02be43bec7e12680b53cfb3ec0b252b1e817198783417a9a4c360d8950a49ec7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default:latest@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:b039abe00ca06281d83e633b74364babfcc4b845dae22bd18a005ed4c90313eb"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:dfda13f620b310f43cc4ffc5c124750f62a0a0e6c68f673904140c27a11294e5"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:3e7740c3709c14ed9ac338f9eb72a8f7fb06d1147be435f0a0ecb12d36602bee"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

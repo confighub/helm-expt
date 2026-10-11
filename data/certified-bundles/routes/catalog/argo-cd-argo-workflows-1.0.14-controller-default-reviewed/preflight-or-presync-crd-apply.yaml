@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-controller-default-reviewed-preflight-or-presync-crd-apply"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits"
+  declaration:
+    step: "preflight-or-presync-crd-apply"
+    phase: "pre-apply"
+    requirementRefs:
+      - "preflight-or-presync-crd-apply"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "resolve the named prerequisite/blocker, then capture a live receipt"
+      - "direct full-CRD package route is proven; next prove controller-run ordering under Argo CD and Flux and test a cross-version CRD upgrade"
+    recorded:
+      status: "recorded"
+      sourceStatus: "routed"
+    evidence:
+      - "data/hook-route-candidates/candidates.csv"
+  executedBy:
+    invokedBy: "cub installer package script"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it routed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml"
+    verdictRef: "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-controller-default-reviewed.yaml"

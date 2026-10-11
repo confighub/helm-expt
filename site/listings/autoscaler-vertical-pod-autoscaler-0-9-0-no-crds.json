@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml",
-      "sha256": "sha256:c0b0a5e68f979ad212a17c436a0bd59a2661292583c2b7e1a6e8c9489febeae6",
+      "sha256": "sha256:022046861403c8478bfbb2cb98d9767a6284e3cab9e028a46ab5444bd570d024",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds:latest@sha256:86c94673823afbdbe27258d7565400412959dd913322b5213994aa11a7397064",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:d7517df3bf63d3e509a3ba288545a97d227dabcba467bf77dac757fb498b272e"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:1d0e28f2b17ebe21202d839ded38525b09f16dc07b6dacf2b4d062a4c32cd3bf"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:0655cb1ae12166b25dc6159b3c09033043970e3c0e098ec1596faf444ae03d94"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:86c94673823afbdbe27258d7565400412959dd913322b5213994aa11a7397064"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

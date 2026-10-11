@@ -27,12 +27,26 @@ spec:
         bytes: 35787
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/target-requirements.yaml"
+        sha256: "f6e7649f9eefe3a99b6d74f6897a22dda2cf50f5429d341b1f86c843d0c63066"
+        bytes: 1916
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/vertical-pod-autoscaler-0.9.0-no-crds/space-guide.md"
-        sha256: "badb5acb5db7801d576371b247cb20f73cfd1eb605ae7cfd186c64f285d07c01"
-        bytes: 1164
+        sha256: "ab767e849dc354ba1a755f5e047d609aa7767d697669325b53a1c33354e1b90e"
+        bytes: 1901
         role: "space-guide"
     objectCount: 37
     objectInventoryRef: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -49,6 +63,11 @@ spec:
         -
           reference: "registry.k8s.io/autoscaling/vpa-updater:1.6.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds:latest"
+    manifestDigest: "sha256:86c94673823afbdbe27258d7565400412959dd913322b5213994aa11a7397064"
+    layerDigest: "sha256:d7517df3bf63d3e509a3ba288545a97d227dabcba467bf77dac757fb498b272e"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -121,3 +140,5 @@ spec:
       - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml"
+      - "runs/certified-bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds/publication-receipt.yaml"

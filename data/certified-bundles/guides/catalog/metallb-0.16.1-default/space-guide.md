@@ -6,24 +6,37 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/metallb-metallb-0.16.1-default/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `webhook-certificate` | `routes/webhook-certificate.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### webhook-certificate
+
+This step is due after you deliver. The record names `the MetalLB controller and frr-k8s` for it and marks it `observed`.
+
+Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step.
 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-metallb-metallb-0.16.1-default --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-metallb-metallb-0.16.1-default --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

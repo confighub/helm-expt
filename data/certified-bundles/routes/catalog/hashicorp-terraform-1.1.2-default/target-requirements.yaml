@@ -1,0 +1,43 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "hashicorp-terraform-1.1.2-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "hashicorp-terraform-1-1-2-default"
+    chart: "hashicorp/terraform"
+    version: "1.1.2"
+    base: "default"
+  requirements:
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "2 Secrets must exist before apply. Terraform CLI credentials mounted at /etc/terraform/.terraformrc. Sensitive Terraform workspace variables mounted at /tmp/secrets."
+      names:
+        -
+          id: "default/terraformrc"
+          detail: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+        -
+          id: "default/workspacesecrets"
+          detail: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+      checks:
+        - "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+        - "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
+        - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/hashicorp/terraform/1.1.2/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"
+    verdictRef: "recipes/hashicorp/terraform/1.1.2/publication/flattening-safety-verdict.yaml"

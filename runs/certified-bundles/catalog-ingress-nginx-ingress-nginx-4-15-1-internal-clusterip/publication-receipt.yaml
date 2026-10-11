@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-ingress-nginx-ingress-nginx-4.15.1-internal-clusterip"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-internal-clusterip/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:e7fc8a67ca6d6648a79e292a43e4de68137dec6416a08c0c2852c9b5bbbe3167"
+  layerDigest: "sha256:c6d702a7e7fe35cfde7ef2b98de1fc1a9d56e32e570eb402850a693dd3fc8915"
+  layerBytes: 3166
+  observedAt: "2026-10-11T17:51:27.716Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/hooks.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.tar.gz"

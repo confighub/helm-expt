@@ -27,12 +27,26 @@ spec:
         bytes: 10600
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-admission-disabled/hooks.yaml"
+        sha256: "afb9211b751176ba23b7974e007799413edd3a365ea3c234a59282111b42ff76"
+        bytes: 1933
+        role: "route: plan-step hooks"
+      -
         path: "data/certified-bundles/guides/catalog/ingress-nginx-4.15.1-admission-disabled/space-guide.md"
-        sha256: "03c5f00ae9d4259d098f6532119551bdcf35ce26b02507592cb75e4ee4a5a3d7"
-        bytes: 1170
+        sha256: "0addf1f77a15c8891cedcd7401c17de9539bdf93ca438a07343f8a8e4d13b89c"
+        bytes: 1929
         role: "space-guide"
     objectCount: 9
     objectInventoryRef: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-admission-disabled/hooks.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "hooks"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -43,6 +57,11 @@ spec:
         -
           reference: "registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:latest"
+    manifestDigest: "sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a"
+    layerDigest: "sha256:17284e0b6e6195cc337a2d07250d6a006a0da83ba0377fa805f07b2cbdbf77dd"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +134,5 @@ spec:
       - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
       - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
       - "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled/upstream.yaml"
+      - "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+      - "runs/certified-bundles/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled/publication-receipt.yaml"

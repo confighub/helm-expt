@@ -221,8 +221,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-rollout-operator-0-49-0-default:latest@sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648"
+      manifestDigest: "sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648"
+      layerDigest: "sha256:43e1aa448d10a1efc1b759a6e150f12ea4dc70c9d559b8aee935775ad2b34347"
+      objectSetSha256: "sha256:dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+      receipt: "data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-default/receipt.yaml"
+      receiptSha256: "sha256:33d1153023b104aa1142e607fe730c99b0f8f54f6f479e8f5f76caa85b87d3dc"
+      publicationReceipt: "runs/certified-bundles/catalog-grafana-rollout-operator-0-49-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:7c946f12a0148efc2681a314c8b6167eee50e0871ff919e4f135456b233efea8"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-default/crd-ordering.yaml"
+          sha256: "sha256:c0134b5a18f911d034b183c309a0ab24890c6c4eaf7807f6f19cfda873dd3e81"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-default/webhook-certificate.yaml"
+          sha256: "sha256:424f92755c682ae8a2d80f6c1f313fd17e90d0909b380a722360cd38a0f27991"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

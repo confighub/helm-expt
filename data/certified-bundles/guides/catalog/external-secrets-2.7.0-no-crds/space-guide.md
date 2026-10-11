@@ -6,22 +6,39 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 1 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/external-secrets/external-secrets/2.7.0/publication/flattening-safety-verdict-no-crds.yaml
 
-## What its routes owe
+## The plan
 
-This bundle's lane requires companion artifacts and it ships none yet. Treat its ordering and lifecycle work as unresolved until a route arrives.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/external-secrets-external-secrets-2-7-0-no-crds.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
+
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-before-apply` | `requirements/target-requirements.yaml` | the record |
+| `secret-before-apply` | `requirements/target-requirements.yaml` | the record |
+
+### crd-before-apply
+
+This step is due before you deliver. The record names `operator` for it and marks it `recorded-not-run`.
+
+24 CRDs must exist before apply. External Secrets CRD managed outside this no-crds base.
+
+### secret-before-apply
+
+This step is due before you deliver. The record names `operator` for it and marks it `recorded-not-run`.
+
+Secret external-secrets/external-secrets-webhook must exist before apply. Rendered webhook Secret separated by installer and populated by the cert-controller after apply.
 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-external-secrets-external-secrets-2.7.0-no-crds --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-external-secrets-external-secrets-2.7.0-no-crds --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-7-0-no-crds
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

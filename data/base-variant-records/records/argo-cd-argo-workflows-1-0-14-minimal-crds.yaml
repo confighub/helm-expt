@@ -140,7 +140,19 @@ spec:
           origin: "base"
           type: "lifecycle-action"
           detail: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"
@@ -172,7 +184,45 @@ spec:
             - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
             - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
             - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"
@@ -206,8 +256,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds:latest@sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc"
+      manifestDigest: "sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc"
+      layerDigest: "sha256:92adcc58a1640a9d3b6826b7fef7496029631331e6b48c13c12a409180b3a584"
+      objectSetSha256: "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+      receipt: "data/certified-bundles/receipts/catalog/argo-workflows-1.0.14-minimal-crds/receipt.yaml"
+      receiptSha256: "sha256:b741e9a0dc30d01423893da2e62c439e470b30b6f1ad9711fb1e0f57a4c3ca57"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:1a8ad88fe02b4edc352823a1ab26e62911c75362282e21dcd61cfd39e3d23bbb"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+          sha256: "sha256:d77aa592befb778d4f3761036d696566d4ac2af1580a3a8b56f35f6688b245a7"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
+          sha256: "sha256:6901f7b148f5243c1d050f556e6132dbc3dec88ace49f93e4af7ea9cab27a0a8"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/self-contained-crd-base.yaml"
+          sha256: "sha256:9a373edf3dd82f19c978b0f91462c0564746e21b674baedb599bdbba2a22db14"
+          role: "route: plan-step self-contained-crd-base"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

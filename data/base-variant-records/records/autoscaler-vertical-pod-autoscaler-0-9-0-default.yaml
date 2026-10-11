@@ -155,7 +155,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects."
       records:
+        - "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     routeIntent:
       status: "recorded"
@@ -177,7 +183,26 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
             - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
         - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
     targetFacts:
@@ -222,8 +247,26 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7"
+      manifestDigest: "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7"
+      layerDigest: "sha256:661bc94cb2fce3c8e194ed7bd91cdebcdbd94c8a5ebc6b9c086cb3cbd461e8a3"
+      objectSetSha256: "sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+      receipt: "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml"
+      receiptSha256: "sha256:fb0a725f878b6e38cd5a0ca50a2891ed0bab25b750ee41cddb967c7f7796cd1e"
+      publicationReceipt: "runs/certified-bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e8008ea452e011186c36fd2f02434b4b58b1cea62f63828aee213a0413abf898"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+          sha256: "sha256:ec7e1b827b37c376a5fef19040961475769d387b5646295aca24dc6b5b79462c"
+          role: "route: crd-ordering"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/target-requirements.yaml"
+          sha256: "sha256:1d0a07c21cab3e6ca3d23dbe11884f7f3e3f395325d1e9063edec04b6ec10e21"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

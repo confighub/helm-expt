@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml",
-      "sha256": "sha256:abe8e285ed385501be6ae90b5b6b48e6abd42553119c6f910a47fc1cbd9547fb",
+      "sha256": "sha256:fc73b8cf9810cd821ea21ea7ce3759db1b77cd0dab1c1e6167208fdd6746fa00",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-minimal-crds:latest@sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:92adcc58a1640a9d3b6826b7fef7496029631331e6b48c13c12a409180b3a584"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:b741e9a0dc30d01423893da2e62c439e470b30b6f1ad9711fb1e0f57a4c3ca57"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:1a8ad88fe02b4edc352823a1ab26e62911c75362282e21dcd61cfd39e3d23bbb"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:fb56d4bf139705f60443dc5c2b3fad578e7a9c9800ac2a9ecbf8a0b4ee3933cc"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/argo-workflows-1.0.14-minimal-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/argo-workflows-1.0.14-minimal-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -236,6 +260,18 @@
         "type": "lifecycle-action",
         "origin": "base",
         "detail": "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+      },
+      {
+        "id": "prune-protection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       }
     ],
     "routes": [
@@ -268,9 +304,63 @@
           "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml",
           "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        ]
+      },
+      {
+        "id": "prune-protection",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "prune-protection"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+      },
+      {
+        "name": "prune-protection.yaml",
+        "path": "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
+      },
       {
         "name": "argo-cd-argo-workflows-1-0-14-minimal-crds.yaml",
         "path": "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml",

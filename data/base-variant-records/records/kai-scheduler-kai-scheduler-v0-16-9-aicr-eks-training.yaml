@@ -268,7 +268,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
@@ -332,7 +338,26 @@ spec:
           evidence:
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
@@ -448,8 +473,33 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training:latest@sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69"
+      manifestDigest: "sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69"
+      layerDigest: "sha256:ef577f35bcce79826222f281e817fa36a6d5943f6586084de0eaa835abd6c907"
+      objectSetSha256: "sha256:47d9baab7ac158b03e2a19620e2d40bfd4f7b2944cf8b54dd00053ecfc57fb25"
+      receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml"
+      receiptSha256: "sha256:2d56ab582400d803ff764a16ecd9c3a59938628804d95d366b15ec3793409b2f"
+      publicationReceipt: "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:c9adf35f3ca47e8e44999c73e3eea55c7c8d251e8d5adb9d5dd95900bb8b7ea3"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/crd-ordering.yaml"
+          sha256: "sha256:9e3d553b24de4ca27c529c9b455da9c7d3dda4d2ec409511c2eed0a5c8fadda1"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/prune-protection.yaml"
+          sha256: "sha256:129c06632cf817749d1cb004d1351ec5c1d664b3cb412bb730e9ef119ff6dc4d"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/lifecycle-action-pre-install-pre-upgrade.yaml"
+          sha256: "sha256:6650cd038eb7429ed94ac5e416e04142fa36a9a8456997f1f1c1986ceeabf0f5"
+          role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training/lifecycle-action-post-install-post-upgrade.yaml"
+          sha256: "sha256:4d38bd7f3d98ad94591b6e7c395de456be0db5e8d3a4946c866475c33413ea34"
+          role: "route: plan-step lifecycle-action-post-install-post-upgrade"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -27,12 +27,26 @@ spec:
         bytes: 20123
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-default/preflight-or-presync-crd-apply.yaml"
+        sha256: "98a25f73df63799fab221570a6f9518a20fde41a556755375acd8d009e7058b6"
+        bytes: 2036
+        role: "route: plan-step preflight-or-presync-crd-apply"
+      -
         path: "data/certified-bundles/guides/catalog/argo-workflows-1.0.14-default/space-guide.md"
-        sha256: "56847d98034fe5af38c9af9e07db474401f29b3be279051e784285aa2d158fa4"
-        bytes: 1115
+        sha256: "8076c47d97536ecf4ffde6f3ff38094bfafe89b2fb9f9db810de55e40214c73a"
+        bytes: 1839
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-default/preflight-or-presync-crd-apply.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "preflight-or-presync-crd-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -46,6 +60,11 @@ spec:
         -
           reference: "quay.io/argoproj/workflow-controller:v4.0.5"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-workflows-1-0-14-default:latest"
+    manifestDigest: "sha256:ba5a44a17cfaac8b305324a0ba11391912d42fc07382ba09356c360107ab96c9"
+    layerDigest: "sha256:0bbbf5c17bf9a98bc51d477bb74ee4ad465d776ce9fd9b421364d77c7c57ae03"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +137,5 @@ spec:
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-workflows/1.0.14/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-workflows-1-0-14-default/publication-receipt.yaml"

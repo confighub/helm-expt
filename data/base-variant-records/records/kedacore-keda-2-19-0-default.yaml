@@ -221,8 +221,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-default:latest@sha256:cb0a7e1f4a1b87a1d934c33fc2529e597b67a93b56fbf6cf9f78ab3d358cdfcb"
+      manifestDigest: "sha256:cb0a7e1f4a1b87a1d934c33fc2529e597b67a93b56fbf6cf9f78ab3d358cdfcb"
+      layerDigest: "sha256:36a85847284416a37388b84cc0ef2c01f9fc89a6a64a36bee6a4106842478931"
+      objectSetSha256: "sha256:95bac2eeb03cdf4d0392ed7d66c37c81db91beeba346752f932abef73d26db1f"
+      receipt: "data/certified-bundles/receipts/catalog/keda-2.19.0-default/receipt.yaml"
+      receiptSha256: "sha256:71f02141c65294d9823306ba639eb4fa1ca520deae99ef2f6c73d46d110efef9"
+      publicationReceipt: "runs/certified-bundles/catalog-kedacore-keda-2-19-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:8251bb080993a86e126329b3310e5d4695432b3149a21ccdf16abca8ad76fb75"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kedacore-keda-2.19.0-default/crd-ordering.yaml"
+          sha256: "sha256:2c4d8e0460f6cd8d0ee5d5e8807e9d36e99aa2a83706803d302dfd2ad25a9c50"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kedacore-keda-2.19.0-default/webhook-certificate.yaml"
+          sha256: "sha256:98ec9d9c184826617cf35b810c1097b9354edc76cfffbd67e9b632cfe4bb4195"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -541,8 +541,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default:latest@sha256:57f1d06c76995588a6e85d4f03e955c6e350176aac33879d2a9fcf28cb5e9b22"
+      manifestDigest: "sha256:57f1d06c76995588a6e85d4f03e955c6e350176aac33879d2a9fcf28cb5e9b22"
+      layerDigest: "sha256:0db297f2378f35b536e1d3bbc0f613532a8e18ee5a79896d44d119c6f1633922"
+      objectSetSha256: "sha256:c2773dd395fdf041ae429a2966f75f7b8a62579f7b13f65b5cc617fa10a4b123"
+      receipt: "data/certified-bundles/receipts/catalog/prometheus-operator-crds-28.0.1-default/receipt.yaml"
+      receiptSha256: "sha256:8409d6b17eb326f67849cb7f001b85f2f45b140848539289d2e93047785718b3"
+      publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:681d17787606be4246c05490374a4e7985707519fcfd5ed970785ac5a88990ad"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-28.0.1-default/crd-ordering.yaml"
+          sha256: "sha256:684c24689aea3564be3e5943c1e0cf5ca5284eadc23ae2cca65dedca24709ace"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

@@ -263,7 +263,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
@@ -309,7 +315,26 @@ spec:
           evidence:
             - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
             - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
@@ -424,8 +449,29 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training:latest@sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8"
+      manifestDigest: "sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8"
+      layerDigest: "sha256:72917e0ff6abb1286c132d493ac4093ccb9f8ffe06ca7ced69a103c0bc7c8b2c"
+      objectSetSha256: "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5"
+      receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-aicr-eks-training/receipt.yaml"
+      receiptSha256: "sha256:44de6485c1e97b72d71b62956128ca395dc12d9ff90bb8ebae684fc8dd69945b"
+      publicationReceipt: "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:110238ce637ad50082bfcd0851af38934b1f51bca8f0ec71430e83a25f73a3fd"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/crd-ordering.yaml"
+          sha256: "sha256:03e605b299dd0652fe3ff40ccd53693ec8b17c4abfc2693fbafb5d2d19e03a71"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
+          sha256: "sha256:cbc8324a4befc0fc8c1104434d5d889f533e07607987ea6d7363ab2bde2cbca4"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/lifecycle-action-pre-install-pre-upgrade.yaml"
+          sha256: "sha256:5e711a635092a87c7abee528908efbdd371962d52926cba47d4b3d6e4e5be886"
+          role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

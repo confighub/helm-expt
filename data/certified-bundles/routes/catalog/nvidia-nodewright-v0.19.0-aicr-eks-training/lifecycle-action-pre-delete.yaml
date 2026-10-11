@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-nodewright-v0.19.0-aicr-eks-training-lifecycle-action-pre-delete"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. One deletes every custom resource of the operator's kinds, so the operator can release their finalizers. The other deletes the mutating and validating webhook configurations and the certificate Secret the operator created. Both use the controller-manager ServiceAccount. A flattened delete that skips them can leave custom resources stuck on finalizers and a webhook configuration pointing at a Service that no longer exists."
+  declaration:
+    step: "lifecycle-action-pre-delete"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-pre-delete"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+      - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
+    verdictRef: "recipes/nvidia/nodewright/v0.19.0/publication/flattening-safety-verdict-aicr-eks-training.yaml"

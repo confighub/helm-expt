@@ -150,8 +150,9 @@ say "This install is not finished. The plan has an install step that this script
 cat <<'EOF_INSTALL_STEPS'
    - After an install or an upgrade, apply the Config that tells the operator what to run. In this chart version the kai-config Config object is not a chart object. The listing gives the rest.
 EOF_INSTALL_STEPS
-say "Not run by this script: 2 other steps of this entry's plan. The entry page says who runs each one."
+say "Not run by this script: 3 other steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
    - Before an install or an upgrade, move the CRDs forward and migrate topologies. Helm runs these in hook-weight order before it applies the chart's objects. The listing gives the rest.
    - After a delete, remove what the operator created. The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The listing gives the rest.
+   - Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest.
 EOF_NOT_RUN

@@ -221,8 +221,25 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default:latest@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+      manifestDigest: "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+      layerDigest: "sha256:b039abe00ca06281d83e633b74364babfcc4b845dae22bd18a005ed4c90313eb"
+      objectSetSha256: "sha256:430fb6a1ec84cd0b737106c4b87ac33d9734adb9fd337767a3161c90d7ae2d4e"
+      receipt: "data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml"
+      receiptSha256: "sha256:dfda13f620b310f43cc4ffc5c124750f62a0a0e6c68f673904140c27a11294e5"
+      publicationReceipt: "runs/certified-bundles/catalog-metallb-metallb-0-16-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:3e7740c3709c14ed9ac338f9eb72a8f7fb06d1147be435f0a0ecb12d36602bee"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/metallb-metallb-0.16.1-default/crd-ordering.yaml"
+          sha256: "sha256:d54a760cfff3f0cef605837987408f914fd1ad59e8e862aa9faf5873a7ba7d42"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/metallb-metallb-0.16.1-default/webhook-certificate.yaml"
+          sha256: "sha256:b6118f2315dba1a85af298d50be8c4a1605942d1bb086e5f15754d4104d87ce9"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

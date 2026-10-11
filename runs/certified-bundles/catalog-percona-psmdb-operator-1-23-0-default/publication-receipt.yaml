@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-percona-psmdb-operator-1.23.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/psmdb-operator-1.23.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-percona-psmdb-operator-1-23-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:8e4cce8894256eaa1fa653a29624ae086e50973c8f2640969f87987955f09ff8"
+  layerDigest: "sha256:80d1435e86db3f302dcead7df235bc88d3a1377a36aa063e7476071a5c6fdfcd"
+  layerBytes: 79338
+  observedAt: "2026-10-11T17:52:29.886Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-percona-psmdb-operator-1-23-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-percona-psmdb-operator-1-23-0-default.tar.gz"

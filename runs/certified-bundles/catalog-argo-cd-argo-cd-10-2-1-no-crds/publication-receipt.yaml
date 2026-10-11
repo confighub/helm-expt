@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-cd-10.2.1-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/argo-cd-10.2.1-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-2-1-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:76e6a0b9c0a2a38e1451b457e594d1f70f59683ff50168cde5ef80be56477b80"
+  layerDigest: "sha256:ce6fef490f6d805a6fe21e67723d7349545749c87e6adc31c528674dfb034426"
+  layerBytes: 13272
+  observedAt: "2026-10-11T17:50:46.883Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-2-1-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-argo-cd-argo-cd-10-2-1-no-crds.tar.gz"

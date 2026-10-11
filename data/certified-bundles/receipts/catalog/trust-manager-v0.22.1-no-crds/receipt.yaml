@@ -27,12 +27,28 @@ spec:
         bytes: 10563
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-no-crds/target-requirements.yaml"
+        sha256: "5f32f5395804074ac245fdbb305201d22ae53e27fe38ba0a5becb68e1c33745e"
+        bytes: 3627
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/trust-manager-v0.22.1-no-crds/space-guide.md"
-        sha256: "64b35603ff70a1e72d0c1464c2a2abd69984878a62621a71b13635912e223ee6"
-        bytes: 1126
+        sha256: "69edde617d4c1ba8c12864475aebde36c3a72cd366718d46736d03cd8a1068a6"
+        bytes: 2672
         role: "space-guide"
     objectCount: 13
     objectInventoryRef: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "namespace-before-apply"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -46,6 +62,11 @@ spec:
         -
           reference: "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-trust-manager-v0-22-1-no-crds:latest"
+    manifestDigest: "sha256:d089a3cece6a7b366cb903fd88148353c564ba361b4da2be590f329501c3c667"
+    layerDigest: "sha256:c45429ad1e2e5cc9e430fd20928c07d0fd0c29af27d684b95fc0b126367a5159"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +139,5 @@ spec:
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/jetstack/trust-manager/v0.22.1/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+      - "runs/certified-bundles/catalog-jetstack-trust-manager-v0-22-1-no-crds/publication-receipt.yaml"

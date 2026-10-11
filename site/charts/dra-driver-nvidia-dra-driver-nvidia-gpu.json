@@ -31,7 +31,7 @@
           },
           "objectCount": 21,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/gpu-resources/r001/rendered/release-objects.yaml",
@@ -67,7 +67,7 @@
           },
           "objectCount": 21,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.5.0/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 21,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/default/r001/rendered/release-objects.yaml",
@@ -115,7 +115,7 @@
           },
           "objectCount": 24,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/gpu-resources/r001/rendered/release-objects.yaml",
@@ -133,7 +133,7 @@
           },
           "objectCount": 21,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": true,
           "objects": {
             "path": "recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

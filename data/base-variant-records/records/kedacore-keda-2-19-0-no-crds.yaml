@@ -421,8 +421,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds:latest@sha256:383c82dbee0234a0e5ebdc4a441dd4afa03dad62a25ceb772549d05f93a6f9be"
+      manifestDigest: "sha256:383c82dbee0234a0e5ebdc4a441dd4afa03dad62a25ceb772549d05f93a6f9be"
+      layerDigest: "sha256:bbc5b25e9ad1e24ddb37804f7ebe0408bbe7913125e324deda0435f39c02e0b2"
+      objectSetSha256: "sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
+      receipt: "data/certified-bundles/receipts/catalog/keda-2.19.0-no-crds/receipt.yaml"
+      receiptSha256: "sha256:187e8bec347a83091452b60c39fcf8f61c2d1c6319f880e42cfee7bf830e5f02"
+      publicationReceipt: "runs/certified-bundles/catalog-kedacore-keda-2-19-0-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:b7ddf048600bebd8a44d221b5034971640e5ab61b93af5b102ad61ef8fc6148e"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kedacore-keda-2.19.0-no-crds/webhook-readiness-observation.yaml"
+          sha256: "sha256:0693196a3d26b80e72da1f0a5cbb0907d2dc6ab896bff7754bb89386a6d0e45e"
+          role: "route: plan-step webhook-readiness-observation"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

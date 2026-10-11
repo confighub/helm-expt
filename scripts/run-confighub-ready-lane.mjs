@@ -71,7 +71,9 @@ function cubVersionProvenance(output) {
 }
 // Configuration is every YAML or JSON entry that is not a route, a guide, or a
 // wrapper-chart file; the receipt's own role names vary by producer.
-const EXCLUDED_ROLES = /^(route:|space-guide|guide|readme|wrapper chart file|namespace template|.*template$|source-lock|evidence)/i;
+// A requirements file says what the target must already have. It is a plan
+// document, as a route is, and not an object to upload.
+const EXCLUDED_ROLES = /^(route:|requirement:|space-guide|guide|readme|wrapper chart file|namespace template|.*template$|source-lock|evidence)/i;
 const isConfig = (file) => /\.(ya?ml|json)$/i.test(file.path) && !EXCLUDED_ROLES.test(String(file.role ?? ""));
 
 const trackedFiles = execFileSync("git", ["ls-files"], { cwd: repoRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 }).trim().split("\n");

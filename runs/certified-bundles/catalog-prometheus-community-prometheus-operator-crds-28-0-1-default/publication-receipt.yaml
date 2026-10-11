@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-operator-crds-28.0.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-operator-crds-28.0.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:57f1d06c76995588a6e85d4f03e955c6e350176aac33879d2a9fcf28cb5e9b22"
+  layerDigest: "sha256:0db297f2378f35b536e1d3bbc0f613532a8e18ee5a79896d44d119c6f1633922"
+  layerBytes: 452111
+  observedAt: "2026-10-11T17:52:33.311Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-operator-crds-28-0-1-default.tar.gz"

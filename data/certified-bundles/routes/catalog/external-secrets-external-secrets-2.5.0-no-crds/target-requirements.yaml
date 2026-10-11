@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0-no-crds-target-requirements"
+spec:
+  subject:
+    catalogEntry: "external-secrets-external-secrets-2-5-0-no-crds"
+    chart: "external-secrets/external-secrets"
+    version: "2.5.0"
+    base: "no-crds"
+  requirements:
+    -
+      step: "crd-ordering"
+      phase: "pre-apply"
+      invokedBy: "delivery workflow"
+      statement: "The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+      names:
+        -
+          id: "acraccesstokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "cloudsmithaccesstokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clusterexternalsecrets.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clustergenerators.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clusterpushsecrets.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "clustersecretstores.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "ecrauthorizationtokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "externalsecrets.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "fakes.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "gcraccesstokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "generatorstates.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "githubaccesstokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "grafanas.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "mfas.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "passwords.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "pushsecrets.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "quayaccesstokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "secretstores.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "sshkeys.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "stssessiontokens.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "uuids.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "vaultdynamicsecrets.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+        -
+          id: "webhooks.generators.external-secrets.io"
+          detail: "External Secrets CRD managed outside this no-crds base"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "packages/external-secrets/external-secrets/2.5.0/prerequisites/target-facts/no-crds-crds.yaml"
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Secret external-secrets/external-secrets-webhook must exist before apply. Rendered webhook Secret separated by installer and populated by the cert-controller after apply."
+      names:
+        -
+          id: "external-secrets/external-secrets-webhook"
+          detail: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+      checks:
+        - "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+        - "recipes/external-secrets/external-secrets/2.5.0/variants/no-crds/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+    verdictRef: "recipes/external-secrets/external-secrets/2.5.0/publication/flattening-safety-verdict-no-crds.yaml"

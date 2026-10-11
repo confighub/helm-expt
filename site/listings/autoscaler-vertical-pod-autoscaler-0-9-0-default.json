@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
-      "sha256": "sha256:1325ed3df03dc70b1cc21de2677049a54db2ee4ce12dcebdbdcd757af1756574",
+      "sha256": "sha256:cd51b440b6a70370bb900b6447e9ab9b730dd0b80757a005d779e1f4b51cb975",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:latest@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:661bc94cb2fce3c8e194ed7bd91cdebcdbd94c8a5ebc6b9c086cb3cbd461e8a3"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:fb0a725f878b6e38cd5a0ca50a2891ed0bab25b750ee41cddb967c7f7796cd1e"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:e8008ea452e011186c36fd2f02434b4b58b1cea62f63828aee213a0413abf898"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -234,6 +258,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects."
       }
     ],
     "routes": [
@@ -256,9 +286,37 @@
           "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
           "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+      },
       {
         "name": "autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
         "path": "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",

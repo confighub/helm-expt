@@ -321,8 +321,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-1-3-no-crds:latest@sha256:62d7403bd583e7e95330bf0bad73f2ac3c7ae8df9b6cf0dbd55c5524ac9a52e7"
+      manifestDigest: "sha256:62d7403bd583e7e95330bf0bad73f2ac3c7ae8df9b6cf0dbd55c5524ac9a52e7"
+      layerDigest: "sha256:b5be2924149c2c745f36ab112af7bc6ad4bb8b3964f4d08df751ae4868820055"
+      objectSetSha256: "sha256:813fb156368c0a1588c666c9870f07e5441347d11af65a9d349161109ae1a5da"
+      receipt: "data/certified-bundles/receipts/catalog/argo-cd-10.1.3-no-crds/receipt.yaml"
+      receiptSha256: "sha256:3d68509577fa8f2e5fde52561b9c16bfa1107b3ff11ad3ba3ee1f553c2ff49b2"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-cd-10-1-3-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:4a07d07fdfdd5543fab840ca52e32ffbf2c21908d682c3d991203a05d43b3684"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-no-crds/target-requirements.yaml"
+          sha256: "sha256:5561abda85f33457dcb60854bef0fa66c0f18c2e7eefc8c8018ea43b79c21c8d"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

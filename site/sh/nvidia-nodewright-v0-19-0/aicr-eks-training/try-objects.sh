@@ -124,8 +124,9 @@ kubectl apply -n nodewright -f "$work/unplaced"
 
 say "Done. The 4 CRDs $crd_outcome. kubectl applied the other 16 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
-say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
+say "Not run by this script: 3 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
    - Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. The listing gives the rest.
    - Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. The listing gives the rest.
+   - Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest.
 EOF_NOT_RUN

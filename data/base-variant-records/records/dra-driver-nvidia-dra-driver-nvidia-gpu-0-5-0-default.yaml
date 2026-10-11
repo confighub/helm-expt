@@ -253,8 +253,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default:latest@sha256:4060c4ec358dbc05775319f0c9c878490dcfb3af026ebfff0908672bb0c81838"
+      manifestDigest: "sha256:4060c4ec358dbc05775319f0c9c878490dcfb3af026ebfff0908672bb0c81838"
+      layerDigest: "sha256:22d1d6bae3a62d28fcc72d94b79b40371a6e0ec2a2eb697b4f06bac9f33a2f2b"
+      objectSetSha256: "sha256:982b6a16c8814b856c120b054856011e70d40f4c024a76cb9b087791b5ed0cf8"
+      receipt: "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.5.0-default/receipt.yaml"
+      receiptSha256: "sha256:560eb578b274de07acf4cc62791744097841e503057a83c9bd50a4edc35b5762"
+      publicationReceipt: "runs/certified-bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:827fec2727e66fb36ddafb1c37bd316074757f88360b47ccb4cbe0f31cec2611"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-default/crd-ordering.yaml"
+          sha256: "sha256:011680a11d3ba529582419e35dd3688698c91de27158c53f70a0929fd691e2b6"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

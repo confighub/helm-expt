@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-gpu-resources"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-gpu-resources/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+  layerDigest: "sha256:a50e8d16ff19da2598f9c4d2a395b139fb028a3b4219979576225c354d0ff324"
+  layerBytes: 7898
+  observedAt: "2026-10-11T17:51:56.264Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.tar.gz"

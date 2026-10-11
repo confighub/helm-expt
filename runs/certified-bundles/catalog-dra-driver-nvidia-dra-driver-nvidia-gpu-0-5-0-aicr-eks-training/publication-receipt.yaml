@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-aicr-eks-training"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.5.0-aicr-eks-training/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:97f16127cedadfae16195678d5e660b4dab7d9478b614059f280abe1405cfafb"
+  layerDigest: "sha256:83f53b804db70391d470332f5ee5f8069aacb8f9f58c0bc6012c8545b2a13d12"
+  layerBytes: 7925
+  observedAt: "2026-10-11T17:51:57.658Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-aicr-eks-training.tar.gz"

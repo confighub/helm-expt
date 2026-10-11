@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/external-dns-1.21.1-dry-run-txt-registry/space-guide.md"
-        sha256: "25087cd657fa04b185e3ed76e8c51015189294f5b8ad49baa396c0b6fadf6b7b"
-        bytes: 1264
+        sha256: "9eaa4eb063b6f25d0c8f6f9bb717b1b068eb1025ec65c253b8184a4a75aa9cbf"
+        bytes: 1780
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-dry-run-txt-registry/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -48,6 +57,11 @@ spec:
         -
           reference: "registry.k8s.io/external-dns/external-dns:v0.21.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:latest"
+    manifestDigest: "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+    layerDigest: "sha256:31600905facb26295c66fbf2f38c2bfd286ff715f7c8eed9ade459b0a6c00bb9"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -121,3 +135,5 @@ spec:
       - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
       - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
       - "packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry/upstream.yaml"
+      - "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+      - "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry/publication-receipt.yaml"

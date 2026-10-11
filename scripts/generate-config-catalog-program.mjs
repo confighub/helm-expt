@@ -24,7 +24,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
-import { loadCatalogBundleBindings, findCatalogBundleBinding } from "./lib/catalog-bundle-bindings.mjs";
+import { loadCatalogBundleBindings, findCatalogBundleBinding, findCatalogBundlePlan } from "./lib/catalog-bundle-bindings.mjs";
 import {
   INPUT_AWAITING,
   INPUT_PLACEHOLDER,
@@ -444,7 +444,11 @@ function buildReport() {
     .map((record) => attachNvidiaLiteralBundle(record, nvidiaLiteralBundleEntries.get(record.metadata.name)))
     // The bundle binding names the route files, so the plan steps are read
     // after it.
-    .map((record) => recordPlanSteps(record, intentByName.get(record.metadata.name)))
+    .map((record) => recordPlanSteps(
+      record,
+      intentByName.get(record.metadata.name),
+      record.spec.source.type === "helm" ? findCatalogBundlePlan(record, bundleCandidates) : null,
+    ))
     .sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
   for (const sourceCatalogImport of sourceCatalogImports) {
@@ -534,6 +538,9 @@ function attachPublishedBundle(record, candidates) {
     publicationReceipt: binding.sourcePaths.publicationReceipt,
     publicationReceiptSha256: binding.hashes.publicationReceipt,
     routes: binding.routeFiles,
+    // Only a bundle that carries a requirements file lists one, so a record
+    // written before that file existed stays as it was.
+    ...(binding.requirementFiles.length > 0 ? { requirements: binding.requirementFiles } : {}),
     note: binding.boundaries.routesNotExecuted,
   };
   return record;
@@ -7327,11 +7334,81 @@ function routeStatusFor(sourceStatus) {
 // A record with no listed requirement, no bundle route document, no packaged
 // prerequisite and no route named by its verdict file is left alone, because
 // nothing committed names a step for it.
-function recordPlanSteps(record, intent) {
-  const lifecycle = record.spec.lifecycle;
+//
+// A catalog bundle whose receipt carries a plan block is built under the plan
+// rule (scripts/lib/catalog-bundle-plan.mjs), published or not. Its plan
+// documents are of two kinds. Some are written from this record, and a record
+// never takes a step from those. The others are written from the render, and
+// the record names a step for each one that none of its own steps already
+// has the id of. So for such a bundle the first place above is not read, the
+// steps come from the other places exactly as they do before a bundle
+// exists, and the render-written documents are added last. The steps of the
+// record are then the same before and after the bundle is published.
+function recordPlanSteps(record, intent, bundlePlan = null) {
   if (record.spec.processing?.flattening?.verdict !== PLAN_STEP_VERDICT) return record;
+  derivedPlanSteps(record, intent, bundlePlan);
+  if (bundlePlan) bundleCarriedPlanSteps(record, bundlePlan);
+  return record;
+}
+
+// The steps the bundle's render-written route documents state and the record
+// does not yet name. Each is read from its document, as a published bundle's
+// route documents are, and cites it.
+function bundleCarriedPlanSteps(record, bundlePlan) {
+  const name = record.metadata.name;
+  const lifecycle = record.spec.lifecycle;
+  const named = new Set(lifecycle.routeIntent.routes.map((route) => route.id));
+  const listed = new Set(lifecycle.requirements.items.map((item) => item.id));
+  const added = bundlePlan.renderRoutes
+    .flatMap((file) => bundleRouteSteps(name, file.path))
+    .filter((step) => !named.has(step.id));
+  if (added.length === 0) return;
+  const ids = added.map((step) => step.id);
+  check(ids.length === new Set(ids).size, `${name}: the route documents of ${bundlePlan.receipt} state two steps with one id (${ids.join(", ")})`);
+  for (const step of added) {
+    check(!listed.has(step.id), `${name}: the bundle step ${step.id} has the id of a listed requirement`);
+    for (const path of step.evidence) {
+      check(existsRepo(path), `${name}: the bundle step ${step.id} cites ${path}, and that file does not exist`);
+    }
+  }
+  const cited = added.flatMap((step) => step.evidence);
+  const withCited = (records) => [...new Set([...records, ...cited])].sort();
+  lifecycle.requirements = {
+    ...lifecycle.requirements,
+    status: lifecycle.requirements.status === "gap" ? "gap" : "recorded",
+    items: [
+      ...lifecycle.requirements.items,
+      ...added.map((step) => ({ id: step.id, origin: "base", type: "lifecycle-action", detail: step.mechanism })),
+    ],
+    records: withCited(lifecycle.requirements.records),
+  };
+  lifecycle.routeIntent = {
+    ...lifecycle.routeIntent,
+    status: lifecycle.routeIntent.status === "gap" ? "gap" : "recorded",
+    routes: [
+      ...lifecycle.routeIntent.routes,
+      ...added.map((step) => ({
+        id: step.id,
+        requirementRefs: [step.id],
+        phase: PLAN_STEP_PHASES.includes(step.phase) ? step.phase : PLAN_STEP_DEFAULT_PHASE,
+        proposedActor: step.actor,
+        proposedMechanism: step.mechanism,
+        automatic: false,
+        status: routeStatusFor(step.sourceStatus),
+        sourceStatus: step.sourceStatus,
+        supportedRuntimes: step.supportedRuntimes,
+        checks: step.checks,
+        evidence: step.evidence,
+      })),
+    ],
+    records: withCited(lifecycle.routeIntent.records),
+  };
+}
+
+function derivedPlanSteps(record, intent, bundlePlan) {
+  const lifecycle = record.spec.lifecycle;
   if (lifecycle.routeIntent.routes.length > 0) return record;
-  const steps = derivePlanSteps(record, intent);
+  const steps = derivePlanSteps(record, intent, bundlePlan);
   if (steps.length === 0) return record;
 
   const name = record.metadata.name;
@@ -7383,7 +7460,7 @@ function recordPlanSteps(record, intent) {
   return record;
 }
 
-function derivePlanSteps(record, intent) {
+function derivePlanSteps(record, intent, bundlePlan = null) {
   const name = record.metadata.name;
   const listedIds = record.spec.lifecycle.requirements.items.map((item) => item.id);
   const steps = [];
@@ -7396,8 +7473,10 @@ function derivePlanSteps(record, intent) {
       if (!steps.some((candidate) => candidate.id === step.id)) steps.push(step);
     }
   };
+  // A bundle built under the plan rule gives its steps last, in
+  // bundleCarriedPlanSteps, so its route documents are not read here.
   addAll(
-    (record.spec.delivery?.literalConfigOci?.routes ?? []).flatMap((file) => bundleRouteSteps(name, file.path)),
+    (bundlePlan ? [] : record.spec.delivery?.literalConfigOci?.routes ?? []).flatMap((file) => bundleRouteSteps(name, file.path)),
     "the bundle's route documents",
   );
   addAll(packagePrerequisiteSteps(record, intent), "the installer package's prerequisites");

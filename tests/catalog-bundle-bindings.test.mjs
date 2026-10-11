@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-import { findCatalogBundleBinding, loadCatalogBundleBindings } from "../scripts/lib/catalog-bundle-bindings.mjs";
+import { findCatalogBundleBinding, findCatalogBundlePlan, loadCatalogBundleBindings } from "../scripts/lib/catalog-bundle-bindings.mjs";
 
 const records = JSON.parse(readFileSync("data/base-variant-records/records.json", "utf8")).records;
 const candidates = loadCatalogBundleBindings();
@@ -131,4 +131,43 @@ test("the bound bundle object count must match the selected configuration", () =
   const candidate = altered.find((entry) => entry.receipt?.metadata?.name === "catalog-traefik-traefik-41.0.2-default");
   candidate.receipt.spec.bundle.objectCount += 1;
   assert.equal(findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), altered), null);
+});
+
+test("a bundle built under the plan rule gives its record only the route files written from the render", () => {
+  const argo = record("argo-cd-argo-cd-10-1-3-default");
+  // This bundle was published on 2026-10-11, so it also binds to its record.
+  const binding = findCatalogBundleBinding(argo, candidates);
+  assert.match(binding.ociRef, /catalog-argo-cd-argo-cd-10-1-3-default/);
+  assert.ok(binding.requirementFiles.some((file) => file.path.endsWith("/target-requirements.yaml")));
+  const plan = findCatalogBundlePlan(argo, candidates);
+  assert.equal(plan.receipt, "data/certified-bundles/receipts/catalog/argo-cd-10.1.3-default/receipt.yaml");
+  assert.deepEqual(plan.renderRoutes.map((file) => file.path), [
+    "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/crd-ordering.yaml",
+    "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.1.3-default/prune-protection.yaml",
+  ]);
+  // The requirements file is written from the record, so the record takes no
+  // step from it. It is in the bundle and not in this list.
+  const receipt = candidates.find((entry) => entry.receiptPath === plan.receipt).receipt;
+  assert.ok(receipt.spec.bundle.files.some((file) => file.role === "requirement: target"));
+  assert.deepEqual(argo.spec.lifecycle.routeIntent.routes.map((route) => route.id).sort(), ["crd-ordering", "prune-protection", "secret-before-apply"]);
+});
+
+test("a bundle published before the plan rule has no plan for its record to follow", () => {
+  assert.equal(findCatalogBundlePlan(record("argo-cd-argo-cd-9-5-15-default"), candidates), null);
+  assert.equal(findCatalogBundlePlan(record("traefik-traefik-41-0-2-default"), candidates), null);
+});
+
+test("a plan never crosses to another version, base or object set, and never to another record", () => {
+  for (const field of ["version", "base", "digest"]) {
+    const changed = record("argo-cd-argo-cd-10-1-3-default");
+    if (field === "version") changed.spec.source.version = "10.1.4";
+    else if (field === "base") changed.spec.baseVariant.name = "non-default";
+    else changed.spec.configuration.digest = "0".repeat(64);
+    assert.equal(findCatalogBundlePlan(changed, candidates), null, field);
+  }
+  const renamed = record("argo-cd-argo-cd-10-1-3-default");
+  renamed.metadata.name = "some-other-record";
+  assert.throws(() => findCatalogBundlePlan(renamed, candidates), /takes its plan from data\/base-variant-records\/records\/argo-cd-argo-cd-10-1-3-default\.yaml/);
+  const twice = [...candidates, structuredClone(candidates.find((entry) => entry.receipt?.metadata?.name === "catalog-argo-cd-argo-cd-10.1.3-default"))];
+  assert.throws(() => findCatalogBundlePlan(record("argo-cd-argo-cd-10-1-3-default"), twice), /more than one certified bundle receipt holds its objects/);
 });

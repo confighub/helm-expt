@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training-lifecycle-action-post-install-post-upgrade"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "After an install or an upgrade, apply the Config that tells the operator what to run. In this chart version the kai-config Config object is not a chart object. This Job applies it with kubectl apply --server-side from the kai-config-manifest hook ConfigMap, using the kai-config-deployer ServiceAccount and its ClusterRole and ClusterRoleBinding. It is required on a first install: the operator deploys no scheduler until the Config exists. A workflow may instead apply the Config manifest held in that ConfigMap directly."
+  declaration:
+    step: "lifecycle-action-post-install-post-upgrade"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-post-install-post-upgrade"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/post-install-post-upgrade.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+    verdictRef: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml"

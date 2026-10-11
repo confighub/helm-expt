@@ -220,8 +220,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-istiod-1-30-0-default:latest@sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+      manifestDigest: "sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+      layerDigest: "sha256:2fb9654e69f1c68219e1363849fe9c0ccd169d85bd84d6275dcac75564486d3a"
+      objectSetSha256: "sha256:53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+      receipt: "data/certified-bundles/receipts/catalog/istiod-1.30.0-default/receipt.yaml"
+      receiptSha256: "sha256:ee0e03fc838bb6c614201d84c348bcc0a245fcd9fc013119cd84759994d4cd53"
+      publicationReceipt: "runs/certified-bundles/catalog-istio-istiod-1-30-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:573d7f6f90dc4b6253b51ed0306a6830a232c29f5731e7e63bfb41f05dbd50be"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/istio-istiod-1.30.0-default/target-requirements.yaml"
+          sha256: "sha256:9810b2bd8b60fa69b2653078575a4dd9822dfbaec45ca4abba6d3e125c3fdf6d"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

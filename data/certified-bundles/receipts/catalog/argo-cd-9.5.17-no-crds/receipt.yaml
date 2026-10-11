@@ -27,12 +27,27 @@ spec:
         bytes: 104729
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-9.5.17-no-crds/target-requirements.yaml"
+        sha256: "6995543d44a3969f5a25366d21b02041f75d6361d9f9644e872b3ee1e31431ce"
+        bytes: 2638
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/argo-cd-9.5.17-no-crds/space-guide.md"
-        sha256: "1c66738f3a43081418939376c0b1df72a8a43ad524f120ea927b2d7f283d84d6"
-        bytes: 1095
+        sha256: "edb0b4674f138ec17a04e66c934fc4390476edb4ff0f3c20a37622ea6ab34794"
+        bytes: 2232
         role: "space-guide"
     objectCount: 46
     objectInventoryRef: "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-cd-9-5-17-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-9.5.17-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -49,6 +64,11 @@ spec:
         -
           reference: "quay.io/argoproj/argocd:v3.4.3"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-17-no-crds:latest"
+    manifestDigest: "sha256:eebac43e3e39436091f94658f21a2ea9b1b1de7bcb3f93945f0cea295d70c5a4"
+    layerDigest: "sha256:5ae43503b48e3f74ea559c68ce5d4784cc2e144a63aed43a94a67da13fc5bbb3"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -121,3 +141,5 @@ spec:
       - "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-cd/9.5.17/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-cd-9-5-17-no-crds.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-cd-9-5-17-no-crds/publication-receipt.yaml"

@@ -136,3 +136,7 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 8 CRDs $crd_outcome. kubectl applied the other 19 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
+cat <<'EOF_NOT_RUN'
+   - Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest.
+EOF_NOT_RUN

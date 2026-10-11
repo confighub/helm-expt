@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-hashicorp-vault-0.32.0-ha-raft-ui"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/vault-0.32.0-ha-raft-ui/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-ha-raft-ui:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:4d3fbdac6cfb218d8e2e516e1ea3c365f1b3a07f89913a6c9522aa79cfa7faef"
+  layerDigest: "sha256:ed4da20022f19e838882199d95fcb4176c3f657346f45e735e69b592c0e563a2"
+  layerBytes: 4786
+  observedAt: "2026-10-11T17:51:24.660Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "requirements/target-requirements.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-ha-raft-ui:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-hashicorp-vault-0-32-0-ha-raft-ui.tar.gz"

@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-operator-crds-28.0.1-aicr-eks-training/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:f3f3d43d1b9a0f36663551679c5a991ffaf5b22558f4d7f0f4137e4a29097c0d"
+  layerDigest: "sha256:aa11c452cf5b1ffe2d15d8f66a69a17bb2e35d03fc002987bc85eca5bbd56e56"
+  layerBytes: 452127
+  observedAt: "2026-10-11T17:52:31.834Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-operator-crds-28-0-1-aicr-eks-training.tar.gz"

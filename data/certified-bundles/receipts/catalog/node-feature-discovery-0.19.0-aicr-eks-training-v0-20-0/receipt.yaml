@@ -1,0 +1,149 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://kubernetes-sigs.github.io/node-feature-discovery/charts"
+        name: "node-feature-discovery"
+        version: "0.19.0"
+        packageSHA256: "9e93b360e6167b782759026de40ba9d68d44c3e8b0b53b735592ad48fd3339ad"
+    evidence:
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml"
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v0-20-0/upstream.yaml"
+        sha256: "371a599fbb959c71f232f4cfbe5a37aedfb70a17fe9205793440c73b2d7c3b93"
+        bytes: 72898
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/crd-ordering.yaml"
+        sha256: "6ea7205452f539f98c9194a4c9f0458072f2c13f9613c809bb7dcaef8e93ec8b"
+        bytes: 2157
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/lifecycle-action-post-delete.yaml"
+        sha256: "8c60628b4ad2a73293b2cf32bc6b8014dce9274842be1c2741fef8e0278133cf"
+        bytes: 2152
+        role: "route: plan-step lifecycle-action-post-delete"
+      -
+        path: "data/certified-bundles/guides/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/space-guide.md"
+        sha256: "a7dc71e043d4928b50aba7e24b8cda809126172b7e4c6e112e5dbba465a7c1ee"
+        bytes: 2578
+        role: "space-guide"
+    objectCount: 23
+    objectInventoryRef: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/lifecycle-action-post-delete.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "lifecycle-action-post-delete"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "registry.k8s.io/nfd/node-feature-discovery:v0.19.0"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:latest"
+    manifestDigest: "sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab"
+    layerDigest: "sha256:435353ec88a095d04c47cb1c462717667d2a6cf034f535d1a5424d7a8323122b"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed aicr-eks-training-v0-20-0 render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed aicr-eks-training-v0-20-0 render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed aicr-eks-training-v0-20-0 render; the chart's template-level evidence is recorded in recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed aicr-eks-training-v0-20-0 render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed aicr-eks-training-v0-20-0 render; the chart's template-level evidence is recorded in recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed aicr-eks-training-v0-20-0 render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "4 CustomResourceDefinition(s) in the committed aicr-eks-training-v0-20-0 render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed aicr-eks-training-v0-20-0 render; the chart's template-level evidence is recorded in recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed aicr-eks-training-v0-20-0 render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"
+    notes: "This base needs a companion for the 4 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/source-lock.yaml"
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/variant-revision.yaml"
+      - "recipes/node-feature-discovery/node-feature-discovery/0.19.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml"
+      - "packages/node-feature-discovery/node-feature-discovery/0.19.0/bases/aicr-eks-training-v0-20-0/upstream.yaml"
+      - "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml"
+      - "runs/certified-bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0/publication-receipt.yaml"

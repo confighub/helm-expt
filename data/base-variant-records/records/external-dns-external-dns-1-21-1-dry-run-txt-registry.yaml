@@ -191,8 +191,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:latest@sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+      manifestDigest: "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+      layerDigest: "sha256:31600905facb26295c66fbf2f38c2bfd286ff715f7c8eed9ade459b0a6c00bb9"
+      objectSetSha256: "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
+      receipt: "data/certified-bundles/receipts/catalog/external-dns-1.21.1-dry-run-txt-registry/receipt.yaml"
+      receiptSha256: "sha256:a516215a74a81e9e330c26795492f7c1fa5228b37674ac6d93adecdd3f0cf2df"
+      publicationReceipt: "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:d1f037d0b3d80bfddab4b371e7936af1ecc1341e4997da79f45f4e4fb56dfedf"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-dry-run-txt-registry/crd-ordering.yaml"
+          sha256: "sha256:cc144c4cdbe553b3aa1dd1bf817b263974078e7cb936a73eb8e7a177a725ea58"
+          role: "route: crd-ordering"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

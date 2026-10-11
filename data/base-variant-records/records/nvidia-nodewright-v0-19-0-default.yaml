@@ -226,7 +226,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base and applied before the operator that reconciles it"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
@@ -288,7 +294,26 @@ spec:
           evidence:
             - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
             - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-delete.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/default/pre-upgrade.yaml"
@@ -376,8 +401,33 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-default:latest@sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+      manifestDigest: "sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c"
+      layerDigest: "sha256:923fdfd077f38a57c0bab44125703abb8d2d31769b86ae15389533bfc39731c7"
+      objectSetSha256: "sha256:4d5e785228886b5681a54f46eb442bb8983d6b908d95e625c0c9ceb045b39430"
+      receipt: "data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml"
+      receiptSha256: "sha256:d313b2c0dc4de1c8dbe58a4f2c1a113e1a1923aca224d4d9cc79eeecdbdeb4aa"
+      publicationReceipt: "runs/certified-bundles/catalog-nvidia-nodewright-v0-19-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:03f4d5d9ffbafa6a57183c081e9f2742fb9f6e8007da168aa879cf5643f2e424"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/crd-ordering.yaml"
+          sha256: "sha256:dc1622f6379018f0d1a9ac7cccb2df56d83d56f2b372851cdb166d9b450adec0"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/prune-protection.yaml"
+          sha256: "sha256:717c08d94e1689f00a068842f4b224a14fbdce1edf971a918b16146bc60347c8"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/lifecycle-action-pre-upgrade.yaml"
+          sha256: "sha256:096efd9e08e6eed7f58fdb65788ffc2916cca62dc520b0e88669c35472b211db"
+          role: "route: plan-step lifecycle-action-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-default/lifecycle-action-pre-delete.yaml"
+          sha256: "sha256:70232574566fb05bbebb97a455db9d4a7cdad5f73682f6141495c1f96e4773cc"
+          role: "route: plan-step lifecycle-action-pre-delete"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

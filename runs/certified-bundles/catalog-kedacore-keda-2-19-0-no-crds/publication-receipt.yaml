@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-kedacore-keda-2.19.0-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/keda-2.19.0-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:383c82dbee0234a0e5ebdc4a441dd4afa03dad62a25ceb772549d05f93a6f9be"
+  layerDigest: "sha256:bbc5b25e9ad1e24ddb37804f7ebe0408bbe7913125e324deda0435f39c02e0b2"
+  layerBytes: 4623
+  observedAt: "2026-10-11T17:51:43.797Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/webhook-readiness-observation.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kedacore-keda-2-19-0-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-kedacore-keda-2-19-0-no-crds.tar.gz"

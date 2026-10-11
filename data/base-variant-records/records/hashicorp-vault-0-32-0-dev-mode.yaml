@@ -200,8 +200,21 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-dev-mode:latest@sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+      manifestDigest: "sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+      layerDigest: "sha256:1445cf5e6aebba819f04e98947c3c1d2fec3bf4324cfc74a16d768a3ba55d9e1"
+      objectSetSha256: "sha256:f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955"
+      receipt: "data/certified-bundles/receipts/catalog/vault-0.32.0-dev-mode/receipt.yaml"
+      receiptSha256: "sha256:b8bbe8ccf53f9bc17872e3c8b7662d91db5568bec0ea2be13bf8d80a4e7bdbac"
+      publicationReceipt: "runs/certified-bundles/catalog-hashicorp-vault-0-32-0-dev-mode/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:b15f6a8b925cb9ce3a459ab3cebe5ea73aefbf5d8bc3c4ba791b16674bb8a20c"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/hashicorp-vault-0.32.0-dev-mode/webhook-certificate.yaml"
+          sha256: "sha256:9b39951a9999981e6499e0c9493c34d7c407b46188512823c3cef7d312f39c3c"
+          role: "route: plan-step webhook-certificate"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

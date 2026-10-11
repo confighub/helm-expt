@@ -78,6 +78,28 @@ Schema: [schemas/bundle-route.schema.json](../../schemas/bundle-route.schema.jso
 
 The first route is traefik's CRD ordering, at `data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml`. Its verdict requires an ordering declaration for 25 CRDs. The route declares two stages, the definitions first with a wait for establishment and everything else second. The receipt carries it as a bundle file with the role `route: crd-ordering`, and that quirk's disposition points at the file instead of describing an intention. Ordering is declarative and idempotent, so this route is marked automatic. A route that runs a Job is not, and stays manual until observed.
 
+## The plan in the bundle agrees with the record
+
+A `flatten-with-routes` entry has a plan, and two places state it. The entry's `BaseVariantRecord` names the steps under `spec.lifecycle.routeIntent.routes`, and the entry page prints them. The bundle carries plan documents beside its objects. A reader of the page and a consumer of the bundle must be told the same thing.
+
+They were not. One Argo CD bundle carried an ordering for its definitions and a prune rule, while its record named a Secret that had to exist before the objects were applied. A live run showed that the install does not start without that Secret. The bundle said nothing about it.
+
+The catalog's generator now reads the record of every `flatten-with-routes` bundle it builds from a Helm chart, and writes a plan document for each step the record names.
+
+| Plan document | Written from | What it carries |
+| --- | --- | --- |
+| `routes/crd-ordering.yaml`, `routes/prune-protection.yaml` | The committed render | The order of the definitions the bundle holds, and the objects Helm was asked to keep. The step has the file's name. |
+| `requirements/target-requirements.yaml`, kind `BundleTargetRequirements` | The record | Each step that names something the target must already have, such as a Secret, a namespace or a definition the bundle does not hold. |
+| `routes/<step>.yaml`, kind `BundleRoute` with `routeKind: recorded-plan-step` | The record | One step that is ordering or lifecycle work. |
+
+A document written from the record repeats the record's step and adds nothing. It gives the step's id, phase, actor and statement, the status the record gives it, and the files the record cites. It is never automatic. It discharges no quirk class, so it cannot stand in for a companion that a disposition owes.
+
+The record generator does the other half. It names a step for each document written from the render, unless one of the record's own steps already has that id. A record takes no step from a document that was written from it.
+
+The receipt carries the result in `bundle.plan`, which names the record and lists each document with the steps it carries. Strict ingest reads the record and the documents and refuses the bundle when a record step has no document, when a document carries a step the record does not name, or when a document written from the record differs from it. `scripts/lib/catalog-bundle-plan.mjs` holds the words the generators and the verifier share.
+
+Two limits apply. A bundle published before this rule keeps the files it was published with, because its bytes are fixed in a registry, and strict ingest counts it without refusing it. An unpublished `flatten-with-routes` bundle with no `bundle.plan` is refused. Seven presets with this verdict have no bundle at all, because their render owes a companion nothing committed can supply, and `CATALOG_BUNDLES_HELD` in the generator names each one and what it owes.
+
 ## The Space guide travels too
 
 A bundle carries three things: the rendered configuration, the routes that say how to apply it, and the words an operator needs beside them. Nothing operational or explanatory lives out of band.

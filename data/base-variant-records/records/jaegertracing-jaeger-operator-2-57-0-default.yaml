@@ -265,8 +265,26 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-default:latest@sha256:49bdb730b0f52201373c43d4d2eceef40a00aedb50f4b58d533d51b6d735323e"
+      manifestDigest: "sha256:49bdb730b0f52201373c43d4d2eceef40a00aedb50f4b58d533d51b6d735323e"
+      layerDigest: "sha256:4b5caa05fa48e7575a36a2a7f94058a3645eb052be344604ca79fbd39353062b"
+      objectSetSha256: "sha256:c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+      receipt: "data/certified-bundles/receipts/catalog/jaeger-operator-2.57.0-default/receipt.yaml"
+      receiptSha256: "sha256:160d55bfb41debe682f066bf07071b09485d6d6667c30a4ab8c52de612108fbe"
+      publicationReceipt: "runs/certified-bundles/catalog-jaegertracing-jaeger-operator-2-57-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:75ee6836c20c11e03f24a9994f4665204f2c17616e91fee07c922b0b6dcebeeb"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/crd-ordering.yaml"
+          sha256: "sha256:5a27c2ce6bc004798874d88edb20669a07ea8ea52d0d5f273edbe960d0816d56"
+          role: "route: crd-ordering"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/target-requirements.yaml"
+          sha256: "sha256:860f2ef1bf79f2b321dbf68b2985761e03e96b4c7a6fecabda4297fc73e10a76"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

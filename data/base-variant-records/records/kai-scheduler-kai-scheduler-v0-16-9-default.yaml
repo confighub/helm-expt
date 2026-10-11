@@ -273,7 +273,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
@@ -355,7 +361,26 @@ spec:
           evidence:
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
@@ -472,8 +497,37 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default:latest@sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5"
+      manifestDigest: "sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5"
+      layerDigest: "sha256:1682e8d8ed952d7c7b6c94b15b7dd19a59be57bd16e3361bb95348892b29b7b5"
+      objectSetSha256: "sha256:7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+      receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-default/receipt.yaml"
+      receiptSha256: "sha256:203e6325e7f1a249edb1b7b1e1109d9b376efaa3a006917753e4a7353764b464"
+      publicationReceipt: "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:c3f03b2f8e01d0943745a7f27476f71814587f5a886f304ddc3354849930f132"
+      routes:
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/crd-ordering.yaml"
+          sha256: "sha256:587928cf7da722782b310987ae7ef94d1901380d276209f3708ca6ca4bc972f9"
+          role: "route: crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
+          sha256: "sha256:7c113133eaf2f5c1ca0679a63318bc1c131957cd226bff1256a65e72db207d2d"
+          role: "route: resource-policy-keep"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-pre-install-pre-upgrade.yaml"
+          sha256: "sha256:6a4dbd99f4310ee0a8883754146cda78dceee6496fbd7d2554a42fdf29ec3ed3"
+          role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-install-post-upgrade.yaml"
+          sha256: "sha256:57ec4770dd9b2a0f6811cc677fab2bbdf868f99d489ab5dff553c5c409e18177"
+          role: "route: plan-step lifecycle-action-post-install-post-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-delete.yaml"
+          sha256: "sha256:0031825f82fd6410909db1c172114fc721f4d2afe83ef650b8cd4619f68b9416"
+          role: "route: plan-step lifecycle-action-post-delete"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

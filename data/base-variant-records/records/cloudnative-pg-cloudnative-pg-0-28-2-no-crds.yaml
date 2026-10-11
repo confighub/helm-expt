@@ -573,8 +573,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+      manifestDigest: "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+      layerDigest: "sha256:996d6dcd169a293b44e0cdfc7803a850115af641e85665c9ecc3234f638eb6c6"
+      objectSetSha256: "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d"
+      receipt: "data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-no-crds/receipt.yaml"
+      receiptSha256: "sha256:5bf1bfa2fd76ce8adf6eee900c3ea54a905b71e1cfd1e136929913d6788b9c0a"
+      publicationReceipt: "runs/certified-bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:0d9d89470416d99ed79221d0c0fb67cba6ce5094b7bf66b53a653d7d4cc30211"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-no-crds/target-requirements.yaml"
+          sha256: "sha256:11ea91648e29b47fab7d693df0bc4b4097620e4f29c04ee282b2eba7b2199aa0"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

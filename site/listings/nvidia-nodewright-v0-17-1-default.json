@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nodewright-v0-17-1-default.yaml",
-      "sha256": "sha256:a9dc0642edf483755e8dd40624ef8bee6bd9be08629189f49f1c280b5b44ec4f",
+      "sha256": "sha256:98468947856a2a54c6caa5b94eff9bcd66c3a1265688f6888008c3f236cd12aa",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-17-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-17-1-default:latest@sha256:588f4066bae34eed7be82e5342804eca9b217f8a475185c5b8fdf520679b8292",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:ccee4a28e476d61e94c27d6944cdce51905f11599ccb94c31b91ff4d0093eff0"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:1862501c710de9572c5df2c551f9edb322f1f9f347fab15972a358f79ba7c0a1"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:4288cb2f1df53611aaf6c433e0fff43b1d68abd409ac6a4bc11461cd56acd139"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:588f4066bae34eed7be82e5342804eca9b217f8a475185c5b8fdf520679b8292"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:95a732cc71f8c56371fe119f8727c2c4053891dbb59d6cbbc5fbcbc378412210"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/nodewright-v0.17.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nodewright-v0.17.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

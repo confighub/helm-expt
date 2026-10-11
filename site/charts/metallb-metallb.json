@@ -31,7 +31,7 @@
           },
           "objectCount": 42,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",

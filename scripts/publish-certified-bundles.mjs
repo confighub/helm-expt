@@ -190,11 +190,16 @@ for (const file of spec.bundle.files) {
   check(existsSync(source), `bundle file missing: ${file.path}`);
   check(sha256File(source) === file.sha256, `bundle file drifted from its receipt: ${file.path}`);
   const role = String(file.role ?? "");
+  // A requirements file is staged under requirements/, where the other
+  // bundle producers put theirs. No bundle published before that file
+  // existed lists one, so their staged files are what they were.
   const target = role.startsWith("route:")
     ? join(stage, "routes", file.path.split("/").pop())
-    : role === "space-guide"
-      ? join(stage, "README.md")
-      : join(stage, file.path.split("/").pop());
+    : role.startsWith("requirement:")
+      ? join(stage, "requirements", file.path.split("/").pop())
+      : role === "space-guide"
+        ? join(stage, "README.md")
+        : join(stage, file.path.split("/").pop());
   mkdirSync(dirname(target), { recursive: true });
   write(target, readFileSync(source));
 }

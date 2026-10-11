@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0-lifecycle-action-post-delete"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "After a delete, remove what NFD put on the nodes. The prune Job runs nfd-master with -prune, which removes the labels, annotations, taints and extended resources NFD created on every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that deletes this base must apply these four objects afterwards, wait for the Job to complete, then delete them. Skipping it leaves the node labels in place."
+  declaration:
+    step: "lifecycle-action-post-delete"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-post-delete"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/lifecycle-actions.yaml"
+      - "packages/node-feature-discovery/node-feature-discovery/0.19.0/prerequisites/node-feature-discovery-lifecycle/aicr-eks-training-v0-20-0/post-delete.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml"
+    verdictRef: "recipes/node-feature-discovery/node-feature-discovery/0.19.0/publication/flattening-safety-verdict-aicr-eks-training-v0-20-0.yaml"

@@ -397,8 +397,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-default:latest@sha256:9d819144de3afe9a941cba7ed3ffdaa4a51ce32f1f12554b9fbf8049cbfdf75d"
+      manifestDigest: "sha256:9d819144de3afe9a941cba7ed3ffdaa4a51ce32f1f12554b9fbf8049cbfdf75d"
+      layerDigest: "sha256:f0f3cacc70e2dc4c62d8fba05907aac611432e107be43d613a725dfe019ce0c9"
+      objectSetSha256: "sha256:e07b13b5b7f193be263181e405388fc362e7850dc1bac9561cad4bb8f4609ad3"
+      receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.1-default/receipt.yaml"
+      receiptSha256: "sha256:17f1fcb4a620be3ef18a9cb1f8d950cddfe6d5afc0ca694737d24b70e79a466a"
+      publicationReceipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-1-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:9ff690dbbaeea7fe42de34446dcda643119ca677479549a192afe41106821b7d"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.1-default/target-requirements.yaml"
+          sha256: "sha256:e73c74df79869afc3a734fd7100aee3bcf37e18d6706e475bf31b7644fee40d5"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

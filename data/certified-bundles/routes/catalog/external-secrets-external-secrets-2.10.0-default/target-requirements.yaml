@@ -1,0 +1,39 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "external-secrets-external-secrets-2.10.0-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "external-secrets-external-secrets-2-10-0-default"
+    chart: "external-secrets/external-secrets"
+    version: "2.10.0"
+    base: "default"
+  requirements:
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Secret external-secrets/external-secrets-webhook must exist before apply. Rendered webhook Secret separated by installer and populated by the cert-controller after apply."
+      names:
+        -
+          id: "external-secrets/external-secrets-webhook"
+          detail: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+      checks:
+        - "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/external-secrets-external-secrets-2-10-0-default.yaml"
+        - "recipes/external-secrets/external-secrets/2.10.0/variants/default/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/external-secrets/external-secrets/2.10.0/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-10-0-default.yaml"
+    verdictRef: "recipes/external-secrets/external-secrets/2.10.0/publication/flattening-safety-verdict.yaml"

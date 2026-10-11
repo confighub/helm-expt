@@ -253,8 +253,23 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-rollout-operator-0-49-0-no-crds:latest@sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+      manifestDigest: "sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+      layerDigest: "sha256:a567ea15b4f1763af019b27720c9e5570ea3c94448c9b4384c88ee6e46125a36"
+      objectSetSha256: "sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403"
+      receipt: "data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-no-crds/receipt.yaml"
+      receiptSha256: "sha256:eef2d2304b8d0967b7f784eb28f11eb84988994fc5caa055f12a8b763709a562"
+      publicationReceipt: "runs/certified-bundles/catalog-grafana-rollout-operator-0-49-0-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:65caab69f15b3e98dacea9db987539567e38bde5d6f371346d55878f7686d20c"
+      routes:
+        []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-no-crds/target-requirements.yaml"
+          sha256: "sha256:a747c14437654067c3ea547af1b858bbc6962490252fcc5e9b2c020adea28a4d"
+          role: "requirement: target"
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

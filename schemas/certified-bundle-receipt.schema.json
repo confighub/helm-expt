@@ -244,6 +244,56 @@
             "objectInventoryRef": {
               "type": "string"
             },
+            "plan": {
+              "description": "Present on a flatten-with-routes catalog bundle built under the plan rule. It names the BaseVariantRecord whose plan steps the bundle carries and lists each plan document with the steps it carries. Strict ingest refuses the bundle when the documents and the record's steps disagree.",
+              "type": "object",
+              "required": [
+                "record",
+                "rule",
+                "documents"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "record": {
+                  "description": "Repo-relative path of the BaseVariantRecord that names the steps.",
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string"
+                },
+                "documents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "path",
+                      "writtenFrom",
+                      "steps"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "writtenFrom": {
+                        "description": "Whether the generator wrote the document from the committed render or from the record.",
+                        "enum": [
+                          "the committed render",
+                          "the record"
+                        ]
+                      },
+                      "steps": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "compositionIndexRef": {
               "description": "The digest-bound index this bundle belongs to, when the producer publishes one. The index format stays the producer's own in this increment.",
               "type": "string"

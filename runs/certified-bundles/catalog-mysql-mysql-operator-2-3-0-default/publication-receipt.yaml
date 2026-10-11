@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-mysql-mysql-operator-2.3.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/mysql-operator-2.3.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-mysql-mysql-operator-2-3-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:4683e4f30dc990ddd230bc37868d4ff4235e9591afac937893771c7ffee1a707"
+  layerDigest: "sha256:44ca6ffa2f4378a4c9672819f387b543bb908e6a492cb3a1d29b33549c2eb776"
+  layerBytes: 13017
+  observedAt: "2026-10-11T17:52:16.099Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-mysql-mysql-operator-2-3-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-mysql-mysql-operator-2-3-0-default.tar.gz"

@@ -1,0 +1,84 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2-no-crds-target-requirements"
+spec:
+  subject:
+    catalogEntry: "cloudnative-pg-cloudnative-pg-0-28-2-no-crds"
+    chart: "cloudnative-pg/cloudnative-pg"
+    version: "0.28.2"
+    base: "no-crds"
+  requirements:
+    -
+      step: "crd-ordering"
+      phase: "pre-apply"
+      invokedBy: "delivery workflow"
+      statement: "The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+      names:
+        -
+          id: "backups.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "clusterimagecatalogs.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "clusters.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "databases.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "failoverquorums.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "imagecatalogs.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "poolers.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "publications.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "scheduledbackups.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+        -
+          id: "subscriptions.postgresql.cnpg.io"
+          detail: "CloudNativePG CRD managed outside this no-crds base"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Secret default/cnpg-webhook-cert must exist before apply. CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready."
+      names:
+        -
+          id: "default/cnpg-webhook-cert"
+          detail: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
+    verdictRef: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict-no-crds.yaml"

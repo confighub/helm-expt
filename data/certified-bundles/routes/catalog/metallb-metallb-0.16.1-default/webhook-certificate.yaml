@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "metallb-metallb-0.16.1-default-webhook-certificate"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step."
+  declaration:
+    step: "webhook-certificate"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-certificate"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "the MetalLB controller and frr-k8s"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml"
+    verdictRef: "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml",
-      "sha256": "sha256:44faff34e67c226af0bd4800d9ed8123b2f3a954e7796dbd97e5f6abed1f4bbb",
+      "sha256": "sha256:86425899f38535d9460ad49f4dfdb110bea71f77f031f16bad088973ebae16fe",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training:latest@sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:72917e0ff6abb1286c132d493ac4093ccb9f8ffe06ca7ced69a103c0bc7c8b2c"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:44de6485c1e97b72d71b62956128ca395dc12d9ff90bb8ebae684fc8dd69945b"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:110238ce637ad50082bfcd0851af38934b1f51bca8f0ec71430e83a25f73a3fd"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:18428bf80ce50ea9483684612926e0ce2b08f79ff37b40b6796b94d604ccdca8"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-aicr-eks-training/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-aicr-eks-training/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -262,6 +286,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "prune-protection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       }
     ],
     "routes": [
@@ -305,9 +335,35 @@
           "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
           "packages/kai-scheduler/kai-scheduler/v0.14.1/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
         ]
+      },
+      {
+        "id": "prune-protection",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "prune-protection"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "prune-protection.yaml",
+        "path": "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training/prune-protection.yaml"
+      },
       {
         "name": "kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml",
         "path": "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml",

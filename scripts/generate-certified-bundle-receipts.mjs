@@ -16,6 +16,7 @@ import {
   check,
   listFiles,
   readYaml,
+  readYamlFiles,
   relativeRepo,
   repoRoot,
   sha256,
@@ -23,6 +24,25 @@ import {
   toYaml,
   write,
 } from "./lib/proof-common.mjs";
+import {
+  PLAN_FROM_RECORD,
+  PLAN_FROM_RENDER,
+  PLAN_REQUIREMENTS_FILE,
+  PLAN_REQUIREMENTS_ROLE,
+  PLAN_RULE,
+  PLAN_STEP_ROLE_PREFIX,
+  buildPlanRequirements,
+  buildPlanStepRoute,
+  catalogRecordName,
+  catalogRecordRel,
+  planFileStem,
+  planPlacement,
+  recordSteps,
+  recordTargetFacts,
+  PUBLISHED_BEFORE_THE_PLAN_RULE,
+} from "./lib/catalog-bundle-plan.mjs";
+import { NVIDIA_LITERAL_BUNDLE_CHARTS } from "./lib/nvidia-literal-bundles.mjs";
+import { planStepTiming } from "./lib/retained-objects-script.mjs";
 import {
   assertOrderingSupportsRoute,
   AICR_BUNDLE_PATH_SOURCE,
@@ -34,6 +54,9 @@ const mode = process.argv[2] ?? "--generate";
 
 // Route artifacts emitted while building receipts, written alongside them.
 const emittedRoutes = [];
+// The plan section of the guide of each bundle the plan rule covers, by
+// receipt name.
+const planGuides = new Map();
 
 const OUT_DIR = join(repoRoot, "data", "certified-bundles");
 const WITNESS_DIR = join(OUT_DIR, "witnesses", "eks-inference-gpu-runtime");
@@ -579,7 +602,7 @@ function buildTraefikReceipt() {
 // own builder because it predates this one; everything after it comes through
 // here, which is what makes publishing more bundles a matter of deciding lanes
 // rather than writing code.
-function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes, hookObservation, secretsCarryConfiguration }) {
+function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes, hookObservation, secretsCarryConfiguration, planRecord }) {
   const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
   const revisionRel = `${recipe}/revisions/${base}/r001/variant-revision.yaml`;
   const revision = readFileSync(repoPath(revisionRel), "utf8");
@@ -603,10 +626,10 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
   const crdNames = [...inventory.matchAll(/kind: "CustomResourceDefinition"\n\s+name: "([^"]+)"/g)].map((m) => m[1]);
   // Most variant-revision.yaml files record objectCount directly. A handful of
   // older alternate-base revisions (e.g. several no-crds bases) predate that
-  // field, so this falls back to the document count already computed from the
-  // same committed render (scanRendered's docCount), never overriding a
-  // recorded count when one exists.
-  const objectCountMatch = revision.match(/objectCount:\s*(\d+)/);
+  // field. The object inventory beside the render always states the count, so
+  // that is read next. The document count is the last resort, because a render
+  // can hold documents with no object in them.
+  const objectCountMatch = revision.match(/objectCount:\s*(\d+)/) ?? inventory.match(/objectCount:\s*(\d+)/);
   const objectCount = objectCountMatch ? Number(objectCountMatch[1]) : scan.docCount;
 
   // Which rendered objects carry the keep promise, read from the render rather
@@ -626,6 +649,9 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
   const chartVersion = recipe.split("/").pop();
   const slug = `${chartName.replace("/", "-")}-${chartVersion}-${base}`;
   const routeFiles = [];
+  // The route documents written from the render, by file name. The plan rule
+  // reads them to see which record steps a document already carries.
+  const renderRoutes = new Map();
   if (crdNames.length > 0) {
     const routeRel = `data/certified-bundles/routes/catalog/${slug}/crd-ordering.yaml`;
     const route = buildCrdOrderingRoute({
@@ -635,6 +661,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       crdNames: crdNames.sort(),
       otherCount: objectCount - crdNames.length,
     });
+    renderRoutes.set("crd-ordering", route);
     const text = `${toYaml(route)}\n`;
     emittedRoutes.push({ path: repoPath(routeRel), contents: text });
     routeFiles.push({ path: routeRel, sha256: sha256(text), bytes: Buffer.byteLength(text), role: "route: crd-ordering" });
@@ -647,6 +674,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       renderRel,
       verdictRel,
     });
+    renderRoutes.set("prune-protection", route);
     const text = `${toYaml(route)}\n`;
     emittedRoutes.push({ path: repoPath(routeRel), contents: text });
     routeFiles.push({
@@ -668,6 +696,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       hookDocCount: hookObservation.hookDocCount,
       verdictRel,
     });
+    renderRoutes.set("lifecycle", route);
     const text = `${toYaml(route)}\n`;
     emittedRoutes.push({ path: repoPath(routeRel), contents: text });
     routeFiles.push({ path: routeRel, sha256: sha256(text), bytes: Buffer.byteLength(text), role: "route: helm-hooks" });
@@ -677,6 +706,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       caRoute.metadata.name = `${slug}-webhook-ca`;
       caRoute.spec.quirkClass = "webhook-ca";
       caRoute.spec.discharges = "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks.";
+      renderRoutes.set("webhook-ca", caRoute);
       const caText = `${toYaml(caRoute)}\n`;
       emittedRoutes.push({ path: repoPath(caRel), contents: caText });
       routeFiles.push({ path: caRel, sha256: sha256(caText), bytes: Buffer.byteLength(caText), role: "route: webhook-ca" });
@@ -726,6 +756,12 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
     }
   }
 
+  // The plan the record names. It is built after the dispositions, because a
+  // disposition points only at a route the render gave this bundle.
+  const plan = planRecord && lane === "flatten-with-routes"
+    ? buildRecordPlan({ slug, chartName, chartVersion, base, lane, bundleFile, objectCount, verdictRel, routeFiles, renderRoutes, planRecord })
+    : null;
+
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
     kind: "CertifiedBundleReceipt",
@@ -746,9 +782,10 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       },
       bundle: {
         contentsKind: "rendered-config",
-        files: [{ ...bundleFile, role: "rendered object set" }, ...routeFiles],
+        files: [{ ...bundleFile, role: "rendered object set" }, ...routeFiles, ...(plan ? plan.files : [])],
         objectCount,
         objectInventoryRef: inventoryRel,
+        ...(plan ? { plan: plan.block } : {}),
         images: buildImageInventory(scan.images),
       },
       ingest: {
@@ -765,7 +802,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
       },
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
-        generatedFrom: [`${recipe}/source-lock.yaml`, revisionRel, renderRel, bundleFileRel],
+        generatedFrom: [`${recipe}/source-lock.yaml`, revisionRel, renderRel, bundleFileRel, ...(plan ? [plan.block.record] : [])],
       },
     },
   };
@@ -1311,7 +1348,241 @@ const CATALOG_BUNDLES = [
   { repo: "strimzi", chart: "strimzi-kafka-operator", version: "1.0.0", base: "no-crds" },
   { repo: "valkey", chart: "valkey", version: "0.11.0", base: "default" },
   { repo: "vm", chart: "victoria-metrics-single", version: "0.39.0", base: "default-reviewed" },
+  // --- The flatten-with-routes presets that had no bundle. Each carries the
+  // plan its record names (see the plan rule below). Seven more presets with
+  // this verdict are held back, and CATALOG_BUNDLES_HELD says why.
+  { repo: "argo-cd", chart: "argo-cd", version: "10.7.0", base: "default" },
+  { repo: "argo-cd", chart: "argo-cd", version: "10.7.0", base: "no-crds" },
+  { repo: "cloudnative-pg", chart: "cloudnative-pg", version: "0.29.0", base: "default" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.4.1", base: "aicr-eks-training" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.4.1", base: "default" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.4.1", base: "gpu-resources" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.5.0", base: "aicr-eks-training" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.5.0", base: "default" },
+  { repo: "dra-driver-nvidia", chart: "dra-driver-nvidia-gpu", version: "0.5.0", base: "gpu-resources" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.10.0", base: "default" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.10.0", base: "no-crds" },
+  { repo: "grafana", chart: "alloy", version: "1.12.1", base: "default" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.21.1", base: "crds-enabled" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.21.1", base: "default" },
+  { repo: "kai-scheduler", chart: "kai-scheduler", version: "v0.14.1", base: "aicr-eks-training" },
+  { repo: "kai-scheduler", chart: "kai-scheduler", version: "v0.14.1", base: "default" },
+  { repo: "kai-scheduler", chart: "kai-scheduler", version: "v0.16.9", base: "aicr-eks-training" },
+  { repo: "kai-scheduler", chart: "kai-scheduler", version: "v0.16.9", base: "default" },
+  { repo: "mysql", chart: "mysql-operator", version: "2.3.0", base: "default" },
+  { repo: "node-feature-discovery", chart: "node-feature-discovery", version: "0.19.0", base: "aicr-eks-training-v0-20-0" },
+  { repo: "node-feature-discovery", chart: "node-feature-discovery", version: "0.19.0", base: "aicr-eks-training-v1-0-0" },
+  { repo: "node-feature-discovery", chart: "node-feature-discovery", version: "0.19.0", base: "default" },
+  { repo: "nvidia", chart: "nodewright", version: "v0.17.1", base: "aicr-eks-training" },
+  { repo: "nvidia", chart: "nodewright", version: "v0.17.1", base: "default" },
+  { repo: "nvidia", chart: "nodewright", version: "v0.19.0", base: "aicr-eks-training" },
+  { repo: "nvidia", chart: "nodewright", version: "v0.19.0", base: "default" },
+  { repo: "percona", chart: "psmdb-operator", version: "1.23.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-operator-crds", version: "28.0.1", base: "aicr-eks-training" },
+  { repo: "prometheus-community", chart: "prometheus-operator-crds", version: "28.0.1", base: "default" },
+  { repo: "traefik", chart: "traefik", version: "41.4.0", base: "default" },
 ];
+
+// --- the plan rule -----------------------------------------------------------
+//
+// A flatten-with-routes bundle carries a plan, and the entry's
+// BaseVariantRecord names the steps of that plan. The two must agree. For
+// every bundle in CATALOG_BUNDLES with that verdict, this generator reads the
+// record and writes one plan document for each step the record names that no
+// document written from the render already carries. The record generator in
+// turn names a step for each document written from the render. Strict ingest
+// (scripts/verify-certified-bundle.mjs) refuses a bundle whose documents and
+// record disagree. scripts/lib/catalog-bundle-plan.mjs holds the shared words.
+//
+
+// Presets whose verdict is flatten-with-routes and that get no bundle yet.
+// Strict ingest refuses a certified bundle that owes a companion it does not
+// ship, and each of these owes one that nothing committed can supply. The
+// render of the first six holds a Secret with data, so a public bundle would
+// publish one draw of a credential. The render of the last holds the chart's
+// post-delete hook objects, which would be applied as ordinary objects at
+// install. The reason is checked against the render on every run, so a
+// preset cannot stay here after its render stops owing the companion.
+const CATALOG_BUNDLES_HELD = [
+  { repo: "kubeflow", chart: "kubeflow-trainer", version: "2.2.0", base: "aicr-eks-training-v0-20-0", owes: "external-secret-reference" },
+  { repo: "kubeflow", chart: "kubeflow-trainer", version: "2.2.0", base: "aicr-eks-training-v1-0-0", owes: "external-secret-reference" },
+  { repo: "kubeflow", chart: "kubeflow-trainer", version: "2.2.0", base: "default", owes: "external-secret-reference" },
+  { repo: "prometheus-community", chart: "kube-prometheus-stack", version: "84.4.0", base: "aicr-eks-training-v0-20-0", owes: "external-secret-reference" },
+  { repo: "prometheus-community", chart: "kube-prometheus-stack", version: "84.4.0", base: "aicr-eks-training-v1-0-0", owes: "external-secret-reference" },
+  { repo: "prometheus-community", chart: "kube-prometheus-stack", version: "84.4.0", base: "default", owes: "external-secret-reference" },
+  { repo: "nvidia", chart: "nvidia-device-plugin", version: "0.19.3", base: "nfd-enabled", owes: "lifecycle-job" },
+];
+
+const catalogBundleName = (entry) => `catalog-${entry.repo}-${entry.chart}-${entry.version}-${entry.base}`;
+
+function checkHeldCatalogBundles() {
+  const listed = new Set(CATALOG_BUNDLES.map(catalogBundleName));
+  for (const entry of CATALOG_BUNDLES_HELD) {
+    const name = catalogBundleName(entry);
+    check(!listed.has(name), `${name} is in CATALOG_BUNDLES and in CATALOG_BUNDLES_HELD`);
+    const recipe = `recipes/${entry.repo}/${entry.chart}/${entry.version}`;
+    const scan = scanRendered(readFileSync(repoPath(`${recipe}/revisions/${entry.base}/r001/rendered/release-objects.yaml`), "utf8"));
+    const owed = scanDispositions(scan, { renderScope: "the render", templateEvidence: "" })
+      .filter((row) => row.companionRequired)
+      .map((row) => row.companionRequired);
+    check(
+      owed.includes(entry.owes),
+      `${name} is held back for owing ${entry.owes}, and its render no longer owes it. Move it to CATALOG_BUNDLES.`,
+    );
+  }
+}
+
+// A preset belongs to one bundle producer. The literal bundles of the four
+// NVIDIA charts are built by scripts/generate-nvidia-literal-bundles.mjs.
+function checkOneProducer() {
+  for (const entry of [...CATALOG_BUNDLES, ...CATALOG_BUNDLES_HELD]) {
+    check(
+      !NVIDIA_LITERAL_BUNDLE_CHARTS.includes(`${entry.repo}/${entry.chart}`),
+      `${catalogBundleName(entry)} is a base of a chart whose bundles scripts/generate-nvidia-literal-bundles.mjs builds, so two producers would build it`,
+    );
+  }
+}
+
+// The records of the bundles the plan rule covers, read once.
+let planRecordsByName = null;
+function planRecordFor(entry) {
+  if (!planRecordsByName) {
+    planRecordsByName = new Map();
+    const wanted = CATALOG_BUNDLES
+      .filter((candidate) => !PUBLISHED_BEFORE_THE_PLAN_RULE.has(catalogBundleName(candidate)))
+      .filter((candidate) => {
+        const recipe = `recipes/${candidate.repo}/${candidate.chart}/${candidate.version}`;
+        const verdictRel = `${recipe}/publication/${verdictFileFor(recipe, candidate.base)}`;
+        return grab(readFileSync(repoPath(verdictRel), "utf8"), /lane:\s*"([a-z-]+)"/, `${verdictRel} lane`) === "flatten-with-routes";
+      })
+      .map((candidate) => catalogRecordName(candidate));
+    const paths = wanted.map((name) => repoPath(catalogRecordRel(name)));
+    for (const path of paths) {
+      check(existsSync(path), `${relativeRepo(path)} is missing, and a flatten-with-routes bundle takes its plan from that record`);
+    }
+    for (let index = 0; index < paths.length; index += 32) {
+      for (const [path, record] of readYamlFiles(paths.slice(index, index + 32))) {
+        planRecordsByName.set(record.metadata.name, { record, rel: relativeRepo(path) });
+      }
+    }
+  }
+  return planRecordsByName.get(catalogRecordName(entry)) ?? null;
+}
+
+// The plan documents of one bundle, written from its record, and the block
+// the receipt carries about them.
+function buildRecordPlan({ slug, chartName, chartVersion, base, lane, bundleFile, objectCount, verdictRel, routeFiles, renderRoutes, planRecord }) {
+  const { record, rel: recordRel } = planRecord;
+  const name = `catalog-${slug}`;
+  const spec = record.spec;
+  check(
+    spec.source?.type === "helm" && spec.source.name === chartName && spec.source.version === chartVersion && spec.baseVariant?.name === base,
+    `${name}: ${recordRel} is not the record of ${chartName} ${chartVersion} base ${base}`,
+  );
+  // The digest names the bytes. The record's object count is not compared,
+  // because the records of a few older revisions say 0 where the revision
+  // file never recorded a count.
+  check(
+    spec.configuration?.digest === bundleFile.sha256,
+    `${name}: ${recordRel} records other objects than the ${objectCount} this bundle holds`,
+  );
+  check(
+    spec.processing?.flattening?.verdict === lane && spec.processing.flattening.record === verdictRel,
+    `${name}: ${recordRel} takes its verdict from ${spec.processing?.flattening?.record}, and this bundle takes it from ${verdictRel}`,
+  );
+  const emittedBy = "scripts/generate-certified-bundle-receipts.mjs";
+  const targetFacts = recordTargetFacts(record);
+  const steps = recordSteps(record);
+  const files = [];
+  const documents = routeFiles.map((file) => ({ path: file.path, writtenFrom: PLAN_FROM_RENDER, steps: [planFileStem(file.path)] }));
+  const emit = (fileName, role, doc, stepIds) => {
+    const rel = `data/certified-bundles/routes/catalog/${slug}/${fileName}`;
+    check(!routeFiles.some((file) => file.path === rel), `${name}: the record step ${stepIds.join(", ")} would overwrite ${rel}`);
+    const text = `${toYaml(doc)}\n`;
+    emittedRoutes.push({ path: repoPath(rel), contents: text });
+    files.push({ path: rel, sha256: sha256(text), bytes: Buffer.byteLength(text), role });
+    documents.push({ path: rel, writtenFrom: PLAN_FROM_RECORD, steps: stepIds });
+  };
+
+  const requirementSteps = [];
+  const routeSteps = [];
+  for (const step of steps) {
+    check(/^[a-z0-9][a-z0-9-]*$/.test(String(step.id)), `${name}: the record step ${JSON.stringify(step.id)} cannot name a file`);
+    check(step.automatic === false, `${name}: the record marks the step ${step.id} automatic, and a document written from the record is never automatic`);
+    const placement = planPlacement(step, { targetFacts, renderDocuments: renderRoutes });
+    if (placement.requirement) requirementSteps.push(step);
+    if (placement.route) routeSteps.push(step);
+  }
+  for (const step of routeSteps) {
+    check(step.id !== planFileStem(PLAN_REQUIREMENTS_FILE), `${name}: a record step has the name of the requirements file`);
+    emit(
+      `${step.id}.yaml`,
+      `${PLAN_STEP_ROLE_PREFIX}${step.id}`,
+      buildPlanStepRoute({ name: `${slug}-${step.id}`, step, recordRel, verdictRel, emittedBy }),
+      [String(step.id)],
+    );
+  }
+  if (requirementSteps.length > 0) {
+    emit(
+      PLAN_REQUIREMENTS_FILE,
+      PLAN_REQUIREMENTS_ROLE,
+      buildPlanRequirements({
+        name: `${slug}-target-requirements`,
+        subject: { catalogEntry: record.metadata.name, chart: chartName, version: chartVersion, base },
+        steps: requirementSteps,
+        targetFacts,
+        lane,
+        recordRel,
+        verdictRel,
+        emittedBy,
+      }),
+      requirementSteps.map((step) => String(step.id)),
+    );
+  }
+  // The guide's plan section. It is written from the documents, so it reads
+  // the same before and after the record names the render-written steps.
+  const staged = (path) => `${path.endsWith(`/${PLAN_REQUIREMENTS_FILE}`) ? "requirements" : "routes"}/${path.split("/").pop()}`;
+  const stepById = new Map(steps.map((step) => [String(step.id), step]));
+  const guide = [
+    "## The plan",
+    "",
+    `The plan is the steps that plain objects cannot carry. The Catalog record \`${recordRel}\` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.`,
+    "",
+    "| Step | Carried by | Written from |",
+    "| --- | --- | --- |",
+    ...documents.flatMap((document) => document.steps.map((id) => `| \`${id}\` | \`${staged(document.path)}\` | ${document.writtenFrom} |`)),
+    "",
+  ];
+  // A step can be in two documents. The render orders the definitions the
+  // bundle holds, and the record names others the target must already have.
+  const headed = new Set();
+  for (const document of documents) {
+    for (const id of document.steps) {
+      const fromRecord = document.writtenFrom === PLAN_FROM_RECORD;
+      const step = stepById.get(id);
+      guide.push(headed.has(id) ? `### ${id}, as the record states it` : `### ${id}`, "");
+      headed.add(id);
+      if (fromRecord) {
+        guide.push(
+          `This step is due ${lowerFirst(planStepTiming(step))}. The record names \`${step.proposedActor}\` for it and marks it \`${step.sourceStatus}\`.`,
+          "",
+          String(step.proposedMechanism),
+        );
+      } else {
+        guide.push(String(renderRoutes.get(id).spec.discharges));
+      }
+      guide.push("");
+    }
+  }
+  planGuides.set(name, guide);
+  return {
+    files,
+    steps,
+    block: { record: recordRel, rule: PLAN_RULE, documents },
+  };
+}
+
+const lowerFirst = (text) => (text ? `${text[0].toLowerCase()}${text.slice(1)}` : text);
 
 // A note a reader can check rather than a sentence that fills the field. It
 // states what the base actually renders and which companions therefore travel.
@@ -1361,7 +1632,7 @@ function buildImageInventory(references) {
   };
 }
 
-function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand, manualNotes, guideNotes, currentServerUnits = false, notIngested = false }) {
+function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand, manualNotes, guideNotes, currentServerUnits = false, notIngested = false, planSection = null }) {
   const lines = [];
   lines.push(`# ${name}`);
   lines.push("");
@@ -1393,10 +1664,13 @@ function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verd
       "This source is not certified to ship as literal rendered YAML. The render-late installer path stays its certified route.",
     "born-flattened": "Nothing renders here, so nothing is lost at render time.",
   }[verdict.lane];
-  lines.push(`Lane: **${verdict.lane}** (${verdict.status}). ${laneSentence}`);
+  lines.push(`Lane: **${verdict.lane}** (${verdict.status}). ${planSection ? "This bundle carries a plan beside its objects. The plan is below." : laneSentence}`);
   lines.push("");
   lines.push(`Decided by: ${verdict.decidedBy}`);
   lines.push("");
+  if (planSection) {
+    lines.push(...planSection);
+  } else {
   lines.push("## What its routes owe");
   lines.push("");
   if (routeFiles.length > 0) {
@@ -1421,6 +1695,7 @@ function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verd
     lines.push("This bundle owes no route.");
   }
   lines.push("");
+  }
   if (manualNotes) {
     lines.push(manualNotes);
     lines.push("");
@@ -2672,6 +2947,8 @@ function eksInferenceStackGuide(receipts) {
 }
 
 function buildAll() {
+  checkHeldCatalogBundles();
+  checkOneProducer();
   // Every discovered entry is built, because building it is what emits its
   // verdict and its route. Its receipt joins the table only when the switch
   // above says the ConfigHub-ready lane is running for it.
@@ -2749,6 +3026,11 @@ function buildAll() {
     },
     ...CATALOG_BUNDLES.map((entry) => {
       const recipe = `recipes/${entry.repo}/${entry.chart}/${entry.version}`;
+      const publishedBeforeTheRule = PUBLISHED_BEFORE_THE_PLAN_RULE.has(catalogBundleName(entry));
+      check(
+        !publishedBeforeTheRule || publishedBundle(catalogBundleName(entry)),
+        `${catalogBundleName(entry)} is listed as published before the plan rule and has no publication receipt`,
+      );
       return {
         rel: `data/certified-bundles/receipts/catalog/${entry.chart}-${entry.version}-${entry.base}/receipt.yaml`,
         value: buildCatalogBundleReceipt({
@@ -2760,6 +3042,7 @@ function buildAll() {
           notes: entry.notes,
           hookObservation: entry.hookObservation,
           secretsCarryConfiguration: entry.secretsCarryConfiguration,
+          planRecord: publishedBeforeTheRule ? null : planRecordFor(entry),
         }),
         guideNotes: entry.notes,
         currentServerUnits: entry.currentServerUnits,
@@ -2788,6 +3071,7 @@ function buildAll() {
     const routeFiles = spec.bundle.files.filter((file) => String(file.role ?? "").startsWith("route:"));
     const published = publishedBundle(receipt.value.metadata.name);
     const guide = buildSpaceGuide({
+      planSection: planGuides.get(receipt.value.metadata.name) ?? null,
       name: receipt.value.metadata.name,
       producer: spec.producer.name,
       sourceLine: chart

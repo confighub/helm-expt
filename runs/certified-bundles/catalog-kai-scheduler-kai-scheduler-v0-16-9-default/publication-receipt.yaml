@@ -1,0 +1,22 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-kai-scheduler-kai-scheduler-v0.16.9-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5"
+  layerDigest: "sha256:1682e8d8ed952d7c7b6c94b15b7dd19a59be57bd16e3361bb95348892b29b7b5"
+  layerBytes: 77017
+  observedAt: "2026-10-11T17:52:14.560Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/lifecycle-action-post-delete.yaml"
+    - "routes/lifecycle-action-post-install-post-upgrade.yaml"
+    - "routes/lifecycle-action-pre-install-pre-upgrade.yaml"
+    - "routes/prune-protection.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-kai-scheduler-kai-scheduler-v0-16-9-default.tar.gz"

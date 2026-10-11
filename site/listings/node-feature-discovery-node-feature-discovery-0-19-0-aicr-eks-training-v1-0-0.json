@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.yaml",
-      "sha256": "sha256:68c321bad49687eec0ab101529cf2f752112093aafe9410d628069a565e84156",
+      "sha256": "sha256:ac048ec2661d6ace009203d9c9f221cb48fa41d6f1f411c25446c5be833c4b59",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:latest@sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:ece7f1653b25a108f448fd1e43ec4c9752e4dd6ce5b76519e5d0541cb651be5d"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:fedde779bd8dcecb05f86c6710ff70c60645e3fdfced3db299884ffa9df7b900"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:bccc3c24cafa7719531c6218c6261412ab1e01fafe91a4ccd1f6b021e56a8ec6"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:2329b2fca9e54b4e5b5ba90308c4769c1e919eebffcaa4b756266d63a64de0ff"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

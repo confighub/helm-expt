@@ -6,22 +6,32 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 1 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/jaegertracing/jaeger-operator/2.57.0/publication/flattening-safety-verdict-no-crds.yaml
 
-## What its routes owe
+## The plan
 
-This bundle's lane requires companion artifacts and it ships none yet. Treat its ordering and lifecycle work as unresolved until a route arrives.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
+
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `requirements/target-requirements.yaml` | the record |
+
+### crd-ordering
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `recorded-not-run`.
+
+The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload.
 
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-jaegertracing-jaeger-operator-2.57.0-no-crds --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-jaegertracing-jaeger-operator-2.57.0-no-crds --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

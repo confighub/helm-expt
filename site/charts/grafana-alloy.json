@@ -31,7 +31,7 @@
           },
           "objectCount": 7,
           "verdict": "flatten-with-routes",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml",
