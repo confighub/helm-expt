@@ -87916,17 +87916,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0:latest@sha256:4d9de3b1f6368e6910e28528e224b68a168c293a573110ecbec8da93edc5d680",
-            "manifestDigest": "sha256:4d9de3b1f6368e6910e28528e224b68a168c293a573110ecbec8da93edc5d680",
-            "layerDigest": "sha256:47db5c7c29f55a572484cb57ea64ce906d74e10218e4c63b2c8748eb9af2d07b",
-            "objectSetSha256": "sha256:3add2198bacb315b41fe707fe68c0aa4d71551850e31dc4757fca2b750c7c6a8",
-            "receipt": "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v0-20-0/receipt.yaml",
-            "receiptSha256": "sha256:3b032ca75cd078d1d2a01301274206372351765c04f1223526de40189f2a2feb",
-            "publicationReceipt": "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v0-20-0/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:1bae54188a677a258ff407e99c5c77daf2dced5d2c5ab3aac20df678c129f3c9",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -88171,17 +88162,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0:latest@sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb",
-            "manifestDigest": "sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb",
-            "layerDigest": "sha256:d5edabeea22c2b8e70a35b288fc93b4f27d342d5c72c5af7b00fe8e31c0cc657",
-            "objectSetSha256": "sha256:d2e617adfa3bf225ed25b1ffff83ce69708b4c37129385ebaaddfa8154b52314",
-            "receipt": "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0/receipt.yaml",
-            "receiptSha256": "sha256:8b0152e65dd8f69e9813543ec91db4cab597e17b4b3f484599dcdc4bad65fc23",
-            "publicationReceipt": "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:a532e52d06d92b24c66078c0426992d7b9990b307d50e7ce130c976b8a27ac02",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -88426,17 +88408,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default:latest@sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd",
-            "manifestDigest": "sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd",
-            "layerDigest": "sha256:33ca5f4d6653833281f40dfb6413cac962a8a3939902213d24cff8c4e4ab5b6e",
-            "objectSetSha256": "sha256:447a8575281561228f0967028733f1aece68c338afa487091e8baa3f1eeaaec1",
-            "receipt": "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-default/receipt.yaml",
-            "receiptSha256": "sha256:045d81085b378d341d48f3f7bd085c3bfadbf0fce0846cea33c17fb7de4796f7",
-            "publicationReceipt": "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:a791a916f51fb4b20ef6c1de7440f411240c3e828e17a17a5264ffbcbcf90380",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -102659,17 +102632,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-nginx-0-16-1-default:latest@sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392",
-            "manifestDigest": "sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392",
-            "layerDigest": "sha256:9fcbe106b90dadc6d49562623895ead8bea9178f7064f68ee221ff5b3e507fb1",
-            "objectSetSha256": "sha256:0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b",
-            "receipt": "data/certified-bundles/receipts/catalog/nginx-0.16.1-default/receipt.yaml",
-            "receiptSha256": "sha256:ebae581b239ee641a03e7d05d0a954d089f25e46619157a061d092fff748d667",
-            "publicationReceipt": "runs/certified-bundles/catalog-cloudpirates-nginx-0-16-1-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:e7b615c0788a104564230b6f3718e7b7a31094b76544d32fa8d1157798a914dc",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -103198,17 +103162,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret:latest@sha256:2b831d1542c4e59a885ebfe79c5f6f005a298c3ef9fb69c8bc96c8025f7c5ba1",
-            "manifestDigest": "sha256:2b831d1542c4e59a885ebfe79c5f6f005a298c3ef9fb69c8bc96c8025f7c5ba1",
-            "layerDigest": "sha256:b0a20573c6b477aba93802355113e4e3f3e5da8fa98448e4edc75e95c5336116",
-            "objectSetSha256": "sha256:61cb8f47b5980bf4ee52494d096afd2b28b8f36c329de3d05549ba728356d576",
-            "receipt": "data/certified-bundles/receipts/catalog/rabbitmq-0.21.13-existing-secret/receipt.yaml",
-            "receiptSha256": "sha256:70fb3e1230a53644ee088fa14fc498d5a9493193d5b32d8144efc6b22efc90b4",
-            "publicationReceipt": "runs/certified-bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:24884ee066522fc2338af3030437e9c7b3d76d956498bce333268acc6894ee0c",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -103735,17 +103690,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret:latest@sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d",
-            "manifestDigest": "sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d",
-            "layerDigest": "sha256:bca79d57c1a6c11a21546ed9f98ccbedb16a96f389056b8958a646343b5f2b61",
-            "objectSetSha256": "sha256:20d5f7bbb74bb3ce73370a164c2915bcc4d9fd70316fecedbafd5445d08bead1",
-            "receipt": "data/certified-bundles/receipts/catalog/redis-0.34.11-reuse-existing-secret/receipt.yaml",
-            "receiptSha256": "sha256:4e2972601e85120c3b6061cad16e3378c09fe69920cbe1908b11cdfd324696a5",
-            "publicationReceipt": "runs/certified-bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:a151a7ab564c48f6574f4386a457be7d61e09e9075e95538d450dad1e1e5da3c",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -107654,17 +107600,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training:latest@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461",
-            "manifestDigest": "sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461",
-            "layerDigest": "sha256:471e56634d8d1c3f711838d969eaca1e759cce089a6af666c8e4dcb2ae811b32",
-            "objectSetSha256": "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71",
-            "receipt": "data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training/receipt.yaml",
-            "receiptSha256": "sha256:db0be691e55bcea75ef563de4a9efaf7dce7e6ca3f8437f24ce35946f9ca2247",
-            "publicationReceipt": "runs/certified-bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:6ad2fe7f7ae612985ae7a8c35cbde242710f279963ab232e712198fbf9d376f8",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -107909,17 +107846,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default:latest@sha256:d9a17a32a2906855aa2fc2d5f8c6c9db7ee668a7cee257b938accfd1b496b048",
-            "manifestDigest": "sha256:d9a17a32a2906855aa2fc2d5f8c6c9db7ee668a7cee257b938accfd1b496b048",
-            "layerDigest": "sha256:3aa61952965d9c5aff51eb06d79a8461df661968fc6e3f4e2034cbc047bda846",
-            "objectSetSha256": "sha256:c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8",
-            "receipt": "data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-default/receipt.yaml",
-            "receiptSha256": "sha256:4608ae2234912af4a0ac1caf5f959cb4a68b0dd267e07f05e0520858f32df293",
-            "publicationReceipt": "runs/certified-bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:25a1cbd3f95a710a69b0b9846582f7dff11548c901b1b4a61b599963416c0a5c",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -135855,17 +135783,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0:latest@sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d",
-            "manifestDigest": "sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d",
-            "layerDigest": "sha256:cf08096a57d9d800a5c65543a18b9c1843fd35c15a9c998c7bf51fc9ba9ba84b",
-            "objectSetSha256": "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd",
-            "receipt": "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0/receipt.yaml",
-            "receiptSha256": "sha256:b319bfa28cdd2da2272adad9f35fccbc78e1305d3bdb6f9eb9b90db5c24ce586",
-            "publicationReceipt": "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:bfeef35a2d3f94640de0f1750f9fd121cb8a91721abbfe28ca9ae1d3a76d5e4e",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -136160,17 +136079,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0:latest@sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e",
-            "manifestDigest": "sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e",
-            "layerDigest": "sha256:55a80d88581e00ff1acd8b09a29c624a99e7176a846599dab87468a546fdb940",
-            "objectSetSha256": "sha256:9f9f4bda22ad0886fe05c25a16a747c6020fc98151906bdcbe116c2177622a92",
-            "receipt": "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0/receipt.yaml",
-            "receiptSha256": "sha256:f490f8bfeab4851c109953f3482685bc9d7859a4b0f37b8ee512723f2192d8fc",
-            "publicationReceipt": "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:5e356b2125b8b81db8f56d71a07a698f58974edbe43b112701cd94e113ad0647",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -136465,17 +136375,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default:latest@sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164",
-            "manifestDigest": "sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164",
-            "layerDigest": "sha256:a6c6c948a19b24d1614087c1d71146370014f505a0591a039169f5e81cffcb40",
-            "objectSetSha256": "sha256:80ef333ecea7833761b828a1da0e0301efc0e1a399a8a03fd31fdbd4af638da8",
-            "receipt": "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-default/receipt.yaml",
-            "receiptSha256": "sha256:302643a6e3c97eeda928334acb8a9995b3202d3e55e7aaf9b56be6d7ab0253de",
-            "publicationReceipt": "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:5e7dc1aa7eebda4d1db05c838020b70efa098e75cccaacc6bae3cc77ba724598",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -149102,17 +149003,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c",
-            "manifestDigest": "sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c",
-            "layerDigest": "sha256:8ef87213375cccfb0c2ee8773f377a01e299b9e016d84b189a433d17adc13e4a",
-            "objectSetSha256": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2",
-            "receipt": "data/certified-bundles/receipts/catalog/metrics-server-3.14.0-default/receipt.yaml",
-            "receiptSha256": "sha256:3a05944c896c0c693f6cda81164d778b941878ce5dad3b4014ffd03cb478474e",
-            "publicationReceipt": "runs/certified-bundles/catalog-metrics-server-metrics-server-3-14-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:3f05f920d7f8c52f89baa9f2de5e39e6d78d5d1d56a3bc6d59158002b6089c7e",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -199704,17 +199596,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default:latest@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234",
-            "manifestDigest": "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234",
-            "layerDigest": "sha256:128801390e55224f453163c84c29779ac7d3f9b0e3a483ed863797689d232ca3",
-            "objectSetSha256": "sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10",
-            "receipt": "data/certified-bundles/receipts/catalog/policy-reporter-3.10.0-default/receipt.yaml",
-            "receiptSha256": "sha256:21e543c04f443c32364b303ac4df5900bf4417f1ba5da02a02a6a6c2dfb4584a",
-            "publicationReceipt": "runs/certified-bundles/catalog-policy-reporter-policy-reporter-3-10-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:0974b72d6a8be6a580bafa4653867ca410d31f236dd56bf99ad4415883c06df6",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -220675,17 +220558,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-18-0-default:latest@sha256:8d7f2dbd7a86354268bd590ab9d177742bba623f3cc8b5b7bb5ee3eed01f44af",
-            "manifestDigest": "sha256:8d7f2dbd7a86354268bd590ab9d177742bba623f3cc8b5b7bb5ee3eed01f44af",
-            "layerDigest": "sha256:426f1a8713fbbfb70578443950793749c567bb97ceda6d01207d6f5128f29615",
-            "objectSetSha256": "sha256:f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2",
-            "receipt": "data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.18.0-default/receipt.yaml",
-            "receiptSha256": "sha256:1fab0077c09d924d8161c063660c7ee303a68bf32bd0b398218882e951a426ed",
-            "publicationReceipt": "runs/certified-bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-18-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:468d590cb6e4386b81ad9e0b0529e8307b7e0ab7c2a9dc15e9a433d9525e85e7",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",
@@ -226366,17 +226240,8 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-16-default:latest@sha256:f5d88a760e6981dfe1dfe4e908950ce8965a31c11f7e9f919f33e3dcbb3eb4f8",
-            "manifestDigest": "sha256:f5d88a760e6981dfe1dfe4e908950ce8965a31c11f7e9f919f33e3dcbb3eb4f8",
-            "layerDigest": "sha256:730e60a53bcff537d5128203a04148149ac3ef01fd91764ef5f475d7b2781386",
-            "objectSetSha256": "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b",
-            "receipt": "data/certified-bundles/receipts/catalog/reloader-2.2.16-default/receipt.yaml",
-            "receiptSha256": "sha256:6acb37b5d52bde7b5226f17df4df4fa9ab643669f8884b707a3a27c0528eaaf1",
-            "publicationReceipt": "runs/certified-bundles/catalog-stakater-reloader-2-2-16-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:8ef0982c90b29852a84e2436c67e7e5d02ba8de00686ee23d56c516e1f01a4d1",
-            "routes": [],
-            "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+            "status": "not-published-in-this-record",
+            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
             "status": "not-recorded-for-this-base",

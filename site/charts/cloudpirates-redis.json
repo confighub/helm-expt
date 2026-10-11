@@ -49,7 +49,7 @@
           },
           "objectCount": 5,
           "verdict": "safe-to-flatten",
-          "published": true,
+          "published": false,
           "flagged": false,
           "objects": {
             "path": "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml",

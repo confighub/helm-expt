@@ -170,18 +170,8 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training:latest@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
-      manifestDigest: "sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
-      layerDigest: "sha256:471e56634d8d1c3f711838d969eaca1e759cce089a6af666c8e4dcb2ae811b32"
-      objectSetSha256: "sha256:c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71"
-      receipt: "data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training/receipt.yaml"
-      receiptSha256: "sha256:db0be691e55bcea75ef563de4a9efaf7dce7e6ca3f8437f24ce35946f9ca2247"
-      publicationReceipt: "runs/certified-bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:6ad2fe7f7ae612985ae7a8c35cbde242710f279963ab232e712198fbf9d376f8"
-      routes:
-        []
-      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

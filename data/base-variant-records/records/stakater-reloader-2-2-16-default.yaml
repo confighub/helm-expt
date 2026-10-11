@@ -170,18 +170,8 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-16-default:latest@sha256:f5d88a760e6981dfe1dfe4e908950ce8965a31c11f7e9f919f33e3dcbb3eb4f8"
-      manifestDigest: "sha256:f5d88a760e6981dfe1dfe4e908950ce8965a31c11f7e9f919f33e3dcbb3eb4f8"
-      layerDigest: "sha256:730e60a53bcff537d5128203a04148149ac3ef01fd91764ef5f475d7b2781386"
-      objectSetSha256: "sha256:64a45378bc0d60bf4cb4fb5094cf8c58aeb5c337934d0f9df3273fcaa04b2a3b"
-      receipt: "data/certified-bundles/receipts/catalog/reloader-2.2.16-default/receipt.yaml"
-      receiptSha256: "sha256:6acb37b5d52bde7b5226f17df4df4fa9ab643669f8884b707a3a27c0528eaaf1"
-      publicationReceipt: "runs/certified-bundles/catalog-stakater-reloader-2-2-16-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:8ef0982c90b29852a84e2436c67e7e5d02ba8de00686ee23d56c516e1f01a4d1"
-      routes:
-        []
-      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

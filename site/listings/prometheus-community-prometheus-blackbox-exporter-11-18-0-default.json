@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.yaml",
-      "sha256": "sha256:e8f7e7f5dfa97f38575a33952764488736317433adeaa6cc8c597e09b6e60f01",
+      "sha256": "sha256:4eb76666a93cce9dc6a55a40b67af8bc0f74e0c5f33ee34e1bc6448f3d840eca",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,36 +104,12 @@
       },
       {
         "role": "literal-config",
-        "state": "published",
-        "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-18-0-default:latest@sha256:8d7f2dbd7a86354268bd590ab9d177742bba623f3cc8b5b7bb5ee3eed01f44af",
-        "referenceState": "published",
-        "digests": [
-          {
-            "field": "layerDigest",
-            "value": "sha256:426f1a8713fbbfb70578443950793749c567bb97ceda6d01207d6f5128f29615"
-          },
-          {
-            "field": "receiptSha256",
-            "value": "sha256:1fab0077c09d924d8161c063660c7ee303a68bf32bd0b398218882e951a426ed"
-          },
-          {
-            "field": "publicationReceiptSha256",
-            "value": "sha256:468d590cb6e4386b81ad9e0b0529e8307b7e0ab7c2a9dc15e9a433d9525e85e7"
-          },
-          {
-            "field": "manifestDigest",
-            "value": "sha256:8d7f2dbd7a86354268bd590ab9d177742bba623f3cc8b5b7bb5ee3eed01f44af"
-          },
-          {
-            "field": "objectSetSha256",
-            "value": "sha256:f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2"
-          }
-        ],
-        "receipt": "data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.18.0-default/receipt.yaml",
-        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.18.0-default/receipt.yaml",
-        "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
       },
       {
         "role": "confighub-upload",

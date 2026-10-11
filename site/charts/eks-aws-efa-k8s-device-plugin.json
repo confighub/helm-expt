@@ -31,7 +31,7 @@
           },
           "objectCount": 1,
           "verdict": "safe-to-flatten",
-          "published": true,
+          "published": false,
           "flagged": false,
           "objects": {
             "path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 1,
           "verdict": "safe-to-flatten",
-          "published": true,
+          "published": false,
           "flagged": false,
           "objects": {
             "path": "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/aicr-eks-training/r001/rendered/release-objects.yaml",

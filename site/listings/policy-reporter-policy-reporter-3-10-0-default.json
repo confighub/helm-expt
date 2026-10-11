@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/policy-reporter-policy-reporter-3-10-0-default.yaml",
-      "sha256": "sha256:bdf9310e0ea9cb9ab2a0d0523d39ffb9720034de0d8889dbdf51cbafffa733b0",
+      "sha256": "sha256:a07ab04fb168d41fc1db917a576353d34d0e55a2d5634137e75185ab38532c02",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/policy-reporter-policy-reporter-3-10-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,36 +104,12 @@
       },
       {
         "role": "literal-config",
-        "state": "published",
-        "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default:latest@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234",
-        "referenceState": "published",
-        "digests": [
-          {
-            "field": "layerDigest",
-            "value": "sha256:128801390e55224f453163c84c29779ac7d3f9b0e3a483ed863797689d232ca3"
-          },
-          {
-            "field": "receiptSha256",
-            "value": "sha256:21e543c04f443c32364b303ac4df5900bf4417f1ba5da02a02a6a6c2dfb4584a"
-          },
-          {
-            "field": "publicationReceiptSha256",
-            "value": "sha256:0974b72d6a8be6a580bafa4653867ca410d31f236dd56bf99ad4415883c06df6"
-          },
-          {
-            "field": "manifestDigest",
-            "value": "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
-          },
-          {
-            "field": "objectSetSha256",
-            "value": "sha256:a7b6293916be3b1e6e7746a1fb2802f6e820ecd9fbb24aa122fc028a6f95de10"
-          }
-        ],
-        "receipt": "data/certified-bundles/receipts/catalog/policy-reporter-3.10.0-default/receipt.yaml",
-        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/policy-reporter-3.10.0-default/receipt.yaml",
-        "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
       },
       {
         "role": "confighub-upload",

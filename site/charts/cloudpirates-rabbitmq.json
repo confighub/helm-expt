@@ -49,7 +49,7 @@
           },
           "objectCount": 5,
           "verdict": "safe-to-flatten",
-          "published": true,
+          "published": false,
           "flagged": false,
           "objects": {
             "path": "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml",
