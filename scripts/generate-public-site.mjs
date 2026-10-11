@@ -5037,7 +5037,9 @@ function configHtml(catalog) {
 bash ./try.sh</code></pre>
     <p>The script creates the namespace, applies the eight CRDs and waits for each one, then applies the rest. Its output names each step as it runs.</p>
     <p>The Catalog ran it on 10 October 2026 on a local cluster with no GPUs. It finished in 8 seconds. The operator and the node-feature-discovery pods came up, and the ClusterPolicy reported ready. The <a href="./d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">log of that run</a> has every line.</p>
-    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. Each entry page links its own script under "Advanced: apply it or upload it".</p>
+    <p>On a cluster that already holds older CRDs, the script stops and says how to let it apply the package's own.</p>
+    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. The Catalog carried out those steps by hand for the GPU Operator on 11 October 2026, from 26.3.3 to 26.7.1. The pre-upgrade Job moved the CRDs, and the post-delete Job removed all 55 node-feature-discovery labels. The <a href="./d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html">log of that run</a> has every line.</p>
+    <p>Each entry page links its own script under "Advanced: apply it or upload it".</p>
     <h3 id="what-a-plan-holds">What a plan can hold</h3>
     <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
     ${markdownLikeTable([
@@ -12598,11 +12600,27 @@ function presetTryScript(entry, row) {
             "fi",
           );
         }
+        // When every CRD exists the script compares them with the package's.
+        // A match goes on. A difference stops, because the objects that
+        // follow may need the newer definitions, as they do on an upgrade.
+        const diffCommand = applyCommand.replace(/^kubectl apply --server-side/, "kubectl diff --server-side");
         lines.push(
           'if [ "$missing_crds" -eq 1 ]; then',
           `  ${applyCommand}`,
+          `elif ${diffCommand} >/dev/null 2>&1; then`,
+          '  say "The required CRDs already exist and match this package; leave them under their current owner"',
+          'elif [ "${APPLY_CRDS:-0}" = "1" ]; then',
+          '  say "The existing CRDs differ from this package. APPLY_CRDS=1 is set, so apply the package\'s CRDs"',
+          `  ${applyCommand}`,
           "else",
-          '  say "The required CRDs already exist; leave them under their current owner"',
+          '  say "The CRDs already exist and differ from this package, or another tool owns them"',
+          "  cat <<'EOF_CRDS'",
+          "This script does not change CRDs it did not just create.",
+          "If this is an upgrade, the objects that follow may need the newer CRDs.",
+          "To let this script apply the package's CRDs, re-run with:",
+          "  APPLY_CRDS=1 bash try.sh",
+          "EOF_CRDS",
+          "  exit 1",
           "fi",
         );
       }
@@ -15933,6 +15951,10 @@ function entryPlanHtml(listing, siteHref) {
   const SCRIPT_RUN_LOGS = new Map([
     ["nvidia-gpu-operator-v26-7-1-default", "d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html"],
   ]);
+  // The dated logs of upgrade and delete steps the Catalog has carried out by hand.
+  const LIFECYCLE_RUN_LOGS = new Map([
+    ["nvidia-gpu-operator-v26-7-1-default", "d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html"],
+  ]);
   const PLAN_STEP_LIMIT = 8;
   const steps = listing.routing?.routes ?? [];
   const withPlanVerdict = listing.flattened?.verdict === "flatten-with-routes";
@@ -16001,10 +16023,15 @@ function entryPlanHtml(listing, siteHref) {
       : `<p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as ${escapeHtml(parity.result)}${parity.reason ? `, with the reason "${escapeHtml(parity.reason)}"` : ""}.${parityReceipt}</p>`;
   // An entry with no step, no script and no comparison has nothing to show.
   if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !parityHtml) return "";
+  const lifecycleLog = LIFECYCLE_RUN_LOGS.get(listing.identity.id);
+  const lifecycleHtml = lifecycleLog
+    ? `<p><strong>Upgrade and delete.</strong> The Catalog carried out this entry's upgrade and delete steps by hand on a local cluster, and <a href="${siteHref}/${lifecycleLog}">the log</a> has every line.</p>`
+    : "";
   return `<details class="entry-inputs" data-entry-plan="${escapeHtml(listing.identity.id)}">
         <summary>This entry's plan, and how to test it</summary>
         ${stepsHtml}
-        ${scriptHtml}
+        ${scriptHtml}${lifecycleHtml ? `
+        ${lifecycleHtml}` : ""}
         ${parityHtml}
         <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
