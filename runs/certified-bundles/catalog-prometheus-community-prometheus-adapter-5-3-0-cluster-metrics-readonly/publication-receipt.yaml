@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-adapter-5.3.0-cluster-metrics-readonly"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-cluster-metrics-readonly/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+  layerDigest: "sha256:f7b22aed33242d51e3fc0749698dd46b7e45fecb8b18d6e9bcc08e5dc10c12e7"
+  layerBytes: 2468
+  observedAt: "2026-10-11T15:26:00.748Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.tar.gz"

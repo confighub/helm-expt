@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/logstash-8.5.1-ha/space-guide.md"
-        sha256: "4754cccf4649c2afa7204a65013dad81150d8786b9bc0823776ee9c4f01c641c"
-        bytes: 939
+        sha256: "b11fd2e4f238c603bfe5c402ed56722f81c82bc3a47c5b3c7a3373d32cf7ba66"
+        bytes: 1035
         role: "space-guide"
     objectCount: 3
     objectInventoryRef: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.elastic.co/logstash/logstash:8.5.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-ha:latest"
+    manifestDigest: "sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+    layerDigest: "sha256:ff93037efa400bf6b6bb91b8043595259334a978d1204b0c2c2c3a49c26fd056"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
       - "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
       - "packages/elastic/logstash/8.5.1/bases/ha/upstream.yaml"
+      - "runs/certified-bundles/catalog-elastic-logstash-8-5-1-ha/publication-receipt.yaml"

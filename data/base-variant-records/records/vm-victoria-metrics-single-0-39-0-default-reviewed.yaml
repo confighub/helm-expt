@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed:latest@sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+      manifestDigest: "sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+      layerDigest: "sha256:bf2055606b13beb2f69a37f7a111776a721d76abb2cc4a70a6362a0504801d83"
+      objectSetSha256: "sha256:10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+      receipt: "data/certified-bundles/receipts/catalog/victoria-metrics-single-0.39.0-default-reviewed/receipt.yaml"
+      receiptSha256: "sha256:1e9d8426ec9cbc880743358f1e42451fafd4435d243c71df5d3160196cd12fa2"
+      publicationReceipt: "runs/certified-bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e300f7f59a119cd70ea94eacff3d8bf6f1373a161b11c882558a9f73bd9b735d"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

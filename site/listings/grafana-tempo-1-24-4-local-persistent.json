@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml",
-      "sha256": "sha256:e7ea270680f49ca7223e72abf5123d699891cf2443e16e3d168260f126a22578",
+      "sha256": "sha256:89d135478b9745f9a1fa092b75fb6a43d06ab8f362e1016a2fa9a343bda1818a",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-tempo-1-24-4-local-persistent.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-local-persistent:latest@sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:aeab0cb2b6db347e6dd29596c370f7f312648eb42d985392baef831ebddce8c5"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:845ed23b9a778c83612edfd9a22f05b7aa506c201027b4487be7e2f5f37e31ac"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:7dd88247eaae9c072a9c88fc30e452dc41e94493cc362b6f6f2a275d92714c4b"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/tempo-1.24.4-local-persistent/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/tempo-1.24.4-local-persistent/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

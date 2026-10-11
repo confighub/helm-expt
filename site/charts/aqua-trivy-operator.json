@@ -47,7 +47,7 @@
             "id": "aqua-trivy-operator-0-32-1-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/aqua-trivy-operator-0-32-1-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 21,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

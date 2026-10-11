@@ -47,7 +47,7 @@
             "id": "jetstack-trust-manager-v0-22-1-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/jetstack-trust-manager-v0-22-1-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 13,
           "verdict": "flatten-with-routes",
           "published": false,
           "flagged": false,

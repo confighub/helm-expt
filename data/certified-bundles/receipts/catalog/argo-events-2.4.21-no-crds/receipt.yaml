@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/argo-events-2.4.21-no-crds/space-guide.md"
-        sha256: "1592bfaaf2e9b5b5e38c86624bad53f93b4ecc93f4a721fed05d7903e2004bf3"
-        bytes: 970
+        sha256: "e6c0cdf4d7c69d9a573104de3635ed1044abbddddeb5f1f5042e8d57f9d47e14"
+        bytes: 1075
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "quay.io/argoproj/argo-events:v1.9.10"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-no-crds:latest"
+    manifestDigest: "sha256:39274c261e568573a17d37df7f54bc7300c320605ef6e1e5626261ecd60364f7"
+    layerDigest: "sha256:a1ce543720789f58f5d3d00c191ca2fc9dc6365874451668df6a611594b11cb7"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-events/2.4.21/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-no-crds/publication-receipt.yaml"

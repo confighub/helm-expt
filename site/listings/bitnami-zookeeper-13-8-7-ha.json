@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-zookeeper-13-8-7-ha.yaml",
-      "sha256": "sha256:8b61b35b794e3a1fc7051c78b979929cd1112959169b8a1cd279ff243fe33f97",
+      "sha256": "sha256:7888d02f95a45fa6e84c9cb6795e8ffd37a20e49e7b00dab494b06a307a0956e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-zookeeper-13-8-7-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 7,
     "digest": "sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -432,7 +432,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 7 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

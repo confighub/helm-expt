@@ -49,7 +49,7 @@
           },
           "objectCount": 5,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml",

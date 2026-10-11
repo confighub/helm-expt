@@ -65,7 +65,7 @@
             "id": "bitnami-spark-10-0-3-ha",
             "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-spark-10-0-3-ha.json"
           },
-          "objectCount": 0,
+          "objectCount": 10,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

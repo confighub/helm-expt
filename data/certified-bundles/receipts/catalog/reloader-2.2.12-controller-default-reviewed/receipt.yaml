@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/reloader-2.2.12-controller-default-reviewed/space-guide.md"
-        sha256: "f3fa189b91f8705db7e85a1e0c2d1090e38c5e6a794a1aa4977a49317ae8cb39"
-        bytes: 1021
+        sha256: "2a55a0383b233a30d0b7283f13f9d1ef3b461e489dea1c18923570374087a355"
+        bytes: 1144
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
@@ -41,6 +41,11 @@ spec:
       boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
       references:
         []
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed:latest"
+    manifestDigest: "sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+    layerDigest: "sha256:17b91f7850b69912dee8b4f42c7820383a4e68eb0ff12552b28c661c4f4e2fb5"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -113,3 +118,4 @@ spec:
       - "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/stakater/reloader/2.2.12/bases/controller-default-reviewed/upstream.yaml"
+      - "runs/certified-bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed/publication-receipt.yaml"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-no-crds.yaml",
-      "sha256": "sha256:6f1c8421593c1f849a0493827737887fd6426751eb395aa04876f7c58b0e090e",
+      "sha256": "sha256:b111c0c46d96774b6ac1cebc1f3eb2c3644658f1a9dd32f25d93ddfb1693c0b9",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 13,
     "digest": "sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -649,7 +649,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 13 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

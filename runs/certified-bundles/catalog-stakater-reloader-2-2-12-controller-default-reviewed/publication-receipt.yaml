@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-stakater-reloader-2.2.12-controller-default-reviewed"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/reloader-2.2.12-controller-default-reviewed/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+  layerDigest: "sha256:17b91f7850b69912dee8b4f42c7820383a4e68eb0ff12552b28c661c4f4e2fb5"
+  layerBytes: 1748
+  observedAt: "2026-10-11T15:26:10.992Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-stakater-reloader-2-2-12-controller-default-reviewed.tar.gz"

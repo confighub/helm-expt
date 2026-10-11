@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 4
     digest: "2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/nats/nack/0.34.0/revisions/no-crds/r001/variant-revision.yaml"
@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-no-crds:latest@sha256:76dd9128176b2897acdaac5956d2701cf76beb97e1f22395e77b60f906716ae4"
+      manifestDigest: "sha256:76dd9128176b2897acdaac5956d2701cf76beb97e1f22395e77b60f906716ae4"
+      layerDigest: "sha256:790b9a6880b4f858aa2252164e320a89d527e3279eddaaa34232961d05901fae"
+      objectSetSha256: "sha256:2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+      receipt: "data/certified-bundles/receipts/catalog/nack-0.34.0-no-crds/receipt.yaml"
+      receiptSha256: "sha256:f0af7dc327a6144e6ac62fb32799a940c45d75e43d101d853d4624310681d0e7"
+      publicationReceipt: "runs/certified-bundles/catalog-nats-nack-0-34-0-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:b115a9a5ab75e595e1adb247f43e4c3793a85a1f0a315df03c82cbd7743b77cc"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

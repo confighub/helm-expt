@@ -47,7 +47,7 @@
             "id": "kedacore-keda-2-19-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/kedacore-keda-2-19-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 23,
           "verdict": "flatten-with-routes",
           "published": false,
           "flagged": false,

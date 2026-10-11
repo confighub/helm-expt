@@ -47,9 +47,9 @@
             "id": "argo-cd-argo-rollouts-2-40-9-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-rollouts-2-40-9-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 9,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/release-objects.yaml",

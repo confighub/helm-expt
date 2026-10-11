@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-valkey-valkey-0-11-0-default:latest@sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+      manifestDigest: "sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+      layerDigest: "sha256:5395ded9227168b35cb8402cde2130bc3d357c6bfd6ac99d2831cdca5b4e35f5"
+      objectSetSha256: "sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+      receipt: "data/certified-bundles/receipts/catalog/valkey-0.11.0-default/receipt.yaml"
+      receiptSha256: "sha256:5d7f2d03f24418c6e60e78331731a0e08cde36084f874ffbd6e9027f453c64e5"
+      publicationReceipt: "runs/certified-bundles/catalog-valkey-valkey-0-11-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:aa8aa26c399d806220aa9dd1b79126355d4d46e6214b101b51b4dd4272f26ea1"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

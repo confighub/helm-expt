@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 23
     digest: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml"

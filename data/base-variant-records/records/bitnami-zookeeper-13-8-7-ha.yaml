@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 7
     digest: "ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml"

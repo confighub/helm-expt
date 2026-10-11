@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/kube-state-metrics-7.4.0-cluster-metrics-readonly/space-guide.md"
-        sha256: "2eff7211dacb60b50f10abebe29c1e58c27dcd3637d8ac97eaead26a9289d844"
-        bytes: 1084
+        sha256: "ce21982bad94b5dee1ad169e243a8422a0c3de781ad342739e28fc62574d0f59"
+        bytes: 1225
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly:latest"
+    manifestDigest: "sha256:0657ae53d7f22d99f529be45b5ad6e71cff91840a5d826bd98f54d6df80845b6"
+    layerDigest: "sha256:602f897edcb52d17f8714dd553915598a1c3068ee16ea173711d005354aa5ffb"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
       - "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/kube-state-metrics/7.4.0/bases/cluster-metrics-readonly/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly/publication-receipt.yaml"

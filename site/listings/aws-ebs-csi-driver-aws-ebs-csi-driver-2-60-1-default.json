@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml",
-      "sha256": "sha256:c008102a5e360446cc39587cce00cb52551b8dd31f598526445f2556a59ec394",
+      "sha256": "sha256:ab07880d88b892b8a4c747f35b7c55edffe99732caf5f1c5b6c2ecb851ce1825",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:latest@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:d3c7ef5824f0a69ee600c4943358323249a63feee043807d436e4d16ffbe4ed3"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:de131050142a31aaef849a8c2f2902b0ce46771e1a9f9f8776c92cd52a73320a"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:0c786f643919baab2c0d1671859c98d36a4e815c13bd947997cc30e723d99391"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.60.1-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.60.1-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

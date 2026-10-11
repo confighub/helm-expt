@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/filebeat-8.5.1-node-or-cluster-collector/space-guide.md"
-        sha256: "dd1b497a5bde26a02b17189af446fa304d3d3d7ff79061120931c069e904ec3f"
-        bytes: 1008
+        sha256: "4b814a718da61405ec420ac31a07000e7f8ba2b7cbea3025796d5f0b288a7c5c"
+        bytes: 1127
         role: "space-guide"
     objectCount: 7
     objectInventoryRef: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.elastic.co/beats/filebeat:8.5.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector:latest"
+    manifestDigest: "sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9"
+    layerDigest: "sha256:3cef46e494cc9929bcbfc37b24f69fcaf7e56aa365a8f5d613f3aee460c436ba"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
       - "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml"
       - "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector/upstream.yaml"
+      - "runs/certified-bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector/publication-receipt.yaml"

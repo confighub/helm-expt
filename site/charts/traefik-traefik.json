@@ -107,7 +107,7 @@
             "id": "traefik-traefik-40-2-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/traefik-traefik-40-2-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 6,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

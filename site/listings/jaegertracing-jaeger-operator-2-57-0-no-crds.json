@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml",
-      "sha256": "sha256:5c95677a822079bdb32218642211c6023e02cb53ed60cd25c423c750970a52a3",
+      "sha256": "sha256:0871877996621fd1e411602e6bb3d76ae372f492b36760124a1c303e46a6e23f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 10,
     "digest": "sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -492,7 +492,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 10 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

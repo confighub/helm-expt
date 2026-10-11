@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml",
-      "sha256": "sha256:adac734693629aedb7ff10b5a539a589634f9a253437c628961a7157a37aaf11",
+      "sha256": "sha256:db8df09e555064701563ab6a4fa7caa87c7075e18723aee715a9a4371e4cf5c3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest@sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:321f2b25b843a14210a4ebc296cdf880b4b110f2897fc3d4bb1061468459d5dc"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:0a4cd9c61580f6164bc6258a902827b47746663829e8f635269ec9eaddc4dd29"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:07d3a00e0648c3e138dc617417b6527262e91b5170b5455fc5216f5e9e4e38c8"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-apiservice-v1-capability/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-apiservice-v1-capability/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

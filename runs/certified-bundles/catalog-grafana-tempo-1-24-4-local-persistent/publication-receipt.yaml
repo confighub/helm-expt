@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-tempo-1.24.4-local-persistent"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/tempo-1.24.4-local-persistent/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-local-persistent:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:84e108c0ba933f2304175bfe470ff8e33f9ede9c28e2f12bc314f14fcb09454b"
+  layerDigest: "sha256:aeab0cb2b6db347e6dd29596c370f7f312648eb42d985392baef831ebddce8c5"
+  layerBytes: 2131
+  observedAt: "2026-10-11T15:25:44.977Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-local-persistent:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-tempo-1-24-4-local-persistent.tar.gz"

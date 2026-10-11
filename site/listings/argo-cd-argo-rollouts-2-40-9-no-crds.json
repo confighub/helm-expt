@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argo-rollouts-2-40-9-no-crds.yaml",
-      "sha256": "sha256:7e8f3f5097d42284833b8d4adedefad883991d94599fb74a1d8a6b45efb75b13",
+      "sha256": "sha256:528d6053c903a009b60cb4200b4a0708bd329606e73d6eed1e60edccc3dbca7c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-rollouts-2-40-9-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 9,
     "digest": "sha256:6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-no-crds:latest@sha256:b0e738cb627a4bc63a5ec0898d124baa81f115c08148109ded48ecf9692a857e",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:8514d147de100094f68f2e08fbfe3b42a7abf8e8e2886e3686d1963cc484a888"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:d8521de0f1d618bd2de25778cdf5dc2d1d1f19c88a42e0f407cd23578856645c"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:e4880402e7e7020bf48a603cabd275ef5524e4ae83956880429aacc04ffd2f4c"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:b0e738cb627a4bc63a5ec0898d124baa81f115c08148109ded48ecf9692a857e"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -425,7 +449,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 9 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

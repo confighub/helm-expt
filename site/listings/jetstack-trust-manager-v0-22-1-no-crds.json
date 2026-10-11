@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml",
-      "sha256": "sha256:d8d5d127bd3bed1644637a021ef6ac73fd5dc92d42ebd22b6148aaf0c4876e83",
+      "sha256": "sha256:50dcad40309584215eb32a9a0d5ac081cb5e1dd4ce67a0bbf6e383cbcea2901e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 13,
     "digest": "sha256:5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -563,7 +563,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 13 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/open-telemetry-opentelemetry-operator-0-114-0-no-crds.yaml",
-      "sha256": "sha256:b5a1a378f32a841f5e8b22fd39037c9d79477c8c918ce35aed92a97a52eb3be9",
+      "sha256": "sha256:5a46b30272d563f1daabcffc5942b7abe9b46de543d5c0f83956b1564950ed44",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/open-telemetry-opentelemetry-operator-0-114-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 13,
     "digest": "sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -519,7 +519,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 13 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

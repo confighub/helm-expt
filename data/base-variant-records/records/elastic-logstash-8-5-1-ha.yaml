@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 3
     digest: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
@@ -190,8 +190,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-ha:latest@sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+      manifestDigest: "sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+      layerDigest: "sha256:ff93037efa400bf6b6bb91b8043595259334a978d1204b0c2c2c3a49c26fd056"
+      objectSetSha256: "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+      receipt: "data/certified-bundles/receipts/catalog/logstash-8.5.1-ha/receipt.yaml"
+      receiptSha256: "sha256:ad63000fea07f98391619ea36880f4a6d45bac4f94763a89372f0d3c2a8ba1f6"
+      publicationReceipt: "runs/certified-bundles/catalog-elastic-logstash-8-5-1-ha/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:2e38fcc819212199619c16b8ec35a98ba481cd3c7f696d808a89bf73fef36de2"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

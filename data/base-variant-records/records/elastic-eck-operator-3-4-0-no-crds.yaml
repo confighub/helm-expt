@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 10
     digest: "6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"

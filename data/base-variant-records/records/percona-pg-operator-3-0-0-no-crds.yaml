@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 4
     digest: "b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml"

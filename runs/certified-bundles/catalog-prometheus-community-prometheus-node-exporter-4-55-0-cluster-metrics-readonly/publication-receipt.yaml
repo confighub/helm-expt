@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-node-exporter-4.55.0-cluster-metrics-readonly/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+  layerDigest: "sha256:6a98f07b6c7aceff11729c171118018e861813b603214d5462414d0046bef94b"
+  layerBytes: 1923
+  observedAt: "2026-10-11T15:26:03.841Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.tar.gz"

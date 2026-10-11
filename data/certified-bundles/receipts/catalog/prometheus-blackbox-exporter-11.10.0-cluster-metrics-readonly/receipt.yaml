@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly/space-guide.md"
-        sha256: "1f4f58ca33040d270a5ae20f12f247ad11e20fb068c0196ca65281e2327b5199"
-        bytes: 1132
+        sha256: "a6edff985eca74df752bee76b968a863f406a7fa0ed2aa18550d0646d6e8a2c4"
+        bytes: 1285
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "quay.io/prometheus/blackbox-exporter:v0.28.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:latest"
+    manifestDigest: "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+    layerDigest: "sha256:2072f5c10e86d199bea3eac8d5b0e3cf4f40de7c736bb85b0d128862a7d2e8ea"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/cluster-metrics-readonly/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly/publication-receipt.yaml"

@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/fluentd-0.5.3-default/space-guide.md"
-        sha256: "335f3cf8129828d910628208e821740ffd7f3ba98406383810937007d909d919"
-        bytes: 939
+        sha256: "f11986d939c985c5b194b4e6fd79ca159fcbba34001e61d27305f75f13f5ecf9"
+        bytes: 1038
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "fluent/fluentd-kubernetes-daemonset:v1.17.1-debian-elasticsearch7-1.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default:latest"
+    manifestDigest: "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+    layerDigest: "sha256:a54dc9351f7199cbb0b3e4618c5614cf58d63345a6b13f7de0017d5e57fc33fd"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml"
       - "recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/fluent/fluentd/0.5.3/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-fluent-fluentd-0-5-3-default/publication-receipt.yaml"

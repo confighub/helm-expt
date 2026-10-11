@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-adapter-5.3.0-apiservice-v1-capability/space-guide.md"
-        sha256: "138e520641ab0df431700d66ae83d86587d941c3bd4d33c283e82e653f62d4fe"
-        bytes: 1084
+        sha256: "549451cd258d230f1ee831462241807d2724c3300e9e444a96957ddd59e43761"
+        bytes: 1225
         role: "space-guide"
     objectCount: 11
     objectInventoryRef: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest"
+    manifestDigest: "sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80"
+    layerDigest: "sha256:321f2b25b843a14210a4ebc296cdf880b4b110f2897fc3d4bb1061468459d5dc"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus-adapter/5.3.0/bases/apiservice-v1-capability/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability/publication-receipt.yaml"

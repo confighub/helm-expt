@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml",
-      "sha256": "sha256:4df7e9a7891a8072d5cd0872ab0315da7af1299b6334a0a7634765aced573afb",
+      "sha256": "sha256:0a2b93b2589ad5852f9391a395f62d20b8ca9943d86684418ab98651ac5dc585",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 4,
     "digest": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -462,7 +462,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 4 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

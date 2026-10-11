@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-alertmanager-1-37-0-ha.yaml",
-      "sha256": "sha256:ca2328585729d16efde820b0b67ed03181e1154e99c11c53ffab15fec7a8f915",
+      "sha256": "sha256:3ed77cfa4e7ea5c3c027d19319c4da9537d9c9d23c1e5ebbdab15a067eb25da4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-alertmanager-1-37-0-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 5,
     "digest": "sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-alertmanager-1-37-0-ha:latest@sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:6dde86bd7852252be164f361238e18923dd1136b3519792cf019727c6cee5360"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:40111a39c99143c86e804bc56ab9fb4e767fb46520be691306aef243c143f061"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:9e28a4de7d6bf150ef00e3c14d2836ef4e5cc8a4dd46ed80f7555b318e2d8a31"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/alertmanager-1.37.0-ha/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/alertmanager-1.37.0-ha/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -425,7 +449,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 5 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

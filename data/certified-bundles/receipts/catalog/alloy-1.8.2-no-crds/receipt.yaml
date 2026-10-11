@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/alloy-1.8.2-no-crds/space-guide.md"
-        sha256: "9af7acfa365605b9a30b8feaf1614188298af9da764beaf2d94eea57a2aac63a"
-        bytes: 942
+        sha256: "11103fddde7e84c13f89e0c6a1dc49e53b2f2074221438ddabe2e322623bf411"
+        bytes: 1040
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -46,6 +46,11 @@ spec:
         -
           reference: "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-no-crds:latest"
+    manifestDigest: "sha256:6ab72c519f0cd7fe1c2d493c117a17bff8285d12d0dba70f4bf44e53bd85756c"
+    layerDigest: "sha256:65fda57514f59521b1169ad14816358ab896b9d1d7405a1a1fc6e0f247632842"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +123,4 @@ spec:
       - "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/grafana/alloy/1.8.2/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-grafana-alloy-1-8-2-no-crds/publication-receipt.yaml"

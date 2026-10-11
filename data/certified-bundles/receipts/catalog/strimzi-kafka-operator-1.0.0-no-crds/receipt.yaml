@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/strimzi-kafka-operator-1.0.0-no-crds/space-guide.md"
-        sha256: "a7e24e05d767d8985d3d50687b8825e46fc8eaaad2c9c4ac75d2a93c58fba272"
-        bytes: 1010
+        sha256: "d16f4af0786e5c9177040e658ec70331ae5ea1111f286f8b2bae31115e7314c4"
+        bytes: 1125
         role: "space-guide"
     objectCount: 17
     objectInventoryRef: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "quay.io/strimzi/operator:1.0.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds:latest"
+    manifestDigest: "sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb"
+    layerDigest: "sha256:0b74b6ddd8a1c4e71c749ae6e94562677cf37475ed8f7043b385843df85007fe"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds/publication-receipt.yaml"

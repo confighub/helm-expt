@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/cluster-autoscaler-9.57.0-controller-default-reviewed/space-guide.md"
-        sha256: "546698024fdcae64ee154097c9fd5bc237f95e9323d60ac8cfb2f6d9462869d8"
-        bytes: 1067
+        sha256: "3be40cc1545e33759c47dcf6dab2f26011dcf9f1efc181e5d52643e23efdf61e"
+        bytes: 1202
         role: "space-guide"
     objectCount: 8
     objectInventoryRef: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "registry.k8s.io/autoscaling/cluster-autoscaler:v1.35.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed:latest"
+    manifestDigest: "sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+    layerDigest: "sha256:3322ebc273238e05cf8996c9f9958fd7e08aef27f765ef6880f87ded4e3f9d52"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed/upstream.yaml"
+      - "runs/certified-bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed/publication-receipt.yaml"

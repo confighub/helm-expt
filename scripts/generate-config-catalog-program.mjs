@@ -634,7 +634,9 @@ function buildHelmRecord(intent) {
         format: "kubernetes-yaml",
         objects: objectPath,
         inventory: inventoryPath,
-        objectCount: Number(revision.spec?.rendered?.objectCount ?? 0),
+        // A newer revision record leaves the count out. The object inventory
+        // beside the objects always states it.
+        objectCount: Number(revision.spec?.rendered?.objectCount ?? readYaml(join(repoRoot, inventoryPath))?.spec?.objectCount ?? 0),
       },
       inputs: {
         fixedAtBuildTime,
