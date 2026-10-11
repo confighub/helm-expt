@@ -616,6 +616,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/metallb-metallb-0-16-1/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live walk: testing an entry's plain objects with kubectl, 2026-10-11 · ConfigHub Workshop</title>
+  <meta name="description" content="Live walk: testing an entry's plain objects with kubectl, 2026-10-11: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-test-plain-objects-2026-10-11.html">
+  <meta property="og:title" content="Live walk: testing an entry's plain objects with kubectl, 2026-10-11 · ConfigHub Workshop">
+  <meta property="og:description" content="Live walk: testing an entry's plain objects with kubectl, 2026-10-11: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/live-walk-test-plain-objects-2026-10-11.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>Live walk: testing an entry's plain objects with kubectl, 2026-10-11</h1>
+    <p class="lead">This log records one walk. The site now ships a second test script for an entry, <code>try-objects.sh</code>. It tests the entry's retained objects themselves, the one file a reader holds when they take the published bundle. It fetches that file, checks its SHA-256 against the entry's listing, and applies it with <code>kubectl</code>. It uses <code>curl</code>, <code>shasum</code>, <code>awk</code> and <code>kubectl</code>. It needs no <code>cub</code> CLI and no account. This walk ran seven of those scripts on two throwaway local clusters. <a href="../../../../docs/user/live-walk-test-plain-objects-2026-10-11.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+
+<p>This is a dated record of one walk. It is not a Guide. Every line that starts with <code>$</code> is a command that was run, and the text under it is the output it printed. Times are UTC. A line longer than 220 characters is cut and ends with <code>...</code>.</p>
+<h2 id="versions-and-setting">Versions and setting</h2>
+<ul><li>kind v0.31.0 with a node at Kubernetes v1.35.0, kubectl client v1.36.0, Docker 29.4.0, on macOS.</li><li>Every script ran under <code>/bin/bash</code>, which is GNU bash 3.2.57 on this machine.</li><li>The home directory held no ConfigHub credentials. No <code>cub</code> command ran and no account was used.</li><li>Each cluster had one node and no GPUs. The clusters had their own kubeconfig file, so the machine's default kubeconfig was not touched.</li><li>The scratch directory is written <code>&lt;work&gt;</code>. <code>$SITE</code> is the <code>site/</code> directory of a checkout of this repository at the commit that added the scripts. The scripts ran from the checkout because the site had not published them yet.</li><li>Each script fetched its retained file from this repository's <code>main</code> branch on GitHub, as a reader's copy would.</li></ul>
+<h2 id="the-answer-in-brief">The answer in brief</h2>
+<table><thead><tr><th>Entry</th><th>What the script did</th><th>What the walk saw afterwards</th></tr></thead><tbody><tr><td><code>nvidia/gpu-operator</code> v26.3.3, base <code>default</code>. Its verdict is <code>flatten-with-routes</code>, and it has no other test script.</td><td>It created the namespace, applied the 5 CRDs and waited for each, then applied the other 19 objects. It exited 0.</td><td>The operator and the three node-feature-discovery workloads rolled out. The ClusterPolicy reported <code>ready</code>.</td></tr>
+<tr><td>The same entry, run again on the same cluster</td><td>It found the 5 CRDs present and matching, left them alone, and applied the other 19 objects again. It exited 0.</td><td>The same four Pods were still running and the ClusterPolicy still reported <code>ready</code>.</td></tr>
+<tr><td><code>nvidia/gpu-operator</code> v25.10.1, base <code>default</code>, on the cluster that held v26.3.3</td><td>It found CRDs that differ from its file and stopped. It exited 1.</td><td>The operator image was still v26.3.3.</td></tr>
+<tr><td><code>prometheus-community/prometheus-blackbox-exporter</code> 11.18.0, base <code>default</code>. Its verdict is <code>safe-to-flatten</code>.</td><td>It created the <code>monitoring</code> namespace and applied 4 objects. It exited 0.</td><td>The Deployment rolled out and one Pod ran.</td></tr>
+<tr><td><code>valkey/valkey</code> 0.11.0, base <code>default</code>. Its verdict is <code>safe-to-flatten</code>, and its 4 objects name no namespace.</td><td>It applied the 4 objects into <code>default</code>, the namespace the entry was built for. It exited 0.</td><td>The Deployment rolled out and one Pod ran.</td></tr>
+<tr><td><code>argo-cd/argo-cd</code> 10.1.3, base <code>default</code>. Its plan says a Secret must exist before apply.</td><td>It stopped before it applied anything and printed the step. It exited 1.</td><td>The cluster held no <code>argocd</code> namespace, no Argo CD CRD and no Argo CD ClusterRole.</td></tr>
+<tr><td>The same entry, after the walk created the Secret, with <code>REQUIREMENTS_READY=1</code></td><td>It applied the 3 CRDs and the other 52 objects. It exited 0.</td><td>Six Deployments and one StatefulSet rolled out, and seven Pods ran.</td></tr>
+<tr><td><code>k8s-ephemeral-storage-metrics</code> 1.19.2, base <code>default</code>. Its file holds a ServiceMonitor and does not define that kind.</td><td>It stopped before it applied anything, because the cluster did not serve the kind. It exited 1.</td><td>No object of the entry was on the cluster.</td></tr>
+<tr><td><code>prometheus-community/prometheus-operator-crds</code> 28.0.1, base <code>default</code>, then <code>k8s-ephemeral-storage-metrics</code> again</td><td>The first applied its 10 CRDs. The second then passed its check and applied its 6 objects. Both exited 0.</td><td>The walk did not check these workloads further.</td></tr></tbody></table>
+<p>No run failed because of a fault in a generated script.</p>
+<h2 id="run-1-the-gpu-operator-v2633-which-has-no-other-test-script">Run 1. The GPU Operator v26.3.3, which has no other test script</h2>
+<p>The cluster was new.</p>
+<pre><code>$ kind create cluster --name cwtest-1011-obj-1 --kubeconfig ./kubeconfig --wait 120s 2&gt;&amp;1 | tail -2; kubectl get nodes
+
+Thanks for using kind! 😊
+NAME                              STATUS   ROLES           AGE   VERSION
+cwtest-1011-obj-1-control-plane   Ready    control-plane   46s   v1.35.0
+[exit 0 at 07:33:45Z]
+
+$ /bin/bash &quot;$SITE/sh/nvidia-gpu-operator-v26-3-3/default/try-objects.sh&quot;
+
+&gt;&gt; Fetch the retained objects into ./nvidia-gpu-operator-v26-3-3-default-objects/objects.yaml
+
+&gt;&gt; Check the file against the SHA-256 in the listing
+The file matches: sha256 73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c
+
+&gt;&gt; Split the file into its 24 objects. The cluster is untouched so far
+./nvidia-gpu-operator-v26-3-3-default-objects/crds:
+doc-0002.yaml
+doc-0004.yaml
+doc-0006.yaml
+doc-0007.yaml
+doc-0008.yaml
+
+./nvidia-gpu-operator-v26-3-3-default-objects/rest:
+doc-0009.yaml
+doc-0010.yaml
+doc-0011.yaml
+doc-0012.yaml
+doc-0013.yaml
+doc-0014.yaml
+doc-0015.yaml
+doc-0016.yaml
+doc-0017.yaml
+doc-0018.yaml
+doc-0019.yaml
+doc-0020.yaml
+doc-0021.yaml
+doc-0022.yaml
+doc-0023.yaml
+doc-0024.yaml
+doc-0025.yaml
+doc-0026.yaml
+doc-0027.yaml
+
+&gt;&gt; Check that kubectl reaches a cluster
+kind-cwtest-1011-obj-1
+
+&gt;&gt; Create the gpu-operator namespace if it does not exist
+namespace/gpu-operator created
+
+&gt;&gt; Check the 5 CRDs this file holds
+
+&gt;&gt; A CRD is missing, so apply the file's CRDs first
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+
+&gt;&gt; Apply the other 19 objects
+serviceaccount/node-feature-discovery created
+serviceaccount/gpu-operator created
+configmap/gpu-operator-node-feature-discovery-master-conf created
+configmap/gpu-operator-node-feature-discovery-worker-conf created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrole.rbac.authorization.k8s.io/gpu-operator created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc created
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator created
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+role.rbac.authorization.k8s.io/gpu-operator created
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker created
+rolebinding.rbac.authorization.k8s.io/gpu-operator created
+daemonset.apps/gpu-operator-node-feature-discovery-worker created
+deployment.apps/gpu-operator-node-feature-discovery-master created
+deployment.apps/gpu-operator-node-feature-discovery-gc created
+deployment.apps/gpu-operator created
+clusterpolicy.nvidia.com/cluster-policy created
+
+&gt;&gt; Done. The 5 CRDs were applied first. kubectl applied the other 19 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+
+&gt;&gt; Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one.
+   - Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest.
+   - After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccoun ...
+[exit 0 at 07:34:10Z]</code></pre>
+<p>The script does not wait for workloads. The walk checked them by hand.</p>
+<pre><code>$ kubectl -n gpu-operator rollout status deployment/gpu-operator --timeout=300s | tail -1; kubectl -n gpu-operator rollout status deployment/gpu-operator-node-feature-discovery-master --timeout=300s | tail -1; kubect ...
+deployment &quot;gpu-operator&quot; successfully rolled out
+deployment &quot;gpu-operator-node-feature-discovery-master&quot; successfully rolled out
+daemon set &quot;gpu-operator-node-feature-discovery-worker&quot; successfully rolled out
+[exit 0 at 07:35:20Z]
+
+$ for i in 1 2 3 4 5 6 7 8 9 10 11 12; do s=&quot;$(kubectl get clusterpolicy cluster-policy -o jsonpath=&quot;{.status.state}&quot;)&quot;; [ &quot;$s&quot; = &quot;ready&quot; ] &amp;&amp; break; sleep 10; done; kubectl get clusterpolicy cluster-policy -o jsonpa ...
+ready
+NAME                                                          READY   STATUS    RESTARTS   AGE
+gpu-operator-6f4cbc9d8f-mzzt4                                 1/1     Running   0          71s
+gpu-operator-node-feature-discovery-gc-585b876f9c-s7xq2       1/1     Running   0          71s
+gpu-operator-node-feature-discovery-master-7f6684fb45-rjlfb   1/1     Running   0          71s
+gpu-operator-node-feature-discovery-worker-rl5hj              1/1     Running   0          71s
+[exit 0 at 07:35:20Z]</code></pre>
+<h3 id="the-same-script-a-second-time">The same script a second time</h3>
+<p>The second run exercised the case where every CRD exists and matches the file. The script left the CRDs alone and applied the other objects again. <code>kubectl</code> printed <code>configured</code> for the four workloads and <code>unchanged</code> for the rest.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/nvidia-gpu-operator-v26-3-3/default/try-objects.sh&quot; 2&gt;&amp;1 | sed -n &quot;/Check the 5 CRDs/,\$p&quot;
+&gt;&gt; Check the 5 CRDs this file holds
+
+&gt;&gt; The CRDs already exist and match this file. The script leaves them under their current owner
+customresourcedefinition.apiextensions.k8s.io/clusterpolicies.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nvidiadrivers.nvidia.com condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeatures.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturegroups.nfd.k8s-sigs.io condition met
+customresourcedefinition.apiextensions.k8s.io/nodefeaturerules.nfd.k8s-sigs.io condition met
+
+&gt;&gt; Apply the other 19 objects
+serviceaccount/node-feature-discovery unchanged
+serviceaccount/gpu-operator unchanged
+configmap/gpu-operator-node-feature-discovery-master-conf unchanged
+configmap/gpu-operator-node-feature-discovery-worker-conf unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrole.rbac.authorization.k8s.io/gpu-operator unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-gc unchanged
+clusterrolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+role.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+role.rbac.authorization.k8s.io/gpu-operator unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator-node-feature-discovery-worker unchanged
+rolebinding.rbac.authorization.k8s.io/gpu-operator unchanged
+daemonset.apps/gpu-operator-node-feature-discovery-worker configured
+deployment.apps/gpu-operator-node-feature-discovery-master configured
+deployment.apps/gpu-operator-node-feature-discovery-gc configured
+deployment.apps/gpu-operator configured
+clusterpolicy.nvidia.com/cluster-policy unchanged
+
+&gt;&gt; Done. The 5 CRDs already existed and matched, so the script left them alone. kubectl applied the other 19 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+
+&gt;&gt; Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one.
+   - Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest.
+   - After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccoun ...
+[exit 0 at 07:35:38Z]</code></pre>
+<p>That command pipes the script into <code>sed</code>, so the exit code under it is the pipeline's. A third run printed the script's own exit code.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/nvidia-gpu-operator-v26-3-3/default/try-objects.sh&quot; &gt;/dev/null 2&gt;&amp;1; echo &quot;the script exited $?&quot;; kubectl get clusterpolicy cluster-policy -o jsonpath=&quot;{.status.state}{\&quot;\n\&quot;}&quot;; kubectl -n gpu-o ...
+the script exited 0
+ready
+NAME                                                          READY   STATUS    RESTARTS   AGE
+gpu-operator-6f4cbc9d8f-mzzt4                                 1/1     Running   0          105s
+gpu-operator-node-feature-discovery-gc-585b876f9c-s7xq2       1/1     Running   0          105s
+gpu-operator-node-feature-discovery-master-7f6684fb45-rjlfb   1/1     Running   0          105s
+gpu-operator-node-feature-discovery-worker-rl5hj              1/1     Running   0          105s
+[exit 0 at 07:35:54Z]</code></pre>
+<h3 id="an-older-versions-script-on-the-same-cluster">An older version's script on the same cluster</h3>
+<p>The walk then ran the script for v25.10.1 against the cluster that held v26.3.3. Its CRD files differ from the ones on the cluster, so the script stopped before it applied any other object. It prints how to let it apply the file's CRDs. The walk did not do that.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/nvidia-gpu-operator-v25-10-1/default/try-objects.sh&quot; &gt; older.log 2&gt;&amp;1; echo &quot;the script exited $?&quot;; sed -n &quot;/Check the .* CRDs/,\$p&quot; older.log; kubectl -n gpu-operator get deployment gpu-operato ...
+the script exited 1
+&gt;&gt; Check the 5 CRDs this file holds
+
+&gt;&gt; The CRDs already exist and differ from this file, or another tool owns them
+This script does not change CRDs it did not just create.
+If this is an upgrade, the objects that follow may need the newer CRDs.
+To let this script apply the file's CRDs, re-run with:
+  APPLY_CRDS=1 bash try-objects.sh
+nvcr.io/nvidia/gpu-operator:v26.3.3
+[exit 0 at 07:36:06Z]</code></pre>
+<p>The first cluster was then deleted.</p>
+<pre><code>$ kind delete cluster --name cwtest-1011-obj-1 --kubeconfig ./kubeconfig; kind get clusters | grep -c cwtest-1011-obj
+Deleting cluster &quot;cwtest-1011-obj-1&quot; ...
+Deleted nodes: [&quot;cwtest-1011-obj-1-control-plane&quot;]
+0
+[exit 1 at 07:36:21Z]</code></pre>
+<p><code>grep -c</code> exits 1 when it counts nothing, which is why that line ends in <code>exit 1</code>. The count is 0.</p>
+<h2 id="run-2-two-entries-with-the-verdict-safe-to-flatten">Run 2. Two entries with the verdict safe-to-flatten</h2>
+<p>A second cluster was created. The first entry is the Prometheus blackbox exporter. Its image comes from <code>quay.io</code> and pulls with no sign-in.</p>
+<pre><code>$ kind create cluster --name cwtest-1011-obj-2 --kubeconfig ./kubeconfig --wait 120s 2&gt;&amp;1 | tail -2; kubectl get nodes
+
+Have a nice day! 👋
+NAME                              STATUS   ROLES           AGE   VERSION
+cwtest-1011-obj-2-control-plane   Ready    control-plane   26s   v1.35.0
+[exit 0 at 07:37:38Z]
+
+$ /bin/bash &quot;$SITE/sh/prometheus-community-prometheus-blackbox-exporter-11-18-0/default/try-objects.sh&quot;; echo &quot;the script exited $?&quot;
+
+&gt;&gt; Fetch the retained objects into ./prometheus-community-prometheus-blackbox-exporter-11-18-0-default-objects/objects.yaml
+
+&gt;&gt; Check the file against the SHA-256 in the listing
+The file matches: sha256 f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2
+
+&gt;&gt; Split the file into its 4 objects. The cluster is untouched so far
+doc-0001.yaml
+doc-0002.yaml
+doc-0003.yaml
+doc-0004.yaml
+
+&gt;&gt; Check that kubectl reaches a cluster
+kind-cwtest-1011-obj-2
+
+&gt;&gt; Create the monitoring namespace if it does not exist
+namespace/monitoring created
+
+&gt;&gt; Apply the 4 objects
+serviceaccount/prometheus-blackbox-exporter created
+configmap/prometheus-blackbox-exporter created
+service/prometheus-blackbox-exporter created
+deployment.apps/prometheus-blackbox-exporter created
+
+&gt;&gt; Done. kubectl applied the 4 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+the script exited 0
+[exit 0 at 07:37:38Z]
+
+$ kubectl -n monitoring rollout status deployment --timeout=300s | tail -1; kubectl -n monitoring get pods,svc
+deployment &quot;prometheus-blackbox-exporter&quot; successfully rolled out
+NAME                                                READY   STATUS    RESTARTS   AGE
+pod/prometheus-blackbox-exporter-576cfd6497-g9jj7   1/1     Running   0          7s
+
+NAME                                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/prometheus-blackbox-exporter   ClusterIP   10.96.57.223   &lt;none&gt;        9115/TCP   7s
+[exit 0 at 07:37:45Z]</code></pre>
+<p>The second entry is Valkey. Its four objects name no namespace, so <code>kubectl</code> would put them wherever the reader's context points. The script applies them into <code>default</code>, which is the namespace the listing records for the entry. Its image comes from Docker Hub and pulled with no sign-in.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/valkey-valkey-0-11-0/default/try-objects.sh&quot; 2&gt;&amp;1 | sed -n &quot;/Split the file/,\$p&quot;
+&gt;&gt; Split the file into its 4 objects. The cluster is untouched so far
+doc-0001.yaml
+doc-0002.yaml
+doc-0003.yaml
+doc-0004.yaml
+
+&gt;&gt; Check that kubectl reaches a cluster
+kind-cwtest-1011-obj-2
+
+&gt;&gt; Create the default namespace if it does not exist
+
+&gt;&gt; Apply 4 objects that name no namespace into default, the namespace this entry was built for
+serviceaccount/valkey created
+configmap/valkey-init-scripts created
+service/valkey created
+deployment.apps/valkey created
+
+&gt;&gt; Done. kubectl applied the 4 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+[exit 0 at 07:37:51Z]
+
+$ kubectl -n default rollout status deployment/valkey --timeout=300s | tail -1; kubectl -n default get pods,svc,sa,cm
+deployment &quot;valkey&quot; successfully rolled out
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/valkey-fc7549967-ldtpw   1/1     Running   0          21s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP    58s
+service/valkey       ClusterIP   10.96.142.129   &lt;none&gt;        6379/TCP   22s
+
+NAME                     AGE
+serviceaccount/default   51s
+serviceaccount/valkey    22s
+
+NAME                            DATA   AGE
+configmap/kube-root-ca.crt      1      51s
+configmap/valkey-init-scripts   1      22s
+[exit 0 at 07:38:13Z]</code></pre>
+<p>The first command pipes the script into <code>sed</code>. A second run printed the script's own exit code.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/valkey-valkey-0-11-0/default/try-objects.sh&quot; &gt;/dev/null 2&gt;&amp;1; echo &quot;the script exited $?&quot;
+the script exited 0
+[exit 0 at 07:38:20Z]</code></pre>
+<h2 id="run-3-an-entry-whose-plan-has-a-step-the-script-must-stop-for">Run 3. An entry whose plan has a step the script must stop for</h2>
+<p>The plan for Argo CD 10.1.3 says the Secret <code>argocd/argocd-redis</code> must exist before apply. Helm creates it with a hook, and plain objects carry no hook. The script cannot make that Secret for the reader, so it stops before it applies anything. The command leaves out the 55 file names the script lists.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/argo-cd-argo-cd-10-1-3/default/try-objects.sh&quot; 2&gt;&amp;1 | grep -v &quot;^doc-&quot;; echo &quot;the script exited ${PIPESTATUS[0]}&quot;
+
+&gt;&gt; Fetch the retained objects into ./argo-cd-argo-cd-10-1-3-default-objects/objects.yaml
+
+&gt;&gt; Check the file against the SHA-256 in the listing
+The file matches: sha256 b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5
+
+&gt;&gt; Split the file into its 55 objects. The cluster is untouched so far
+./argo-cd-argo-cd-10-1-3-default-objects/crds:
+
+./argo-cd-argo-cd-10-1-3-default-objects/rest:
+
+&gt;&gt; Stop before applying anything. This entry's plan has 1 step that an install needs first
+This script cannot carry out this step of the plan. It is yours to do, with your own values:
+  - Secret argocd/argocd-redis must exist before apply. Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly.
+Nothing was applied. Complete it before you apply the objects.
+When it is done, re-run with:
+  REQUIREMENTS_READY=1 bash try-objects.sh
+the script exited 1
+[exit 0 at 07:39:53Z]
+
+$ kubectl get namespace argocd; kubectl get crd -o name | grep argoproj || echo &quot;no argoproj CRD&quot;; kubectl get clusterrole -o name | grep argocd || echo &quot;no argocd ClusterRole&quot;
+Error from server (NotFound): namespaces &quot;argocd&quot; not found
+no argoproj CRD
+no argocd ClusterRole
+[exit 0 at 07:39:54Z]</code></pre>
+<p>The walk then did the step by hand, with a random value that it did not print, and ran the script again with <code>REQUIREMENTS_READY=1</code>.</p>
+<pre><code>$ kubectl create namespace argocd; kubectl -n argocd create secret generic argocd-redis --from-literal=auth=&quot;$(openssl rand -hex 16)&quot;
+namespace/argocd created
+secret/argocd-redis created
+[exit 0 at 07:40:02Z]
+
+$ REQUIREMENTS_READY=1 /bin/bash &quot;$SITE/sh/argo-cd-argo-cd-10-1-3/default/try-objects.sh&quot; &gt; ready.log 2&gt;&amp;1; echo &quot;the script exited $?&quot;; sed -n &quot;/REQUIREMENTS_READY=1 is set/,\$p&quot; ready.log | grep -v &quot; created$\|cond ...
+the script exited 0
+&gt;&gt; REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it
+
+&gt;&gt; Check that kubectl reaches a cluster
+kind-cwtest-1011-obj-2
+
+&gt;&gt; Create the argocd namespace if it does not exist
+
+&gt;&gt; Check the 3 CRDs this file holds
+
+&gt;&gt; A CRD is missing, so apply the file's CRDs first
+customresourcedefinition.apiextensions.k8s.io/applications.argoproj.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/applicationsets.argoproj.io serverside-applied
+customresourcedefinition.apiextensions.k8s.io/appprojects.argoproj.io serverside-applied
+
+&gt;&gt; Apply the other 52 objects
+networkpolicy.networking.k8s.io/argo-cd-argocd-application-controller created
+networkpolicy.networking.k8s.io/argo-cd-argocd-notifications-controller created
+networkpolicy.networking.k8s.io/argo-cd-argocd-repo-server created
+networkpolicy.networking.k8s.io/argo-cd-argocd-server created
+networkpolicy.networking.k8s.io/argo-cd-argocd-dex-server created
+networkpolicy.networking.k8s.io/argo-cd-argocd-redis created
+serviceaccount/argocd-application-controller created
+serviceaccount/argocd-applicationset-controller created
+serviceaccount/argocd-notifications-controller created
+serviceaccount/argo-cd-argocd-repo-server created
+serviceaccount/argocd-server created
+serviceaccount/argocd-dex-server created
+secret/argocd-notifications-secret created
+secret/argocd-secret created
+configmap/argocd-cm created
+configmap/argocd-cmd-params-cm created
+configmap/argocd-gpg-keys-cm created
+configmap/argocd-notifications-cm created
+configmap/argocd-rbac-cm created
+configmap/argocd-ssh-known-hosts-cm created
+configmap/argocd-tls-certs-cm created
+configmap/argo-cd-argocd-redis-health-configmap created
+clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-application-controller created
+clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller created
+clusterrole.rbac.authorization.k8s.io/argo-cd-argocd-server created
+clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-application-controller created
+clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller created
+clusterrolebinding.rbac.authorization.k8s.io/argo-cd-argocd-server created
+role.rbac.authorization.k8s.io/argo-cd-argocd-application-controller created
+role.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller created
+role.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller created
+role.rbac.authorization.k8s.io/argo-cd-argocd-repo-server created
+role.rbac.authorization.k8s.io/argo-cd-argocd-server created
+role.rbac.authorization.k8s.io/argo-cd-argocd-dex-server created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-application-controller created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-applicationset-controller created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-notifications-controller created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-repo-server created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-server created
+rolebinding.rbac.authorization.k8s.io/argo-cd-argocd-dex-server created
+service/argo-cd-argocd-applicationset-controller created
+service/argo-cd-argocd-repo-server created
+service/argo-cd-argocd-server created
+service/argo-cd-argocd-dex-server created
+service/argo-cd-argocd-redis created
+deployment.apps/argo-cd-argocd-applicationset-controller created
+deployment.apps/argo-cd-argocd-notifications-controller created
+deployment.apps/argo-cd-argocd-repo-server created
+deployment.apps/argo-cd-argocd-server created
+deployment.apps/argo-cd-argocd-dex-server created
+deployment.apps/argo-cd-argocd-redis created
+statefulset.apps/argo-cd-argocd-application-controller created
+
+&gt;&gt; Done. The 3 CRDs were applied first. kubectl applied the other 52 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+
+&gt;&gt; Not run by this script: 1 step of this entry's plan. The entry page says who runs it.
+   - Secret argocd/argocd-redis must exist before apply. Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly.
+52
+[exit 0 at 07:40:12Z]</code></pre>
+<p>The filter in that command was meant to drop the <code>created</code> lines and did not. The output above is what it printed. The last line, 52, is the count of <code>created</code> lines.</p>
+<pre><code>$ kubectl -n argocd rollout status deployment --timeout=420s | grep -c &quot;successfully rolled out&quot;; kubectl -n argocd rollout status statefulset/argo-cd-argocd-application-controller --timeout=300s | tail -1; kubectl - ...
+6
+partitioned roll out complete: 1 new pods have been updated...
+NAME                                                       READY   STATUS    RESTARTS   AGE
+argo-cd-argocd-application-controller-0                    1/1     Running   0          56s
+argo-cd-argocd-applicationset-controller-5fd5c8dc7-mmch8   1/1     Running   0          56s
+argo-cd-argocd-dex-server-755bdbf66c-d8cbp                 1/1     Running   0          56s
+argo-cd-argocd-notifications-controller-b6cf49795-znmjk    1/1     Running   0          56s
+argo-cd-argocd-redis-75c4bd9966-zb7b7                      1/1     Running   0          56s
+argo-cd-argocd-repo-server-69c4b456c5-xvn2v                1/1     Running   0          56s
+argo-cd-argocd-server-966f64bd9-x4hps                      1/1     Running   0          56s
+[exit 0 at 07:41:08Z]</code></pre>
+<p>The script's last lines still name the Secret step as not run by the script, which is true. The reader ran it.</p>
+<h2 id="run-4-a-file-that-uses-a-kind-it-does-not-define">Run 4. A file that uses a kind it does not define</h2>
+<p>The file for <code>k8s-ephemeral-storage-metrics</code> holds a ServiceMonitor. That kind belongs to the Prometheus Operator, and the file does not define it. The entry's plan has no step about it. On a cluster without the kind, <code>kubectl apply</code> would fail part of the way through. The script checks first and stops before it applies anything.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2/default/try-objects.sh&quot; &gt; kinds.log 2&gt;&amp;1; echo &quot;the script exited $?&quot;; sed -n &quot;/Split the file/,\$p&quot; kinds.log; kubectl get all ...
+the script exited 1
+&gt;&gt; Split the file into its 6 objects. The cluster is untouched so far
+doc-0001.yaml
+doc-0002.yaml
+doc-0003.yaml
+doc-0004.yaml
+doc-0005.yaml
+doc-0006.yaml
+
+&gt;&gt; Check that kubectl reaches a cluster
+kind-cwtest-1011-obj-2
+
+&gt;&gt; Check that the cluster serves the 1 kind this file uses and does not define
+The cluster does not serve: ServiceMonitor.monitoring.coreos.com
+This file uses these kinds and does not define them. Install what defines them, then re-run this script. Nothing was applied.
+1
+[exit 0 at 07:38:21Z]</code></pre>
+<p>The last line of that output is 1 because the search word also matches <code>ephemeral-volume-controller</code>, a ServiceAccount that every cluster has in <code>kube-system</code>. A narrower search found nothing from the entry.</p>
+<pre><code>$ kubectl get deployment,serviceaccount,servicemonitor -A 2&gt;&amp;1 | grep -c k8s-ephemeral-storage-metrics
+0
+[exit 1 at 07:39:39Z]</code></pre>
+<p>The walk then ran the script for the entry that holds those definitions, <code>prometheus-community/prometheus-operator-crds</code> 28.0.1, and ran the first script again. This time the check passed.</p>
+<pre><code>$ /bin/bash &quot;$SITE/sh/prometheus-community-prometheus-operator-crds-28-0-1/default/try-objects.sh&quot; &gt; crds.log 2&gt;&amp;1; echo &quot;the script exited $?&quot;; sed -n &quot;/Check the 10 CRDs/,\$p&quot; crds.log | grep -v &quot;condition met&quot;
+the script exited 0
+&gt;&gt; Check the 10 CRDs this file holds
+
+&gt;&gt; A CRD is missing, so apply the file's CRDs first
+customresourcedefinition.apiextensions.k8s.io/alertmanagerconfigs.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/alertmanagers.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/podmonitors.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/probes.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/prometheusagents.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/prometheuses.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/prometheusrules.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/scrapeconfigs.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/servicemonitors.monitoring.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/thanosrulers.monitoring.coreos.com serverside-applied
+
+&gt;&gt; Done. The 10 CRDs of this entry's retained file were applied.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+[exit 0 at 07:39:45Z]
+
+$ /bin/bash &quot;$SITE/sh/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2/default/try-objects.sh&quot; &gt; kinds2.log 2&gt;&amp;1; echo &quot;the script exited $?&quot;; sed -n &quot;/Check that the cluster serves/,\$p&quot; kinds2.log
+the script exited 0
+&gt;&gt; Check that the cluster serves the 1 kind this file uses and does not define
+
+&gt;&gt; Create the monitoring namespace if it does not exist
+
+&gt;&gt; Apply the 6 objects
+serviceaccount/k8s-ephemeral-storage-metrics created
+clusterrole.rbac.authorization.k8s.io/k8s-ephemeral-storage-metrics created
+clusterrolebinding.rbac.authorization.k8s.io/k8s-ephemeral-storage-metrics created
+service/k8s-ephemeral-storage-metrics created
+deployment.apps/k8s-ephemeral-storage-metrics created
+servicemonitor.monitoring.coreos.com/k8s-ephemeral-storage-metrics created
+
+&gt;&gt; Done. kubectl applied the 6 objects of this entry's retained file.
+
+&gt;&gt; The script stops here. It did not wait for any workload to start
+[exit 0 at 07:39:46Z]</code></pre>
+<h2 id="what-went-wrong">What went wrong</h2>
+<ul><li>No generated script failed. Two faults of wording were found by reading the scripts, and both were fixed in the generator. A script whose file holds only CRDs ended with &quot;The 10 CRDs of this entry's retained file were applied first&quot;, and &quot;first&quot; meant nothing there. That was fixed before that script ran. A script whose file holds one CRD said &quot;The 1 CRD were applied first&quot;. That was fixed after the walk, and no such script was run. After each fix the scripts that had already run were compared by SHA-256, and none had changed.</li><li>Two of the walk's own checks were wrong, and both are shown above. One search matched a ServiceAccount that Kubernetes ships. One filter did not drop the lines it was meant to drop.</li><li>Three commands pipe a script into <code>sed</code> or <code>grep</code>, so the exit code under them is the pipeline's. Each of those scripts has its own exit code in the same command or in the one after it.</li></ul>
+<h2 id="what-the-walk-did-not-cover">What the walk did not cover</h2>
+<ul><li>No GPU. No driver, toolkit or device-plugin workload ran.</li><li>One walk, on one machine, with one node per cluster.</li><li>Seven scripts ran, out of the 228 the site ships. The other 221 passed <code>/bin/bash -n</code> and were not run.</li><li>The scripts ran from a checkout. No script was fetched from the published site.</li><li>No script ran with <code>APPLY_CRDS=1</code>, so the case where the script replaces differing CRDs was not exercised.</li><li>No upgrade, delete or rollback step of any plan was run. Each script names those steps in its last lines and leaves them to the reader.</li><li>The walk checked that workloads started. It did not check that any of them did useful work. Valkey, Argo CD and the blackbox exporter were given no request.</li><li>Linux was not tested. The scripts fall back to <code>sha256sum</code> where <code>shasum</code> is missing, and that branch did not run.</li></ul>
+<h2 id="clean-up">Clean-up</h2>
+<p>Both clusters were deleted, and no cluster of this walk was left.</p>
+<pre><code>$ kind delete cluster --name cwtest-1011-obj-2 --kubeconfig ./kubeconfig; kind get clusters | grep cwtest-1011-obj || echo &quot;no cwtest-1011-obj cluster is left&quot;
+Deleting cluster &quot;cwtest-1011-obj-2&quot; ...
+Deleted nodes: [&quot;cwtest-1011-obj-2-control-plane&quot;]
+no cwtest-1011-obj cluster is left
+[exit 0 at 07:41:17Z]</code></pre>
+<p>The SHA-256 of the machine's default kubeconfig was the same before and after the walk.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/live-walk-test-plain-objects-2026-10-11.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions-and-setting">Versions and setting</a></li><li><a href="#the-answer-in-brief">The answer in brief</a></li><li><a href="#run-1-the-gpu-operator-v2633-which-has-no-other-test-script">Run 1. The GPU Operator v26.3.3, which has no other test script</a></li><li><a href="#run-2-two-entries-with-the-verdict-safe-to-flatten">Run 2. Two entries with the verdict safe-to-flatten</a></li><li><a href="#run-3-an-entry-whose-plan-has-a-step-the-script-must-stop-for">Run 3. An entry whose plan has a step the script must stop for</a></li><li><a href="#run-4-a-file-that-uses-a-kind-it-does-not-define">Run 4. A file that uses a kind it does not define</a></li><li><a href="#what-went-wrong">What went wrong</a></li><li><a href="#what-the-walk-did-not-cover">What the walk did not cover</a></li><li><a href="#clean-up">Clean-up</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

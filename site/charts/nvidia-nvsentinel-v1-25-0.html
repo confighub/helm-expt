@@ -613,6 +613,14 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="nvidia-nvsentinel-v1-25-0-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-25-0/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 22 objects in one file.</p>
@@ -705,6 +713,14 @@ f12a375c7b63cdfe02ed6eda602a22c771d43216297ab2089f374ef913a86ec2  nvidia-nvsenti
         <ul class="entry-inputs-list"><li>Prometheus Operator PodMonitor CRD required before Kubernetes accepts the rendered PodMonitor object; the chart does not ship it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="nvidia-nvsentinel-v1-25-0-aicr-eks-training">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-25-0/aicr-eks-training/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 21 objects in one file.</p>
@@ -794,6 +810,14 @@ a0a98f57755f4be60aedae1219efb32059025921a6c5eb15f57e87d5a7776b15  nvidia-nvsenti
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>nvidia/nvsentinel</code></li><li><code>version</code> is <code>v1.25.0</code></li><li><code>base</code> is <code>no-pod-monitor</code></li><li><code>valuesProfile</code> is <code>recipes/nvidia/nvsentinel/v1.25.0/effective-values-no-pod-monitor.yaml</code></li><li><code>namespace</code> is <code>nvsentinel</code></li><li><code>releaseName</code> is <code>nvsentinel</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.31.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
+      </details>
+        <details class="entry-inputs" data-entry-plan="nvidia-nvsentinel-v1-25-0-no-pod-monitor">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        
+        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-25-0/no-pod-monitor/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
