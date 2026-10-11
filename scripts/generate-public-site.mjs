@@ -266,7 +266,7 @@ const VERDICT_GLOSS = {
   "born-flattened": "The source was already exact Kubernetes objects. Nothing was rendered.",
   "safe-to-flatten": "Kept as exact Kubernetes objects. Nothing else has to travel with them.",
   "flatten-with-routes": "Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.",
-  "unsafe-to-flatten": "Not delivered as flattened objects. The source is rendered at install time.",
+  "unsafe-to-flatten": "The objects are kept, and no bundle is published. The chart depends on something plain objects cannot carry safely.",
 };
 
 // A verdict as a link to its definition on the Config page. An unknown word is
@@ -4876,21 +4876,24 @@ function configHtml(catalog) {
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every configuration goes through the same five stages. Here they are for one real entry, NVIDIA's GPU Operator.</p>
-    <p class="stage-flow"><strong>Source &rarr; Base &rarr; Variant &rarr; Deliver &rarr; Run</strong></p>
+    <p>Every configuration is described with the same five words. Here they are for one real entry, NVIDIA's GPU Operator.</p>
+    <p class="stage-flow"><strong>Pack &rarr; Recipe &rarr; Bundle &rarr; Variant &rarr; Deployment</strong></p>
     ${markdownLikeTable([
-      ["Stage", "What it is", "For the GPU Operator"],
-      ["Source", "What you start from.", "NVIDIA's Helm chart, version 26.3.3."],
-      ["Base", "The source turned into exact Kubernetes objects, once, and kept.", "The chart rendered with its default values. That gives 24 objects."],
-      ["Variant", "A copy of the base for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub."],
-      ["Deliver", "A change is compared, approved and moved from one environment to the next.", "An upgrade from 26.3.2 to 26.3.3 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
-      ["Run", "A controller such as Argo CD applies the result to a cluster.", "Done once, on a cluster with no GPUs."],
+      ["Word", "What it is", "For the GPU Operator"],
+      ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
+      ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
+      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept in OCI. It carries a plan where one is needed.", "24 objects and three plan documents."],
+      ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
+      ["Deployment", "One variant on one cluster, applied by a controller such as Argo CD.", "Done once, on a cluster with no GPUs."],
     ])}
+    <p>A generator turns a recipe into a bundle. Here the generator is Helm, and the Catalog ran it once.</p>
+    <p>Everything up to the bundle needs no account. ConfigHub starts at the variant. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines each word.</p>
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any stage. A new chart version makes a new base. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
+    <p>You can go round again at any point. A new chart version makes a new bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
-      <summary>The five stages in the Catalog's own terms</summary>
+      <summary>The earlier five stages, in the Catalog's own terms</summary>
       <div class="deep-body">
+    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Pack and recipe are the source, the bundle is the base, and a deployment covers deliver and run.</p>
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <ol>
       <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
@@ -5052,17 +5055,18 @@ bash ./try.sh</code></pre>
     <ul>
       <li><a href="#verdict-safe-to-flatten"><code>safe-to-flatten</code></a>. The plain objects are everything. There is no plan.</li>
       <li><a href="#verdict-flatten-with-routes"><code>flatten-with-routes</code></a>. The plain objects come with a plan, as the GPU Operator's do.</li>
-      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart needs Helm when it is installed, so the Catalog does not ship it as plain objects. A chart that reads a value from the cluster is one.</li>
+      <li><a href="#verdict-unsafe-to-flatten"><code>unsafe-to-flatten</code></a>. The chart depends on something plain objects cannot carry safely, so the Catalog publishes no bundle for it. A chart that reads a value from the cluster is one.</li>
       <li><a href="#verdict-born-flattened"><code>born-flattened</code></a>. The source was plain YAML to begin with.</li>
     </ul>
     <h3 id="two-ways-to-ship">The Catalog ships a chart two ways</h3>
-    <p>Every chart version in the Catalog is published as an installer package. The package holds the chart itself, and Helm still runs when you install it.</p>
-    <p>Where the verdict allows, the Catalog can also publish the plain objects as a bundle. Helm does not run when you deliver a bundle. Each entry page says whether its bundle is published.</p>
+    <p>Every chart version in the Catalog is published as an installer package. The package holds the objects of every preset, already rendered. <code>cub installer</code> reads it and runs no Helm.</p>
+    <p>Where the verdict allows, the Catalog can also publish one preset as a bundle. A bundle holds that preset's objects and its plan. Each entry page says whether its bundle is published.</p>
     <p>An <code>unsafe-to-flatten</code> chart has the installer package only.</p>
     <details class="deep">
       <summary>Why both ways are kept</summary>
       <div class="deep-body">
     <p>Flattening means keeping the exact Kubernetes objects as the configuration that later systems review and deliver. The source stays recorded, but its processor does not run again in the delivery path. Flat objects can be read, compared, scanned, changed one field at a time, stored as OCI, or held as ConfigHub Units. It is not safe to assume every chart can be flattened without more work.</p>
+    <p>The next paragraph is earlier wording, and one claim in it is wrong. The installer packages in the Catalog hold rendered objects, and none carries an un-rendered chart.</p>
     <p>Two delivery models coexist. The catalog packages charts <strong>render-late</strong>: the installer package carries the un-rendered chart, and the toolchain renders at install time. The eks-inference example renders <strong>early</strong>: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm. Neither wins as a doctrine. The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates. Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste.</p>
       </div>
     </details>
@@ -5093,7 +5097,7 @@ bash ./try.sh</code></pre>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">What happens after the verdict</h3>
     <p>An entry whose verdict allows plain objects follows the five stages in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
-    <p>An <code>unsafe-to-flatten</code> entry is installed from its installer package, and Helm runs at that point.</p>
+    <p>An <code>unsafe-to-flatten</code> entry has its installer package and no bundle.</p>
     <p>A published bundle shows that the objects were rendered and packaged as recorded. It does not show that they run.</p>
     <details class="deep">
       <summary>The build steps, in the Catalog's own terms</summary>
@@ -5107,7 +5111,7 @@ bash ./try.sh</code></pre>
       <li>Any reconciler syncs that digest: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.</li>
       <li>Receipts close the loop where convergence is recorded.</li>
     </ol>
-    <p>An <code>unsafe-to-flatten</code> source skips this build-time pipeline. Its processor runs late, at install time, through its installer package, which stays its certified route.</p>
+    <p>An <code>unsafe-to-flatten</code> source is rendered too, and its objects are in its installer package. No bundle is published for it.</p>
     <p>The receipt certifies rendering and packaging, not runtime health, and convergence receipts stay separate. A decided lane does not mean a bundle exists or ever will. Publication is a separate step, gated on the lane permitting it, and an <code>unsafe-to-flatten</code> entry must never carry a certified-bundle receipt.</p>
       </div>
     </details>
@@ -8111,7 +8115,7 @@ ${moved.verify}    <section aria-labelledby="verify-routing">
         <li>Have a certified-bundle ref? Run <code>cub config verify oci://…@sha256:…</code>. It pulls the bundle, finds its receipt, and re-hashes every listed file; it checks a signature only where one is attached.</li>
         <li>Have the downloadable package index? Run <code>cosign verify-blob --bundle packages.sigstore.json …</code> against the committed index signature.</li>
       </ol>
-      <p>These four commands cover the shapes listed above them. A ConfigHub release bundle, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
+      <p>These four commands cover the shapes listed above them. A release, a stack index, a stack release, and a runtime image have no matching command here, because these docs describe no signing for those shapes.</p>
     </section>
 `,
   });
@@ -9701,14 +9705,26 @@ Variants:
 function ociHtml(catalog) {
   const shapeRows = [
     ["Installer / source package OCI", "Not named; a multi-file OCI image (<code>installer.yaml</code>, presets, <code>records/</code>)", "<code>installer.yaml</code> plus preset configs plus <code>records/</code> (source-and-intent and Helm-render-intent files)", "The catalog publisher, with <code>npm run installer-oci:publish</code>", "<code>cub installer setup --pull</code>, <code>cub installer inspect</code>", "Google Artifact Registry, public read", "Yes: a dedicated Google service account, Sigstore keyless"],
-    ["Literal configuration bundle (upload layout)", "Not named", "Kubernetes YAML in a tar layer, or in one layer for each file; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
-    ["Portable deployment bundle (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
-    ["ConfigHub release bundle (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
-    ["Certified bundle", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload oci://…</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
+    ["Upload layout (literal configuration)", "Not named", "Kubernetes YAML in a tar layer, or in one layer for each file; a different layout from the row below even for the same objects", "Not named as one command in these docs", "<code>cub variant upload oci://…</code>", "Not named", "Not stated"],
+    ["Rendered objects (rendered OCI)", "Not named; described as “a standard OCI content layer”", "One selected preset's exact non-secret Kubernetes objects", "<code>cub installer setup --output-oci</code>", "Argo CD, Flux, an anonymous pull, or <code>cub variant upload</code>", "A local OCI layout, or an <code>oci://host/repo:tag</code> reference", "Not stated"],
+    ["Release (Space release OCI)", "Not named", "The exact reviewed Units from one ConfigHub Space", "<code>cub release publish &lt;space&gt;</code>", "Argo CD, Flux, or another ConfigHub delivery path", "<code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>", "Not stated"],
+    ["Bundle (certified bundle)", "<code>application/vnd.confighub.config.bundle.v1</code>", "One gzipped, byte-reproducible tar layer: sorted names, zeroed owners, epoch timestamps", "<code>cub config check --out oci://…</code>, <code>cub app check --out oci://…</code>", "<code>cub config verify</code>, then <code>cub variant upload oci://…</code>", "Today: provider-specific paths on two registries. Proposed: a stable <code>oci://catalog.confighub.com/…</code> endpoint", "Open item: keyless cosign for a user's own output, the catalog's own key for its own"],
     ["Bundle receipt (referrer record)", "<code>application/vnd.confighub.record.v1+json</code>", "One JSON record, attached to the bundle's manifest digest as a referrer", "The same command that pushes the bundle it describes", "<code>cub config verify</code>, <code>oras discover</code>", "The same registry as the bundle it describes", "Not stated separately from the bundle"],
     ["Stack index", "An OCI image index; no dedicated type named", "Entries are component bundles by digest; the manifest and check verdict attach to the index digest", "<code>cub stack publish &lt;name&gt; --out oci://…</code>", "Today: the Catalog itself. Planned: <code>cub stack sandbox oci://…index@sha256:…</code>", "Wherever <code>--out oci://…</code> points", "Not stated; the verdict is a record, not a signature"],
     ["Stack release (flattened stack image)", "Not named", "The whole stack rendered into one manifest, not an index", "<code>cub stack sandbox &lt;name&gt; --out oci://…</code>", "A reconciler; it pulls one manifest", "Wherever <code>--out oci://…</code> points", "Not stated"],
     ["Runtime image OCI", "Not named", "Not detailed in these docs", "Not named; built outside this catalog", "Kubernetes, as the workload it runs", "Not discussed in these docs", "Not addressed by this catalog's signing scheme"],
+  ];
+  // Whether each shape carries a plan, in the order of shapeRows.
+  const shapePlanCells = [
+    "Yes, as the files under its <code>prerequisites/</code> directory",
+    "Only when the artifact holds plan documents",
+    "No",
+    "Not stated",
+    "Where the entry needs one",
+    "No. It is a record.",
+    "Not stated",
+    "Not stated",
+    "No",
   ];
   const digestRows = [
     ["Base-revision digest", "The complete base record, including source inputs and processing context", "A Helm variant-revision digest, or an AICR platform-index digest"],
@@ -9719,10 +9735,10 @@ function ociHtml(catalog) {
   ];
   const signingRows = [
     ["Installer / source package OCI", "Yes", "Sigstore keyless cosign, a dedicated Google service account identity"],
-    ["Literal configuration bundle", "Not stated", "Not discussed in these docs"],
-    ["Portable deployment bundle", "Not stated", "Not discussed in these docs"],
-    ["ConfigHub release bundle", "Not stated", "Not discussed in these docs"],
-    ["Certified bundle", "Open item", "Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts"],
+    ["Upload layout", "Not stated", "Not discussed in these docs"],
+    ["Rendered objects", "Not stated", "Not discussed in these docs"],
+    ["Release", "Not stated", "Not discussed in these docs"],
+    ["Bundle", "Open item", "Keyless cosign for a user's own output, the catalog's own key for its own; the mechanism already runs in CI for other artifacts"],
     ["Bundle receipt (referrer record)", "Not stated separately", "Not discussed in these docs"],
     ["Stack index", "Not stated", "The check verdict is a record, not a signature"],
     ["Stack release", "Not stated", "Not discussed in these docs"],
@@ -9746,10 +9762,12 @@ function ociHtml(catalog) {
 <main>
   <section aria-labelledby="shapes">
     <h2 id="shapes">1. Tell the OCI shapes apart, and match each to its consumer</h2>
+    <p><strong>OCI is at both ends.</strong> A bundle in the Catalog is an OCI artifact that is ready to be uploaded and used. A release from ConfigHub is an OCI artifact that is ready to run.</p>
+    <p>This page keeps the word bundle for the first of those. A bundle holds the flattened objects of one entry and their record. It carries a plan where the entry needs one. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines it.</p>
     <p>OCI is the common transport in this catalog, not a universal execution model. A package can carry exact objects plus a plan and source records. <a href="./d/docs/reference/config-catalog-doctrine.html#configuration-lifecycle-transport-and-runtime">Read the full passage</a>.</p>
     <p>The consumer still decides what runs. <code>cub installer</code> renders the objects, and ConfigHub stores and changes the records. Argo CD or Flux reconciles them, a cloud controller provisions infrastructure, and a model server answers inference requests.</p>
-    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
-    <p>The literal upload bundle and the portable deployment bundle can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
+    <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. The table below calls the last three an upload layout, rendered objects and a release. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
+    <p>An upload layout and rendered objects can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
     <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, and a rendered OCI holds one chosen result. A ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
     <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
     <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, and a Space release holds one selected and reviewed configuration. An installer-package URL is never a Space-release URL.</p>
@@ -9757,9 +9775,9 @@ function ociHtml(catalog) {
     <h3 id="shapes-table">Nine shapes, side by side</h3>
     <p>Every claim in this table cites its own source doc. Where a fact is missing, the cell says so instead of guessing.</p>
     ${markdownLikeTable([
-      ["Shape", "Media type", "Layout", "Producer", "Consumer", "Registry", "Signed by"],
-      ...shapeRows,
-    ], { rawColumns: [0, 1, 2, 3, 4, 5, 6] })}
+      ["Shape", "Media type", "Layout", "Producer", "Consumer", "Registry", "Signed by", "Carries a plan"],
+      ...shapeRows.map((row, index) => [...row, shapePlanCells[index]]),
+    ], { rawColumns: [0, 1, 2, 3, 4, 5, 6, 7] })}
     <h3 id="layouts">Which consumer needs which layout</h3>
     <ul>
       <li><code>cub installer setup --pull</code> and <code>cub installer inspect</code> need the installer-package layout, row one above.</li>
@@ -16139,7 +16157,7 @@ function entryPlanHtml(listing, siteHref) {
     : ({
     "no-retained-objects": "The Catalog keeps no single retained file for this entry, so it has no plain-objects test.",
     "verdict": verdict === "unsafe-to-flatten"
-      ? "This entry needs Helm when it is installed, so it has no plain-objects test."
+      ? "The Catalog publishes no plain objects for this entry, because its verdict is unsafe-to-flatten. It has no plain-objects test."
       : "The Catalog has not decided how this entry is kept, so it has no plain-objects test.",
     "needs-argo-cd": "This entry is a set of Argo CD Applications, so a test needs Argo CD. The Catalog has no such test yet.",
     "needs-sveltos": "This entry is one instruction to Sveltos on a management cluster. A test needs Sveltos and the clusters it selects, so the entry has no plain-objects test.",

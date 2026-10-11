@@ -145,7 +145,7 @@ package and controller mechanics, not a permanently hosted public workbench.
 | --- | --- | --- |
 | Installer package | Chart-specific preset configurations and rendering files | `cub installer` |
 | Literal configuration | Exact Kubernetes objects ready for ConfigHub upload | `cub variant upload` |
-| Portable deployment bundle | Reviewed Kubernetes objects in a controller-compatible layout | Flux, Argo CD, or another external consumer |
+| Rendered objects | Reviewed Kubernetes objects in a controller-compatible layout | Flux, Argo CD, or another external consumer |
 | ConfigHub release | A reviewed ConfigHub Space release | ConfigHub delivery through Flux or Argo CD |
 
 An OCI reference is not enough by itself. Check what the artifact contains and which
