@@ -668,7 +668,9 @@ b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1  cloudnative-pg
       </details>
         <details class="entry-inputs" data-entry-plan="cloudnative-pg-cloudnative-pg-0-29-0-default">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the 11 CloudNativePG CRDs. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>After you deliver.</strong> Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs. Who: the operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Prune protection for the keep-annotated CRDs. All eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/cloudnative-pg-cloudnative-pg-0-29-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/cloudnative-pg-cloudnative-pg-0-29-0/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         

@@ -257,6 +257,30 @@ const packagedLifecycleByRoot = new Map();
 // say when it applies.
 const PLAN_STEP_PHASES = ["preflight", "destination-resolution", "pre-apply", "apply", "post-apply", "observe"];
 const PLAN_STEP_DEFAULT_PHASE = "destination-resolution";
+// What a route names when its source names nobody to carry it out. The
+// records already use these words for a route that awaits a destination.
+const PLAN_STEP_UNASSIGNED_ACTOR = "selected destination actor";
+// The kinds of route a flattening verdict names in one line, the id each
+// gets, and the disposition class in the same file that is about it. The
+// first kind whose words appear in the line wins, so a line about a webhook
+// certificate is not read as a hook because it says "lifecycle route".
+// Who a route's own line says does the work, as in "supplied by the operator
+// after it starts". The words are kept as the file wrote them.
+const VERDICT_ROUTE_ACTOR = /\b[a-z]+ed by (the(?: (?!after\b|once\b|before\b|when\b|while\b|at\b|on\b|in\b|for\b|to\b)[a-z][a-z-]*)+)/i;
+// A step needs a phase that says when its work is due, because a reader and
+// the generated test scripts both act on it. An ordering of CRDs is due at
+// apply, as the same step from a bundle route document is. A webhook
+// certificate the line says the operator or a controller supplies is not
+// asked of anyone before delivery, so it is something to observe afterwards.
+// Any other step keeps the phase of a route nobody has placed, because the
+// verdict file does not say when or how it is done.
+const VERDICT_ROUTE_SELF_SUPPLIED = /\b(operator|controller)\b/i;
+const VERDICT_ROUTE_KINDS = [
+  { id: "crd-ordering", class: "crd-ordering", pattern: /\bCRD ordering\b/i, phase: "apply" },
+  { id: "prune-protection", class: "resource-policy-keep", pattern: /\bprune protection\b/i },
+  { id: "webhook-certificate", class: "webhook-ca", pattern: /\bwebhook\b|\bcaBundle\b|\bcert-manager\b|\bcertgen\b/i },
+  { id: "hooks", class: "helm-hooks", pattern: /\bhooks?\b|\blifecycle route\b/i },
+];
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -4710,6 +4734,63 @@ function testPlanSteps() {
     change(candidate);
     expectRefusal(() => validatePlanSteps(candidate), pattern, `self-test: a record with ${label} was accepted`);
   }
+  // A base whose only statement of a step is its verdict file gets one step
+  // for each route the verdict names, and may not be left with none.
+  const verdictSubject = intents.find((intent) => {
+    if ((intent.spec.lifecycle.variantRoutes ?? []).length > 0) return false;
+    const candidate = alignRecordWithProcessingModel(buildHelmRecord(structuredClone(intent)), intent, undefined);
+    return candidate.spec.processing.flattening.verdict === PLAN_STEP_VERDICT
+      && candidate.spec.lifecycle.requirements.items.length === 0
+      && packagePrerequisiteSteps(candidate, intent).length === 0
+      && verdictRouteNames(candidate.spec.processing.flattening.record).length > 0;
+  });
+  check(verdictSubject, "self-test: the plan-step fixtures need one flatten-with-routes Helm intent whose verdict file is the only place that names a route");
+  const fromVerdict = build(verdictSubject);
+  const verdictPath = fromVerdict.spec.processing.flattening.record;
+  const verdictRoutes = fromVerdict.spec.lifecycle.routeIntent.routes;
+  check(
+    verdictRoutes.length === verdictRouteNames(verdictPath).length
+      && verdictRoutes.every((route) => route.automatic === false
+        && route.sourceStatus === PLAN_STEP_NOT_RUN
+        && route.status === "requires-destination-resolution"
+        && route.evidence.includes(verdictPath)
+        && route.proposedActor),
+    "self-test: a base whose verdict file names routes did not get one not-run step for each, citing the verdict file",
+  );
+  check(
+    new Set(verdictRoutes.map((route) => route.id)).size === verdictRoutes.length,
+    "self-test: two steps from one verdict file share an id",
+  );
+  validatePlanSteps(fromVerdict);
+  const noStep = structuredClone(fromVerdict);
+  noStep.spec.lifecycle.routeIntent.routes = [];
+  noStep.spec.lifecycle.requirements.items = [];
+  expectRefusal(() => validatePlanSteps(noStep), /names no route, and it has the verdict file \S+ that states one/, "self-test: a record with no route beside a verdict file that names one was accepted");
+  check(
+    VERDICT_ROUTE_KINDS.find((kind) => kind.pattern.test("route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders"))?.id === "webhook-certificate"
+      && VERDICT_ROUTE_KINDS.find((kind) => kind.pattern.test("lifecycle route for the packaged chart's 8 non-test hook occurrence(s)"))?.id === "hooks",
+    "self-test: a webhook certificate route and a hook route are no longer told apart",
+  );
+  const hooksKind = VERDICT_ROUTE_KINDS.find((kind) => kind.id === "hooks");
+  const sweep = "8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read";
+  check(
+    verdictRouteDetail(VERDICT_ROUTE_KINDS[0], { detail: "12 occurrence(s) in the packaged chart" }) === ""
+      && verdictRouteDetail(hooksKind, { detail: sweep }) === "The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade"
+      && verdictRouteDetail(hooksKind, { detail: "3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read" }) === "The hook phase is post-install"
+      && verdictRouteDetail(VERDICT_ROUTE_KINDS[0], { detail: "the six CRDs render into this base, so per-file Units can race them" }).startsWith("the six CRDs"),
+    "self-test: a sweep count was kept as a step sentence, or a detail that explains something was dropped",
+  );
+  check(
+    VERDICT_ROUTE_ACTOR.exec("webhook caBundle supplied by the operator after it starts")?.[1] === "the operator"
+      && !VERDICT_ROUTE_ACTOR.test("CRD ordering declaration for the 11 CloudNativePG CRDs"),
+    "self-test: the actor a route line names is no longer read from it",
+  );
+  check(planCapital("post-delete cleanup") === "Post-delete cleanup", "self-test: a step sentence can start without a capital");
+  check(
+    ["apply", "observe"].every((phase) => PLAN_STEP_PHASES.includes(phase))
+      && verdictRoutes.every((route) => (route.id.startsWith("crd-ordering") ? route.phase === "apply" : PLAN_STEP_PHASES.includes(route.phase))),
+    "self-test: a CRD ordering step from a verdict file is not due at apply, or a step carries a phase the listing schema refuses",
+  );
   const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
   expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
 }
@@ -7139,7 +7220,7 @@ function routeStatusFor(sourceStatus) {
 //
 // A flatten-with-routes verdict says the exact objects travel with written
 // steps. When the source record names no route, the steps are still written
-// down in this repository. This pass reads three places, in this order, and
+// down in this repository. This pass reads four places, in this order, and
 // records one route for each step they state:
 //
 //   1. the route documents of the entry's published bundle, which the record
@@ -7148,15 +7229,18 @@ function routeStatusFor(sourceStatus) {
 //      requirement names, and each action in its PackagedLifecycleActions
 //      document;
 //   3. the target requirements of the source record that no step from 1 or 2
-//      covers.
+//      covers;
+//   4. the routes the flattening verdict file itself names, read only when
+//      the first three state nothing. Such a step is a name and no more: the
+//      verdict says the route is needed, and nobody has written it out.
 //
 // It reads and never invents. Every route cites the file it came from, and
 // the generator stops when a cited file is missing. A derived route is not
 // automatic and says not run, unless its document records an observed run,
 // and then it says observed. spec.lifecycle.resolution is left as it was.
-// A record with no listed requirement, no bundle route document and no
-// packaged prerequisite is left alone, because nothing committed names a
-// step for it.
+// A record with no listed requirement, no bundle route document, no packaged
+// prerequisite and no route named by its verdict file is left alone, because
+// nothing committed names a step for it.
 function recordPlanSteps(record, intent) {
   const lifecycle = record.spec.lifecycle;
   if (record.spec.processing?.flattening?.verdict !== PLAN_STEP_VERDICT) return record;
@@ -7235,8 +7319,93 @@ function derivePlanSteps(record, intent) {
   steps.forEach(withRefs);
   const covered = new Set(steps.flatMap((step) => step.requirementRefs));
   addAll(targetRequirementSteps(record, intent, covered), "the source record's target requirements");
+  if (steps.length === 0) addAll(verdictRouteSteps(record), "the flattening verdict file");
   steps.forEach(withRefs);
   return steps;
+}
+
+// The routes the record's own flattening verdict file names, one step each.
+// The verdict gives a route one line and no instructions, so the step says
+// that line and, where one disposition in the same file is about the same
+// kind of route and found it present, that disposition's detail. Nothing
+// else is known about the step, and nothing else is written.
+function verdictRouteSteps(record) {
+  const path = record.spec.processing?.flattening?.record;
+  const named = verdictRouteNames(path);
+  if (named.length === 0) return [];
+  const dispositions = readYaml(join(repoRoot, path)).spec?.dispositions;
+  const taken = new Map();
+  return named.map((sentence) => {
+    const kind = VERDICT_ROUTE_KINDS.find((candidate) => candidate.pattern.test(sentence));
+    // A hooks line that names only an upgrade, delete or rollback phase gets
+    // that phase in its id, so nothing reads it as work an install needs first.
+    const hookPhase = kind?.id === "hooks" && !/\b(?:pre|post)-install\b/i.test(sentence)
+      ? /\b((?:pre|post)-(?:delete|upgrade|rollback))\b/i.exec(sentence)?.[1]?.toLowerCase()
+      : null;
+    const stem = hookPhase ? `hooks-${hookPhase}` : kind?.id ?? planStepSlug(sentence);
+    const seen = (taken.get(stem) ?? 0) + 1;
+    taken.set(stem, seen);
+    const matching = (Array.isArray(dispositions) ? dispositions : [])
+      .filter((candidate) => kind && candidate.class === kind.class && candidate.finding === "present");
+    const disposition = matching.length === 1 ? matching[0] : null;
+    // The actor is the one the verdict file names. The route's own line comes
+    // first, in its own words. The disposition's "executed by" is used only
+    // when the line names nobody, so an actor never contradicts its step.
+    const namedInLine = VERDICT_ROUTE_ACTOR.exec(sentence);
+    const executedBy = /\bexecuted by (?:the )?([a-z][a-z -]*[a-z])\s*$/i.exec(String(disposition?.disposition ?? ""));
+    const selfSupplied = kind?.id === "webhook-certificate" && namedInLine && VERDICT_ROUTE_SELF_SUPPLIED.test(namedInLine[1]);
+    return {
+      id: seen === 1 ? stem : `${stem}-${seen}`,
+      phase: selfSupplied ? "observe" : kind?.phase ?? PLAN_STEP_DEFAULT_PHASE,
+      actor: namedInLine ? namedInLine[1].trim() : executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
+      mechanism: planSentences(planCapital(sentence), planCapital(verdictRouteDetail(kind, disposition))),
+      sourceStatus: PLAN_STEP_NOT_RUN,
+      supportedRuntimes: [],
+      checks: [],
+      evidence: planStepEvidence(path),
+      names: [],
+    };
+  });
+}
+
+// The route names a flattening verdict file lists, or none when the file is
+// missing, is not a verdict for this lane, or lists no route.
+function verdictRouteNames(path) {
+  if (!path || !existsRepo(path) || !/\.ya?ml$/.test(path)) return [];
+  const verdict = readYaml(join(repoRoot, path))?.spec?.verdict;
+  if (verdict?.lane !== PLAN_STEP_VERDICT || !Array.isArray(verdict.routes)) return [];
+  return verdict.routes.map((route) => String(route ?? "").trim()).filter(Boolean);
+}
+
+// The sentence a disposition adds to its route's line. A detail that explains
+// something is kept as the file wrote it. A detail that is only a count from
+// the chart sweep says nothing a reader can use, and it can disagree with the
+// number in the route's line, so it is left out. A hook count keeps one
+// thing, the hook phases it lists.
+function verdictRouteDetail(kind, disposition) {
+  const detail = String(disposition?.detail ?? "").trim();
+  if (!/\boccurrence\(s\)/.test(detail)) return detail;
+  const values = kind?.id === "hooks" ? /\(values: ([^)]+)\)/.exec(detail) : null;
+  if (!values) return "";
+  // Each group is the phases one hook carries. A group that adds no phase
+  // the sentence has not already named is not repeated.
+  const named = new Set();
+  const groups = values[1].split("|")
+    .map((group) => group.split(",").map((phase) => phase.trim()).filter(Boolean))
+    .filter((group) => {
+      const fresh = group.some((phase) => !named.has(phase));
+      group.forEach((phase) => named.add(phase));
+      return fresh;
+    });
+  if (groups.length === 0) return "";
+  const list = (words) => (words.length > 1 ? `${words.slice(0, -1).join(", ")} and ${words.at(-1)}` : words[0]);
+  return `The hook ${named.size === 1 ? "phase is" : "phases are"} ${groups.map(list).join(", and ")}`;
+}
+
+// A step sentence starts with a capital, whatever its first word is.
+function planCapital(text) {
+  const value = String(text ?? "").trim();
+  return value ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
 }
 
 // The steps one BundleRoute document states. A lifecycle-action document
@@ -7440,7 +7609,8 @@ function targetRequirementSteps(record, intent, covered) {
 // cites only files that exist. A route that says recorded-not-run is not
 // automatic, still awaits a destination and cites the file that states it.
 // A flatten-with-routes record names no route only when no listed
-// requirement, bundle route document or packaged action could give it one.
+// requirement, bundle route document, packaged action or route named by its
+// verdict file could give it one.
 function validatePlanSteps(record) {
   const name = record.metadata.name;
   const lifecycle = record.spec.lifecycle;
@@ -7465,6 +7635,9 @@ function validatePlanSteps(record) {
     (record.spec.delivery?.literalConfigOci?.routes ?? []).length > 0 ? "a bundle route document" : "",
     (packaged?.doc.spec?.bases ?? []).some((base) => base.name === record.spec.baseVariant.name && (base.actions ?? []).length > 0)
       ? `a packaged action in ${packaged.path}`
+      : "",
+    verdictRouteNames(record.spec.processing.flattening.record).length > 0
+      ? `the verdict file ${record.spec.processing.flattening.record}`
       : "",
   ].filter(Boolean);
   check(

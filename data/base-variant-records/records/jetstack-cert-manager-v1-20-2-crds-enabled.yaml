@@ -131,17 +131,101 @@ spec:
     installTimeStatus: "not-yet-declared"
   lifecycle:
     requirements:
-      status: "not-required"
+      status: "recorded"
       items:
-        []
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Prune protection for the 6 keep-annotated object(s) this base renders."
+        -
+          id: "webhook-certificate"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+        -
+          id: "hooks"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
     routeIntent:
-      status: "not-required"
+      status: "recorded"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Prune protection for the 6 keep-annotated object(s) this base renders."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        -
+          id: "webhook-certificate"
+          requirementRefs:
+            - "webhook-certificate"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        -
+          id: "hooks"
+          requirementRefs:
+            - "hooks"
+          phase: "destination-resolution"
+          proposedActor: "delivery runtime"
+          proposedMechanism: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
     targetFacts:
       status: "not-required"
       declared:

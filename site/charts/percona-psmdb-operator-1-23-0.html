@@ -715,7 +715,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </details>
         <details class="entry-inputs" data-entry-plan="percona-psmdb-operator-1-23-0-default">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the Percona Server for MongoDB CRDs. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/percona-psmdb-operator-1-23-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/percona-psmdb-operator-1-23-0/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         

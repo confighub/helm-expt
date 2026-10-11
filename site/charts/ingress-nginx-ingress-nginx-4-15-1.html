@@ -717,7 +717,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </details>
         <details class="entry-inputs" data-entry-plan="ingress-nginx-ingress-nginx-4-15-1-internal-clusterip">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade. Who: delivery runtime. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml">Read the receipt</a>.</p>
@@ -809,7 +811,9 @@ a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a  ingress-nginx-
       </details>
         <details class="entry-inputs" data-entry-plan="ingress-nginx-ingress-nginx-4-15-1-admission-disabled">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade. Who: delivery runtime. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml">Read the receipt</a>.</p>

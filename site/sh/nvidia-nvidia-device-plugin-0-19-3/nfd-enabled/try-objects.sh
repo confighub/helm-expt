@@ -116,3 +116,7 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 3 CRDs $crd_outcome. kubectl applied the other 23 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
+cat <<'EOF_NOT_RUN'
+   - Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.
+EOF_NOT_RUN

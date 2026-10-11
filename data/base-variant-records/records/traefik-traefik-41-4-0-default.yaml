@@ -133,15 +133,36 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD ordering declaration for the 25 gateway and traefik CRDs."
       records:
         - "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml"
+        - "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 25 gateway and traefik CRDs."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
       records:
         - "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml"
+        - "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:

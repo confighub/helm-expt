@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:198e73dc815e412ef34b15b908630df78dd629ef3f2bf3a46fa87ea88be0e36d",
+      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml",
-      "sha256": "sha256:584673d0daed5bce3edd5d28a84ceda49d76bb3ad99064c01b407ef6d83bb59e",
+      "sha256": "sha256:91679035770ab65d3776c7b47ecf480c47e9ecbe7f361f71ac5cad2f5a28c318",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -242,13 +242,66 @@
     "targetFactsStatus": "gap",
     "resolutionStatus": "gap",
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
-    "requirements": [],
-    "routes": [],
+    "requirements": [
+      {
+        "id": "hooks-post-delete",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base."
+      }
+    ],
+    "routes": [
+      {
+        "id": "hooks-post-delete",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "delivery runtime",
+        "mechanism": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "hooks-post-delete"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+        ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+        ]
+      }
+    ],
     "records": [
       {
         "name": "nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml",
         "path": "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-nfd-enabled.yaml",
+        "path": "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
       }
     ]
   },

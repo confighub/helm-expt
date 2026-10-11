@@ -900,7 +900,9 @@ d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f  nvidia-nvidia-
       </details>
         <details class="entry-inputs" data-entry-plan="nvidia-nvidia-device-plugin-0-19-3-nfd-enabled">
         <summary>This entry's plan, and how to test it</summary>
-        <p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>
+        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
+        <ul class="entry-inputs-list"><li><strong>Around a delete.</strong> Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base. Who: delivery runtime. <em>Written down. Not run by the Catalog.</em></li><li><strong>When you deliver.</strong> CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-nvidia-device-plugin-0-19-3/nfd-enabled/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nvidia-nvidia-device-plugin-0-19-3/nfd-enabled/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
         

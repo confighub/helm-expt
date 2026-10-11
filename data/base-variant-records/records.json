@@ -101173,16 +101173,89 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the 10 keep-annotated object(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
+              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 10 keep-annotated object(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
+              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -102152,16 +102225,89 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 11 CloudNativePG CRDs."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the keep-annotated CRDs. All eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "observe",
+                "proposedActor": "the operator",
+                "proposedMechanism": "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the keep-annotated CRDs. All eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+              "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -107858,16 +108004,89 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -108104,16 +108323,89 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
             ]
           },
           "targetFacts": {
@@ -108350,16 +108642,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml"
+              "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
             ]
           },
           "targetFacts": {
@@ -110756,16 +111075,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml",
+              "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml",
+              "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
             ]
           },
           "targetFacts": {
@@ -121470,16 +121816,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml",
+              "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml",
+              "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -124763,16 +125136,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml"
+              "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml",
+              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml"
+              "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml",
+              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -128031,16 +128454,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
+              "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml",
+              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
+              "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml",
+              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
             ]
           },
           "targetFacts": {
@@ -128569,16 +129019,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "hooks",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "hooks",
+                "requirementRefs": [
+                  "hooks"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
             ]
           },
           "targetFacts": {
@@ -129107,16 +129584,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "hooks",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
+              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "hooks",
+                "requirementRefs": [
+                  "hooks"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
+              "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
             ]
           },
           "targetFacts": {
@@ -131462,17 +131966,113 @@
         },
         "lifecycle": {
           "requirements": {
-            "status": "not-required",
-            "items": [],
+            "status": "recorded",
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the 6 keep-annotated object(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+              },
+              {
+                "id": "hooks",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "routeIntent": {
-            "status": "not-required",
-            "routes": [],
+            "status": "recorded",
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 6 keep-annotated object(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              },
+              {
+                "id": "hooks",
+                "requirementRefs": [
+                  "hooks"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "targetFacts": {
@@ -133055,16 +133655,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep."
+              },
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-1-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-1-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              },
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-1-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-1-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "targetFacts": {
@@ -139219,16 +139869,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml"
+              "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml",
+              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml"
+              "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml",
+              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -146570,16 +147270,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "webhook-certificate",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+              "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml",
+              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "webhook-certificate",
+                "requirementRefs": [
+                  "webhook-certificate"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+              "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml",
+              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -149111,16 +149861,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 5 MySQL Operator CRDs."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
+              "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml",
+              "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 5 MySQL Operator CRDs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
+              "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml",
+              "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -191346,16 +192123,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "hooks-post-delete",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+              },
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+              "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml",
+              "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "hooks-post-delete",
+                "requirementRefs": [
+                  "hooks-post-delete"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+                ]
+              },
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml"
+              "data/helm-render-intents/intents/nvidia-nvidia-device-plugin-0-19-3-nfd-enabled.yaml",
+              "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml"
             ]
           },
           "targetFacts": {
@@ -197563,16 +198390,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the Percona Server for MongoDB CRDs."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml"
+              "data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml",
+              "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the Percona Server for MongoDB CRDs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml"
+              "data/helm-render-intents/intents/percona-psmdb-operator-1-23-0-default.yaml",
+              "recipes/percona/psmdb-operator/1.23.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -223912,16 +224766,66 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders."
+              },
+              {
+                "id": "hooks",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml"
+              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+                ]
+              },
+              {
+                "id": "hooks",
+                "requirementRefs": [
+                  "hooks"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml"
+              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
             ]
           },
           "targetFacts": {
@@ -227994,16 +228898,43 @@
         "lifecycle": {
           "requirements": {
             "status": "gap",
-            "items": [],
+            "items": [
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the 25 gateway and traefik CRDs."
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml"
+              "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml",
+              "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
-            "routes": [],
+            "routes": [
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
+                ]
+              }
+            ],
             "records": [
-              "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml"
+              "data/helm-render-intents/intents/traefik-traefik-41-4-0-default.yaml",
+              "recipes/traefik/traefik/41.4.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {

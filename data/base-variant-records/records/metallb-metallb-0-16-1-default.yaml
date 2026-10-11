@@ -133,15 +133,57 @@ spec:
     requirements:
       status: "gap"
       items:
-        []
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders."
+        -
+          id: "webhook-certificate"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
       records:
         - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+        - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
-        []
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+        -
+          id: "webhook-certificate"
+          requirementRefs:
+            - "webhook-certificate"
+          phase: "destination-resolution"
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            []
+          checks:
+            []
+          evidence:
+            - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
       records:
         - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+        - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:

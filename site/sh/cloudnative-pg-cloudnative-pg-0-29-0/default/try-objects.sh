@@ -147,3 +147,8 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 11 CRDs $crd_outcome. kubectl applied the other 11 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
+cat <<'EOF_NOT_RUN'
+   - Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs.
+   - Prune protection for the keep-annotated CRDs. All eleven CRDs in templates/crds/crds.yaml carry helm.sh/resource-policy: keep, so they survive an uninstall and a delivery runtime must not prune them.
+EOF_NOT_RUN

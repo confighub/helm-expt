@@ -249,6 +249,15 @@ function packagedActionsFor(spec) {
     .flatMap((base) => base.actions ?? []);
 }
 
+// The routes a record's flattening verdict file names for this lane.
+function verdictRoutesFor(spec) {
+  const path = String(spec.processing?.flattening?.record ?? "");
+  if (!/\.ya?ml$/.test(path) || !existsSync(join(root, path))) return [];
+  const verdict = readYaml(join(root, path))?.spec?.verdict;
+  if (verdict?.lane !== "flatten-with-routes" || !Array.isArray(verdict.routes)) return [];
+  return verdict.routes.map((route) => String(route ?? "").trim()).filter(Boolean);
+}
+
 for (const record of records) {
   const name = record.metadata?.name ?? "unnamed-record";
   const spec = record.spec ?? {};
@@ -404,9 +413,10 @@ for (const record of records) {
   }
   // A flatten-with-routes verdict says steps travel with the objects. The
   // record may name none only when nothing committed states one for it: no
-  // listed requirement, no route document in its published bundle and no
-  // packaged action for its base. This check reads the package itself and
-  // does not trust the generator's own pass.
+  // listed requirement, no route document in its published bundle, no
+  // packaged action for its base and no route named by its own verdict file.
+  // This check reads the package and the verdict file itself and does not
+  // trust the generator's own pass.
   if (spec.processing?.flattening?.verdict === "flatten-with-routes") {
     flattenWithRoutes += 1;
     if (routeIntents.length === 0) {
@@ -415,6 +425,7 @@ for (const record of records) {
         requirements.length > 0 ? `${requirements.length} listed requirement(s)` : "",
         (spec.delivery?.literalConfigOci?.routes ?? []).length > 0 ? "a bundle route document" : "",
         packagedActionsFor(spec).length > 0 ? "a packaged lifecycle action" : "",
+        verdictRoutesFor(spec).length > 0 ? `the verdict file ${spec.processing.flattening.record}` : "",
       ].filter(Boolean);
       requireCondition(
         stated.length === 0,
