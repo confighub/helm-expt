@@ -4882,7 +4882,7 @@ function configHtml(catalog) {
       ["Word", "What it is", "For the GPU Operator"],
       ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
       ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
-      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept with its plan.", "24 objects and three plan documents."],
+      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept in OCI. It carries a plan where one is needed.", "24 objects and three plan documents."],
       ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
       ["Deployment", "One variant on one cluster, applied by a controller such as Argo CD.", "Done once, on a cluster with no GPUs."],
     ])}

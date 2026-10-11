@@ -38,12 +38,13 @@ ConfigHub works on what comes out of it.
 | --- | --- | --- | --- |
 | **Pack** | A data pack. Your overrides, written as data and laid over an item in a source catalog. | One or more for a source | For Helm, the values behind each preset, kept under `recipes/`. For AICR, a data pack. |
 | **Recipe** | One pinned choice made from a source and its pack. | Many for a source | In the Catalog's record. |
-| **Bundle** | The flattened objects, the plan, and the record of how they were made, for one recipe. | One for a recipe | In this repository, and in OCI where one is published. |
+| **Bundle** | The flattened objects and the record of how they were made, for one recipe. It carries a plan where the entry needs one. | One for a recipe | In this repository, and in OCI where one is published. |
 | **Variant** | A reviewed change to a bundle for one environment, region or customer. | Many for a bundle | In ConfigHub. |
 | **Deployment** | One variant, or one bundle, on one cluster. The plan is carried out there and the result is recorded. | One for each cluster | On the cluster. A receipt records it. |
 
 The plan is the part of a bundle that plain objects cannot carry, such as an
-order, a job at an upgrade, or a choice that is still open. The bundle of a
+order, a job at an upgrade, or a choice that is still open. An entry that
+needs none of that has a bundle with no plan. The bundle of a
 recipe is its base variant, in the form that is kept and shipped.
 
 This page writes deployment in lower case for the fifth word. `Deployment` in
@@ -65,6 +66,10 @@ no account needed        |   ConfigHub
 - **Right of the line is what ConfigHub adds.** That is the variants, the
   review and promotion, and the release that goes back out as OCI for Argo CD
   or Flux.
+
+OCI is at both ends. A bundle in the Catalog is an OCI artifact that is ready
+to be uploaded and used. A release from ConfigHub is an OCI artifact that is
+ready to run.
 
 A deployment does not have to go through ConfigHub. The test scripts on the
 entry pages apply a bundle with `kubectl`, and Argo CD or Flux can pull a
@@ -604,10 +609,12 @@ A verdict on this page is always a flattening verdict, which is about a
 bundle. AICR's word for the outcome of a run is written here as a validation
 result, which is about a deployment. That point is settled.
 
-- **Bundle on the OCI page.** In this model a bundle is the flattened objects,
-  the plan and the record. The [OCI page](../../site/oci.html) uses the word
-  for four shapes, and three of them need another noun. An evidence bundle
-  always keeps its adjective.
+- **Bundle on the OCI page.** In this model a bundle is the certified bundle,
+  which is flattened objects, a record, and a plan where one is needed. The
+  [OCI page](../../site/oci.html) uses the word for four shapes. The likely
+  answer is to keep it for the certified bundle and to call the other three
+  rendered objects, an upload layout and a release. The OCI page has not been
+  changed. An evidence bundle always keeps its adjective.
 - **Where a receipt lives.** One design attaches it to the bundle in the
   registry, and another keeps it beside the bundle. The
   [OCI page](../../site/oci.html) carries the same open point.
