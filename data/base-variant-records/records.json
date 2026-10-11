@@ -132158,7 +132158,7 @@
                 "requirementRefs": [
                   "hooks"
                 ],
-                "phase": "destination-resolution",
+                "phase": "post-apply",
                 "proposedActor": "delivery runtime",
                 "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards.",
                 "automatic": false,

@@ -22,7 +22,7 @@ retained objects and from one live run on a throwaway local cluster.
 | `evidence` | The committed files that show the reading. An item may name one `object` as `Kind namespace/name`, or `Kind name` for an object with no namespace. It may list `absentKinds` that the file must not hold. `shows` quotes the field, argument or annotation. |
 | `observed` | The dated log of the live run, and what the run saw, with numbers. A reading has no `observed` block when the run did not carry out the step itself. A hooks step whose hook Job did not run is one, and its reading cites the log as evidence instead. |
 
-## The five readings
+## The six readings
 
 | Reading | Meaning | Phase of the step |
 | --- | --- | --- |

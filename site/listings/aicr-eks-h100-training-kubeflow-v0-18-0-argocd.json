@@ -5,7 +5,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:1e45fbf05cea3255d46aa428871ea92aabfb411c69510b67ed6c6b8c9019eabc",
+      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
@@ -23,7 +23,8 @@
     "format": "aicr",
     "formatLabel": "AICR recipe",
     "version": "v0.18.0",
-    "base": "argocd"
+    "base": "argocd",
+    "page": "https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html"
   },
   "discovery": {
     "status": "not-classified",

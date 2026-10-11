@@ -725,7 +725,7 @@ c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db  prometheus-com
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/prometheus-community-kube-prometheus-stack-84-4-0/aicr-eks-training-v0-20-0/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 3 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 3 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 4 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -829,7 +829,7 @@ c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db  prometheus-com
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/prometheus-community-kube-prometheus-stack-84-4-0/aicr-eks-training-v1-0-0/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 3 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 3 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 4 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

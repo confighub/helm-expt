@@ -614,7 +614,46 @@ servicemonitor.monitoring.coreos.com/k8s-ephemeral-storage-metrics created
 - No script ran with `APPLY_CRDS=1`, so the case where the script replaces differing CRDs was not exercised.
 - No upgrade, delete or rollback step of any plan was run. Each script names those steps in its last lines and leaves them to the reader.
 - The walk checked that workloads started. It did not check that any of them did useful work. Valkey, Argo CD and the blackbox exporter were given no request.
-- Linux was not tested. The scripts fall back to `sha256sum` where `shasum` is missing, and that branch did not run.
+- Linux was not tested. The scripts fall back to `sha256sum` where `shasum` is missing. That branch did not run in this walk. The section below records a later run of it on macOS.
+
+## Added later the same day: the `sha256sum` branch
+
+The scripts use `shasum` and fall back to `sha256sum`. This run gave one
+script a tool directory that holds `sha256sum` and no `shasum`, and no cluster.
+It used the metrics-server 3.14.0 `default` script from a checkout.
+
+```
+$ env -i HOME=<work> PATH=<work>/bin KUBECONFIG=<work>/no-such-kubeconfig bash -c 'command -v shasum || echo shasum-is-not-on-PATH; command -v sha256sum'
+shasum-is-not-on-PATH
+<work>/bin/sha256sum
+[exit 0 at 10:28:38Z]
+
+$ env -i HOME=<work> PATH=<work>/bin KUBECONFIG=<work>/no-such-kubeconfig bash ./try-objects.sh
+
+>> Fetch the retained objects into ./metrics-server-metrics-server-3-14-0-default-objects/objects.yaml
+
+>> Check the file against the SHA-256 in the listing
+The file matches: sha256 6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2
+
+>> Split the file into its 9 objects. The cluster is untouched so far
+doc-0001.yaml
+doc-0002.yaml
+doc-0003.yaml
+doc-0004.yaml
+doc-0005.yaml
+doc-0006.yaml
+doc-0007.yaml
+doc-0008.yaml
+doc-0009.yaml
+
+>> Check that kubectl reaches a cluster
+kubectl cannot reach a cluster. Point it at a throwaway cluster and re-run this script.
+[exit 1 at 10:28:39Z]
+```
+
+The script took the fallback, matched the SHA-256 in the listing, split the
+file, and stopped because it had no cluster. The `sha256sum` here is the one
+macOS ships. A Linux machine was still not used.
 
 ## Clean-up
 

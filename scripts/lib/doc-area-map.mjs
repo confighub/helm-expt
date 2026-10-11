@@ -125,6 +125,7 @@ const DOC_AREA = {
   "docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.md": "operate",
   "docs/user/live-walk-test-plain-objects-2026-10-11.md": "operate",
   "docs/user/live-walk-plan-step-readings-2026-10-11.md": "operate",
+  "docs/user/live-walk-aicr-kind-argocd-2026-10-11.md": "operate",
   "docs/user/live-parity.md": "catalog",
   "docs/user/maintenance-sla.md": "catalog",
   "docs/user/model-and-vocabulary.md": "config",
