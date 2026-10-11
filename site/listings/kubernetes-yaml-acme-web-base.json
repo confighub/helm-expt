@@ -23,7 +23,8 @@
     "format": "kubernetes-yaml",
     "formatLabel": "Plain Kubernetes YAML",
     "version": "source-r001",
-    "base": "base"
+    "base": "base",
+    "page": "https://confighub.github.io/helm-expt/site/d/examples/plain-yaml/acme-web/README.html"
   },
   "discovery": {
     "status": "not-classified",

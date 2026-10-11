@@ -723,7 +723,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-k8s-nim-operator-3-1-0/aicr-eks-inference/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

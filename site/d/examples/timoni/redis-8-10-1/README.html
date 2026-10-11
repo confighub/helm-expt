@@ -591,7 +591,8 @@ timoni -n redis build redis oci://ghcr.io/stefanprodan/modules/redis -v 8.10.1 -
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the ServiceAccount, ConfigMap, master Service, persistent volume claim, and master Deployment first; wait for the master to become ready before continuing. Who: selected destination actor. <em>Recorded as recorded-source-behavior.</em></li><li><strong>When you deliver.</strong> Apply the read-only replica Deployment and Service after the master is ready. Who: selected destination actor. <em>Recorded as recorded-source-behavior.</em></li><li><strong>After you deliver.</strong> Run the generated redis-cli PING Job after apply. The default Catalog selection leaves this test disabled. Who: selected destination actor. <em>Recorded as disabled-by-default.</em></li></ul>
         
         
-        <p><strong>Why there is no plain-objects test.</strong> This entry has no page of its own in the listing yet, so no plain-objects test is generated for it.</p>
+        <p><strong>Test the plain objects yourself.</strong> <a href="../../../../sh/entries/timoni-redis-8-10-1-default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The plan names an order for the objects in 2 steps. The script applies them all at once and does not follow it. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

@@ -23,6 +23,7 @@ import { join } from "node:path";
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
+import { entryPageWithoutChart } from "./lib/entry-page.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
@@ -517,8 +518,13 @@ function buildIdentity(id, labels, spec, format) {
     version: labels.sourceVersion || spec.source?.version || "",
     base: labels.base || spec.baseVariant?.name || "",
   };
+  // Every entry names the page a person reads it on. A chart version has its
+  // own page. Any other entry has the page the shared rule gives it, which
+  // may be a page it shares with other entries.
   const page = chartPageName(spec);
+  const other = page ? null : entryPageWithoutChart({ id, format, name: identity.name, objects: spec.configuration?.objects }, repoRoot);
   if (page) identity.page = `${SITE_BASE_URL}charts/${page}`;
+  else if (other) identity.page = `${SITE_BASE_URL}${other.sitePath}`;
   return identity;
 }
 

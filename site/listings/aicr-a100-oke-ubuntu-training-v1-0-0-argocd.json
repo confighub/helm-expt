@@ -23,7 +23,8 @@
     "format": "aicr",
     "formatLabel": "AICR recipe",
     "version": "v1.0.0",
-    "base": "argocd"
+    "base": "argocd",
+    "page": "https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/a100-oke-ubuntu-training.html"
   },
   "discovery": {
     "status": "not-classified",

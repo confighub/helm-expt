@@ -23,7 +23,8 @@
     "format": "aicr",
     "formatLabel": "AICR recipe",
     "version": "v0.14.0",
-    "base": "argocd"
+    "base": "argocd",
+    "page": "https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html"
   },
   "discovery": {
     "status": "not-classified",

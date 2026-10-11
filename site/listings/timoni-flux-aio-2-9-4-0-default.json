@@ -23,7 +23,8 @@
     "format": "timoni",
     "formatLabel": "Timoni module",
     "version": "2.9.4-0",
-    "base": "default"
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/d/examples/timoni/flux-aio-2-9-4-0/README.html"
   },
   "discovery": {
     "status": "not-classified",

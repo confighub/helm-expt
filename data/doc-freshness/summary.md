@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `95cf860d05`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `8e07ced475`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 487 |
+| Authored docs tracked | 488 |
 | Fresh (no linked source newer than the doc) | 64 |
 | **Review-due** | 96 |
-| No linked evidence sources (cannot auto-trigger) | 327 |
+| No linked evidence sources (cannot auto-trigger) | 328 |
 
 ## Review queue
 
@@ -104,7 +104,7 @@ most recently changed triggers.
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 33 | `data/chart-skills/summary.md (2026-10-09)` |
 | [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-09-07 | 32 | `data/aicr-platform-evidence/summary.md (2026-10-09)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 32 | `scripts/lib/configuration-questions.mjs (2026-09-30)`<br>`tests/doctrine.md (2026-09-02)` |
-| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 31 | `data/base-variant-records/records.json (2026-10-10)` |
+| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 31 | `data/base-variant-records/records.json (2026-10-11)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-08-02 | 31 | `tests/doctrine.md (2026-09-02)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 25 | `tests/doctrine.md (2026-09-02)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
@@ -112,7 +112,7 @@ most recently changed triggers.
 | [docs/reference/deciding-a-flattening-lane.md](../../docs/reference/deciding-a-flattening-lane.md) | reference | 2026-08-09 | 24 | `tests/doctrine.md (2026-09-02)` |
 | [docs/reference/workshop-in-depth.md](../../docs/reference/workshop-in-depth.md) | reference | 2026-09-15 | 24 | `data/extension-slots/summary.md (2026-10-09)`<br>`data/runtime-gitops/summary.md (2026-10-09)`<br>`data/status-dashboard/summary.md (2026-10-09)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-09-26 | 15 | `data/base-variant-records/summary.md (2026-10-10)`<br>`data/app-readiness/summary.md (2026-10-09)`<br>`data/helm-render-intents/summary.md (2026-10-09)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-09-26 | 15 | `data/base-variant-records/summary.md (2026-10-11)`<br>`data/app-readiness/summary.md (2026-10-09)`<br>`data/helm-render-intents/summary.md (2026-10-09)` |
 | [README.md](../../README.md) | root | 2026-09-26 | 13 | `CATALOG.md (2026-10-09)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-28 | 11 | `data/flattening-safety/summary.md (2026-10-09)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-29 | 11 | `data/confighub-example-guides/summary.md (2026-10-09)` |
@@ -129,7 +129,7 @@ most recently changed triggers.
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-10-08 | 1 | `data/variant-promotion/summary.md (2026-10-09)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
-| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-10-10 | 1 | `data/base-variant-records/summary.md (2026-10-10)` |
+| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-10-10 | 1 | `data/base-variant-records/summary.md (2026-10-11)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 
 ## Docs with no linked evidence sources
@@ -433,6 +433,7 @@ into this freshness model.
 - [docs/user/introduction-to-the-harness.md](../../docs/user/introduction-to-the-harness.md)
 - [docs/user/large-config-operations.md](../../docs/user/large-config-operations.md)
 - [docs/user/live-run-log-2026-10-08.md](../../docs/user/live-run-log-2026-10-08.md)
+- [docs/user/live-walk-aicr-kind-argocd-2026-10-11.md](../../docs/user/live-walk-aicr-kind-argocd-2026-10-11.md)
 - [docs/user/live-walk-change-review-2026-10-09.md](../../docs/user/live-walk-change-review-2026-10-09.md)
 - [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)

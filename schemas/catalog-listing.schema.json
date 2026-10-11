@@ -106,7 +106,7 @@
         "page": {
           "type": "string",
           "format": "uri",
-          "description": "The human page for this entry, when one is published. Absent when the catalog has no page for it."
+          "description": "The page a person reads this entry on. A chart version has its own page. Any other entry has the page the Catalog places it on, which it may share with other entries."
         }
       }
     },

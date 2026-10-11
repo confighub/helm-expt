@@ -23,7 +23,8 @@
     "format": "kubara",
     "formatLabel": "Kubara platform",
     "version": "v0.12.0",
-    "base": "base"
+    "base": "base",
+    "page": "https://confighub.github.io/helm-expt/site/d/examples/kubara/local-platform/README.html"
   },
   "discovery": {
     "status": "not-classified",

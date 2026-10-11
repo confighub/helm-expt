@@ -580,7 +580,8 @@
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources. Who: selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li><li><strong>After you deliver.</strong> Observe source, kustomize, helm, notification, and watcher controller readiness after apply. Who: selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li></ul>
         
         
-        <p><strong>Why there is no plain-objects test.</strong> This entry has no page of its own in the listing yet, so no plain-objects test is generated for it.</p>
+        <p><strong>Test the plain objects yourself.</strong> <a href="../../../../sh/entries/timoni-flux-aio-2-9-4-0-default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../../../../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

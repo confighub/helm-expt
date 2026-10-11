@@ -23,7 +23,8 @@
     "format": "sveltos",
     "formatLabel": "Sveltos ClusterProfile",
     "version": "v1.12.0",
-    "base": "staging"
+    "base": "staging",
+    "page": "https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html"
   },
   "discovery": {
     "status": "not-classified",
