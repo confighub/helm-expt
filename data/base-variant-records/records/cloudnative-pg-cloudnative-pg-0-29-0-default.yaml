@@ -158,7 +158,7 @@ spec:
           id: "crd-ordering"
           requirementRefs:
             - "crd-ordering"
-          phase: "destination-resolution"
+          phase: "apply"
           proposedActor: "selected destination actor"
           proposedMechanism: "CRD ordering declaration for the 11 CloudNativePG CRDs."
           automatic: false
@@ -174,7 +174,7 @@ spec:
           id: "webhook-certificate"
           requirementRefs:
             - "webhook-certificate"
-          phase: "destination-resolution"
+          phase: "observe"
           proposedActor: "the operator"
           proposedMechanism: "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs."
           automatic: false

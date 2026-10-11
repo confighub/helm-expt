@@ -267,8 +267,16 @@ const PLAN_STEP_UNASSIGNED_ACTOR = "selected destination actor";
 // Who a route's own line says does the work, as in "supplied by the operator
 // after it starts". The words are kept as the file wrote them.
 const VERDICT_ROUTE_ACTOR = /\b[a-z]+ed by (the(?: (?!after\b|once\b|before\b|when\b|while\b|at\b|on\b|in\b|for\b|to\b)[a-z][a-z-]*)+)/i;
+// A step needs a phase that says when its work is due, because a reader and
+// the generated test scripts both act on it. An ordering of CRDs is due at
+// apply, as the same step from a bundle route document is. A webhook
+// certificate the line says the operator or a controller supplies is not
+// asked of anyone before delivery, so it is something to observe afterwards.
+// Any other step keeps the phase of a route nobody has placed, because the
+// verdict file does not say when or how it is done.
+const VERDICT_ROUTE_SELF_SUPPLIED = /\b(operator|controller)\b/i;
 const VERDICT_ROUTE_KINDS = [
-  { id: "crd-ordering", class: "crd-ordering", pattern: /\bCRD ordering\b/i },
+  { id: "crd-ordering", class: "crd-ordering", pattern: /\bCRD ordering\b/i, phase: "apply" },
   { id: "prune-protection", class: "resource-policy-keep", pattern: /\bprune protection\b/i },
   { id: "webhook-certificate", class: "webhook-ca", pattern: /\bwebhook\b|\bcaBundle\b|\bcert-manager\b|\bcertgen\b/i },
   { id: "hooks", class: "helm-hooks", pattern: /\bhooks?\b|\blifecycle route\b/i },
@@ -4778,6 +4786,11 @@ function testPlanSteps() {
     "self-test: the actor a route line names is no longer read from it",
   );
   check(planCapital("post-delete cleanup") === "Post-delete cleanup", "self-test: a step sentence can start without a capital");
+  check(
+    ["apply", "observe"].every((phase) => PLAN_STEP_PHASES.includes(phase))
+      && verdictRoutes.every((route) => (route.id.startsWith("crd-ordering") ? route.phase === "apply" : PLAN_STEP_PHASES.includes(route.phase))),
+    "self-test: a CRD ordering step from a verdict file is not due at apply, or a step carries a phase the listing schema refuses",
+  );
   const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
   expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
 }
@@ -7335,9 +7348,10 @@ function verdictRouteSteps(record) {
     // when the line names nobody, so an actor never contradicts its step.
     const namedInLine = VERDICT_ROUTE_ACTOR.exec(sentence);
     const executedBy = /\bexecuted by (?:the )?([a-z][a-z -]*[a-z])\s*$/i.exec(String(disposition?.disposition ?? ""));
+    const selfSupplied = kind?.id === "webhook-certificate" && namedInLine && VERDICT_ROUTE_SELF_SUPPLIED.test(namedInLine[1]);
     return {
       id: seen === 1 ? stem : `${stem}-${seen}`,
-      phase: PLAN_STEP_DEFAULT_PHASE,
+      phase: selfSupplied ? "observe" : kind?.phase ?? PLAN_STEP_DEFAULT_PHASE,
       actor: namedInLine ? namedInLine[1].trim() : executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
       mechanism: planSentences(planCapital(sentence), planCapital(verdictRouteDetail(kind, disposition))),
       sourceStatus: PLAN_STEP_NOT_RUN,

@@ -50,6 +50,19 @@ for n in 0005 0006 0007 0008 0009 0010 0011 0012 0013 0014 0015 0016; do mv "$wo
 for n in 0017 0018 0019 0020 0021 0022 0023 0027 0028 0029 0030; do mv "$work/docs/doc-$n.yaml" "$work/rest/"; done
 ls "$work/crds" "$work/rest"
 
+if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
+  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
+  cat >&2 <<'EOF_REQUIREMENTS'
+This script cannot carry out this step of the plan. It is yours to do, with your own values:
+  - Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.
+Nothing was applied. Complete it before you apply the objects.
+When it is done, re-run with:
+  REQUIREMENTS_READY=1 bash try-objects.sh
+EOF_REQUIREMENTS
+  exit 1
+fi
+say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
+
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
   printf 'kubectl cannot reach a cluster. Point it at a throwaway cluster and re-run this script.\n' >&2
@@ -116,3 +129,7 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 3 CRDs $crd_outcome. kubectl applied the other 23 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
+cat <<'EOF_NOT_RUN'
+   - Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.
+EOF_NOT_RUN

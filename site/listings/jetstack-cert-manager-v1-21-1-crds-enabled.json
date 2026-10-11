@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:13288dc6b71a3e3d19885bc43f12045defbc9bfce3d304a314121c91ab0129c1",
+      "sha256": "sha256:86f0e4c0368e14d045aa851dbb33d92bef5fc8fbba24a19f38908f3da4393ecb",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-21-1-crds-enabled.yaml",
-      "sha256": "sha256:fbec012f8376c79cfee0035ab2eeb7e85654b64260b163a5b08e0e34052fe943",
+      "sha256": "sha256:5b0a51c6119557042fc7bc87f753aa771b3957bd3d92cb1a8826125a1e07ee75",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-21-1-crds-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -262,7 +262,7 @@
       },
       {
         "id": "crd-ordering",
-        "phase": "destination-resolution",
+        "phase": "apply",
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,

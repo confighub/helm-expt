@@ -148,7 +148,7 @@ spec:
           id: "crd-ordering"
           requirementRefs:
             - "crd-ordering"
-          phase: "destination-resolution"
+          phase: "apply"
           proposedActor: "selected destination actor"
           proposedMechanism: "CRD ordering declaration for the 5 MySQL Operator CRDs."
           automatic: false

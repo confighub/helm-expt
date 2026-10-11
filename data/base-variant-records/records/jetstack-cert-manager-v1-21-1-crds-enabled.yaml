@@ -169,7 +169,7 @@ spec:
           id: "crd-ordering"
           requirementRefs:
             - "crd-ordering"
-          phase: "destination-resolution"
+          phase: "apply"
           proposedActor: "selected destination actor"
           proposedMechanism: "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them."
           automatic: false

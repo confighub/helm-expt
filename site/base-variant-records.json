@@ -101206,7 +101206,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -102258,7 +102258,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs.",
                 "automatic": false,
@@ -102275,7 +102275,7 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
+                "phase": "observe",
                 "proposedActor": "the operator",
                 "proposedMechanism": "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs.",
                 "automatic": false,
@@ -108037,7 +108037,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -108356,7 +108356,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -111096,7 +111096,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -121837,7 +121837,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
@@ -125163,7 +125163,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -132006,7 +132006,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -133699,7 +133699,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them.",
                 "automatic": false,
@@ -139896,7 +139896,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -147297,7 +147297,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -149882,7 +149882,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 5 MySQL Operator CRDs.",
                 "automatic": false,
@@ -192167,7 +192167,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base.",
                 "automatic": false,
@@ -198411,7 +198411,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the Percona Server for MongoDB CRDs.",
                 "automatic": false,
@@ -224793,7 +224793,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
@@ -228919,7 +228919,7 @@
                 "requirementRefs": [
                   "crd-ordering"
                 ],
-                "phase": "destination-resolution",
+                "phase": "apply",
                 "proposedActor": "selected destination actor",
                 "proposedMechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs.",
                 "automatic": false,

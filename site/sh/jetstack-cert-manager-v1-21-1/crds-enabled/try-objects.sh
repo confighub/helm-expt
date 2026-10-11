@@ -135,3 +135,7 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 6 CRDs $crd_outcome. kubectl applied the other 40 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
+cat <<'EOF_NOT_RUN'
+   - Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep.
+EOF_NOT_RUN

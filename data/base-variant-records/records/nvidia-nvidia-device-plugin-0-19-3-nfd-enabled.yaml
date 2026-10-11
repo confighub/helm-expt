@@ -169,7 +169,7 @@ spec:
           id: "crd-ordering"
           requirementRefs:
             - "crd-ordering"
-          phase: "destination-resolution"
+          phase: "apply"
           proposedActor: "selected destination actor"
           proposedMechanism: "CRD ordering declaration for the three NodeFeature CRDs. Three NodeFeature CRDs render in this base."
           automatic: false
