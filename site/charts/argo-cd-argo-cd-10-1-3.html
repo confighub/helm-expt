@@ -620,6 +620,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/argo-cd-argo-cd-10-1-3/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog ran it on a local cluster, and <a href="../d/docs/user/live-walk-test-plain-objects-2026-10-11.html">the log</a> shows the run.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -722,6 +723,7 @@ b2cbe21e58abbf285edb7710df9df299c93bb288293eed091ef7e24f83f850b5  argo-cd-argo-c
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/argo-cd-argo-cd-10-1-3/no-crds/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 2 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
