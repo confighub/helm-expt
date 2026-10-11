@@ -79,8 +79,20 @@ if ! kubectl get crd/nvidiadrivers.nvidia.com >/dev/null 2>&1; then
 fi
 if [ "$missing_crds" -eq 1 ]; then
   kubectl apply --server-side -f ./nvidia-gpu-operator-v26-7-1-preinstalled-driver/package/prerequisites/target-facts/preinstalled-driver-crds.yaml
+elif kubectl diff --server-side -f ./nvidia-gpu-operator-v26-7-1-preinstalled-driver/package/prerequisites/target-facts/preinstalled-driver-crds.yaml >/dev/null 2>&1; then
+  say "The required CRDs already exist and match this package; leave them under their current owner"
+elif [ "${APPLY_CRDS:-0}" = "1" ]; then
+  say "The existing CRDs differ from this package. APPLY_CRDS=1 is set, so apply the package's CRDs"
+  kubectl apply --server-side -f ./nvidia-gpu-operator-v26-7-1-preinstalled-driver/package/prerequisites/target-facts/preinstalled-driver-crds.yaml
 else
-  say "The required CRDs already exist; leave them under their current owner"
+  say "The CRDs already exist and differ from this package, or another tool owns them"
+  cat <<'EOF_CRDS'
+This script does not change CRDs it did not just create.
+If this is an upgrade, the objects that follow may need the newer CRDs.
+To let this script apply the package's CRDs, re-run with:
+  APPLY_CRDS=1 bash try.sh
+EOF_CRDS
+  exit 1
 fi
 wait_for_crd clusterpolicies.nvidia.com
 wait_for_crd computedomaincliques.resource.nvidia.com

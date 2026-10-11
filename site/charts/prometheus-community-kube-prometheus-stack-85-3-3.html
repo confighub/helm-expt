@@ -723,6 +723,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
@@ -823,6 +824,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The no-crds render omits CRDs, so the package applies the locked CRDs before the workload. Who: cub installer package script. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> The run removes both completed Jobs and their temporary RBAC objects. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> The package runs the chart's webhook patch Job after the webhook objects exist. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> The package runs the chart's certificate creation Job before applying the admission webhooks. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> The certificate Job creates the required admission Secret with ca, cert, and key. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads. Who: delivery workflow. <em>Seen in a recorded run.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

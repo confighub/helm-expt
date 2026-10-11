@@ -723,6 +723,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/karpenter-karpenter-1-14-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
@@ -815,6 +816,7 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/karpenter-karpenter-1-14-0/crds-managed/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -910,6 +912,7 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Before you deliver.</strong> The destination must provide the recorded topology before apply. replicas 1 needs one schedulable non-Karpenter node on the system nodegroup. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The value controller.env[AWS_REGION] must be set before render. AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup. Who: operator. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/karpenter-karpenter-1-14-0/eks-inference/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

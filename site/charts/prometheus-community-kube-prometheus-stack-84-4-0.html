@@ -621,6 +621,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         
         
         
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
@@ -723,6 +724,7 @@ c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db  prometheus-com
         
         
         
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
@@ -822,6 +824,7 @@ c5dc2d69b5f9d0163166cd07485ee067e96702856fbdb5e0af3de88df0a348db  prometheus-com
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>After you deliver.</strong> Your cluster - at uninstall, automatically Who: Kubernetes. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> Your delivery - a post-apply check (receipted) Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> kubectl apply -f &lt;preflight-job&gt;; kubectl wait --for=condition=complete job/&lt;name&gt; Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> kubectl apply -f &lt;action-job&gt;; kubectl wait --for=condition=complete job/&lt;name&gt; Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> Your applier - must apply CRDs before dependent objects Who: whatever applies the objects. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> # create the required target facts (Secret/StorageClass/etc.) before apply Who: operator. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations Who: delivery workflow. <em>Seen in a recorded run.</em></li></ul>
+        
         
         
         

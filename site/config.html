@@ -840,7 +840,9 @@
 bash ./try.sh</code></pre>
     <p>The script creates the namespace, applies the eight CRDs and waits for each one, then applies the rest. Its output names each step as it runs.</p>
     <p>The Catalog ran it on 10 October 2026 on a local cluster with no GPUs. It finished in 8 seconds. The operator and the node-feature-discovery pods came up, and the ClusterPolicy reported ready. The <a href="./d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html">log of that run</a> has every line.</p>
-    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. Each entry page links its own script under "Advanced: apply it or upload it".</p>
+    <p>On a cluster that already holds older CRDs, the script stops and says how to let it apply the package's own.</p>
+    <p>The script covers install. It does not run the Jobs the plan names for an upgrade or a delete, and its last line names them. The Catalog carried out those steps by hand for the GPU Operator on 11 October 2026, from 26.3.3 to 26.7.1. The pre-upgrade Job moved the CRDs, and the post-delete Job removed all 55 node-feature-discovery labels. The <a href="./d/docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.html">log of that run</a> has every line.</p>
+    <p>Each entry page links its own script under "Advanced: apply it or upload it".</p>
     <h3 id="what-a-plan-holds">What a plan can hold</h3>
     <p>A plan can hold five kinds of step. Each kind is due at a different time.</p>
     <div class="card"><table>

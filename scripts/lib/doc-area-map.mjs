@@ -121,6 +121,7 @@ const DOC_AREA = {
   "docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md": "operate",
   "docs/user/live-walk-change-review-2026-10-09.md": "operate",
   "docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md": "operate",
+  "docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md": "operate",
   "docs/user/live-parity.md": "catalog",
   "docs/user/maintenance-sla.md": "catalog",
   "docs/user/model-and-vocabulary.md": "config",
