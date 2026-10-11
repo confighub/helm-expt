@@ -6,9 +6,48 @@ other pages apply it. Where another page defines a word differently, this page
 is right. The [catalog doctrine](../reference/config-catalog-doctrine.md) holds
 the rules in full.
 
+## The short model
+
+**Pack → Recipe → Bundle → Variant**
+
+| | What it is | How many | Where it lives |
+| --- | --- | --- | --- |
+| **Pack** | Your overrides, laid over a source. The source is what a provider publishes, such as a chart or NVIDIA's AICR catalog. | One or more for a source | For Helm, the values files and presets in an installer package. For AICR, a data pack. |
+| **Recipe** | One pinned choice made from a source and its pack. | Many for a source | In the Catalog's record. |
+| **Bundle** | The flattened objects, the plan, and the record of how they were made, for one recipe. | One for a recipe | In this repository, and in OCI where one is published. |
+| **Variant** | A reviewed change to a bundle for one environment, region or customer. | Many for a bundle | In ConfigHub. |
+
+Then you deliver a bundle or a variant, and run it.
+
+The plan is the part of a bundle that plain objects cannot carry, such as an
+order, a job at an upgrade, or a choice that is still open. The bundle of a
+recipe is its base variant, in the form that is kept and shipped.
+
+Some entries are not flattened. For those the installer package does the
+bundle's job, and Helm still runs at install. The flattening verdict says
+which case an entry is in.
+
+AICR describes itself in three parts, a data pack, a resolved recipe and an
+evidence bundle. The first two are the same as here. AICR's third part is the
+record of one run on one cluster. This model's third part is the configuration
+itself, which can be read, compared and changed before anything is installed.
+The variant is the part this model adds.
+
+The rest of this page is the general model. The short model maps onto it like
+this.
+
+| Short model | General stage | AICR's words |
+| --- | --- | --- |
+| Pack | Source | data pack |
+| Recipe | Source | criteria, profile, resolved recipe |
+| Bundle | Base | bundle. Its `deploy.sh` installs the components in order, which is a plan written as a script. |
+| Variant | Variant | AICR has none after the base. A profile is chosen before it. |
+| What you do with them | Deliver, Run | validation, evidence bundle |
+
 ## The five stages
 
-Every entry passes through the same five stages, whatever its format.
+The short model names the four things you hold. The five stages also cover
+what you do with them. Every entry passes through them, whatever its format.
 
 **Source → Base → Variant → Deliver → Run**
 
@@ -207,6 +246,20 @@ then retain reviewed changes as variants that can be promoted and delivered.**
 | **Render** | Helm's materialization step. It produces exact Kubernetes objects but does not apply them. |
 | **Helm render intent** | The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render. |
 | **Helm render variant** | The captured object output for one base and revision, linked to its intent and digest. |
+
+### Pack
+
+**A pack is your overrides, laid over a source.** It is versioned, and one
+source can have several.
+
+| Format | What its pack is |
+| --- | --- |
+| Helm | The values files and named presets for a chart. An installer package carries them. |
+| AICR | A data pack, which adds overlays, components or validators to NVIDIA's built-in catalog. |
+| Timoni | The typed values for a module. |
+| Literal OCI, plain YAML | There is none. Nothing is overridden. |
+
+No Catalog entry is built from an AICR data pack today.
 
 ### Recipe
 
@@ -418,11 +471,13 @@ configuration revision, not a Helm render variant.
 
 ## Open points
 
-- **Verdict and bundle.** This model and AICR both use these two words. Here a
-  verdict is a flattening verdict, and AICR's is the result of one validation
-  run. Here a bundle is retained configuration in OCI, and AICR's is the output
-  of `aicr bundle` or the evidence of a run. How the site tells them apart is
-  not decided.
+- **Verdict.** This model and AICR both use the word. Here a verdict is a
+  flattening verdict, and AICR's is the result of one validation run. How the
+  site tells them apart is not decided.
+- **Bundle on the OCI page.** In this model a bundle is the flattened objects,
+  the plan and the record. The [OCI page](../../site/oci.html) uses the word
+  for four shapes, and three of them need another noun. An evidence bundle
+  always keeps its adjective.
 - **Where a receipt lives.** One design attaches it to the bundle in the
   registry, and another keeps it beside the bundle. The
   [OCI page](../../site/oci.html) carries the same open point.

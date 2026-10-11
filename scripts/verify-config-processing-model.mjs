@@ -128,6 +128,7 @@ for (const text of [
   "Resolved lifecycle route",
   "A recipe is the pinned inputs that produce one base",
   "Source → Base → Variant → Deliver → Run",
+  "Pack → Recipe → Bundle → Variant",
   "Digest roles",
   "Do not describe these as \"the same digest.\"",
 ]) {
