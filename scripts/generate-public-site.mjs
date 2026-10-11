@@ -12481,6 +12481,81 @@ function presetScriptPreamble(entry, row, purposeLines) {
   ];
 }
 
+// The packaged objects for one Helm hook phase, split into the documents Helm
+// would apply together. Helm runs hooks in hook-weight order and waits for
+// each Job before the next weight, so the script does the same. Documents are
+// numbered as awk numbers them in the script: one more at every "---" line.
+function packagedHookStages(packageRoot, sourcePath, fallbackNamespace) {
+  const text = readFileSync(join(packageRoot, sourcePath), "utf8");
+  const docs = [];
+  let index = 0;
+  let current = [];
+  const close = () => {
+    const body = current.join("\n");
+    if (/^[^#\s]/m.test(body)) docs.push({ index, body });
+    current = [];
+  };
+  for (const line of text.split(/\r?\n/)) {
+    if (/^---\s*$/.test(line)) {
+      close();
+      index += 1;
+    } else {
+      current.push(line);
+    }
+  }
+  close();
+  const stages = new Map();
+  for (const doc of docs) {
+    const kind = /^kind:\s*"?([A-Za-z]+)"?\s*$/m.exec(doc.body)?.[1];
+    const name = /^metadata:\s*\n(?:  .*\n)*?  name:\s*"?([^"\s]+)"?\s*$/m.exec(doc.body)?.[1];
+    check(kind && name, `${sourcePath} document ${doc.index} has no readable kind and name`);
+    const namespace = /^metadata:\s*\n(?:  .*\n)*?  namespace:\s*"?([^"\s]+)"?\s*$/m.exec(doc.body)?.[1] ?? fallbackNamespace;
+    const weight = Number(/helm\.sh\/hook-weight"?:\s*"?(-?\d+)"?/.exec(doc.body)?.[1] ?? 0);
+    const stage = stages.get(weight) ?? { weight, docIndexes: [], jobs: [] };
+    stage.docIndexes.push(doc.index);
+    if (kind === "Job") stage.jobs.push({ name, namespace });
+    stages.set(weight, stage);
+  }
+  return [...stages.values()].sort((left, right) => left.weight - right.weight);
+}
+
+// The script lines that carry out one packaged install hook phase.
+function packagedHookLines(entry, workDir, action) {
+  const sourcePath = packagedRequirementPath(`package://${action.source}`);
+  check(sourcePath, `${entry.chart} has an unsafe lifecycle source path`);
+  const stages = packagedHookStages(join(repoRoot, entry.package_path), sourcePath, entry.namespace);
+  const file = `${workDir}/package/${sourcePath}`;
+  const lines = [
+    "",
+    `say "${shellStepText(action.name || `Run the ${action.phase} step`)}"`,
+    'hook_dir="$(mktemp -d)"',
+    `awk -v dir="$hook_dir" 'BEGIN{n=0} /^---[[:space:]]*$/{n++; next} {print > (dir "/doc-" n ".yaml")}' ${file}`,
+  ];
+  for (const stage of stages) {
+    lines.push(`kubectl apply ${stage.docIndexes.map((docIndex) => `-f "$hook_dir/doc-${docIndex}.yaml"`).join(" ")}`);
+    for (const job of stage.jobs) {
+      lines.push(`kubectl -n ${job.namespace} wait --for=condition=complete --timeout=300s job/${job.name}`);
+    }
+  }
+  lines.push(
+    `kubectl delete --ignore-not-found -f ${file}`,
+    'rm -rf "$hook_dir"',
+  );
+  return lines;
+}
+
+// The install-phase hook actions a script can carry out itself: the package
+// ships their objects, and the plan assigns them to the delivery workflow.
+function runnableInstallHooks(entry, lifecycleActions, when) {
+  return lifecycleActions.filter((candidate) => {
+    const phase = String(candidate.phase ?? "");
+    if (!new RegExp(`(^|,)\\s*${when}-install(,|$)`).test(phase)) return false;
+    if (candidate.invokedBy !== "delivery-workflow" || !candidate.source) return false;
+    const sourcePath = packagedRequirementPath(`package://${candidate.source}`);
+    return Boolean(sourcePath) && existsSync(join(repoRoot, entry.package_path, sourcePath));
+  });
+}
+
 function presetTryScript(entry, row) {
   const workDir = presetWorkDir(entry, row);
   const setup = installerSetupCommand(entry.package_path, row.variant, entry, row);
@@ -12726,6 +12801,9 @@ function presetTryScript(entry, row) {
       "fi",
     );
   }
+  const preInstallHooks = runnableInstallHooks(entry, lifecycleActions, "pre");
+  const postInstallHooks = runnableInstallHooks(entry, lifecycleActions, "post");
+  for (const action of preInstallHooks) lines.push(...packagedHookLines(entry, workDir, action));
   lines.push(
     "",
     `if [ -d ${workDir}/out/secrets ]; then`,
@@ -12764,6 +12842,7 @@ function presetTryScript(entry, row) {
       `kubectl apply -f ${workDir}/out/manifests`,
     );
   }
+  for (const action of postInstallHooks) lines.push(...packagedHookLines(entry, workDir, action));
   for (const action of lifecycleActions.filter(
     (candidate) =>
       candidate.invokedBy === "generated-try-script"
@@ -12779,10 +12858,12 @@ function presetTryScript(entry, row) {
   }
   // Say only what this script did. A plan can also name steps for an upgrade
   // or a delete, and an install script never runs those.
+  const ranInstallHooks = [...preInstallHooks, ...postInstallHooks];
   const ranActions = lifecycleActions.filter(
     (candidate) =>
-      candidate.invokedBy === "generated-try-script"
-      && ["post-apply", "observe"].includes(candidate.phase),
+      ranInstallHooks.includes(candidate)
+      || (candidate.invokedBy === "generated-try-script"
+        && ["post-apply", "observe"].includes(candidate.phase)),
   );
   const notRunPhases = [...new Set(
     lifecycleActions
@@ -12805,7 +12886,9 @@ function presetTryScript(entry, row) {
   lines.push(
     "",
     ranActions.length > 0
-      ? `say "${doneWord} ${received} ${ranActions.length === 1 ? "One packaged check ran" : `${ranActions.length} packaged checks ran`} after the apply."`
+      ? `say "${doneWord} ${received} ${ranInstallHooks.length > 0
+        ? `${ranActions.length === 1 ? "One packaged step ran" : `${ranActions.length} packaged steps ran`} with the apply.`
+        : `${ranActions.length === 1 ? "One packaged check ran" : `${ranActions.length} packaged checks ran`} after the apply.`}"`
       : `say "${doneWord} ${received}"`,
   );
   if (installStepsNotRun.length > 0) {
@@ -15950,6 +16033,7 @@ function entryPlanHtml(listing, siteHref) {
   // The dated logs of scripts the Catalog has run itself, by listing id.
   const SCRIPT_RUN_LOGS = new Map([
     ["nvidia-gpu-operator-v26-7-1-default", "d/docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.html"],
+    ["kai-scheduler-kai-scheduler-v0-16-9-default", "d/docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.html"],
   ]);
   // The dated logs of upgrade and delete steps the Catalog has carried out by hand.
   const LIFECYCLE_RUN_LOGS = new Map([
