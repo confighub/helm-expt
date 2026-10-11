@@ -16030,8 +16030,8 @@ function entryPlanHtml(listing, siteHref) {
   return `<details class="entry-inputs" data-entry-plan="${escapeHtml(listing.identity.id)}">
         <summary>This entry's plan, and how to test it</summary>
         ${stepsHtml}
-        ${scriptHtml}
-        ${lifecycleHtml}
+        ${scriptHtml}${lifecycleHtml ? `
+        ${lifecycleHtml}` : ""}
         ${parityHtml}
         <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
