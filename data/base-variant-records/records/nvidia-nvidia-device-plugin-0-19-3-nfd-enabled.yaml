@@ -134,7 +134,7 @@ spec:
       status: "gap"
       items:
         -
-          id: "hooks"
+          id: "hooks-post-delete"
           origin: "base"
           type: "lifecycle-action"
           detail: "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
@@ -150,9 +150,9 @@ spec:
       status: "gap"
       routes:
         -
-          id: "hooks"
+          id: "hooks-post-delete"
           requirementRefs:
-            - "hooks"
+            - "hooks-post-delete"
           phase: "destination-resolution"
           proposedActor: "delivery runtime"
           proposedMechanism: "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."

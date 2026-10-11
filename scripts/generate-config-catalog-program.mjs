@@ -7337,7 +7337,12 @@ function verdictRouteSteps(record) {
   const taken = new Map();
   return named.map((sentence) => {
     const kind = VERDICT_ROUTE_KINDS.find((candidate) => candidate.pattern.test(sentence));
-    const stem = kind?.id ?? planStepSlug(sentence);
+    // A hooks line that names only an upgrade, delete or rollback phase gets
+    // that phase in its id, so nothing reads it as work an install needs first.
+    const hookPhase = kind?.id === "hooks" && !/\b(?:pre|post)-install\b/i.test(sentence)
+      ? /\b((?:pre|post)-(?:delete|upgrade|rollback))\b/i.exec(sentence)?.[1]?.toLowerCase()
+      : null;
+    const stem = hookPhase ? `hooks-${hookPhase}` : kind?.id ?? planStepSlug(sentence);
     const seen = (taken.get(stem) ?? 0) + 1;
     taken.set(stem, seen);
     const matching = (Array.isArray(dispositions) ? dispositions : [])
