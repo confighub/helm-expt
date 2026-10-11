@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml",
-      "sha256": "sha256:09b06ff5e50b8fe8ac86d858f1855b609d869305a8f66b05d964f014ae4419f7",
+      "sha256": "sha256:16ce3475c836b99778617f49967106bb890a15cf6bdf1de4ea13eb05258de20e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metallb-metallb-0-16-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -236,7 +236,7 @@
         "id": "webhook-certificate",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step."
       }
     ],
     "routes": [
@@ -259,19 +259,22 @@
       },
       {
         "id": "webhook-certificate",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
-        "actor": "selected destination actor",
-        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+        "actor": "the MetalLB controller and frr-k8s",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "webhook-certificate"
         ],
         "checks": [],
         "evidence": [
-          "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+          "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
@@ -282,9 +285,24 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
         "name": "flattening-safety-verdict.yaml",
         "path": "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
       }
     ]
   },

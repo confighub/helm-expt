@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml",
-      "sha256": "sha256:8e59b1a6207854b4c6417e45c2dbb0724c27c5ab5415289ffb280086b67ac70b",
+      "sha256": "sha256:c20d14ef2368e256c502c065d889d53595079dd16c22a9ab230e341d2211fd22",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -243,7 +243,7 @@
         "id": "webhook-certificate",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
       }
     ],
     "routes": [
@@ -283,19 +283,22 @@
       },
       {
         "id": "webhook-certificate",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
-        "actor": "selected destination actor",
-        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+        "actor": "the ECK operator",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "webhook-certificate"
         ],
         "checks": [],
         "evidence": [
-          "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+          "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
@@ -306,9 +309,24 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
         "name": "flattening-safety-verdict-ha.yaml",
         "path": "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
       }
     ]
   },

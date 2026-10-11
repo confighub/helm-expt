@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `d93afda67f`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `ce6f413fa0`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 488 |
-| Fresh (no linked source newer than the doc) | 64 |
-| **Review-due** | 96 |
+| Authored docs tracked | 489 |
+| Fresh (no linked source newer than the doc) | 67 |
+| **Review-due** | 94 |
 | No linked evidence sources (cannot auto-trigger) | 328 |
 
 ## Review queue
@@ -98,7 +98,6 @@ most recently changed triggers.
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 36 | `data/aicr-version-diff/summary.md (2026-10-09)`<br>`data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 36 | `data/certified-bundles/summary.md (2026-10-09)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 36 | `data/chart-use-guide/summary.md (2026-10-09)`<br>`data/lifecycle-boundary/summary.md (2026-10-09)`<br>`data/master-catalog-matrix/matrix.html (2026-10-09)` |
-| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-09-03 | 36 | `data/operational-class-examples/summary.md (2026-10-09)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 36 | `data/installer-package-signatures/summary.md (2026-10-09)` |
 | [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 33 | `data/receipt-aging/summary.md (2026-10-09)`<br>`data/upstream-provenance/summary.md (2026-10-09)`<br>`data/aicr-upstream-watch/summary.md (2026-10-09)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 33 | `data/chart-skills/summary.md (2026-10-09)` |
@@ -129,7 +128,6 @@ most recently changed triggers.
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-10-08 | 1 | `data/variant-promotion/summary.md (2026-10-09)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
-| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-10-10 | 1 | `data/base-variant-records/summary.md (2026-10-11)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 
 ## Docs with no linked evidence sources

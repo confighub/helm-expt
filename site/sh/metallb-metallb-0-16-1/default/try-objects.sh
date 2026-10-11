@@ -52,19 +52,6 @@ for n in 0026 0027 0028 0029 0030 0031 0032 0033 0034 0035 0036 0037; do mv "$wo
 for n in 0038 0039 0040 0041 0042; do mv "$work/docs/doc-$n.yaml" "$work/rest/"; done
 ls "$work/crds" "$work/rest"
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
-  cat >&2 <<'EOF_REQUIREMENTS'
-This script cannot carry out this step of the plan. It is yours to do, with your own values:
-  - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.
-Nothing was applied. Complete it before you apply the objects.
-When it is done, re-run with:
-  REQUIREMENTS_READY=1 bash try-objects.sh
-EOF_REQUIREMENTS
-  exit 1
-fi
-say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
-
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
   printf 'kubectl cannot reach a cluster. Point it at a throwaway cluster and re-run this script.\n' >&2
@@ -173,5 +160,5 @@ say "Done. The 13 CRDs $crd_outcome. kubectl applied the other 29 objects of thi
 say "The script stops here. It did not wait for any workload to start"
 say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
 cat <<'EOF_NOT_RUN'
-   - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.
+   - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step.
 EOF_NOT_RUN

@@ -147,15 +147,22 @@ spec:
           id: "webhook-certificate"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step."
         -
           id: "hooks"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+          detail: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards."
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+        - "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml"
         - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
+        - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
     routeIntent:
       status: "recorded"
       routes:
@@ -195,25 +202,29 @@ spec:
           id: "webhook-certificate"
           requirementRefs:
             - "webhook-certificate"
-          phase: "destination-resolution"
-          proposedActor: "selected destination actor"
-          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          phase: "observe"
+          proposedActor: "the cert-manager webhook and cainjector"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
+          status: "recorded"
+          sourceStatus: "observed"
           supportedRuntimes:
             []
           checks:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         -
           id: "hooks"
           requirementRefs:
             - "hooks"
-          phase: "destination-resolution"
+          phase: "post-apply"
           proposedActor: "delivery runtime"
-          proposedMechanism: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+          proposedMechanism: "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
@@ -223,9 +234,23 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+            - "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml"
+            - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            - "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
+            - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
       records:
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+        - "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml"
         - "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        - "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
+        - "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
     targetFacts:
       status: "not-required"
       declared:
