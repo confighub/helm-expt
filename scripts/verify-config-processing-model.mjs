@@ -127,8 +127,9 @@ for (const text of [
   "Route intent",
   "Resolved lifecycle route",
   "A recipe is the pinned inputs that produce one base",
-  "Source → Base → Variant → Deliver → Run",
-  "Pack → Recipe → Bundle → Variant",
+  "Pack → Recipe → Bundle → Variant → Deployment",
+  "A generator turns one\nrecipe into one bundle.",
+  "A bundle is flattened when no generator has to run after it is made.",
   "Digest roles",
   "Do not describe these as \"the same digest.\"",
 ]) {
