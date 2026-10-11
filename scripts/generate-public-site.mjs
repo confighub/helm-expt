@@ -11870,7 +11870,7 @@ function aicrCatalogRows() {
       .join(" ")
       .toLowerCase();
     return `<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="${escapeHtml(search)}">
-        <td><a href="${page || listingHref}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td><a href="${page || stepsHref || listingHref}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
         <td class="mono">${escapeHtml(version)}</td>
         <td>${startLinks}</td>
         <td>${builds[id] ? `${escapeHtml(builds[id])} ` : ""}${escapeHtml(state)}${flag}</td>
