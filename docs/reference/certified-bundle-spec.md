@@ -8,6 +8,8 @@ One receipt shape serves every producer. The catalog, Kubara, eks-inference, and
 
 Two delivery models coexist in the portfolio. The catalog packages charts render-late: the installer package carries the un-rendered chart with its value model and control points, and the toolchain renders at install time. The eks-inference example packages render-early: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm.
 
+Correction, 11 October 2026. The installer packages in this repository hold the rendered objects of each preset. None carries an un-rendered chart, and `cub installer` runs no Helm.
+
 Neither wins as a doctrine. **The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates.** Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste. How a lane is decided is in [deciding-a-flattening-lane.md](./deciding-a-flattening-lane.md); the evidence discipline behind every claim here is rule 10 of [the doctrine](../../tests/doctrine.md).
 
 ## The pipeline
