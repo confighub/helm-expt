@@ -264,6 +264,9 @@ const PLAN_STEP_UNASSIGNED_ACTOR = "selected destination actor";
 // gets, and the disposition class in the same file that is about it. The
 // first kind whose words appear in the line wins, so a line about a webhook
 // certificate is not read as a hook because it says "lifecycle route".
+// Who a route's own line says does the work, as in "supplied by the operator
+// after it starts". The words are kept as the file wrote them.
+const VERDICT_ROUTE_ACTOR = /\b[a-z]+ed by (the(?: (?!after\b|once\b|before\b|when\b|while\b|at\b|on\b|in\b|for\b|to\b)[a-z][a-z-]*)+)/i;
 const VERDICT_ROUTE_KINDS = [
   { id: "crd-ordering", class: "crd-ordering", pattern: /\bCRD ordering\b/i },
   { id: "prune-protection", class: "resource-policy-keep", pattern: /\bprune protection\b/i },
@@ -4760,6 +4763,21 @@ function testPlanSteps() {
       && VERDICT_ROUTE_KINDS.find((kind) => kind.pattern.test("lifecycle route for the packaged chart's 8 non-test hook occurrence(s)"))?.id === "hooks",
     "self-test: a webhook certificate route and a hook route are no longer told apart",
   );
+  const hooksKind = VERDICT_ROUTE_KINDS.find((kind) => kind.id === "hooks");
+  const sweep = "8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read";
+  check(
+    verdictRouteDetail(VERDICT_ROUTE_KINDS[0], { detail: "12 occurrence(s) in the packaged chart" }) === ""
+      && verdictRouteDetail(hooksKind, { detail: sweep }) === "The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade"
+      && verdictRouteDetail(hooksKind, { detail: "3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read" }) === "The hook phase is post-install"
+      && verdictRouteDetail(VERDICT_ROUTE_KINDS[0], { detail: "the six CRDs render into this base, so per-file Units can race them" }).startsWith("the six CRDs"),
+    "self-test: a sweep count was kept as a step sentence, or a detail that explains something was dropped",
+  );
+  check(
+    VERDICT_ROUTE_ACTOR.exec("webhook caBundle supplied by the operator after it starts")?.[1] === "the operator"
+      && !VERDICT_ROUTE_ACTOR.test("CRD ordering declaration for the 11 CloudNativePG CRDs"),
+    "self-test: the actor a route line names is no longer read from it",
+  );
+  check(planCapital("post-delete cleanup") === "Post-delete cleanup", "self-test: a step sentence can start without a capital");
   const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
   expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
 }
@@ -7312,13 +7330,16 @@ function verdictRouteSteps(record) {
     const matching = (Array.isArray(dispositions) ? dispositions : [])
       .filter((candidate) => kind && candidate.class === kind.class && candidate.finding === "present");
     const disposition = matching.length === 1 ? matching[0] : null;
-    // The actor is the one the verdict file names for this kind of route.
+    // The actor is the one the verdict file names. The route's own line comes
+    // first, in its own words. The disposition's "executed by" is used only
+    // when the line names nobody, so an actor never contradicts its step.
+    const namedInLine = VERDICT_ROUTE_ACTOR.exec(sentence);
     const executedBy = /\bexecuted by (?:the )?([a-z][a-z -]*[a-z])\s*$/i.exec(String(disposition?.disposition ?? ""));
     return {
       id: seen === 1 ? stem : `${stem}-${seen}`,
       phase: PLAN_STEP_DEFAULT_PHASE,
-      actor: executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
-      mechanism: planSentences(planCapital(sentence), planCapital(disposition?.detail)),
+      actor: namedInLine ? namedInLine[1].trim() : executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
+      mechanism: planSentences(planCapital(sentence), planCapital(verdictRouteDetail(kind, disposition))),
       sourceStatus: PLAN_STEP_NOT_RUN,
       supportedRuntimes: [],
       checks: [],
@@ -7337,11 +7358,35 @@ function verdictRouteNames(path) {
   return verdict.routes.map((route) => String(route ?? "").trim()).filter(Boolean);
 }
 
-// A first word in plain lower-case letters takes a capital. Any other first
-// word, such as post-delete or a count, is left as the file wrote it.
+// The sentence a disposition adds to its route's line. A detail that explains
+// something is kept as the file wrote it. A detail that is only a count from
+// the chart sweep says nothing a reader can use, and it can disagree with the
+// number in the route's line, so it is left out. A hook count keeps one
+// thing, the hook phases it lists.
+function verdictRouteDetail(kind, disposition) {
+  const detail = String(disposition?.detail ?? "").trim();
+  if (!/\boccurrence\(s\)/.test(detail)) return detail;
+  const values = kind?.id === "hooks" ? /\(values: ([^)]+)\)/.exec(detail) : null;
+  if (!values) return "";
+  // Each group is the phases one hook carries. A group that adds no phase
+  // the sentence has not already named is not repeated.
+  const named = new Set();
+  const groups = values[1].split("|")
+    .map((group) => group.split(",").map((phase) => phase.trim()).filter(Boolean))
+    .filter((group) => {
+      const fresh = group.some((phase) => !named.has(phase));
+      group.forEach((phase) => named.add(phase));
+      return fresh;
+    });
+  if (groups.length === 0) return "";
+  const list = (words) => (words.length > 1 ? `${words.slice(0, -1).join(", ")} and ${words.at(-1)}` : words[0]);
+  return `The hook ${named.size === 1 ? "phase is" : "phases are"} ${groups.map(list).join(", and ")}`;
+}
+
+// A step sentence starts with a capital, whatever its first word is.
 function planCapital(text) {
   const value = String(text ?? "").trim();
-  return /^[a-z]+(?=\s|$)/.test(value) ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
+  return value ? `${value[0].toUpperCase()}${value.slice(1)}` : value;
 }
 
 // The steps one BundleRoute document states. A lifecycle-action document

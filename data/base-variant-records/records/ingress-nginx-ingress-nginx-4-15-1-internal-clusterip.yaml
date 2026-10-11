@@ -137,7 +137,7 @@ spec:
           id: "hooks"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read."
+          detail: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
       records:
         - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
         - "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
@@ -150,7 +150,7 @@ spec:
             - "hooks"
           phase: "destination-resolution"
           proposedActor: "delivery runtime"
-          proposedMechanism: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read."
+          proposedMechanism: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"

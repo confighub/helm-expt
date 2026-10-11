@@ -137,7 +137,7 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders. 2 occurrence(s) in the packaged chart."
+          detail: "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders."
       records:
         - "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
         - "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict-dry-run-txt-registry.yaml"
@@ -150,7 +150,7 @@ spec:
             - "crd-ordering"
           phase: "destination-resolution"
           proposedActor: "selected destination actor"
-          proposedMechanism: "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders. 2 occurrence(s) in the packaged chart."
+          proposedMechanism: "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:deb854c69e71f7dbd5f0f89a03649df5905dde857d6a06fb28c388a84ab6b5ce",
+      "sha256": "sha256:13288dc6b71a3e3d19885bc43f12045defbc9bfce3d304a314121c91ab0129c1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml",
-      "sha256": "sha256:48f846c1087766f3fd33348ec9f3be42216d686084b1c41b4f779e0f074f6adb",
+      "sha256": "sha256:c170e26347984be168549ec38c3a63cfb97c32ff8b78da0a69014988b1617dd5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -229,7 +229,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart."
+        "detail": "CRD ordering declaration for the 11 CloudNativePG CRDs."
       },
       {
         "id": "webhook-certificate",
@@ -252,7 +252,7 @@
         "sourceStatus": "recorded-not-run",
         "automatic": false,
         "actor": "selected destination actor",
-        "mechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart.",
+        "mechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
@@ -268,7 +268,7 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "delivery runtime",
+        "actor": "the operator",
         "mechanism": "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs.",
         "supportedRuntimes": [],
         "requirementRefs": [

@@ -137,7 +137,7 @@ spec:
           id: "hooks"
           origin: "base"
           type: "lifecycle-action"
-          detail: "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+          detail: "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
         -
           id: "crd-ordering"
           origin: "base"
@@ -155,7 +155,7 @@ spec:
             - "hooks"
           phase: "destination-resolution"
           proposedActor: "delivery runtime"
-          proposedMechanism: "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+          proposedMechanism: "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"

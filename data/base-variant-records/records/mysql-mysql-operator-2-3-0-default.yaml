@@ -137,7 +137,7 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "CRD ordering declaration for the 5 MySQL Operator CRDs. 6 occurrence(s) in the packaged chart."
+          detail: "CRD ordering declaration for the 5 MySQL Operator CRDs."
       records:
         - "data/helm-render-intents/intents/mysql-mysql-operator-2-3-0-default.yaml"
         - "recipes/mysql/mysql-operator/2.3.0/publication/flattening-safety-verdict.yaml"
@@ -150,7 +150,7 @@ spec:
             - "crd-ordering"
           phase: "destination-resolution"
           proposedActor: "selected destination actor"
-          proposedMechanism: "CRD ordering declaration for the 5 MySQL Operator CRDs. 6 occurrence(s) in the packaged chart."
+          proposedMechanism: "CRD ordering declaration for the 5 MySQL Operator CRDs."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"

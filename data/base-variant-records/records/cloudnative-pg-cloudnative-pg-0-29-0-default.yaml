@@ -137,7 +137,7 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart."
+          detail: "CRD ordering declaration for the 11 CloudNativePG CRDs."
         -
           id: "webhook-certificate"
           origin: "base"
@@ -160,7 +160,7 @@ spec:
             - "crd-ordering"
           phase: "destination-resolution"
           proposedActor: "selected destination actor"
-          proposedMechanism: "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart."
+          proposedMechanism: "CRD ordering declaration for the 11 CloudNativePG CRDs."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
@@ -175,7 +175,7 @@ spec:
           requirementRefs:
             - "webhook-certificate"
           phase: "destination-resolution"
-          proposedActor: "delivery runtime"
+          proposedActor: "the operator"
           proposedMechanism: "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs."
           automatic: false
           status: "requires-destination-resolution"

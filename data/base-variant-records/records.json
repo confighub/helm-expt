@@ -101178,19 +101178,19 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders. 11 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Prune protection for the 10 keep-annotated object(s) this base renders. 10 occurrence(s) in the packaged chart."
+                "detail": "Prune protection for the 10 keep-annotated object(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -101208,7 +101208,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders. 11 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 10 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -101225,7 +101225,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Prune protection for the 10 keep-annotated object(s) this base renders. 10 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Prune protection for the 10 keep-annotated object(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -101242,7 +101242,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -102230,7 +102230,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 11 CloudNativePG CRDs."
               },
               {
                 "id": "webhook-certificate",
@@ -102260,7 +102260,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 11 CloudNativePG CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -102276,7 +102276,7 @@
                   "webhook-certificate"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "delivery runtime",
+                "proposedActor": "the operator",
                 "proposedMechanism": "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
@@ -108009,19 +108009,19 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders. 12 occurrence(s) in the packaged chart."
+                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -108039,7 +108039,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108056,7 +108056,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108073,7 +108073,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108328,19 +108328,19 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders. 12 occurrence(s) in the packaged chart."
+                "detail": "Prune protection for the 12 keep-annotated object(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -108358,7 +108358,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 12 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108375,7 +108375,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Prune protection for the 12 keep-annotated object(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108392,7 +108392,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -108647,7 +108647,7 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -108665,7 +108665,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -111080,7 +111080,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders. 2 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders."
               }
             ],
             "records": [
@@ -111098,7 +111098,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders. 2 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 1 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -121821,7 +121821,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 1 definition(s) this base renders. 4 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
               }
             ],
             "records": [
@@ -121839,7 +121839,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders. 4 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -125141,13 +125141,13 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders. 8 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders. 4 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -125165,7 +125165,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders. 8 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -125182,7 +125182,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders. 4 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -128459,7 +128459,7 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -128477,7 +128477,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -129024,7 +129024,7 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read."
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
               }
             ],
             "records": [
@@ -129042,7 +129042,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -129589,7 +129589,7 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read."
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
               }
             ],
             "records": [
@@ -129607,7 +129607,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). 8 non-test lifecycle hook occurrence(s) (values: post-install,post-upgrade | pre-install,pre-upgrade | pre-install,pre-upgrade,post-install,post-upgrade); a mechanical sweep, not a per-hook read.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -131972,25 +131972,25 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 6 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Prune protection for the 6 keep-annotated object(s) this base renders. 7 occurrence(s) in the packaged chart."
+                "detail": "Prune protection for the 6 keep-annotated object(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
               },
               {
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). 3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read."
+                "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
               }
             ],
             "records": [
@@ -132008,7 +132008,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 6 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -132025,7 +132025,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Prune protection for the 6 keep-annotated object(s) this base renders. 7 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Prune protection for the 6 keep-annotated object(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -132042,7 +132042,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -132059,7 +132059,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). 3 non-test lifecycle hook occurrence(s) (values: post-install); a mechanical sweep, not a per-hook read.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -139874,13 +139874,13 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -139898,7 +139898,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. 12 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -139915,7 +139915,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -147275,13 +147275,13 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders. 22 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
               }
             ],
             "records": [
@@ -147299,7 +147299,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders. 22 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 13 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -147316,7 +147316,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. 2 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -149866,7 +149866,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 5 MySQL Operator CRDs. 6 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 5 MySQL Operator CRDs."
               }
             ],
             "records": [
@@ -149884,7 +149884,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 5 MySQL Operator CRDs. 6 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 5 MySQL Operator CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -192128,7 +192128,7 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
+                "detail": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base."
               },
               {
                 "id": "crd-ordering",
@@ -192152,7 +192152,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.",
+                "proposedMechanism": "Post-delete cleanup lifecycle route for the node-feature-discovery Job. Opening the node-feature-discovery gate renders its post-delete cleanup Job into this base.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -198395,7 +198395,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the Percona Server for MongoDB CRDs. 5 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the Percona Server for MongoDB CRDs."
               }
             ],
             "records": [
@@ -198413,7 +198413,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the Percona Server for MongoDB CRDs. 5 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the Percona Server for MongoDB CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -224771,13 +224771,13 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders. 4 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders."
               },
               {
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). 10 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade | pre-upgrade); a mechanical sweep, not a per-hook read."
+                "detail": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade."
               }
             ],
             "records": [
@@ -224795,7 +224795,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders. 4 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 2 CustomResourceDefinition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -224812,7 +224812,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). 10 non-test lifecycle hook occurrence(s) (values: pre-install,pre-upgrade | pre-upgrade); a mechanical sweep, not a per-hook read.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
@@ -228903,7 +228903,7 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "CRD ordering declaration for the 25 gateway and traefik CRDs. 50 occurrence(s) in the packaged chart."
+                "detail": "CRD ordering declaration for the 25 gateway and traefik CRDs."
               }
             ],
             "records": [
@@ -228921,7 +228921,7 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "selected destination actor",
-                "proposedMechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs. 50 occurrence(s) in the packaged chart.",
+                "proposedMechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",

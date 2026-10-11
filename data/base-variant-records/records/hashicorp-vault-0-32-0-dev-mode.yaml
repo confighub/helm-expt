@@ -137,7 +137,7 @@ spec:
           id: "webhook-certificate"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
       records:
         - "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
         - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
@@ -150,7 +150,7 @@ spec:
             - "webhook-certificate"
           phase: "destination-resolution"
           proposedActor: "selected destination actor"
-          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. 1 occurrence(s) in the packaged chart."
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
