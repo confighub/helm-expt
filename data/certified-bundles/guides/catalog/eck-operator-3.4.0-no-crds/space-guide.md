@@ -6,17 +6,27 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 1 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml
 
-## What its routes owe
+## The plan
 
-This bundle's lane requires companion artifacts and it ships none yet. Treat its ordering and lifecycle work as unresolved until a route arrives.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
+
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `webhook-certificate` | `routes/webhook-certificate.yaml` | the record |
+
+### webhook-certificate
+
+This step is due after you deliver. The record names `the ECK operator` for it and marks it `observed`.
+
+Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step.
 
 ## How it was ingested
 

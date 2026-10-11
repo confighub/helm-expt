@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "nvidia-nodewright-v0.17.1-aicr-eks-training-lifecycle-action-pre-upgrade"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. This Job compares the live controller-manager Deployment's selector with the one the new chart renders and deletes the Deployment when they differ, so the upgrade can create it again. It runs with its own ServiceAccount, Role and RoleBinding. A workflow that applies a newer base over an older one must run these four objects first, wait for the Job to complete, then delete them; otherwise the apply fails on the immutable field."
+  declaration:
+    step: "lifecycle-action-pre-upgrade"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-pre-upgrade"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/nvidia/nodewright/v0.17.1/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
+      - "packages/nvidia/nodewright/v0.17.1/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-upgrade.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/nvidia-nodewright-v0-17-1-aicr-eks-training.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/nvidia-nodewright-v0-17-1-aicr-eks-training.yaml"
+    verdictRef: "recipes/nvidia/nodewright/v0.17.1/publication/flattening-safety-verdict-aicr-eks-training.yaml"

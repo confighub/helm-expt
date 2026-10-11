@@ -37,12 +37,36 @@ spec:
         bytes: 2714
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/webhook-certificate.yaml"
+        sha256: "65ea650b61409c55caf8fbf65f87df91a4d95240462fa4ad63b01409654c5238"
+        bytes: 1690
+        role: "route: plan-step webhook-certificate"
+      -
         path: "data/certified-bundles/guides/catalog/cloudnative-pg-0.28.2-default/space-guide.md"
-        sha256: "1412a23fef1c7b0002d44a172c106be2783c10ed5b91729e93254d35db5f6f4e"
-        bytes: 1363
+        sha256: "74700270a8df4f328642167b730a635507adae8589776885d114882d7ea3360e"
+        bytes: 2434
         role: "space-guide"
     objectCount: 21
     objectInventoryRef: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/cloudnative-pg-cloudnative-pg-0.28.2-default/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 6
@@ -142,3 +166,4 @@ spec:
       - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml"

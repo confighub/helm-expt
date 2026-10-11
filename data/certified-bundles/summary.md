@@ -144,6 +144,36 @@ One receipt shape covers a bundle from every producer. These four reference rece
 | config-workshop-catalog | strimzi-strimzi-kafka-operator-1.0.0-no-crds | strimzi-kafka-operator 1.0.0 | not published | safe-to-flatten | certified |
 | config-workshop-catalog | valkey-valkey-0.11.0-default | valkey 0.11.0 | not published | safe-to-flatten | certified |
 | config-workshop-catalog | vm-victoria-metrics-single-0.39.0-default-reviewed | victoria-metrics-single 0.39.0 | not published | safe-to-flatten | certified |
+| config-workshop-catalog | argo-cd-argo-cd-10.7.0-default | argo-cd 10.7.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | argo-cd-argo-cd-10.7.0-no-crds | argo-cd 10.7.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | cloudnative-pg-cloudnative-pg-0.29.0-default | cloudnative-pg 0.29.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-aicr-eks-training | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-default | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.4.1-gpu-resources | dra-driver-nvidia-gpu 0.4.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-aicr-eks-training | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-default | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | dra-driver-nvidia-dra-driver-nvidia-gpu-0.5.0-gpu-resources | dra-driver-nvidia-gpu 0.5.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | external-secrets-external-secrets-2.10.0-default | external-secrets 2.10.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | external-secrets-external-secrets-2.10.0-no-crds | external-secrets 2.10.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | grafana-alloy-1.12.1-default | alloy 1.12.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | jetstack-cert-manager-v1.21.1-crds-enabled | cert-manager v1.21.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | jetstack-cert-manager-v1.21.1-default | cert-manager v1.21.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.14.1-aicr-eks-training | kai-scheduler v0.14.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.14.1-default | kai-scheduler v0.14.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training | kai-scheduler v0.16.9 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | kai-scheduler-kai-scheduler-v0.16.9-default | kai-scheduler v0.16.9 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | mysql-mysql-operator-2.3.0-default | mysql-operator 2.3.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v0-20-0 | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0 | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | node-feature-discovery-node-feature-discovery-0.19.0-default | node-feature-discovery 0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.17.1-aicr-eks-training | nodewright v0.17.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.17.1-default | nodewright v0.17.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.19.0-aicr-eks-training | nodewright v0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | nvidia-nodewright-v0.19.0-default | nodewright v0.19.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | percona-psmdb-operator-1.23.0-default | psmdb-operator 1.23.0 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-prometheus-operator-crds-28.0.1-aicr-eks-training | prometheus-operator-crds 28.0.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | prometheus-community-prometheus-operator-crds-28.0.1-default | prometheus-operator-crds 28.0.1 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | traefik-traefik-41.4.0-default | traefik 41.4.0 | not published | flatten-with-routes | certified |
 | kubara | current-platform-metrics-server | metrics-server 3.13.1 | not published | safe-to-flatten | certified |
 | eks-inference | platform-profile | literal-yaml | `ghcr.io/confighub/configs/eks-inference/platform-profile:latest` | born-flattened | certified |
 | eks-inference | ack-controllers | helm-chart | `ghcr.io/confighub/configs/eks-inference/ack-controllers:latest` | flatten-with-routes | certified |

@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-default-preflight-or-presync-crd-apply"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start."
+  declaration:
+    step: "preflight-or-presync-crd-apply"
+    phase: "pre-apply"
+    requirementRefs:
+      - "preflight-or-presync-crd-apply"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
+      - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml"
+      - "docs/demo/hooks-crds/argo-workflows.md"
+      - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+      - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml"
+      - "runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml"
+  executedBy:
+    invokedBy: "cub installer package script"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"
+    verdictRef: "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict.yaml"

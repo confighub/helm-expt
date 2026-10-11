@@ -1,0 +1,53 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "jetstack-cert-manager-v1.21.1-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "jetstack-cert-manager-v1-21-1-default"
+    chart: "jetstack/cert-manager"
+    version: "v1.21.1"
+    base: "default"
+  requirements:
+    -
+      step: "crd-ordering"
+      phase: "pre-apply"
+      invokedBy: "delivery workflow"
+      statement: "The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+      names:
+        -
+          id: "challenges.acme.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "orders.acme.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "certificaterequests.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "certificates.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "clusterissuers.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "issuers.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "packages/jetstack/cert-manager/v1.21.1/prerequisites/target-facts/default-crds.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-21-1-default.yaml"
+    verdictRef: "recipes/jetstack/cert-manager/v1.21.1/publication/flattening-safety-verdict.yaml"

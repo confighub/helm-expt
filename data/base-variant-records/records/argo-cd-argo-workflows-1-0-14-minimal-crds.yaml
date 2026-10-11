@@ -140,7 +140,19 @@ spec:
           origin: "base"
           type: "lifecycle-action"
           detail: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"
@@ -172,7 +184,45 @@ spec:
             - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
             - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
             - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 19 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 8 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-minimal-crds/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"

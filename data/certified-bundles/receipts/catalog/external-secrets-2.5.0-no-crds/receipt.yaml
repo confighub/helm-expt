@@ -27,12 +27,27 @@ spec:
         bytes: 21792
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.5.0-no-crds/target-requirements.yaml"
+        sha256: "87fbd7df49767bfbb68f41e23907c8e30b3f092309636b83cfefc9250deef45d"
+        bytes: 5870
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/external-secrets-2.5.0-no-crds/space-guide.md"
-        sha256: "7e78e28e58aa3c3cb929fc954b7e023b2025949ee213a7d8a389ddc4f6c71873"
-        bytes: 1154
+        sha256: "7b69331efc7f4b669e99b649d278af96cca7b19ba046e0ad487857f99b939c30"
+        bytes: 2210
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-secrets-external-secrets-2-5-0-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.5.0-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -115,3 +130,4 @@ spec:
       - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/external-secrets/external-secrets/2.5.0/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-5-0-no-crds.yaml"

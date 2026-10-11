@@ -1,0 +1,37 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "kedacore-keda-2.19.0-no-crds-webhook-readiness-observation"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
+  declaration:
+    step: "webhook-readiness-observation"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-readiness-observation"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml"
+      - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+      - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml"
+    verdictRef: "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict-no-crds.yaml"

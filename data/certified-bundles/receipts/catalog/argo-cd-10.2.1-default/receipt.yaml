@@ -37,12 +37,36 @@ spec:
         bytes: 1974
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/target-requirements.yaml"
+        sha256: "cd2aacb864fa96aaee38cb5c365436864deb3637eb9872d8064a3f9e3080b2f4"
+        bytes: 1612
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/argo-cd-10.2.1-default/space-guide.md"
-        sha256: "0aca057d53e29989ed9eadefaf3f13d8d2ac4dc9e7fafeb2a429edf5c7bdd7c5"
-        bytes: 1286
+        sha256: "7192cdda962709febb17a94557a60f02291aa23251e9bdbeee6ac57909c7e229"
+        bytes: 2274
         role: "space-guide"
     objectCount: 55
     objectInventoryRef: "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-cd-10-2-1-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-10.2.1-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -133,3 +157,4 @@ spec:
       - "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-cd/10.2.1/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-cd-10-2-1-default.yaml"

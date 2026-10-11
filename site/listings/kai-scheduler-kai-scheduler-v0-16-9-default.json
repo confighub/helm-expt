@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml",
-      "sha256": "sha256:822475de45ea96bb9aa152b15b4295c22fd33c64a69e4f881625d59455195f61",
+      "sha256": "sha256:519706e3e4500ee14b7aa6193cf77a0e57bacfad3700dca0317f425e65a63150",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -274,6 +274,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+      },
+      {
+        "id": "prune-protection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       }
     ],
     "routes": [
@@ -352,6 +358,27 @@
         "evidence": [
           "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml",
           "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+        ]
+      },
+      {
+        "id": "prune-protection",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "prune-protection"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
         ]
       }
     ],

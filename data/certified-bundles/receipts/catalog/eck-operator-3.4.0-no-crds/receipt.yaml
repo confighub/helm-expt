@@ -27,12 +27,26 @@ spec:
         bytes: 23917
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-no-crds/webhook-certificate.yaml"
+        sha256: "3a39a06f62ce69f346a705c4be28561b11b6497d91ec95e26397bd317c958311"
+        bytes: 1654
+        role: "route: plan-step webhook-certificate"
+      -
         path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-no-crds/space-guide.md"
-        sha256: "08fae6a9ab14343d4a0c746cf202fd007ce7df9556d5af89e69c400548444d4f"
-        bytes: 1111
+        sha256: "fddfc702d46ea821f52ca15ab0197b6b30d69c63b175b8db02c649d57a08f65a"
+        bytes: 1809
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-no-crds/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 0
@@ -113,3 +127,4 @@ spec:
       - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/elastic/eck-operator/3.4.0/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/elastic-eck-operator-3-4-0-no-crds.yaml"

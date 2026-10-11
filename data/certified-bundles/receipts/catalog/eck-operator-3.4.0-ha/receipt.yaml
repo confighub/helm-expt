@@ -37,12 +37,36 @@ spec:
         bytes: 2969
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/webhook-certificate.yaml"
+        sha256: "7ea401f86b40a06c1400719db504129207fc8ba12d52060fd198bada04b21cb9"
+        bytes: 1624
+        role: "route: plan-step webhook-certificate"
+      -
         path: "data/certified-bundles/guides/catalog/eck-operator-3.4.0-ha/space-guide.md"
-        sha256: "eac916e97e28ee53201f99f8aa8167c838bb13234079791ad7dca88577dbc578"
-        bytes: 1293
+        sha256: "d26d8817283d330f97d21c9f829961a5b8e0664589a5c4443abc6b035807c1aa"
+        bytes: 2387
         role: "space-guide"
     objectCount: 22
     objectInventoryRef: "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/elastic-eck-operator-3.4.0-ha/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 10
@@ -154,3 +178,4 @@ spec:
       - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml"
       - "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
       - "packages/elastic/eck-operator/3.4.0/bases/ha/upstream.yaml"
+      - "data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml"

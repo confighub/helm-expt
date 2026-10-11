@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/external-dns-1.21.1-dry-run-txt-registry/space-guide.md"
-        sha256: "25087cd657fa04b185e3ed76e8c51015189294f5b8ad49baa396c0b6fadf6b7b"
-        bytes: 1264
+        sha256: "472fd2f3a5e8ce01c4c536964cfadce806a5b0cd544148da9e703654da1035d9"
+        bytes: 1656
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-dry-run-txt-registry/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -121,3 +130,4 @@ spec:
       - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
       - "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
       - "packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry/upstream.yaml"
+      - "data/base-variant-records/records/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"

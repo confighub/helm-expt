@@ -37,12 +37,38 @@ spec:
         bytes: 1821
         role: "route: resource-policy-keep"
       -
+        path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/target-requirements.yaml"
+        sha256: "417f31c4da7f8471dbe6eb8822171d692c152fbf4dd9079a41250b56c7a88b41"
+        bytes: 3469
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/trust-manager-v0.22.1-default/space-guide.md"
-        sha256: "932a341f11088bbc9e0645d25f1a126f620eeff681006d743e49ffd7372dc6e0"
-        bytes: 1333
+        sha256: "f4835e538d6e2c8b965722a5fcd19c733cec358690937dae997a7a2889083c7d"
+        bytes: 3171
         role: "space-guide"
     objectCount: 14
     objectInventoryRef: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "namespace-before-apply"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -130,3 +156,4 @@ spec:
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jetstack/trust-manager/v0.22.1/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-default.yaml"

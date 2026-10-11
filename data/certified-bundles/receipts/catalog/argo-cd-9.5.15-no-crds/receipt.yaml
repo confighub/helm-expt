@@ -27,12 +27,27 @@ spec:
         bytes: 104729
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-9.5.15-no-crds/target-requirements.yaml"
+        sha256: "65f7b7c49ab7874fa217ce36663ff192a497b91d1bb532a3729c67ae8761d365"
+        bytes: 2638
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/argo-cd-9.5.15-no-crds/space-guide.md"
-        sha256: "01115be6d42491df18624e17bd26144d93d774cfffb25b828b1611afc492fe51"
-        bytes: 1095
+        sha256: "f61ff0b80c357e3a30881adc154cee705b8ebddf56b0de676b38fb244bf36356"
+        bytes: 2131
         role: "space-guide"
     objectCount: 46
     objectInventoryRef: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-cd-9-5-15-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-cd-9.5.15-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -121,3 +136,4 @@ spec:
       - "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-cd/9.5.15/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-cd-9-5-15-no-crds.yaml"

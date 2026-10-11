@@ -1,0 +1,38 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-internal-clusterip-hooks"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
+  declaration:
+    step: "hooks"
+    phase: "observe"
+    requirementRefs:
+      - "hooks"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+      - "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
+      - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+      - "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "delivery runtime"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
+    verdictRef: "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"

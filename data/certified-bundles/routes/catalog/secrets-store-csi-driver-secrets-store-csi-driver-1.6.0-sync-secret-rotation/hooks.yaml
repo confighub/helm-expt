@@ -1,0 +1,38 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation-hooks"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The retained file holds both CRDs, and the driver started without the hooks on a new cluster."
+  declaration:
+    step: "hooks"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "hooks"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "data/flattening-safety/witnesses/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.yaml"
+      - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "delivery runtime"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml"
+    verdictRef: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"

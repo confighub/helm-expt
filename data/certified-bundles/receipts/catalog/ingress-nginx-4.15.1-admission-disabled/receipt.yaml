@@ -27,12 +27,26 @@ spec:
         bytes: 10600
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-admission-disabled/hooks.yaml"
+        sha256: "afb9211b751176ba23b7974e007799413edd3a365ea3c234a59282111b42ff76"
+        bytes: 1933
+        role: "route: plan-step hooks"
+      -
         path: "data/certified-bundles/guides/catalog/ingress-nginx-4.15.1-admission-disabled/space-guide.md"
-        sha256: "03c5f00ae9d4259d098f6532119551bdcf35ce26b02507592cb75e4ee4a5a3d7"
-        bytes: 1170
+        sha256: "13f1d1f727d3b051a65c412b0410fc5d0e85197cf6f35d177e29fb0e5a5b21b4"
+        bytes: 1805
         role: "space-guide"
     objectCount: 9
     objectInventoryRef: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/ingress-nginx-ingress-nginx-4.15.1-admission-disabled/hooks.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "hooks"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -115,3 +129,4 @@ spec:
       - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml"
       - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml"
       - "packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled/upstream.yaml"
+      - "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml"

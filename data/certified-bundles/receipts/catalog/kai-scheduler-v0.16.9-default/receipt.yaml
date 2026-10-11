@@ -1,0 +1,180 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-kai-scheduler-kai-scheduler-v0.16.9-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://ghcr.io/kai-scheduler/kai-scheduler"
+        name: "kai-scheduler"
+        version: "v0.16.9"
+        packageSHA256: "2f2f8080729c530fab41c5bc24717dfb29c9d5b39963c5eb9d82d10e96f8ab9d"
+    evidence:
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/source-lock.yaml"
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/default/upstream.yaml"
+        sha256: "7254c6c835430dbc6c8513ccb0d7d5a94b2d4fd0cdc7d4029fed5e13c541dd76"
+        bytes: 950577
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/crd-ordering.yaml"
+        sha256: "587928cf7da722782b310987ae7ef94d1901380d276209f3708ca6ca4bc972f9"
+        bytes: 2098
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
+        sha256: "7c113133eaf2f5c1ca0679a63318bc1c131957cd226bff1256a65e72db207d2d"
+        bytes: 1880
+        role: "route: resource-policy-keep"
+      -
+        path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-pre-install-pre-upgrade.yaml"
+        sha256: "6a4dbd99f4310ee0a8883754146cda78dceee6496fbd7d2554a42fdf29ec3ed3"
+        bytes: 2348
+        role: "route: plan-step lifecycle-action-pre-install-pre-upgrade"
+      -
+        path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-install-post-upgrade.yaml"
+        sha256: "57ec4770dd9b2a0f6811cc677fab2bbdf868f99d489ab5dff553c5c409e18177"
+        bytes: 2090
+        role: "route: plan-step lifecycle-action-post-install-post-upgrade"
+      -
+        path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-delete.yaml"
+        sha256: "0031825f82fd6410909db1c172114fc721f4d2afe83ef650b8cd4619f68b9416"
+        bytes: 2055
+        role: "route: plan-step lifecycle-action-post-delete"
+      -
+        path: "data/certified-bundles/guides/catalog/kai-scheduler-v0.16.9-default/space-guide.md"
+        sha256: "3cd4e789dadc82bc4ce669f840f960a20db1069b962681303ae3fe1ed1e2b8c6"
+        bytes: 4610
+        role: "space-guide"
+    objectCount: 37
+    objectInventoryRef: "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-pre-install-pre-upgrade.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "lifecycle-action-pre-install-pre-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-install-post-upgrade.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "lifecycle-action-post-install-post-upgrade"
+        -
+          path: "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/lifecycle-action-post-delete.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "lifecycle-action-post-delete"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "description: Image is the configuration of the service image"
+          pinnedBy: "tag"
+        -
+          reference: "description: Image is the image used by the resource reservation"
+          pinnedBy: "tag"
+        -
+          reference: "ghcr.io/kai-scheduler/kai-scheduler/operator:v0.16.9"
+          pinnedBy: "tag"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "4 object(s) carry helm.sh/resource-policy in the committed default render"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
+      companionRequired: "prune-protection"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "6 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "present"
+      detail: "1 Namespace object(s) ship in the bundle"
+      disposition: "namespace ships as its own Unit"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 6 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race, and for the 4 object(s) carrying the keep promise, which a pruning reconciler would delete. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/source-lock.yaml"
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/variant-revision.yaml"
+      - "recipes/kai-scheduler/kai-scheduler/v0.16.9/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"

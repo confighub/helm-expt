@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml",
-      "sha256": "sha256:3ef2862210110fe7f2ce551a1508491e409dd156262639abc68e8037cab0ffe7",
+      "sha256": "sha256:c07b0ecb7cbf51fec9368941460258c414066a8a84f140fa95986ed5aa54053f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -232,6 +232,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 4 objects."
       }
     ],
     "routes": [
@@ -256,9 +262,37 @@
           "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml",
           "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 4 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/crd-ordering.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/crd-ordering.yaml"
+      },
       {
         "name": "hashicorp-terraform-1-1-2-default.yaml",
         "path": "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml",

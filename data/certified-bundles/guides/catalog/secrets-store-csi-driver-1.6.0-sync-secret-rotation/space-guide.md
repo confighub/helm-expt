@@ -6,19 +6,32 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `hooks` | `routes/hooks.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### hooks
+
+This step is due once the destination is known. The record names `delivery runtime` for it and marks it `recorded-not-run`.
+
+Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The retained file holds both CRDs, and the driver started without the hooks on a new cluster.
 
 ## How it was ingested
 

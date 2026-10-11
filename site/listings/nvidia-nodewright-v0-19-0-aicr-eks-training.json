@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
-      "sha256": "sha256:5c5ac12cf34d2a1b1cb144bcfa7020c226ecafefe997ed904299a3bbfde39a8b",
+      "sha256": "sha256:e09dfd70a7484505886188ec483077d769524e0de55d1d5c21e58de63c02be09",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -256,6 +256,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "CRD included in this base and applied before the operator that reconciles it"
+      },
+      {
+        "id": "prune-protection",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       }
     ],
     "routes": [
@@ -314,6 +320,27 @@
         "evidence": [
           "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml",
           "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
+        ]
+      },
+      {
+        "id": "prune-protection",
+        "phase": "destination-resolution",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "prune-protection"
+        ],
+        "checks": [],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/prune-protection.yaml"
         ]
       }
     ],

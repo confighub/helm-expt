@@ -27,12 +27,26 @@ spec:
         bytes: 20123
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/preflight-or-presync-crd-apply.yaml"
+        sha256: "992aa37ea40162f95582613d427fe8b1fe1d466ca414db3c6077e53ef9366f86"
+        bytes: 1675
+        role: "route: plan-step preflight-or-presync-crd-apply"
+      -
         path: "data/certified-bundles/guides/catalog/argo-workflows-1.0.14-controller-default-reviewed/space-guide.md"
-        sha256: "6238c216da3d1d6364cfe2ad734d4f5feae783c50ff6981c26767f6a0c703050"
-        bytes: 1183
+        sha256: "6791a014017f60c9ff586a59a2012898de3a1e50f04aa942e85823b03e443b4b"
+        bytes: 1825
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/preflight-or-presync-crd-apply.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "preflight-or-presync-crd-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -118,3 +132,4 @@ spec:
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml"

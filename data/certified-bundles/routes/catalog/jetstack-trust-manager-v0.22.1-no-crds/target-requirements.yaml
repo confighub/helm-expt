@@ -1,0 +1,82 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1-no-crds-target-requirements"
+spec:
+  subject:
+    catalogEntry: "jetstack-trust-manager-v0-22-1-no-crds"
+    chart: "jetstack/trust-manager"
+    version: "v0.22.1"
+    base: "no-crds"
+  requirements:
+    -
+      step: "crd-ordering"
+      phase: "pre-apply"
+      invokedBy: "delivery workflow"
+      statement: "The installer package includes these CRDs as prerequisites/target-facts/no-crds-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload."
+      names:
+        -
+          id: "bundles.trust.cert-manager.io"
+          detail: "trust-manager CRD managed outside this no-crds base"
+        -
+          id: "certificates.cert-manager.io"
+          detail: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+        -
+          id: "issuers.cert-manager.io"
+          detail: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
+    -
+      step: "namespace-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Namespace cert-manager must exist before apply. trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base."
+      names:
+        -
+          id: "cert-manager"
+          detail: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for the no-crds base"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+        - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Secret default/trust-manager-tls must exist before apply. trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle."
+      names:
+        -
+          id: "default/trust-manager-tls"
+          detail: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+        - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/jetstack/trust-manager/v0.22.1/publication/flattening-safety-verdict-no-crds.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+    verdictRef: "recipes/jetstack/trust-manager/v0.22.1/publication/flattening-safety-verdict-no-crds.yaml"

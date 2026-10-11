@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9-default-lifecycle-action-post-delete"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "After a delete, remove what the operator created. The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. It renders only while postCleanup.enabled is true, which is the chart default; the AICR values turn it off. A flattened delete that skips it leaves the operator-created Deployments and the Config. The keep-annotated Namespace, Queues and SchedulingShard are deleted with the base instead of kept."
+  declaration:
+    step: "lifecycle-action-post-delete"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-post-delete"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
+    verdictRef: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict.yaml"

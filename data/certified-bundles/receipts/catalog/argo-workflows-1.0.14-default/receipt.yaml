@@ -27,12 +27,26 @@ spec:
         bytes: 20123
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-default/preflight-or-presync-crd-apply.yaml"
+        sha256: "98a25f73df63799fab221570a6f9518a20fde41a556755375acd8d009e7058b6"
+        bytes: 2036
+        role: "route: plan-step preflight-or-presync-crd-apply"
+      -
         path: "data/certified-bundles/guides/catalog/argo-workflows-1.0.14-default/space-guide.md"
-        sha256: "56847d98034fe5af38c9af9e07db474401f29b3be279051e784285aa2d158fa4"
-        bytes: 1115
+        sha256: "77d22ea922c4824901fd27af79e442af7e3fae51774d864988421eef3a671098"
+        bytes: 1731
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/argo-cd-argo-workflows-1.0.14-default/preflight-or-presync-crd-apply.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "preflight-or-presync-crd-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -118,3 +132,4 @@ spec:
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-workflows/1.0.14/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-default.yaml"

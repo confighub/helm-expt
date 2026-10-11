@@ -32,12 +32,31 @@ spec:
         bytes: 1965
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-default/webhook-certificate.yaml"
+        sha256: "424f92755c682ae8a2d80f6c1f313fd17e90d0909b380a722360cd38a0f27991"
+        bytes: 1658
+        role: "route: plan-step webhook-certificate"
+      -
         path: "data/certified-bundles/guides/catalog/rollout-operator-0.49.0-default/space-guide.md"
-        sha256: "ed55f6de06030cafc2e6b1def18ae5ea26cce1d3fad2680cd33cde4c8970f2bc"
-        bytes: 1204
+        sha256: "537425dc6a46ad4922f689144183cad39dada73114ec9132d12561ffb9586ad0"
+        bytes: 2072
         role: "space-guide"
     objectCount: 15
     objectInventoryRef: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/grafana-rollout-operator-0-49-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-rollout-operator-0.49.0-default/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -121,3 +140,4 @@ spec:
       - "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/grafana/rollout-operator/0.49.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/grafana-rollout-operator-0-49-0-default.yaml"

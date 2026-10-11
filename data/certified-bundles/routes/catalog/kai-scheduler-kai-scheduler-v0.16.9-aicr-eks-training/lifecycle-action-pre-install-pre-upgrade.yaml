@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "kai-scheduler-kai-scheduler-v0.16.9-aicr-eks-training-lifecycle-action-pre-install-pre-upgrade"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Before an install or an upgrade, move the CRDs forward and migrate topologies. Helm runs these in hook-weight order before it applies the chart's objects. The crd-upgrader Job applies the CRD files inside its image, with the kai-scheduler-crd-manager ServiceAccount and its ClusterRole and ClusterRoleBinding. The topology-migration Job runs a script from a hook ConfigMap that copies Kueue Topology objects, where a cluster has them, to KAI Topology objects, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The kai-config Config object is not in this file; the post-install action applies it. A workflow that applies this base's CRD bundle first does the crd-upgrader's work. Helm deletes the Jobs when they succeed; a workflow that applies them must delete them itself."
+  declaration:
+    step: "lifecycle-action-pre-install-pre-upgrade"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "lifecycle-action-pre-install-pre-upgrade"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
+      - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/aicr-eks-training/pre-install-pre-upgrade.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training.yaml"
+    verdictRef: "recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/flattening-safety-verdict-aicr-eks-training.yaml"

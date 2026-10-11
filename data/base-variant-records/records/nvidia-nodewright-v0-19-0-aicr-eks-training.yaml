@@ -226,7 +226,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base and applied before the operator that reconciles it"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-upgrade.yaml"
@@ -288,7 +294,26 @@ spec:
           evidence:
             - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/lifecycle-actions.yaml"
             - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/nvidia-nodewright-v0.19.0-aicr-eks-training/prune-protection.yaml"
         - "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-delete.yaml"
         - "packages/nvidia/nodewright/v0.19.0/prerequisites/nodewright-lifecycle/aicr-eks-training/pre-upgrade.yaml"

@@ -1,0 +1,34 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.29.0-default-webhook-certificate"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Webhook caBundle supplied by the operator after it starts. A mutating and a validating webhook configuration render with no caBundle, and no template supplies one; the operator injects its own certificate once it runs."
+  declaration:
+    step: "webhook-certificate"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-certificate"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"
+  executedBy:
+    invokedBy: "the operator"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-29-0-default.yaml"
+    verdictRef: "recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/flattening-safety-verdict.yaml"

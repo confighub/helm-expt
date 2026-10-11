@@ -1,0 +1,136 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-grafana-alloy-1.12.1-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://grafana.github.io/helm-charts"
+        name: "alloy"
+        version: "1.12.1"
+        packageSHA256: "cdd1ec39f99c3c506d5b521156d72236ea143c089f50da6b64398f831734829c"
+    evidence:
+      - "recipes/grafana/alloy/1.12.1/source-lock.yaml"
+      - "recipes/grafana/alloy/1.12.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/grafana/alloy/1.12.1/bases/default/upstream.yaml"
+        sha256: "e3b30c75c9a0bc3241f42a8dde5d4b05371091c319ab5712fe30685234d17549"
+        bytes: 17018
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/grafana-alloy-1.12.1-default/crd-ordering.yaml"
+        sha256: "fba61c34cd87afcf1b7d50488ee14787ef62f47d49102f54c7caf74ddb362ae8"
+        bytes: 1841
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/alloy-1.12.1-default/space-guide.md"
+        sha256: "2eb087750861e0ead011118dbaa47a2cdada4a42181720cceb5cc5593eb9fb0e"
+        bytes: 1541
+        role: "space-guide"
+    objectCount: 7
+    objectInventoryRef: "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/grafana-alloy-1-12-1-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-alloy-1.12.1-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 2
+      pinnedByDigest: 1
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.io/grafana/alloy:v1.19.2"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1"
+          pinnedBy: "digest"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "1 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/grafana-alloy-1.12.1-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/grafana/alloy/1.12.1/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 1 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/grafana/alloy/1.12.1/source-lock.yaml"
+      - "recipes/grafana/alloy/1.12.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/grafana/alloy/1.12.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/grafana/alloy/1.12.1/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/grafana-alloy-1-12-1-default.yaml"

@@ -146,7 +146,8 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 6 CRDs $crd_outcome. kubectl applied the other 31 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
-say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
+say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
    - Before an install or an upgrade, move the CRDs forward, migrate topologies and apply the Config. Helm runs these in hook-weight order before it applies the chart's objects. The listing gives the rest.
+   - Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest.
 EOF_NOT_RUN

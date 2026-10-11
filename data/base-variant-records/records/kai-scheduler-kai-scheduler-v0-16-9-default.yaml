@@ -273,7 +273,13 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "CRD included in this base; it must be established before Kubernetes accepts the rendered Queue and SchedulingShard objects and before the operator starts"
+        -
+          id: "prune-protection"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"
@@ -355,7 +361,26 @@ spec:
           evidence:
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/lifecycle-actions.yaml"
             - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
+        -
+          id: "prune-protection"
+          requirementRefs:
+            - "prune-protection"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 2 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            []
+          evidence:
+            - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/kai-scheduler-kai-scheduler-v0.16.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-16-9-default.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-delete.yaml"
         - "packages/kai-scheduler/kai-scheduler/v0.16.9/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml"

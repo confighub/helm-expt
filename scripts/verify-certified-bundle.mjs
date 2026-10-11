@@ -5,7 +5,9 @@
 // CertifiedBundleReceipt. It refuses a receipt whose structure is malformed,
 // whose file manifest does not hash-match the committed bytes it names, whose
 // certified verdict cites no verdict receipt, or whose lane disagrees with the
-// verdict it cites. Spec: docs/reference/certified-bundle-spec.md. Schema:
+// verdict it cites. It also refuses a flatten-with-routes catalog bundle whose
+// plan documents and whose record's plan steps disagree. Spec:
+// docs/reference/certified-bundle-spec.md. Schema:
 // schemas/certified-bundle-receipt.schema.json.
 //
 //   node scripts/verify-certified-bundle.mjs --verify      strict pass over all receipts
@@ -15,7 +17,16 @@ import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSy
 import { dirname, join, relative } from "node:path";
 import { tmpdir } from "node:os";
 
-import { check, readYaml, repoRoot, sha256File, toYaml } from "./lib/proof-common.mjs";
+import { check, readYaml, readYamlFiles, repoRoot, sha256File, toYaml } from "./lib/proof-common.mjs";
+import {
+  CATALOG_RECORD_ROOT,
+  PLAN_STEP_ROUTE_KIND,
+  isPlanDocumentRole,
+  isPlanRequirementsRole,
+  isPlanStepRole,
+  isRenderRouteRole,
+  planDisagreements,
+} from "./lib/catalog-bundle-plan.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 
@@ -290,8 +301,10 @@ function verifyImageInventory(name, receipt) {
 
 function verifyRouteIntegrity(name, receipt) {
   const spec = receipt.spec;
+  // A route written from a record's plan step is checked by verifyPlan. It
+  // discharges no quirk class, so it cannot stand in for a companion here.
   const shipped = spec.bundle.files
-    .filter((file) => String(file.role ?? "").startsWith("route:"))
+    .filter((file) => isRenderRouteRole(file.role))
     .map((file) => ({ path: file.path, quirk: String(file.role).slice("route:".length).trim() }));
 
   const referenced = [];
@@ -384,6 +397,100 @@ function verifySpaceGuide(name, receipt) {
   return 1;
 }
 
+// The plan rule. A flatten-with-routes entry has a plan, and two places state
+// it: the steps its BaseVariantRecord names and the plan documents its bundle
+// carries. A reader of the entry page sees the record's steps, and a consumer
+// of the bundle gets the documents, so the two must say the same thing. One
+// bundle once carried an ordering and a prune rule while its record named a
+// Secret that had to exist first, and an install did not start without it.
+//
+// The rule covers every certified flatten-with-routes bundle the catalog
+// builds from a Helm chart. A bundle published before the rule keeps the
+// files it was published with, because its bytes are fixed in a registry. It
+// is counted and not refused. An unpublished bundle has no such excuse.
+function coveredByPlanRule(receipt) {
+  const spec = receipt.spec;
+  return spec.producer?.name === "config-workshop-catalog"
+    && spec.source?.kind === "helm-chart"
+    && spec.verdict.lane === "flatten-with-routes"
+    && spec.verdict.status === "certified";
+}
+
+function readPlanInputs(receipt) {
+  const plan = receipt.spec.bundle.plan;
+  const recordPath = join(repoRoot, plan.record);
+  const documentPaths = plan.documents.map((document) => join(repoRoot, document.path));
+  const parsed = readYamlFiles([recordPath, ...documentPaths]);
+  return {
+    record: parsed.get(recordPath),
+    documents: plan.documents.map((document, index) => ({ path: document.path, doc: parsed.get(documentPaths[index]) })),
+  };
+}
+
+function verifyPlan(name, receipt, readInputs = readPlanInputs) {
+  const spec = receipt.spec;
+  const plan = spec.bundle.plan;
+  const planFiles = spec.bundle.files.filter((file) => isPlanStepRole(file.role) || isPlanRequirementsRole(file.role));
+  if (!plan) {
+    if (planFiles.length > 0)
+      refuse(name, `the bundle ships ${planFiles[0].path}, which is written from a record, and its receipt names no record`);
+    if (!coveredByPlanRule(receipt)) return { planned: 0, steps: 0, beforeRule: 0 };
+    if (spec.bundle.manifestDigest) return { planned: 0, steps: 0, beforeRule: 1 };
+    refuse(
+      name,
+      "an unpublished flatten-with-routes bundle must carry the plan its record names, and its receipt names no record. Only a bundle published before the plan rule keeps the files it was published with.",
+    );
+  }
+  if (!coveredByPlanRule(receipt))
+    refuse(name, "the receipt names a plan record, and only a certified flatten-with-routes catalog bundle of a Helm chart has one");
+  if (!safeRepoPath(plan.record) || !plan.record.startsWith(`${CATALOG_RECORD_ROOT}/`) || !existsSync(join(repoRoot, plan.record)))
+    refuse(name, `the plan record is not a file under ${CATALOG_RECORD_ROOT}: ${plan.record}`);
+  if (!Array.isArray(plan.documents)) refuse(name, "the plan lists no documents");
+
+  // The receipt's plan block and its file list must name the same documents.
+  const listed = spec.bundle.files.filter((file) => isPlanDocumentRole(file.role)).map((file) => file.path).sort();
+  const claimed = plan.documents.map((document) => document.path).sort();
+  if (JSON.stringify(listed) !== JSON.stringify(claimed))
+    refuse(name, `the plan block names ${claimed.length} document(s) and the bundle ships ${listed.length} route and requirement file(s), or they are not the same files`);
+  for (const path of claimed) {
+    if (!safeRepoPath(path) || !existsSync(join(repoRoot, path))) refuse(name, `plan document resolves nowhere: ${path}`);
+  }
+
+  const { record, documents } = readInputs(receipt);
+  const objectSet = spec.bundle.files.find((file) => file.role === "rendered object set");
+  const chart = spec.source.charts?.[0];
+  if (
+    record?.kind !== "BaseVariantRecord"
+    || record.spec?.source?.type !== "helm"
+    || record.spec.source.name?.split("/").at(-1) !== chart?.name
+    || record.spec.source.version !== chart?.version
+    || record.spec.configuration?.digest !== String(objectSet?.sha256 ?? "").replace(/^sha256:/, "")
+  )
+    refuse(name, `${plan.record} is not the record of the objects this bundle holds`);
+  if (record.spec.processing?.flattening?.verdict !== spec.verdict.lane)
+    refuse(name, `${plan.record} says ${record.spec.processing?.flattening?.verdict}, and the bundle says ${spec.verdict.lane}`);
+
+  for (const { path, doc } of documents) {
+    if (doc?.apiVersion !== "evidence.confighub.com/v1alpha1") refuse(name, `${path} has an unexpected apiVersion`);
+    const fromRecord = doc.kind === "BundleTargetRequirements" || doc.spec?.routeKind === PLAN_STEP_ROUTE_KIND;
+    if (!fromRecord) continue;
+    if (!(doc.spec.provenance?.generatedFrom ?? []).includes(plan.record))
+      refuse(name, `${path} is written from a record and does not cite ${plan.record}`);
+    if (doc.kind === "BundleRoute") {
+      if (!doc.spec.discharges) refuse(name, `${path} does not say what its step asks for`);
+      if (!Array.isArray(doc.spec.boundedness) || doc.spec.boundedness.length === 0)
+        refuse(name, `${path} states no limit of its own`);
+    }
+  }
+
+  // What the receipt says each document carries must be what the document
+  // carries, or the block could be made to agree while the files do not.
+  const problems = planDisagreements({ record, documents });
+  if (problems.length > 0)
+    refuse(name, `the bundle's plan documents and the steps of ${plan.record} disagree: ${problems.join("; ")}`);
+  return { planned: 1, steps: (record.spec.lifecycle?.routeIntent?.routes ?? []).length, beforeRule: 0 };
+}
+
 function verifyReceipt(path) {
   const receipt = readYaml(path);
   const name = receipt?.metadata?.name ?? path;
@@ -393,7 +500,8 @@ function verifyReceipt(path) {
   const routing = verifyRouteIntegrity(name, receipt);
   const guides = verifySpaceGuide(name, receipt);
   const images = verifyImageInventory(name, receipt);
-  return { hashes, citations, guides, images, ...routing };
+  const plan = verifyPlan(name, receipt);
+  return { hashes, citations, guides, images, ...routing, ...plan };
 }
 
 function receiptPaths() {
@@ -418,6 +526,9 @@ function runVerify() {
   let routes = 0;
   let guides = 0;
   let images = 0;
+  let planned = 0;
+  let steps = 0;
+  let beforeRule = 0;
   const owed = [];
   for (const path of paths) {
     const result = verifyReceipt(path);
@@ -426,10 +537,16 @@ function runVerify() {
     routes += result.routes;
     guides += result.guides;
     images += result.images;
+    planned += result.planned;
+    steps += result.steps;
+    beforeRule += result.beforeRule;
     owed.push(...result.owed);
   }
   console.log(
     `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried, ${guides} space guide(s), ${images} image reference(s) cross-checked`,
+  );
+  console.log(
+    `strict ingest: ${planned} flatten-with-routes catalog bundle(s) carry the ${steps} plan step(s) their records name; ${beforeRule} more were published before the plan rule and keep the files they were published with`,
   );
   // Naming these is the point. A provisional bundle that owes a companion is
   // not a broken artifact, it is work the route lane has not reached, and
@@ -464,6 +581,32 @@ function receiptCarryingImages() {
   return null;
 }
 
+// A receipt whose plan has a document of the wanted kind written from a
+// record, so each plan refusal has something to break.
+function receiptCarryingAPlan(wanted) {
+  for (const path of receiptPaths()) {
+    const receipt = readYaml(path);
+    if (receipt.spec.bundle.plan && receipt.spec.bundle.files.some((file) => wanted(file.role))) return receipt;
+  }
+  return null;
+}
+
+// The plan rule compares the bundle with a record on disk. To break the
+// record without writing to it, the case reads the real inputs and changes
+// its copy of them.
+function expectPlanRefusal(label, receipt, mutate) {
+  const copy = JSON.parse(JSON.stringify(receipt));
+  const inputs = JSON.parse(JSON.stringify(readPlanInputs(receipt)));
+  mutate(copy, inputs);
+  try {
+    verifyPlan("self-test", copy, () => inputs);
+  } catch (error) {
+    if (String(error.message).startsWith("strict ingest refuses")) return;
+    throw error;
+  }
+  throw new Error(`self-test failed: ${label} was admitted instead of refused`);
+}
+
 function expectRefusal(label, mutate, receiptOverride) {
   const base = receiptOverride ?? readYaml(receiptPaths()[0]);
   const copy = JSON.parse(JSON.stringify(base));
@@ -475,6 +618,7 @@ function expectRefusal(label, mutate, receiptOverride) {
     verifyRouteIntegrity("self-test", copy);
     verifySpaceGuide("self-test", copy);
     verifyImageInventory("self-test", copy);
+    verifyPlan("self-test", copy);
   } catch (error) {
     if (String(error.message).startsWith("strict ingest refuses")) return;
     throw error;
@@ -584,7 +728,46 @@ function runSelfTest() {
   expectRefusal("an image recorded as digest-pinned when it is a tag", (receipt) => {
     receipt.spec.bundle.images.references[0].pinnedBy = "digest";
   }, imaged);
-  console.log("strict ingest self-test: 17 refusal(s) fired as required");
+  // The plan rule. Each case breaks one side and leaves the other alone.
+  const planned = receiptCarryingAPlan(isPlanStepRole);
+  const required = receiptCarryingAPlan(isPlanRequirementsRole);
+  check(planned && required, "no receipt carries a route and no receipt carries a requirement written from a record, so the plan refusals cannot be self-tested");
+  const routeIds = (inputs) => inputs.record.spec.lifecycle.routeIntent.routes;
+  expectPlanRefusal("an unpublished flatten-with-routes bundle with no plan", planned, (receipt) => {
+    delete receipt.spec.bundle.plan;
+    receipt.spec.bundle.files = receipt.spec.bundle.files.filter((file) => !isPlanStepRole(file.role) && !isPlanRequirementsRole(file.role));
+  });
+  expectPlanRefusal("a record step no plan document carries", planned, (receipt, inputs) => {
+    routeIds(inputs).push({ ...routeIds(inputs)[0], id: "a-step-the-bundle-never-heard-of", requirementRefs: ["a-step-the-bundle-never-heard-of"] });
+  });
+  expectPlanRefusal("a plan document for a step the record does not name", planned, (receipt, inputs) => {
+    const written = inputs.documents.find((document) => document.doc.spec?.routeKind === PLAN_STEP_ROUTE_KIND);
+    inputs.record.spec.lifecycle.routeIntent.routes = routeIds(inputs).filter((step) => step.id !== written.doc.spec.declaration.step);
+  });
+  expectPlanRefusal("a plan document whose words left the record's", planned, (receipt, inputs) => {
+    const written = inputs.documents.find((document) => document.doc.spec?.routeKind === PLAN_STEP_ROUTE_KIND);
+    written.doc.spec.discharges = `${written.doc.spec.discharges} And one more thing nobody recorded.`;
+  });
+  expectPlanRefusal("a requirement the record states and the bundle reworded", required, (receipt, inputs) => {
+    const requirements = inputs.documents.find((document) => document.doc.kind === "BundleTargetRequirements");
+    requirements.doc.spec.requirements[0].invokedBy = "nobody in particular";
+  });
+  expectPlanRefusal("a step written from the record and marked automatic", planned, (receipt, inputs) => {
+    const written = inputs.documents.find((document) => document.doc.spec?.routeKind === PLAN_STEP_ROUTE_KIND);
+    written.doc.spec.executedBy.automatic = true;
+  });
+  expectPlanRefusal("a plan block that names a file the bundle does not ship", planned, (receipt) => {
+    receipt.spec.bundle.plan.documents = receipt.spec.bundle.plan.documents.slice(1);
+  });
+  expectPlanRefusal("a plan that points at another entry's record", planned, (receipt, inputs) => {
+    inputs.record.spec.configuration.digest = "0".repeat(64);
+  });
+  expectPlanRefusal("a requirement the record names and the bundle dropped", required, (receipt, inputs) => {
+    const requirements = inputs.documents.find((document) => document.doc.kind === "BundleTargetRequirements");
+    requirements.doc.spec.requirements = requirements.doc.spec.requirements.slice(1);
+    if (requirements.doc.spec.requirements.length === 0) inputs.documents = inputs.documents.filter((document) => document !== requirements);
+  });
+  console.log("strict ingest self-test: 26 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

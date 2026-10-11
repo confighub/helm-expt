@@ -6,19 +6,32 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/jaegertracing/jaeger-operator/2.57.0/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `crd-ordering` | `requirements/target-requirements.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### crd-ordering, as the record states it
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `recorded-not-run`.
+
+The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. Wait for every CRD to become established before the workload.
 
 ## How it was ingested
 

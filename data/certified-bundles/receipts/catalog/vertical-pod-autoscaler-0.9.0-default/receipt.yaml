@@ -32,12 +32,31 @@ spec:
         bytes: 1981
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/target-requirements.yaml"
+        sha256: "1d0a07c21cab3e6ca3d23dbe11884f7f3e3f395325d1e9063edec04b6ec10e21"
+        bytes: 1900
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/vertical-pod-autoscaler-0.9.0-default/space-guide.md"
-        sha256: "04dde59bca0af81258028644c7200426dfda0973397a80d66eeac57682945c74"
-        bytes: 1246
+        sha256: "7464fe4d1ed33150c64a596dc581372045acb5cf84d45b75a2f141b2d21240cf"
+        bytes: 2030
         role: "space-guide"
     objectCount: 39
     objectInventoryRef: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -127,3 +146,4 @@ spec:
       - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"

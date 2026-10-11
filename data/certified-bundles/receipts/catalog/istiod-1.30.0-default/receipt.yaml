@@ -27,12 +27,26 @@ spec:
         bytes: 147073
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/istio-istiod-1.30.0-default/target-requirements.yaml"
+        sha256: "9810b2bd8b60fa69b2653078575a4dd9822dfbaec45ca4abba6d3e125c3fdf6d"
+        bytes: 1666
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/istiod-1.30.0-default/space-guide.md"
-        sha256: "88e8db486c0b60a95073bf34a79b5f4253bf6bb08808aebc37ed64d138b9b85b"
-        bytes: 1077
+        sha256: "e6e6f3795c74ae971235af34331d2ed615279a241d42053713d2afa7eb0c4fa1"
+        bytes: 1665
         role: "space-guide"
     objectCount: 17
     objectInventoryRef: "recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/istio-istiod-1-30-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/istio-istiod-1.30.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "namespace-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -118,3 +132,4 @@ spec:
       - "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/istio/istiod/1.30.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/istio-istiod-1-30-0-default.yaml"

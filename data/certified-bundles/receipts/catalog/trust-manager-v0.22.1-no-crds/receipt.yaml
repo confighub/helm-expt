@@ -27,12 +27,28 @@ spec:
         bytes: 10563
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-no-crds/target-requirements.yaml"
+        sha256: "5f32f5395804074ac245fdbb305201d22ae53e27fe38ba0a5becb68e1c33745e"
+        bytes: 3627
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/trust-manager-v0.22.1-no-crds/space-guide.md"
-        sha256: "64b35603ff70a1e72d0c1464c2a2abd69984878a62621a71b13635912e223ee6"
-        bytes: 1126
+        sha256: "2f5719fff05080cbdf7080877dfaf479c3632a591ebb517e30569820d456471c"
+        bytes: 2563
         role: "space-guide"
     objectCount: 13
     objectInventoryRef: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-trust-manager-v0.22.1-no-crds/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
+            - "namespace-before-apply"
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -118,3 +134,4 @@ spec:
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/jetstack/trust-manager/v0.22.1/bases/no-crds/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-trust-manager-v0-22-1-no-crds.yaml"

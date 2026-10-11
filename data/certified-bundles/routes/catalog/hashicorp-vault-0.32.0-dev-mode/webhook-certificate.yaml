@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "hashicorp-vault-0.32.0-dev-mode-webhook-certificate"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step."
+  declaration:
+    step: "webhook-certificate"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-certificate"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "the Vault agent injector"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml"
+    verdictRef: "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:eb209455e3eee797b0a04d21317e3050d4f97ec822e21824e1d3d8c077374921",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
-      "sha256": "sha256:1325ed3df03dc70b1cc21de2677049a54db2ee4ce12dcebdbdcd757af1756574",
+      "sha256": "sha256:a84f5395d594a185862c0bd93eac217ff7a77dab372bed56dd2b6659a1d0fd2e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -234,6 +234,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook"
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects."
       }
     ],
     "routes": [
@@ -256,9 +262,37 @@
           "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
           "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/variants/default/variant.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 37 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/autoscaler-vertical-pod-autoscaler-0.9.0-default/crd-ordering.yaml"
+      },
       {
         "name": "autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",
         "path": "data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml",

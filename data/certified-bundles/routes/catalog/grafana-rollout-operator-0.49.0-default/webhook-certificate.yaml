@@ -1,0 +1,35 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "grafana-rollout-operator-0.49.0-default-webhook-certificate"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders. The rollout-operator makes a self-signed certificate after it starts and fills the caBundle of all four webhook configurations, so you do nothing for this step."
+  declaration:
+    step: "webhook-certificate"
+    phase: "observe"
+    requirementRefs:
+      - "webhook-certificate"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+      - "data/plan-step-readings/readings.yaml"
+      - "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+  executedBy:
+    invokedBy: "the rollout-operator"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/grafana-rollout-operator-0-49-0-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/grafana-rollout-operator-0-49-0-default.yaml"
+    verdictRef: "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"

@@ -32,12 +32,31 @@ spec:
         bytes: 1884
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/target-requirements.yaml"
+        sha256: "860f2ef1bf79f2b321dbf68b2985761e03e96b4c7a6fecabda4297fc73e10a76"
+        bytes: 1835
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/jaeger-operator-2.57.0-default/space-guide.md"
-        sha256: "0ec652755839cbce8268541ce70791bae1601a31a0ee89bea5304abb8eca152e"
-        bytes: 1223
+        sha256: "c5088866556f469ecebf8b7dbe484ca99f5e72af0c94c69018fb8a32c0e3a910"
+        bytes: 2087
         role: "space-guide"
     objectCount: 11
     objectInventoryRef: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jaegertracing-jaeger-operator-2.57.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -124,3 +143,4 @@ spec:
       - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jaegertracing/jaeger-operator/2.57.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/jaegertracing-jaeger-operator-2-57-0-default.yaml"

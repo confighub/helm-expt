@@ -32,12 +32,31 @@ spec:
         bytes: 1853
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/target-requirements.yaml"
+        sha256: "e257c59ab5724401b818b29a5ca9d5e436967fecdf22e0b9bc45ffffcdb908b3"
+        bytes: 1901
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/terraform-1.1.2-default/space-guide.md"
-        sha256: "f3dab0eb6c17172972b17ea2539d667ebc38e9c12109433b2407bfa154ab1aff"
-        bytes: 1172
+        sha256: "c701ea3b4970717f3614f7d4e0f995b733f72f581e0056c5a81a87f5701d1dd3"
+        bytes: 1943
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/hashicorp-terraform-1.1.2-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -121,3 +140,4 @@ spec:
       - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/hashicorp/terraform/1.1.2/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/hashicorp-terraform-1-1-2-default.yaml"

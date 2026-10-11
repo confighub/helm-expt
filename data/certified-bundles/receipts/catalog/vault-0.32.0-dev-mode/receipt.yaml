@@ -27,12 +27,26 @@ spec:
         bytes: 12744
         role: "rendered object set"
       -
+        path: "data/certified-bundles/routes/catalog/hashicorp-vault-0.32.0-dev-mode/webhook-certificate.yaml"
+        sha256: "9b39951a9999981e6499e0c9493c34d7c407b46188512823c3cef7d312f39c3c"
+        bytes: 1647
+        role: "route: plan-step webhook-certificate"
+      -
         path: "data/certified-bundles/guides/catalog/vault-0.32.0-dev-mode/space-guide.md"
-        sha256: "c7bc841021f7ae989db0e3873c81373afe4070a587ca81b8e27db1903c03c3bc"
-        bytes: 1096
+        sha256: "62090dccb3e75477b7ffae4e3f4a079745574d841c867e2fb56085d6aff37474"
+        bytes: 1802
         role: "space-guide"
     objectCount: 11
     objectInventoryRef: "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/hashicorp-vault-0.32.0-dev-mode/webhook-certificate.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "webhook-certificate"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -118,3 +132,4 @@ spec:
       - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml"
       - "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
       - "packages/hashicorp/vault/0.32.0/bases/dev-mode/upstream.yaml"
+      - "data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml"

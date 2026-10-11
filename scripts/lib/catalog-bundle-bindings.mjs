@@ -1,6 +1,7 @@
 import { existsSync, lstatSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 
+import { catalogRecordRel, isPlanRequirementsRole, isRenderRouteRole } from "./catalog-bundle-plan.mjs";
 import { listTrackedFiles, readYamlFiles, repoRoot, sha256File } from "./proof-common.mjs";
 
 const CERTIFIED_RECEIPTS_CSV = "data/certified-bundles/receipts.csv";
@@ -65,6 +66,9 @@ export function findCatalogBundleBinding(record, candidates) {
   const routeFiles = bundle.files
     .filter((file) => typeof file.role === "string" && file.role.startsWith("route: "))
     .map((file) => ({ path: file.path, sha256: withSha256(file.sha256), role: file.role }));
+  const requirementFiles = bundle.files
+    .filter((file) => isPlanRequirementsRole(file.role))
+    .map((file) => ({ path: file.path, sha256: withSha256(file.sha256), role: file.role }));
   return {
     ociRef: `oci://${bundle.reference}@${withSha256(bundle.manifestDigest)}`,
     hashes: {
@@ -82,11 +86,53 @@ export function findCatalogBundleBinding(record, candidates) {
       publicationReceipt: candidate.publicationPath,
     },
     routeFiles,
+    requirementFiles,
     verdict: { lane: candidate.receipt.spec.verdict.lane, status: candidate.receipt.spec.verdict.status },
     boundaries: {
       routesNotExecuted: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
     },
   };
+}
+
+// The plan of this record's catalog bundle, published or not, when the
+// bundle's receipt says its plan follows a record. It returns the route files
+// the bundle generator wrote from the render, which are the only plan
+// documents a record takes steps from. The other plan documents are written
+// from the record, so reading them back would let a record cite itself.
+//
+// Returns null when no receipt with a plan holds this record's objects. A
+// receipt that holds them and names another record is refused.
+export function findCatalogBundlePlan(record, candidates) {
+  const identity = recordIdentity(record, candidates[0]?.root ?? repoRoot);
+  if (!identity) return null;
+  const matches = candidates.filter((item) => item.receipt?.spec?.bundle?.plan && holdsRecordObjects(item, identity));
+  if (matches.length === 0) return null;
+  const name = record.metadata?.name ?? "record";
+  if (matches.length > 1) throw new Error(`refusing catalog bundle plan for ${name}: more than one certified bundle receipt holds its objects`);
+  const [candidate] = matches;
+  const plan = candidate.receipt.spec.bundle.plan;
+  if (plan.record !== catalogRecordRel(name)) {
+    throw new Error(`refusing catalog bundle plan for ${name}: ${candidate.receiptPath} holds its objects and takes its plan from ${plan.record}`);
+  }
+  return {
+    receipt: candidate.receiptPath,
+    renderRoutes: candidate.receipt.spec.bundle.files
+      .filter((file) => isRenderRouteRole(file.role))
+      .map((file) => ({ path: file.path, role: file.role })),
+  };
+}
+
+// The receipt is for this record's chart, version and exact object bytes. A
+// published bundle and an unpublished one both qualify.
+function holdsRecordObjects(candidate, identity) {
+  const receipt = candidate.receipt;
+  if (receipt?.kind !== "CertifiedBundleReceipt" || receipt.spec?.bundle?.contentsKind !== "rendered-config") return false;
+  const chart = receipt.spec.source?.charts?.find((entry) => entry?.name === identity.sourceName.split("/").at(-1) && entry.version === identity.version);
+  if (!chart) return false;
+  const configurationFiles = receipt.spec.bundle.files?.filter((file) => !file.role || file.role === "rendered object set") ?? [];
+  return configurationFiles.length === 1
+    && configurationFiles[0].path === identity.packagePath
+    && digest(configurationFiles[0].sha256) === identity.configurationDigest;
 }
 
 function recordIdentity(record, root) {

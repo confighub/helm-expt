@@ -1,0 +1,41 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-minimal-crds-self-contained-crd-base"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+  declaration:
+    step: "self-contained-crd-base"
+    phase: "pre-apply"
+    requirementRefs:
+      - "self-contained-crd-base"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
+      - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+      - "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+      - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+      - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+      - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+      - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+  executedBy:
+    invokedBy: "selected applier"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
+    verdictRef: "recipes/argo-cd/argo-workflows/1.0.14/publication/flattening-safety-verdict-minimal-crds.yaml"
