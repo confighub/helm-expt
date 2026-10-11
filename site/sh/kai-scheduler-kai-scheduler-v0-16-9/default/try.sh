@@ -95,6 +95,19 @@ wait_for_crd queues.scheduling.run.ai
 wait_for_crd schedulingshards.kai.scheduler
 wait_for_crd topologies.kai.scheduler
 
+say "Before an install or an upgrade, move the CRDs forward and migrate topologies"
+hook_dir="$(mktemp -d)"
+awk -v dir="$hook_dir" 'BEGIN{n=0} /^---[[:space:]]*$/{n++; next} {print > (dir "/doc-" n ".yaml")}' ./kai-scheduler-kai-scheduler-v0-16-9-default/package/prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml
+kubectl apply -f "$hook_dir/doc-2.yaml" -f "$hook_dir/doc-5.yaml" -f "$hook_dir/doc-7.yaml"
+kubectl apply -f "$hook_dir/doc-1.yaml" -f "$hook_dir/doc-4.yaml" -f "$hook_dir/doc-6.yaml"
+kubectl apply -f "$hook_dir/doc-8.yaml"
+kubectl -n kai-scheduler wait --for=condition=complete --timeout=300s job/crd-upgrader
+kubectl apply -f "$hook_dir/doc-3.yaml"
+kubectl apply -f "$hook_dir/doc-9.yaml"
+kubectl -n kai-scheduler wait --for=condition=complete --timeout=300s job/topology-migration
+kubectl delete --ignore-not-found -f ./kai-scheduler-kai-scheduler-v0-16-9-default/package/prerequisites/kai-scheduler-lifecycle/default/pre-install-pre-upgrade.yaml
+rm -rf "$hook_dir"
+
 if [ -d ./kai-scheduler-kai-scheduler-v0-16-9-default/out/secrets ]; then
   say "Apply rendered Secrets first"
   kubectl apply -f ./kai-scheduler-kai-scheduler-v0-16-9-default/out/secrets
@@ -116,8 +129,14 @@ if [ "${#manifest_args[@]}" -gt 0 ]; then
   kubectl apply "${manifest_args[@]}"
 fi
 
-say "Applied. The cluster received the files in ./kai-scheduler-kai-scheduler-v0-16-9-default/out. Its CRDs were settled first, from the package."
-say "This install is not finished. The plan has 2 install steps that this script does not run:"
-printf '   - %s\n' "Before an install or an upgrade, move the CRDs forward and migrate topologies"
-printf '   - %s\n' "After an install or an upgrade, apply the Config that tells the operator what to run"
-say "Not run by this script: the pre-install/pre-upgrade, post-install/post-upgrade and post-delete steps of this base's plan. The entry page says who runs each one."
+say "After an install or an upgrade, apply the Config that tells the operator what to run"
+hook_dir="$(mktemp -d)"
+awk -v dir="$hook_dir" 'BEGIN{n=0} /^---[[:space:]]*$/{n++; next} {print > (dir "/doc-" n ".yaml")}' ./kai-scheduler-kai-scheduler-v0-16-9-default/package/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml
+kubectl apply -f "$hook_dir/doc-1.yaml" -f "$hook_dir/doc-2.yaml" -f "$hook_dir/doc-3.yaml" -f "$hook_dir/doc-4.yaml"
+kubectl apply -f "$hook_dir/doc-5.yaml"
+kubectl -n kai-scheduler wait --for=condition=complete --timeout=300s job/kai-config-deployer
+kubectl delete --ignore-not-found -f ./kai-scheduler-kai-scheduler-v0-16-9-default/package/prerequisites/kai-scheduler-lifecycle/default/post-install-post-upgrade.yaml
+rm -rf "$hook_dir"
+
+say "Done. The cluster received the files in ./kai-scheduler-kai-scheduler-v0-16-9-default/out. Its CRDs were settled first, from the package. 2 packaged steps ran with the apply."
+say "Not run by this script: the post-delete step of this base's plan. The entry page says who runs it."
