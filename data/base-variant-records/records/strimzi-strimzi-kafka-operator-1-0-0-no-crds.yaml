@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 17
     digest: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
@@ -516,8 +516,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds:latest@sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb"
+      manifestDigest: "sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb"
+      layerDigest: "sha256:0b74b6ddd8a1c4e71c749ae6e94562677cf37475ed8f7043b385843df85007fe"
+      objectSetSha256: "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+      receipt: "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-no-crds/receipt.yaml"
+      receiptSha256: "sha256:7ddd8766104156e29a4cdf19a83dcb628cc8068a6dfbfc2325c507deed72ee67"
+      publicationReceipt: "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:c75bd8d0bbc7af2c16bd3bf57f5d88dde364b225b8ca8064e9a6a0313b3d4642"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

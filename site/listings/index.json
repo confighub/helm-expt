@@ -16,7 +16,7 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
@@ -2133,7 +2133,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 21,
       "digest": "sha256:875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -2337,7 +2337,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 6,
       "digest": "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -2371,7 +2371,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 9,
       "digest": "sha256:6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -2422,7 +2422,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 27,
       "digest": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b",
       "flatteningVerdict": "flatten-with-routes",
       "images": 2,
@@ -2507,7 +2507,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 37,
       "digest": "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6",
       "flatteningVerdict": "flatten-with-routes",
       "images": 3,
@@ -2762,7 +2762,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 15,
       "digest": "sha256:c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 2,
@@ -2796,7 +2796,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 21,
       "digest": "sha256:9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 2,
@@ -3102,7 +3102,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 18,
       "digest": "sha256:c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 2,
@@ -3391,7 +3391,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 10,
       "digest": "sha256:55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -3442,7 +3442,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 7,
       "digest": "sha256:ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -3493,7 +3493,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 11,
       "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -3922,7 +3922,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 22,
       "digest": "sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -3939,7 +3939,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 10,
       "digest": "sha256:6da1150ac5e27b67009e5c20dddf061a5a92af72adfc4551a866fa0d28e23a87",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -4024,7 +4024,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 3,
       "digest": "sha256:d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -4075,7 +4075,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -4092,7 +4092,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 5,
       "digest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -4289,7 +4289,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 26,
       "digest": "sha256:bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187",
       "flatteningVerdict": "not-assessed",
       "images": 3,
@@ -4391,7 +4391,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 13,
       "digest": "sha256:ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -4476,7 +4476,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 6,
       "digest": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22",
       "flatteningVerdict": "safe-to-flatten",
       "images": 2,
@@ -4644,7 +4644,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 18,
       "digest": "sha256:4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 3,
@@ -4661,7 +4661,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 17,
       "digest": "sha256:bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 3,
@@ -4695,7 +4695,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 13,
       "digest": "sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -4814,7 +4814,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -5018,7 +5018,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 10,
       "digest": "sha256:14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975",
       "flatteningVerdict": "flatten-with-routes",
       "images": 1,
@@ -5181,7 +5181,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 13,
       "digest": "sha256:5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250",
       "flatteningVerdict": "flatten-with-routes",
       "images": 2,
@@ -5400,7 +5400,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 23,
       "digest": "sha256:c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7",
       "flatteningVerdict": "flatten-with-routes",
       "images": 3,
@@ -5517,7 +5517,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 47,
       "digest": "sha256:3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 5,
@@ -5896,7 +5896,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -5930,7 +5930,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 7,
       "digest": "sha256:2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 3,
@@ -7765,7 +7765,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 13,
       "digest": "sha256:6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -7816,7 +7816,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -7850,7 +7850,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -7901,7 +7901,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 4,
       "digest": "sha256:ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -7986,7 +7986,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 5,
       "digest": "sha256:a016dbf7647ff32935788288023d6dbd78b924f6cca645ef2081fe1d8856f8b4",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -8728,7 +8728,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 10,
       "digest": "sha256:8c271440bc9064522738add874400229e0dc0de35e39818aa29433f7d16c243c",
       "flatteningVerdict": "not-assessed",
       "images": 1,
@@ -8864,7 +8864,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 17,
       "digest": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d",
       "flatteningVerdict": "safe-to-flatten",
       "images": 1,
@@ -8949,7 +8949,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 6,
       "digest": "sha256:9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,
@@ -9039,7 +9039,7 @@
         "status": "not-classified",
         "roles": []
       },
-      "objectCount": 0,
+      "objectCount": 10,
       "digest": "sha256:8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933",
       "flatteningVerdict": "unsafe-to-flatten",
       "images": 1,

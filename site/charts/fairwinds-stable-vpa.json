@@ -47,7 +47,7 @@
             "id": "fairwinds-stable-vpa-4-11-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/fairwinds-stable-vpa-4-11-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 26,
           "verdict": "not-assessed",
           "published": false,
           "flagged": false,

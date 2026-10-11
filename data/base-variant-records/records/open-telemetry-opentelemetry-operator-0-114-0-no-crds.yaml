@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 13
     digest: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"

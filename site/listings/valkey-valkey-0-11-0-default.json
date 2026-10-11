@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/valkey-valkey-0-11-0-default.yaml",
-      "sha256": "sha256:fa80733602a398b2799be1c3cf449cc0f6b067cba0c0a34f3d9ce496d212fb7f",
+      "sha256": "sha256:669c58eec4940a869aba882e95b7f8014b8bb0b9e0bff75c5677c834d8e5ed2d",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/valkey-valkey-0-11-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-valkey-valkey-0-11-0-default:latest@sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:5395ded9227168b35cb8402cde2130bc3d357c6bfd6ac99d2831cdca5b4e35f5"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:5d7f2d03f24418c6e60e78331731a0e08cde36084f874ffbd6e9027f453c64e5"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:aa8aa26c399d806220aa9dd1b79126355d4d46e6214b101b51b4dd4272f26ea1"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/valkey-0.11.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/valkey-0.11.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

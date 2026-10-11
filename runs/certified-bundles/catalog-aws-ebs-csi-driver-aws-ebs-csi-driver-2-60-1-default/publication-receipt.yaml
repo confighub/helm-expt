@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.60.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780"
+  layerDigest: "sha256:d3c7ef5824f0a69ee600c4943358323249a63feee043807d436e4d16ffbe4ed3"
+  layerBytes: 4767
+  observedAt: "2026-10-11T15:06:49.747Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.tar.gz"

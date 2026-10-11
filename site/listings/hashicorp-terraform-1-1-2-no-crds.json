@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/hashicorp-terraform-1-1-2-no-crds.yaml",
-      "sha256": "sha256:267c6156dc3e57d3c903e6b6c96235dff355452c972e05436c916262659eb571",
+      "sha256": "sha256:7d77e162cff6a300facb0c02a78a07eac3705db884adda3c99e6350c63121727",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/hashicorp-terraform-1-1-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 4,
     "digest": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds:latest@sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:47578ed12d7c190ebbca844c3772b8ccee9f75c479a7e92c3e920d9ae69c6698"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:8768e754129e38d7b7b13a2c0dc742b319e683e71e581c04d08c038732162426"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:7384e2f47974ab83f152e32dd302bd9a0ed1971e92c04a96645a81dab5e87f02"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/terraform-1.1.2-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/terraform-1.1.2-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -467,7 +491,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 4 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

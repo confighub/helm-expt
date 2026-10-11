@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0/space-guide.md"
-        sha256: "bd2af10db21923a22efdc723ffd58054755197b2398c39254e37e836b0005ea9"
-        bytes: 1159
+        sha256: "bcec3cff71ee779127fd410646c118b567904c1319cbaeef3a42f7d6fa2d37ba"
+        bytes: 1321
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "ghcr.io/jmcgrath207/k8s-ephemeral-storage-metrics:1.19.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0:latest"
+    manifestDigest: "sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+    layerDigest: "sha256:55a80d88581e00ff1acd8b09a29c624a99e7176a846599dab87468a546fdb940"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
       - "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
       - "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/bases/aicr-eks-training-v1-0-0/upstream.yaml"
+      - "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/publication-receipt.yaml"

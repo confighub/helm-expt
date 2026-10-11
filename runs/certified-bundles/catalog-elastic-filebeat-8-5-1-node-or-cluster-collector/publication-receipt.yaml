@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-elastic-filebeat-8.5.1-node-or-cluster-collector"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/filebeat-8.5.1-node-or-cluster-collector/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9"
+  layerDigest: "sha256:3cef46e494cc9929bcbfc37b24f69fcaf7e56aa365a8f5d613f3aee460c436ba"
+  layerBytes: 2384
+  observedAt: "2026-10-11T15:06:53.186Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector.tar.gz"

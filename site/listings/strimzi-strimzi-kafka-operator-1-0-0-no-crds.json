@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml",
-      "sha256": "sha256:8f7cdce1a8942eea3e3a0df7a7b3a016637a0bcd73d2353cc9d2eaf83602c5cb",
+      "sha256": "sha256:e7a3e5456b24ef6c8666f9caebf13c985b133f92da12675e8234a0dabf91b789",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 17,
     "digest": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds:latest@sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:0b74b6ddd8a1c4e71c749ae6e94562677cf37475ed8f7043b385843df85007fe"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:7ddd8766104156e29a4cdf19a83dcb628cc8068a6dfbfc2325c507deed72ee67"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:c75bd8d0bbc7af2c16bd3bf57f5d88dde364b225b8ca8064e9a6a0313b3d4642"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -558,7 +582,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 17 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

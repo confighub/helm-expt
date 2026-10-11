@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-alloy-1.8.2-no-crds"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/alloy-1.8.2-no-crds/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-no-crds:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:6ab72c519f0cd7fe1c2d493c117a17bff8285d12d0dba70f4bf44e53bd85756c"
+  layerDigest: "sha256:65fda57514f59521b1169ad14816358ab896b9d1d7405a1a1fc6e0f247632842"
+  layerBytes: 2066
+  observedAt: "2026-10-11T15:25:43.231Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-no-crds:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-alloy-1-8-2-no-crds.tar.gz"

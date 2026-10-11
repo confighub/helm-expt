@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-rollout-operator-0-49-0-no-crds.yaml",
-      "sha256": "sha256:6b355124695666b7b53d0ab6afcaa49b817f7e2220b6e5a5f76320499e4f4d57",
+      "sha256": "sha256:12e74c906754ef4ebbeb6c47f9fd65927dacb614b854c8ae63d94ed953e4b7c2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-rollout-operator-0-49-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 13,
     "digest": "sha256:ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -478,7 +478,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 13 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

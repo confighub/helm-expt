@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 4
     digest: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
@@ -290,8 +290,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds:latest@sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+      manifestDigest: "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+      layerDigest: "sha256:47578ed12d7c190ebbca844c3772b8ccee9f75c479a7e92c3e920d9ae69c6698"
+      objectSetSha256: "sha256:a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+      receipt: "data/certified-bundles/receipts/catalog/terraform-1.1.2-no-crds/receipt.yaml"
+      receiptSha256: "sha256:8768e754129e38d7b7b13a2c0dc742b319e683e71e581c04d08c038732162426"
+      publicationReceipt: "runs/certified-bundles/catalog-hashicorp-terraform-1-1-2-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:7384e2f47974ab83f152e32dd302bd9a0ed1971e92c04a96645a81dab5e87f02"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

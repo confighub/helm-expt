@@ -47,7 +47,7 @@
             "id": "grafana-pyroscope-2-0-2-ha",
             "url": "https://confighub.github.io/helm-expt/site/listings/grafana-pyroscope-2-0-2-ha.json"
           },
-          "objectCount": 0,
+          "objectCount": 18,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,
@@ -65,7 +65,7 @@
             "id": "grafana-pyroscope-2-0-2-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/grafana-pyroscope-2-0-2-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 17,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-node-exporter-4.55.0-cluster-metrics-readonly/space-guide.md"
-        sha256: "e999ae57166fdbcfbccdeb354990fed7ded0e37c90e5277df40ebff8ca831c8a"
-        bytes: 1112
+        sha256: "5a197b4bb23910a61ef9b59830f1c4e6f40c2c46aea09a6d210fd329360cd037"
+        bytes: 1260
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "quay.io/prometheus/node-exporter:v1.11.1"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly:latest"
+    manifestDigest: "sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+    layerDigest: "sha256:6a98f07b6c7aceff11729c171118018e861813b603214d5462414d0046bef94b"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/publication-receipt.yaml"

@@ -77,7 +77,7 @@
             "id": "percona-psmdb-operator-1-22-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/percona-psmdb-operator-1-22-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 4,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

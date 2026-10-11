@@ -47,7 +47,7 @@
             "id": "jaegertracing-jaeger-operator-2-57-0-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/jaegertracing-jaeger-operator-2-57-0-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 10,
           "verdict": "flatten-with-routes",
           "published": false,
           "flagged": false,

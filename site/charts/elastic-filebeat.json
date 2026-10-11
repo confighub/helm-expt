@@ -49,7 +49,7 @@
           },
           "objectCount": 7,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml",

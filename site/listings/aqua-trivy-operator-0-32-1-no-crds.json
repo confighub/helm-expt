@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aqua-trivy-operator-0-32-1-no-crds.yaml",
-      "sha256": "sha256:a9f1ff90c27bedb4109adb4cb8382e915c8cb15a40cdc5ec142852cd980f15bc",
+      "sha256": "sha256:5d9084c3ecd90ee6597b9e2db812c99e2441481e382fcfae92abdb1bbebffe7c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aqua-trivy-operator-0-32-1-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 21,
     "digest": "sha256:875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -584,7 +584,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 21 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

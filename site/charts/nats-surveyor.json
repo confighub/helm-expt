@@ -49,7 +49,7 @@
           },
           "objectCount": 3,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml",

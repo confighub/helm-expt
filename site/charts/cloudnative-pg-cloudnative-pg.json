@@ -77,7 +77,7 @@
             "id": "cloudnative-pg-cloudnative-pg-0-28-2-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 11,
           "verdict": "flatten-with-routes",
           "published": false,
           "flagged": false,

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-pyroscope-2-0-2-ha.yaml",
-      "sha256": "sha256:1dbcbcfcd800ac24296a06655febdb20424faed13d94ef72f4cb8f65e0e3d946",
+      "sha256": "sha256:ccdc9bb077ad0f55f95ea24aa7d35064d59e07a52ae60d7f26b4c91d20c664f4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-pyroscope-2-0-2-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 18,
     "digest": "sha256:4525b9a04718d1de62dbc12a161ec2f0cd119a36d68f69c0f481400d43e031cf",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -440,7 +440,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 18 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

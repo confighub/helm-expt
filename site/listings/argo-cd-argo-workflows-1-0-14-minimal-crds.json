@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml",
-      "sha256": "sha256:d596f30ad3a329366658093a01d10a3610cefbeedd8cdab72ab0daa7b7f42de2",
+      "sha256": "sha256:abe8e285ed385501be6ae90b5b6b48e6abd42553119c6f910a47fc1cbd9547fb",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 27,
     "digest": "sha256:8c1919f7c1841fb4dbaf12f2d110c82e4426e8e766310cc850efe81d2fb2fd4b",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -494,7 +494,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 27 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

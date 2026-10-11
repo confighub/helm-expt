@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
-      "sha256": "sha256:905d8986dee4f6ff3dca9f84a86733adaaaa388d561cf4fe8a47b35db6f77650",
+      "sha256": "sha256:501edca7b76bc882b2e60d0b4a49b5bb9955896b47f284d89c4d130afe860e0f",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 11,
     "digest": "sha256:2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -626,7 +626,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 11 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

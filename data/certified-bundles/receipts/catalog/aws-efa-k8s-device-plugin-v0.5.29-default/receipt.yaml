@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/aws-efa-k8s-device-plugin-v0.5.29-default/space-guide.md"
-        sha256: "ad5202b4235574c92fc28902335526cee5c38ebf98d84239e0a1e00b39dca03d"
-        bytes: 1010
+        sha256: "7ac1dd5ee15e2298750c7ba58be757b075b69761e41f1f3197492963928b9c33"
+        bytes: 1126
         role: "space-guide"
     objectCount: 1
     objectInventoryRef: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/object-inventory.yaml"
@@ -41,6 +41,11 @@ spec:
       boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
       references:
         []
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default:latest"
+    manifestDigest: "sha256:d9a17a32a2906855aa2fc2d5f8c6c9db7ee668a7cee257b938accfd1b496b048"
+    layerDigest: "sha256:3aa61952965d9c5aff51eb06d79a8461df661968fc6e3f4e2034cbc047bda846"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -113,3 +118,4 @@ spec:
       - "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/variant-revision.yaml"
       - "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-default/publication-receipt.yaml"

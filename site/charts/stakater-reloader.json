@@ -31,7 +31,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/stakater/reloader/2.2.16/revisions/default/r001/rendered/release-objects.yaml",
@@ -109,7 +109,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",

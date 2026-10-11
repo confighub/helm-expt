@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-alloy-1-8-2-no-crds.yaml",
-      "sha256": "sha256:30d9c7fefe4eb1fc1ac15022f81ed8d26712d038f9f58071fe2ce76dc6985afe",
+      "sha256": "sha256:20f7cd1246c3d20f86d32a9477d9292f49a8900cf4b9449f99310137184c8783",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-alloy-1-8-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 6,
     "digest": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-no-crds:latest@sha256:6ab72c519f0cd7fe1c2d493c117a17bff8285d12d0dba70f4bf44e53bd85756c",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:65fda57514f59521b1169ad14816358ab896b9d1d7405a1a1fc6e0f247632842"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:c99555e7edd6f0ed78f56286183ddb7f40390543920909d056272323f87645d6"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:1fb9bc53a831b8c4429e24f353d2d491fd3ad22eec102c938ccb0e5cdadaaa9e"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:6ab72c519f0cd7fe1c2d493c117a17bff8285d12d0dba70f4bf44e53bd85756c"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/alloy-1.8.2-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/alloy-1.8.2-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -429,7 +453,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 6 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

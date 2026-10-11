@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml",
-      "sha256": "sha256:b86ea17c13aa19f24b0e24dc5616c20cb772e799f435eec1f37e13b02a386888",
+      "sha256": "sha256:c0b0a5e68f979ad212a17c436a0bd59a2661292583c2b7e1a6e8c9489febeae6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 37,
     "digest": "sha256:874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -475,7 +475,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 37 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

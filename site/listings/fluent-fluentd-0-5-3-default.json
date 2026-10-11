@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/fluent-fluentd-0-5-3-default.yaml",
-      "sha256": "sha256:8d249bed37402452e9ea70dcc948b9bbfa33c2fe15572e838540bc7325d9335a",
+      "sha256": "sha256:f329c7bdc2dc51ab29d43561a252533c308170dcf3d260e3996e26055eb8ff98",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fluent-fluentd-0-5-3-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -104,12 +104,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default:latest@sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:a54dc9351f7199cbb0b3e4618c5614cf58d63345a6b13f7de0017d5e57fc33fd"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:3d90ae9b11c9bd41c541535fe8c78b3e8ac2e26e83163f0a23b2ccda40d5d14f"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:e71921a85b68168179710acc70332d61f36ce7608c9a61bf833bd3ae09ad0f9d"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/fluentd-0.5.3-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/fluentd-0.5.3-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

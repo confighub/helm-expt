@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/rabbitmq-0.21.13-existing-secret/space-guide.md"
-        sha256: "b79c0ab580147d3e557d19238f5fae473c9b6fd56c61b01f9688c69df88bac32"
-        bytes: 1001
+        sha256: "9108fb322826b03c291ca488af6dc11b106ede2602e01ea330af65574ee04a2b"
+        bytes: 1117
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/object-inventory.yaml"
@@ -46,6 +46,11 @@ spec:
         -
           reference: "docker.io/rabbitmq:4.3.4-management@sha256:c86dd1d32c1cbf3ff6547db9e359d7551b5973fe6e158e0edc64a3ed6ac69981"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret:latest"
+    manifestDigest: "sha256:2b831d1542c4e59a885ebfe79c5f6f005a298c3ef9fb69c8bc96c8025f7c5ba1"
+    layerDigest: "sha256:b0a20573c6b477aba93802355113e4e3f3e5da8fa98448e4edc75e95c5336116"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +123,4 @@ spec:
       - "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml"
       - "recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/rendered/release-objects.yaml"
       - "packages/cloudpirates/rabbitmq/0.21.13/bases/existing-secret/upstream.yaml"
+      - "runs/certified-bundles/catalog-cloudpirates-rabbitmq-0-21-13-existing-secret/publication-receipt.yaml"

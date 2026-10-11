@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/nginx-0.16.1-default/space-guide.md"
-        sha256: "47bb44ee960e117a7750290e9e3cc7fbbf4af510f0a0c9e9f6eb47bc82abee50"
-        bytes: 953
+        sha256: "0588f3c28478453d192ed600c9751c3d8ad1fd346b74d46fbc3ae398c9fdb553"
+        bytes: 1057
         role: "space-guide"
     objectCount: 3
     objectInventoryRef: "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.io/nginx:1.31.3-alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470c1752"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-nginx-0-16-1-default:latest"
+    manifestDigest: "sha256:6091fb69f1222d235df6332d77c8e90d5f46601edf33444b371e882f8bc4e392"
+    layerDigest: "sha256:9fcbe106b90dadc6d49562623895ead8bea9178f7064f68ee221ff5b3e507fb1"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml"
       - "recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/cloudpirates/nginx/0.16.1/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-cloudpirates-nginx-0-16-1-default/publication-receipt.yaml"

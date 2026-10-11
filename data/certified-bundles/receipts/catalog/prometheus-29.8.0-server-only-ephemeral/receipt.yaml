@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-29.8.0-server-only-ephemeral/space-guide.md"
-        sha256: "8e75636df043a144c624b9ca759860044ae08e603360b475ce3b3a5f9f90799f"
-        bytes: 1047
+        sha256: "ffd53b34b1744e02e1670ac02b704ef3f8f10f77de3241c328e5dfaece0d227e"
+        bytes: 1178
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/object-inventory.yaml"
@@ -46,6 +46,11 @@ spec:
         -
           reference: "quay.io/prometheus/prometheus:v3.11.3"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral:latest"
+    manifestDigest: "sha256:b5274ceceda58eec63a609081b65f355088e85829e8c4537175151b87399e1e9"
+    layerDigest: "sha256:e86a69ae8584f5b8c9a3c37731d3e9703ae0fd8feb6a2fdf606b5a5f40c05607"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +123,4 @@ spec:
       - "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral/publication-receipt.yaml"

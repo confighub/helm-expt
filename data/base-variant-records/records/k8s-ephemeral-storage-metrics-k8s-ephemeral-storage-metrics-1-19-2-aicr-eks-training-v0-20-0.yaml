@@ -203,8 +203,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0:latest@sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d"
+      manifestDigest: "sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d"
+      layerDigest: "sha256:cf08096a57d9d800a5c65543a18b9c1843fd35c15a9c998c7bf51fc9ba9ba84b"
+      objectSetSha256: "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+      receipt: "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0/receipt.yaml"
+      receiptSha256: "sha256:b319bfa28cdd2da2272adad9f35fccbc78e1305d3bdb6f9eb9b90db5c24ce586"
+      publicationReceipt: "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:bfeef35a2d3f94640de0f1750f9fd121cb8a91721abbfe28ca9ae1d3a76d5e4e"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

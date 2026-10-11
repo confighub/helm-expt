@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/redis-0.34.11-reuse-existing-secret/space-guide.md"
-        sha256: "abc9caff8b566caf6eb064bca34871de31911d3165d408f109d038a646339a25"
-        bytes: 1007
+        sha256: "ff0e39563b03dc36f3ed2e082e3d34888de440ff8a46a254fd541b945e818610"
+        bytes: 1126
         role: "space-guide"
     objectCount: 5
     objectInventoryRef: "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "docker.io/redis:8.10.0@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c"
           pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret:latest"
+    manifestDigest: "sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+    layerDigest: "sha256:bca79d57c1a6c11a21546ed9f98ccbedb16a96f389056b8958a646343b5f2b61"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml"
       - "recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
       - "packages/cloudpirates/redis/0.34.11/bases/reuse-existing-secret/upstream.yaml"
+      - "runs/certified-bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret/publication-receipt.yaml"

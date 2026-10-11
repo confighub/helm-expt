@@ -31,7 +31,7 @@
           },
           "objectCount": 23,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/rendered/release-objects.yaml",
@@ -49,7 +49,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",
@@ -97,7 +97,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml",

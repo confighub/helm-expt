@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 10
     digest: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"

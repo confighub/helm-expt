@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+  layerDigest: "sha256:2072f5c10e86d199bea3eac8d5b0e3cf4f40de7c736bb85b0d128862a7d2e8ea"
+  layerBytes: 1632
+  observedAt: "2026-10-11T15:26:02.238Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.tar.gz"

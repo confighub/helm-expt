@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0.yaml",
-      "sha256": "sha256:a53eb9f7c1d4c0f29d1ad7f7e3fd2c3bfb03c8b8db99ad7160a225b6ac53ba6c",
+      "sha256": "sha256:374b0847cf015bba6810b49816b0638272b0e78b7e60a3dc5fe7127b837e19cc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v0-20-0:latest@sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:cf08096a57d9d800a5c65543a18b9c1843fd35c15a9c998c7bf51fc9ba9ba84b"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:b319bfa28cdd2da2272adad9f35fccbc78e1305d3bdb6f9eb9b90db5c24ce586"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:bfeef35a2d3f94640de0f1750f9fd121cb8a91721abbfe28ca9ae1d3a76d5e4e"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:e2832cbd2dfd42def34a90b39269ee48d23daa16983f6990732bc85e2af8b46d"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:6ff74d2f9205569c76a953a1bc1b09ddcf9341e9a9c72c8a53e5805c59f403bd"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v0-20-0/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

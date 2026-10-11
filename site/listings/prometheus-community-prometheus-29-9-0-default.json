@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:6b441baa5b47f1b77c0ca4c65d02d70471db5d9937b8bdb2866bdd6fa6ad4446",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-29-9-0-default.yaml",
-      "sha256": "sha256:10cffdb8be3366e05fa3185a6bef4cb596df54abcdcbd2b359a9288489c1ece3",
+      "sha256": "sha256:9c2c79b1f47e3eb20b190fe2350cf9c68307e1f2a5dc466ba93b52395c55c6be",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-29-9-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -115,12 +115,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-9-0-default:latest@sha256:49f3d525fed60ae34dcc70b5a364e9289515821f1d6612185da71bdbc99cf469",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:8d060c778bc2a52ed087e7d1ad05a66723ed9a84c4939f09742126c435b23704"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:427b50aa9132551dfacc9764c4c67c0d72801a5c790957db6944310c30abc8c6"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:4c7c0269db493351a49fccb8224f69bdd15f09afdd543bcbb1c3ac523318fe3d"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:49f3d525fed60ae34dcc70b5a364e9289515821f1d6612185da71bdbc99cf469"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/prometheus-29.9.0-default/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/prometheus-29.9.0-default/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",

@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0/space-guide.md"
-        sha256: "7538547561be94292af075b018a9d9a3489763f368b098e44c77edd4b6503e59"
-        bytes: 1082
+        sha256: "a175597f6b322009c0dfd2032ef0202910f2b18971f10b66a4b3af46af91c7ee"
+        bytes: 1222
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/object-inventory.yaml"
@@ -58,6 +58,11 @@ spec:
         -
           reference: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.59.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0:latest"
+    manifestDigest: "sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+    layerDigest: "sha256:d5edabeea22c2b8e70a35b288fc93b4f27d342d5c72c5af7b00fe8e31c0cc657"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -130,3 +135,4 @@ spec:
       - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml"
       - "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml"
       - "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/bases/aicr-eks-training-v1-0-0/upstream.yaml"
+      - "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0/publication-receipt.yaml"

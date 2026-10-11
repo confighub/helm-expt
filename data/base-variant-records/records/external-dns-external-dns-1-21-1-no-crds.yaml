@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 5
     digest: "1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml"
@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-no-crds:latest@sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83"
+      manifestDigest: "sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83"
+      layerDigest: "sha256:e35c82fc02dde9eb313148412a7aba99f455729e6361d75546455f2eab6419fd"
+      objectSetSha256: "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+      receipt: "data/certified-bundles/receipts/catalog/external-dns-1.21.1-no-crds/receipt.yaml"
+      receiptSha256: "sha256:53d41c3921811e991d630da461e6d7063a5f1e85428ca852f033300191178192"
+      publicationReceipt: "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:5152ca0ef6c962aaf6b175b8f329075de706a1d4eaddaa30ea3703561ad216f0"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

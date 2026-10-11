@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default-reviewed:latest@sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+      manifestDigest: "sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+      layerDigest: "sha256:0648139d9240ff9e415c80b3511cb72327288c35f80b5cf405051b3cfe9919a8"
+      objectSetSha256: "sha256:c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+      receipt: "data/certified-bundles/receipts/catalog/surveyor-0.20.9-default-reviewed/receipt.yaml"
+      receiptSha256: "sha256:6332d3fd388e599a583e6e24f3c36f26489ae8729e62c9346202533a128cbced"
+      publicationReceipt: "runs/certified-bundles/catalog-nats-surveyor-0-20-9-default-reviewed/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:893e5bf51f5a9d8e03354448abf92d7c50db09707848fc865819de882d8f37e5"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

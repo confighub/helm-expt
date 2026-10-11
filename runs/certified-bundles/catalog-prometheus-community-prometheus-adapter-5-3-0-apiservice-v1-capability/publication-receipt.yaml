@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-adapter-5.3.0-apiservice-v1-capability"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-apiservice-v1-capability/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80"
+  layerDigest: "sha256:321f2b25b843a14210a4ebc296cdf880b4b110f2897fc3d4bb1061468459d5dc"
+  layerBytes: 2469
+  observedAt: "2026-10-11T15:25:59.185Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.tar.gz"

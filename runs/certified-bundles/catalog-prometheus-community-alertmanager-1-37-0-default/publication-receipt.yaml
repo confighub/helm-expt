@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-alertmanager-1.37.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/alertmanager-1.37.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-alertmanager-1-37-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:5e41c4d5e2973554c1078cc3a004314ceefa255b7caab387b14b6b9f43567619"
+  layerDigest: "sha256:0cba64d65b9f2946fe76ec6f4083a7d089ce6107c6783fea95f781a9597adf85"
+  layerBytes: 1623
+  observedAt: "2026-10-11T15:25:54.556Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-alertmanager-1-37-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-alertmanager-1-37-0-default.tar.gz"

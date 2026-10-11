@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 18
     digest: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/variant-revision.yaml"
