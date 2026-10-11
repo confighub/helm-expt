@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default:latest@sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+      manifestDigest: "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+      layerDigest: "sha256:a54dc9351f7199cbb0b3e4618c5614cf58d63345a6b13f7de0017d5e57fc33fd"
+      objectSetSha256: "sha256:9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a"
+      receipt: "data/certified-bundles/receipts/catalog/fluentd-0.5.3-default/receipt.yaml"
+      receiptSha256: "sha256:3d90ae9b11c9bd41c541535fe8c78b3e8ac2e26e83163f0a23b2ccda40d5d14f"
+      publicationReceipt: "runs/certified-bundles/catalog-fluent-fluentd-0-5-3-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:e71921a85b68168179710acc70332d61f36ce7608c9a61bf833bd3ae09ad0f9d"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

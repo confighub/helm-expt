@@ -49,7 +49,7 @@
           },
           "objectCount": 6,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml",

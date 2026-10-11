@@ -21,7 +21,7 @@ This bundle owes no route.
 ## How it was ingested
 
 ```sh
-cub variant upload --component catalog-prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly --variant base --granularity per-file <bundle>
+cub variant upload --component catalog-prometheus-community-prometheus-node-exporter-4.55.0-cluster-metrics-readonly --variant base --granularity per-file oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly
 ```
 
 The resolved digest is recorded on this Space as a `confighub.com/external-source` annotation, so the exact bytes installed here stay auditable.

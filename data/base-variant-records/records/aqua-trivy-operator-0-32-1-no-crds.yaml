@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 21
     digest: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"

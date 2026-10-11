@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nats-nats-2-14-0-ha.yaml",
-      "sha256": "sha256:5e4b85cefc50f1b70c766303bf2b2446c05f93980320ffbf9f2fa60845e536e7",
+      "sha256": "sha256:428fef456965de2086a5b778e421a1a48ab965c30b3782dcb9e79ce54f77dab4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nats-nats-2-14-0-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 7,
     "digest": "sha256:2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -433,7 +433,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 7 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

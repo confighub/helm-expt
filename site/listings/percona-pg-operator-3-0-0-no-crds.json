@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/percona-pg-operator-3-0-0-no-crds.yaml",
-      "sha256": "sha256:ebb3569748e44761be2865e3d917b93804313d72dfffe8188f3520d973a510ca",
+      "sha256": "sha256:8a517d606f2c8ea2eb6e71fd09ac4b20fff6851feb37be57d3eda2a0f8e386e5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-pg-operator-3-0-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 4,
     "digest": "sha256:b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2",
     "digestRole": "canonical-object-set",
     "verdict": "unsafe-to-flatten",
@@ -532,7 +532,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 4 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

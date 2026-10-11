@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 4
     digest: "583396c1666b921931627a8a24a0dcb5a6d4859dd5fbd1ee350a1dfec44daffb"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml"

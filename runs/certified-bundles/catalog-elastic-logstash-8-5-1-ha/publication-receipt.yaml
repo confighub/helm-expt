@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-elastic-logstash-8.5.1-ha"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/logstash-8.5.1-ha/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-ha:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+  layerDigest: "sha256:ff93037efa400bf6b6bb91b8043595259334a978d1204b0c2c2c3a49c26fd056"
+  layerBytes: 1527
+  observedAt: "2026-10-11T15:06:55.708Z"
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-ha:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-elastic-logstash-8-5-1-ha.tar.gz"

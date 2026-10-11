@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml",
-      "sha256": "sha256:c20d14ef2368e256c502c065d889d53595079dd16c22a9ab230e341d2211fd22",
+      "sha256": "sha256:8effec7e06a367c72bbe4242c1e256c57413f67ccf8a7a0a481eebf9a89074b0",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/elastic-eck-operator-3-4-0-ha.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 22,
     "digest": "sha256:20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a",
     "digestRole": "canonical-object-set",
     "verdict": "flatten-with-routes",
@@ -526,7 +526,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 22 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

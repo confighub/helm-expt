@@ -31,7 +31,7 @@
           },
           "objectCount": 19,
           "verdict": "safe-to-flatten",
-          "published": false,
+          "published": true,
           "flagged": false,
           "objects": {
             "path": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml",

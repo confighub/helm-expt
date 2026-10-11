@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/surveyor-0.20.9-default-reviewed/space-guide.md"
-        sha256: "1913fef5d846281787832586827bfe7ad6e60184db711d9801d65bc8d90d20f9"
-        bytes: 976
+        sha256: "46dd8127efe5d6151f9fbb091adac14eddbedcc28550222ede788c208ffd21d2"
+        bytes: 1084
         role: "space-guide"
     objectCount: 3
     objectInventoryRef: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "natsio/nats-surveyor:0.9.9"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default-reviewed:latest"
+    manifestDigest: "sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+    layerDigest: "sha256:0648139d9240ff9e415c80b3511cb72327288c35f80b5cf405051b3cfe9919a8"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
       - "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/nats/surveyor/0.20.9/bases/default-reviewed/upstream.yaml"
+      - "runs/certified-bundles/catalog-nats-surveyor-0-20-9-default-reviewed/publication-receipt.yaml"

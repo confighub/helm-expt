@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/terraform-1.1.2-no-crds/space-guide.md"
-        sha256: "96ab8f924e974f4bd8f33a51c93abdc8a1011cd7434e9afca51af3924ceb2c36"
-        bytes: 964
+        sha256: "aa01547251373fbb641dada71c1befa4e4166fdad64d665d83a23e19dcfe3ac3"
+        bytes: 1068
         role: "space-guide"
     objectCount: 4
     objectInventoryRef: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "hashicorp/terraform-k8s:1.1.2"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds:latest"
+    manifestDigest: "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+    layerDigest: "sha256:47578ed12d7c190ebbca844c3772b8ccee9f75c479a7e92c3e920d9ae69c6698"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/hashicorp/terraform/1.1.2/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-hashicorp-terraform-1-1-2-no-crds/publication-receipt.yaml"

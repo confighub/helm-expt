@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/nats/nats/2.14.0/revisions/ha/r001/rendered/release-objects.yaml"
     inventory: "recipes/nats/nats/2.14.0/revisions/ha/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 7
     digest: "2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml"

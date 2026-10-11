@@ -250,8 +250,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector:latest@sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9"
+      manifestDigest: "sha256:642b6609b5b08e835e010deba3093dc57b1f77986c101b904f65b80298dd85f9"
+      layerDigest: "sha256:3cef46e494cc9929bcbfc37b24f69fcaf7e56aa365a8f5d613f3aee460c436ba"
+      objectSetSha256: "sha256:690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+      receipt: "data/certified-bundles/receipts/catalog/filebeat-8.5.1-node-or-cluster-collector/receipt.yaml"
+      receiptSha256: "sha256:46ee447b4cae32011976bc2a331e9a8f4c850c168c3e81d1ed65662c1adc7528"
+      publicationReceipt: "runs/certified-bundles/catalog-elastic-filebeat-8-5-1-node-or-cluster-collector/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:f4579fcb36709ca730835ba70d63fbd870b1a3ae8fb16bff73cecffe70185790"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

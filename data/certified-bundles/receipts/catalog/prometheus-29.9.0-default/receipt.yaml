@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-29.9.0-default/space-guide.md"
-        sha256: "c93193e3386a10cb3b880b6f3cc9f94b5587c22634dfca5ea8bacdb335d1236c"
-        bytes: 997
+        sha256: "0bee01f7a2dd7de785dee0c855da15c76cb4098957b41e715c70952de33d5232"
+        bytes: 1114
         role: "space-guide"
     objectCount: 23
     objectInventoryRef: "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -58,6 +58,11 @@ spec:
         -
           reference: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-9-0-default:latest"
+    manifestDigest: "sha256:49f3d525fed60ae34dcc70b5a364e9289515821f1d6612185da71bdbc99cf469"
+    layerDigest: "sha256:8d060c778bc2a52ed087e7d1ad05a66723ed9a84c4939f09742126c435b23704"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -130,3 +135,4 @@ spec:
       - "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus/29.9.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-29-9-0-default/publication-receipt.yaml"

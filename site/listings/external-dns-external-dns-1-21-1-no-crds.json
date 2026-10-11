@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:23eb6eac962be30f01090e9dd584ab460cc0a33576fefa79f6d08da016784cb1",
+      "sha256": "sha256:3d771319c436ff395cd0e7826ca047f6de5885c265753e3b6fe9c7761f254d30",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-no-crds.yaml",
-      "sha256": "sha256:194a03d168bb03b5a18db83ded96b1b510cfc600c414a047d1d0c1fd501ee09a",
+      "sha256": "sha256:1939d9b0158b7db251413435ddbd5d2ecf251a829ae5b20ecb005bc87dc23cf2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -66,7 +66,7 @@
     "method": "helm-render",
     "materializationStatus": "captured",
     "format": "kubernetes-yaml",
-    "objectCount": 0,
+    "objectCount": 5,
     "digest": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf",
     "digestRole": "canonical-object-set",
     "verdict": "safe-to-flatten",
@@ -103,12 +103,36 @@
       },
       {
         "role": "literal-config",
-        "state": "not-published",
-        "status": "not-published-in-this-record",
-        "reference": "",
-        "referenceState": "none",
-        "digests": [],
-        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+        "state": "published",
+        "status": "published-with-receipt",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-no-crds:latest@sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "layerDigest",
+            "value": "sha256:e35c82fc02dde9eb313148412a7aba99f455729e6361d75546455f2eab6419fd"
+          },
+          {
+            "field": "receiptSha256",
+            "value": "sha256:53d41c3921811e991d630da461e6d7063a5f1e85428ca852f033300191178192"
+          },
+          {
+            "field": "publicationReceiptSha256",
+            "value": "sha256:5152ca0ef6c962aaf6b175b8f329075de706a1d4eaddaa30ea3703561ad216f0"
+          },
+          {
+            "field": "manifestDigest",
+            "value": "sha256:26f29ba794feb3b1b6986a96caf0a099d8fd3362a48e83bade508b7385d77f83"
+          },
+          {
+            "field": "objectSetSha256",
+            "value": "sha256:1479961761882b58c3cfcb955197ae178c15def12065e35b72023c25ac1dd7cf"
+          }
+        ],
+        "receipt": "data/certified-bundles/receipts/catalog/external-dns-1.21.1-no-crds/receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/external-dns-1.21.1-no-crds/receipt.yaml",
+        "referenceField": "observedReference",
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
       },
       {
         "role": "confighub-upload",
@@ -432,7 +456,7 @@
       "id": "get-objects",
       "label": "Get the exact objects",
       "state": "run-for-this-entry",
-      "summary": "The Catalog rendered this entry and retains its 0 objects in one file.",
+      "summary": "The Catalog rendered this entry and retains its 5 objects in one file.",
       "basis": [
         "flattened.materializationStatus",
         "flattened.retainedObjects",

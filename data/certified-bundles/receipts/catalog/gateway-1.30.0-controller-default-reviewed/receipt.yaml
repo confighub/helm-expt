@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/gateway-1.30.0-controller-default-reviewed/space-guide.md"
-        sha256: "a012c43a9491ab54544d6ff3e72f2e835751357c3be41c6e3a5504b57abb6e80"
-        bytes: 1008
+        sha256: "7c5843dc6f1835922410406463cdcb6bf3383644f032590fe50cb5978ebad027"
+        bytes: 1127
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "auto"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-controller-default-reviewed:latest"
+    manifestDigest: "sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a"
+    layerDigest: "sha256:a4122baff151253df9a09da6f5923d983fbca881e8b1f279eeb19001c06dd212"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
       - "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
       - "packages/istio/gateway/1.30.0/bases/controller-default-reviewed/upstream.yaml"
+      - "runs/certified-bundles/catalog-istio-gateway-1-30-0-controller-default-reviewed/publication-receipt.yaml"

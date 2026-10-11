@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/tempo-1.24.4-s3-query-observability/space-guide.md"
-        sha256: "de9d14f8f4ed9f4a6da3d2c096f729f9aba771898cb6b0cedd660fa3b4019999"
-        bytes: 991
+        sha256: "7bcd8710cfa0fec5bbd95a14d12a30ec159bc2ffaaa936f98e208758d0b46da7"
+        bytes: 1105
         role: "space-guide"
     objectCount: 8
     objectInventoryRef: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
@@ -46,6 +46,11 @@ spec:
         -
           reference: "grafana/tempo-query:2.9.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-s3-query-observability:latest"
+    manifestDigest: "sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+    layerDigest: "sha256:34cbe4c29c144966bc5ecfa48b229e7a119c48196fff3f7a7647dec4bc980bb8"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +123,4 @@ spec:
       - "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
       - "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
       - "packages/grafana/tempo/1.24.4/bases/s3-query-observability/upstream.yaml"
+      - "runs/certified-bundles/catalog-grafana-tempo-1-24-4-s3-query-observability/publication-receipt.yaml"

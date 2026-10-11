@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/prometheus-adapter-5.3.0-cluster-metrics-readonly/space-guide.md"
-        sha256: "a02e1270b72a18564cbfbba8de2e00abfb2262ee4d54485207767d575cdd0e41"
-        bytes: 1084
+        sha256: "c5514f97f76e7ae5207e997a2cc832e47fdd8291bb496b12c3e1edf60acc6047"
+        bytes: 1225
         role: "space-guide"
     objectCount: 11
     objectInventoryRef: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
@@ -43,6 +43,11 @@ spec:
         -
           reference: "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0"
           pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:latest"
+    manifestDigest: "sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+    layerDigest: "sha256:f7b22aed33242d51e3fc0749698dd46b7e45fecb8b18d6e9bcc08e5dc10c12e7"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -115,3 +120,4 @@ spec:
       - "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
       - "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
       - "packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly/publication-receipt.yaml"

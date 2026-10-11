@@ -65,7 +65,7 @@
             "id": "bitnami-contour-21-1-4-no-crds",
             "url": "https://confighub.github.io/helm-expt/site/listings/bitnami-contour-21-1-4-no-crds.json"
           },
-          "objectCount": 0,
+          "objectCount": 15,
           "verdict": "unsafe-to-flatten",
           "published": false,
           "flagged": false,

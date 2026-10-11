@@ -28,8 +28,8 @@ spec:
         role: "rendered object set"
       -
         path: "data/certified-bundles/guides/catalog/argo-rollouts-2.40.9-no-crds/space-guide.md"
-        sha256: "56210be2e679a460100b2e7124349943a400f42e1b07c3741e56f8dea0431c48"
-        bytes: 978
+        sha256: "1c7793cd211ee2b4aede5e74c8b6b03d4f8c6a567f0e58a5b6e97ed460b92e6e"
+        bytes: 1085
         role: "space-guide"
     objectCount: 9
     objectInventoryRef: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/object-inventory.yaml"
@@ -41,6 +41,11 @@ spec:
       boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
       references:
         []
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-no-crds:latest"
+    manifestDigest: "sha256:b0e738cb627a4bc63a5ec0898d124baa81f115c08148109ded48ecf9692a857e"
+    layerDigest: "sha256:8514d147de100094f68f2e08fbfe3b42a7abf8e8e2886e3686d1963cc484a888"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -113,3 +118,4 @@ spec:
       - "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/variant-revision.yaml"
       - "recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "packages/argo-cd/argo-rollouts/2.40.9/bases/no-crds/upstream.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-rollouts-2-40-9-no-crds/publication-receipt.yaml"

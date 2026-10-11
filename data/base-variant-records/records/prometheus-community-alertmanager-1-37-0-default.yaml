@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-alertmanager-1-37-0-default:latest@sha256:5e41c4d5e2973554c1078cc3a004314ceefa255b7caab387b14b6b9f43567619"
+      manifestDigest: "sha256:5e41c4d5e2973554c1078cc3a004314ceefa255b7caab387b14b6b9f43567619"
+      layerDigest: "sha256:0cba64d65b9f2946fe76ec6f4083a7d089ce6107c6783fea95f781a9597adf85"
+      objectSetSha256: "sha256:fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6"
+      receipt: "data/certified-bundles/receipts/catalog/alertmanager-1.37.0-default/receipt.yaml"
+      receiptSha256: "sha256:d1db64d2c383fd3942e4dcabbd9ce663414cf6dcc3c25209c4829606ede529ed"
+      publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-alertmanager-1-37-0-default/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:c766bd8975b3315d950d32c67446f8f5ca024f04855428b0b0ddd4728cb66ed3"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

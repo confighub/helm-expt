@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 6
     digest: "4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml"
@@ -170,8 +170,18 @@ spec:
     rule: "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
   delivery:
     literalConfigOci:
-      status: "not-published-in-this-record"
-      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      status: "published-with-receipt"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-no-crds:latest@sha256:39274c261e568573a17d37df7f54bc7300c320605ef6e1e5626261ecd60364f7"
+      manifestDigest: "sha256:39274c261e568573a17d37df7f54bc7300c320605ef6e1e5626261ecd60364f7"
+      layerDigest: "sha256:a1ce543720789f58f5d3d00c191ca2fc9dc6365874451668df6a611594b11cb7"
+      objectSetSha256: "sha256:4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49"
+      receipt: "data/certified-bundles/receipts/catalog/argo-events-2.4.21-no-crds/receipt.yaml"
+      receiptSha256: "sha256:9583e3d646206bb35ff67e852dca86168d445c11a640ecbb786949e408ed4ce6"
+      publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-no-crds/publication-receipt.yaml"
+      publicationReceiptSha256: "sha256:beb9a4fa36c0f2f38b9d543c7bb8ef301b237800f33c4c4020a6b8af8b3a7c33"
+      routes:
+        []
+      note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
       note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."

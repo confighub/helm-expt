@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 6
     digest: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"

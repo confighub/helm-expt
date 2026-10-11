@@ -29,7 +29,7 @@ spec:
     format: "kubernetes-yaml"
     objects: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/release-objects.yaml"
     inventory: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/object-inventory.yaml"
-    objectCount: 0
+    objectCount: 15
     digest: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
     digestRole: "canonical-object-set"
     digestRecord: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml"
