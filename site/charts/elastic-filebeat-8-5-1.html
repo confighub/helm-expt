@@ -707,6 +707,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection. kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=&lt;path-to-ca.crt&gt; <em>Declared. Not checked on any destination.</em></li><li>Elasticsearch username and password read by the Filebeat container. kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=&lt;username&gt; --from-literal=password=&lt;password&gt; <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="elastic-filebeat-8-5-1-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/elastic-filebeat-8-5-1/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as blocked, with the reason "target-prerequisite: required Secret missing (parity passed)". <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/elastic-filebeat-default/receipt.yaml">Read the receipt</a>.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 7 objects in one file.</p>
@@ -792,6 +799,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection. kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=&lt;path-to-ca.crt&gt; <em>Declared. Not checked on any destination.</em></li><li>Elasticsearch username and password read by the Filebeat container. kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=&lt;username&gt; --from-literal=password=&lt;password&gt; <em>Declared. Not checked on any destination.</em></li></ul>
         
+      </details>
+        <details class="entry-inputs" data-entry-plan="elastic-filebeat-8-5-1-node-or-cluster-collector">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/elastic-filebeat-8-5-1/node-or-cluster-collector/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as blocked, with the reason "helm-runtime: upstream not ready (parity passed)". <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml">Read the receipt</a>.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

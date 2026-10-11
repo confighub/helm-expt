@@ -714,6 +714,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>grafana/tempo</code></li><li><code>version</code> is <code>1.24.4</code></li><li><code>base</code> is <code>local-persistent</code></li><li><code>valuesProfile</code> is <code>recipes/grafana/tempo/1.24.4/effective-values.yaml</code></li><li><code>namespace</code> is <code>tempo</code></li><li><code>releaseName</code> is <code>tempo</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[&quot;networking.k8s.io/v1&quot;],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
+        <details class="entry-inputs" data-entry-plan="grafana-tempo-1-24-4-local-persistent">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/grafana-tempo-1-24-4/local-persistent/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml">Read the receipt</a>.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 4 objects in one file.</p>
@@ -799,6 +806,13 @@ df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905  grafana-tempo-
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li>Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object <em>Declared. Not checked on any destination.</em></li><li>Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists <em>Declared. Not checked on any destination.</em></li><li>S3 access credentials referenced by Tempo environment variables <em>Declared. Not checked on any destination.</em></li><li>S3-compatible endpoint that Tempo will write traces to <em>Declared. Not checked on any destination.</em></li><li>Existing bucket for Tempo trace blocks <em>Declared. Not checked on any destination.</em></li><li>Object-store region used with the selected endpoint and bucket <em>Declared. Not checked on any destination.</em></li></ul>
         
+      </details>
+        <details class="entry-inputs" data-entry-plan="grafana-tempo-1-24-4-s3-query-observability">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/grafana-tempo-1-24-4/s3-query-observability/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml">Read the receipt</a>.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

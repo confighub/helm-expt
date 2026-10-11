@@ -620,6 +620,7 @@
         <ul class="entry-inputs-list"><li><strong>Around a delete.</strong> Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Before you deliver.</strong> Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects. Who: delivery workflow. <em>Seen in a recorded run.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/projectcalico-tigera-operator-v3-32-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">

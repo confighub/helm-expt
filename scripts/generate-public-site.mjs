@@ -15936,7 +15936,6 @@ function entryPlanHtml(listing, siteHref) {
   const PLAN_STEP_LIMIT = 8;
   const steps = listing.routing?.routes ?? [];
   const withPlanVerdict = listing.flattened?.verdict === "flatten-with-routes";
-  if (steps.length === 0 && !withPlanVerdict) return "";
   const when = (step) => {
     const id = String(step.id ?? "");
     if (/install/.test(id)) return "Around an install";
@@ -15971,7 +15970,9 @@ function entryPlanHtml(listing, siteHref) {
     ? `<p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list">${rows}</ul>
         ${more}`
-    : `<p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>`;
+    : withPlanVerdict
+      ? `<p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>`
+      : `<p>The record lists no plan step for this entry.</p>`;
   const pageStem = String(listing.identity?.page ?? "").split("/").pop().replace(/\.html$/, "");
   const baseSlug = String(listing.identity?.base ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const scriptRel = pageStem && baseSlug ? `sh/${pageStem}/${baseSlug}/try.sh` : "";
@@ -15981,10 +15982,30 @@ function entryPlanHtml(listing, siteHref) {
         ? `The Catalog ran it on a local cluster, and <a href="${siteHref}/${runLog}">the log</a> has every line.`
         : "The Catalog has no recorded run of this script."}</p>`
     : "";
+  // The two-cluster comparison with plain Helm, where one is recorded for
+  // this exact chart, version and base. The rows are read once.
+  entryPlanHtml.parityRows ??= parseCsv(readFileSync(join(repoRoot, "data/live-kind-parity/summary.csv"), "utf8"));
+  const parity = listing.identity?.format === "helm"
+    ? entryPlanHtml.parityRows.find((row) =>
+        row.chart === listing.identity.name
+        && row.base === listing.identity.base
+        && [String(listing.identity.version), String(listing.identity.version).replace(/^v/, "")].includes(row.version))
+    : null;
+  const parityReceipt = parity?.receipt
+    ? ` <a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(parity.receipt)}">Read the receipt</a>.`
+    : "";
+  const parityHtml = !parity
+    ? ""
+    : parity.result === "pass"
+      ? `<p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched.${parityReceipt}</p>`
+      : `<p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as ${escapeHtml(parity.result)}${parity.reason ? `, with the reason "${escapeHtml(parity.reason)}"` : ""}.${parityReceipt}</p>`;
+  // An entry with no step, no script and no comparison has nothing to show.
+  if (steps.length === 0 && !withPlanVerdict && !scriptHtml && !parityHtml) return "";
   return `<details class="entry-inputs" data-entry-plan="${escapeHtml(listing.identity.id)}">
         <summary>This entry's plan, and how to test it</summary>
         ${stepsHtml}
         ${scriptHtml}
+        ${parityHtml}
         <p><a href="${siteHref}/config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         `;

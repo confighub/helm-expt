@@ -674,6 +674,7 @@ b152742ed9d6d23ffc731464407499cf534c2c155657052cb1f9425000f6830f  nvidia-k8s-nim
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 9 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nvidia-k8s-nim-operator-3-1-2/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
