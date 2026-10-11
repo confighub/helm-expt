@@ -602,7 +602,7 @@ flux create kustomization reviewed-nginx \
 <h2 id="keep-the-oci-roles-separate">Keep the OCI roles separate</h2>
 <table><thead><tr><th>OCI artifact</th><th>Contents</th><th>Consumer</th></tr></thead><tbody><tr><td>Installer package</td><td>Chart-specific preset configurations and rendering files</td><td><code>cub installer</code></td></tr>
 <tr><td>Literal configuration</td><td>Exact Kubernetes objects ready for ConfigHub upload</td><td><code>cub variant upload</code></td></tr>
-<tr><td>Portable deployment bundle</td><td>Reviewed Kubernetes objects in a controller-compatible layout</td><td>Flux, Argo CD, or another external consumer</td></tr>
+<tr><td>Rendered objects</td><td>Reviewed Kubernetes objects in a controller-compatible layout</td><td>Flux, Argo CD, or another external consumer</td></tr>
 <tr><td>ConfigHub release</td><td>A reviewed ConfigHub Space release</td><td>ConfigHub delivery through Flux or Argo CD</td></tr></tbody></table>
 <p>An OCI reference is not enough by itself. Check what the artifact contains and which consumer its receipt covers.</p>
 <h2 id="limits">Limits</h2>
