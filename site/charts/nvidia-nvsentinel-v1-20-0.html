@@ -618,6 +618,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p>The record lists no plan step for this entry.</p>
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-20-0/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -718,6 +719,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p>The record lists no plan step for this entry.</p>
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-20-0/aicr-eks-training/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -816,6 +818,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <p>The record lists no plan step for this entry.</p>
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/nvidia-nvsentinel-v1-20-0/no-pod-monitor/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

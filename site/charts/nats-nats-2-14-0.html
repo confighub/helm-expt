@@ -710,6 +710,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nats-nats-2-14-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/nats-nats-2-14-0/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog installed this base beside plain Helm on two local clusters, and the two matched. <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/nats-nats-default/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -801,6 +802,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nats-nats-2-14-0/ha/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>What this test does not show.</strong> The script does not run the steps the plan names for an upgrade or a delete.</p>
+        <p><strong>Why there is no plain-objects test.</strong> This entry needs Helm when it is installed, so it has no plain-objects test.</p>
         <p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as blocked, with the reason "parity: semantic object diff". <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/nats-nats-ha/receipt.yaml">Read the receipt</a>.</p>
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>

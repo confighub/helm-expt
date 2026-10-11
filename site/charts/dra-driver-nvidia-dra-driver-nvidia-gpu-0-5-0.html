@@ -724,6 +724,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -827,6 +828,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/aicr-eks-training/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/aicr-eks-training/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -930,6 +932,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/gpu-resources/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0/gpu-resources/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
+        <p><strong>What these tests do not show.</strong> The plain-objects script applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete. A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.</p>
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
