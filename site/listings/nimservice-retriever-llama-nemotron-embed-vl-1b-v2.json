@@ -23,7 +23,8 @@
     "format": "kubernetes-yaml",
     "formatLabel": "Plain Kubernetes YAML",
     "version": "5d5f66ee0e2e6e2fefa7babe3b1852826dc58f8f",
-    "base": "retriever-llama-nemotron-embed-vl-1b-v2"
+    "base": "retriever-llama-nemotron-embed-vl-1b-v2",
+    "page": "https://confighub.github.io/helm-expt/site/nimservice.html"
   },
   "discovery": {
     "status": "not-classified",

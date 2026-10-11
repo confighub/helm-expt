@@ -23,7 +23,8 @@
     "format": "configuration-oci",
     "formatLabel": "Configuration OCI bundle",
     "version": "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518",
-    "base": "replicas-4"
+    "base": "replicas-4",
+    "page": "https://confighub.github.io/helm-expt/site/d/docs/user/transform-oci-package.html"
   },
   "discovery": {
     "status": "not-classified",

@@ -34,6 +34,13 @@ import {
   retainedObjectsScriptDir,
   retainedObjectsScriptEligibility,
 } from "./lib/retained-objects-script.mjs";
+import {
+  AICR_ENTRY_INDEX_DOC,
+  NIMSERVICE_ENTRY_NAME,
+  NIMSERVICE_ENTRY_PAGE_FILE,
+  entryPageWithoutChart,
+  isChartPageUrl,
+} from "./lib/entry-page.mjs";
 
 // Spells small counts (stack.html's "the stacks that ship" prose) so a count
 // read from data reads the way the surrounding hand-written numbers already
@@ -65,7 +72,6 @@ const deploymentReferencePath = join(siteRoot, "deployment-reference.html");
 const variantsPath = join(siteRoot, "variants.html");
 const ociPath = join(siteRoot, "oci.html");
 // The page of the nimservice entry, which lists its model variants.
-const NIMSERVICE_ENTRY_PAGE_FILE = "nimservice.html";
 const formatsPath = join(siteRoot, "formats.html");
 const nimServicePath = join(siteRoot, NIMSERVICE_ENTRY_PAGE_FILE);
 const customAppsPath = join(siteRoot, "custom-apps.html");
@@ -291,7 +297,6 @@ const aicrRenderedOnlyCount = aicrListingFacts
 // The nimservice entry is one Catalog entry with one model variant for every
 // retained NIMService sample. Its listings share one source name. Every word a
 // page says about a variant is read from that variant's own listing.
-const NIMSERVICE_ENTRY_NAME = "nimservice";
 const NIMSERVICE_ENTRY_PAGE = NIMSERVICE_ENTRY_PAGE_FILE;
 const nimServiceFacts = (listingsIndexData.listings ?? [])
   .filter((listing) => listing.format === "kubernetes-yaml" && listing.name === NIMSERVICE_ENTRY_NAME)
@@ -325,15 +330,9 @@ function nimServiceCountSentence() {
 
 // Which page carries the five steps for which entries. A Helm entry, and the
 // cub installer entry for the same base, sit on the chart version page their
-// listing names. An AICR entry sits on the page the entry register gives it.
-// Any other entry sits on the nearest README above its retained objects. An
-// entry none of those rules place goes to the fallback page for its format,
-// and an entry with no fallback is counted and reported.
-const ENTRY_STEPS_FALLBACK_DOCS = new Map([
-  // The row for this entry on the Catalog page links this guide.
-  ["configuration-oci-nginx-replicas-4", "docs/user/transform-oci-package.md"],
-]);
-const AICR_ENTRY_INDEX_DOC = "docs/demo/aicr/index.md";
+// listing names. Every other entry sits on the page that
+// scripts/lib/entry-page.mjs gives it, which is the page its listing records.
+// An entry that rule cannot place is counted and reported.
 // The block's one heading id, and the pill class each step state takes.
 const ENTRY_STEPS_ANCHOR = "use-in-confighub";
 const ENTRY_STEP_STATE_CLASS = new Map([
@@ -368,36 +367,24 @@ function entryStepsDocPlan() {
     plan.get(repoPath).listings.push(listing);
     if (withoutOwnPage) plan.get(repoPath).withoutOwnPage.push(listing.identity.id);
   };
-  const register = readYaml(join(repoRoot, "examples/aicr/claims/entry-names.yaml"));
-  const aicrPages = new Map((register?.spec?.entries ?? []).map((entry) => [String(entry.id), String(entry.page ?? "")]));
   const unplaced = [];
   for (const listing of entryStepsListings()) {
-    if (listing.identity.page) continue;
-    // A NIMService variant sits on the nimservice entry page, which is a
-    // generated site page and not a rendered doc.
-    if (listing.identity.format === "kubernetes-yaml" && listing.identity.name === NIMSERVICE_ENTRY_NAME) continue;
-    const objects = String(listing.flattened?.objects ?? "");
-    if (listing.identity.format === "aicr") {
-      const directory = /^examples\/aicr\/([^/]+)\//.exec(`${objects}/`)?.[1] ?? "";
-      const page = aicrPages.get(directory) ?? "";
-      if (page && existsSync(join(repoRoot, page))) place(page, listing);
-      else place(AICR_ENTRY_INDEX_DOC, listing, true);
-      continue;
+    if (isChartPageUrl(listing.identity.page)) continue;
+    const page = entryPageWithoutChart({
+      id: listing.identity.id,
+      format: listing.identity.format,
+      name: listing.identity.name,
+      objects: listing.flattened?.objects,
+    }, repoRoot);
+    const recorded = String(listing.identity.page ?? "");
+    const expected = page ? `${SITE_BASE_URL}${page.sitePath}` : "";
+    if (recorded !== expected) {
+      throw new Error(`site/listings/${listing.identity.id}.json records the page "${recorded}" and the page rule gives "${expected}"; run npm run catalog:listings`);
     }
-    let directory = existsSync(join(repoRoot, objects)) && statSync(join(repoRoot, objects)).isDirectory() ? objects : posix.dirname(objects);
-    let readme = "";
-    while (directory.startsWith("examples/") && directory !== "examples") {
-      const candidate = `${directory}/README.md`;
-      if (existsSync(join(repoRoot, candidate))) {
-        readme = candidate;
-        break;
-      }
-      directory = posix.dirname(directory);
-    }
-    const fallback = ENTRY_STEPS_FALLBACK_DOCS.get(listing.identity.id) ?? "";
-    if (fallback) place(fallback, listing, true);
-    else if (readme) place(readme, listing);
-    else unplaced.push(listing.identity.id);
+    if (!page) unplaced.push(listing.identity.id);
+    // A page with no doc behind it is a generated site page, which writes
+    // the five steps of its own entries.
+    else if (page.repoPath) place(page.repoPath, listing, page.shared);
   }
   entryStepsDocPlanCache = { plan, unplaced };
   return entryStepsDocPlanCache;
@@ -16112,7 +16099,8 @@ function entryPlanHtml(listing, siteHref) {
     : withPlanVerdict
       ? `<p>The verdict says this entry comes with a plan. The record does not list a step yet, so treat the plan as unknown.</p>`
       : `<p>The record lists no plan step for this entry.</p>`;
-  const pageStem = String(listing.identity?.page ?? "").split("/").pop().replace(/\.html$/, "");
+  // Only a chart version page has a packaged base, and so a try.sh.
+  const pageStem = isChartPageUrl(listing.identity?.page) ? listing.identity.page.split("/").pop().replace(/\.html$/, "") : "";
   const baseSlug = String(listing.identity?.base ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   const scriptRel = pageStem && baseSlug ? `sh/${pageStem}/${baseSlug}/try.sh` : "";
   const runLog = SCRIPT_RUN_LOGS.get(listing.identity.id);

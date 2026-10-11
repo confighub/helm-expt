@@ -196,9 +196,14 @@ function planStepRoles(listing, file, ensuredNamespaces) {
   });
 }
 
-// Where the script lives: beside try.sh, under the entry's page and base.
+// Where the script lives. An entry on a chart version page keeps it beside
+// try.sh, under the page and the base. Any other entry keeps it under its own
+// listing id, because its page may be shared with other entries.
 export function retainedObjectsScriptDir(listing) {
-  const pageStem = String(listing.identity?.page ?? "").split("/").pop().replace(/\.html$/, "");
+  const page = String(listing.identity?.page ?? "");
+  if (!page) return "";
+  if (!/\/charts\/[^/]+\.html$/.test(page)) return `sh/entries/${listing.identity.id}`;
+  const pageStem = page.split("/").pop().replace(/\.html$/, "");
   const baseSlug = String(listing.identity?.base ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   return pageStem && baseSlug ? `sh/${pageStem}/${baseSlug}` : "";
 }
@@ -210,6 +215,10 @@ export function retainedObjectsScriptEligibility(listing) {
   if (!retained.url || !retained.sha256) return no("no-retained-objects");
   if (!ELIGIBLE_VERDICTS.has(listing.flattened?.verdict)) return no("verdict");
   if (listing.identity?.format === "aicr") return no("needs-argo-cd");
+  // A Sveltos entry is an instruction to Sveltos on a management cluster. Its
+  // plan records what Sveltos did on the clusters it selected, which kubectl
+  // on one cluster cannot repeat.
+  if (listing.identity?.format === "sveltos") return no("needs-sveltos");
   if (!retainedObjectsScriptDir(listing)) return no("no-entry-page");
   if ((listing.routing?.routes ?? []).some((step) => step.id === FILE_MUST_CHANGE_STEP)) return no("file-holds-a-placeholder");
   return { eligible: true, reason: "" };

@@ -23,7 +23,8 @@
     "format": "timoni",
     "formatLabel": "Timoni module",
     "version": "8.10.1",
-    "base": "default"
+    "base": "default",
+    "page": "https://confighub.github.io/helm-expt/site/d/examples/timoni/redis-8-10-1/README.html"
   },
   "discovery": {
     "status": "not-classified",
