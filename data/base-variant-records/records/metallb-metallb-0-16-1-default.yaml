@@ -142,10 +142,13 @@ spec:
           id: "webhook-certificate"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          detail: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step."
       records:
         - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+        - "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -169,21 +172,27 @@ spec:
           id: "webhook-certificate"
           requirementRefs:
             - "webhook-certificate"
-          phase: "destination-resolution"
-          proposedActor: "selected destination actor"
-          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+          phase: "observe"
+          proposedActor: "the MetalLB controller and frr-k8s"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
+          status: "recorded"
+          sourceStatus: "observed"
           supportedRuntimes:
             []
           checks:
             []
           evidence:
             - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
       records:
         - "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+        - "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
     targetFacts:
       status: "gap"
       declared:

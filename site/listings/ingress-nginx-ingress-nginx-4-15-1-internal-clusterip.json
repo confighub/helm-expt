@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:1e45fbf05cea3255d46aa428871ea92aabfb411c69510b67ed6c6b8c9019eabc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
-      "sha256": "sha256:1f4d0a0b90a32bd681ce33b6e4fd00c3605c1c1db488be80455c82079a81aa5c",
+      "sha256": "sha256:5074439c0be2886e8c0dd4fb1edbf228add647c49275ece940741d3a52ecae6e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -232,38 +232,74 @@
         "id": "hooks",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+        "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
       }
     ],
     "routes": [
       {
         "id": "hooks",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
         "actor": "delivery runtime",
-        "mechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+        "mechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "hooks"
         ],
         "checks": [],
         "evidence": [
-          "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+          "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
     "records": [
+      {
+        "name": "ingress-nginx-ingress-nginx-4.15.1.yaml",
+        "path": "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+      },
       {
         "name": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
         "path": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
+        "name": "effective-values-internal-clusterip.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
+      },
+      {
         "name": "flattening-safety-verdict-internal-clusterip.yaml",
         "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "source-lock.yaml",
+        "path": "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
       }
     ]
   },

@@ -651,7 +651,7 @@ f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955  hashicorp-vaul
         <details class="entry-inputs" data-entry-plan="hashicorp-vault-0-32-0-dev-mode">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>After you deliver.</strong> Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step. Who: the Vault agent injector. <em>Seen in a recorded run.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/hashicorp-vault-0-32-0/dev-mode/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/hashicorp-vault-0-32-0/dev-mode/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>

@@ -137,10 +137,16 @@ spec:
           id: "hooks"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+          detail: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
       records:
+        - "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
         - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
         - "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -148,21 +154,33 @@ spec:
           id: "hooks"
           requirementRefs:
             - "hooks"
-          phase: "destination-resolution"
+          phase: "observe"
           proposedActor: "delivery runtime"
-          proposedMechanism: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+          proposedMechanism: "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
+          status: "recorded"
+          sourceStatus: "observed"
           supportedRuntimes:
             []
           checks:
             []
           evidence:
             - "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
+            - "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
+            - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+            - "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
       records:
+        - "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml"
         - "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml"
         - "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
+        - "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
     targetFacts:
       status: "gap"
       declared:

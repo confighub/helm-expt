@@ -53,7 +53,7 @@ if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
   cat >&2 <<'EOF_REQUIREMENTS'
 This script cannot carry out this step of the plan. It is yours to do, with your own values:
-  - Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade.
+  - Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The listing gives the rest.
 Nothing was applied. Complete it before you apply the objects.
 When it is done, re-run with:
   REQUIREMENTS_READY=1 bash try-objects.sh
@@ -126,5 +126,5 @@ say "Done. The 2 CRDs $crd_outcome. kubectl applied the other 10 objects of this
 say "The script stops here. It did not wait for any workload to start"
 say "Not run by this script: 1 step of this entry's plan. The entry page says who runs it."
 cat <<'EOF_NOT_RUN'
-   - Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade.
+   - Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The listing gives the rest.
 EOF_NOT_RUN

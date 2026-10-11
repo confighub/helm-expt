@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:1e45fbf05cea3255d46aa428871ea92aabfb411c69510b67ed6c6b8c9019eabc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml",
-      "sha256": "sha256:f7e8adecd20e117c5916660433054cc2660bba97bfc131a91bf638bd81e34026",
+      "sha256": "sha256:2f523e7fc39f970852e074709a45efff92b87d25fc623ad6206dbf2eb640cd66",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/hashicorp-vault-0-32-0-dev-mode.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -236,25 +236,28 @@
         "id": "webhook-certificate",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step."
       }
     ],
     "routes": [
       {
         "id": "webhook-certificate",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
-        "actor": "selected destination actor",
-        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+        "actor": "the Vault agent injector",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "webhook-certificate"
         ],
         "checks": [],
         "evidence": [
-          "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+          "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
@@ -265,9 +268,24 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
         "name": "flattening-safety-verdict-dev-mode.yaml",
         "path": "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
       }
     ]
   },

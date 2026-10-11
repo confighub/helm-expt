@@ -53,18 +53,17 @@ for n in 0043 0044 0045 0046 0047 0048; do mv "$work/docs/doc-$n.yaml" "$work/re
 ls "$work/crds" "$work/rest"
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  say "Stop before applying anything. This entry's plan has 2 steps that an install needs first"
+  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
   cat >&2 <<'EOF_REQUIREMENTS'
-This script cannot carry out these steps of the plan. They are yours to do, with your own values:
-  - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.
-  - Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.
-Nothing was applied. Complete them before you apply the objects.
-When they are done, re-run with:
+This script cannot carry out this step of the plan. It is yours to do, with your own values:
+  - Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards.
+Nothing was applied. Complete it before you apply the objects.
+When it is done, re-run with:
   REQUIREMENTS_READY=1 bash try-objects.sh
 EOF_REQUIREMENTS
   exit 1
 fi
-say "REQUIREMENTS_READY=1 is set. The script takes your word for 2 steps and does not check them"
+say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
 
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
@@ -151,7 +150,7 @@ say "Done. The 6 CRDs $crd_outcome. kubectl applied the other 42 objects of this
 say "The script stops here. It did not wait for any workload to start"
 say "Not run by this script: 3 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
-   - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.
-   - Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.
+   - Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards.
    - Prune protection for the 6 keep-annotated object(s) this base renders.
+   - Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step.
 EOF_NOT_RUN

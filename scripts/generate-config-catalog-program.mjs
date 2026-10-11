@@ -282,6 +282,28 @@ const VERDICT_ROUTE_KINDS = [
   { id: "hooks", class: "helm-hooks", pattern: /\bhooks?\b|\blifecycle route\b/i },
 ];
 
+// A reading is what a careful read of one base, and one live run, found a
+// verdict-named step really asks. The verdict's line comes from a sweep of the
+// whole chart, so it names the work and cannot say what this base needs. The
+// readings file is written by hand and each reading cites the object that
+// shows it. A reading refines a step the verdict file already names. It never
+// adds a step, never makes one automatic and never touches the resolution.
+const PLAN_STEP_READINGS_PATH = "data/plan-step-readings/readings.yaml";
+// The phase a reading gives its step. A workload that supplies the thing
+// itself, and a construct this base does not render, ask nothing before
+// delivery, so they are something to observe afterwards. A component that must
+// be there first is due before apply. A hook Job and an unknown keep the phase
+// of a route nobody has placed, because the reader still has to settle them.
+const PLAN_STEP_READING_PHASES = new Map([
+  ["workload-supplies", "observe"],
+  ["needs-component-first", "pre-apply"],
+  ["not-needed-in-this-base", "observe"],
+  ["hook-job", null],
+  ["unknown", null],
+]);
+let planStepReadingsByKey = null;
+const planStepReadingsUsed = new Set();
+
 if (mode === "--self-test") {
   runSelfTest();
   console.log("verified config catalog policy and delivery self-test");
@@ -427,6 +449,15 @@ function buildReport() {
     check(
       records.some((record) => record.metadata.name === sourceCatalogImport.baseVariantRecord),
       `${sourceCatalogImport.id}: imported source catalog does not match a base-variant record`,
+    );
+  }
+
+  // A reading that refined no step is about a record or a step that is not
+  // there, or about a step another source now states. It must not sit unused.
+  for (const key of planStepReadings().keys()) {
+    check(
+      planStepReadingsUsed.has(key),
+      `${PLAN_STEP_READINGS_PATH}: the reading of ${key} refines no step, because no record of that name takes a step of that id from its verdict file`,
     );
   }
 
@@ -4742,9 +4773,12 @@ function testPlanSteps() {
     return candidate.spec.processing.flattening.verdict === PLAN_STEP_VERDICT
       && candidate.spec.lifecycle.requirements.items.length === 0
       && packagePrerequisiteSteps(candidate, intent).length === 0
-      && verdictRouteNames(candidate.spec.processing.flattening.record).length > 0;
+      && verdictRouteNames(candidate.spec.processing.flattening.record).length > 0
+      // A reading changes what a step says, so the plain case is a base that
+      // has none. The readings have their own fixtures below.
+      && ![...planStepReadings().keys()].some((key) => key.startsWith(`${candidate.metadata.name}/`));
   });
-  check(verdictSubject, "self-test: the plan-step fixtures need one flatten-with-routes Helm intent whose verdict file is the only place that names a route");
+  check(verdictSubject, "self-test: the plan-step fixtures need one flatten-with-routes Helm intent whose verdict file is the only place that names a route and that has no reading");
   const fromVerdict = build(verdictSubject);
   const verdictPath = fromVerdict.spec.processing.flattening.record;
   const verdictRoutes = fromVerdict.spec.lifecycle.routeIntent.routes;
@@ -4791,6 +4825,48 @@ function testPlanSteps() {
       && verdictRoutes.every((route) => (route.id.startsWith("crd-ordering") ? route.phase === "apply" : PLAN_STEP_PHASES.includes(route.phase))),
     "self-test: a CRD ordering step from a verdict file is not due at apply, or a step carries a phase the listing schema refuses",
   );
+  // A reading refines a step and never does more. The fixtures give one
+  // verdict-named step each kind of reading, with and without a committed log.
+  const plain = {
+    id: "webhook-certificate",
+    phase: PLAN_STEP_DEFAULT_PHASE,
+    actor: PLAN_STEP_UNASSIGNED_ACTOR,
+    mechanism: "A line. A count.",
+    sourceStatus: PLAN_STEP_NOT_RUN,
+    supportedRuntimes: [],
+    checks: [],
+    evidence: [verdictPath],
+    names: [],
+  };
+  const committedLog = "docs/user/live-walk-test-plain-objects-2026-10-11.md";
+  const refine = (reading) => readingRefinedStep("self-test", structuredClone(plain), "a line", { instruction: "The operator does it", evidence: [{ path: verdictPath }], ...reading });
+  const supplied = refine({ reading: "workload-supplies", suppliedBy: "the operator", observed: { log: committedLog } });
+  check(
+    supplied.phase === "observe"
+      && supplied.actor === "the operator"
+      && supplied.mechanism === "A line. The operator does it."
+      && supplied.sourceStatus === PLAN_STEP_OBSERVED
+      && [verdictPath, PLAN_STEP_READINGS_PATH, committedLog].every((path) => supplied.evidence.includes(path)),
+    "self-test: a reading that the workload supplies it, with a committed log, did not give an observed step for the workload to observe, citing the readings file and the log",
+  );
+  const notRun = refine({ reading: "workload-supplies", suppliedBy: "the operator", observed: { log: "docs/user/no-such-log.md" } });
+  check(
+    notRun.sourceStatus === PLAN_STEP_NOT_RUN && !notRun.evidence.includes("docs/user/no-such-log.md"),
+    "self-test: a reading whose log is not committed gave an observed step",
+  );
+  check(
+    refine({ reading: "needs-component-first" }).phase === "pre-apply"
+      && refine({ reading: "not-needed-in-this-base" }).phase === "observe"
+      && ["hook-job", "unknown"].every((reading) => refine({ reading }).phase === PLAN_STEP_DEFAULT_PHASE)
+      && ["needs-component-first", "not-needed-in-this-base", "hook-job", "unknown"].every((reading) => {
+        const step = refine({ reading });
+        return step.actor === PLAN_STEP_UNASSIGNED_ACTOR && step.sourceStatus === PLAN_STEP_NOT_RUN;
+      }),
+    "self-test: a reading gave its step the wrong phase, a new actor or a run it does not record",
+  );
+  expectRefusal(() => refine({ reading: "proven" }), /is not a reading this generator knows/, "self-test: a reading of an unknown kind was accepted");
+  expectRefusal(() => refine({ reading: "workload-supplies" }), /does not name the workload/, "self-test: a reading that the workload supplies it named no workload and was accepted");
+  expectRefusal(() => refine({ reading: "unknown", instruction: " " }), /gives no instruction/, "self-test: a reading with no instruction was accepted");
   const unprovenOnly = () => bundleRouteSteps("self-test", "data/no-such-directory/no-such-route.yaml");
   expectRefusal(unprovenOnly, /that file does not exist/, "self-test: a bundle route file that does not exist was read as a step");
 }
@@ -7234,10 +7310,16 @@ function routeStatusFor(sourceStatus) {
 //      the first three state nothing. Such a step is a name and no more: the
 //      verdict says the route is needed, and nobody has written it out.
 //
+// A step from the fourth place may then be refined by a reading in
+// data/plan-step-readings/readings.yaml, which says what that base needs for
+// the step and who does it. A reading is not a fifth place to find steps. It
+// changes what one verdict-named step says, and readingRefinedStep says how.
+//
 // It reads and never invents. Every route cites the file it came from, and
 // the generator stops when a cited file is missing. A derived route is not
-// automatic and says not run, unless its document records an observed run,
-// and then it says observed. spec.lifecycle.resolution is left as it was.
+// automatic and says not run, unless its document or its reading records an
+// observed run, and then it says observed. spec.lifecycle.resolution is left
+// as it was.
 // A record with no listed requirement, no bundle route document, no packaged
 // prerequisite and no route named by its verdict file is left alone, because
 // nothing committed names a step for it.
@@ -7354,7 +7436,7 @@ function verdictRouteSteps(record) {
     const namedInLine = VERDICT_ROUTE_ACTOR.exec(sentence);
     const executedBy = /\bexecuted by (?:the )?([a-z][a-z -]*[a-z])\s*$/i.exec(String(disposition?.disposition ?? ""));
     const selfSupplied = kind?.id === "webhook-certificate" && namedInLine && VERDICT_ROUTE_SELF_SUPPLIED.test(namedInLine[1]);
-    return {
+    const step = {
       id: seen === 1 ? stem : `${stem}-${seen}`,
       phase: selfSupplied ? "observe" : kind?.phase ?? PLAN_STEP_DEFAULT_PHASE,
       actor: namedInLine ? namedInLine[1].trim() : executedBy ? executedBy[1] : PLAN_STEP_UNASSIGNED_ACTOR,
@@ -7365,7 +7447,65 @@ function verdictRouteSteps(record) {
       evidence: planStepEvidence(path),
       names: [],
     };
+    const reading = planStepReadingFor(record.metadata.name, step.id);
+    return reading ? readingRefinedStep(record.metadata.name, step, sentence, reading) : step;
   });
+}
+
+// The readings file, by record and step. It is read once.
+function planStepReadings() {
+  if (!planStepReadingsByKey) {
+    planStepReadingsByKey = new Map();
+    const readings = existsRepo(PLAN_STEP_READINGS_PATH)
+      ? readYaml(join(repoRoot, PLAN_STEP_READINGS_PATH))?.spec?.readings
+      : [];
+    for (const reading of Array.isArray(readings) ? readings : []) {
+      const key = `${reading.record}/${reading.step}`;
+      check(reading.record && reading.step, `${PLAN_STEP_READINGS_PATH}: a reading names no record or no step`);
+      check(!planStepReadingsByKey.has(key), `${PLAN_STEP_READINGS_PATH}: two readings are about ${key}`);
+      planStepReadingsByKey.set(key, reading);
+    }
+  }
+  return planStepReadingsByKey;
+}
+
+function planStepReadingFor(recordName, stepId) {
+  const key = `${recordName}/${stepId}`;
+  const reading = planStepReadings().get(key);
+  if (reading) planStepReadingsUsed.add(key);
+  return reading ?? null;
+}
+
+// One verdict-named step, as its reading refines it. The text is the
+// verdict's own line and then the reading's instruction. The sweep's count of
+// hook phases is left out, because the instruction says what this base's
+// hooks are. The phase and the actor follow the reading. The step says
+// observed only when the reading records a live run whose log is committed.
+function readingRefinedStep(name, step, sentence, reading) {
+  const at = `${PLAN_STEP_READINGS_PATH}: the reading of ${name}/${step.id}`;
+  check(PLAN_STEP_READING_PHASES.has(reading.reading), `${at} is ${JSON.stringify(reading.reading)}, which is not a reading this generator knows`);
+  const instruction = String(reading.instruction ?? "").trim();
+  check(instruction, `${at} gives no instruction`);
+  const suppliedBy = String(reading.suppliedBy ?? "").trim();
+  check(
+    reading.reading !== "workload-supplies" || suppliedBy,
+    `${at} says the workload supplies it and does not name the workload in suppliedBy`,
+  );
+  const log = String(reading.observed?.log ?? "").trim();
+  const observed = Boolean(log) && existsRepo(log);
+  return {
+    ...step,
+    phase: PLAN_STEP_READING_PHASES.get(reading.reading) ?? step.phase,
+    actor: reading.reading === "workload-supplies" ? suppliedBy : step.actor,
+    mechanism: planSentences(planCapital(sentence), instruction),
+    sourceStatus: observed ? PLAN_STEP_OBSERVED : PLAN_STEP_NOT_RUN,
+    evidence: planStepEvidence(
+      ...step.evidence,
+      PLAN_STEP_READINGS_PATH,
+      ...(Array.isArray(reading.evidence) ? reading.evidence : []).map((item) => item?.path),
+      observed ? log : "",
+    ),
+  };
 }
 
 // The route names a flattening verdict file lists, or none when the file is

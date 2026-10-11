@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:2237756aa7664150581f3d9319e5a4e35cabe08e3db61088a958f4419cf71791",
+      "sha256": "sha256:1e45fbf05cea3255d46aa428871ea92aabfb411c69510b67ed6c6b8c9019eabc",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
-      "sha256": "sha256:fb2819a24b18a4d465ce4179177c15ddff926e06487934a62c557f3c0a4d78d1",
+      "sha256": "sha256:950a56d8b8a63971b26d506b8b3f450d2663bb464d5f3286e1bda446efbf643c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -245,13 +245,13 @@
         "id": "webhook-certificate",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+        "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step."
       },
       {
         "id": "hooks",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+        "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards."
       }
     ],
     "routes": [
@@ -291,19 +291,23 @@
       },
       {
         "id": "webhook-certificate",
-        "phase": "destination-resolution",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
+        "phase": "observe",
+        "status": "recorded",
+        "sourceStatus": "observed",
         "automatic": false,
-        "actor": "selected destination actor",
-        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+        "actor": "the cert-manager webhook and cainjector",
+        "mechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "webhook-certificate"
         ],
         "checks": [],
         "evidence": [
-          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+          "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       },
       {
@@ -313,14 +317,21 @@
         "sourceStatus": "recorded-not-run",
         "automatic": false,
         "actor": "delivery runtime",
-        "mechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.",
+        "mechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards.",
         "supportedRuntimes": [],
         "requirementRefs": [
           "hooks"
         ],
         "checks": [],
         "evidence": [
-          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+          "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+          "data/plan-step-readings/readings.yaml",
+          "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+          "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml",
+          "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+          "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml",
+          "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
+          "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         ]
       }
     ],
@@ -331,9 +342,44 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml"
       },
       {
+        "name": "readings.yaml",
+        "path": "data/plan-step-readings/readings.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/plan-step-readings/readings.yaml"
+      },
+      {
+        "name": "live-walk-plan-step-readings-2026-10-11.md",
+        "path": "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-plan-step-readings-2026-10-11.md"
+      },
+      {
+        "name": "chart-dossier.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml"
+      },
+      {
         "name": "flattening-safety-verdict-crds-enabled.yaml",
         "path": "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+      },
+      {
+        "name": "scan-receipt.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "source-lock.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml"
+      },
+      {
+        "name": "receipt.yaml",
+        "path": "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
       }
     ]
   },

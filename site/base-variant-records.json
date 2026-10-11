@@ -101190,12 +101190,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The CloudNativePG operator makes its own certificate after it starts and fills the caBundle of both webhook configurations, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
-              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -101240,22 +101243,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the CloudNativePG operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The CloudNativePG operator makes its own certificate after it starts and fills the caBundle of both webhook configurations, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-default.yaml",
-              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/flattening-safety-verdict.yaml",
+              "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -108021,12 +108030,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -108071,22 +108083,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the ECK operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -108340,12 +108358,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -108390,22 +108411,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the ECK operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-ha.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-ha.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -108647,12 +108674,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -108663,22 +108693,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the ECK operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+                  "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-no-crds.yaml",
-              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict-no-crds.yaml",
+              "recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -125147,12 +125183,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders. The rollout-operator makes a self-signed certificate after it starts and fills the caBundle of all four webhook configurations, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml",
-              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml",
+              "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -125180,22 +125219,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the rollout-operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 4 webhook configuration(s) this base renders. The rollout-operator makes a self-signed certificate after it starts and fills the caBundle of all four webhook configurations, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+                  "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/grafana-rollout-operator-0-49-0-default.yaml",
-              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/grafana/rollout-operator/0.49.0/publication/flattening-safety-verdict.yaml",
+              "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -128459,12 +128504,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml",
-              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml",
+              "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -128475,22 +128523,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the Vault agent injector",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+                  "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml",
-              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict-dev-mode.yaml",
+              "recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -129024,12 +129078,18 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
               "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
-              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
             ]
           },
           "routeIntent": {
@@ -129040,22 +129100,34 @@
                 "requirementRefs": [
                   "hooks"
                 ],
-                "phase": "destination-resolution",
+                "phase": "observe",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
               "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml",
-              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-admission-disabled.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
             ]
           },
           "targetFacts": {
@@ -129589,12 +129661,18 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade."
+                "detail": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step."
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
               "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
-              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
             ]
           },
           "routeIntent": {
@@ -129605,22 +129683,34 @@
                 "requirementRefs": [
                   "hooks"
                 ],
-                "phase": "destination-resolution",
+                "phase": "observe",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). The hook phases are post-install and post-upgrade, and pre-install and pre-upgrade.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 8 non-test hook occurrence(s). All eight hooks belong to the admission webhook's certificate Jobs, and this base turns the admission webhook off, so no hook applies and you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+                  "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/ingress-nginx-ingress-nginx-4.15.1.yaml",
               "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml",
-              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/publication/flattening-safety-verdict-internal-clusterip.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+              "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml"
             ]
           },
           "targetFacts": {
@@ -131984,18 +132074,25 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step."
               },
               {
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install."
+                "detail": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
-              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml",
+              "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
             ]
           },
           "routeIntent": {
@@ -132040,16 +132137,20 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the cert-manager webhook and cainjector",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+                  "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               },
               {
@@ -132059,20 +132160,34 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The hook phase is post-install.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+                  "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+                  "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml",
+                  "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+                  "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml",
+                  "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-crds-enabled.yaml",
-              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/jetstack/cert-manager/v1.20.2/chart-dossier.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/publication/flattening-safety-verdict-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+              "recipes/jetstack/cert-manager/v1.20.2/source-lock.yaml",
+              "runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml"
             ]
           },
           "targetFacts": {
@@ -139880,12 +139995,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The KEDA operator makes the Secret kedaorg-certs after it starts and fills the caBundle of the webhook configuration and of the APIService, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml",
-              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml",
+              "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -139913,22 +140031,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the KEDA operator",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The KEDA operator makes the Secret kedaorg-certs after it starts and fills the caBundle of the webhook configuration and of the APIService, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
+                  "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/kedacore-keda-2-19-0-default.yaml",
-              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/kedacore/keda/2.19.0/publication/flattening-safety-verdict.yaml",
+              "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -147281,12 +147405,15 @@
                 "id": "webhook-certificate",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders."
+                "detail": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step."
               }
             ],
             "records": [
               "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml",
-              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml",
+              "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -147314,22 +147441,28 @@
                 "requirementRefs": [
                   "webhook-certificate"
                 ],
-                "phase": "destination-resolution",
-                "proposedActor": "selected destination actor",
-                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders.",
+                "phase": "observe",
+                "proposedActor": "the MetalLB controller and frr-k8s",
+                "proposedMechanism": "Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The MetalLB controller and frr-k8s fill their two empty certificate Secrets after they start and write the caBundle into both webhook configurations, so you do nothing for this step.",
                 "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
+                "status": "recorded",
+                "sourceStatus": "observed",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+                  "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
               "data/helm-render-intents/intents/metallb-metallb-0-16-1-default.yaml",
-              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/metallb/metallb/0.16.1/publication/flattening-safety-verdict.yaml",
+              "recipes/metallb/metallb/0.16.1/revisions/default/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {
@@ -224777,12 +224910,16 @@
                 "id": "hooks",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade."
+                "detail": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The retained file holds both CRDs, and the driver started without the hooks on a new cluster."
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.yaml",
               "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml",
-              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
             ]
           },
           "routeIntent": {
@@ -224812,20 +224949,28 @@
                 ],
                 "phase": "destination-resolution",
                 "proposedActor": "delivery runtime",
-                "proposedMechanism": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The hook phases are pre-install and pre-upgrade.",
+                "proposedMechanism": "Lifecycle route for the packaged chart's 10 non-test hook occurrence(s). The chart's hooks sit in two files named for CRD upgrades, and this repository does not hold what they run, so this step stays yours to settle. The retained file holds both CRDs, and the driver started without the hooks on a new cluster.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
                 "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml",
+                  "data/plan-step-readings/readings.yaml",
+                  "data/flattening-safety/witnesses/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.yaml",
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml",
+                  "docs/user/live-walk-plan-step-readings-2026-10-11.md"
                 ]
               }
             ],
             "records": [
+              "data/flattening-safety/witnesses/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.yaml",
               "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation.yaml",
-              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml"
+              "data/plan-step-readings/readings.yaml",
+              "docs/user/live-walk-plan-step-readings-2026-10-11.md",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict-sync-secret-rotation.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
             ]
           },
           "targetFacts": {

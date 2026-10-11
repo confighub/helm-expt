@@ -147,10 +147,13 @@ spec:
           id: "webhook-certificate"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+          detail: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
       records:
         - "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -190,21 +193,27 @@ spec:
           id: "webhook-certificate"
           requirementRefs:
             - "webhook-certificate"
-          phase: "destination-resolution"
-          proposedActor: "selected destination actor"
-          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders."
+          phase: "observe"
+          proposedActor: "the ECK operator"
+          proposedMechanism: "Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The ECK operator fills the empty Secret elastic-operator-webhook-cert after it starts and writes the caBundle into the webhook configuration, so you do nothing for this step."
           automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
+          status: "recorded"
+          sourceStatus: "observed"
           supportedRuntimes:
             []
           checks:
             []
           evidence:
             - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+            - "data/plan-step-readings/readings.yaml"
+            - "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml"
+            - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
       records:
         - "data/helm-render-intents/intents/elastic-eck-operator-3-4-0-default.yaml"
+        - "data/plan-step-readings/readings.yaml"
+        - "docs/user/live-walk-plan-step-readings-2026-10-11.md"
         - "recipes/elastic/eck-operator/3.4.0/publication/flattening-safety-verdict.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml"
     targetFacts:
       status: "gap"
       declared:
