@@ -194,7 +194,7 @@ spec:
     # not run and the log is cited as evidence instead.
     - record: "jetstack-cert-manager-v1-20-2-crds-enabled"
       step: "hooks"
-      reading: "hook-job"
+      reading: "check-after-install"
       instruction: "The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards."
       evidence:
         - path: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/receipts/scan-receipt.yaml"

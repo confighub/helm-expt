@@ -1151,6 +1151,7 @@ const planStepReadingPhases = new Map([
   ["needs-component-first", "pre-apply"],
   ["not-needed-in-this-base", "observe"],
   ["hook-job", "destination-resolution"],
+  ["check-after-install", "post-apply"],
   ["unknown", "destination-resolution"],
 ]);
 let planStepReadingsChecked = 0;

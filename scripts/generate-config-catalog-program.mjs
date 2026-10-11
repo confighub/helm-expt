@@ -299,6 +299,8 @@ const PLAN_STEP_READING_PHASES = new Map([
   ["needs-component-first", "pre-apply"],
   ["not-needed-in-this-base", "observe"],
   ["hook-job", null],
+  // A hook that only checks the result after an install asks nothing first.
+  ["check-after-install", "post-apply"],
   ["unknown", null],
 ]);
 let planStepReadingsByKey = null;

@@ -29,6 +29,7 @@ retained objects and from one live run on a throwaway local cluster.
 | `workload-supplies` | The workload makes the thing itself after it starts. The reader does nothing. | `observe` |
 | `needs-component-first` | Another component must be on the cluster first. | `pre-apply` |
 | `hook-job` | A Helm hook Job of the chart does it, and the retained objects leave it out. | unchanged |
+| `check-after-install` | The chart's hook only checks the result after an install, and the retained objects leave it out. | `post-apply` |
 | `not-needed-in-this-base` | The construct the sweep counted does not render in this base. | `observe` |
 | `unknown` | The committed files do not say. The step stays as it was. | unchanged |
 
