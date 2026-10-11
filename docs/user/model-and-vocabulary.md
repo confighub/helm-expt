@@ -1,8 +1,28 @@
 # The configuration processing model
 
-This is the working model used by the Catalog. The
-[catalog doctrine](../reference/config-catalog-doctrine.md) defines the rules in
-full.
+This page is the one written model of how the Catalog treats configuration.
+The [Config page](../../site/config.html) teaches it with one real entry, and
+other pages apply it. Where another page defines a word differently, this page
+is right. The [catalog doctrine](../reference/config-catalog-doctrine.md) holds
+the rules in full.
+
+## The five stages
+
+Every entry passes through the same five stages, whatever its format.
+
+**Source → Base → Variant → Deliver → Run**
+
+| Stage | What happens | What does it, by format |
+| --- | --- | --- |
+| **Source** | A provider publishes something. A recipe pins the choices made from it. | Helm has a chart version and a values file for each base. AICR has a release with a built-in catalog, and five criteria that select from it. Timoni has a module. Plain YAML is its own source. |
+| **Base** | The format's processor turns the recipe into exact objects. The Catalog retains them with a flattening verdict and a plan. | `cub installer` renders a Helm chart. `aicr bundle` writes an AICR bundle, and the Catalog retains its Argo CD form. `timoni build`, `cub kubara` and `cub sveltos` do the same job for their sources. Plain YAML needs no processor. |
+| **Variant** | A reviewed change to a base for one environment, region or customer. | `cub variant upload` makes the base Space in ConfigHub. `cub variant create` makes a variant from it. The source is not processed again. |
+| **Deliver** | A reviewed revision reaches a cluster, and the steps of the plan are carried out. | Argo CD or Flux pulls a release, or `kubectl` applies the objects. For AICR, Argo CD also renders the charts that the Applications name. |
+| **Run** | Someone observes the result and records it. | A receipt records one run. |
+
+Two tools are involved in a base, at different stages. The format's processor
+produces the base objects. `cub variant upload` then makes the base Space from
+those objects. Earlier pages named only one of the two.
 
 ## Start with the question
 
@@ -32,6 +52,9 @@ separate:
 | **Source variant** | A provider-curated choice before materialization. Its provider records which target and use case it is for. | An AICR leaf selected by service, accelerator, operating system, workload intent, and platform; or a Catalog Helm preset with recorded values. |
 | **Retained base variant** | The exact objects produced from one source variant, with their digest, source link, lifecycle requirements, and evidence. | The 17 Argo CD Applications produced from one AICR leaf, or one rendered Helm preset. |
 | **Derived ConfigHub variant** | A recorded change to a retained base for an environment, region, customer, or policy. | Development, staging, and production revisions linked to the same base. |
+
+An OCI image can hold a variant, and a fleet tool can match a variant to a
+cluster. Neither is a fourth layer.
 
 The source provider curates the first layer. NVIDIA curates the built-in AICR
 catalog; another catalog provider can publish and review additional overlays and
@@ -88,6 +111,10 @@ different OCI roles:
 | **Source package OCI** | A chart, installer package, AICR-generated chart, or another input that still needs a processor. | Run the named processor to produce exact objects. |
 | **Literal configuration OCI** | Exact Kubernetes objects that have already been materialized. | Inspect, retain, compare, or deliver those objects without rerunning the source processor. |
 | **ConfigHub release OCI** | One approved ConfigHub revision for delivery. | Argo CD, Flux, or another recorded runtime reconciles that exact release. |
+
+The [OCI page](../../site/oci.html) lists each shape we publish or read, with
+its producer and its consumer. Every shape there has one of these three roles,
+or is a record about one.
 
 These artifacts can contain related objects but have different manifests and
 digests. A receipt binds stages by naming both identities and comparing the objects;
@@ -181,9 +208,47 @@ then retain reviewed changes as variants that can be promoted and delivered.**
 | **Helm render intent** | The chart inputs, context, source lock, prerequisites, and lifecycle choices for one render. |
 | **Helm render variant** | The captured object output for one base and revision, linked to its intent and digest. |
 
-**Recipe is not the general name for a configuration.** Use it only when the
-source tool has a recipe. OCI and plain YAML use a source-and-intent record and
-an exact configuration revision instead.
+### Recipe
+
+**A recipe is the pinned inputs that produce one base.** Every format has one.
+A recipe is inputs. It is not the configuration they produce, which is the
+base.
+
+| Format | What its recipe holds |
+| --- | --- |
+| Helm | The chart, its version, the values, the named presets and the declared lifecycle choices. |
+| AICR | The AICR release, the five criteria, and any data pack or profile value. `aicr recipe` resolves them into AICR's own recipe document. |
+| Timoni | The module or bundle version and digest, and the typed values. |
+| Kubara, Sveltos | The selected source and the generator inputs. |
+| Installer or source OCI | The package digest and the choices made from it. |
+| Literal OCI, plain YAML | The source digest or checksums. Nothing is chosen, so nothing is processed. |
+
+The Catalog's records call the file that holds a recipe the source and intent
+record. Until 11 October 2026 this page kept the word recipe for sources whose
+own tool uses it. The word now covers every format, because NVIDIA's AICR and
+this repository's `recipes/` directory already use it this way.
+
+### AICR's own words
+
+NVIDIA's AICR has names for the stages before the base and after delivery.
+This model uses them for AICR entries.
+
+| AICR word | What it means | Where it sits in this model |
+| --- | --- | --- |
+| **criteria** | The five fields that select a recipe: `service`, `accelerator`, `intent`, `os` and `platform`. | Source. The variant layers table calls an AICR choice a leaf, and these fields pick it. |
+| **data pack** | A directory laid over AICR's built-in catalog. It adds overlays, components or validators without a fork. | Source. No Catalog entry is built from one today. |
+| **profile** | A named alternative inside a recipe, chosen with `--profile`. AICR refuses an override of a field the profile owns. | Source. It is the nearest AICR thing to a base variant. |
+| **constraint** | A precondition a machine can check, such as a Kubernetes version. | Plan. It is a step that is due before you deliver. |
+| **bundle** | The output of `aicr bundle`, with a checksum file. | Base. |
+| **validation** | Named checks that AICR runs against a cluster, in phases. | Run. |
+| **evidence bundle** | The recipe, a cluster snapshot and the check results from one run. A pointer file names it by digest, and it can be signed. | Run. [AICR evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md) compares it with a receipt. |
+| **drift check** | Validation run again later with deploy turned off. | Run. |
+
+AICR has no word for the steps between a constraint and validation. Its
+installer carries them out in order. This model writes them down as the plan.
+
+NVIDIA documents these words in its
+[data extension guide](https://github.com/NVIDIA/aicr/blob/main/docs/integrator/data-extension.md).
 
 Do not create a render variant for literal YAML or another source that did not render.
 Its source-and-intent record links directly to its exact configuration revision.
@@ -229,7 +294,7 @@ a derived variant and destination are selected.
 
 | Layer | Name | What it records | Main terms |
 | --- | --- | --- | --- |
-| **F1 · source** | Source and intent | Source identity, version, choices, locks, and processing context. | source and intent, recipe where the source uses one |
+| **F1 · source** | Source and intent | Source identity, version, choices, locks, and processing context. | source and intent, recipe |
 | **F2 · exact base** | Materialized configuration | Exact objects, inventory, digest, and flattening verdict for the reviewed base. | render, materialize, exact revision, render variant |
 | **F3 · lifecycle** | Work around apply | Requirements, portable route intents, destination-specific route resolutions, and route receipts. | lifecycle requirement, route intent, resolved route, receipt |
 | **F4 · operate** | Managed change and delivery | Field ownership, derived variants, comparisons, approvals, promotions, releases, delivery, and observations. | derived variant, promotion, release, observation |
@@ -344,21 +409,32 @@ AICR source variant.
 
 **If you start with Kubara or another generator:** keep its native source and
 choices, run its declared processor, and link the resulting object digest to those
-inputs. Do not call that record a recipe unless the source tool does.
+inputs. That record is its recipe.
 
 **If you start with Timoni:** pin the module or bundle OCI, keep its typed schema and
 selected values, build the exact objects, and record any ordered apply sets, waits,
 tests, or target lookups that must still run. The built objects are an exact
 configuration revision, not a Helm render variant.
 
+## Open points
+
+- **Verdict and bundle.** This model and AICR both use these two words. Here a
+  verdict is a flattening verdict, and AICR's is the result of one validation
+  run. Here a bundle is retained configuration in OCI, and AICR's is the output
+  of `aicr bundle` or the evidence of a run. How the site tells them apart is
+  not decided.
+- **Where a receipt lives.** One design attaches it to the bundle in the
+  registry, and another keeps it beside the bundle. The
+  [OCI page](../../site/oci.html) carries the same open point.
+
 ## Where each thing is, today
 
 - Helm recipes and render records live in this repo. Every chart page links to them.
 - The first Timoni source-and-intent record and exact object set live under
   `examples/timoni/`; the Catalog links to the retained evidence.
-- AICR recipes remain AICR recipes. Other source-and-intent records live beside
-  source receipts or base records. They use their own format rather than a fake
-  Helm record or a generic "recipe" label.
+- AICR recipes remain AICR recipes. Other recipes live beside source receipts
+  or base records, as source-and-intent records. Each uses its own format
+  rather than a fake Helm record.
 - Base variants live in packages or exact object sets. After upload, each becomes a
   root Space in ConfigHub.
 - Derived variants, promotions, delivery, and observations live in ConfigHub.
