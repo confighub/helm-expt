@@ -717,6 +717,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>Redis authentication password <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="bitnami-redis-25-5-3-reuse-existing-secret">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 13 objects in one file.</p>
@@ -806,6 +813,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>bitnami/redis</code></li><li><code>version</code> is <code>25.5.3</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/bitnami/redis/25.5.3/effective-values.yaml</code></li><li><code>namespace</code> is <code>redis</code></li><li><code>releaseName</code> is <code>redis</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;catalog&quot;:&quot;../../../../data/capability-profiles/catalog.yaml&quot;,&quot;digest&quot;:&quot;sha256:c1f8a4eb20154228a391f2a61565160634fbeb5dcf1079065543dd0a2ff3dfbf&quot;,&quot;kubeVersion&quot;:&quot;1.30.0&quot;,&quot;name&quot;:&quot;k8s-1.30-default&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
+      </details>
+        <details class="entry-inputs" data-entry-plan="bitnami-redis-25-5-3-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/bitnami-redis-25-5-3/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>

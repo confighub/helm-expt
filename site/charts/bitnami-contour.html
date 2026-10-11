@@ -650,6 +650,13 @@ d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123  bitnami-contou
         <ul class="entry-inputs-list"><li>Contour serving certificate created by the chart's pre-install certgen hook. package://prerequisites/contour-certgen/run.sh <em>Declared. Not checked on any destination.</em></li><li>Envoy client certificate created by the chart's pre-install certgen hook. package://prerequisites/contour-certgen/run.sh <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
+        <details class="entry-inputs" data-entry-plan="bitnami-contour-21-1-4-default">
+        <summary>This entry's plan, and how to test it</summary>
+        <p>The record lists no plan step for this entry.</p>
+        <p><strong>Test the install steps yourself.</strong> <a href="../sh/bitnami-contour-21-1-4/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
+        <p><strong>Compared with plain Helm.</strong> The Catalog tried this base beside plain Helm on two local clusters. The result is recorded as blocked, with the reason "helm-hook: pre-install certificate generation failed (parity passed)". <a href="https://github.com/confighub/helm-expt/blob/main/runs/live-kind-parity/bitnami-contour-default/receipt.yaml">Read the receipt</a>.</p>
+        <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
+      </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 20 objects in one file.</p>

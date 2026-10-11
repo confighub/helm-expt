@@ -620,6 +620,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 6 CRDs before the other objects. The base holds two Queue objects and a SchedulingShard, which Kubernetes rejects until their CRDs are established, and the operator watches all six kinds as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an install.</strong> Before an install or an upgrade, move the CRDs forward, migrate topologies and apply the Config. Helm runs these in hook-weight order before it applies the chart's objects. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> After a delete, remove what the operator created. The post-delete-cleanup Job deletes the Deployments the operator created in the release namespace and the kai-config Config object, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
+        
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
@@ -719,6 +720,7 @@ a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46  kai-scheduler-
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 6 CRDs before the other objects. The base holds two Queue objects and a SchedulingShard, which Kubernetes rejects until their CRDs are established, and the operator watches all six kinds as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an install.</strong> Before an install or an upgrade, move the CRDs forward, migrate topologies and apply the Config. Helm runs these in hook-weight order before it applies the chart's objects. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
+        
         
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
