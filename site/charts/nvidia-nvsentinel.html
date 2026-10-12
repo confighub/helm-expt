@@ -590,6 +590,12 @@
     <p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
+    <section class="at-a-glance" aria-label="At a glance">
+      <p><strong>What it is.</strong> <code>nvidia/nvsentinel</code> v1.26.0, as 22 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/nvidia-nvsentinel-v1-26-0/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
+      <p><strong>Bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-26-0-default:r001@sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb</code></p>
+      <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
+    </section>
     <section aria-labelledby="versions">
       <h2 id="versions">Pick a version and a base</h2>
       <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>

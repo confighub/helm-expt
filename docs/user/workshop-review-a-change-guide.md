@@ -32,7 +32,7 @@ need.
 - **What was released.** Release 2 of the prod environment carries the change, and Release 1 holds prod as it stood before. Each Release has a digest.
 - **What a person checks afterwards.** The change record lists who promoted the change into dev and into prod, when, and which Release carries it. The diff between the two Releases shows the one field.
 
-The run had limits, and [the last section](#what-this-run-does-not-show) lists
+The run had limits, and [the last section](#technical-notes-and-disclaimers) lists
 them. Read it before you rely on this page. The two that matter most are that
 one account both wrote and approved the change, and that the app's pods never
 started.
@@ -388,21 +388,6 @@ With `-o json` the change order lists each promotion with its stage, its time
 and the user id of the person who ran it. The diff between the two Releases
 prints the one field again, read from what was released.
 
-## What this run does not show
-
-- **One account wrote the change and approved it.** The gate allowed that only because the workflow was told to. No second person approved anything.
-- **The app never ran.** Its image cannot be pulled without credentials. "Released" in ConfigHub meant published, and the cluster ran without the agent that reports live status back.
-- **An approval covers content, and it outlives its change order.** An earlier approval of the same content satisfied the gate of a later change order. The run had to revoke the earlier approval to see the gate refuse.
-- **A refused promotion leaves no record.** The change order shows who promoted and when. It does not show who tried and was refused.
-- **Prod's first Release needed the requirement switched off for one command.** A Component that requires a workflow could not publish prod as it stood before the change.
-- **The approval is recorded on dev's revisions.** Nobody approved prod's own revisions. The workflow has a separate setting for that, and the run did not use it.
-- **No rollback of a released change was run.**
-- **Permissions were not explored.** The run's account manages every object, so the run says nothing about who may approve, promote or publish.
-- **No pull request was opened.** The one-line change exists only in a scratch copy of the repository.
-
-The log's section on [what went wrong](./live-walk-change-review-2026-10-09.md#what-went-wrong)
-has seventeen findings in all, including a mistake the run made and undid.
-
 ## A task for an assistant
 
 Give an assistant this task to run Part 1 for you. It needs no account.
@@ -422,3 +407,18 @@ do not use a cluster, and do not say the change is safe.
 - [Can I promote this configuration?](https://confighub.github.io/helm-expt/site/promote.html) compares any two files and helps you choose the tests a change needs.
 - [See what a gpu-operator upgrade changes](./workshop-gpu-operator-upgrade-guide.md) moves a chart version through dev and QA.
 - [What we refuse to claim](./what-we-refuse-to-claim.md) lists the limits that apply to every page.
+
+## Technical notes and disclaimers
+
+- **One account wrote the change and approved it.** The gate allowed that only because the workflow was told to. No second person approved anything.
+- **The app never ran.** Its image cannot be pulled without credentials. "Released" in ConfigHub meant published, and the cluster ran without the agent that reports live status back.
+- **An approval covers content, and it outlives its change order.** An earlier approval of the same content satisfied the gate of a later change order. The run had to revoke the earlier approval to see the gate refuse.
+- **A refused promotion leaves no record.** The change order shows who promoted and when. It does not show who tried and was refused.
+- **Prod's first Release needed the requirement switched off for one command.** A Component that requires a workflow could not publish prod as it stood before the change.
+- **The approval is recorded on dev's revisions.** Nobody approved prod's own revisions. The workflow has a separate setting for that, and the run did not use it.
+- **No rollback of a released change was run.**
+- **Permissions were not explored.** The run's account manages every object, so the run says nothing about who may approve, promote or publish.
+- **No pull request was opened.** The one-line change exists only in a scratch copy of the repository.
+
+The log's section on [what went wrong](./live-walk-change-review-2026-10-09.md#what-went-wrong)
+has seventeen findings in all, including a mistake the run made and undid.
