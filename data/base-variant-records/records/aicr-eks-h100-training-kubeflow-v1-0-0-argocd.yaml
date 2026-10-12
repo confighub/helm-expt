@@ -518,10 +518,18 @@ spec:
       ociLayout: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/oci-layouts/argocd-config"
       receipt: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml"
     configHubUpload:
-      status: "not-run"
+      status: "pass"
+      sourceRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0"
+      sourceOciDigest: "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19"
+      layout: "one-unit-per-object"
+      configHubUnitCount: 17
+      configHubObjectSetSha256: "0dc02f025950296e4f77e88d7222a2a4542cfae8b3062207df917e6e2a7943d4"
+      objectIdentitiesMatched: true
+      bindingMethod: "external-source-annotation-plus-exact-object-comparison"
+      receipt: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml"
     configHubReleaseOci:
       status: "not-run"
-    argoCd: "not-run"
+    argoCd: "applications-retained-not-reconciled"
     flux: "not-run-for-argo-application-wrapper"
   policy:
     profile: "catalog-standard"
@@ -537,6 +545,7 @@ spec:
     routeIntent: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml"
     fieldPolicy: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/field-policy-assessment.yaml"
     publicOciReceipt: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml"
+    configHubUploadReceipt: "examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml"
   operations:
     resourceClass: "system-configuration"
     ownerClass: "platform-team"
@@ -546,7 +555,7 @@ status:
   claim: "AICR v1.0.0 produced 17 exact Argo CD Applications with signed source provenance, lifecycle route intent, a field-policy assessment, and two publicly pullable OCI artifacts at recorded digests."
   limits:
     - "Both OCI artifacts were anonymously pulled at their recorded digests."
-    - "This v1.0.0 base has not yet been uploaded to ConfigHub."
+    - "ConfigHub holds the base as 17 Units, one for each Application, uploaded from the literal OCI digest; the upload receipt binds them by exact-object comparison."
     - "No v1.0.0 derived-variant promotion has run."
     - "The ConfigHub apply policy has not been tested for this v1.0.0 base."
     - "No approved ConfigHub release OCI has been pulled and compared for this version."

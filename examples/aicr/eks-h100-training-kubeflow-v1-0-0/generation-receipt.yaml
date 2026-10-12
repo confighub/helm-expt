@@ -246,7 +246,7 @@ status:
   argoCdDelivery: "not-run"
   binaryAttestationVerified: true
   configHubReleaseOci: "not-run"
-  configHubUpload: "not-run"
+  configHubUpload: "pass"
   eksH100Runtime: "not-run"
   fluxBundleGenerated: true
   fluxDelivery: "not-run"
@@ -254,7 +254,7 @@ status:
   localOciLayoutsVerified: true
   promotion: "not-run"
   publicOciPublication: "pass"
+  published: true
   sbomAttestationVerified: true
   sourceBundleGenerated: true
   upstreamSignatureVerified: true
-  published: true

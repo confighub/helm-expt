@@ -1,0 +1,180 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubUploadReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v1-0-0-argocd"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-10-12T15:24:58.281Z"
+  layout: "one-unit-per-object"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "aicr-eks-h100-training-kubeflow"
+    - "--variant"
+    - "v1-0-0-argocd"
+    - "--space"
+    - "aicr-eks-h100-training-kubeflow-v1-0-0-argocd"
+    - "--space-label"
+    - "SourceType=aicr"
+    - "--space-label"
+    - "ResourceClass=system-configuration"
+    - "--layer"
+    - "Platform"
+    - "--owner"
+    - "Platform"
+    - "--change-desc"
+    - "Upload AICR v1.0.0 Argo application bundle"
+    - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0"
+  source:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0"
+    digest: "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19"
+    renderedObjectCount: 17
+  space:
+    slug: "aicr-eks-h100-training-kubeflow-v1-0-0-argocd"
+    id: "629f6cde-7b73-44e4-b2e1-98ab84a24189"
+    labels:
+      Layer: "Platform"
+      ResourceClass: "system-configuration"
+      SourceType: "aicr"
+      Variant: "v1-0-0-argocd"
+    externalSource:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0"
+      manifestDigest: "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19"
+  units:
+    -
+      slug: "aicr-stack-application"
+      id: "c352e76f-5ffb-478d-9c77-dc0a22256116"
+      dataHash: "c851ef688835a4c989f50fc88ed4a8d87a90910630340a7108b45cdb2dd944f2"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/aicr-stack.yaml"
+      uploadResource: "argoproj.io/Application/argocd/aicr-stack"
+    -
+      slug: "aws-ebs-csi-driver-application"
+      id: "84fa1808-9542-4e2d-8304-a3d07d755bb6"
+      dataHash: "43ac74e54d57490d3daf1e7c17760e3be9dd13016c8ace20e1a86ebf5c0fc83a"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/aws-ebs-csi-driver.yaml"
+      uploadResource: "argoproj.io/Application/argocd/aws-ebs-csi-driver"
+    -
+      slug: "aws-efa-application"
+      id: "436db62c-5eba-4c61-af04-6c5a29ddd258"
+      dataHash: "b4026c8b2daf8969bb53b950815284199a76073d9abb15705f6dfe513bdd26f9"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/aws-efa.yaml"
+      uploadResource: "argoproj.io/Application/argocd/aws-efa"
+    -
+      slug: "cert-manager-application"
+      id: "465ff3d8-205a-4369-af66-34b7768ebf89"
+      dataHash: "eee285329a1d3f14ffdf574fa4deb4a31963d022a2a76485542b06df1ae68be9"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/cert-manager.yaml"
+      uploadResource: "argoproj.io/Application/argocd/cert-manager"
+    -
+      slug: "gpu-operator-application"
+      id: "e38ce786-465b-44a3-9128-5a794f3c3e72"
+      dataHash: "1d1c29e3964a19976add009807544dd388a38b46d359441c1d712aa3444bfa29"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/gpu-operator.yaml"
+      uploadResource: "argoproj.io/Application/argocd/gpu-operator"
+    -
+      slug: "k8s-ephemeral-storage-metrics-application"
+      id: "21611b56-4053-4928-a3db-da2fd8495caa"
+      dataHash: "fa49821f343222a6838c0898c2f097a84443618648477886309cee5592eb9574"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/k8s-ephemeral-storage-metrics.yaml"
+      uploadResource: "argoproj.io/Application/argocd/k8s-ephemeral-storage-metrics"
+    -
+      slug: "kai-scheduler-application"
+      id: "889e77e5-d518-4cb9-baef-2fa29a728f84"
+      dataHash: "2196410dff234a0a0f58cedd872b80ecd04123e85bb46d2429f2514046061793"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/kai-scheduler.yaml"
+      uploadResource: "argoproj.io/Application/argocd/kai-scheduler"
+    -
+      slug: "kube-prometheus-stack-application"
+      id: "71b471fc-7c1e-4f34-87a8-47eb7d5e9dbf"
+      dataHash: "de96a1db07dd5dd71e67debbed4d3076adee2ef07c3940bf4756b3a74d82dec8"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/kube-prometheus-stack.yaml"
+      uploadResource: "argoproj.io/Application/argocd/kube-prometheus-stack"
+    -
+      slug: "kubeflow-trainer-application"
+      id: "9aeb04ec-7496-4d12-b046-1d88c4cbc81c"
+      dataHash: "f9b79a88822702e891e645bdc98654096a62b7b306027e15c9e9c7f764b80725"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/kubeflow-trainer.yaml"
+      uploadResource: "argoproj.io/Application/argocd/kubeflow-trainer"
+    -
+      slug: "kubeflow-trainer-post-application"
+      id: "6efb2e73-b4cc-4764-88a7-31f81b2e84d8"
+      dataHash: "8863b51c2d25cb69438e5ce773d2dcb5e7abaa18580a75fd6126ba97aea34c2e"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/kubeflow-trainer-post.yaml"
+      uploadResource: "argoproj.io/Application/argocd/kubeflow-trainer-post"
+    -
+      slug: "nfd-application"
+      id: "35791d6c-2104-4558-939b-fedf2664186f"
+      dataHash: "90627ac57ce2a98d4b099366c8d321e24bc2e0a98263e2f3d94a512e0589375e"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/nfd.yaml"
+      uploadResource: "argoproj.io/Application/argocd/nfd"
+    -
+      slug: "nodewright-customizations-application"
+      id: "34eff676-de10-4757-8ed3-fc494f2a018a"
+      dataHash: "6dec5df3a444ea0bdca8d5891aa323a41fdfaa26f5c1bff3184ca3118cae270d"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/nodewright-customizations.yaml"
+      uploadResource: "argoproj.io/Application/argocd/nodewright-customizations"
+    -
+      slug: "nodewright-operator-application"
+      id: "5c17a966-aafa-4085-b976-91e12614d9a7"
+      dataHash: "b8de23ba91929872f31937332ca7dbd21ecff69255f9cfef61a4dbe781432996"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/nodewright-operator.yaml"
+      uploadResource: "argoproj.io/Application/argocd/nodewright-operator"
+    -
+      slug: "nvidia-dra-driver-gpu-application"
+      id: "b87e225f-f280-42f1-a572-ef8769c1cf8d"
+      dataHash: "4879bcf0ff26e6ed46dc2df267e72b0995b4b2b97e2c7b1e50cd497da654ccb7"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/nvidia-dra-driver-gpu.yaml"
+      uploadResource: "argoproj.io/Application/argocd/nvidia-dra-driver-gpu"
+    -
+      slug: "nvsentinel-application"
+      id: "22aa8e00-ad58-4a3e-b3db-ddacf64ceabb"
+      dataHash: "8789d476fd91446ffe86011c3cee9bb73275337ea35bdc9556ee95b651f72f5e"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/nvsentinel.yaml"
+      uploadResource: "argoproj.io/Application/argocd/nvsentinel"
+    -
+      slug: "prometheus-adapter-application"
+      id: "6e3c6f09-d5b3-444e-804c-2c1c137183a4"
+      dataHash: "1188e3f2b666c35416abeb024aa092699a778619bf22c4c4a4cd7ab9afab4af8"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/prometheus-adapter.yaml"
+      uploadResource: "argoproj.io/Application/argocd/prometheus-adapter"
+    -
+      slug: "prometheus-operator-crds-application"
+      id: "fb459954-0816-433d-8fae-846428667161"
+      dataHash: "72adeebe24d5bbad2a43170bb861ef639af07cf94947992184b4b332913aba90"
+      headRevision: 2
+      uploadFile: "aicr-bundle/templates/prometheus-operator-crds.yaml"
+      uploadResource: "argoproj.io/Application/argocd/prometheus-operator-crds"
+  storedObjectCount: 17
+  storedObjectSetSha256: "0dc02f025950296e4f77e88d7222a2a4542cfae8b3062207df917e6e2a7943d4"
+  provenanceBinding:
+    method: "external-source-annotation-plus-exact-object-comparison"
+    ociManifestDigest: "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19"
+    objectIdentitiesMatched: true
+    note: "The OCI manifest digest and the ConfigHub data hashes identify different records. The exact-object comparison binds them."
+  notRecorded:
+    - "a README Unit"
+    - "an apply policy on the Space"
+    - "a Target"
+    - "development, staging, or production variants"
+status:
+  result: "pass"
+  configHubBaseVariantUpload: "pass"
+  objectIdentitiesMatched: "pass"

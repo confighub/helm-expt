@@ -81,13 +81,16 @@ const v020Entry = version === "0.20.0";
 // name the public targets, and the version-aware artifact and provenance
 // verifiers check them.
 const receiptTargetsEntry = v020Entry || version === "1.0.0";
-// ConfigHub upload is recorded for the earlier versions. Nobody has decided
-// which Spaces v1.0.0 gets, so it has no README Unit and no ConfigHub receipt,
-// and the checks and modes that need them do not apply to it.
+// The earlier versions were uploaded when ConfigHub kept all 17 Applications
+// in one Unit, beside a README Unit, an apply policy and a promotion. v1.0.0
+// was uploaded on 2026-10-12 as a base only, with a cub that stores one Unit
+// for each object. It has a receipt of its own shape and two modes that read
+// ConfigHub. The other ConfigHub checks and modes do not apply to it.
 const configHubEntry = version !== "1.0.0";
+const perUnitHubModes = ["--hub-record", "--hub-verify"];
 check(
-  configHubEntry || !mode.startsWith("--hub-"),
-  `AICR v${version} has no ConfigHub records, so ${mode} is not defined for it`,
+  configHubEntry || !mode.startsWith("--hub-") || perUnitHubModes.includes(mode),
+  `AICR v${version} is stored in ConfigHub as a base only, so ${mode} is not defined for it`,
 );
 // The earlier versions keep the wording their logs already carry.
 const checkedLabel = configHubEntry ? "AICR" : `AICR v${version}`;
@@ -220,12 +223,31 @@ if (mode === "--public-verify") {
   console.log(`verified public ${checkedLabel} source and configuration OCI artifacts by anonymous pull`);
   process.exit(0);
 }
+if (mode === "--hub-record" && !configHubEntry) {
+  assertOrg();
+  const receipt = collectPerUnitUploadReceipt();
+  writeYaml(uploadReceiptPath, receipt);
+  verifyPerUnitUploadReceipt(receipt);
+  updateGenerationStatus({ configHubUpload: "pass" });
+  console.log(`recorded the AICR v${version} base in ConfigHub (${spaceSlug}, ${receipt.spec.units.length} Units)`);
+  process.exit(0);
+}
+if (mode === "--hub-verify" && !configHubEntry) {
+  assertOrg();
+  const receipt = readYaml(uploadReceiptPath);
+  verifyPerUnitUploadReceipt(receipt);
+  verifyPerUnitStoredState(receipt);
+  console.log(`verified the AICR v${version} base in ConfigHub against its receipt (${spaceSlug}, ${receipt.spec.units.length} Units)`);
+  process.exit(0);
+}
 if (mode === "--verify" && !configHubEntry) {
   const published = existsSync(publicReceiptPath);
   if (published) verifyPublicReceipt({ fetch: false });
+  const stored = existsSync(uploadReceiptPath);
+  if (stored) verifyPerUnitUploadReceipt(readYaml(uploadReceiptPath));
   console.log(
     published
-      ? `verified the retained AICR v${version} source, configuration, provenance, and publication records`
+      ? `verified the retained AICR v${version} source, configuration, provenance, and publication records${stored ? ", and its ConfigHub base receipt" : ""}`
       : `verified the retained AICR v${version} source, configuration, and provenance records. Publication has not run.`,
   );
   process.exit(0);
@@ -1078,16 +1100,32 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.space?.labels?.ResourceClass === "system-configuration", "AICR Space resource class changed");
   check(receipt.spec?.policy?.filter === approvalRequiredFilterRef, "AICR approval-required filter changed");
   check(receipt.spec?.policy?.reason === "system-configuration", "AICR approval reason changed");
-  const expectedPolicyCount = modernEntry
-    ? readYaml(policyPath).spec.approvalRequired.checks.length
-    : 6;
+  // A receipt is a dated record, and the policy has changed since some were
+  // written. Each common check a receipt names must still be one the policy
+  // names. Approval was a policy check until 2026-09-26, when it moved to
+  // workflow attestations and left the policy's check list, so a receipt
+  // verified before that day names the approval gate and a later one does not.
+  const approvalPolicyCheck = "platform/require-approval";
+  const approvalWasAPolicyCheck = String(receipt.spec?.verifiedAt ?? "") < "2026-09-26";
+  const recordedChecks = receipt.spec?.policy?.checks ?? [];
+  const recordedCommonChecks = recordedChecks.filter((item) => item !== approvalPolicyCheck);
+  if (modernEntry) {
+    const policyCommonChecks = readYaml(policyPath).spec.approvalRequired.checks
+      .map((item) => item.trigger)
+      .filter((item) => item !== approvalPolicyCheck);
+    const unknownChecks = recordedCommonChecks.filter((item) => !policyCommonChecks.includes(item));
+    check(
+      recordedCommonChecks.length >= 5 && unknownChecks.length === 0,
+      `AICR upload records a common check the policy does not name: ${unknownChecks.join(", ") || "fewer than 5 recorded"}`,
+    );
+  } else {
+    check(recordedCommonChecks.length === 5, "AICR upload must record 5 common checks");
+  }
   check(
-    receipt.spec?.policy?.checks?.length === expectedPolicyCount,
-    `AICR upload must record ${expectedPolicyCount - 1} common checks plus approval`,
-  );
-  check(
-    receipt.spec.policy.checks.includes("platform/require-approval"),
-    "AICR upload policy must require approval",
+    recordedChecks.includes(approvalPolicyCheck) === approvalWasAPolicyCheck,
+    approvalWasAPolicyCheck
+      ? "AICR upload policy must require approval"
+      : "AICR upload names the approval gate, which left the policy on 2026-09-26",
   );
   check(receipt.status?.configHubBaseVariantUpload === "pass", "AICR base variant upload is not pass");
   check(receipt.status?.objectIdentitiesMatched === "pass", "AICR object comparison is not pass");
@@ -3254,7 +3292,7 @@ function verifyV020PersistentPromotionReceipt(receipt, uploadReceipt) {
     check(
       record.applicationCount === 17
         && record.readmeUnit.fromLinkIds.length === 0
-        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && sameStringSet(commonCheckSlugs(record.policyChecks), expectedPersistentCheckSlugs())
         && record.applyGates.includes(approvalGate),
       `${record.space} receipt evidence changed`,
     );
@@ -3355,7 +3393,7 @@ function verifyLegacyPersistentPromotionReceipt(receipt, uploadReceipt) {
     check(
       record.applicationCount === 17
         && record.readmeUnit.fromLinkIds.length === 0
-        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && sameStringSet(commonCheckSlugs(record.policyChecks), expectedPersistentCheckSlugs())
         && record.applyGates.includes(approvalGate),
       `${record.space} receipt evidence changed`,
     );
@@ -3611,9 +3649,16 @@ function selectedPersistentTriggerSlugs(space) {
 }
 
 function expectedPersistentCheckSlugs() {
-  return readYaml(policyPath).spec.approvalRequired.checks
-    .map((item) => item.trigger.split("/").at(-1))
-    .sort();
+  return commonCheckSlugs(readYaml(policyPath).spec.approvalRequired.checks
+    .map((item) => item.trigger.split("/").at(-1)));
+}
+
+// Approval was a policy check until 2026-09-26, when it moved to workflow
+// attestations. A receipt written before that day still lists it, so the
+// comparison is made on the common checks. Each record's apply gates are
+// checked beside this.
+function commonCheckSlugs(slugs) {
+  return [...(slugs ?? [])].filter((slug) => slug !== "require-approval").sort();
 }
 
 function previousPromotionEvidence() {
@@ -3671,6 +3716,171 @@ function findPersistentRevision(revisions, predicate, label) {
 
 // Configuration data is not a Unit field any more. It is read from the Unit's own
 // data endpoint, which `cub unit data` calls, and it comes back as text.
+// One Unit for each object. The Units are read in slug order so that two reads
+// of the same Space give the same list.
+function perUnitStoredState() {
+  const space = cubJson(["space", "get", spaceSlug, "-o", "json"]).Space;
+  const units = cubJson(["unit", "list", "--space", spaceSlug, "-o", "json"])
+    .map((item) => item.Unit)
+    .sort((left, right) => (left.Slug < right.Slug ? -1 : 1));
+  const storedDocs = units.flatMap((unit) => parseDocs(cub(["unit", "data", "--space", spaceSlug, unit.Slug])));
+  return { space, units, storedDocs };
+}
+
+function perUnitSlug(doc) {
+  return `${doc.metadata?.name}-${String(doc.kind ?? "").toLowerCase()}`;
+}
+
+function collectPerUnitUploadReceipt() {
+  const { space, units, storedDocs } = perUnitStoredState();
+  const sourceDocs = sourceApplicationDocs();
+  check(
+    canonicalDocs(storedDocs) === canonicalDocs(sourceDocs),
+    "the Units stored in ConfigHub differ from the retained Application files",
+  );
+  check(
+    space.Annotations?.ExternalSourceRef === publicConfigRef
+      && space.Annotations?.ExternalSourceDigest === configArtifact.digest,
+    "the ConfigHub Space does not record the published OCI reference and digest it was uploaded from",
+  );
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "ConfigHubUploadReceipt",
+    metadata: { name: spaceSlug },
+    spec: {
+      organization: expectedOrg,
+      verifiedAt: new Date().toISOString(),
+      layout: "one-unit-per-object",
+      command: [
+        "cub",
+        "variant",
+        "upload",
+        "--component",
+        componentSlug,
+        "--variant",
+        baseVariantSlug,
+        "--space",
+        spaceSlug,
+        "--space-label",
+        "SourceType=aicr",
+        "--space-label",
+        "ResourceClass=system-configuration",
+        "--layer",
+        "Platform",
+        "--owner",
+        "Platform",
+        "--change-desc",
+        `Upload AICR v${version} Argo application bundle`,
+        publicConfigRef,
+      ],
+      source: {
+        reference: publicConfigRef,
+        digest: configArtifact.digest,
+        renderedObjectCount: sourceDocs.length,
+      },
+      space: {
+        slug: spaceSlug,
+        id: space.SpaceID,
+        labels: space.Labels,
+        externalSource: {
+          reference: space.Annotations.ExternalSourceRef,
+          manifestDigest: space.Annotations.ExternalSourceDigest,
+        },
+      },
+      units: units.map((unit) => ({
+        slug: unit.Slug,
+        id: unit.UnitID,
+        dataHash: unit.DataHash,
+        headRevision: unit.HeadRevisionNum,
+        uploadFile: unit.Annotations?.UploadFile ?? "",
+        uploadResource: unit.Annotations?.UploadResource ?? "",
+      })),
+      storedObjectCount: storedDocs.length,
+      storedObjectSetSha256: hash(canonicalDocs(storedDocs)),
+      provenanceBinding: {
+        method: "external-source-annotation-plus-exact-object-comparison",
+        ociManifestDigest: configArtifact.digest,
+        objectIdentitiesMatched: true,
+        note: "The OCI manifest digest and the ConfigHub data hashes identify different records. The exact-object comparison binds them.",
+      },
+      notRecorded: [
+        "a README Unit",
+        "an apply policy on the Space",
+        "a Target",
+        "development, staging, or production variants",
+      ],
+    },
+    status: {
+      result: "pass",
+      configHubBaseVariantUpload: "pass",
+      objectIdentitiesMatched: "pass",
+    },
+  };
+}
+
+// The offline check. It holds the receipt to the retained files, so a receipt
+// edited by hand, or a retained file changed after the upload, is refused.
+function verifyPerUnitUploadReceipt(receipt) {
+  const sourceDocs = sourceApplicationDocs();
+  check(receipt?.kind === "ConfigHubUploadReceipt" && receipt.metadata?.name === spaceSlug, "AICR upload receipt names another Space");
+  check(receipt.spec?.organization === expectedOrg, "AICR upload receipt names another organization");
+  check(receipt.spec?.layout === "one-unit-per-object", "AICR upload receipt does not record the one-Unit-per-object layout");
+  check(
+    receipt.spec?.source?.reference === publicConfigRef && receipt.spec.source.digest === configArtifact.digest,
+    "AICR upload receipt names another OCI reference or digest",
+  );
+  check(
+    receipt.spec?.space?.slug === spaceSlug
+      && receipt.spec.space.externalSource?.reference === publicConfigRef
+      && receipt.spec.space.externalSource?.manifestDigest === configArtifact.digest
+      && receipt.spec.space.labels?.SourceType === "aicr"
+      && receipt.spec.space.labels?.ResourceClass === "system-configuration",
+    "AICR upload receipt Space record changed",
+  );
+  const units = receipt.spec?.units ?? [];
+  check(
+    JSON.stringify(units.map((unit) => unit.slug).sort()) === JSON.stringify(sourceDocs.map(perUnitSlug).sort()),
+    "AICR upload receipt does not list one Unit for each retained Application",
+  );
+  check(
+    units.every((unit) => /^[0-9a-f]{64}$/.test(unit.dataHash) && /^[0-9a-f-]{36}$/.test(unit.id)),
+    "AICR upload receipt Unit identity or data hash changed shape",
+  );
+  check(
+    receipt.spec.storedObjectCount === sourceDocs.length
+      && receipt.spec.storedObjectSetSha256 === hash(canonicalDocs(sourceDocs)),
+    "AICR upload receipt object set differs from the retained Application files",
+  );
+  check(
+    receipt.spec?.provenanceBinding?.method === "external-source-annotation-plus-exact-object-comparison"
+      && receipt.spec.provenanceBinding.ociManifestDigest === configArtifact.digest
+      && receipt.spec.provenanceBinding.objectIdentitiesMatched === true,
+    "AICR upload receipt provenance binding changed",
+  );
+  check(
+    receipt.status?.result === "pass"
+      && receipt.status.configHubBaseVariantUpload === "pass"
+      && receipt.status.objectIdentitiesMatched === "pass",
+    "AICR upload receipt is not pass",
+  );
+  return receipt;
+}
+
+// The check that reads ConfigHub. It holds the stored Units to the receipt.
+function verifyPerUnitStoredState(receipt) {
+  const { space, units, storedDocs } = perUnitStoredState();
+  check(space.SpaceID === receipt.spec.space.id, "the ConfigHub Space is not the one the receipt records");
+  check(
+    JSON.stringify(units.map((unit) => [unit.Slug, unit.UnitID, unit.DataHash]))
+      === JSON.stringify(receipt.spec.units.map((unit) => [unit.slug, unit.id, unit.dataHash])),
+    "a Unit in ConfigHub differs from the receipt",
+  );
+  check(
+    hash(canonicalDocs(storedDocs)) === receipt.spec.storedObjectSetSha256,
+    "the objects stored in ConfigHub differ from the receipt",
+  );
+}
+
 function storedUnitData(unit) {
   check(unit.SpaceSlug && unit.Slug, "stored Unit identity is missing");
   return cub([
