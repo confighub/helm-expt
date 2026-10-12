@@ -10,7 +10,7 @@ const record = (name) => structuredClone(records.find((entry) => entry.metadata.
 
 test("binds only the exact retained Traefik and cert-manager configurations", () => {
   const traefik = findCatalogBundleBinding(record("traefik-traefik-41-0-2-default"), candidates);
-  assert.equal(traefik.ociRef, "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b");
+  assert.equal(traefik.ociRef, "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73");
   assert.equal(traefik.sourcePaths.receipt, "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml");
   assert.equal(traefik.sourcePaths.publicationReceipt, "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml");
   assert.equal(traefik.hashes.configuration, "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac");
@@ -152,9 +152,16 @@ test("a bundle built under the plan rule gives its record only the route files w
   assert.deepEqual(argo.spec.lifecycle.routeIntent.routes.map((route) => route.id).sort(), ["crd-ordering", "prune-protection", "secret-before-apply"]);
 });
 
-test("a bundle published before the plan rule has no plan for its record to follow", () => {
-  assert.equal(findCatalogBundlePlan(record("argo-cd-argo-events-2-4-21-default"), candidates), null);
-  assert.equal(findCatalogBundlePlan(record("traefik-traefik-41-0-2-default"), candidates), null);
+test("a bundle republished under the plan rule has a plan for its record to follow", () => {
+  // Both were published before the rule and republished on 2026-10-12.
+  assert.equal(
+    findCatalogBundlePlan(record("argo-cd-argo-events-2-4-21-default"), candidates).receipt,
+    "data/certified-bundles/receipts/catalog/argo-events-2.4.21-default/receipt.yaml",
+  );
+  assert.equal(
+    findCatalogBundlePlan(record("traefik-traefik-41-0-2-default"), candidates).receipt,
+    "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml",
+  );
 });
 
 test("a plan never crosses to another version, base or object set, and never to another record", () => {

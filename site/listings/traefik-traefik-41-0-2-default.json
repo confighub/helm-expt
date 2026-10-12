@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/traefik-traefik-41-0-2-default.yaml",
-      "sha256": "sha256:d13507ed4d7ed5278db461af834a5d55e034281406a9a9f73936eb24fdd7f623",
+      "sha256": "sha256:5cac5aa38ddf0bda644cbe87922c33e16c898e3a8bc4eb4fe8106e0d3dc05cb5",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/traefik-traefik-41-0-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -117,24 +117,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
+            "value": "sha256:9d4c019328de540397d61d40c1033477ded3de04dda45a49ded58992b190b16f"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:ef8f206d5b46362e8f8f0b3a72be6edbdc0362f251c1bf42bfff084c009e63a5"
+            "value": "sha256:a977acecad8106f1e08cf2717672051d54cae4e1d35f4bfecc210b8bc2fedf22"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:9c36d8726805f2858f2b002e9c52ca7b292d12306949543d12096e14a339d238"
+            "value": "sha256:e5500b98459359bfdab49ec14e1566f4fecbc6a3a48934326d16535f39b8ba28"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
+            "value": "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
           },
           {
             "field": "objectSetSha256",
@@ -253,7 +253,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+        "detail": "CRD ordering declaration for the 25 gateway and traefik CRDs."
       }
     ],
     "routes": [
@@ -263,34 +263,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+          "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
-      },
-      {
         "name": "traefik-traefik-41-0-2-default.yaml",
         "path": "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

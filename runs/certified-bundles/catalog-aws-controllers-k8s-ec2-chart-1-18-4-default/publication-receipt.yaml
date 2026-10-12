@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/ec2-chart-1.18.4-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:6e4a07f956e29c3469baf62f41c5295c5d8f56456ce3445a0ffe7cec14ea0462"
-  layerDigest: "sha256:5829e9eabb7fcd56d80cd8550c1db32cdf95cfa31214772013d83bb5d2a1cc9d"
-  layerBytes: 34609
-  observedAt: "2026-08-08T19:42:33.093Z"
+  manifestDigest: "sha256:bce0d0b96c3ce0de4712c6631b98e02a4f7cf44bbc6d3c2acc61f1724e74800c"
+  layerDigest: "sha256:2b839ff94f6e5b84af4ef941665a0b97774e505f9485f8ca5252c64138837a14"
+  layerBytes: 34764
+  observedAt: "2026-10-12T18:46:33.472Z"
   reproducible: true
   stagedFiles:
     - "README.md"

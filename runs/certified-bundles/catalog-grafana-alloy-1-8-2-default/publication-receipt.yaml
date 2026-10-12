@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/alloy-1.8.2-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d"
-  layerDigest: "sha256:bc1fe9c612dd49ddca14d2af54e03521cbcecf1d5a53b8c36c53d3ad5460ba98"
-  layerBytes: 4796
-  observedAt: "2026-08-08T19:42:36.518Z"
+  manifestDigest: "sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f"
+  layerDigest: "sha256:8f1d2624d145e81d2d881b796d505c56d1b874d95b8fb12b37e67887f0b04bb4"
+  layerBytes: 4930
+  observedAt: "2026-10-12T18:46:41.094Z"
   reproducible: true
   stagedFiles:
     - "README.md"

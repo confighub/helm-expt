@@ -137,16 +137,15 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 9 objects."
+          detail: "CRD ordering declaration for the 5 definition(s) this base renders."
         -
           id: "prune-protection"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 5 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          detail: "Prune protection for the 5 object(s) carrying the keep promise."
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -155,41 +154,36 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 9 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 5 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"
+            - "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
         -
           id: "prune-protection"
           requirementRefs:
             - "prune-protection"
           phase: "destination-resolution"
-          proposedActor: "selected applier"
-          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 5 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Prune protection for the 5 object(s) carrying the keep promise."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
             []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml"
+            - "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
+        - "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -219,14 +213,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
-      manifestDigest: "sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
-      layerDigest: "sha256:7446c395f22e315d6410e78f398efebf27c75ceaf9b3c858c413701138534fa8"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc"
+      manifestDigest: "sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc"
+      layerDigest: "sha256:2ea14c4e33d1bf8d0d9b4456afae056ed54540617636c31d173f2aa7e06000ff"
       objectSetSha256: "sha256:cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47"
       receipt: "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-default/receipt.yaml"
-      receiptSha256: "sha256:8fc01c78b9053b9b949af5af177e6c4618e098ade7f4e67364ebc51e024db68b"
+      receiptSha256: "sha256:3f92981ba8634a6c3fa576d512c880ed68afc04b2ed2788644a197e32b3499a9"
       publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-rollouts-2-40-9-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:194cb10801eea71b116d134c80c4837fbfda2d9b5f44d6367e84ebfcee0bd804"
+      publicationReceiptSha256: "sha256:4b8e9d73b6e407e6cce6058c198f3594ef19adbacddbc4aa5d36f4ce41a009ea"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"

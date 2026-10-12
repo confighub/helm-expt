@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/operator-7.1.1-default/space-guide.md"
-        sha256: "e4e5848ab51bce8a056ba12030830c669ded3266f3ec9f8914dc3f093236736e"
-        bytes: 1295
+        sha256: "ec8d24cb8b73c88c85efca59e8dce051c87fbeb1523c61e0b72d13912f01918e"
+        bytes: 1687
         role: "space-guide"
     objectCount: 8
     objectInventoryRef: "recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -56,8 +65,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest"
-    manifestDigest: "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
-    layerDigest: "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95"
+    manifestDigest: "sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97"
+    layerDigest: "sha256:3b58fdf9e8440e2a43e5af50c586f1926570b7560bfeee1b6da85624a2a398f1"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -132,4 +141,5 @@ spec:
       - "recipes/minio-operator/operator/7.1.1/revisions/default/r001/variant-revision.yaml"
       - "recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/minio-operator/operator/7.1.1/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml"
       - "runs/certified-bundles/catalog-minio-operator-operator-7-1-1-default/publication-receipt.yaml"

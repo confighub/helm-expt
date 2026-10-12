@@ -137,16 +137,15 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects."
+          detail: "CRD ordering declaration for the 25 definition(s) this base renders."
         -
           id: "prune-protection"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          detail: "Prune protection for the 20 object(s) carrying the keep promise."
       records:
-        - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml"
+        - "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -155,41 +154,36 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 25 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
+            - "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
         -
           id: "prune-protection"
           requirementRefs:
             - "prune-protection"
           phase: "destination-resolution"
-          proposedActor: "selected applier"
-          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Prune protection for the 20 object(s) carrying the keep promise."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
             []
           evidence:
-            - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
+            - "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml"
+        - "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -219,14 +213,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
-      manifestDigest: "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
-      layerDigest: "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef"
+      manifestDigest: "sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef"
+      layerDigest: "sha256:e04aa26980dbac8f9e6ce9f4c608aba1f6616d9782ba077792956f677c839f89"
       objectSetSha256: "sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8"
       receipt: "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml"
-      receiptSha256: "sha256:688cdc72a71fc6740759cd687920bbb4d74699d176f35f2000ffbf8325dc6293"
+      receiptSha256: "sha256:c2592333188bc63f103f1d8c741f1421e41c4366e91b46b4b4f8ca6c5e839c55"
       publicationReceipt: "runs/certified-bundles/catalog-rook-release-rook-ceph-v1-19-5-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:fa47874bb8938297ff9d3f75c8b559dc735b8452407fba6a112df64448497c86"
+      publicationReceiptSha256: "sha256:a257f40b09688a02006c6ba5956f1c9c18806fbdccfee9ab1d4cd78ecb4fde3d"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"

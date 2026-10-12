@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/rook-release-rook-ceph-v1-19-5-default.yaml",
-      "sha256": "sha256:cace6c116ce583c5ac72ed824dc5f5d84b1c2f2a496eaae934cf3e7ce13704b8",
+      "sha256": "sha256:95aa4005f02d70edf5431ba20e3f5c6fb7f909a2b18e35a9dd3be5550dcf96b4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/rook-release-rook-ceph-v1-19-5-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b"
+            "value": "sha256:e04aa26980dbac8f9e6ce9f4c608aba1f6616d9782ba077792956f677c839f89"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:688cdc72a71fc6740759cd687920bbb4d74699d176f35f2000ffbf8325dc6293"
+            "value": "sha256:c2592333188bc63f103f1d8c741f1421e41c4366e91b46b4b4f8ca6c5e839c55"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:fa47874bb8938297ff9d3f75c8b559dc735b8452407fba6a112df64448497c86"
+            "value": "sha256:a257f40b09688a02006c6ba5956f1c9c18806fbdccfee9ab1d4cd78ecb4fde3d"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
+            "value": "sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef"
           },
           {
             "field": "objectSetSha256",
@@ -246,13 +246,13 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects."
+        "detail": "CRD ordering declaration for the 25 definition(s) this base renders."
       },
       {
         "id": "prune-protection",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+        "detail": "Prune protection for the 20 object(s) carrying the keep promise."
       }
     ],
     "routes": [
@@ -262,21 +262,15 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 25 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
+          "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
         ]
       },
       {
@@ -285,37 +279,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "Prune protection for the 20 object(s) carrying the keep promise.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "prune-protection"
         ],
         "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
+          "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
-      },
-      {
-        "name": "prune-protection.yaml",
-        "path": "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
-      },
-      {
         "name": "rook-release-rook-ceph-v1-19-5-default.yaml",
         "path": "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

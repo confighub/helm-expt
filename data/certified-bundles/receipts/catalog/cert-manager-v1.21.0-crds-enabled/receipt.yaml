@@ -38,11 +38,25 @@ spec:
         role: "route: resource-policy-keep"
       -
         path: "data/certified-bundles/guides/catalog/cert-manager-v1.21.0-crds-enabled/space-guide.md"
-        sha256: "9afb9d8c542c9e7e448dd302aeb24ecdf275bc8d128d817a337638ab822931ce"
-        bytes: 1473
+        sha256: "4f7c90f7d8cfceed315afc71dd4f279ef7487539e29065bbc420b707a44ac55b"
+        bytes: 2068
         role: "space-guide"
     objectCount: 46
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "prune-protection"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -61,8 +75,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest"
-    manifestDigest: "sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d"
-    layerDigest: "sha256:09a57debe6be52a883644f47fe35ecda7b35140d06be1d6251949fa430e18a2d"
+    manifestDigest: "sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322"
+    layerDigest: "sha256:0035713ba52ee3f5b236f3cb8d225bc70488c720ba16cb53fa7a5174fb1acf86"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -138,4 +152,5 @@ spec:
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml"
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
       - "packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
       - "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled/publication-receipt.yaml"

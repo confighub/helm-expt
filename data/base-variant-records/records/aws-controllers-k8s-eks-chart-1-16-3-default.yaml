@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          detail: "CRD ordering declaration for the 10 EKS CRDs."
       records:
-        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+        - "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 10 EKS CRDs."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
+            - "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+        - "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676"
-      manifestDigest: "sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676"
-      layerDigest: "sha256:c12784f33ab04444c0da26eea3d0c806cc6021456db9293ac6d3440a723cf31c"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345"
+      manifestDigest: "sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345"
+      layerDigest: "sha256:3ed48ce45ed9305aa32ab4fb899ad444853a08855f99f275806f2a3c52daf4bc"
       objectSetSha256: "sha256:3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
       receipt: "data/certified-bundles/receipts/catalog/eks-chart-1.16.3-default/receipt.yaml"
-      receiptSha256: "sha256:1502e5f87b13cf6a9ff8a6323d58fc1f74e1eb1ae09ac4232f15ca5a153b1540"
+      receiptSha256: "sha256:f7109d4c29e79f44f251a9b4dc0ad7e46e7422a182ee70fec0ef5aa3ca3fb563"
       publicationReceipt: "runs/certified-bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:90fdb4b496aaa1d2a63f94b1f3a385bfa334581985f3ee227bb89ae0e3d57caf"
+      publicationReceiptSha256: "sha256:6a463b42e34f42b56cb9be7769dd52b547b2a269e9ae2e1148618b41fa3a3fdf"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"

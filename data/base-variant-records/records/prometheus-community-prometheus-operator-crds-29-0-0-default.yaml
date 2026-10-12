@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+          detail: "CRD ordering declaration for the 10 definition(s) this base renders."
       records:
-        - "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+        - "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 10 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
+            - "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+        - "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d"
-      manifestDigest: "sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d"
-      layerDigest: "sha256:b4a0d66db5a042a5d7667da311ae69c2991ec69b63052b4698e80cde7e4e0de9"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9"
+      manifestDigest: "sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9"
+      layerDigest: "sha256:7f14742d541e36ff70cea6753e6648a446ede95f2aec0d47ac7d82c1ba13c8ce"
       objectSetSha256: "sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4"
       receipt: "data/certified-bundles/receipts/catalog/prometheus-operator-crds-29.0.0-default/receipt.yaml"
-      receiptSha256: "sha256:383a0fcf90ad4b33a76c176044d3f5650ef3f8211ee318f5115d690048a6deae"
+      receiptSha256: "sha256:63955c6e640b4da86a1ba571a4f3b12934b43b13bf7ce2ed310bc021be0aa648"
       publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:0e360ce931182c80bc8ac98681b905448bc88e02e9d7c13660b2ef4e93641206"
+      publicationReceiptSha256: "sha256:cee5813e2d74b5ebf818aa3309864e84ae3fe804f477297b0f58825677fd7059"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
