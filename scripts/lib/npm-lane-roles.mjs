@@ -132,6 +132,12 @@ export const NPM_LANE_ROLES = Object.freeze({
     disposition: "keep-outside",
     status: "passes; publishing or pulling a fresh release needs ConfigHub and registry access, while this lane checks the retained result",
   },
+  "aicr-v100:verify": {
+    proves: "The retained AICR v1.0.0 source chart, 17 exact Argo CD Applications, two local OCI layouts, and signed-input provenance receipt still agree, and the two public targets named by the generation receipt sit in the retained registry. Once a public receipt exists, it also holds that receipt to the same references and digests. It proves nothing about ConfigHub, which has no v1.0.0 records.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "passes; the artifact and provenance verifiers it runs are both in the full verify chain for v1.0.0, while this focused lane is the check to run before and after a publish",
+  },
   "catalog-shared-checks:verify": {
     proves: "Every maintained Helm base has a separate released cub check result bound to the exact YAML bytes and scanner object set, with pinned scanner and pattern-bundle identity, stable control IDs, complete Catalog-rule classification, and fresh generated indexes.",
     requires: "offline",

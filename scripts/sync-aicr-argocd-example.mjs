@@ -23,6 +23,7 @@ import {
   toYaml,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { placeholderLandings, requiredInputFindings } from "./lib/aicr-required-inputs.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 import { observeApprovalAttestations } from "./lib/revision-approval-observation.mjs";
 
@@ -48,6 +49,7 @@ if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/sync-aicr-argocd-example.mjs --verify
   node scripts/sync-aicr-argocd-example.mjs --publish
+  node scripts/sync-aicr-argocd-example.mjs --publish --dry-run
   node scripts/sync-aicr-argocd-example.mjs --public-verify
   node scripts/sync-aicr-argocd-example.mjs --hub-sync
   node scripts/sync-aicr-argocd-example.mjs --hub-record
@@ -63,14 +65,32 @@ if (!allowedModes.has(mode)) {
   node scripts/sync-aicr-argocd-example.mjs --hub-promotion-verify`);
   process.exit(1);
 }
+// A dry run does every step of a publish that needs no registry credential.
+// It pushes nothing and writes nothing in the repository.
+const dryRun = process.argv.slice(3).includes("--dry-run");
+check(!dryRun || mode === "--publish", "--dry-run is only defined for --publish");
 
 const version = process.env.AICR_ARGOCD_VERSION?.trim() || "0.14.0";
 check(
-  ["0.14.0", "0.19.0", "0.20.0"].includes(version),
+  ["0.14.0", "0.19.0", "0.20.0", "1.0.0"].includes(version),
   `unsupported AICR Argo CD example version ${version}`,
 );
 const modernEntry = version !== "0.14.0";
 const v020Entry = version === "0.20.0";
+// v0.20.0 and v1.0.0 are retained in one shape. Their generation receipts
+// name the public targets, and the version-aware artifact and provenance
+// verifiers check them.
+const receiptTargetsEntry = v020Entry || version === "1.0.0";
+// ConfigHub upload is recorded for the earlier versions. Nobody has decided
+// which Spaces v1.0.0 gets, so it has no README Unit and no ConfigHub receipt,
+// and the checks and modes that need them do not apply to it.
+const configHubEntry = version !== "1.0.0";
+check(
+  configHubEntry || !mode.startsWith("--hub-"),
+  `AICR v${version} has no ConfigHub records, so ${mode} is not defined for it`,
+);
+// The earlier versions keep the wording their logs already carry.
+const checkedLabel = configHubEntry ? "AICR" : `AICR v${version}`;
 const versionSlug = `v${version.replaceAll(".", "-")}`;
 const exampleName = modernEntry
   ? `eks-h100-training-kubeflow-${versionSlug}`
@@ -122,10 +142,10 @@ const sourceReceipt = readYaml(sourceReceiptPath);
 const registryBase =
   "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
 const recordedTransport = sourceReceipt.spec?.processing?.transport ?? {};
-const publicSourceRef = v020Entry
+const publicSourceRef = receiptTargetsEntry
   ? recordedTransport.sourcePackage?.publicTarget
   : `${registryBase}/${componentSlug}-argocd:${version}`;
-const publicConfigRef = v020Entry
+const publicConfigRef = receiptTargetsEntry
   ? recordedTransport.literalConfiguration?.publicTarget
   : `${registryBase}/${componentSlug}-argocd-config:${version}`;
 check(publicSourceRef?.startsWith(`${registryBase}/`), "AICR source public reference is missing or outside the retained registry");
@@ -197,7 +217,17 @@ if (mode === "--publish") {
 }
 if (mode === "--public-verify") {
   verifyPublicReceipt({ fetch: true });
-  console.log("verified public AICR source and configuration OCI artifacts by anonymous pull");
+  console.log(`verified public ${checkedLabel} source and configuration OCI artifacts by anonymous pull`);
+  process.exit(0);
+}
+if (mode === "--verify" && !configHubEntry) {
+  const published = existsSync(publicReceiptPath);
+  if (published) verifyPublicReceipt({ fetch: false });
+  console.log(
+    published
+      ? `verified the retained AICR v${version} source, configuration, provenance, and publication records`
+      : `verified the retained AICR v${version} source, configuration, and provenance records. Publication has not run.`,
+  );
   process.exit(0);
 }
 if (mode === "--verify" && v020Entry) {
@@ -335,7 +365,7 @@ verifyApplyPolicyReceipt(readYaml(policyReceiptPath), committedUploadReceipt);
 console.log("verified AICR ConfigHub upload and apply-policy receipts");
 
 function runLocalVerification() {
-  const verifier = v020Entry
+  const verifier = receiptTargetsEntry
     ? "verify-aicr-v020-artifacts.mjs"
     : modernEntry
       ? "verify-aicr-v019-artifacts.mjs"
@@ -348,6 +378,7 @@ function runLocalVerification() {
       stdio: "inherit",
       env: {
         ...process.env,
+        ...(receiptTargetsEntry ? { AICR_ARTIFACTS_VERSION: version } : {}),
         AICR_SKIP_UPLOAD_RECEIPT: mode === "--hub-record" ? "1" : "0",
         AICR_SKIP_POLICY_RECEIPT: [
           "--hub-sync",
@@ -371,17 +402,97 @@ function runLocalVerification() {
         join(
           repoRoot,
           "scripts",
-          v020Entry ? "run-aicr-v020-provenance.mjs" : "run-aicr-v019-provenance.mjs",
+          receiptTargetsEntry ? "run-aicr-v020-provenance.mjs" : "run-aicr-v019-provenance.mjs",
         ),
         "--verify",
       ],
-      { cwd: repoRoot, stdio: "inherit" },
+      {
+        cwd: repoRoot,
+        stdio: "inherit",
+        env: {
+          ...process.env,
+          ...(receiptTargetsEntry ? { AICR_PROVENANCE_VERSION: version } : {}),
+        },
+      },
     );
   }
-  check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
+  if (configHubEntry) {
+    check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
+  }
+}
+
+// A version that newly requires a generation input may be published only when
+// that input's value is confirmed or is a recorded placeholder. The artifact
+// verifier applies the rule once a public receipt exists, which is after the
+// push. This applies the same rule before anything leaves the machine.
+function assertRequiredInputsAllowPublication() {
+  const inputs = sourceReceipt.spec?.sourceAndIntent?.newRequiredInputs ?? [];
+  if (inputs.length === 0) return;
+  const applications = listFiles(join(renderedRoot, "templates"))
+    .filter((path) => path.endsWith(".yaml"))
+    .flatMap((path) => parseDocs(readFileSync(path, "utf8")));
+  for (const input of inputs) {
+    const landings = placeholderLandings(applications, input.value);
+    for (const finding of requiredInputFindings(input, { published: true, landings })) {
+      check(false, finding);
+    }
+  }
+}
+
+// Copy each retained layout into a scratch layout with the command the push
+// uses, then hold the copy to the recorded digest and blob inventory. This is
+// the pull-side check of a real publish, run without a registry.
+function rehearsePublication() {
+  const planned = [
+    ["source package", publicSourceRef, sourceArtifact.portableDigest, sourceLayoutRoot],
+    ["literal configuration", publicConfigRef, configArtifact.digest, configLayoutRoot],
+  ];
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-aicr-publish-dry-run-"));
+  try {
+    for (const [label, , digest, layoutRoot] of planned) {
+      check(layoutDigest(layoutRoot) === digest, `${label} layout digest differs from the recorded digest`);
+      const copied = join(tempRoot, basename(layoutRoot));
+      run("oras", [
+        "cp",
+        "--from-oci-layout",
+        "--to-oci-layout",
+        `${layoutRoot}:${version}`,
+        `${copied}:${version}`,
+      ]);
+      check(layoutDigest(copied) === digest, `${label} copies to a different digest than the recorded one`);
+      compareLayoutBlobs(layoutRoot, copied);
+    }
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+  const written = [
+    publicReceiptPath,
+    publicationSummaryPath,
+    ...(modernEntry
+      ? [
+          join(root, "local-argocd-source-oci-manifest.json"),
+          join(root, "local-argocd-config-oci-manifest.json"),
+          ociReceiptPath,
+          sourceReceiptPath,
+          join(root, "digest-index"),
+        ]
+      : [sourceReceiptPath]),
+  ].map((path) => relative(repoRoot, path).replaceAll("\\", "/"));
+  console.log(`dry run for AICR v${version}. Nothing was pushed and no file was written.`);
+  for (const [label, reference, digest] of planned) {
+    console.log(`would push the ${label} to ${reference}`);
+    console.log(`  digest ${digest}`);
+  }
+  console.log("a real publish would then pull both references without credentials and write these paths.");
+  for (const path of written) console.log(`  ${path}`);
 }
 
 function publishArtifacts() {
+  assertRequiredInputsAllowPublication();
+  if (dryRun) {
+    rehearsePublication();
+    return;
+  }
   copyLayout(sourceLayoutRoot, publicSourceRef);
   copyLayout(configLayoutRoot, publicConfigRef);
   const source = verifyPublicArtifact({
@@ -459,7 +570,7 @@ function publishArtifacts() {
     writeYaml(sourceReceiptPath, updatedSourceReceipt);
   }
   runLocalVerification();
-  console.log("published and anonymously verified both AICR OCI artifacts");
+  console.log(`published and anonymously verified both ${checkedLabel} OCI artifacts`);
 }
 
 function updateGenerationStatus(changes) {
@@ -470,6 +581,11 @@ function updateGenerationStatus(changes) {
 }
 
 function modernOciReceipt() {
+  // The retained v1.0.0 receipt also points at its source-catalog record and
+  // its Flux bundle. A publish keeps the pointers a receipt already carries.
+  const retained = existsSync(ociReceiptPath) ? readYaml(ociReceiptPath) : {};
+  const sourceCatalog = retained.spec?.source?.sourceCatalog;
+  const fluxBundle = retained.spec?.outputs?.fluxBundle;
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "OciArtifactReceipt",
@@ -480,6 +596,7 @@ function modernOciReceipt() {
         version: sourceReceipt.spec.source.version,
         commit: sourceReceipt.spec.source.commit,
         generationReceipt: relative(repoRoot, sourceReceiptPath).replaceAll("\\", "/"),
+        ...(sourceCatalog ? { sourceCatalog } : {}),
         recipe: relative(repoRoot, join(root, "recipe.yaml")).replaceAll("\\", "/"),
       },
       deployer: "argocd-helm",
@@ -495,6 +612,7 @@ function modernOciReceipt() {
       },
       outputs: {
         sourceBundle: relative(repoRoot, join(root, "argocd-helm-bundle")).replaceAll("\\", "/"),
+        ...(fluxBundle ? { fluxBundle } : {}),
         renderedApplications: relative(repoRoot, renderedRoot).replaceAll("\\", "/"),
         sourceManifest: relative(repoRoot, join(root, "local-argocd-source-oci-manifest.json")).replaceAll("\\", "/"),
         renderedManifest: relative(repoRoot, join(root, "local-argocd-config-oci-manifest.json")).replaceAll("\\", "/"),

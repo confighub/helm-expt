@@ -235,6 +235,17 @@ let aicrOrderingEvidenceByRendered = null;
 // record name, so validateRecords can hold a record to what its receipt says
 // about publication.
 const aicrModernGenerationReceipts = new Map();
+// A modern AICR record reads its public receipt and the publication results
+// in its generation receipt. The self-test reads neither, so its unpublished
+// fixtures stay unpublished after the entry they are built from is published.
+let aicrModernPublicationMode = "tracked";
+function aicrModernGenerationBeforePublication(generation) {
+  const unpublished = structuredClone(generation);
+  unpublished.spec.processing.transport.publicStatus = "not-run";
+  unpublished.status.publicOciPublication = "not-run";
+  delete unpublished.status.published;
+  return unpublished;
+}
 // The records built from retained NIMService samples, keyed by record name.
 // They share the kubernetes-yaml source type with literal uploads, and they are
 // held to a stricter rule: a decided flatten-with-routes verdict, a recorded
@@ -1024,10 +1035,13 @@ function buildAicrModernArgoCdRecord(version) {
   const routeResolutionPath =
     `data/lifecycle-route-resolutions/aicr-eks-h100-training-kubeflow-${versionSlug}-staging-argo-cd.yaml`;
   const processingChainPath = `data/aicr-${versionSlug}-chain/summary.md`;
-  const generation = readYaml(join(repoRoot, generationPath));
+  const readPublication = aicrModernPublicationMode === "tracked";
+  const generation = readPublication
+    ? readYaml(join(repoRoot, generationPath))
+    : aicrModernGenerationBeforePublication(readYaml(join(repoRoot, generationPath)));
   const routeIntent = readYaml(join(repoRoot, routePath));
   const platformIndex = JSON.parse(readFileSync(join(repoRoot, indexPath), "utf8"));
-  const publicReceipt = existsRepo(publicReceiptPath)
+  const publicReceipt = readPublication && existsRepo(publicReceiptPath)
     ? readYaml(join(repoRoot, publicReceiptPath))
     : null;
   const uploadReceipt = existsRepo(uploadReceiptPath)
@@ -5420,14 +5434,16 @@ function runAicrRecipeEntrySelfTest() {
   restoreOrderingEvidence();
   aicrRecipeRecordEntries.clear();
 
-  // The v1.0.0 training entry is retained by hand and unpublished. Its record
-  // is checked against its own generation receipt.
+  // The v1.0.0 training entry is retained by hand. Its record is checked
+  // against its own generation receipt as that receipt reads before
+  // publication, so these fixtures hold whether or not the entry is published.
+  aicrModernPublicationMode = "none";
   const buildModern = () => alignRecordWithProcessingModel(buildAicrModernArgoCdRecord("1.0.0"), undefined, undefined);
   const modernName = buildModern().metadata.name;
   const modernGeneration = aicrModernGenerationReceipts.get(modernName);
   check(
     modernGeneration?.status?.publicOciPublication === "not-run",
-    "self-test: the v1.0.0 generation receipt no longer records publication as not-run, so these fixtures need a new subject",
+    "self-test: the v1.0.0 fixture receipt does not record publication as not-run, so the unpublished cases below would test nothing",
   );
   validateAicrModernRecordAgainstReceipt(buildModern(), modernGeneration);
   for (const [label, change, pattern] of [
@@ -5510,6 +5526,7 @@ function runAicrRecipeEntrySelfTest() {
     /awaits the maintainer's confirmation, and the record's inputs and limits must both say so/,
     "self-test: a record that hides an unconfirmed generation input was accepted",
   );
+  aicrModernPublicationMode = "tracked";
   aicrModernGenerationReceipts.clear();
 }
 
