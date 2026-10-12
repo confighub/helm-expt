@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The model, in detail · ConfigHub Workshop</title>
+  <meta name="description" content="The model, in detail: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/model-reference.html">
+  <meta property="og:title" content="The model, in detail · ConfigHub Workshop">
+  <meta property="og:description" content="The model, in detail: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/model-reference.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #221c15;
+      --muted: #6e6659;
+      --faint: #9c9285;
+      --line: #e7e1d6;
+      --line-strong: #d5cec2;
+      --panel: #f3f0e9;
+      --surface-2: #f3f0e9;
+      --accent: #ba3d03;
+      --accent-ink: #a33502;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .navlinks a.nav-cta { font-weight: 700; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+  .navlinks a.nav-cta:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    /* Two across for the one-idea cards under a page's hero: four across was
+       tight in the three-column layout and wrapped the titles. */
+    .doors.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .app-learning-cards { display: grid; gap: 20px; margin: 26px 0; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .doors.two, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+  /* --- quality floor: keyboard focus and reduced motion --- */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  a:focus:not(:focus-visible) { outline: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+    /* Text written for agents sits in its own box, in the code typeface, so a
+       person can see at a glance that it is not for them. */
+    .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
+    .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
+    .agent-note a { color: inherit; }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    /* No column of a doc table is narrower than a short word. */
+    .doc-body th, .doc-body td { min-width: 5.5rem; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap">
+  <style>  :root { --cw-body: .9375rem; --cw-nav: .875rem; --cw-meta: .8125rem; --cw-lead: 1rem; }
+  body { font-family: var(--sans, Inter, system-ui, sans-serif); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--sans, Inter, system-ui, sans-serif); letter-spacing: -0.01em; }
+  h1 { font-weight: 700; }
+  h2, h3 { font-weight: 600; }
+  .cw-content h1 { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.2; }
+  .cw-content h2 { font-size: 1.375rem; line-height: 1.35; }
+  .cw-content h3 { font-size: 1.0625rem; line-height: 1.4; }
+  .cw-content .lead, .cw-content .tagline { font-size: var(--cw-lead); line-height: 1.65; }
+  .cw-content { font-size: var(--cw-body); line-height: 1.65; }
+  .topbar { font-size: var(--cw-nav); }
+  .topbar .site-purpose { font-family: var(--sans); font-size: var(--cw-meta); text-transform: none; }
+  .topbar .brand, .navlinks a.nav-cta { border-color: transparent; background: transparent; }
+  .cw-nav-title a { color: var(--ink); text-decoration: none; }
+  .cw-nav-title a:hover { text-decoration: underline; }
+  .cw-content :is(.eyebrow, .kicker, .generated), .site-footer .sf-h { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; }
+  .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
+  .cw-content :is(p, li, td) > code { border: 0; }
+  code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+  .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
+  .cw-guide .cw-content { max-width: 880px; }
+  .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
+  .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
+  .cw-content pre { max-width: 100%; overflow-x: auto; }
+  .cw-content summary { cursor: pointer; padding: 10px 0; }
+  summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .cw-skip { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: var(--surface); color: var(--ink); border: 2px solid var(--accent); border-radius: 6px; }
+  .cw-skip:focus { top: 12px; }
+  @media (max-width: 600px) {
+    .cw-layout { padding: 0 16px; }
+    .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 200px; }
+    .cw-guide .cw-content h1 { overflow-wrap: anywhere; }
+  }
+  .cw-content > header, .cw-content > main, .cw-content > footer, .cw-content header.hero { max-width: none; padding-left: 0; padding-right: 0; }
+  .cw-sidebar, .cw-toc { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 28px 0 40px; font-size: var(--cw-nav); }
+  .cw-nav-title { margin: 18px 0 6px; font-family: var(--sans); font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar details { margin: 0; }
+  .cw-sidebar summary { cursor: pointer; list-style: none; margin: 18px 0 6px; font-size: var(--cw-meta); font-weight: 600; color: var(--muted); }
+  .cw-sidebar summary::-webkit-details-marker { display: none; }
+  .cw-sidebar summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .cw-sidebar details[open] summary::before { transform: rotate(90deg); }
+  .cw-sidebar ul, .cw-toc ul, .cw-mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+  .cw-sidebar li a, .cw-toc li a, .cw-mobile-nav li a { display: block; padding: 4px 0 4px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; line-height: 1.5; }
+  .cw-sidebar li a:hover, .cw-toc li a:hover, .cw-mobile-nav li a:hover { color: var(--ink); }
+  .cw-sidebar li a[aria-current="page"], .cw-mobile-nav li a[aria-current="page"] { color: var(--accent-ink, var(--accent)); font-weight: 600; border-left-color: var(--accent); }
+  .cw-mobile-nav { display: none; margin: 14px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: .9rem; }
+  .cw-mobile-nav summary { min-height: 44px; cursor: pointer; font-weight: 600; color: var(--muted); }
+  @media (max-width: 1100px) {
+    .cw-layout, .cw-layout.no-toc { grid-template-columns: 1fr; }
+    .cw-sidebar, .cw-toc { display: none; }
+    .cw-mobile-nav { display: block; }
+  }</style>
+</head>
+<body>
+<a class="cw-skip" href="#cw-content">Skip to content</a>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../../../charts/index.html">Configs</a><a href="../../../stack.html">Stacks</a><a href="../../../apps.html">Apps</a><a href="../../../plugins.html">Plugins</a><a href="../../../guides.html">Guides</a><a href="../../../docs.html">Docs</a><a class="nav-cta" href="../../../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-layout">
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../d/docs/user/model-and-vocabulary.html">The model</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></nav>
+<div class="cw-content" id="cw-content" tabindex="-1">
+<details class="cw-mobile-nav"><summary>Browse Docs</summary><p class="cw-nav-title"><strong><a href="../../../ai.html">AI: Claude and Codex patterns</a></strong></p>
+    <p class="cw-nav-title"><strong><a href="../../../confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="../../../charts/index.html">Find a configuration</a></li><li><a href="../../../did-this-chart-version-change.html">Did a version change?</a></li><li><a href="../../../did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="../../../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
+<details><summary>Stacks</summary><ul><li><a href="../../../stack.html">Every stack</a></li><li><a href="../../../compose-a-stack.html">Compose and check a stack</a></li><li><a href="../../../try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
+<details><summary>Apps</summary><ul><li><a href="../../../apps.html">Every app</a></li><li><a href="../../../put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="../../../testing.html">Find a starting configuration</a></li></ul></details>
+<details><summary>Plugins</summary><ul><li><a href="../../../plugins.html">Every cub plugin</a></li><li><a href="../../../bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
+<details><summary>Guides</summary><ul><li><a href="../../../guides.html">Every Guide</a></li><li><a href="../../../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a></li><li><a href="../../../journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="../../../journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="../../../journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="../../../journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="../../../journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="../../../try.html">Try it: Redis in ten minutes</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="../../../demo.html">The ten-minute demo</a></li><li><a href="../../../ai.html">Use with your AI</a></li><li><a href="../../../ask.html">Is my configuration right?</a></li><li><a href="../../../deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="../../../promote.html">Promote my config</a></li><li><a href="../../../does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="../../../why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="../../../how-it-works.html">Release, promote and roll back</a></li><li><a href="../../../ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="../../../see-what-is-running.html">See what is running with cub scout</a></li><li><a href="../../../view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="../../../bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="../../../bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="../../../bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="../../../check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="../../../take-a-config-further.html">Take a config further</a></li><li><a href="../../../change-a-config-safely.html">Change a config safely</a></li><li><a href="../../../handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="../../../operate-a-fleet.html">Operate a fleet</a></li><li><a href="../../../build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="../../../send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="../../../choose-a-tool.html">Choose a tool and start</a></li><li><a href="../../../deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
+<details open><summary>Docs</summary><ul><li><a href="../../../docs.html">Docs</a></li><li><a href="../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../config.html">How configuration works</a></li><li><a href="../../../d/docs/user/model-and-vocabulary.html">The model</a></li><li><a href="../../../variants.html">Variants</a></li><li><a href="../../../oci.html">OCI shapes</a></li><li><a href="../../../quirks.html">What charts hide</a></li><li><a href="../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../proof.html">Why trust it</a></li><li><a href="../../../known-gaps.html">Known gaps</a></li><li><a href="../../../matrix.html">Evidence index</a></li><li><a href="../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../offering.html">Offering</a></li></ul></details></details>
+  <header class="hero human-hero">
+    
+    <h1>The model, in detail</h1>
+    <p class="lead"><a href="model-and-vocabulary.html">The configuration processing model</a> is one line: flatten it, put it in an OCI bundle with a plan if it needs one, and load it into ConfigHub. Read that page first. This page holds the full definitions, the record layers and the digest roles. <a href="../../../../docs/user/model-reference.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
+    <article class="doc-body">
+
+<h2 id="start-with-the-question">Start with the question</h2>
+<p>The same four questions apply to Helm, cub installer packages, AICR, Kubara, OCI, YAML, and retained ConfigHub revisions:</p>
+<table><thead><tr><th>Question</th><th>What answers it</th><th>Needs a Catalog match?</th><th>Needs destination access?</th><th>Needs the selected configuration deployed?</th></tr></thead><tbody><tr><td><b>What do I have?</b></td><td>Inspect the source, exact files, OCI, or a snapshot of an existing system.</td><td>No</td><td>Usually no. A live snapshot needs read access to the system it measures.</td><td>No</td></tr>
+<tr><td><b>What will it produce?</b></td><td>Flatten the source with its own tool, or read the objects when the source is already flat.</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td><b>Can this destination accept it?</b></td><td>Check the exact candidate against the chosen destination's APIs, CRDs, Secrets, policies, controllers, credentials, hardware, and lifecycle requirements.</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td><b>Did it work?</b></td><td>Check the exact delivered revision, controller result, resource health, runtime behavior, drift, and rollback result required by the claim.</td><td>No</td><td>Yes</td><td>Yes</td></tr></tbody></table>
+<p>A Catalog entry can shorten any investigation, but it is never a prerequisite for inspecting or processing a user's own configuration. The answer to each question must state its required inputs, evidence state, and result state. If the required destination or deployment does not exist, the check is <b>blocked</b> or <b>not run</b>. It is not a failed configuration, failed workload, or failed conformance result.</p>
+<h3 id="the-flattening-sequence">The flattening sequence</h3>
+<p>The four questions sit above a more detailed sequence. A maintained configuration records:</p>
+<ol><li>the source, version, and choices;</li><li>the exact Kubernetes objects produced or read from that source;</li><li>whether those objects can be retained as deployable configuration, with any source tool removed from the delivery path;</li><li>CRDs, hooks, setup Jobs, certificates, Secrets, cloud resources, controllers, models, ordering, and other lifecycle work;</li><li>variants, comparisons, tests, approvals, and promotions; and</li><li>release, delivery, live observation, and rollback evidence.</li></ol>
+<p>A record can be complete through flattening and still have no destination or deployment proof. The Catalog must show that boundary rather than collapsing every stage into one status.</p>
+<h2 id="where-oci-fits">Where OCI fits</h2>
+<p>OCI is the transport, not the tool and not the deployment proof. We use three different OCI roles:</p>
+<table><thead><tr><th>OCI role</th><th>What it carries</th><th>What happens next</th></tr></thead><tbody><tr><td><b>Source package OCI</b></td><td>A chart, installer package, AICR-generated chart, or another input that still needs a tool.</td><td>Run the named tool to produce exact objects.</td></tr>
+<tr><td><b>Literal configuration OCI</b></td><td>Exact Kubernetes objects that have already been flattened.</td><td>Inspect, retain, compare, or deliver those objects without rerunning the source's own tool.</td></tr>
+<tr><td><b>ConfigHub release OCI</b></td><td>One approved ConfigHub revision for delivery.</td><td>Argo CD, Flux, or another recorded runtime reconciles that exact release.</td></tr></tbody></table>
+<p>The <a href="../../../oci.html">OCI page</a> lists each shape we publish or read, with its producer and its consumer. Every shape there has one of these three roles, or is a record about one.</p>
+<p>These artifacts can contain related objects but have different manifests and digests. A receipt binds stages by naming both identities and comparing the objects; it never calls unlike digests the same digest.</p>
+<h2 id="two-connected-tracks">Two connected tracks</h2>
+<p>The model tracks both the configuration and the work needed to use it.</p>
+<pre><code>configuration lineage
+  source and intent -&gt; exact base -&gt; derived variant -&gt; promoted release
+
+lifecycle handling
+  requirements -&gt; route intent -&gt; destination resolution -&gt; execution -&gt; receipt</code></pre>
+<p>The tracks meet more than once. Source processing reveals lifecycle requirements. A derived variant can add, remove, or change them. The final route is therefore resolved only after the exact variant, destination, and delivery runtime are known.</p>
+<p>The full operating sequence is:</p>
+<pre><code>source + processing intent
+  -&gt; select and lock the inputs
+  -&gt; flatten the source into exact Kubernetes objects
+  -&gt; capture an exact configuration revision
+  -&gt; identify lifecycle requirements
+  -&gt; decide the flattening lane for the intended path
+  -&gt; retain a reviewed base
+  -&gt; derive or update a variant
+  -&gt; recheck affected requirements, ownership, and flattening assumptions
+  -&gt; resolve lifecycle routes for the variant, destination, and delivery runtime
+  -&gt; compare, test, approve, and promote
+  -&gt; publish an immutable release
+  -&gt; reconcile the objects and perform the lifecycle work
+  -&gt; observe the result and record receipts</code></pre>
+<p>Helm, cub installer, AICR, Kubara, OCI, and YAML use the same decisions. They do not use the same tool. Helm renders, <code>cub installer</code> flattens a package, and AICR or Kubara compose or generate. A step can be a recorded no-op: literal YAML already contains exact objects, for example. A source refresh, variant change, or new destination can send the process back to an earlier decision.</p>
+<h2 id="rules-that-keep-the-model-usable">Rules that keep the model usable</h2>
+<ul><li>Keep the source identity, exact-object digest, OCI digest, ConfigHub data hash, and release digest separate.</li><li>Decide flattening for one processing boundary. Flattening an AICR or Argo CD wrapper does not flatten the charts it still references.</li><li>Record missing lifecycle information as a gap. Do not translate silence into &quot;no route required.&quot;</li><li>Recheck lifecycle requirements and field ownership after a variant changes.</li><li>Resolve the route after the exact variant, destination, and delivery runtime are known. A base route intent is input to that decision, not its final answer.</li><li>Promotion compares objects, lifecycle changes, and protected fields. Delivery then performs the selected route, and a receipt records the result.</li></ul>
+<h2 id="the-core-words">The core words</h2>
+<table><thead><tr><th>Word</th><th>What it is</th><th>Where it lives</th></tr></thead><tbody><tr><td><b>Source and intent</b></td><td>Where the configuration came from and which choices produced or selected it.</td><td>A source-specific record, linked to the exact configuration.</td></tr>
+<tr><td><b>Exact configuration revision</b></td><td>One accepted Kubernetes object set, inventory, and digest.</td><td>Local files or OCI before upload; ConfigHub Units after upload.</td></tr>
+<tr><td><b>Flatten</b></td><td>Retain the exact objects so delivery does not rerun the source's own tool.</td><td>A recorded decision for an exact source, configuration, and target path.</td></tr>
+<tr><td><b>Flattening verdict</b></td><td>The decision to flatten, flatten with routes, or process the source late. Literal sources can be born flattened.</td><td>A record scoped to an exact source, configuration, and intended delivery path.</td></tr>
+<tr><td><b>Lifecycle requirement</b></td><td>Something that must exist or happen around ordinary apply, such as a CRD, hook, setup Job, certificate, controller, model, cloud resource, or prerequisite Secret.</td><td>Discovered from the source, exact objects, variant, or destination.</td></tr>
+<tr><td><b>Route intent</b></td><td>A portable proposal for handling one or more lifecycle requirements.</td><td>Beside the base configuration or source record.</td></tr>
+<tr><td><b>Resolved lifecycle route</b></td><td>The selected actor, order, mechanism, checks, retry rule, and failure rule for an exact variant, destination, and delivery runtime.</td><td>A promotion or release record linked to the exact configuration digest and target.</td></tr>
+<tr><td><b>Field ownership</b></td><td>Which fields remain controlled by the source, a ConfigHub variant, or the destination.</td><td>Source policy, variant history, and promotion review.</td></tr>
+<tr><td><b>Receipt</b></td><td>The recorded result of a generation, check, route, promotion, delivery, or runtime test.</td><td>Committed evidence or ConfigHub history.</td></tr>
+<tr><td><b>Base variant</b></td><td>One named, reviewed starting configuration.</td><td>A package and, after upload, a root ConfigHub Space.</td></tr>
+<tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table>
+<p>The site calls an entry's routes its plan and one route a step.</p>
+<p>In one sentence: <b>flatten the source into exact objects, keep the source and lifecycle context, then retain reviewed changes as variants that can be promoted and delivered.</b></p>
+<h2 id="data-pack">Data pack</h2>
+<p><b>A data pack is your overrides, written as data and laid over a source catalog.</b> It is versioned, and one source can have several. This page also calls it a pack.</p>
+<table><thead><tr><th>Format</th><th>What its pack is</th></tr></thead><tbody><tr><td>Helm</td><td>The values behind each named preset of a chart. They are kept under <code>recipes/</code>.</td></tr>
+<tr><td>AICR</td><td>A data pack, which adds overlays, components or validators to NVIDIA's built-in catalog.</td></tr>
+<tr><td>cub installer package</td><td>The presets inside the package. <code>cub installer</code> flattens one of them.</td></tr>
+<tr><td>Literal OCI, plain YAML</td><td>There is none. Nothing is overridden.</td></tr></tbody></table>
+<p>A pack holds presets. A Helm recipe is the chart plus one preset. Three presets give three recipes and three bundles. The ECK operator chart 3.4.0 is a real case.</p>
+<pre><code>1 chart version, eck-operator 3.4.0
+  1 pack, the values for its three presets
+    preset &quot;default&quot;   -&gt; recipe -&gt; bundle
+    preset &quot;ha&quot;        -&gt; recipe -&gt; bundle
+    preset &quot;no-crds&quot;   -&gt; recipe -&gt; bundle
+                                    each bundle can have variants in ConfigHub</code></pre>
+<p>AICR has the same shape under other names.</p>
+<table><thead><tr><th></th><th>The pack</th><th>One item in it</th><th>What picks an item</th></tr></thead><tbody><tr><td>Helm, in the Catalog</td><td>The values for a chart's presets</td><td>Preset</td><td>The preset name</td></tr>
+<tr><td>AICR</td><td>Data pack</td><td>Overlay</td><td>The criteria</td></tr></tbody></table>
+<p>An AICR recipe can use several overlays at once, because they stack. A source can also have more than one pack, such as NVIDIA's catalog with a company pack laid over it.</p>
+<p>No Catalog entry is built from an AICR data pack today.</p>
+<h2 id="recipe">Recipe</h2>
+<p><b>A recipe is the pinned inputs that produce one base.</b> Every format has one. A recipe is inputs. It is not the configuration they produce, which is the base.</p>
+<table><thead><tr><th>Format</th><th>What its recipe holds</th></tr></thead><tbody><tr><td>Helm</td><td>The chart, its version, the values, the named presets and the declared lifecycle choices.</td></tr>
+<tr><td>AICR</td><td>The AICR release, the five criteria, and any data pack or profile value. <code>aicr recipe</code> resolves them into AICR's own recipe document.</td></tr>
+<tr><td>Kubara, Sveltos</td><td>The selected source and the generator inputs.</td></tr>
+<tr><td>Installer or source OCI</td><td>The package digest and the choices made from it.</td></tr>
+<tr><td>Literal OCI, plain YAML</td><td>The source digest or checksums. Nothing is chosen, so nothing is processed.</td></tr></tbody></table>
+<p>The Catalog's records call the file that holds a recipe the source and intent record. Until 11 October 2026 this page kept the word recipe for sources whose own tool uses it. The word now covers every format, because NVIDIA's AICR and this repository's <code>recipes/</code> directory already use it this way.</p>
+<h2 id="aicrs-own-words">AICR's own words</h2>
+<p>NVIDIA's AICR has names for what comes before the bundle and for a deployment. This model uses them for AICR entries.</p>
+<table><thead><tr><th>AICR word</th><th>What it means</th><th>Where it sits in this model</th></tr></thead><tbody><tr><td><b>criteria</b></td><td>The five fields that select a recipe: <code>service</code>, <code>accelerator</code>, <code>intent</code>, <code>os</code> and <code>platform</code>.</td><td>Source. The variant layers table calls an AICR choice a leaf, and these fields pick it.</td></tr>
+<tr><td><b>data pack</b></td><td>A directory laid over AICR's built-in catalog. It adds overlays, components or validators without a fork.</td><td>Source. No Catalog entry is built from one today.</td></tr>
+<tr><td><b>profile</b></td><td>A named alternative inside a recipe, chosen with <code>--profile</code>. AICR refuses an override of a field the profile owns.</td><td>Source. It is the nearest AICR thing to a base variant.</td></tr>
+<tr><td><b>constraint</b></td><td>A precondition a machine can check, such as a Kubernetes version.</td><td>Bundle. It is a plan step that is due before a deployment.</td></tr>
+<tr><td><b>bundle</b></td><td>The output of <code>aicr bundle</code>, with a checksum file.</td><td>Bundle.</td></tr>
+<tr><td><b>validation</b></td><td>Named checks that AICR runs against a cluster, in phases. This page calls the outcome a validation result, and never a verdict.</td><td>Deployment.</td></tr>
+<tr><td><b>evidence bundle</b></td><td>The recipe, a cluster snapshot and the check results from one run. A pointer file names it by digest, and it can be signed.</td><td>Deployment. <a href="../reference/aicr-evidence-and-our-receipts.html">AICR evidence and our receipts</a> compares it with a receipt.</td></tr>
+<tr><td><b>drift check</b></td><td>Validation run again later with deploy turned off.</td><td>Deployment.</td></tr></tbody></table>
+<p>AICR has no word for the steps between a constraint and validation. Its installer carries them out in order. This model writes them down as the plan.</p>
+<p>NVIDIA documents these words in its <a href="https://github.com/NVIDIA/aicr/blob/main/docs/integrator/data-extension.md">data extension guide</a>.</p>
+<p>Do not create a render variant for literal YAML or another source that did not render. Its source-and-intent record links directly to its exact configuration revision.</p>
+<h2 id="how-aicrs-three-parts-compare">How AICR's three parts compare</h2>
+<p>AICR describes itself in three parts, a data pack, a resolved recipe and an evidence bundle. The first two are the same as here. AICR's third part is the record of one run on one cluster, so it belongs to a deployment. This model's third part is the configuration itself, which can be read, compared and changed before anything is installed. The variant is the part this model adds.</p>
+<h2 id="two-oci-forms-are-kept-by-decision">Two OCI forms are kept, by decision</h2>
+<p>Every Helm entry is in OCI inside its chart's installer package. Where the flattening verdict permits, the entry also has a published bundle, which is one preset's flattened objects and its plan. Each entry page says which it has.</p>
+<p>This was decided, and it is recorded in three places.</p>
+<table><thead><tr><th>Date</th><th>Where</th><th>What it says</th></tr></thead><tbody><tr><td>8 August 2026</td><td><a href="../planning/certified-bundle-track-conclusion.html">The certified-bundle closing record</a></td><td>The Catalog offers two products, a certified bundle and an installer package for every entry.</td></tr>
+<tr><td>8 August 2026</td><td><a href="https://github.com/confighub/helm-expt/blob/main/tests/doctrine.md">Doctrine rule 11</a></td><td>A bundle is permitted for <code>safe-to-flatten</code>, permitted for <code>flatten-with-routes</code> once it ships what its verdict names, and forbidden for <code>unsafe-to-flatten</code>. The installer package is the certified route where a bundle is forbidden.</td></tr>
+<tr><td>4 September 2026</td><td>Issue 1736</td><td>The goal is as many flattened bundles as possible. Every preset that is safe to flatten gets one. An unsafe one keeps its installer package, which is still OCI, and no bundle is forced onto it.</td></tr></tbody></table>
+<p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p>Those records call the installer package's route render-late. A package holds objects that Helm has already rendered. The render that remains is the one <code>cub installer setup</code> does on your machine, and it runs no Helm.</p>
+<p>Older sections of this page call a generator a source tool, and call generating flattening. The records use those words.</p>
+<h2 id="the-earlier-five-stages">The earlier five stages</h2>
+<p>Earlier pages named five stages, <b>Source → Base → Variant → Deliver → Run</b>. They map onto the five words like this.</p>
+<table><thead><tr><th>Five words</th><th>Earlier stage</th><th>AICR's words</th></tr></thead><tbody><tr><td>Pack</td><td>Source</td><td>data pack</td></tr>
+<tr><td>Recipe</td><td>Source</td><td>criteria, profile, resolved recipe</td></tr>
+<tr><td>Bundle</td><td>Base</td><td>bundle. Its <code>deploy.sh</code> installs the components in order, which is a plan written as a script.</td></tr>
+<tr><td>Variant</td><td>Variant</td><td>AICR has none after the bundle. A profile is chosen before it.</td></tr>
+<tr><td>Deployment</td><td>Deliver, Run</td><td>validation, evidence bundle</td></tr></tbody></table>
+<p>Two tools are involved in a bundle, at different stages. The generator produces the objects. <code>cub variant upload</code> then makes the base Space from them. Earlier pages named only one of the two.</p>
+<h2 id="the-source-and-intent-record">The source and intent record</h2>
+<p>Every maintained base needs a record that explains where its objects came from and which choices produced them. We call this the <b>source and intent record</b>.</p>
+<p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. it includes the native recipe, selected options, and generation receipts. Kubara records its selected source and generation inputs. Source OCI records the tool it contains or references. Literal OCI and plain YAML name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
+<p>The record should let a new reader answer five questions:</p>
+<ol><li>What source produced these objects?</li><li>Which values or choices were used?</li><li>Which exact object digest did those choices produce?</li><li>What must exist or run before delivery?</li><li>Which checks and receipts support the result?</li></ol>
+<p>All maintained examples should answer those questions. Chart-specific records for hooks, CRDs, Secrets, setup jobs, and target facts are added when the configuration needs them; they are not copied into examples where they do not apply.</p>
+<p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can be attached automatically. A source adapter or review must supply the source details and any chart-specific lifecycle work; otherwise the missing information is recorded as a gap.</p>
+<h2 id="the-four-record-layers">The four record layers</h2>
+<p>F1-F4 describe the records a reader can inspect. They are not four moments on a clock. F3 lifecycle information is discovered at the base and resolved again after a derived variant and destination are selected.</p>
+<table><thead><tr><th>Layer</th><th>Name</th><th>What it records</th><th>Main terms</th></tr></thead><tbody><tr><td><b>F1 · source</b></td><td>Source and intent</td><td>Source identity, version, choices, locks, and processing context.</td><td>source and intent, recipe</td></tr>
+<tr><td><b>F2 · exact base</b></td><td>Flattened configuration</td><td>Exact objects, inventory, digest, and flattening verdict for the reviewed base.</td><td>render, flatten, exact revision, render variant</td></tr>
+<tr><td><b>F3 · lifecycle</b></td><td>Work around apply</td><td>Requirements, portable route intents, destination-specific route resolutions, and route receipts.</td><td>lifecycle requirement, route intent, resolved route, receipt</td></tr>
+<tr><td><b>F4 · operate</b></td><td>Managed change and delivery</td><td>Field ownership, derived variants, comparisons, approvals, promotions, releases, delivery, and observations.</td><td>derived variant, promotion, release, observation</td></tr></tbody></table>
+<p>Flattening is not deployment. F2 produces or reads configuration files. F4 can deliver reviewed objects to live infrastructure. A base variant Space therefore has no Target until you choose to deliver it.</p>
+<h2 id="when-routes-are-decided">When routes are decided</h2>
+<table><thead><tr><th>Point</th><th>Decision</th><th>Example</th></tr></thead><tbody><tr><td>Source and base</td><td>Record the requirement and possible handling.</td><td>A chart contains a certificate hook and ten CRDs.</td></tr>
+<tr><td>Derived variant</td><td>Inherit, add, remove, or change the requirement.</td><td>Production uses an external Secret while development creates a temporary one.</td></tr>
+<tr><td>Destination</td><td>Resolve the actor and mechanism.</td><td>Argo CD uses sync waves; Flux uses dependent Kustomizations; direct apply uses ordered commands and waits.</td></tr>
+<tr><td>Promotion</td><td>Refuse or approve the destination-specific plan.</td><td>A production promotion stops because its required Secret is absent.</td></tr>
+<tr><td>Delivery</td><td>Perform the selected work.</td><td>Install the CRDs, wait for them to become Established, then apply dependent objects.</td></tr>
+<tr><td>Observation</td><td>Record what happened.</td><td>The controller used the requested digest and every required stage passed.</td></tr></tbody></table>
+<p>A route copied from the base is not automatically resolved. Changing only the target can change the route even when the Kubernetes objects stay identical.</p>
+<h2 id="digest-roles">Digest roles</h2>
+<p>Several records can identify one configuration journey. Their hashes do not identify the same bytes, so the role must always be stated.</p>
+<table><thead><tr><th>Identity</th><th>What it pins</th><th>Example</th></tr></thead><tbody><tr><td>Base-revision digest</td><td>The complete base record, including source inputs and processing context.</td><td>A Helm variant-revision digest or an AICR platform-index digest.</td></tr>
+<tr><td>Exact-object digest</td><td>The accepted Kubernetes object set or the inventory that pins every object file.</td><td><code>renderedObjectSetSHA256</code> for a Helm revision.</td></tr>
+<tr><td>OCI manifest digest</td><td>One transported artifact manifest. A source package OCI and a literal configuration OCI have different roles and digests.</td><td>The digest returned by the registry.</td></tr>
+<tr><td>ConfigHub data hash</td><td>One retained Unit revision.</td><td>The hash reported for a ConfigHub Unit.</td></tr>
+<tr><td>Release OCI digest</td><td>The immutable artifact published from one reviewed ConfigHub Space revision.</td><td>The digest consumed by Argo CD or Flux.</td></tr></tbody></table>
+<p>Do not describe these as &quot;the same digest.&quot; A receipt binds two stages by naming both identities and comparing the exact objects between them. The Catalog records <code>digestRole</code> and <code>digestRecord</code> beside every base and object-set digest.</p>
+<h2 id="how-this-guide-uses-action-words">How this guide uses action words</h2>
+<table><thead><tr><th>Word</th><th>Meaning here</th></tr></thead><tbody><tr><td><b>render</b></td><td>Helm's own word for flattening a chart.</td></tr>
+<tr><td><b>flatten</b></td><td>Turn a source into exact Kubernetes objects, and keep them, so the source's own tool does not run again at delivery.</td></tr>
+<tr><td><b>resolve</b></td><td>Bind lifecycle requirements to one variant, destination, delivery runtime, and executable plan.</td></tr>
+<tr><td><b>inspect</b></td><td>Read objects or evidence. Inspection alone does not prove a claim.</td></tr>
+<tr><td><b>test</b></td><td>Run a defined command or procedure.</td></tr>
+<tr><td><b>verify</b></td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr>
+<tr><td><b>review</b></td><td>Decide whether a known change or result is acceptable.</td></tr>
+<tr><td><b>prove</b></td><td>Produce an inspectable receipt for one limited claim.</td></tr>
+<tr><td><b>apply</b></td><td>Send desired Kubernetes objects to a cluster.</td></tr>
+<tr><td><b>deliver</b></td><td>Give reviewed objects to the controller or apply path that sends them to a cluster.</td></tr>
+<tr><td><b>observe</b></td><td>Read the live result after delivery.</td></tr>
+<tr><td><b>promote</b></td><td>Move a reviewed change to another environment while keeping its allowed local differences.</td></tr>
+<tr><td><b>route</b></td><td>Record or resolve how lifecycle requirements will be handled. State whether the route is proposed, resolved, or executed.</td></tr></tbody></table>
+<p>The word <b>check</b> is broad. The guides use a more exact word when the difference matters.</p>
+<h2 id="how-common-sources-answer-the-four-questions">How common sources answer the four questions</h2>
+<table><thead><tr><th>Source</th><th>What do I have?</th><th>What will it produce?</th><th>Can this destination accept it?</th><th>Did it work?</th></tr></thead><tbody><tr><td>Helm</td><td>Inspect the chart, version, values, render context, and any existing render.</td><td>Render the pinned chart into exact objects.</td><td>Check APIs, CRDs, Secrets, hooks, setup Jobs, policies, and controller handling for the exact variant.</td><td>Record delivery, controller, workload, runtime, drift, and rollback results separately.</td></tr>
+<tr><td>AICR</td><td>Inspect or diff GPU-node snapshots without a recipe. A diff reports observed differences; judge them against the provider-curated recipe intended for each node.</td><td>Compose or generate the selected leaf variant. Nested charts may still render later.</td><td>Check that the destination matches the variant's GPU, network, cloud, controller, credential, component-order, and nested-source requirements.</td><td>Run variant-dependent resource and runtime checks only after the declared components have been deployed.</td></tr>
+<tr><td>Kubara</td><td>Inspect the selected platform components, versions, generator inputs, and generated files.</td><td>Generate the platform bootstrap and component assignments.</td><td>Check platform APIs, component prerequisites, ownership, credentials, nested sources, and controller work.</td><td>Record bootstrap, component, application, fleet, and rollback results at the layers actually tested.</td></tr>
+<tr><td>Sveltos</td><td>Inspect the literal Sveltos objects and their nested source references.</td><td>Reading the Sveltos objects is a no-op; each nested source keeps its own flattening step.</td><td>Check the management cluster, selected workload clusters, Sveltos APIs, selectors, credentials, and nested-source requirements.</td><td>Record management reconciliation and each selected cluster's result separately.</td></tr>
+<tr><td>Installer or source OCI</td><td>Inspect the OCI manifest, digest, included source, choices, and declared tool.</td><td>Pull by digest and flatten it with its declared tool.</td><td>Check the resulting exact objects and lifecycle requirements against the target. OCI transport itself performs no lifecycle work.</td><td>Record the consumer and runtime results for the output artifact, not merely the source-package pull.</td></tr>
+<tr><td>Literal configuration OCI or YAML</td><td>Inspect and compare the exact objects and their identity.</td><td>Reading and canonicalizing the objects is a recorded no-op.</td><td>Check prerequisites, ownership, ordering, policies, and setup for the chosen destination.</td><td>Record delivery and live behavior for the exact object set.</td></tr>
+<tr><td>ConfigHub revision or release OCI</td><td>Inspect the retained revision, source links, variant history, checks, approvals, and release digest.</td><td>Reading the retained exact objects is a recorded no-op.</td><td>Resolve the selected revision against its target, gates, and delivery runtime.</td><td>Record the controller, resource, runtime, drift, and rollback observations linked to that revision.</td></tr></tbody></table>
+<p>Flattening is evaluated at each processing boundary. An AICR Application set can be flattened while the Helm charts referenced by those Applications remain render-late. An OCI artifact can carry source material, literal configuration, or a ConfigHub release; its media type and source record must say which role it has.</p>
+<p>The Catalog currently includes concrete records for Helm, Timoni, AICR, cub installer source OCI, Kubara, Sveltos, literal configuration OCI, and plain YAML. The generic model is ahead for a non-installer source OCI and for ConfigHub-release re-entry as a new base. The <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/summary.md">generated alignment report</a> gives the current counts and gaps.</p>
+<h2 id="the-same-objects-in-familiar-terms">The same objects in familiar terms</h2>
+<p><b>If you think in plain Helm:</b> the recipe is your pinned chart and values. A base variant is the output of <code>helm template</code> for one values choice, kept as reviewable files. A derived variant gives one environment its own recorded version of those objects and keeps its changes through upgrades.</p>
+<p><b>If you think in Kustomize:</b> a base variant plays the role of a base, and a derived variant plays the role of an overlay. The base is already rendered rather than patched at build time. The derived variant is a ConfigHub Space with revisions, gates, and an upstream link rather than a directory convention.</p>
+<p><b>If you start with literal YAML or configuration OCI:</b> the objects are already already flat. Record their source and digest, attach any required routes, then retain them as a base. Do not pretend they passed through Helm.</p>
+<p><b>If you start with AICR:</b> use <code>snapshot</code> and <code>diff</code> first when the question is about existing GPU-node state; that path needs no recipe. The result tells you what differs, not what the node should contain. Select the provider-curated leaf variant for the service, accelerator, operating system, workload intent, platform, and relevant hardware before judging the difference. Keep that recipe and its provider with the generated output, then retain the exact objects as a base variant. Record required controllers and setup as lifecycle work. Run variant-dependent resource checks only after those components have been deployed. Later environment changes are derived ConfigHub variants; they do not silently rewrite the selected AICR recipe.</p>
+<p><b>If you start with Kubara or another generator:</b> keep its native source and choices, run its declared tool, and link the resulting object digest to those inputs. That record is its recipe.</p>
+<p><b>If you start with a cub installer package:</b> pull the package by its digest, choose a preset, and run <code>cub installer setup</code>. It flattens that preset into object files. Load them, or the published OCI bundle, into ConfigHub as a base.</p>
+<h2 id="where-each-thing-is-today">Where each thing is, today</h2>
+<ul><li>Helm recipes and render records live in this repo. Every chart page links to them.</li><li>Installer packages live under <code>packages/</code>. Each chart version has one, and it holds every preset already flattened.</li><li>AICR recipes remain AICR recipes. Other recipes live beside source receipts or base records, as source-and-intent records. Each uses its own format rather than a fake Helm record.</li><li>Base variants live in packages or exact object sets. After upload, each becomes a root Space in ConfigHub.</li><li>Derived variants, promotions, delivery, and observations live in ConfigHub. Follow <a href="variants-after-upload.html">variants after upload</a> and the evidence links on each chart page.</li></ul>
+<p>When you browse a ConfigHub org, you see the flattened objects as Units, derived Spaces, revisions, and links from F2 through F4. The source-specific intent and processing records remain linked from the base. A package upload also has an <code>installer-record</code> Unit that identifies the package that produced it.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/model-reference.md</code>. The source file is the authoritative version.</p></footer>
+</div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#start-with-the-question">Start with the question</a></li><li><a href="#where-oci-fits">Where OCI fits</a></li><li><a href="#two-connected-tracks">Two connected tracks</a></li><li><a href="#rules-that-keep-the-model-usable">Rules that keep the model usable</a></li><li><a href="#the-core-words">The core words</a></li><li><a href="#data-pack">Data pack</a></li><li><a href="#recipe">Recipe</a></li><li><a href="#aicrs-own-words">AICR's own words</a></li><li><a href="#how-aicrs-three-parts-compare">How AICR's three parts compare</a></li><li><a href="#two-oci-forms-are-kept-by-decision">Two OCI forms are kept, by decision</a></li><li><a href="#the-earlier-five-stages">The earlier five stages</a></li><li><a href="#the-source-and-intent-record">The source and intent record</a></li><li><a href="#the-four-record-layers">The four record layers</a></li><li><a href="#when-routes-are-decided">When routes are decided</a></li><li><a href="#digest-roles">Digest roles</a></li><li><a href="#how-this-guide-uses-action-words">How this guide uses action words</a></li><li><a href="#how-common-sources-answer-the-four-questions">How common sources answer the four questions</a></li><li><a href="#the-same-objects-in-familiar-terms">The same objects in familiar terms</a></li><li><a href="#where-each-thing-is-today">Where each thing is, today</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+</div>
+</body>
+</html>

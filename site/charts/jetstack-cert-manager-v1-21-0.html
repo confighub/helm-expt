@@ -568,7 +568,7 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>jetstack/cert-manager</code> v1.21.0, as 40 Kubernetes objects in its <code>default</code> preset. The Catalog holds 2 presets of this version.</p>
       <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-21-0/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
-      <p><strong>Bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5</code></p>
+      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5</code></p>
       <p><strong>Needs first.</strong> The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest. 6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check.</p>
     </section>
     <section aria-labelledby="retained-page-summary">

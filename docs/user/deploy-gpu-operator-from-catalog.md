@@ -8,7 +8,7 @@ keep it up to date across your environments, and test it on a GPU node.
 | Term | Meaning |
 | --- | --- |
 | Recipe | A chart, its version, and one set of values. |
-| Bundle | The Kubernetes objects that a recipe produces, with a plan for the steps that objects cannot do. It is one OCI artifact. |
+| OCI bundle | The Kubernetes objects that a recipe produces, in one OCI artifact, with a plan if they need one. |
 | Variant | Your copy of a bundle for one environment, such as dev or QA. |
 
 ## What you need

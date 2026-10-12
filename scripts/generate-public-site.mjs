@@ -4959,25 +4959,23 @@ function configHtml(catalog) {
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every configuration is described with the same five words. Here they are for one real entry, NVIDIA's GPU Operator.</p>
-    <p class="stage-flow"><strong>Pack &rarr; Recipe &rarr; Bundle &rarr; Variant &rarr; Deployment</strong></p>
+    <p>The model is one line. Here it is for one real entry, NVIDIA's GPU Operator.</p>
+    <p class="stage-flow"><strong>Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it into ConfigHub.</strong></p>
     ${markdownLikeTable([
-      ["Word", "What it is", "For the GPU Operator"],
-      ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
-      ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
-      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept in OCI. It carries a plan where one is needed.", "24 objects and three plan documents."],
-      ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
-      ["Deployment", "One variant on one cluster, applied by a controller such as Argo CD.", "Done once, on a cluster with no GPUs."],
+      ["Step", "What happens", "For the GPU Operator"],
+      ["1. Flatten", "A source is turned into plain Kubernetes objects.", "NVIDIA's Helm chart, version 26.3.3, with its default values. Helm gives 24 objects."],
+      ["2. Bundle", "The objects go into one OCI bundle, with a plan if they need one.", "24 objects and three plan documents, in one OCI artifact."],
+      ["3. Load", "The bundle is loaded into ConfigHub. It becomes a base, and each environment gets a variant.", "A dev variant and a QA variant. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
     ])}
-    <p>A generator turns a recipe into a bundle. Here the generator is Helm, and the Catalog ran it once.</p>
-    <p>Everything up to the bundle needs no account. ConfigHub starts at the variant. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines each word.</p>
+    <p>Helm ran once, when the Catalog built the bundle. Nothing runs it again when you install.</p>
+    <p>The first two steps need no account. ConfigHub starts at step 3. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> has the three steps in full.</p>
     <p><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator from the Catalog</a> does this in four steps.</p>
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any point. A new chart version makes a new bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
+    <p>You can go round again at any point. A new chart version makes a new OCI bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
       <summary>The earlier five stages, in the Catalog's own terms</summary>
       <div class="deep-body">
-    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Pack and recipe are the source, the bundle is the base, and a deployment covers deliver and run.</p>
+    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Flatten covers source and base. Loading into ConfigHub covers variant.</p>
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <ol>
       <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
@@ -9853,7 +9851,7 @@ function ociHtml(catalog) {
     <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. The table below calls the last three an upload layout, rendered objects and a release. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
     <p>An upload layout and rendered objects can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
     <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, and a rendered OCI holds one chosen result. A ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
-    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
+    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-reference.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
     <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, and a Space release holds one selected and reviewed configuration. An installer-package URL is never a Space-release URL.</p>
     <p>A separate roadmap note adds a fifth table. It names a fourth role most others skip: a runtime image OCI, the application, model server, agent runtime, or sandbox image Kubernetes actually runs. <a href="./d/docs/planning/roadmap.html#oci-is-the-common-handoff">Read that table</a>. That image has a different job from every configuration shape below it. The site must not use the word OCI as if every artifact had the same job.</p>
     <h3 id="shapes-table">Nine shapes, side by side</h3>
@@ -9881,7 +9879,7 @@ function ociHtml(catalog) {
     <p>One receipt links the three forms. The identity of a certified bundle is always its OCI manifest digest, and the object-set hash lives inside the receipt. It never substitutes for the manifest digest.</p>
     <p>The stack manifest itself is a source file, and its published form is the index in row seven above. <code>cub stack publish</code> produces that index, and <code>cub stack sandbox --out oci://…</code> produces the flattened release in row eight. <a href="./d/docs/planning/stack-manifest-spec.html#the-published-form-an-index-of-images">Read the full section</a>. The Catalog holds indexes, not manifests, and a receipt links the index to its release.</p>
     <h3 id="digests">Every digest, and what it pins</h3>
-    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-and-vocabulary.html#digest-roles">Read the source table</a>.</p>
+    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-reference.html#digest-roles">Read the source table</a>.</p>
     ${markdownLikeTable([
       ["Identity", "What it pins", "Example"],
       ...digestRows,
@@ -16201,7 +16199,7 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       })[eligibility.reason] ?? steps;
   const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
   const bundle = published
-    ? `<p><strong>Bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
+    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
     : "";
   // What an install needs first. With a test script these are the steps the
   // script stops for. Without one they are the first steps of the plan.
