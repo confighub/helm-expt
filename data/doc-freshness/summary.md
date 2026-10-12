@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-12 (commit `f5a71330fa`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-12 (commit `532fdac3c8`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 492 |
-| Fresh (no linked source newer than the doc) | 69 |
-| **Review-due** | 93 |
+| Fresh (no linked source newer than the doc) | 68 |
+| **Review-due** | 94 |
 | No linked evidence sources (cannot auto-trigger) | 330 |
 
 ## Review queue
@@ -124,6 +124,7 @@ most recently changed triggers.
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-10-12 | 1 | `data/config-assessment-stages/summary.md (2026-10-12)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-10-08 | 1 | `data/variant-promotion/summary.md (2026-10-09)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/model-reference.md](../../docs/user/model-reference.md) | user | 2026-10-12 | 1 | `tests/doctrine.md (2026-10-12)` |

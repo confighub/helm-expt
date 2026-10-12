@@ -16111,11 +16111,18 @@ function entryStepsListingHtml(listing, siteHref) {
 // What the listing records as fixed when the entry was built, beside what the
 // destination must supply. Both lists were only in the listing JSON, so a
 // reader could not tell a value they must change from one they cannot.
+// A record keeps its stored words. The page says "recipe" where a record says
+// "source variant", which is the word readers are given everywhere else.
+function recordTextInReaderWords(text) {
+  return String(text ?? "").replace(/\bsource variant\b/g, "recipe");
+}
+
 // A listing's description of an input can run to seventy words when it names
 // every field path. The page keeps each sentence within the block's limit: a
 // long sentence stops before its list of paths, and one closing sentence says
 // the listing gives the rest. A full commit is shortened as elsewhere.
 function shortInputDetail(detail) {
+  detail = recordTextInReaderWords(detail);
   const words = (text) => text.trim().split(/\s+/).filter(Boolean).length;
   let cut = false;
   const sentences = String(detail)
@@ -16306,7 +16313,7 @@ function entryPlanHtml(listing, siteHref) {
     // The record's "selected applier" means whichever tool applies the objects.
     const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
     const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
-    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(planStepBrief(step))}${actor} <em>${escapeHtml(state)}</em></li>`;
+    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(planStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`

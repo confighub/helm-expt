@@ -70,8 +70,7 @@ still name a Helm chart. Argo CD renders those charts later, on the cluster.
   gives one digest that covers the inputs, the source package, and the
   rendered Applications. If any of them changes, the digest changes.
 - The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml)
-  names NVIDIA as the provider, the catalog version, and the selected source
-  variant.
+  names NVIDIA as the provider, the catalog version, and the selected recipe.
 - The [source verification](../../../data/aicr-provenance-v1-0-0/summary.md)
   checks the release checksum, the signed binary provenance, the
   recipe-catalog signature, and the SBOM attestation.
