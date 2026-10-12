@@ -543,12 +543,13 @@
   <header class="hero human-hero">
     
     <h1>One flattening model for every plugin</h1>
-    <p class="lead">The Workshop's flattening model decides when exact Kubernetes objects may stand in for the source that produced them. <a href="flattening-alignment.html">When to flatten configuration</a> sets out the four verdicts, <a href="deciding-a-flattening-lane.html">Deciding a flattening lane</a> says how a verdict is reached, and <a href="secret-lifecycle.html">Secret Lifecycle</a> separates credentials from lifecycle state. <a href="../../../../docs/reference/flattening-across-plugins.md">View source markdown</a>.</p>
+    <p class="lead">This is an earlier explanation. <a href="../user/model-and-vocabulary.html">The configuration processing model</a> is the current one, and it wins where the two differ. <a href="../../../../docs/reference/flattening-across-plugins.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 
+<p>The Workshop's flattening model decides when exact Kubernetes objects may stand in for the source that produced them. <a href="flattening-alignment.html">When to flatten configuration</a> sets out the four verdicts, <a href="deciding-a-flattening-lane.html">Deciding a flattening lane</a> says how a verdict is reached, and <a href="secret-lifecycle.html">Secret Lifecycle</a> separates credentials from lifecycle state.</p>
 <p>The Catalog is no longer the only place that materializes configuration into ConfigHub. Four cub plugins now do it for live estates. <code>cub sveltos</code> flattens the charts of Sveltos ClusterProfiles. <code>cub kubara</code> flattens a platform Kubara generated. <code>cub argo</code> and <code>cub flux</code> flatten what Argo CD and Flux deploy. <code>cub helm</code> renders a bare chart into a ConfigHub component.</p>
 <p><a href="certified-bundle-spec.html">The certified bundle spec</a> already defines the shape every producer shares, and it names Kubara and Sveltos among them. A source is rendered once, packaged as a certified bundle with a receipt, ingested as one Unit per file, varied per target, and delivered by any reconciler.</p>
 <p>This page says how each plugin applies that model and that shape. It adds no new verdict and no new format. It names the processor for each kind of source, the checks every render passes, where the verdict comes from, how generated values split, when to render late, and what counts as the same object set.</p>

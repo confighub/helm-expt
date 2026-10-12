@@ -6,6 +6,8 @@ last_reviewed: 2026-06-14
 
 # Variants And Promotion
 
+This is an earlier explanation. [The configuration processing model](../../docs/user/model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 helm-expt uses two variant layers.
 
 A base variant is a render-time install shape. If the choice changes Helm
