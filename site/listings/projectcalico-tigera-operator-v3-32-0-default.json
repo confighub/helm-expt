@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:649c17de07c4324e44be6ed180b9747092ed478f5ab00560a4ea9bb6e7ea1345",
+      "sha256": "sha256:fa17390b7c5a4739649505a5291532119837a3c24cf023944bb8f7649af531a4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml",
-      "sha256": "sha256:072dacf3f70876e12371379a7bc3dc3ce463eed08350fdf962446ca5e1239bbc",
+      "sha256": "sha256:b2efb670509e40d1cd71bf3504cfe7a8cfea4cdcb82f3f309c9037154479669c",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9"
+            "value": "sha256:b9e478d168dd9d4d0f7a2690f91f6d5eda14c7f044dfcf8f692345a5013957ee"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:9cce0c6e3c794392a8eb73fed8fa8edee5d5fe3c9b5b7e86b9089558e525389d"
+            "value": "sha256:849b19e4e847aee563ce11c337548f4c968b2f2ae4e730fed8dd76fccd118838"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:ebc7224f85e9f1b6b55847b1a503910e2e9024cda58d423f32646b4e3828d5d1"
+            "value": "sha256:bce010a61d26e38cec2c73851192a007d86ed71a44ff7498361f2e1fe651333b"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+            "value": "sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061"
           },
           {
             "field": "objectSetSha256",
@@ -273,6 +273,12 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "Required before Kubernetes can accept the rendered Whisker object."
+      },
+      {
+        "id": "lifecycle",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-operator-prerequisites, operator-deployment-ready, operator-crds-established, kubectl-apply-custom-resources, custom-resources-accepted, render-pre-delete-hook-job, execute-pre-delete-cleanup-job, custom-resources-after-cleanup-job, delete-rendered-objects."
       }
     ],
     "routes": [
@@ -331,9 +337,37 @@
           "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml",
           "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
         ]
+      },
+      {
+        "id": "lifecycle",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-operator-prerequisites, operator-deployment-ready, operator-crds-established, kubectl-apply-custom-resources, custom-resources-accepted, render-pre-delete-hook-job, execute-pre-delete-cleanup-job, custom-resources-after-cleanup-job, delete-rendered-objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "lifecycle"
+        ],
+        "checks": [
+          "stop and report; never continue past a stage that did not pass"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "lifecycle.yaml",
+        "path": "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+      },
       {
         "name": "projectcalico-tigera-operator-v3-32-0-default.yaml",
         "path": "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",

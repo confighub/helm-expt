@@ -51,17 +51,19 @@ for n in 0033 0034; do mv "$work/docs/doc-$n.yaml" "$work/rest/"; done
 ls "$work/crds" "$work/rest"
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
+  say "Stop before applying anything. This entry's plan has 3 steps that an install needs first"
   cat >&2 <<'EOF_REQUIREMENTS'
-This script cannot carry out this step of the plan. It is yours to do, with your own values:
+This script cannot carry out these steps of the plan. They are yours to do, with your own values:
   - Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.
-Nothing was applied. Complete it before you apply the objects.
-When it is done, re-run with:
+  - The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
+  - The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The listing gives the rest.
+Nothing was applied. Complete them before you apply the objects.
+When they are done, re-run with:
   REQUIREMENTS_READY=1 bash try-objects.sh
 EOF_REQUIREMENTS
   exit 1
 fi
-say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
+say "REQUIREMENTS_READY=1 is set. The script takes your word for 3 steps and does not check them"
 
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
@@ -157,8 +159,10 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 10 CRDs $crd_outcome. kubectl applied the other 14 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
-say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
+say "Not run by this script: 4 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
    - Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.
+   - The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
+   - The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The listing gives the rest.
    - Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness.
 EOF_NOT_RUN

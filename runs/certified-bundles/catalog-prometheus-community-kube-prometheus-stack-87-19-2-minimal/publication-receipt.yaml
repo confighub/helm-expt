@@ -6,15 +6,18 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
-  layerDigest: "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf"
-  layerBytes: 461282
-  observedAt: "2026-09-24T14:06:02.784Z"
+  manifestDigest: "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1"
+  layerDigest: "sha256:84dca900530136818db631d2878923f3bd35c2143e3da4a9cb6f4227188b9c72"
+  layerBytes: 462081
+  observedAt: "2026-10-12T15:45:05.598Z"
   reproducible: true
   stagedFiles:
     - "README.md"
     - "routes/crd-ordering.yaml"
+    - "routes/create-or-keep-admission-secret.yaml"
+    - "routes/establish-prometheus-operator-crds.yaml"
     - "routes/lifecycle.yaml"
+    - "routes/patch-and-check-admission-webhook.yaml"
     - "routes/webhook-ca.yaml"
     - "upstream.yaml"
   command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal.tar.gz"

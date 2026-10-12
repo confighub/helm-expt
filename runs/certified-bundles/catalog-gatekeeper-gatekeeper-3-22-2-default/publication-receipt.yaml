@@ -6,14 +6,16 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
-  layerDigest: "sha256:6ceb90c120d6e9059397dbe15d4a94d9ad8d0785b6d33150b7031f68292cdf22"
-  layerBytes: 19997
-  observedAt: "2026-08-08T19:42:36.032Z"
+  manifestDigest: "sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930"
+  layerDigest: "sha256:ff51b01ffb9f7727c16b6eec0ec3533be5dfbf2b0c85a26d653abb83d16818d4"
+  layerBytes: 20717
+  observedAt: "2026-10-12T15:44:59.706Z"
   reproducible: true
   stagedFiles:
     - "README.md"
     - "routes/crd-ordering.yaml"
     - "routes/lifecycle.yaml"
+    - "routes/preflight-or-presync.yaml"
+    - "routes/upgrade-action-with-receipt.yaml"
     - "upstream.yaml"
   command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-gatekeeper-gatekeeper-3-22-2-default.tar.gz"

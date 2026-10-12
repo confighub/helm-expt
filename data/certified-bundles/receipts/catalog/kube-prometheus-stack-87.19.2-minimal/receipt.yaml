@@ -118,8 +118,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest"
-    manifestDigest: "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
-    layerDigest: "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf"
+    manifestDigest: "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1"
+    layerDigest: "sha256:84dca900530136818db631d2878923f3bd35c2143e3da4a9cb6f4227188b9c72"
     reproducible: true
   ingest:
     granularity: "per-file"

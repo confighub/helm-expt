@@ -145,7 +145,19 @@ spec:
           origin: "base"
           type: "lifecycle-action"
           detail: "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+        -
+          id: "lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run."
       records:
+        - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"
@@ -194,7 +206,45 @@ spec:
             - "data/hook-lifecycle/top100-hooks.csv"
             - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
             - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+        -
+          id: "lifecycle"
+          requirementRefs:
+            - "lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "stop and report; never continue past a stage that did not pass"
+          evidence:
+            - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
         - "data/lifecycle-routes/routes.json"
         - "data/lifecycle-routes/summary.md"
@@ -229,14 +279,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
-      manifestDigest: "sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
-      layerDigest: "sha256:6ceb90c120d6e9059397dbe15d4a94d9ad8d0785b6d33150b7031f68292cdf22"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930"
+      manifestDigest: "sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930"
+      layerDigest: "sha256:ff51b01ffb9f7727c16b6eec0ec3533be5dfbf2b0c85a26d653abb83d16818d4"
       objectSetSha256: "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
       receipt: "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml"
-      receiptSha256: "sha256:c2e671ad4d2540ae69c10dfeeb437a5af56b0ddf0ab969ed6547079ec3d32cf8"
+      receiptSha256: "sha256:3c6dcf5d559fa09c04c3d583354ffd060dbf5f6c23eec7a062f45f6f0198a2a9"
       publicationReceipt: "runs/certified-bundles/catalog-gatekeeper-gatekeeper-3-22-2-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:91423d2b992dc03512eff614f695aa090fdd207da28ef57b968293020076f93d"
+      publicationReceiptSha256: "sha256:4feebe3e229b3a97fb6d090ec61c68bcc19c3d56d27e4886e00e16efd5da52cf"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
@@ -246,6 +296,14 @@ spec:
           path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
           sha256: "sha256:fcd71ec7bc06720fb02c9f97700a9e6316baf386b7a30b01594e897438dbb1f3"
           role: "route: helm-hooks"
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/preflight-or-presync.yaml"
+          sha256: "sha256:e8caa611917bac253c8327e667b6e5e13b7a35998571fd227784b52b3d4e5348"
+          role: "route: plan-step preflight-or-presync"
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/upgrade-action-with-receipt.yaml"
+          sha256: "sha256:275685e034d904939a16ed2428d31d56f9708120368779c1a8baa7c34a8c8c41"
+          role: "route: plan-step upgrade-action-with-receipt"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"

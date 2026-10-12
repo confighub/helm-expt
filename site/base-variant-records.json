@@ -121199,9 +121199,23 @@
                 "origin": "base",
                 "type": "lifecycle-action",
                 "detail": "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+              },
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+              },
+              {
+                "id": "lifecycle",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run."
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml",
+              "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml",
               "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml",
               "data/lifecycle-routes/routes.json",
               "data/lifecycle-routes/summary.md"
@@ -121261,9 +121275,57 @@
                   "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml",
                   "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
                 ]
+              },
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "every named definition reports the Established condition"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+                ]
+              },
+              {
+                "id": "lifecycle",
+                "requirementRefs": [
+                  "lifecycle"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "observed",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "stop and report; never continue past a stage that did not pass"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
+                ]
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml",
+              "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml",
               "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml",
               "data/lifecycle-routes/routes.json",
               "data/lifecycle-routes/summary.md"
@@ -121303,14 +121365,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119",
-            "manifestDigest": "sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119",
-            "layerDigest": "sha256:6ceb90c120d6e9059397dbe15d4a94d9ad8d0785b6d33150b7031f68292cdf22",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930",
+            "manifestDigest": "sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930",
+            "layerDigest": "sha256:ff51b01ffb9f7727c16b6eec0ec3533be5dfbf2b0c85a26d653abb83d16818d4",
             "objectSetSha256": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d",
             "receipt": "data/certified-bundles/receipts/catalog/gatekeeper-gatekeeper-3.22.2-default/receipt.yaml",
-            "receiptSha256": "sha256:c2e671ad4d2540ae69c10dfeeb437a5af56b0ddf0ab969ed6547079ec3d32cf8",
+            "receiptSha256": "sha256:3c6dcf5d559fa09c04c3d583354ffd060dbf5f6c23eec7a062f45f6f0198a2a9",
             "publicationReceipt": "runs/certified-bundles/catalog-gatekeeper-gatekeeper-3-22-2-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:91423d2b992dc03512eff614f695aa090fdd207da28ef57b968293020076f93d",
+            "publicationReceiptSha256": "sha256:4feebe3e229b3a97fb6d090ec61c68bcc19c3d56d27e4886e00e16efd5da52cf",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml",
@@ -121321,6 +121383,16 @@
                 "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml",
                 "sha256": "sha256:fcd71ec7bc06720fb02c9f97700a9e6316baf386b7a30b01594e897438dbb1f3",
                 "role": "route: helm-hooks"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/preflight-or-presync.yaml",
+                "sha256": "sha256:e8caa611917bac253c8327e667b6e5e13b7a35998571fd227784b52b3d4e5348",
+                "role": "route: plan-step preflight-or-presync"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/upgrade-action-with-receipt.yaml",
+                "sha256": "sha256:275685e034d904939a16ed2428d31d56f9708120368779c1a8baa7c34a8c8c41",
+                "role": "route: plan-step upgrade-action-with-receipt"
               }
             ],
             "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
@@ -202266,9 +202338,16 @@
                 "origin": "base",
                 "type": "target-fact",
                 "detail": "Required before Kubernetes can accept the rendered Whisker object."
+              },
+              {
+                "id": "lifecycle",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-operator-prerequisites, operator-deployment-ready, operator-crds-established, kubectl-apply-custom-resources, custom-resources-accepted, render-pre-delete-hook-job, execute-pre-delete-cleanup-job, custom-resources-after-cleanup-job, delete-rendered-objects."
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml",
               "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",
               "data/lifecycle-routes/routes.json",
               "data/lifecycle-routes/summary.md"
@@ -202332,9 +202411,33 @@
                   "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml",
                   "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
                 ]
+              },
+              {
+                "id": "lifecycle",
+                "requirementRefs": [
+                  "lifecycle"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-operator-prerequisites, operator-deployment-ready, operator-crds-established, kubectl-apply-custom-resources, custom-resources-accepted, render-pre-delete-hook-job, execute-pre-delete-cleanup-job, custom-resources-after-cleanup-job, delete-rendered-objects.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "observed",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "stop and report; never continue past a stage that did not pass"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+                ]
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml",
               "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",
               "data/lifecycle-routes/routes.json",
               "data/lifecycle-routes/summary.md"
@@ -202429,19 +202532,29 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc",
-            "manifestDigest": "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc",
-            "layerDigest": "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest@sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
+            "manifestDigest": "sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061",
+            "layerDigest": "sha256:b9e478d168dd9d4d0f7a2690f91f6d5eda14c7f044dfcf8f692345a5013957ee",
             "objectSetSha256": "sha256:9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350",
             "receipt": "data/certified-bundles/receipts/catalog/tigera-operator-v3.32.0-default/receipt.yaml",
-            "receiptSha256": "sha256:9cce0c6e3c794392a8eb73fed8fa8edee5d5fe3c9b5b7e86b9089558e525389d",
+            "receiptSha256": "sha256:849b19e4e847aee563ce11c337548f4c968b2f2ae4e730fed8dd76fccd118838",
             "publicationReceipt": "runs/certified-bundles/catalog-projectcalico-tigera-operator-v3-32-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:ebc7224f85e9f1b6b55847b1a503910e2e9024cda58d423f32646b4e3828d5d1",
+            "publicationReceiptSha256": "sha256:bce010a61d26e38cec2c73851192a007d86ed71a44ff7498361f2e1fe651333b",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml",
                 "sha256": "sha256:fad229fbdc29f97895a864c800c8b7ba51f2513b1d5be9cb8b5b937d9bbaa01e",
                 "role": "route: helm-hooks"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/explicit-delete-cleanup-action.yaml",
+                "sha256": "sha256:2c469c8ce2e1bf802512de0965f5a8aff8526e1858d15c6aef1d8ce8314c86a9",
+                "role": "route: plan-step explicit-delete-cleanup-action"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/preflight-or-presync.yaml",
+                "sha256": "sha256:b03c3894193a0a5fbbffa8ef4bbed5540ab09eabb0ac13042a4c9d065d54159c",
+                "role": "route: plan-step preflight-or-presync"
               }
             ],
             "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
@@ -215219,9 +215332,30 @@
                 "origin": "base",
                 "type": "target-fact",
                 "detail": "Admission webhook TLS material owned by the target."
+              },
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects."
+              },
+              {
+                "id": "lifecycle",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
+              },
+              {
+                "id": "webhook-ca",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
               "examples/prometheus-operator-minimal/catalog-profile.yaml"
             ]
           },
@@ -215290,9 +215424,81 @@
                   "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
                   "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml"
                 ]
+              },
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "every named definition reports the Established condition"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+                ]
+              },
+              {
+                "id": "lifecycle",
+                "requirementRefs": [
+                  "lifecycle"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "observed",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "stop and report; never continue past a stage that did not pass"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+                ]
+              },
+              {
+                "id": "webhook-ca",
+                "requirementRefs": [
+                  "webhook-ca"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected applier",
+                "proposedMechanism": "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads.",
+                "automatic": false,
+                "status": "recorded",
+                "sourceStatus": "observed",
+                "supportedRuntimes": [
+                  "Argo CD",
+                  "Flux",
+                  "cub-direct applier"
+                ],
+                "checks": [
+                  "stop and report; never continue past a stage that did not pass"
+                ],
+                "evidence": [
+                  "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
+                ]
               }
             ],
             "records": [
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+              "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
               "examples/prometheus-operator-minimal/catalog-profile.yaml"
             ]
           },
@@ -215339,14 +215545,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
-            "manifestDigest": "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
-            "layerDigest": "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+            "manifestDigest": "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+            "layerDigest": "sha256:84dca900530136818db631d2878923f3bd35c2143e3da4a9cb6f4227188b9c72",
             "objectSetSha256": "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c",
             "receipt": "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml",
-            "receiptSha256": "sha256:b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965",
+            "receiptSha256": "sha256:84596d535a4d310e59d7109e872b76c1410adca8c1f5c62d6c4fdfa9025e55f6",
             "publicationReceipt": "runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:fb40e81321a0d0e1177826032e05677ee2e725487351c40d0fb7afa348000bd3",
+            "publicationReceiptSha256": "sha256:dac994812a28bec5fb826c3f2a6df461ce4eb4762b2952c8e96fee2ae4a2a6a7",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
@@ -215362,6 +215568,21 @@
                 "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
                 "sha256": "sha256:efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea",
                 "role": "route: webhook-ca"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/establish-prometheus-operator-crds.yaml",
+                "sha256": "sha256:260f9caaf6cba0ca4b0aa4e50a5c86a1bd4c6baeb982a0b513a6deda282dbf34",
+                "role": "route: plan-step establish-prometheus-operator-crds"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/create-or-keep-admission-secret.yaml",
+                "sha256": "sha256:68115c066edf91ad66ac56753c7c2d1afd0b3a5052232bc6ce3469aeafcbd701",
+                "role": "route: plan-step create-or-keep-admission-secret"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/patch-and-check-admission-webhook.yaml",
+                "sha256": "sha256:3a38864837e603539296d97c732f01bb4c79e958da1b414e2868c25eafb178d1",
+                "role": "route: plan-step patch-and-check-admission-webhook"
               }
             ],
             "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
