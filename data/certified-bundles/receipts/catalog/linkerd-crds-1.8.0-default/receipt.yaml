@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/linkerd-crds-1.8.0-default/space-guide.md"
-        sha256: "463c77b4ffe0c9ba1d18e39d33fdecc3456abddf003f772be0d8e5ad66c14383"
-        bytes: 1284
+        sha256: "aa93abfb4a156b91bf7cafc9c1c287eee29ab7bfab619af72192fbf41f9c6444"
+        bytes: 1676
         role: "space-guide"
     objectCount: 8
     objectInventoryRef: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 0
@@ -48,8 +57,8 @@ spec:
         []
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest"
-    manifestDigest: "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
-    layerDigest: "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da"
+    manifestDigest: "sha256:c5a747d47f445168c11513867dbc66b48622e5d2d5764b37388f3d97864bb867"
+    layerDigest: "sha256:4df7309713cafbce60e66b8d289f181969f2a09d941bde46e7814588a8ff0694"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -124,4 +133,5 @@ spec:
       - "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/linkerd/linkerd-crds/1.8.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml"
       - "runs/certified-bundles/catalog-linkerd-linkerd-crds-1-8-0-default/publication-receipt.yaml"

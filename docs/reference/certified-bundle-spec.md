@@ -100,7 +100,7 @@ The record generator does the other half. It names a step for each document writ
 
 The receipt carries the result in `bundle.plan`, which names the record and lists each document with the steps it carries. Strict ingest reads the record and the documents and refuses the bundle when a record step has no document, when a document carries a step the record does not name, or when a document written from the record differs from it. `scripts/lib/catalog-bundle-plan.mjs` holds the words the generators and the verifier share.
 
-Two limits apply. A bundle published before this rule keeps the files it was published with, because its bytes are fixed in a registry, and strict ingest counts it without refusing it. An unpublished `flatten-with-routes` bundle with no `bundle.plan` is refused. Seven presets with this verdict have no bundle at all, because their render owes a companion nothing committed can supply, and `CATALOG_BUNDLES_HELD` in the generator names each one and what it owes.
+Two limits apply. A bundle published before this rule keeps the files it was published with, because its bytes are fixed in a registry, and strict ingest counts it without refusing it. Every such bundle was republished under the rule by 2026-10-12, so none is in that position today. An unpublished `flatten-with-routes` bundle with no `bundle.plan` is refused. Seven presets with this verdict have no bundle at all, because their render owes a companion nothing committed can supply, and `CATALOG_BUNDLES_HELD` in the generator names each one and what it owes.
 
 ## The Space guide travels too
 

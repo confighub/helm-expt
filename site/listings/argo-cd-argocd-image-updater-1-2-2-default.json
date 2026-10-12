@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/argo-cd-argocd-image-updater-1-2-2-default.yaml",
-      "sha256": "sha256:8d5a3f3e2f88e93bde3c3aed4214cb2f5f390895939520addc338f6bc9f08d45",
+      "sha256": "sha256:3f07927a513ca8583c926dd7802e639e1bd88b8dd157ae749d7fc57711096494",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argocd-image-updater-1-2-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:056801a61e59cb2d318251d5f477972f8337956a11faf653031e0c1617b62a08"
+            "value": "sha256:b84af8bb9040cdcee1402687d6c5edf05f3f40cc6fd9fe3e85cf5291a28091e7"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:afae86d56576ee1b51b48b997e9f78beac7437ad602b8ce9aadfb413cd7951b9"
+            "value": "sha256:da0a8afb96b9f92481b8a5bc7f96f3b6ddfbe38083dc1fbfe974aa078b5df970"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:e6c9e0c3a6d545e91bf0ca58b0368be61238e61e0c0329a1a8c27f1694fcc20d"
+            "value": "sha256:41148e02051447a5a8ec0f45cd4773569346b6c3535ba066a05c42b18c38162d"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
+            "value": "sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7"
           },
           {
             "field": "objectSetSha256",
@@ -242,13 +242,13 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+        "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
       },
       {
         "id": "prune-protection",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
+        "detail": "Prune protection for the 1 object(s) carrying the keep promise."
       }
     ],
     "routes": [
@@ -258,21 +258,15 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
+          "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
         ]
       },
       {
@@ -281,37 +275,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "Prune protection for the 1 object(s) carrying the keep promise.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "prune-protection"
         ],
         "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
+          "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
-      },
-      {
-        "name": "prune-protection.yaml",
-        "path": "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
-      },
-      {
         "name": "argo-cd-argocd-image-updater-1-2-2-default.yaml",
         "path": "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

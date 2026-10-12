@@ -3587,6 +3587,7 @@ ${bannerCss()}
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); }
+  .hero-head .eyebrow a { color: var(--accent-ink, var(--ink)); text-decoration: underline; text-underline-offset: 2px; }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
@@ -3968,7 +3969,7 @@ ${homeJourneyLinks()}
       </nav>
       <header>
         <div class="hero-head">
-          <span class="eyebrow">Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more</span>
+          <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
           <p class="lead">ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
@@ -16273,6 +16274,15 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       <p><strong>Step by step.</strong> <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>.</p>`
     : "";
   const { name, version, base, format, formatLabel } = listing.identity;
+  // Where the model and this entry's format are explained.
+  const formatDoor = new Map([
+    ["helm", ["config.html", "Helm in the Catalog"]],
+    ["aicr", ["try-aicr.html", "NVIDIA AICR in the Catalog"]],
+  ]).get(format);
+  const doorsHtml = siteHref
+    ? `
+      <p><strong>How it works.</strong> <a href="${siteHref}/d/docs/user/model-and-vocabulary.html">How the model works</a>${formatDoor ? `, and <a href="${siteHref}/${formatDoor[0]}">${formatDoor[1]}</a>` : ""}.</p>`
+    : "";
   const presets = listings.filter((item) => item.identity.format === format).length;
   const count = Number(listing.flattened?.objectCount ?? 0);
   const isAicr = format === "aicr";
@@ -16321,7 +16331,7 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       <p><strong>What it is.</strong> ${what}</p>
       <p><strong>Install it.</strong> ${install}</p>
       ${bundle}${needs ? `
-      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}
+      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}${doorsHtml}
     </section>`;
 }
 

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml",
-      "sha256": "sha256:bbb23da9f233896795ad261af5adf199b5e6826fa6d17f2b5739244a8d7076f2",
+      "sha256": "sha256:f61f4e796f23307099bedc28a80e7a4e50275e8585244cc6f6524c2982d8e2e8",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:1aae7003909e0d6c1553da739a50ccce120d3cf49d7023655e6328e08a17030c"
+            "value": "sha256:645cbd0b7a5f272d9305daf4699adf7992e085a17d15991c1a301bdbcf06dfa4"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:91f818e7db82f052b067425b1ac1d3ac130bca64543eab9f1dbf5ed495597757"
+            "value": "sha256:1384b1524d16872d987b400762a2a4a518a86dc24b78ea93ea3dcf94f94345e1"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:c82aaf2a4ff5b07feb5e8ab974cea7d05e6da28a801ab79d98f4a7c070c47278"
+            "value": "sha256:4b9c03336796ba8f9e8203ff136f6fa17c28617ca9ba65dc3dffa2f04fd5afcf"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
+            "value": "sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690"
           },
           {
             "field": "objectSetSha256",
@@ -256,7 +256,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects."
+        "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -266,34 +266,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
+          "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
-      },
-      {
         "name": "external-dns-external-dns-1-21-1-default.yaml",
         "path": "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

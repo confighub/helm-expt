@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects."
+          detail: "CRD ordering declaration for the 10 definition(s) this base renders."
       records:
-        - "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 10 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+            - "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+        - "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
-      manifestDigest: "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
-      layerDigest: "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc"
+      manifestDigest: "sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc"
+      layerDigest: "sha256:42e3796aac7a79cfcb3e80eb8d820d3a252ee650eeb8997cc46be0ed8fd5999d"
       objectSetSha256: "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
       receipt: "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml"
-      receiptSha256: "sha256:e647d81569161ba9733cc5f6955ef36e92bd01e3b8fbba302419a2e97e9616cd"
+      receiptSha256: "sha256:ad786f59c5125f5623bb99bddaf38a547c38e0a6730a230ef66c5a9b2726b463"
       publicationReceipt: "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:d02f22903884c33e6c6a74a07cdcfe1fcd2f58317893fc3692bf38c2d5952596"
+      publicationReceiptSha256: "sha256:0aa7d598815c964af24664e49a064d3cc2543db9149fccfec02b125849c5fff2"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"

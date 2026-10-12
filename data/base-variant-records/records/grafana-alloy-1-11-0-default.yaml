@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          detail: "CRD ordering declaration for the 1 definition(s) this base renders."
       records:
-        - "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml"
+        - "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 1 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"
+            - "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml"
+        - "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest@sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
-      manifestDigest: "sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
-      layerDigest: "sha256:7a4293e1b691fdc5b4df8c02d50964912c58e777662d34838f8b46e50fd04869"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest@sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+      manifestDigest: "sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+      layerDigest: "sha256:0ce3e1d0f4853a2794fd9b990ffb5ace32aa8e1083bfd92d34c21bd760958eb8"
       objectSetSha256: "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6"
       receipt: "data/certified-bundles/receipts/catalog/alloy-1.11.0-default/receipt.yaml"
-      receiptSha256: "sha256:4fd8803040f06180183342c9efc1afba73362cae92f73de16a8f139de694e8ab"
+      receiptSha256: "sha256:a0f8b2fed568c87b71dced2783f8428f297f86b9c922b0d5e4c629df9d37434a"
       publicationReceipt: "runs/certified-bundles/catalog-grafana-alloy-1-11-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:c0937759bda7ac340c4c9e4579470e512790d9c7169a089394d02feb28373037"
+      publicationReceiptSha256: "sha256:7ac3c4962f7f669715c65d7ded07c46619f22f087605c6ee55398a7975afc7fa"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"

@@ -6,7 +6,7 @@
   "generatedFrom": [
     "data/workshop-guides/guides.yaml"
   ],
-  "count": 56,
+  "count": 58,
   "rows": [
     {
       "id": "journey-values-did-nothing",
@@ -74,6 +74,18 @@
       }
     },
     {
+      "id": "how-the-model-works",
+      "group": "deep-dives",
+      "groupTitle": "Deep Dives",
+      "title": "How the model works",
+      "summary": "Flatten it, put it in an OCI bundle with a plan if it needs one, and load it into ConfigHub. Three steps on one short page, the same for every format.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/model-and-vocabulary.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/model-and-vocabulary.html"
+      }
+    },
+    {
       "id": "ai-chaos-in-production",
       "group": "deep-dives",
       "groupTitle": "Deep Dives",
@@ -83,6 +95,18 @@
       "address": "https://confighub.github.io/helm-expt/site/ai-chaos-in-production.html",
       "next": {
         "address": "https://confighub.github.io/helm-expt/site/ai-chaos-in-production.html"
+      }
+    },
+    {
+      "id": "deploy-gpu-operator-from-catalog",
+      "group": "start-here",
+      "groupTitle": "Topic based walkthroughs",
+      "title": "Deploy the GPU Operator from the Catalog",
+      "summary": "One Helm chart from the Catalog in five steps. Install it, load it into ConfigHub, upgrade it, and test it on a GPU node.",
+      "state": "published",
+      "address": "https://confighub.github.io/helm-expt/site/d/docs/user/deploy-gpu-operator-from-catalog.html",
+      "next": {
+        "address": "https://confighub.github.io/helm-expt/site/d/docs/user/deploy-gpu-operator-from-catalog.html"
       }
     },
     {

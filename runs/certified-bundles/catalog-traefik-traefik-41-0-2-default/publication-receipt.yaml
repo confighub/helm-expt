@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
-  layerDigest: "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
-  layerBytes: 45117
-  observedAt: "2026-08-08T19:42:42.139Z"
+  manifestDigest: "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+  layerDigest: "sha256:9d4c019328de540397d61d40c1033477ded3de04dda45a49ded58992b190b16f"
+  layerBytes: 45199
+  observedAt: "2026-10-12T18:46:54.504Z"
   reproducible: true
   stagedFiles:
     - "README.md"

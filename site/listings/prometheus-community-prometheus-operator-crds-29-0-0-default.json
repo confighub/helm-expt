@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
-      "sha256": "sha256:bd502654a5391ce12b33bff8f3be2530e2a37f2f061b712a63836f0d1d2fab6b",
+      "sha256": "sha256:c5534127025c298f071da71a68b709ef4850a41a4ca15d8bf6242115d6706d56",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:b4a0d66db5a042a5d7667da311ae69c2991ec69b63052b4698e80cde7e4e0de9"
+            "value": "sha256:7f14742d541e36ff70cea6753e6648a446ede95f2aec0d47ac7d82c1ba13c8ce"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:383a0fcf90ad4b33a76c176044d3f5650ef3f8211ee318f5115d690048a6deae"
+            "value": "sha256:63955c6e640b4da86a1ba571a4f3b12934b43b13bf7ce2ed310bc021be0aa648"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:0e360ce931182c80bc8ac98681b905448bc88e02e9d7c13660b2ef4e93641206"
+            "value": "sha256:cee5813e2d74b5ebf818aa3309864e84ae3fe804f477297b0f58825677fd7059"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d"
+            "value": "sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9"
           },
           {
             "field": "objectSetSha256",
@@ -237,7 +237,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+        "detail": "CRD ordering declaration for the 10 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -247,34 +247,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 10 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
+          "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
-      },
-      {
         "name": "prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
         "path": "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

@@ -46,15 +46,24 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/traefik-traefik-41.0.2-default/space-guide.md"
-        sha256: "4868eabd818d9850de674d772844d22883bf413890f5739fc8b29478db868084"
-        bytes: 1260
+        sha256: "e936a9122cea95bbd24da8afa68327e8e3f783b5f1a4fe663bf2db645a109d39"
+        bytes: 1652
         role: "space-guide"
+    plan:
+      record: "data/base-variant-records/records/traefik-traefik-41-0-2-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     objectCount: 31
     objectInventoryRef: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest"
-    manifestDigest: "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
-    layerDigest: "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
+    manifestDigest: "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+    layerDigest: "sha256:9d4c019328de540397d61d40c1033477ded3de04dda45a49ded58992b190b16f"
     reproducible: true
   ingest:
     granularity: "per-file"

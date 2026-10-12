@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          detail: "CRD ordering declaration for the 9 IAM CRDs."
       records:
-        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
+        - "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 9 IAM CRDs."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
+            - "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
+        - "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest@sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
-      manifestDigest: "sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
-      layerDigest: "sha256:fd53f6beb33b14be4223e1bf8edb197ce1e73807566b56b816760ba80f5e0a4b"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest@sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16"
+      manifestDigest: "sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16"
+      layerDigest: "sha256:a13d6325624aa0c3ded1a97686d85d08b5650e64e54eabc9fd5d869c279921ad"
       objectSetSha256: "sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
       receipt: "data/certified-bundles/receipts/catalog/iam-chart-1.7.3-default/receipt.yaml"
-      receiptSha256: "sha256:f9391a5ae568d14fded04ff832cc2fe3f8bc4ec33ae1d2199ce8c49ddf4e179b"
+      receiptSha256: "sha256:89ddb4b1dea00617b26d49ce6fe80080fc1d98f7d17f12eaf20e6ac01920b328"
       publicationReceipt: "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:ea4bb1fb9740d569a9343cf1cbfe53eccbdcf75ae9b1da046f3ee1a670d4c092"
+      publicationReceiptSha256: "sha256:d9ba86905a0fee70b1633c3798f632ce4f152b580efb442fffa11de2ae8c39e3"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"

@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          detail: "CRD ordering declaration for the 25 gateway and traefik CRDs."
       records:
-        - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+        - "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 25 gateway and traefik CRDs."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+            - "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+        - "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
-      manifestDigest: "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
-      layerDigest: "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+      manifestDigest: "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+      layerDigest: "sha256:9d4c019328de540397d61d40c1033477ded3de04dda45a49ded58992b190b16f"
       objectSetSha256: "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
       receipt: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml"
-      receiptSha256: "sha256:ef8f206d5b46362e8f8f0b3a72be6edbdc0362f251c1bf42bfff084c009e63a5"
+      receiptSha256: "sha256:a977acecad8106f1e08cf2717672051d54cae4e1d35f4bfecc210b8bc2fedf22"
       publicationReceipt: "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:9c36d8726805f2858f2b002e9c52ca7b292d12306949543d12096e14a339d238"
+      publicationReceiptSha256: "sha256:e5500b98459359bfdab49ec14e1566f4fecbc6a3a48934326d16535f39b8ba28"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"

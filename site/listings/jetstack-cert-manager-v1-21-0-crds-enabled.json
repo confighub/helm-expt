@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
-      "sha256": "sha256:af3e53d6176d8a6b22fed381c3c48cf7998dce64bdb29b15dd7e8937e0f8a566",
+      "sha256": "sha256:f9e444a0c43ec56f2c60ce380843059e96164675fbaaf056aa379ea3c5d0a8fe",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -117,24 +117,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:09a57debe6be52a883644f47fe35ecda7b35140d06be1d6251949fa430e18a2d"
+            "value": "sha256:0035713ba52ee3f5b236f3cb8d225bc70488c720ba16cb53fa7a5174fb1acf86"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:1de37acebe923962052821b7aeda495d8f8bc61f727faffb1e40edce58a8889a"
+            "value": "sha256:0b89a692b769a3505f6b11699b0ad1bdb8edb351ed221e56ce9d96b188c4da86"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:40a189426ec555420eaf2ba5bac1339e21dc5deb0cabbdd9dd243dd7202ef09c"
+            "value": "sha256:2ce0e6358d379d2b9fa057bd232941ebea5b6e8709456bd376b0f4103d35f265"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d"
+            "value": "sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322"
           },
           {
             "field": "objectSetSha256",
@@ -265,79 +265,64 @@
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
       {
-        "id": "crd-ordering",
-        "type": "lifecycle-action",
-        "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 40 objects."
-      },
-      {
         "id": "prune-protection",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 6 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+        "detail": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep."
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them."
       }
     ],
     "routes": [
-      {
-        "id": "crd-ordering",
-        "phase": "apply",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
-        "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 40 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
-        "requirementRefs": [
-          "crd-ordering"
-        ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
-        "evidence": [
-          "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
-        ]
-      },
       {
         "id": "prune-protection",
         "phase": "destination-resolution",
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 6 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "prune-protection"
         ],
         "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
+          "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
+        ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them.",
+        "supportedRuntimes": [],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [],
+        "evidence": [
+          "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
-      },
-      {
-        "name": "prune-protection.yaml",
-        "path": "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
-      },
-      {
         "name": "jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
         "path": "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-crds-enabled.yaml",
+        "path": "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
       }
     ]
   },

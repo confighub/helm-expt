@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/eks-chart-1.16.3-default/space-guide.md"
-        sha256: "e466f7d06f8a90f6440a832c31dac163aac4b50f0b74aa78f3f39abf3842aa78"
-        bytes: 1340
+        sha256: "00972c0db4515e662fb7d2f6d2bca4675f3a9a4635f648e99c23f33e90e3ebd5"
+        bytes: 1732
         role: "space-guide"
     objectCount: 20
     objectInventoryRef: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +59,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest"
-    manifestDigest: "sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676"
-    layerDigest: "sha256:c12784f33ab04444c0da26eea3d0c806cc6021456db9293ac6d3440a723cf31c"
+    manifestDigest: "sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345"
+    layerDigest: "sha256:3ed48ce45ed9305aa32ab4fb899ad444853a08855f99f275806f2a3c52daf4bc"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +135,5 @@ spec:
       - "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/variant-revision.yaml"
       - "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/aws-controllers-k8s/eks-chart/1.16.3/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
       - "runs/certified-bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default/publication-receipt.yaml"

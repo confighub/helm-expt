@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml",
-      "sha256": "sha256:0239eb43ffd85f47b8063f084da085d8b0c4cbc64e4d3abd116b6179d36511c5",
+      "sha256": "sha256:ff182902b796464317b1f64657f82841a0074a63f365cc45fe3776976bb410e1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/linkerd-linkerd-crds-1-8-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:c5a747d47f445168c11513867dbc66b48622e5d2d5764b37388f3d97864bb867",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da"
+            "value": "sha256:4df7309713cafbce60e66b8d289f181969f2a09d941bde46e7814588a8ff0694"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:1ece70248ecad698d3d388db8de6b2578f7478190191886863d2f2657915e23b"
+            "value": "sha256:66d2d3fc97bf9c38b9c168675686e09bdd49ca2439b42dc78ec35ff1119f1269"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:70e4567b764b0df9aa2e9c56a5c45fcd85545430ca42b8f2a90ef3101bf1d6c2"
+            "value": "sha256:2c9a975482a2f21e4c852f3b5aef8c51776af6183df63384bdd683bd88ff0c4b"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+            "value": "sha256:c5a747d47f445168c11513867dbc66b48622e5d2d5764b37388f3d97864bb867"
           },
           {
             "field": "objectSetSha256",
@@ -237,7 +237,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+        "detail": "CRD ordering declaration for the 8 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -247,34 +247,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 8 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml"
+          "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml"
-      },
-      {
         "name": "linkerd-linkerd-crds-1-8-0-default.yaml",
         "path": "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

@@ -10,15 +10,21 @@ Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
 
 ## How it was ingested
 

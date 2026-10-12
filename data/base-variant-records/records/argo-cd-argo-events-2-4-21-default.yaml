@@ -137,16 +137,15 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 3 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          detail: "CRD ordering declaration for the 3 definition(s) this base renders."
         -
           id: "prune-protection"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 3 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          detail: "Prune protection for the 3 object(s) carrying the keep promise."
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -155,41 +154,36 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 3 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 3 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
+            - "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
         -
           id: "prune-protection"
           requirementRefs:
             - "prune-protection"
           phase: "destination-resolution"
-          proposedActor: "selected applier"
-          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 3 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Prune protection for the 3 object(s) carrying the keep promise."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
             []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
+            - "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml"
+        - "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -219,14 +213,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default:latest@sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc"
-      manifestDigest: "sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc"
-      layerDigest: "sha256:37a0205f675b60ef44e5fd438b6b68dbbc10f08d4087145caffead3d0722dda6"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default:latest@sha256:2e1234624ccfadf0646823962d9ed8a13dd525aefc6f0c3dc6711a41228f6f01"
+      manifestDigest: "sha256:2e1234624ccfadf0646823962d9ed8a13dd525aefc6f0c3dc6711a41228f6f01"
+      layerDigest: "sha256:1dcfd5e39a5dd74bfb02d6d8df723e00cf07391cbd43e68e507e37c0d293e234"
       objectSetSha256: "sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
       receipt: "data/certified-bundles/receipts/catalog/argo-events-2.4.21-default/receipt.yaml"
-      receiptSha256: "sha256:d5cc8f71cd0a0b4793d13632e075a3fe9b603a69d4aacc3846884779dfbc0924"
+      receiptSha256: "sha256:f88b6633003abdab5a5d7a5f08f8a17f3656b091b2cce4bbb41eca75a11f7162"
       publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:74ca9425ac30e0e84942105fe1202663944aca78cee6d06a04fdf24c28e2acd2"
+      publicationReceiptSha256: "sha256:ebe0713660d05f022aad4de99a352123e7c494fb3e39a885c98c771ca4c966f9"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"

@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-crds-enabled/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d"
-  layerDigest: "sha256:09a57debe6be52a883644f47fe35ecda7b35140d06be1d6251949fa430e18a2d"
-  layerBytes: 101614
-  observedAt: "2026-08-08T19:42:37.639Z"
+  manifestDigest: "sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322"
+  layerDigest: "sha256:0035713ba52ee3f5b236f3cb8d225bc70488c720ba16cb53fa7a5174fb1acf86"
+  layerBytes: 101758
+  observedAt: "2026-10-12T18:46:53.133Z"
   reproducible: true
   stagedFiles:
     - "README.md"

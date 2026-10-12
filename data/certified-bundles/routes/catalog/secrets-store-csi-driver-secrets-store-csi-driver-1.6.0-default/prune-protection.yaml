@@ -1,0 +1,34 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default-prune-protection"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Prune protection for the keep-annotated CRD hook objects. The CRD upgrade hook objects carry helm.sh/resource-policy keep."
+  declaration:
+    step: "prune-protection"
+    phase: "destination-resolution"
+    requirementRefs:
+      - "prune-protection"
+    supportedRuntimes:
+      []
+    checks:
+      []
+    recorded:
+      status: "requires-destination-resolution"
+      sourceStatus: "recorded-not-run"
+    evidence:
+      - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
+  executedBy:
+    invokedBy: "selected destination actor"
+    automatic: false
+    evidenceState: "not-run"
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it recorded-not-run."
+    - "No delivery runtime has carried out this step for this base."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
+    verdictRef: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"

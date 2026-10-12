@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/external-dns-1.21.1-default/space-guide.md"
-        sha256: "0a8833d3dfe087b7c4e14208733031e6f7dcd18a72d78bb400f210b00f2ca591"
-        bytes: 1315
+        sha256: "190ae4f59aad89ae7dea123d76b180c2ad56612c2aa4449f5503d52f2c1061e8"
+        bytes: 1707
         role: "space-guide"
     objectCount: 6
     objectInventoryRef: "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +59,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest"
-    manifestDigest: "sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
-    layerDigest: "sha256:1aae7003909e0d6c1553da739a50ccce120d3cf49d7023655e6328e08a17030c"
+    manifestDigest: "sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690"
+    layerDigest: "sha256:645cbd0b7a5f272d9305daf4699adf7992e085a17d15991c1a301bdbcf06dfa4"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +135,5 @@ spec:
       - "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml"
       - "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/external-dns/external-dns/1.21.1/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/external-dns-external-dns-1-21-1-default.yaml"
       - "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-default/publication-receipt.yaml"

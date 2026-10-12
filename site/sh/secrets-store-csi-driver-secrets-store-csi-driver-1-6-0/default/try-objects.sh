@@ -49,6 +49,19 @@ for n in 0002 0004; do mv "$work/docs/doc-$n.yaml" "$work/crds/"; done
 for n in 0005 0006 0007 0008 0009 0010 0011 0012; do mv "$work/docs/doc-$n.yaml" "$work/rest/"; done
 ls "$work/crds" "$work/rest"
 
+if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
+  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
+  cat >&2 <<'EOF_REQUIREMENTS'
+This script cannot carry out this step of the plan. It is yours to do, with your own values:
+  - Lifecycle route for the CRD upgrade hook Job. Templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs.
+Nothing was applied. Complete it before you apply the objects.
+When it is done, re-run with:
+  REQUIREMENTS_READY=1 bash try-objects.sh
+EOF_REQUIREMENTS
+  exit 1
+fi
+say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
+
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
   printf 'kubectl cannot reach a cluster. Point it at a throwaway cluster and re-run this script.\n' >&2
@@ -111,3 +124,8 @@ kubectl apply -f "$work/rest"
 
 say "Done. The 2 CRDs $crd_outcome. kubectl applied the other 8 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
+say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
+cat <<'EOF_NOT_RUN'
+   - Lifecycle route for the CRD upgrade hook Job. Templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs.
+   - Prune protection for the keep-annotated CRD hook objects. The CRD upgrade hook objects carry helm.sh/resource-policy keep.
+EOF_NOT_RUN

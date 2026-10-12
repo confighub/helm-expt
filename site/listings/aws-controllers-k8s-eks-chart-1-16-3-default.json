@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
-      "sha256": "sha256:8b3d086459e0669e4c657d54a396496e0ab8452ca96973afee2ca3d1410f2441",
+      "sha256": "sha256:1501c70ae186dffa1a54924ad210465371e1f090c49d3fbcc6a29971a1cf90b6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:c12784f33ab04444c0da26eea3d0c806cc6021456db9293ac6d3440a723cf31c"
+            "value": "sha256:3ed48ce45ed9305aa32ab4fb899ad444853a08855f99f275806f2a3c52daf4bc"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:1502e5f87b13cf6a9ff8a6323d58fc1f74e1eb1ae09ac4232f15ca5a153b1540"
+            "value": "sha256:f7109d4c29e79f44f251a9b4dc0ad7e46e7422a182ee70fec0ef5aa3ca3fb563"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:90fdb4b496aaa1d2a63f94b1f3a385bfa334581985f3ee227bb89ae0e3d57caf"
+            "value": "sha256:6a463b42e34f42b56cb9be7769dd52b547b2a269e9ae2e1148618b41fa3a3fdf"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676"
+            "value": "sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345"
           },
           {
             "field": "objectSetSha256",
@@ -249,7 +249,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+        "detail": "CRD ordering declaration for the 10 EKS CRDs."
       }
     ],
     "routes": [
@@ -259,34 +259,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 10 EKS CRDs.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
+          "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
-      },
-      {
         "name": "aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
         "path": "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict-default.yaml",
+        "path": "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
       }
     ]
   },

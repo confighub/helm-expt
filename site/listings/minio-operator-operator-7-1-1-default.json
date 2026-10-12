@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml",
-      "sha256": "sha256:1a2a334245353f0316a1f2af40044e2b803354fea5230be977a9a7406e4d11f0",
+      "sha256": "sha256:af9f5a613642dc54cc01cd50aaa300df3a05b29193ccb2e7c947f9389b3d2713",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/minio-operator-operator-7-1-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest@sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest@sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95"
+            "value": "sha256:3b58fdf9e8440e2a43e5af50c586f1926570b7560bfeee1b6da85624a2a398f1"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:21926fc20b6d0d6fd6241ba66728ee1f6a2eb1ccb8e6eee3b2916676da5fa12d"
+            "value": "sha256:4ecbb9cbcda0254326636076d104633df8cb34471acd76252a55885ae1e9a252"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:b1d32b5e390ee358a4c9f1a78c4d09c7b6854ad930b8eb827a624e77ccf3fce7"
+            "value": "sha256:c1bed9a630bd295e6d5aac3d74613b004a0b7a7564d1e76ebd9553c7e9d9e416"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
+            "value": "sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97"
           },
           {
             "field": "objectSetSha256",
@@ -242,7 +242,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+        "detail": "CRD ordering declaration for the 2 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -252,34 +252,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 2 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml"
+          "recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml"
-      },
-      {
         "name": "minio-operator-operator-7-1-1-default.yaml",
         "path": "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml"
       }
     ]
   },
