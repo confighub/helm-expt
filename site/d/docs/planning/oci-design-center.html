@@ -545,6 +545,7 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <p class="generated"><b>Generated at:</b> 2026-10-06T13:45:42.258Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
+<p>This is an earlier explanation. <a href="../user/model-and-vocabulary.html">The configuration processing model</a> is the current one, and it wins where the two differ.</p>
 <p>Every result the workshop produces is an OCI image, every stack is an index of images, every release is a flattened image, and one receipt links them. This note fixes that as the design center for the Catalog, the workshop plugin, and the site, and says what follows from it.</p>
 <h2 id="why-oci">Why OCI</h2>
 <p>ConfigHub is OCI-centric: every configuration in an organization sits behind an OCI endpoint, a Space release is one OCI manifest, and Argo CD, Flux, and kubectl all pull the same artifact. The doctrine already names OCI as the single transport. The Catalog already publishes 71 chart variants as certified bundles by digest, and the eks-inference platform composes eight of them. What was missing is the other direction: the workshop's own verbs produced text, so a verified result could be read but not handed on. The design center closes that.</p>

@@ -2,6 +2,8 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+This is an earlier explanation. [The configuration processing model](../user/model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 This is the execution plan for the second pass over the public website's
 structure. It follows the phase 1 plan (`site-information-architecture.md`,
 #1709 to #1727) and the three decisions the maintainer made on 6 September

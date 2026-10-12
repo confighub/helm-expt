@@ -1,5 +1,7 @@
 # OCI is the design center
 
+This is an earlier explanation. [The configuration processing model](../user/model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 Every result the workshop produces is an OCI image, every stack is an index of
 images, every release is a flattened image, and one receipt links them. This
 note fixes that as the design center for the Catalog, the workshop plugin, and
