@@ -87,6 +87,7 @@
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
   .eyebrow { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); }
+  .hero-head .eyebrow a { color: var(--accent-ink, var(--ink)); text-decoration: underline; text-underline-offset: 2px; }
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
@@ -337,11 +338,14 @@
         <a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>
         <a href="./journey-installs-never-starts.html">My app installs but will not start</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
+        <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
         <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <p class="rail-h"><strong>Common Questions</strong></p>
         <a href="./charts/index.html">What’s in the Config Catalog?</a>
+        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">How do I deploy a Helm chart from the Catalog?</a>
+        <a href="./try-aicr.html">How do I use NVIDIA AICR?</a>
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
@@ -356,7 +360,7 @@
       </nav>
       <header>
         <div class="hero-head">
-          <span class="eyebrow">Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more</span>
+          <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
           <p class="lead">ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
@@ -416,8 +420,8 @@
             <li><a href="./stack.html">Stacks</a>: 12 stacks, sets of configs checked together before anything runs.</li>
             <li><a href="./apps.html">Apps</a>: 25 worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
             <li><a href="./plugins.html">Plugins</a>: 12 cub plugins, each marked by its state.</li>
-            <li><a href="./guides.html">Guides</a>: 56 known paths an agent walks with you, the five journeys first.</li>
-            <li><a href="./docs.html">Docs</a>: how it works, why you can trust it, and every reference.</li>
+            <li><a href="./guides.html">Guides</a>: 58 known paths an agent walks with you, the five journeys first.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust it, and every reference.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
@@ -425,7 +429,7 @@
           <h2>What is the Workshop?</h2>
           <p class="intro">The Catalog supplies configurations and evidence. Workshop combines it with Guides and tools. <code>cub</code> is the command-line interface that you and your agent use. ConfigHub Server keeps shared configuration and manages its releases. You can run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
           <p class="intro">Other catalogs give you charts. We give your agents the rendered objects, digests and recorded checks to assess them before use.</p>
-          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported.</p>
+          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> gives the three steps.</p>
         </section>
         </div>
       </main>
@@ -435,6 +439,6 @@
       </footer>
     </div>
   </div>
-<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How it works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
 </html>

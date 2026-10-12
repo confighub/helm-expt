@@ -124,7 +124,7 @@ const checks = [
   },
   {
     file: "site/index.html",
-    terms: ["AICR recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", "Helm, AICR, OCI, YAML, Argo, Flux, Sveltos and more", "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["AICR recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",

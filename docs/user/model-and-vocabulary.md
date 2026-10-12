@@ -73,6 +73,15 @@ you load it over the base and promote the change to each variant.
 [Deploy the GPU Operator from the Catalog](./deploy-gpu-operator-from-catalog.md)
 does all three steps, and then deploys and tests the result.
 
+## Read next
+
+| Page | What it adds |
+| --- | --- |
+| [The model, in detail](./model-reference.md) | The full definition of each step. |
+| [Deploy the GPU Operator from the Catalog](./deploy-gpu-operator-from-catalog.md) | The model on one Helm chart, in five steps. |
+| [One AICR v1.0.0 recipe](../demo/aicr/eks-h100-training-kubeflow-v1-0-0.md) | The model on one NVIDIA AICR recipe. |
+| [What we refuse to claim](./what-we-refuse-to-claim.md) | The limits of what the Catalog says. |
+
 ## Words
 
 | Word | Meaning |

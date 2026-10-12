@@ -58,12 +58,24 @@ spec:
     summary: Every check passes. Should I install it? The image no longer exists, said before the install.
     page: journey-installs-never-starts.html
     command: "cub config check work/mysql.yaml"
+  - id: how-the-model-works
+    group: deep-dives
+    title: How the model works
+    summary: Flatten it, put it in an OCI bundle with a plan if it needs one, and load it into
+      ConfigHub. Three steps on one short page, the same for every format.
+    page: d/docs/user/model-and-vocabulary.html
   - id: ai-chaos-in-production
     group: deep-dives
     title: Can AI fix my fleet and prevent the next outage?
     summary: See recorded repairs, approvals and prevention on a disposable Sveltos fleet. Read the story
       without setup, inspect the evidence, or plan the full two-to-three-hour demonstration.
     page: ai-chaos-in-production.html
+  - id: deploy-gpu-operator-from-catalog
+    group: start-here
+    title: Deploy the GPU Operator from the Catalog
+    summary: One Helm chart from the Catalog in five steps. Install it, load it into ConfigHub, upgrade
+      it, and test it on a GPU node.
+    page: d/docs/user/deploy-gpu-operator-from-catalog.html
   - id: deploy-one-thing
     group: start-here
     title: Deploy one thing, and look before you do
