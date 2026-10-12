@@ -32,12 +32,32 @@ spec:
         bytes: 2048
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/target-requirements.yaml"
+        sha256: "de0e8649d0e7534ecd39057d06ceb18203033465a3367556d16a38ccb8d71570"
+        bytes: 2567
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/karpenter-1.14.0-eks-inference/space-guide.md"
-        sha256: "a572184dbdaef56fc031b34bcb257d592ab4c5a0468506e075b4d55c5b86ee67"
-        bytes: 1306
+        sha256: "4150657ce03dcf3363047e65c95258e514ef4acb8696d60fcb8e0bb2a6cd1576"
+        bytes: 2497
         role: "space-guide"
     objectCount: 18
     objectInventoryRef: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "topology-before-apply"
+            - "value-before-render"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +70,8 @@ spec:
           pinnedBy: "digest"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest"
-    manifestDigest: "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
-    layerDigest: "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+    manifestDigest: "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+    layerDigest: "sha256:3efe868f87ece4feebc02e29eadfad689bb48b2bb8ef7ab08060d390bacfa426"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +146,5 @@ spec:
       - "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
       - "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml"
       - "packages/karpenter/karpenter/1.14.0/bases/eks-inference/upstream.yaml"
+      - "data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml"
       - "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-eks-inference/publication-receipt.yaml"

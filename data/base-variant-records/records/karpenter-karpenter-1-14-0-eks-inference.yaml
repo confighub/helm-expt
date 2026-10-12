@@ -150,11 +150,6 @@ spec:
       status: "recorded"
       items:
         -
-          id: "crd-ordering"
-          origin: "base"
-          type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
-        -
           id: "target topology"
           origin: "base"
           type: "target-fact"
@@ -164,30 +159,17 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
       records:
         - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
     routeIntent:
       status: "recorded"
       routes:
-        -
-          id: "crd-ordering"
-          requirementRefs:
-            - "crd-ordering"
-          phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
-          automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
-          supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
-          checks:
-            - "every named definition reports the Established condition"
-          evidence:
-            - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         -
           id: "topology-before-apply"
           requirementRefs:
@@ -222,6 +204,24 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
             - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
       records:
         - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
@@ -266,19 +266,24 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest@sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
-      manifestDigest: "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
-      layerDigest: "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest@sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+      manifestDigest: "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+      layerDigest: "sha256:3efe868f87ece4feebc02e29eadfad689bb48b2bb8ef7ab08060d390bacfa426"
       objectSetSha256: "sha256:27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
       receipt: "data/certified-bundles/receipts/catalog/karpenter-1.14.0-eks-inference/receipt.yaml"
-      receiptSha256: "sha256:af2302128d6c246eaa7bda430ad64c469c5159890d806c8fb07ccc3ad825bba9"
+      receiptSha256: "sha256:cc4eb1be4fc41e5324bcc885af33380f7dcc4dbaf852c0df92c8354a516f33ed"
       publicationReceipt: "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-eks-inference/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:0f46cfa1f21d78d5169ad1b6a497f4657ff9aee9bcf90075e3c74c3791549aef"
+      publicationReceiptSha256: "sha256:39ca9d3cbc42ce1c5e886e75f3ac6fec609b90930438683b50860164f983f204"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
           sha256: "sha256:54bd301aa6046b7e67367a3d5f39a8a8e1fc0dddf0c993b74099ba7df8019c1f"
           role: "route: crd-ordering"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/target-requirements.yaml"
+          sha256: "sha256:de0e8649d0e7534ecd39057d06ceb18203033465a3367556d16a38ccb8d71570"
+          role: "requirement: target"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"

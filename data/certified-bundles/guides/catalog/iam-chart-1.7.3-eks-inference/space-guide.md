@@ -6,19 +6,39 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `secret-before-apply` | `requirements/target-requirements.yaml` | the record |
+| `value-before-render` | `requirements/target-requirements.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### secret-before-apply
+
+This step is due before you deliver. The record names `operator` for it and marks it `recorded-not-run`.
+
+Secret ack-system/aws-creds must exist before apply. AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials.
+
+### value-before-render
+
+This step is due once the destination is known. The record names `operator` for it and marks it `recorded-not-run`.
+
+The value aws.region must be set before render. AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart.
 
 ## How it was ingested
 

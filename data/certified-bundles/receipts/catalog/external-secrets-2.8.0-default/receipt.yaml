@@ -32,12 +32,31 @@ spec:
         bytes: 3367
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.8.0-default/target-requirements.yaml"
+        sha256: "56f3c71eda3d397ad5a7d5c9257e069bdbd3932a83bea790465636e2c89a952e"
+        bytes: 1869
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/external-secrets-2.8.0-default/space-guide.md"
-        sha256: "6f30eef2fef45d84db1816954821f857c5b702b22c5927f3c48033f316eb9595"
-        bytes: 1353
+        sha256: "6cdd2fccfbbdb7dfcd41a7ded028ec87948b398c5c14079e660381c84b981789"
+        bytes: 2129
         role: "space-guide"
     objectCount: 44
     objectInventoryRef: "recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-secrets-external-secrets-2-8-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.8.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.8.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +69,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default:latest"
-    manifestDigest: "sha256:07c59422c14c9d8eb9a7aff9bd41b747ed306a38b65ef872bb8f00ab3b6dfa81"
-    layerDigest: "sha256:c6183f9753b192f89b51631536b203c0906da6417f62ff9fdd3ccf2156647f21"
+    manifestDigest: "sha256:38da388ad596e032eef227efe225cced88dd60076524713e22a41ad43998f9d6"
+    layerDigest: "sha256:038c8450986a9cfbe6574dd76614d7a98bdf46a4db15b8fb7ce2926ff7fed9eb"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +145,5 @@ spec:
       - "recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/external-secrets/external-secrets/2.8.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-8-0-default.yaml"
       - "runs/certified-bundles/catalog-external-secrets-external-secrets-2-8-0-default/publication-receipt.yaml"

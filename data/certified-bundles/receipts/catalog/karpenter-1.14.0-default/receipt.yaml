@@ -32,12 +32,32 @@ spec:
         bytes: 2044
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/target-requirements.yaml"
+        sha256: "1fe499bd3394ca212965a1d9a3ce41fab1a2d724274568e9244c14e02904bc8a"
+        bytes: 2481
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/karpenter-1.14.0-default/space-guide.md"
-        sha256: "166cbd575c1438ac150dfd2bc76ed9785103982497c4d9128ffff8dc8b59a37b"
-        bytes: 1290
+        sha256: "0504e39f8c1e5d2a6670bd6f3c9d25243b8d89e40b9e553ba41f46af45dd1f48"
+        bytes: 2454
         role: "space-guide"
     objectCount: 18
     objectInventoryRef: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "topology-before-apply"
+            - "value-before-render"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +70,8 @@ spec:
           pinnedBy: "digest"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest"
-    manifestDigest: "sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"
-    layerDigest: "sha256:e9ccd7e84a90262271a84245917000021c251b45cf2b59405e4c4a7cc9ce9573"
+    manifestDigest: "sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d"
+    layerDigest: "sha256:01613b24b3c9755a0c0b102779784918c6e558144e0f704f23d6c9b9488aa58e"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +146,5 @@ spec:
       - "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/karpenter/karpenter/1.14.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml"
       - "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-default/publication-receipt.yaml"

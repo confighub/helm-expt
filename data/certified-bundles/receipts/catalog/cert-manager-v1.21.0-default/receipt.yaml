@@ -32,12 +32,31 @@ spec:
         bytes: 5946
         role: "route: helm-hooks"
       -
+        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/target-requirements.yaml"
+        sha256: "2cd72204bbfd3271849dc1f09a158b1af684e962a3ac2331e76b865e96a88b23"
+        bytes: 2330
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/cert-manager-v1.21.0-default/space-guide.md"
-        sha256: "00b93f354aa329a0e42e000ace030de1db969fdb338351e1d20a4d52f1c9eb2f"
-        bytes: 1941
+        sha256: "d4318b0d659db80dc3c26374c5eb183ddad9aa711c17ce6087b018ea0cdf04be"
+        bytes: 2687
         role: "space-guide"
     objectCount: 40
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "lifecycle"
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "crd-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -56,8 +75,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest"
-    manifestDigest: "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
-    layerDigest: "sha256:1290efeb7c691aac7842263899bbf34c6fc0a3e0a2748db3bfc4d09d84e60dbe"
+    manifestDigest: "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+    layerDigest: "sha256:23f3b3c45f30de3e2091a6ac295520458b5b4e9efbb2b934438fc91af8c70847"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -133,4 +152,5 @@ spec:
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/jetstack/cert-manager/v1.21.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-default.yaml"
       - "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-default/publication-receipt.yaml"

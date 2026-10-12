@@ -152,11 +152,6 @@ spec:
       status: "recorded"
       items:
         -
-          id: "crd-ordering"
-          origin: "base"
-          type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
-        -
           id: "ack-system/aws-creds"
           origin: "base"
           type: "target-fact"
@@ -166,30 +161,17 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
       records:
         - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
     routeIntent:
       status: "recorded"
       routes:
-        -
-          id: "crd-ordering"
-          requirementRefs:
-            - "crd-ordering"
-          phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
-          automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
-          supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
-          checks:
-            - "every named definition reports the Established condition"
-          evidence:
-            - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/crd-ordering.yaml"
         -
           id: "secret-before-apply"
           requirementRefs:
@@ -224,6 +206,24 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
             - "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/crd-ordering.yaml"
       records:
         - "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/crd-ordering.yaml"
         - "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-eks-inference.yaml"
@@ -271,19 +271,24 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:latest@sha256:1de5d80d723288464fe49cc31e37466b68c89d15720fddc45c2dee54c2064785"
-      manifestDigest: "sha256:1de5d80d723288464fe49cc31e37466b68c89d15720fddc45c2dee54c2064785"
-      layerDigest: "sha256:cb4ae28fb5c70df8d290812535e6430737bc3374b4b1d37f8683728c22e2e723"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:latest@sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+      manifestDigest: "sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+      layerDigest: "sha256:98615c6ee8cd64cf989f10d03031f8c62d043be3160243f1e1c59217a0d3df67"
       objectSetSha256: "sha256:7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
       receipt: "data/certified-bundles/receipts/catalog/eks-chart-1.16.3-eks-inference/receipt.yaml"
-      receiptSha256: "sha256:d40cd12262a520612a97f58e2bc81560d99f600a7aad387d259c87eaa4397067"
+      receiptSha256: "sha256:173b867e56ed767d9fd25ea67e1fea74838fcba6a8512ba2d8acf51a3b4d5a3a"
       publicationReceipt: "runs/certified-bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:0f87a234ca49ef6d1771a466a2797f20ba875a8845ed344709dbaed6f3e185c5"
+      publicationReceiptSha256: "sha256:61d834651fdc8bd0d206796a671eea6ba11d0b50f469c527820d60f66237e1d2"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/crd-ordering.yaml"
           sha256: "sha256:770d14285a1a3bc72c17343a035feadd36e2e56abf387b3eef64346028995bc4"
           role: "route: crd-ordering"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-eks-inference/target-requirements.yaml"
+          sha256: "sha256:175a5afe93b5ec86504aedca708d3e19be26c13f028602a9a14d48e30828e1cd"
+          role: "requirement: target"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"

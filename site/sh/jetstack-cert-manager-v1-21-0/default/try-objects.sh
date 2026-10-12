@@ -55,8 +55,8 @@ if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   say "Stop before applying anything. This entry's plan has 2 steps that an install needs first"
   cat >&2 <<'EOF_REQUIREMENTS'
 This script cannot carry out these steps of the plan. They are yours to do, with your own values:
-  - The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
   - 6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check.
+  - The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
 Nothing was applied. Complete them before you apply the objects.
 When they are done, re-run with:
   REQUIREMENTS_READY=1 bash try-objects.sh
@@ -89,6 +89,6 @@ say "Done. kubectl applied the 40 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
 say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
-   - The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
    - 6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check.
+   - The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
 EOF_NOT_RUN

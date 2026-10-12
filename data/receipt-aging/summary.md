@@ -10,17 +10,17 @@ whether it is recent. A delivery proof from months ago and one from this
 morning read the same on the page.
 
 Ages below are measured against the newest receipt in the repository,
-**2026-10-11**, rather than against the clock. That keeps this a
+**2026-10-12**, rather than against the clock. That keeps this a
 function of committed bytes, so it cannot go stale overnight, and it asks the
 more useful question: old compared to what else this repository knows. The
-oldest receipt is from 2026-05-26, so the evidence spans 138 days.
+oldest receipt is from 2026-05-26, so the evidence spans 139 days.
 
 ## The spread
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 290 |
-| 31 to 90 days | 455 |
+| 0 to 30 days | 297 |
+| 31 to 90 days | 448 |
 | 91 to 180 days | 1471 |
 | over 180 days | 0 |
 
@@ -32,13 +32,13 @@ receipt, and the full table is in the CSV for the rest.
 
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
-| `live-helm-confighub-compare` | 219 | 119 | 128 | none |
-| `certified-bundles` | 188 | 0 | 64 | none |
-| `installer-oci` | 180 | 46 | 46 | none |
-| `installer-oci-signatures` | 180 | 46 | 46 | none |
-| `live-kind-parity` | 179 | 118 | 127 | none |
-| `next80-local-kind` | 176 | 122 | 122 | none |
-| `catalog-literal-bundles` | 41 | 3 | 3 | none |
+| `live-helm-confighub-compare` | 219 | 119 | 129 | none |
+| `certified-bundles` | 188 | 1 | 65 | none |
+| `installer-oci` | 180 | 47 | 47 | none |
+| `installer-oci-signatures` | 180 | 47 | 47 | none |
+| `live-kind-parity` | 179 | 119 | 128 | none |
+| `next80-local-kind` | 176 | 123 | 123 | none |
+| `catalog-literal-bundles` | 41 | 4 | 4 | none |
 | `latest-top20-refresh` | 40 | 138 | 138 | none |
 | `nimservice-variants` | 37 | 4 | 4 | none |
 | `derived-variant-execution` | 10 | 129 | 129 | none |
@@ -53,6 +53,8 @@ families whose evidence has aged furthest.
 
 | Family | Receipt | Recorded | Age in days |
 | --- | --- | --- | --- |
+| `redis-confighub` | `upload-oci-receipt.yaml` | 2026-05-26 | 139 |
+| `redis-local-kind` | `observation-receipt.yaml` | 2026-05-26 | 139 |
 | `alertmanager-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
 | `alertmanager-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 138 |
 | `alertmanager-ha-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
@@ -61,8 +63,6 @@ families whose evidence has aged furthest.
 | `argo-cd-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
 | `argo-cd-default-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
 | `argo-cd-no-crds-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
-| `argo-events-confighub-proof` | `confighub-proof-receipt.yaml` | 2026-05-27 | 138 |
-| `argo-events-default-confighub-proof` | `variant-promotion-receipt.yaml` | 2026-05-27 | 138 |
 
 ## Receipts that cannot age
 
