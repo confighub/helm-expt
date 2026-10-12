@@ -579,7 +579,7 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>argo-cd/argocd-image-updater</code> 1.2.2, as 11 Kubernetes objects in its <code>default</code> preset.</p>
       <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/argo-cd-argocd-image-updater-1-2-2/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0</code></p>
+      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7</code></p>
       <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
     </section>
     <section aria-labelledby="pillars-here">
@@ -740,7 +740,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <details class="entry-inputs" data-entry-plan="argo-cd-argocd-image-updater-1-2-2-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the 1 definition(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Prune protection for the 1 object(s) carrying the keep promise. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/argo-cd-argocd-image-updater-1-2-2/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/argo-cd-argocd-image-updater-1-2-2/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>

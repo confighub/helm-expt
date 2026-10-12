@@ -579,7 +579,7 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>argo-cd/argo-rollouts</code> 2.40.9, as 14 Kubernetes objects in its <code>default</code> preset. The Catalog holds 2 presets of this version.</p>
       <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-rollouts-2-40-9/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3</code></p>
+      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc</code></p>
       <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
     </section>
     <section aria-labelledby="pillars-here">
@@ -741,7 +741,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <details class="entry-inputs" data-entry-plan="argo-cd-argo-rollouts-2-40-9-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the 5 definition(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Prune protection for the 5 object(s) carrying the keep promise. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/argo-cd-argo-rollouts-2-40-9/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/argo-cd-argo-rollouts-2-40-9/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>

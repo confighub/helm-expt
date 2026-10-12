@@ -137,10 +137,10 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects."
+          detail: "CRD ordering declaration for the 1 definition(s) this base renders."
       records:
-        - "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -149,22 +149,20 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 1 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
+            - "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -194,14 +192,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
-      manifestDigest: "sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25"
-      layerDigest: "sha256:1aae7003909e0d6c1553da739a50ccce120d3cf49d7023655e6328e08a17030c"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690"
+      manifestDigest: "sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690"
+      layerDigest: "sha256:645cbd0b7a5f272d9305daf4699adf7992e085a17d15991c1a301bdbcf06dfa4"
       objectSetSha256: "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
       receipt: "data/certified-bundles/receipts/catalog/external-dns-1.21.1-default/receipt.yaml"
-      receiptSha256: "sha256:91f818e7db82f052b067425b1ac1d3ac130bca64543eab9f1dbf5ed495597757"
+      receiptSha256: "sha256:1384b1524d16872d987b400762a2a4a518a86dc24b78ea93ea3dcf94f94345e1"
       publicationReceipt: "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:c82aaf2a4ff5b07feb5e8ab974cea7d05e6da28a801ab79d98f4a7c070c47278"
+      publicationReceiptSha256: "sha256:4b9c03336796ba8f9e8203ff136f6fa17c28617ca9ba65dc3dffa2f04fd5afcf"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"

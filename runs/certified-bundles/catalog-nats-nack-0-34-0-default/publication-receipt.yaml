@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/nack-0.34.0-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
-  layerDigest: "sha256:75c868aae86fa79dcba64674e9092a78c3e212f16471faabf5d670225e0a774e"
-  layerBytes: 7634
-  observedAt: "2026-08-08T19:42:38.659Z"
+  manifestDigest: "sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
+  layerDigest: "sha256:a5d3a710fd78b905c8e9ea3bc2bf507a594ec3337dc7468fb24d3604b135366e"
+  layerBytes: 7778
+  observedAt: "2026-10-12T18:46:45.559Z"
   reproducible: true
   stagedFiles:
     - "README.md"

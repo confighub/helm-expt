@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
-  layerDigest: "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b"
-  layerBytes: 317221
-  observedAt: "2026-08-08T19:42:41.525Z"
+  manifestDigest: "sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef"
+  layerDigest: "sha256:e04aa26980dbac8f9e6ce9f4c608aba1f6616d9782ba077792956f677c839f89"
+  layerBytes: 317377
+  observedAt: "2026-10-12T18:46:48.737Z"
   reproducible: true
   stagedFiles:
     - "README.md"

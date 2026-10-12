@@ -82084,19 +82084,18 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 3 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+                "detail": "CRD ordering declaration for the 3 definition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 3 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+                "detail": "Prune protection for the 3 object(s) carrying the keep promise."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml",
+              "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -82108,21 +82107,15 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 3 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 3 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
+                  "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
                 ]
               },
               {
@@ -82131,26 +82124,21 @@
                   "prune-protection"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 3 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 3 object(s) carrying the keep promise.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
+                "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
+                  "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argo-events-2-4-21-default.yaml",
+              "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -82185,14 +82173,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default:latest@sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc",
-            "manifestDigest": "sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc",
-            "layerDigest": "sha256:37a0205f675b60ef44e5fd438b6b68dbbc10f08d4087145caffead3d0722dda6",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default:latest@sha256:2e1234624ccfadf0646823962d9ed8a13dd525aefc6f0c3dc6711a41228f6f01",
+            "manifestDigest": "sha256:2e1234624ccfadf0646823962d9ed8a13dd525aefc6f0c3dc6711a41228f6f01",
+            "layerDigest": "sha256:1dcfd5e39a5dd74bfb02d6d8df723e00cf07391cbd43e68e507e37c0d293e234",
             "objectSetSha256": "sha256:fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b",
             "receipt": "data/certified-bundles/receipts/catalog/argo-events-2.4.21-default/receipt.yaml",
-            "receiptSha256": "sha256:d5cc8f71cd0a0b4793d13632e075a3fe9b603a69d4aacc3846884779dfbc0924",
+            "receiptSha256": "sha256:f88b6633003abdab5a5d7a5f08f8a17f3656b091b2cce4bbb41eca75a11f7162",
             "publicationReceipt": "runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:74ca9425ac30e0e84942105fe1202663944aca78cee6d06a04fdf24c28e2acd2",
+            "publicationReceiptSha256": "sha256:ebe0713660d05f022aad4de99a352123e7c494fb3e39a885c98c771ca4c966f9",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml",
@@ -82667,19 +82655,18 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 9 objects."
+                "detail": "CRD ordering declaration for the 5 definition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 5 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+                "detail": "Prune protection for the 5 object(s) carrying the keep promise."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml",
+              "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -82691,21 +82678,15 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 9 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 5 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml"
+                  "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
                 ]
               },
               {
@@ -82714,26 +82695,21 @@
                   "prune-protection"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 5 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 5 object(s) carrying the keep promise.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
+                "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml"
+                  "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml",
+              "recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -82768,14 +82744,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3",
-            "manifestDigest": "sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3",
-            "layerDigest": "sha256:7446c395f22e315d6410e78f398efebf27c75ceaf9b3c858c413701138534fa8",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest@sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc",
+            "manifestDigest": "sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc",
+            "layerDigest": "sha256:2ea14c4e33d1bf8d0d9b4456afae056ed54540617636c31d173f2aa7e06000ff",
             "objectSetSha256": "sha256:cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47",
             "receipt": "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-default/receipt.yaml",
-            "receiptSha256": "sha256:8fc01c78b9053b9b949af5af177e6c4618e098ade7f4e67364ebc51e024db68b",
+            "receiptSha256": "sha256:3f92981ba8634a6c3fa576d512c880ed68afc04b2ed2788644a197e32b3499a9",
             "publicationReceipt": "runs/certified-bundles/catalog-argo-cd-argo-rollouts-2-40-9-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:194cb10801eea71b116d134c80c4837fbfda2d9b5f44d6367e84ebfcee0bd804",
+            "publicationReceiptSha256": "sha256:4b8e9d73b6e407e6cce6058c198f3594ef19adbacddbc4aa5d36f4ce41a009ea",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/argo-cd-argo-rollouts-2.40.9-default/crd-ordering.yaml",
@@ -84839,19 +84815,18 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
+                "detail": "Prune protection for the 1 object(s) carrying the keep promise."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml",
+              "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -84863,21 +84838,15 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
+                  "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
                 ]
               },
               {
@@ -84886,26 +84855,21 @@
                   "prune-protection"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 1 object(s) carrying the keep promise.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
+                "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
+                  "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
+              "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml",
+              "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -84940,14 +84904,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0",
-            "manifestDigest": "sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0",
-            "layerDigest": "sha256:056801a61e59cb2d318251d5f477972f8337956a11faf653031e0c1617b62a08",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7",
+            "manifestDigest": "sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7",
+            "layerDigest": "sha256:b84af8bb9040cdcee1402687d6c5edf05f3f40cc6fd9fe3e85cf5291a28091e7",
             "objectSetSha256": "sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2",
             "receipt": "data/certified-bundles/receipts/catalog/argocd-image-updater-1.2.2-default/receipt.yaml",
-            "receiptSha256": "sha256:afae86d56576ee1b51b48b997e9f78beac7437ad602b8ce9aadfb413cd7951b9",
+            "receiptSha256": "sha256:da0a8afb96b9f92481b8a5bc7f96f3b6ddfbe38083dc1fbfe974aa078b5df970",
             "publicationReceipt": "runs/certified-bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:e6c9e0c3a6d545e91bf0ca58b0368be61238e61e0c0329a1a8c27f1694fcc20d",
+            "publicationReceiptSha256": "sha256:41148e02051447a5a8ec0f45cd4773569346b6c3535ba066a05c42b18c38162d",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml",
@@ -86443,12 +86407,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 22 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+                "detail": "CRD ordering declaration for the 22 EC2 CRDs."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml",
+              "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "routeIntent": {
@@ -86460,27 +86424,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 22 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 22 EC2 CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-default/crd-ordering.yaml"
+                  "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-default.yaml",
+              "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "targetFacts": {
@@ -86515,14 +86473,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default:latest@sha256:6e4a07f956e29c3469baf62f41c5295c5d8f56456ce3445a0ffe7cec14ea0462",
-            "manifestDigest": "sha256:6e4a07f956e29c3469baf62f41c5295c5d8f56456ce3445a0ffe7cec14ea0462",
-            "layerDigest": "sha256:5829e9eabb7fcd56d80cd8550c1db32cdf95cfa31214772013d83bb5d2a1cc9d",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default:latest@sha256:bce0d0b96c3ce0de4712c6631b98e02a4f7cf44bbc6d3c2acc61f1724e74800c",
+            "manifestDigest": "sha256:bce0d0b96c3ce0de4712c6631b98e02a4f7cf44bbc6d3c2acc61f1724e74800c",
+            "layerDigest": "sha256:2b839ff94f6e5b84af4ef941665a0b97774e505f9485f8ca5252c64138837a14",
             "objectSetSha256": "sha256:f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59",
             "receipt": "data/certified-bundles/receipts/catalog/ec2-chart-1.18.4-default/receipt.yaml",
-            "receiptSha256": "sha256:e1462fbc0ef83d92cf9307634d867113254c11255d62dee7e400b1761cd9b400",
+            "receiptSha256": "sha256:49cfd0874422509f0ec2897ee32c6d32c70010d3433bac9fbd9d3475eb40a51f",
             "publicationReceipt": "runs/certified-bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:996e86571f72922fdee4b926030c9fa92855135cca6bbffc782764e5a86976e5",
+            "publicationReceiptSha256": "sha256:6fc0b108bc66fcc8afaa22215edd617b909993c35e81d7071fd045afe9c42a89",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-default/crd-ordering.yaml",
@@ -87139,12 +87097,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+                "detail": "CRD ordering declaration for the 10 EKS CRDs."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
+              "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "routeIntent": {
@@ -87156,27 +87114,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 10 EKS CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml"
+                  "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-eks-chart-1-16-3-default.yaml",
+              "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "targetFacts": {
@@ -87211,14 +87163,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676",
-            "manifestDigest": "sha256:9e9918462c1f8050a3d731f95bc4a71fb4d2e35dfd8c3ef273c273d289c86676",
-            "layerDigest": "sha256:c12784f33ab04444c0da26eea3d0c806cc6021456db9293ac6d3440a723cf31c",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default:latest@sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
+            "manifestDigest": "sha256:23bff3864d38b4603ac83a4d37d8f9ff933d3c7928a175c9437ad3e87362d345",
+            "layerDigest": "sha256:3ed48ce45ed9305aa32ab4fb899ad444853a08855f99f275806f2a3c52daf4bc",
             "objectSetSha256": "sha256:3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9",
             "receipt": "data/certified-bundles/receipts/catalog/eks-chart-1.16.3-default/receipt.yaml",
-            "receiptSha256": "sha256:1502e5f87b13cf6a9ff8a6323d58fc1f74e1eb1ae09ac4232f15ca5a153b1540",
+            "receiptSha256": "sha256:f7109d4c29e79f44f251a9b4dc0ad7e46e7422a182ee70fec0ef5aa3ca3fb563",
             "publicationReceipt": "runs/certified-bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:90fdb4b496aaa1d2a63f94b1f3a385bfa334581985f3ee227bb89ae0e3d57caf",
+            "publicationReceiptSha256": "sha256:6a463b42e34f42b56cb9be7769dd52b547b2a269e9ae2e1148618b41fa3a3fdf",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/aws-controllers-k8s-eks-chart-1.16.3-default/crd-ordering.yaml",
@@ -87833,12 +87785,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+                "detail": "CRD ordering declaration for the 9 IAM CRDs."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml",
+              "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "routeIntent": {
@@ -87850,27 +87802,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 9 IAM CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
+                  "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
+              "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-default.yaml",
+              "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
             ]
           },
           "targetFacts": {
@@ -87905,14 +87851,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest@sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82",
-            "manifestDigest": "sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82",
-            "layerDigest": "sha256:fd53f6beb33b14be4223e1bf8edb197ce1e73807566b56b816760ba80f5e0a4b",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest@sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16",
+            "manifestDigest": "sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16",
+            "layerDigest": "sha256:a13d6325624aa0c3ded1a97686d85d08b5650e64e54eabc9fd5d869c279921ad",
             "objectSetSha256": "sha256:350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b",
             "receipt": "data/certified-bundles/receipts/catalog/iam-chart-1.7.3-default/receipt.yaml",
-            "receiptSha256": "sha256:f9391a5ae568d14fded04ff832cc2fe3f8bc4ec33ae1d2199ce8c49ddf4e179b",
+            "receiptSha256": "sha256:89ddb4b1dea00617b26d49ce6fe80080fc1d98f7d17f12eaf20e6ac01920b328",
             "publicationReceipt": "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:ea4bb1fb9740d569a9343cf1cbfe53eccbdcf75ae9b1da046f3ee1a670d4c092",
+            "publicationReceiptSha256": "sha256:d9ba86905a0fee70b1633c3798f632ce4f152b580efb442fffa11de2ae8c39e3",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml",
@@ -111820,12 +111766,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects."
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml"
+              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml",
+              "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -111837,27 +111783,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 5 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml"
+                  "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml"
+              "data/helm-render-intents/intents/external-dns-external-dns-1-21-1-default.yaml",
+              "recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -111892,14 +111832,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25",
-            "manifestDigest": "sha256:2c1f356182245164e26f6107054aeb96be0f5a690a778ea06a094f795f034c25",
-            "layerDigest": "sha256:1aae7003909e0d6c1553da739a50ccce120d3cf49d7023655e6328e08a17030c",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-default:latest@sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690",
+            "manifestDigest": "sha256:4c03f7a2e247c65bb9dae17c35c7b450f0e0645e2e867f125ee9f0459c189690",
+            "layerDigest": "sha256:645cbd0b7a5f272d9305daf4699adf7992e085a17d15991c1a301bdbcf06dfa4",
             "objectSetSha256": "sha256:764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74",
             "receipt": "data/certified-bundles/receipts/catalog/external-dns-1.21.1-default/receipt.yaml",
-            "receiptSha256": "sha256:91f818e7db82f052b067425b1ac1d3ac130bca64543eab9f1dbf5ed495597757",
+            "receiptSha256": "sha256:1384b1524d16872d987b400762a2a4a518a86dc24b78ea93ea3dcf94f94345e1",
             "publicationReceipt": "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:c82aaf2a4ff5b07feb5e8ab974cea7d05e6da28a801ab79d98f4a7c070c47278",
+            "publicationReceiptSha256": "sha256:4b9c03336796ba8f9e8203ff136f6fa17c28617ca9ba65dc3dffa2f04fd5afcf",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/external-dns-external-dns-1.21.1-default/crd-ordering.yaml",
@@ -122850,12 +122790,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml",
+              "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -122867,27 +122807,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml"
+                  "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-11-0-default.yaml",
+              "recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -122922,14 +122856,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest@sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440",
-            "manifestDigest": "sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440",
-            "layerDigest": "sha256:7a4293e1b691fdc5b4df8c02d50964912c58e777662d34838f8b46e50fd04869",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest@sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f",
+            "manifestDigest": "sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f",
+            "layerDigest": "sha256:0ce3e1d0f4853a2794fd9b990ffb5ace32aa8e1083bfd92d34c21bd760958eb8",
             "objectSetSha256": "sha256:d6e75fca48c764892e27664e0137148e30e34428763f411ef4eca669720e2ba6",
             "receipt": "data/certified-bundles/receipts/catalog/alloy-1.11.0-default/receipt.yaml",
-            "receiptSha256": "sha256:4fd8803040f06180183342c9efc1afba73362cae92f73de16a8f139de694e8ab",
+            "receiptSha256": "sha256:a0f8b2fed568c87b71dced2783f8428f297f86b9c922b0d5e4c629df9d37434a",
             "publicationReceipt": "runs/certified-bundles/catalog-grafana-alloy-1-11-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:c0937759bda7ac340c4c9e4579470e512790d9c7169a089394d02feb28373037",
+            "publicationReceiptSha256": "sha256:7ac3c4962f7f669715c65d7ded07c46619f22f087605c6ee55398a7975afc7fa",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/grafana-alloy-1.11.0-default/crd-ordering.yaml",
@@ -123432,12 +123366,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+                "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml",
+              "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -123449,27 +123383,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml"
+                  "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml"
+              "data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml",
+              "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -123504,14 +123432,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest@sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d",
-            "manifestDigest": "sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d",
-            "layerDigest": "sha256:bc1fe9c612dd49ddca14d2af54e03521cbcecf1d5a53b8c36c53d3ad5460ba98",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest@sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f",
+            "manifestDigest": "sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f",
+            "layerDigest": "sha256:8f1d2624d145e81d2d881b796d505c56d1b874d95b8fb12b37e67887f0b04bb4",
             "objectSetSha256": "sha256:984319325f620b099f091df4c45ef851f0dd7593526f146d5271dbf477f7f37b",
             "receipt": "data/certified-bundles/receipts/catalog/alloy-1.8.2-default/receipt.yaml",
-            "receiptSha256": "sha256:acfd761665a22f030d9d2222c0b622f8011dba804399b8fbe082126b14e89579",
+            "receiptSha256": "sha256:7f75ffe3978764c3e3dd169489e4606ab9abd6292a9416afdc27b0cb2b604a89",
             "publicationReceipt": "runs/certified-bundles/catalog-grafana-alloy-1-8-2-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:0f10a8162230c0aa8e7b8ac631cad807d760daa0ebf858985db339995b34b5c4",
+            "publicationReceiptSha256": "sha256:1f421c2ca6fc1b1347c5226e34f263cccf70ba16e58e6982e8865d11fc48effd",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml",
@@ -134486,76 +134414,64 @@
             "status": "gap",
             "items": [
               {
-                "id": "crd-ordering",
-                "origin": "base",
-                "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 40 objects."
-              },
-              {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 6 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+                "detail": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep."
+              },
+              {
+                "id": "crd-ordering",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml",
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "routeIntent": {
             "status": "gap",
             "routes": [
               {
-                "id": "crd-ordering",
-                "requirementRefs": [
-                  "crd-ordering"
-                ],
-                "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 40 objects.",
-                "automatic": false,
-                "status": "requires-destination-resolution",
-                "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
-                "evidence": [
-                  "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
-                ]
-              },
-              {
                 "id": "prune-protection",
                 "requirementRefs": [
                   "prune-protection"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 6 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the six keep-annotated CRDs. The six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
+                "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
+                  "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
+                ]
+              },
+              {
+                "id": "crd-ordering",
+                "requirementRefs": [
+                  "crd-ordering"
+                ],
+                "phase": "apply",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the six cert-manager CRDs. The six CRDs render into this base, so per-file Units can race them.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml",
-              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
+              "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
+              "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict-crds-enabled.yaml"
             ]
           },
           "targetFacts": {
@@ -134590,14 +134506,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d",
-            "manifestDigest": "sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d",
-            "layerDigest": "sha256:09a57debe6be52a883644f47fe35ecda7b35140d06be1d6251949fa430e18a2d",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
+            "manifestDigest": "sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
+            "layerDigest": "sha256:0035713ba52ee3f5b236f3cb8d225bc70488c720ba16cb53fa7a5174fb1acf86",
             "objectSetSha256": "sha256:ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967",
             "receipt": "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-crds-enabled/receipt.yaml",
-            "receiptSha256": "sha256:1de37acebe923962052821b7aeda495d8f8bc61f727faffb1e40edce58a8889a",
+            "receiptSha256": "sha256:0b89a692b769a3505f6b11699b0ad1bdb8edb351ed221e56ce9d96b188c4da86",
             "publicationReceipt": "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:40a189426ec555420eaf2ba5bac1339e21dc5deb0cabbdd9dd243dd7202ef09c",
+            "publicationReceiptSha256": "sha256:2ce0e6358d379d2b9fa057bd232941ebea5b6e8709456bd376b0f4103d35f265",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml",
@@ -148136,12 +148052,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+                "detail": "CRD ordering declaration for the 8 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+              "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml",
+              "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -148153,27 +148069,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 8 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml"
+                  "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml"
+              "data/helm-render-intents/intents/linkerd-linkerd-crds-1-8-0-default.yaml",
+              "recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -148208,14 +148118,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d",
-            "manifestDigest": "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d",
-            "layerDigest": "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest@sha256:c5a747d47f445168c11513867dbc66b48622e5d2d5764b37388f3d97864bb867",
+            "manifestDigest": "sha256:c5a747d47f445168c11513867dbc66b48622e5d2d5764b37388f3d97864bb867",
+            "layerDigest": "sha256:4df7309713cafbce60e66b8d289f181969f2a09d941bde46e7814588a8ff0694",
             "objectSetSha256": "sha256:af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b",
             "receipt": "data/certified-bundles/receipts/catalog/linkerd-crds-1.8.0-default/receipt.yaml",
-            "receiptSha256": "sha256:1ece70248ecad698d3d388db8de6b2578f7478190191886863d2f2657915e23b",
+            "receiptSha256": "sha256:66d2d3fc97bf9c38b9c168675686e09bdd49ca2439b42dc78ec35ff1119f1269",
             "publicationReceipt": "runs/certified-bundles/catalog-linkerd-linkerd-crds-1-8-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:70e4567b764b0df9aa2e9c56a5c45fcd85545430ca42b8f2a90ef3101bf1d6c2",
+            "publicationReceiptSha256": "sha256:2c9a975482a2f21e4c852f3b5aef8c51776af6183df63384bdd683bd88ff0c4b",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/linkerd-linkerd-crds-1.8.0-default/crd-ordering.yaml",
@@ -151455,12 +151365,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+                "detail": "CRD ordering declaration for the 2 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml"
+              "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml",
+              "recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -151472,27 +151382,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 2 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml"
+                  "recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml"
+              "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml",
+              "recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -151527,14 +151431,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest@sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15",
-            "manifestDigest": "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15",
-            "layerDigest": "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest@sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
+            "manifestDigest": "sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
+            "layerDigest": "sha256:3b58fdf9e8440e2a43e5af50c586f1926570b7560bfeee1b6da85624a2a398f1",
             "objectSetSha256": "sha256:3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a",
             "receipt": "data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml",
-            "receiptSha256": "sha256:21926fc20b6d0d6fd6241ba66728ee1f6a2eb1ccb8e6eee3b2916676da5fa12d",
+            "receiptSha256": "sha256:4ecbb9cbcda0254326636076d104633df8cb34471acd76252a55885ae1e9a252",
             "publicationReceipt": "runs/certified-bundles/catalog-minio-operator-operator-7-1-1-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:b1d32b5e390ee358a4c9f1a78c4d09c7b6854ad930b8eb827a624e77ccf3fce7",
+            "publicationReceiptSha256": "sha256:c1bed9a630bd295e6d5aac3d74613b004a0b7a7564d1e76ebd9553c7e9d9e416",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/minio-operator-operator-7.1.1-default/crd-ordering.yaml",
@@ -152331,12 +152235,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 4 objects."
+                "detail": "CRD ordering declaration for the 6 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml"
+              "data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml",
+              "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -152348,27 +152252,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 4 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 6 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
+                  "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml"
+              "data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml",
+              "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -152403,14 +152301,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest@sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd",
-            "manifestDigest": "sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd",
-            "layerDigest": "sha256:75c868aae86fa79dcba64674e9092a78c3e212f16471faabf5d670225e0a774e",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest@sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a",
+            "manifestDigest": "sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a",
+            "layerDigest": "sha256:a5d3a710fd78b905c8e9ea3bc2bf507a594ec3337dc7468fb24d3604b135366e",
             "objectSetSha256": "sha256:3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9",
             "receipt": "data/certified-bundles/receipts/catalog/nack-0.34.0-default/receipt.yaml",
-            "receiptSha256": "sha256:980ee66df24091c9456baef523abe476103dee344bdfc7ecf37d7d1afaddc648",
+            "receiptSha256": "sha256:cbb2767d68a460949717323264c2aa91bf9202c8f1484c7f4bc2097aecb6ff2d",
             "publicationReceipt": "runs/certified-bundles/catalog-nats-nack-0-34-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:22c9c91cd2b3721c3e5761331a83c5ba6d49851c1608c0af4f9810d5dc4d2de8",
+            "publicationReceiptSha256": "sha256:006b9dab0b1232b8e79cc03456545367946831c4aa9cb82866d427385654f5b3",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml",
@@ -225088,12 +224986,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition."
+                "detail": "CRD ordering declaration for the 10 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+              "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
+              "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -225105,27 +225003,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 10 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml"
+                  "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml"
+              "data/helm-render-intents/intents/prometheus-community-prometheus-operator-crds-29-0-0-default.yaml",
+              "recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -225160,14 +225052,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d",
-            "manifestDigest": "sha256:60f477b4a766e0b7ccfe13b1681d798dcafcce2c4bd55391b5a63d6287e08a6d",
-            "layerDigest": "sha256:b4a0d66db5a042a5d7667da311ae69c2991ec69b63052b4698e80cde7e4e0de9",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default:latest@sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
+            "manifestDigest": "sha256:fa3cfa355125f3ade0acd148e5951f463378543fe4bdf87729bffc50205ea7f9",
+            "layerDigest": "sha256:7f14742d541e36ff70cea6753e6648a446ede95f2aec0d47ac7d82c1ba13c8ce",
             "objectSetSha256": "sha256:32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4",
             "receipt": "data/certified-bundles/receipts/catalog/prometheus-operator-crds-29.0.0-default/receipt.yaml",
-            "receiptSha256": "sha256:383a0fcf90ad4b33a76c176044d3f5650ef3f8211ee318f5115d690048a6deae",
+            "receiptSha256": "sha256:63955c6e640b4da86a1ba571a4f3b12934b43b13bf7ce2ed310bc021be0aa648",
             "publicationReceipt": "runs/certified-bundles/catalog-prometheus-community-prometheus-operator-crds-29-0-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:0e360ce931182c80bc8ac98681b905448bc88e02e9d7c13660b2ef4e93641206",
+            "publicationReceiptSha256": "sha256:cee5813e2d74b5ebf818aa3309864e84ae3fe804f477297b0f58825677fd7059",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/prometheus-community-prometheus-operator-crds-29.0.0-default/crd-ordering.yaml",
@@ -226151,19 +226043,18 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects."
+                "detail": "CRD ordering declaration for the 25 definition(s) this base renders."
               },
               {
                 "id": "prune-protection",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete."
+                "detail": "Prune protection for the 20 object(s) carrying the keep promise."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml"
+              "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml",
+              "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -226175,21 +226066,15 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 108 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 25 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml"
+                  "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
                 ]
               },
               {
@@ -226198,26 +226083,21 @@
                   "prune-protection"
                 ],
                 "phase": "destination-resolution",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 20 objects. The rule when one leaves the desired state is to leave in place and report, never delete.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the 20 object(s) carrying the keep promise.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
+                "supportedRuntimes": [],
                 "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml"
+                  "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml",
-              "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml",
-              "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml"
+              "data/helm-render-intents/intents/rook-release-rook-ceph-v1-19-5-default.yaml",
+              "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -226252,14 +226132,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8",
-            "manifestDigest": "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8",
-            "layerDigest": "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest@sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
+            "manifestDigest": "sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
+            "layerDigest": "sha256:e04aa26980dbac8f9e6ce9f4c608aba1f6616d9782ba077792956f677c839f89",
             "objectSetSha256": "sha256:26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8",
             "receipt": "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml",
-            "receiptSha256": "sha256:688cdc72a71fc6740759cd687920bbb4d74699d176f35f2000ffbf8325dc6293",
+            "receiptSha256": "sha256:c2592333188bc63f103f1d8c741f1421e41c4366e91b46b4b4f8ca6c5e839c55",
             "publicationReceipt": "runs/certified-bundles/catalog-rook-release-rook-ceph-v1-19-5-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:fa47874bb8938297ff9d3f75c8b559dc735b8452407fba6a112df64448497c86",
+            "publicationReceiptSha256": "sha256:a257f40b09688a02006c6ba5956f1c9c18806fbdccfee9ab1d4cd78ecb4fde3d",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml",
@@ -227214,47 +227094,87 @@
             "status": "recorded",
             "items": [
               {
+                "id": "hooks",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Lifecycle route for the CRD upgrade hook Job. Templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs."
+              },
+              {
+                "id": "prune-protection",
+                "origin": "base",
+                "type": "lifecycle-action",
+                "detail": "Prune protection for the keep-annotated CRD hook objects. The CRD upgrade hook objects carry helm.sh/resource-policy keep."
+              },
+              {
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 8 objects."
+                "detail": "CRD ordering declaration."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
+              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
             "status": "recorded",
             "routes": [
               {
+                "id": "hooks",
+                "requirementRefs": [
+                  "hooks"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "delivery runtime",
+                "proposedMechanism": "Lifecycle route for the CRD upgrade hook Job. Templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
+                "id": "prune-protection",
+                "requirementRefs": [
+                  "prune-protection"
+                ],
+                "phase": "destination-resolution",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "Prune protection for the keep-annotated CRD hook objects. The CRD upgrade hook objects carry helm.sh/resource-policy keep.",
+                "automatic": false,
+                "status": "requires-destination-resolution",
+                "sourceStatus": "recorded-not-run",
+                "supportedRuntimes": [],
+                "checks": [],
+                "evidence": [
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
+                ]
+              },
+              {
                 "id": "crd-ordering",
                 "requirementRefs": [
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 8 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml"
+                  "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
+              "data/helm-render-intents/intents/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml",
+              "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -227289,19 +227209,29 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest@sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d",
-            "manifestDigest": "sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d",
-            "layerDigest": "sha256:8c9e666bd73a1198e25e598022b92266f5eca14016aca54672363b32f43a3410",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest@sha256:85578cc75a0ef6398d4d2c7db3c65ac0cc70182607c62a608c69fc787ec0a336",
+            "manifestDigest": "sha256:85578cc75a0ef6398d4d2c7db3c65ac0cc70182607c62a608c69fc787ec0a336",
+            "layerDigest": "sha256:3ee562af591d3e402dcde3bf8b72752fe395a056c2f318d483dda8b08277053c",
             "objectSetSha256": "sha256:2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead",
             "receipt": "data/certified-bundles/receipts/catalog/secrets-store-csi-driver-1.6.0-default/receipt.yaml",
-            "receiptSha256": "sha256:fd7459555d4b7bf6c5d0aca621280ab840faacff63686ea681e6d59de59a3577",
+            "receiptSha256": "sha256:274621f4c559562d3e7c50fbdf6bd0388653d84faeafd2b46896541a3093a00d",
             "publicationReceipt": "runs/certified-bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:6d7b5a35299a49666ef9c3425e8dcfc16eae30cf35346d497ce1e2fbff8343a9",
+            "publicationReceiptSha256": "sha256:04ad26e6874754ab442c1e27508fba1e10830164ece4d24b54afb7af2cf75ef6",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml",
                 "sha256": "sha256:8c7dda3c0fed02b685df1c65fb50ffd886451fb5cc0c56129ebb5c23ef71c448",
                 "role": "route: crd-ordering"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/hooks.yaml",
+                "sha256": "sha256:0d78b8f0bac3896ceb808c33ab5a64ec5b35e9300131a3b1784ff3f4bf373f27",
+                "role": "route: plan-step hooks"
+              },
+              {
+                "path": "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/prune-protection.yaml",
+                "sha256": "sha256:b495a6806b4bccfec6fa2dc5efa08ca0ae9b819cd0d028b89515656802d38661",
+                "role": "route: plan-step prune-protection"
               }
             ],
             "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
@@ -228859,12 +228789,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects."
+                "detail": "CRD ordering declaration for the 10 definition(s) this base renders."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+              "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
+              "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -228876,27 +228806,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 10 definition(s) this base renders.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+                  "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+              "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
+              "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -228931,14 +228855,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435",
-            "manifestDigest": "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435",
-            "layerDigest": "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc",
+            "manifestDigest": "sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc",
+            "layerDigest": "sha256:42e3796aac7a79cfcb3e80eb8d820d3a252ee650eeb8997cc46be0ed8fd5999d",
             "objectSetSha256": "sha256:f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b",
             "receipt": "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml",
-            "receiptSha256": "sha256:e647d81569161ba9733cc5f6955ef36e92bd01e3b8fbba302419a2e97e9616cd",
+            "receiptSha256": "sha256:ad786f59c5125f5623bb99bddaf38a547c38e0a6730a230ef66c5a9b2726b463",
             "publicationReceipt": "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:d02f22903884c33e6c6a74a07cdcfe1fcd2f58317893fc3692bf38c2d5952596",
+            "publicationReceiptSha256": "sha256:0aa7d598815c964af24664e49a064d3cc2543db9149fccfec02b125849c5fff2",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml",
@@ -231408,12 +231332,12 @@
                 "id": "crd-ordering",
                 "origin": "base",
                 "type": "lifecycle-action",
-                "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+                "detail": "CRD ordering declaration for the 25 gateway and traefik CRDs."
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+              "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml",
+              "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "routeIntent": {
@@ -231425,27 +231349,21 @@
                   "crd-ordering"
                 ],
                 "phase": "apply",
-                "proposedActor": "selected applier",
-                "proposedMechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
+                "proposedActor": "selected destination actor",
+                "proposedMechanism": "CRD ordering declaration for the 25 gateway and traefik CRDs.",
                 "automatic": false,
                 "status": "requires-destination-resolution",
                 "sourceStatus": "recorded-not-run",
-                "supportedRuntimes": [
-                  "Argo CD",
-                  "Flux",
-                  "cub-direct applier"
-                ],
-                "checks": [
-                  "every named definition reports the Established condition"
-                ],
+                "supportedRuntimes": [],
+                "checks": [],
                 "evidence": [
-                  "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+                  "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
                 ]
               }
             ],
             "records": [
-              "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml",
-              "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml"
+              "data/helm-render-intents/intents/traefik-traefik-41-0-2-default.yaml",
+              "recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
             ]
           },
           "targetFacts": {
@@ -231480,14 +231398,14 @@
         "delivery": {
           "literalConfigOci": {
             "status": "published-with-receipt",
-            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b",
-            "manifestDigest": "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b",
-            "layerDigest": "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb",
+            "observedReference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73",
+            "manifestDigest": "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73",
+            "layerDigest": "sha256:9d4c019328de540397d61d40c1033477ded3de04dda45a49ded58992b190b16f",
             "objectSetSha256": "sha256:460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac",
             "receipt": "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml",
-            "receiptSha256": "sha256:ef8f206d5b46362e8f8f0b3a72be6edbdc0362f251c1bf42bfff084c009e63a5",
+            "receiptSha256": "sha256:a977acecad8106f1e08cf2717672051d54cae4e1d35f4bfecc210b8bc2fedf22",
             "publicationReceipt": "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml",
-            "publicationReceiptSha256": "sha256:9c36d8726805f2858f2b002e9c52ca7b292d12306949543d12096e14a339d238",
+            "publicationReceiptSha256": "sha256:e5500b98459359bfdab49ec14e1566f4fecbc6a3a48934326d16535f39b8ba28",
             "routes": [
               {
                 "path": "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml",

@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/strimzi-kafka-operator-1.0.0-default/space-guide.md"
-        sha256: "b9812b687a9a7a2c74c3644e52b83867f1bfc5412d9b28f232247896bfe4fbe0"
-        bytes: 1344
+        sha256: "aca4dbe480f5506d75bb7f65c4c2d02ff89755bb4f917ba7d2664b839ab84919"
+        bytes: 1736
         role: "space-guide"
     objectCount: 27
     objectInventoryRef: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 4
@@ -59,8 +68,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest"
-    manifestDigest: "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
-    layerDigest: "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+    manifestDigest: "sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc"
+    layerDigest: "sha256:42e3796aac7a79cfcb3e80eb8d820d3a252ee650eeb8997cc46be0ed8fd5999d"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -135,4 +144,5 @@ spec:
       - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
       - "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default/publication-receipt.yaml"

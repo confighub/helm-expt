@@ -6,19 +6,39 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 4 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml` discharges crd-ordering
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `hooks` | `routes/hooks.yaml` | the record |
+| `prune-protection` | `routes/prune-protection.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### hooks
+
+This step is due once the destination is known. The record names `delivery runtime` for it and marks it `recorded-not-run`.
+
+Lifecycle route for the CRD upgrade hook Job. Templates/crds-upgrade-hook.yaml runs a Job that installs and upgrades the driver CRDs.
+
+### prune-protection
+
+This step is due once the destination is known. The record names `selected destination actor` for it and marks it `recorded-not-run`.
+
+Prune protection for the keep-annotated CRD hook objects. The CRD upgrade hook objects carry helm.sh/resource-policy keep.
 
 ## How it was ingested
 

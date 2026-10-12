@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/iam-chart-1.7.3-default/space-guide.md"
-        sha256: "7b0cfcd6017be8e933e35674a269dd1b40f95f6efd9204847ca97b8276dcd392"
-        bytes: 1334
+        sha256: "c921091a3f1f80f6bc7fa55df542bec35ef35a30141e6550d8fa399cefa746fb"
+        bytes: 1726
         role: "space-guide"
     objectCount: 19
     objectInventoryRef: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +59,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest"
-    manifestDigest: "sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
-    layerDigest: "sha256:fd53f6beb33b14be4223e1bf8edb197ce1e73807566b56b816760ba80f5e0a4b"
+    manifestDigest: "sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16"
+    layerDigest: "sha256:a13d6325624aa0c3ded1a97686d85d08b5650e64e54eabc9fd5d869c279921ad"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +135,5 @@ spec:
       - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml"
       - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-default.yaml"
       - "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default/publication-receipt.yaml"

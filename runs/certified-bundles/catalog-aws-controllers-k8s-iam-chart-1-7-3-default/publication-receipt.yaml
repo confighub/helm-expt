@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/iam-chart-1.7.3-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
-  layerDigest: "sha256:fd53f6beb33b14be4223e1bf8edb197ce1e73807566b56b816760ba80f5e0a4b"
-  layerBytes: 12651
-  observedAt: "2026-08-08T19:42:33.600Z"
+  manifestDigest: "sha256:a28fffecb5c3cd53fa5db3242cc07b82943d8a927ffa6c6228ed8692bfa4dd16"
+  layerDigest: "sha256:a13d6325624aa0c3ded1a97686d85d08b5650e64e54eabc9fd5d869c279921ad"
+  layerBytes: 12795
+  observedAt: "2026-10-12T18:46:36.740Z"
   reproducible: true
   stagedFiles:
     - "README.md"

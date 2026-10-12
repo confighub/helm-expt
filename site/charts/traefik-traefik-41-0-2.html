@@ -568,7 +568,7 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>traefik/traefik</code> 41.0.2, as 31 Kubernetes objects in its <code>default</code> preset.</p>
       <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/traefik-traefik-41-0-2/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b</code></p>
+      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73</code></p>
       <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
     </section>
     <section aria-labelledby="retained-page-summary">
@@ -633,7 +633,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <details class="entry-inputs" data-entry-plan="traefik-traefik-41-0-2-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 25 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the 25 gateway and traefik CRDs. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="../sh/traefik-traefik-41-0-2/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>

@@ -10,16 +10,26 @@ Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/rook-release-rook-ceph-v1-19-5-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/crd-ordering.yaml` discharges crd-ordering
-- `data/certified-bundles/routes/catalog/rook-release-rook-ceph-v1.19.5-default/prune-protection.yaml` discharges resource-policy-keep
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `prune-protection` | `routes/prune-protection.yaml` | the committed render |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### prune-protection
+
+Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it.
 
 ## How it was ingested
 

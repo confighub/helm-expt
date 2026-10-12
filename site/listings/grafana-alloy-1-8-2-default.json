@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml",
-      "sha256": "sha256:06dd7de0a843f53388ba2811ceab67e68dcfeb7d7b968501efa57d0b1cef50b6",
+      "sha256": "sha256:3fc1c15e8faac890fc9255d74a5267e0c32d4d6a4bb70fa92f63644f0a139e60",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest@sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest@sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:bc1fe9c612dd49ddca14d2af54e03521cbcecf1d5a53b8c36c53d3ad5460ba98"
+            "value": "sha256:8f1d2624d145e81d2d881b796d505c56d1b874d95b8fb12b37e67887f0b04bb4"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:acfd761665a22f030d9d2222c0b622f8011dba804399b8fbe082126b14e89579"
+            "value": "sha256:7f75ffe3978764c3e3dd169489e4606ab9abd6292a9416afdc27b0cb2b604a89"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:0f10a8162230c0aa8e7b8ac631cad807d760daa0ebf858985db339995b34b5c4"
+            "value": "sha256:1f421c2ca6fc1b1347c5226e34f263cccf70ba16e58e6982e8865d11fc48effd"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d"
+            "value": "sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f"
           },
           {
             "field": "objectSetSha256",
@@ -253,7 +253,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects."
+        "detail": "CRD ordering declaration for the 1 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -263,34 +263,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 6 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 1 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml"
+          "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml"
-      },
-      {
         "name": "grafana-alloy-1-8-2-default.yaml",
         "path": "data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-alloy-1-8-2-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

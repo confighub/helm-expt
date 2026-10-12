@@ -516,6 +516,24 @@ function buildTraefikReceipt() {
       "the chart family shows lookup and capabilities use in data/master-catalog-matrix (40.2.0 rows)",
     routeRefs: { "crd-ordering": traefikRouteRel },
   });
+  // The plan its record names, added the way the catalog bundles add theirs.
+  const verdictRel = `${recipe}/publication/flattening-safety-verdict.yaml`;
+  const lane = grab(readFileSync(repoPath(verdictRel), "utf8"), /lane:\s*"([a-z-]+)"/, `${verdictRel} lane`);
+  const plan = lane === "flatten-with-routes"
+    ? buildRecordPlan({
+        slug: "traefik-traefik-41.0.2-default",
+        chartName: "traefik/traefik",
+        chartVersion: "41.0.2",
+        base: "default",
+        lane,
+        bundleFile,
+        objectCount,
+        verdictRel,
+        routeFiles: [{ ...traefikRouteFile, role: "route: crd-ordering" }],
+        renderRoutes: new Map([["crd-ordering", traefikRoute]]),
+        planRecord: planRecordNamed({ repo: "traefik", chart: "traefik", version: "41.0.2", base: "default" }),
+      })
+    : null;
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
     kind: "CertifiedBundleReceipt",
@@ -563,7 +581,9 @@ function buildTraefikReceipt() {
         files: [
           { ...bundleFile, role: "rendered object set" },
           { ...traefikRouteFile, role: "route: crd-ordering" },
+          ...(plan ? plan.files : []),
         ],
+        ...(plan ? { plan: plan.block } : {}),
         objectCount: Number(grab(revision, /objectCount:\s*(\d+)/, "traefik objectCount")),
         objectInventoryRef: `${recipe}/revisions/default/r001/rendered/object-inventory.yaml`,
       },
@@ -2997,6 +3017,7 @@ function buildAll() {
         base: "crds-enabled",
         chartName: "jetstack/cert-manager",
         verdictFile: "flattening-safety-verdict-crds-enabled.yaml",
+        planRecord: planRecordNamed({ repo: "jetstack", chart: "cert-manager", version: "v1.21.0", base: "crds-enabled" }),
         notes:
           "This base renders the six cert-manager CRDs, so it carries both the keep promise and the ordering hazard, and ships a route for each. The startupapicheck hook is excluded from the render rather than routed, which the hooks disposition states.",
       }),

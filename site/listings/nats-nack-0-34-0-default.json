@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nats-nack-0-34-0-default.yaml",
-      "sha256": "sha256:539819d41f14f99990cc99ceda6b461e6e426191f2e8712315419d48847d5815",
+      "sha256": "sha256:81e7fd45b50bcde1bba35b858fb7688cca22924245c783b6fcb75b011c2cefb1",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nats-nack-0-34-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest@sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest@sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:75c868aae86fa79dcba64674e9092a78c3e212f16471faabf5d670225e0a774e"
+            "value": "sha256:a5d3a710fd78b905c8e9ea3bc2bf507a594ec3337dc7468fb24d3604b135366e"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:980ee66df24091c9456baef523abe476103dee344bdfc7ecf37d7d1afaddc648"
+            "value": "sha256:cbb2767d68a460949717323264c2aa91bf9202c8f1484c7f4bc2097aecb6ff2d"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:22c9c91cd2b3721c3e5761331a83c5ba6d49851c1608c0af4f9810d5dc4d2de8"
+            "value": "sha256:006b9dab0b1232b8e79cc03456545367946831c4aa9cb82866d427385654f5b3"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
+            "value": "sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
           },
           {
             "field": "objectSetSha256",
@@ -249,7 +249,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 4 objects."
+        "detail": "CRD ordering declaration for the 6 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -259,34 +259,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 6 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 4 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 6 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
+          "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
-      },
-      {
         "name": "nats-nack-0-34-0-default.yaml",
         "path": "data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nats-nack-0-34-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
       }
     ]
   },

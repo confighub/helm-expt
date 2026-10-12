@@ -6,10 +6,10 @@ spec:
   receipt: "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-default/receipt.yaml"
   reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest"
   artifactType: "application/vnd.confighub.config.bundle.v1"
-  manifestDigest: "sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
-  layerDigest: "sha256:7446c395f22e315d6410e78f398efebf27c75ceaf9b3c858c413701138534fa8"
-  layerBytes: 52226
-  observedAt: "2026-08-08T19:42:32.687Z"
+  manifestDigest: "sha256:797b57dfa0287b34b48423bd23383a6f8ae7cd8c55518c3f62210a0d8aacf2bc"
+  layerDigest: "sha256:2ea14c4e33d1bf8d0d9b4456afae056ed54540617636c31d173f2aa7e06000ff"
+  layerBytes: 52440
+  observedAt: "2026-10-12T18:46:30.388Z"
   reproducible: true
   stagedFiles:
     - "README.md"

@@ -33,11 +33,20 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/alloy-1.8.2-default/space-guide.md"
-        sha256: "65beedfa9cc0f439e6fb5fc0286dacbf91e0a7c607a3cd1a1274a1fab5ed08fb"
-        bytes: 1242
+        sha256: "935def8fb5b931d2059d9229b5407f7147141a8a24ad21b072003b317db6c1ab"
+        bytes: 1634
         role: "space-guide"
     objectCount: 7
     objectInventoryRef: "recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/grafana-alloy-1.8.2-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 2
@@ -53,8 +62,8 @@ spec:
           pinnedBy: "digest"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-8-2-default:latest"
-    manifestDigest: "sha256:5d4f35a07cb653cc96c8c7d43570e1ae796cddfb681167c453c1fda06ca78e1d"
-    layerDigest: "sha256:bc1fe9c612dd49ddca14d2af54e03521cbcecf1d5a53b8c36c53d3ad5460ba98"
+    manifestDigest: "sha256:30fbcec6857175baf329a50249369704706062976eab62790c9589661905565f"
+    layerDigest: "sha256:8f1d2624d145e81d2d881b796d505c56d1b874d95b8fb12b37e67887f0b04bb4"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -129,4 +138,5 @@ spec:
       - "recipes/grafana/alloy/1.8.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/grafana/alloy/1.8.2/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/grafana-alloy-1-8-2-default.yaml"
       - "runs/certified-bundles/catalog-grafana-alloy-1-8-2-default/publication-receipt.yaml"

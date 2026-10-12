@@ -32,12 +32,41 @@ spec:
         bytes: 2038
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/hooks.yaml"
+        sha256: "0d78b8f0bac3896ceb808c33ab5a64ec5b35e9300131a3b1784ff3f4bf373f27"
+        bytes: 1538
+        role: "route: plan-step hooks"
+      -
+        path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/prune-protection.yaml"
+        sha256: "b495a6806b4bccfec6fa2dc5efa08ca0ae9b819cd0d028b89515656802d38661"
+        bytes: 1570
+        role: "route: plan-step prune-protection"
+      -
         path: "data/certified-bundles/guides/catalog/secrets-store-csi-driver-1.6.0-default/space-guide.md"
-        sha256: "0d277e5f03a41b6813b792b91f59faf33e24dae5f5f4cd265fb1894dac9da3dd"
-        bytes: 1441
+        sha256: "5617b50c98d091b7694e8d0b1df0e44bff2d2b250ea2c95b56ac680ccb019f3e"
+        bytes: 2501
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/hooks.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "hooks"
+        -
+          path: "data/certified-bundles/routes/catalog/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default/prune-protection.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "prune-protection"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 3
@@ -56,8 +85,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest"
-    manifestDigest: "sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d"
-    layerDigest: "sha256:8c9e666bd73a1198e25e598022b92266f5eca14016aca54672363b32f43a3410"
+    manifestDigest: "sha256:85578cc75a0ef6398d4d2c7db3c65ac0cc70182607c62a608c69fc787ec0a336"
+    layerDigest: "sha256:3ee562af591d3e402dcde3bf8b72752fe395a056c2f318d483dda8b08277053c"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -132,4 +161,5 @@ spec:
       - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.yaml"
       - "runs/certified-bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default/publication-receipt.yaml"

@@ -137,16 +137,15 @@ spec:
           id: "crd-ordering"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          detail: "CRD ordering declaration for the 1 definition(s) this base renders."
         -
           id: "prune-protection"
           origin: "base"
           type: "lifecycle-action"
-          detail: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
+          detail: "Prune protection for the 1 object(s) carrying the keep promise."
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
+        - "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
     routeIntent:
       status: "gap"
       routes:
@@ -155,41 +154,36 @@ spec:
           requirementRefs:
             - "crd-ordering"
           phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 1 CustomResourceDefinition object first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "CRD ordering declaration for the 1 definition(s) this base renders."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
-            - "every named definition reports the Established condition"
+            []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
+            - "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
         -
           id: "prune-protection"
           requirementRefs:
             - "prune-protection"
           phase: "destination-resolution"
-          proposedActor: "selected applier"
-          proposedMechanism: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. This route protects 1 object. The rule when one leaves the desired state is to leave in place and report, never delete."
+          proposedActor: "selected destination actor"
+          proposedMechanism: "Prune protection for the 1 object(s) carrying the keep promise."
           automatic: false
           status: "requires-destination-resolution"
           sourceStatus: "recorded-not-run"
           supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
+            []
           checks:
             []
           evidence:
-            - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
+            - "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
       records:
-        - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"
-        - "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/prune-protection.yaml"
         - "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
+        - "recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml"
     targetFacts:
       status: "gap"
       declared:
@@ -219,14 +213,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
-      manifestDigest: "sha256:9de62e24ea9fc785a346c9c70bf9cd8b3f6b59ede104c3a2ab1984f84b4b01f0"
-      layerDigest: "sha256:056801a61e59cb2d318251d5f477972f8337956a11faf653031e0c1617b62a08"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default:latest@sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7"
+      manifestDigest: "sha256:7e7d0fc62b12ab6dd94e41b182e57f0ec67c5bfb11eaee3bb30ed63fe8a785f7"
+      layerDigest: "sha256:b84af8bb9040cdcee1402687d6c5edf05f3f40cc6fd9fe3e85cf5291a28091e7"
       objectSetSha256: "sha256:0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2"
       receipt: "data/certified-bundles/receipts/catalog/argocd-image-updater-1.2.2-default/receipt.yaml"
-      receiptSha256: "sha256:afae86d56576ee1b51b48b997e9f78beac7437ad602b8ce9aadfb413cd7951b9"
+      receiptSha256: "sha256:da0a8afb96b9f92481b8a5bc7f96f3b6ddfbe38083dc1fbfe974aa078b5df970"
       publicationReceipt: "runs/certified-bundles/catalog-argo-cd-argocd-image-updater-1-2-2-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:e6c9e0c3a6d545e91bf0ca58b0368be61238e61e0c0329a1a8c27f1694fcc20d"
+      publicationReceiptSha256: "sha256:41148e02051447a5a8ec0f45cd4773569346b6c3535ba066a05c42b18c38162d"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/argo-cd-argocd-image-updater-1.2.2-default/crd-ordering.yaml"

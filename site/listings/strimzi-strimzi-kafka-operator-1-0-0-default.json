@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
+      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
-      "sha256": "sha256:26c674fe34f1032ec268af590aa718a537769a651059204650e25bb0d9b8aa45",
+      "sha256": "sha256:3538d26833beaac5ecc4848b81e4da9cae75c946122dcb120d49dc0fecc351c8",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest@sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+            "value": "sha256:42e3796aac7a79cfcb3e80eb8d820d3a252ee650eeb8997cc46be0ed8fd5999d"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:e647d81569161ba9733cc5f6955ef36e92bd01e3b8fbba302419a2e97e9616cd"
+            "value": "sha256:ad786f59c5125f5623bb99bddaf38a547c38e0a6730a230ef66c5a9b2726b463"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:d02f22903884c33e6c6a74a07cdcfe1fcd2f58317893fc3692bf38c2d5952596"
+            "value": "sha256:0aa7d598815c964af24664e49a064d3cc2543db9149fccfec02b125849c5fff2"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+            "value": "sha256:0ede51192fbc0446137cdd047f41687503fef8aa7fc42c5746b533869e5949dc"
           },
           {
             "field": "objectSetSha256",
@@ -249,7 +249,7 @@
         "id": "crd-ordering",
         "type": "lifecycle-action",
         "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects."
+        "detail": "CRD ordering declaration for the 10 definition(s) this base renders."
       }
     ],
     "routes": [
@@ -259,34 +259,28 @@
         "status": "requires-destination-resolution",
         "sourceStatus": "recorded-not-run",
         "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 17 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
+        "actor": "selected destination actor",
+        "mechanism": "CRD ordering declaration for the 10 definition(s) this base renders.",
+        "supportedRuntimes": [],
         "requirementRefs": [
           "crd-ordering"
         ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
+        "checks": [],
         "evidence": [
-          "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+          "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
         ]
       }
     ],
     "records": [
       {
-        "name": "crd-ordering.yaml",
-        "path": "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml",
-        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
-      },
-      {
         "name": "strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
         "path": "data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml",
         "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/strimzi-strimzi-kafka-operator-1-0-0-default.yaml"
+      },
+      {
+        "name": "flattening-safety-verdict.yaml",
+        "path": "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
       }
     ]
   },
