@@ -1,5 +1,7 @@
 # Config catalog doctrine
 
+The words on this page are defined in [the configuration processing model](../user/model-and-vocabulary.md). Where a definition here differs, the model is right.
+
 The simplest architecture for this project is **OCI in, managed configuration, OCI
 out**.
 
@@ -514,7 +516,7 @@ These terms describe different decisions. Do not use them interchangeably.
 
 | Term | Meaning |
 | --- | --- |
-| Source package or source configuration | The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. Recipe is not a general name for every configuration. |
+| Source package or source configuration | The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. A recipe is the pinned inputs that produce one bundle, in every format. It is not the configuration they produce. |
 | Processing intent | The source identity and the choices needed to produce or select exact objects. It includes build or render inputs, target assumptions, and known lifecycle decisions. |
 | Materialize | Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; Timoni builds; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health. |
 | Exact configuration revision | The accepted Kubernetes objects, object inventory, and digest for one revision. This is the source-neutral equivalent of a captured output. |
@@ -811,7 +813,7 @@ The word OCI covers four related artifacts in this work.
 
 | OCI artifact | What it contains | What consumes it |
 | --- | --- | --- |
-| Source or installer package | A chart or source bundle, preset configurations, and the files needed to produce a selected result | `cub installer` or another source tool |
+| Source or installer package | For an installer package, the rendered objects of every preset, with their prerequisites. For another source package, the source and the files needed to produce a result. | `cub installer` or another source tool |
 | Literal configuration bundle | Kubernetes YAML that is ready to become ConfigHub Units | `cub variant upload oci://...` |
 | Portable deployment bundle | Reviewed Kubernetes objects in a standard OCI content layer | An anonymous pull, Argo CD, Flux, or another external consumer |
 | ConfigHub release bundle | Approved desired configuration published for delivery | Argo CD, Flux, or another ConfigHub delivery path |

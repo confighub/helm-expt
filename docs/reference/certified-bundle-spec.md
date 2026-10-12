@@ -1,5 +1,7 @@
 # The certified bundle spec
 
+The words on this page are defined in [the configuration processing model](../user/model-and-vocabulary.md). Where a definition here differs, the model is right.
+
 A certified bundle is a config bundle that travels with a receipt. The bundle carries the files a cluster will run. The receipt carries what the bytes cannot say: where they came from, what inputs produced them, what Helm behavior was discharged or lost when they were made, and whether flattening this source is safe at all.
 
 One receipt shape serves every producer. The catalog, Kubara, eks-inference, and the Sveltos example each emit different artifacts today, and the same receipt fits all four. The reference receipts under [data/certified-bundles/](../../data/certified-bundles/summary.md) prove it, including one for a bundle this repository did not build.

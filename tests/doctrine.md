@@ -1,5 +1,7 @@
 # helm-expt Doctrine — delivery transport + quirk testing
 
+The words on this page are defined in [the configuration processing model](../docs/user/model-and-vocabulary.md). Where a definition here differs, the model is right.
+
 _A layer of the [helm-expt test map](README.md)._
 
 **UNOFFICIAL/EXPERIMENTAL.** Standing principles for how we deliver and test —
