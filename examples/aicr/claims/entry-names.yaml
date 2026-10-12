@@ -79,7 +79,8 @@ spec:
         AICR's release tag. This append-only entry uses the same EKS, H100,
         Ubuntu, training, and Kubeflow criteria as the earlier versions. Its
         source verification binds the signed v1.0.0 CLI, recipe catalog, SBOM,
-        and generated Applications. It is not published as OCI.
+        and generated Applications. Its source package and literal
+        configuration are published as two public OCI artifacts.
       names:
         - v1.0.0 training entry
         - AICR v1.0.0 entry

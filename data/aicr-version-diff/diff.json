@@ -1699,7 +1699,7 @@
     "eks-h100-training-kubeflow-v1-0-0": {
       "generationReceipt": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml",
-        "sha256": "ec43cdb18962b29bfa22c9a604dac0a6498c56e13b1218c8f7f494e187efcfa4"
+        "sha256": "44a850af8be571a4610662d551e46549e974daf551dcabb300a3511b993802e2"
       },
       "recipe": {
         "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/recipe.yaml",

@@ -130,6 +130,7 @@ const DOC_AREA = {
   "docs/user/live-parity.md": "catalog",
   "docs/user/maintenance-sla.md": "catalog",
   "docs/user/model-and-vocabulary.md": "config",
+  "docs/user/model-reference.md": "config",
   "docs/user/nginx-configuration-files.md": "config",
   "docs/user/nim-coverage.md": "catalog",
   "docs/user/offering.md": "docs",

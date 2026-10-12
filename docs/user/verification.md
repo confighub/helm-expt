@@ -22,9 +22,9 @@ turn missing destination or runtime evidence into a pass.
 
 An observed difference is not a configuration verdict by itself. For example,
 `aicr diff` can show that one GPU node lacks `iommu=pt` or `nvidia_peermem`. Decide
-whether that is wrong only after selecting the provider-curated source variant for
-that node's hardware and workload. A no-Mellanox variant and an RDMA variant can
-correctly require different host settings.
+whether that is wrong only after selecting the provider's recipe for that
+node's hardware and workload. A recipe without Mellanox and a recipe with RDMA
+can correctly require different host settings.
 
 ## The Short Rule
 

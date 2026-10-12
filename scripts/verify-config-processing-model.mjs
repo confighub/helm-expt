@@ -40,6 +40,7 @@ const documents = {
   doctrine: read("docs/reference/config-catalog-doctrine.md"),
   dataModel: read("docs/user/confighub-data-model.md"),
   vocabulary: read("docs/user/model-and-vocabulary.md"),
+  modelReference: read("docs/user/model-reference.md"),
   flattening: read("docs/reference/flattening-alignment.md"),
   deployment: read("site/how-it-works.html"),
   deploymentReference: read("site/docs.html"),
@@ -84,7 +85,7 @@ function requireText(scope, text, label) {
 
 for (const [label, document] of Object.entries({
   doctrine: documents.doctrine,
-  vocabulary: documents.vocabulary,
+  modelReference: documents.modelReference,
 })) {
   for (const text of [
     "configuration lineage",
@@ -98,7 +99,7 @@ for (const [label, document] of Object.entries({
 
 for (const [label, document] of Object.entries({
   doctrine: documents.doctrine,
-  vocabulary: documents.vocabulary,
+  modelReference: documents.modelReference,
   examples: documents.examples,
   ask: documents.ask,
   promote: documents.promote,
@@ -117,23 +118,33 @@ for (const [label, document] of Object.entries({
   }
 }
 
+// The model page states the model in one line and three steps.
+for (const text of [
+  "Flatten it. Put it in an OCI bundle, with a plan if it needs one.",
+  "## Step 1. Flatten",
+  "## Step 2. Put it in an OCI bundle, with a plan if it needs one",
+  "## Step 3. Load it into ConfigHub",
+  "steps taken after flattening are called the plan",
+  "Technical notes and disclaimers",
+]) {
+  requireText(documents.vocabulary, text, "model contract");
+}
+for (const text of ["Source variant", "source variant", "Three variant layers"]) {
+  requireCondition(!documents.vocabulary.includes(text) && !documents.modelReference.includes(text), `the model pages must not say ${JSON.stringify(text)}`);
+}
+
+// The detail page keeps the full definitions.
 for (const text of [
   "A derived variant can add, remove, or change",
   "variant, destination, and delivery runtime",
-  "Three variant layers",
-  "Source variant",
-  "Retained base variant",
   "provider-curated",
   "Route intent",
   "Resolved lifecycle route",
   "A recipe is the pinned inputs that produce one base",
-  "Pack → Recipe → Bundle → Variant → Deployment",
-  "A generator turns one\nrecipe into one bundle.",
-  "A bundle is flattened when no generator has to run after it is made.",
   "Digest roles",
   "Do not describe these as \"the same digest.\"",
 ]) {
-  requireText(documents.vocabulary, text, "vocabulary contract");
+  requireText(documents.modelReference, text, "model reference contract");
 }
 
 for (const text of [
@@ -1026,7 +1037,7 @@ requireCondition(
 );
 requireCondition(
   aicrSnapshot?.answer?.includes("observed differences")
-    && aicrSnapshot.answer.includes("provider-curated source variant")
+    && aicrSnapshot.answer.includes("recipe the provider intends")
     && aicrSnapshot?.claimBoundary?.includes("do not select an intended variant"),
   "AICR snapshot/diff is presented as desired-state or conformance evidence",
 );
@@ -1034,7 +1045,7 @@ for (const [label, document] of Object.entries({
   tryAicr: documents.tryAicr,
   catalog: documents.catalog,
 })) {
-  requireText(document, "provider-curated source variant", `${label} AICR variant boundary`);
+  requireText(document, "recipe the provider intends", `${label} AICR variant boundary`);
   requireText(document, "A difference is not automatically a fault", `${label} AICR observation boundary`);
 }
 const expectedResources = assessmentCases.cases.find(

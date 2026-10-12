@@ -16,9 +16,27 @@ Applications in this repository without a ConfigHub account, an EKS cluster, or
 a GPU.
 
 Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept
-in this repository, and checked against NVIDIA's signed release. It is not
-published to a public registry, and it is not in ConfigHub. The
-[status table](#current-status) says what has run.
+in this repository, and checked against NVIDIA's signed release. Its source
+package and its literal configuration are published as two public OCI
+artifacts. It is not in ConfigHub. The [status table](#current-status) says
+what has run.
+
+The two public OCI artifacts have different jobs.
+
+| Artifact | What it contains | Digest |
+| --- | --- | --- |
+| Source package | The AICR-generated app-of-apps Helm chart. | `sha256:b187253b95bfe5a30d28128b94ed5edeb39f4e08ad8b409d25ebe3c9982eebb3` |
+| Literal configuration | The 17 exact Argo CD Application objects, one YAML layer per object. | `sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19` |
+
+Run this repository check to pull both artifacts without registry credentials
+and compare every pulled blob with the retained copy.
+
+```bash
+npm run aicr-v100:public-verify
+```
+
+The [public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml)
+records the exact references, digests, and anonymous pulls.
 
 ## This entry in the model's five words
 
@@ -31,7 +49,7 @@ Pack, Recipe, Bundle, Variant, and Deployment.
 | Data pack | None. The entry uses NVIDIA's catalog as it is. |
 | Recipe | Five criteria, `service=eks`, `accelerator=h100`, `os=ubuntu`, `intent=training`, and `platform=kubeflow`, with the build inputs listed below. |
 | Generator | `aicr recipe`, then `aicr bundle` with the `argocd-helm` deployer, then `helm template`. |
-| Bundle | 17 exact Argo CD Application objects, retained here with a plan of nine steps. No bundle is published. |
+| Bundle | 17 exact Argo CD Application objects, retained here with a plan of nine steps and published as `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0`. |
 | Variant | None yet. The entry is not in ConfigHub. |
 | Deployment | None. Nothing has been delivered or run. |
 
@@ -52,8 +70,7 @@ still name a Helm chart. Argo CD renders those charts later, on the cluster.
   gives one digest that covers the inputs, the source package, and the
   rendered Applications. If any of them changes, the digest changes.
 - The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml)
-  names NVIDIA as the provider, the catalog version, and the selected source
-  variant.
+  names NVIDIA as the provider, the catalog version, and the selected recipe.
 - The [source verification](../../../data/aicr-provenance-v1-0-0/summary.md)
   checks the release checksum, the signed binary provenance, the
   recipe-catalog signature, and the SBOM attestation.
@@ -88,7 +105,7 @@ steps, and none has been carried out.
 
 | Step | What it asks |
 | --- | --- |
-| Match the target | Compare what the destination has with what NVIDIA's source variant expects. |
+| Match the target | Compare what the destination has with what NVIDIA's recipe expects. |
 | Argo CD first | Make the Argo CD Application API and controller available. |
 | Component order | Reconcile the component Applications in AICR's dependency order. |
 | The charts inside | Handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source. The nested sources are not materialized for v1.0.0. |
@@ -96,7 +113,7 @@ steps, and none has been carried out.
 | System node selector | Replace the placeholder with the label on the destination cluster's system node group. |
 | DRA plugin eviction | Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. |
 | Node inspection | Collect and compare node facts with AICR's own tool. |
-| Configuration validation | Run the AICR checks whose prerequisites the source variant satisfies. |
+| Configuration validation | Run the AICR checks whose prerequisites the recipe satisfies. |
 
 The [route intent](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml)
 is the record behind this table. The
@@ -137,15 +154,15 @@ comparison. No health check has run on EKS in this entry.
 
 | Stage | Result | Record |
 | --- | --- | --- |
-| Select the AICR source variant | Complete. The five criteria resolve to one provider-curated variant. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml) |
+| Select the AICR recipe | Complete. The five criteria resolve to one recipe that NVIDIA curates. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml) |
 | Verify the upstream source | Complete. Checksums, binary provenance, recipe-catalog signature, and SBOM attestation pass. | [Source verification](../../../data/aicr-provenance-v1-0-0/summary.md) |
 | Generate the wrapper and exact Applications | Complete. The retained result contains 17 Applications. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml) |
-| Publish source and literal configuration OCI | Not run. Both artifacts are kept as local OCI layouts in this repository. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml) |
+| Publish source and literal configuration OCI | Complete. Both artifacts were pulled without registry credentials at their recorded digests. | [Public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml) |
 | Materialize the 16 nested sources | Not done for v1.0.0. | The plan's fourth step. |
 | Retain a ConfigHub base and create derived variants | Not run. | None. |
 | Check approval, promote, and publish a release OCI | Not run. | None. |
 | Deliver through Argo CD or Flux | Not run. | None. |
 | Run on EKS and H100 | Not run. No training request, observation, or rollback is claimed. | Tracked in issue #1581. |
 
-The next step for this entry is the one the v0.20.0 entry has already taken:
-publish the two OCI artifacts and store the base in ConfigHub.
+The next step for this entry is one the v0.20.0 entry has already taken, which
+is to store the base in ConfigHub.

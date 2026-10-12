@@ -814,7 +814,7 @@ const SPLIT_PAGES = [
   { key: "sendChartGuideHtml", file: "send-a-public-chart.html", title: "Send a missing or broken public chart", description: "Look for a public chart in the Catalog, render it yourself, and send the chart and values when it is missing or its output differs from Helm.", build: () => sendChartGuideHtml() },
   { key: "howConfigHubWorksHtml", file: "how-confighub-works.html", title: "How ConfigHub works", description: "Where ConfigHub fits after a configuration is checked, and the same commands from a free check to a governed release.", build: () => howConfigHubWorksHtml(), doc: true },
   { key: "kubaraExplainedHtml", file: "kubara-and-confighub.html", title: "Kubara and ConfigHub, explained", description: "What stays Kubara and what ConfigHub adds, the evidence behind each benefit, and the honest boundaries.", build: (catalog) => kubaraExplainedHtml(catalog), doc: true, reference: true },
-  { key: "aicrConfigurationsHtml", file: "aicr-configurations.html", title: "Where an AICR configuration comes from", description: "The provider, catalog and selected source variant behind a retained AICR configuration, and what the example proves.", build: (catalog) => aicrConfigurationsHtml(catalog), doc: true, reference: true },
+  { key: "aicrConfigurationsHtml", file: "aicr-configurations.html", title: "Where an AICR configuration comes from", description: "The provider, catalog and selected recipe behind a retained AICR configuration, and what the example proves.", build: (catalog) => aicrConfigurationsHtml(catalog), doc: true, reference: true },
   { key: "agentsMaintainCatalogHtml", file: "agents-maintain-the-catalog.html", title: "How agents help maintain the Catalog", description: "What agents do for the Catalog, and the record each task needs before it appears on the site.", build: (catalog) => agentsMaintainCatalogHtml(catalog), doc: true, reference: true },
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
@@ -2882,11 +2882,11 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
-    + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "NVIDIA AICR v1.0.0")])
+    + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How it works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
+    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
-    + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
+    + group("Guides", [a("guides.html", "Every Guide"), a("d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
     + group("Docs", [a("docs.html", "Docs"), a("config.html", "How configuration works"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
     + `</div></nav>`;
@@ -2910,11 +2910,13 @@ function injectSiteFooterNav(html, relPath) {
 function siteSections() {
   return [
   { label: "Configs", hub: "charts/index.html", pages: [
+    ["d/docs/user/model-and-vocabulary.html", "How it works"],
     ["charts/index.html", "Find a configuration"], ["did-this-chart-version-change.html", "Did a version change?"],
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Compare GPU nodes and pull an AICR config"],
+    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Try NVIDIA AICR for GPUs"],
+    ["d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe"],
   ] },
   { label: "Apps", hub: "apps.html", pages: [
     ["apps.html", "Every app"], ["put-an-app-on-a-platform.html", "Put an app on a platform"], ["testing.html", "Find a starting configuration"],
@@ -2931,7 +2933,7 @@ function siteSections() {
     ...SPLIT_PAGES.filter((page) => !page.doc).map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["d/docs/user/model-and-vocabulary.html", "The model"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
+    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
     ["quirks.html", "What charts hide"], ["how-confighub-works.html", "How ConfigHub works"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ...SPLIT_PAGES.filter((page) => page.reference).map((page) => [page.file, page.title]),
@@ -4803,8 +4805,8 @@ function tryAicrHtml() {
 # select the other node or repeat after the change
 aicr snapshot --output current.yaml
 aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
-    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
-    <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
+    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a recipe intended for RDMA may require them.</p>
+    <p>Choose the recipe the provider intends for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR recipes. Other catalog providers can publish and review additional recipes.</p>
     ${markdownLikeTable([
       ["Same observed target", "Result"],
       ["Assigned to standard networking", "Pass. The two RDMA settings do not apply."],
@@ -4819,10 +4821,10 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
     <h2 id="retained-config-path">Path B: inspect a retained configuration</h2>
     <p>This path reads a reviewed AICR-generated package. It does not inspect a live GPU node or prove that the selected platform runs.</p>
     ${markdownLikeTable([
-      ["Layer", "What it means here"],
-      ["Source variant", "The provider-curated AICR leaf selected before generation."],
-      ["Retained base variant", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
-      ["Derived ConfigHub variant", "A later environment or policy change linked to that retained base."],
+      ["Word", "What it means here"],
+      ["Recipe", "The AICR recipe that NVIDIA curates, selected before generation."],
+      ["Base", "The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub."],
+      ["Variant", "A later environment or policy change linked to that base."],
     ])}
     <h3 id="which-aicr-configuration">Which AICR configuration is which</h3>
     <p>The Catalog holds the same NVIDIA AICR recipe at several versions, and this page runs a smaller selection from one of them. Choose by what you want to do.</p>
@@ -4830,7 +4832,7 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       ["You want to", "Use", "What it is"],
       ["Run something now with no GPU, cluster or account", `<a href="#run-aicr">The CPU starter on this page</a>`, `Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.`],
       ["Inspect the whole recipe and take it into ConfigHub", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a>`, "All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version."],
-      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here."],
+      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is published as OCI. The charts inside its Applications are not rendered here."],
     ], { rawSecondColumn: true, rawThirdColumn: true })}
     <p>None of the three has run on a GPU. Each entry page says what was and was not run for it.</p>
   </section>
@@ -4867,7 +4869,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
   </section>
 
 
-  <p><a href="./aicr-configurations.html">Where an AICR configuration comes from</a> records the provider, catalog and selected source variant behind the retained configuration, and what this example proves.</p>
+  <p><a href="./aicr-configurations.html">Where an AICR configuration comes from</a> records the provider, catalog and selected recipe behind the retained configuration, and what this example proves.</p>
   <section aria-labelledby="aicr-next">
     <h2 id="aicr-next">Choose what to do next</h2>
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>
@@ -4959,25 +4961,23 @@ function configHtml(catalog) {
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
-    <p>Every configuration is described with the same five words. Here they are for one real entry, NVIDIA's GPU Operator.</p>
-    <p class="stage-flow"><strong>Pack &rarr; Recipe &rarr; Bundle &rarr; Variant &rarr; Deployment</strong></p>
+    <p>The model is one line. Here it is for one real entry, NVIDIA's GPU Operator.</p>
+    <p class="stage-flow"><strong>Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it into ConfigHub.</strong></p>
     ${markdownLikeTable([
-      ["Word", "What it is", "For the GPU Operator"],
-      ["Pack", "A data pack. Your overrides, written as data and laid over a source catalog.", "The values for the seven presets of NVIDIA's Helm chart, version 26.3.3."],
-      ["Recipe", "One pinned choice from a source and its pack.", "The chart with its default preset."],
-      ["Bundle", "The recipe turned into exact Kubernetes objects, once, and kept in OCI. It carries a plan where one is needed.", "24 objects and three plan documents."],
-      ["Variant", "A copy of the bundle for one environment, with that environment's changes.", "A dev variant and a QA variant, made in ConfigHub. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
-      ["Deployment", "One variant on one cluster, applied by a controller such as Argo CD.", "Done once, on a cluster with no GPUs."],
+      ["Step", "What happens", "For the GPU Operator"],
+      ["1. Flatten", "A source is turned into plain Kubernetes objects.", "NVIDIA's Helm chart, version 26.3.3, with its default values. Helm gives 24 objects."],
+      ["2. Bundle", "The objects go into one OCI bundle, with a plan if they need one.", "24 objects and three plan documents, in one OCI artifact."],
+      ["3. Load", "The bundle is loaded into ConfigHub. It becomes a base, and each environment gets a variant.", "A dev variant and a QA variant. An upgrade from 26.3.2 changed 7 of the 24 objects. It was promoted to dev and then to QA."],
     ])}
-    <p>A generator turns a recipe into a bundle. Here the generator is Helm, and the Catalog ran it once.</p>
-    <p>Everything up to the bundle needs no account. ConfigHub starts at the variant. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> defines each word.</p>
+    <p>Helm ran once, when the Catalog built the bundle. Nothing runs it again when you install.</p>
+    <p>The first two steps need no account. ConfigHub starts at step 3. <a href="./d/docs/user/model-and-vocabulary.html">The model page</a> has the three steps in full.</p>
     <p><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator from the Catalog</a> does this in four steps.</p>
     <p>The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">GPU Operator Guide</a> has the commands for each row and the output they printed.</p>
-    <p>You can go round again at any point. A new chart version makes a new bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
+    <p>You can go round again at any point. A new chart version makes a new OCI bundle. A variant can add a need of its own. A cluster can change how a plan is carried out.</p>
     <details class="deep">
       <summary>The earlier five stages, in the Catalog's own terms</summary>
       <div class="deep-body">
-    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Pack and recipe are the source, the bundle is the base, and a deployment covers deliver and run.</p>
+    <p>This page used to name five stages, Source, Base, Variant, Deliver and Run. Flatten covers source and base. Loading into ConfigHub covers variant.</p>
     <p>Every source reaches the same shape through the same five stages, even when a stage does nothing. Helm renders, Timoni builds, AICR and Kubara generate or compose, and literal YAML or configuration OCI is already there.</p>
     <ol>
       <li><strong>Source.</strong> The input you already use. It can be a Helm chart, Timoni module, AICR or Kubara recipe, installer package, OCI, or Kubernetes YAML.</li>
@@ -8723,19 +8723,19 @@ function aicrConfigurationsHtml(catalog) {
   return splitGuideHtml({
     eyebrow: "Docs",
     title: "Where an AICR configuration comes from",
-    lead: "The provider chooses an AICR source variant, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.",
+    lead: "The provider chooses an AICR recipe, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.",
     body: `  <section aria-labelledby="aicr-source-catalog">
     <h2 id="aicr-source-catalog">1. Where the selected configuration came from</h2>
-    <p>The provider chooses the source variant. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    <p>The provider chooses the recipe. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
     ${markdownLikeTable([
       ["Record", "Exact v0.20.0 value"],
       ["Provider", `${escapeHtml(v020SourceCatalog.spec.provider.name)} · <a href="${escapeHtml(v020SourceCatalog.spec.provider.identity)}">provider source</a>`],
       ["Provider catalog", `${escapeHtml(v020SourceCatalog.spec.catalog.name)} ${escapeHtml(v020SourceCatalog.spec.catalog.version)} · <code>${escapeHtml(v020SourceCatalog.spec.catalog.digest)}</code>`],
-      ["Selected source variant", `<code>${escapeHtml(v020Selection.name)}</code> · ${escapeHtml(v020Dimensions)}`],
+      ["Selected recipe", `<code>${escapeHtml(v020Selection.name)}</code> · ${escapeHtml(v020Dimensions)}`],
       ["Retained base", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a>`],
       ["ConfigHub handoff", `<a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a>`],
     ], { rawSecondColumn: true })}
-    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
+    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected recipe. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
   </section>
   <section aria-labelledby="aicr-boundary">
     <h2 id="aicr-boundary">2. What the retained-configuration example proves</h2>
@@ -8744,7 +8744,7 @@ function aicrConfigurationsHtml(catalog) {
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
     <p><a href="./d/data/aicr-platform-variant/summary.html">Compare the accepted and refused requests</a>.</p>
     <p><a href="./d/data/aicr-cpu-starter-public-proof/summary.html">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="./d/data/vllm-cpu-starter-proof/summary.html">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the most fully recorded source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
+    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the most fully recorded recipe, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="./d/data/aicr-v0-20-0-route-resolution/summary.html">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
   </section>
 `,
   });
@@ -9550,9 +9550,9 @@ function variantsTables(catalog) {
     ["Promotion", "A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied."],
   ];
   const layerRows = [
-    ["Source variant", "A provider-curated choice before materialization. Its provider records which target and use case it is for.", "A Catalog Helm preset with recorded values, or an AICR leaf selected by service, accelerator, and platform."],
-    ["Retained base variant", "The exact objects produced from one source variant, with their digest, source link, and evidence.", "One rendered Helm preset, or the Argo CD Applications produced from one AICR leaf."],
-    ["Derived ConfigHub variant", "A recorded change to a retained base for an environment, region, customer, or policy.", "Development, staging, and production revisions linked to the same base."],
+    ["Recipe", "A pinned choice before flattening. Its provider records which target and use case it is for.", "A Catalog Helm preset with recorded values, or an AICR recipe selected by service, accelerator, and platform."],
+    ["Base", "The exact objects produced from one recipe, with their digest, source link, and evidence.", "One rendered Helm preset, or the Argo CD Applications produced from one AICR recipe."],
+    ["Variant", "A recorded change to a base for an environment, region, customer, or policy.", "Development, staging, and production revisions linked to the same base."],
   ];
   const baseReferentRows = [
     ["<code>--base</code> flag", "Picks a preset when you render or upload a package.", "<code>cub installer setup --base reuse-existing-secret</code>"],
@@ -9667,10 +9667,10 @@ Variants:
       ], { rawSecondColumn: true })}
       <p>The team can then answer four questions. Which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
 
-      <h3 id="layers">Three variant layers</h3>
-      <p>The word variant can describe a choice at three different stages. Keep the layers separate.</p>
+      <h3 id="layers">Recipe, base and variant</h3>
+      <p>Three words name three different stages. A recipe is chosen before flattening. A base is what flattening one recipe gives. A variant is a copy of a base with changes.</p>
       ${markdownLikeTable([
-        ["Layer", "What it is", "Example"],
+        ["Word", "What it is", "Example"],
         ...layerRows,
       ])}
 
@@ -9853,7 +9853,7 @@ function ociHtml(catalog) {
     <p>The word OCI covers several related but different artifacts here, and five source documents name the roles differently. This catalog's own doctrine names four: a source or installer package, a literal configuration bundle, a portable deployment bundle, and a ConfigHub release bundle. The table below calls the last three an upload layout, rendered objects and a release. <a href="./d/docs/reference/config-catalog-doctrine.html#the-oci-packages-are-not-all-the-same">Read that four-row table</a>.</p>
     <p>An upload layout and rendered objects can carry the same Kubernetes objects in different OCI layer layouts. The consumer decides which layout it needs, so check the package you produce against the consumer that will use it.</p>
     <p>The installer-package guide names three roles instead: an installer package OCI, a rendered OCI, and a ConfigHub release OCI. <a href="./d/docs/user/installer-oci-packages.html#three-oci-roles">Read that table</a>. An installer package can offer several presets, and a rendered OCI holds one chosen result. A ConfigHub release OCI holds the later revision after review, approval, or promotion.</p>
-    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-and-vocabulary.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
+    <p>The processing-model guide calls OCI the transport, not the processor and not the deployment proof. It names three roles again: a source package OCI, a literal configuration OCI, and a ConfigHub release OCI. <a href="./d/docs/user/model-reference.html#where-oci-fits">Read that table</a>. These artifacts can hold related objects but carry different manifests and digests, so a receipt names both identities rather than treating unlike digests as one.</p>
     <p>The deployment guide narrows to the two artifacts a user meets directly: an installer-package OCI and a ConfigHub Space release OCI. <a href="./d/docs/user/cub-deployment-path.html#the-two-oci-artifacts-are-different">Read that table</a>. An installer package can offer several preset configurations, and a Space release holds one selected and reviewed configuration. An installer-package URL is never a Space-release URL.</p>
     <p>A separate roadmap note adds a fifth table. It names a fourth role most others skip: a runtime image OCI, the application, model server, agent runtime, or sandbox image Kubernetes actually runs. <a href="./d/docs/planning/roadmap.html#oci-is-the-common-handoff">Read that table</a>. That image has a different job from every configuration shape below it. The site must not use the word OCI as if every artifact had the same job.</p>
     <h3 id="shapes-table">Nine shapes, side by side</h3>
@@ -9881,7 +9881,7 @@ function ociHtml(catalog) {
     <p>One receipt links the three forms. The identity of a certified bundle is always its OCI manifest digest, and the object-set hash lives inside the receipt. It never substitutes for the manifest digest.</p>
     <p>The stack manifest itself is a source file, and its published form is the index in row seven above. <code>cub stack publish</code> produces that index, and <code>cub stack sandbox --out oci://…</code> produces the flattened release in row eight. <a href="./d/docs/planning/stack-manifest-spec.html#the-published-form-an-index-of-images">Read the full section</a>. The Catalog holds indexes, not manifests, and a receipt links the index to its release.</p>
     <h3 id="digests">Every digest, and what it pins</h3>
-    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-and-vocabulary.html#digest-roles">Read the source table</a>.</p>
+    <p>Five records can identify one configuration journey, and their hashes never identify the same bytes. <a href="./d/docs/user/model-reference.html#digest-roles">Read the source table</a>.</p>
     ${markdownLikeTable([
       ["Identity", "What it pins", "Example"],
       ...digestRows,
@@ -12195,7 +12195,7 @@ ${nonHelmCatalogRowsHtml}
       <h2 id="search">Search the catalog</h2>
       <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} entry is one row with ${nimServiceVariantCount} model variants, and ${nimServicePublishedClause()}.` : ""} Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
       ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
-      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
+      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
 
@@ -16113,11 +16113,18 @@ function entryStepsListingHtml(listing, siteHref) {
 // What the listing records as fixed when the entry was built, beside what the
 // destination must supply. Both lists were only in the listing JSON, so a
 // reader could not tell a value they must change from one they cannot.
+// A record keeps its stored words. The page says "recipe" where a record says
+// "source variant", which is the word readers are given everywhere else.
+function recordTextInReaderWords(text) {
+  return String(text ?? "").replace(/\bsource variant\b/g, "recipe");
+}
+
 // A listing's description of an input can run to seventy words when it names
 // every field path. The page keeps each sentence within the block's limit: a
 // long sentence stops before its list of paths, and one closing sentence says
 // the listing gives the rest. A full commit is shortened as elsewhere.
 function shortInputDetail(detail) {
+  detail = recordTextInReaderWords(detail);
   const words = (text) => text.trim().split(/\s+/).filter(Boolean).length;
   let cut = false;
   const sentences = String(detail)
@@ -16236,7 +16243,7 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       })[eligibility.reason] ?? steps;
   const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
   const bundle = published
-    ? `<p><strong>Bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
+    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
     : "";
   // What an install needs first. With a test script these are the steps the
   // script stops for. Without one they are the first steps of the plan.
@@ -16308,7 +16315,7 @@ function entryPlanHtml(listing, siteHref) {
     // The record's "selected applier" means whichever tool applies the objects.
     const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
     const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
-    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(planStepBrief(step))}${actor} <em>${escapeHtml(state)}</em></li>`;
+    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(planStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`

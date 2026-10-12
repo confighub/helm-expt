@@ -219,11 +219,11 @@ the fit question itself, recorded as a named step.
 
 **Read the record**, in the evidence checkout:
 [the v0.20.0 route intent](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/route-intent.yaml)
-names `source-variant-target-match` as a step: "compare observed destination
-facts with the intended NVIDIA source variant," owned by "platform operator
-or admission policy," with status `recorded-not-run`, requiring "target
-snapshot, selected source-catalog digest, and an explained match or
-exception." The selected source variant itself is recorded in
+names a step with the id `source-variant-target-match`. It asks the platform
+operator, or an admission policy, to compare what the destination has with
+what NVIDIA's recipe expects. Its status is `recorded-not-run`. It requires a
+"target snapshot, selected source-catalog digest, and an explained match or
+exception." The selected recipe itself is recorded in
 [the source-catalog record](../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml):
 `h100-eks-ubuntu-training-kubeflow`, structural status `pass`, with the
 overlays applied to reach it listed in order.

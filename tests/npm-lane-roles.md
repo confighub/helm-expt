@@ -9,9 +9,9 @@ subjects, and `preview-readiness` was wrong in three fields of four. Nothing
 failed, because nothing ran them.
 
 ```text
-lanes outside the chain: 54
+lanes outside the chain: 55
 should join the chain:   3
-deliberately outside:    51
+deliberately outside:    52
 superseded:              0
 ```
 
@@ -65,6 +65,7 @@ superseded:              0
 | `verify:shard` | One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun. | offline | green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own |
 | `verify:shard:offline` | A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader. | offline | green: six of these run in parallel on every pull request |
 | `verify:shard:cli` | The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once. | network | green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing |
+| `aicr-v100:verify` | The retained AICR v1.0.0 source chart, 17 exact Argo CD Applications, two local OCI layouts, and signed-input provenance receipt still agree, and the two public targets named by the generation receipt sit in the retained registry. Once a public receipt exists, it also holds that receipt to the same references and digests. It proves nothing about ConfigHub, which has no v1.0.0 records. | offline | passes; the artifact and provenance verifiers it runs are both in the full verify chain for v1.0.0, while this focused lane is the check to run before and after a publish |
 | `c3agent-config:verify` | The three compact c3agent environment inputs deterministically reproduce their exact Kubernetes objects, source-and-intent records, lifecycle record, environment diff, and portable local OCI; pulling the OCI back yields the recorded development object-set hash and two non-deployable companion records. | offline | passes; requires the local oras CLI and is run with the focused c3agent example gate |
 | `c3agent-config:self-test` | The c3agent generator refuses an unpinned image, an inline credential value, or activation of the public disabled fixture. | offline | passes; paired with c3agent-config:verify |
 | `c3agent-config:proof:verify` | The committed live receipt records a matching source OCI digest, ConfigHub base, development-to-staging-to-production promotion, release OCI, Argo CD sync at that digest, and Kubernetes object reconciliation while both Deployments and the agent task remain not-run. | offline | passes against the isolated live run recorded on 2026-08-20; repeating the run itself needs ConfigHub, Docker, kind, kubectl and oras |
