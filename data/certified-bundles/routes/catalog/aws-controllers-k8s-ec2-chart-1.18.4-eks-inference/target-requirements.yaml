@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4-eks-inference-target-requirements"
+spec:
+  subject:
+    catalogEntry: "aws-controllers-k8s-ec2-chart-1-18-4-eks-inference"
+    chart: "aws-controllers-k8s/ec2-chart"
+    version: "1.18.4"
+    base: "eks-inference"
+  requirements:
+    -
+      step: "secret-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "Secret ack-system/aws-creds must exist before apply. AWS shared-credentials file mounted read-only at /var/run/secrets/aws."
+      names:
+        -
+          id: "ack-system/aws-creds"
+          detail: "AWS shared-credentials file mounted read-only at /var/run/secrets/aws"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+        - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/eks-inference/variant.yaml"
+    -
+      step: "value-before-render"
+      phase: "destination-resolution"
+      invokedBy: "operator"
+      statement: "The value aws.region must be set before render. AWS region for the controller; rendered as the ConfigHub sentinel so an unbound environment fails vet-placeholders instead of reaching a cluster."
+      names:
+        -
+          id: "aws.region"
+          detail: "AWS region for the controller; rendered as the ConfigHub sentinel so an unbound environment fails vet-placeholders instead of reaching a cluster"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+        - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/variants/eks-inference/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+    verdictRef: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml"

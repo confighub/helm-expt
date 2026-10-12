@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
+      "sha256": "sha256:0bd5b22d2f7c6b58a949dd45b61bdcedb6c0166fa6a6a00b9a6151244dbe3f37",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml",
-      "sha256": "sha256:6a8fef38c1a456b6871a9fb7e55d07ae2fd786df27b7cc6f2e75ca4b549c67d5",
+      "sha256": "sha256:94d5eb645ccd42abe223f31bcb70147cdf8aa183a87c6aa08716648299711116",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest@sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest@sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+            "value": "sha256:3efe868f87ece4feebc02e29eadfad689bb48b2bb8ef7ab08060d390bacfa426"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:af2302128d6c246eaa7bda430ad64c469c5159890d806c8fb07ccc3ad825bba9"
+            "value": "sha256:cc4eb1be4fc41e5324bcc885af33380f7dcc4dbaf852c0df92c8354a516f33ed"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:0f46cfa1f21d78d5169ad1b6a497f4657ff9aee9bcf90075e3c74c3791549aef"
+            "value": "sha256:39ca9d3cbc42ce1c5e886e75f3ac6fec609b90930438683b50860164f983f204"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
+            "value": "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
           },
           {
             "field": "objectSetSha256",
@@ -253,12 +253,6 @@
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
       {
-        "id": "crd-ordering",
-        "type": "lifecycle-action",
-        "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
-      },
-      {
         "id": "target topology",
         "type": "target-fact",
         "origin": "base",
@@ -269,32 +263,15 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
       }
     ],
     "routes": [
-      {
-        "id": "crd-ordering",
-        "phase": "apply",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
-        "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
-        "requirementRefs": [
-          "crd-ordering"
-        ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
-        "evidence": [
-          "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
-        ]
-      },
       {
         "id": "topology-before-apply",
         "phase": "pre-apply",
@@ -329,6 +306,29 @@
         "evidence": [
           "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml",
           "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+        ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
         ]
       }
     ],

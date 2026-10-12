@@ -153,7 +153,7 @@ test("a bundle built under the plan rule gives its record only the route files w
 });
 
 test("a bundle published before the plan rule has no plan for its record to follow", () => {
-  assert.equal(findCatalogBundlePlan(record("argo-cd-argo-cd-9-5-15-default"), candidates), null);
+  assert.equal(findCatalogBundlePlan(record("argo-cd-argo-events-2-4-21-default"), candidates), null);
   assert.equal(findCatalogBundlePlan(record("traefik-traefik-41-0-2-default"), candidates), null);
 });
 

@@ -32,12 +32,32 @@ spec:
         bytes: 3019
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/target-requirements.yaml"
+        sha256: "04dae0b98feda42f9adf94e47232e2d88aeb748fd0f8bb644169279c08643c74"
+        bytes: 2602
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/ec2-chart-1.18.4-eks-inference/space-guide.md"
-        sha256: "d3d27f0ff29b9904f3b6d49d6bde4d461aad895a06d797d44fee8540327d2a47"
-        bytes: 1356
+        sha256: "373e65b6f91a92ab609773dc88cd4c9d65903b31b2578f5fa0fe214c00d7c968"
+        bytes: 2503
         role: "space-guide"
     objectCount: 32
     objectInventoryRef: "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-ec2-chart-1.18.4-eks-inference/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
+            - "value-before-render"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +70,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference:latest"
-    manifestDigest: "sha256:a354c74e6d8f3c12b4dc5db0906250e0a196ce55a11655b5777973b4183affaa"
-    layerDigest: "sha256:712f922c53029aff0d871d6f7ff0b5829b5f797bfe17abca13fe3677456d3ef2"
+    manifestDigest: "sha256:4ff04c0b90b549d3725343c774210f4c036a7c0ea8553ae467cdc9e1aa7845f0"
+    layerDigest: "sha256:084312eab615c589e671d65d079617324c3c802e5414be024349ffbf791ad9b0"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -126,4 +146,5 @@ spec:
       - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/eks-inference/r001/variant-revision.yaml"
       - "recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/eks-inference/r001/rendered/release-objects.yaml"
       - "packages/aws-controllers-k8s/ec2-chart/1.18.4/bases/eks-inference/upstream.yaml"
+      - "data/base-variant-records/records/aws-controllers-k8s-ec2-chart-1-18-4-eks-inference.yaml"
       - "runs/certified-bundles/catalog-aws-controllers-k8s-ec2-chart-1-18-4-eks-inference/publication-receipt.yaml"

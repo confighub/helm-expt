@@ -350,16 +350,21 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-default:latest@sha256:3a6238aca9652b69c845268d55bebea8a6148875045805597b3741f94c564b07"
-      manifestDigest: "sha256:3a6238aca9652b69c845268d55bebea8a6148875045805597b3741f94c564b07"
-      layerDigest: "sha256:0f2847b9c3233bfd9f63f2aac8f03b145c2d42e1e9acea26a41c2c227908e80c"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-default:latest@sha256:a717de457af1cb2764f5a5a8e2e415d937bf0a1bf8d7543121f1768347849978"
+      manifestDigest: "sha256:a717de457af1cb2764f5a5a8e2e415d937bf0a1bf8d7543121f1768347849978"
+      layerDigest: "sha256:2f055a6fd99e70bd344059cb45372912bb4ed4f7457076c7cb136d167e9961c6"
       objectSetSha256: "sha256:45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
       receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.20.2-default/receipt.yaml"
-      receiptSha256: "sha256:3239df6ab46b3d1a1b636fe33586010be32711fba74157ce630b40da3a9dcd30"
+      receiptSha256: "sha256:1c8506bb9e40968539337ad8337d94135bc8f34a920a24b7b759c3e439b4ea78"
       publicationReceipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-20-2-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:31a93e86fd495c919ec3d7b47d41acbe5d5cb6f731bfaba2d375c050dac4f2f7"
+      publicationReceiptSha256: "sha256:997357d0af69cac7163c534b67309b24c2d981d0d19fd583e799c8e3a900b92c"
       routes:
         []
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.20.2-default/target-requirements.yaml"
+          sha256: "sha256:0bc31f455e3e33691a1cdd3b1145136f68c0aa9d41fb8ca63fa2004356a86c46"
+          role: "requirement: target"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
