@@ -439,6 +439,11 @@
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
 
+    .at-a-glance { border: 1px solid var(--line); border-left: 4px solid var(--accent, #c2410c); border-radius: 8px; padding: 8px 16px; margin: 0 0 22px; background: var(--panel); }
+    .at-a-glance p { margin: 6px 0; }
+    .at-a-glance code { overflow-wrap: anywhere; }
+    .technical-notes { margin-top: 36px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .technical-notes h2 { font-size: 1rem; color: var(--muted); margin-top: 8px; }
     .entry-steps .entry-step { border-top: 1px solid var(--line); padding: 14px 0 2px; }
     .entry-steps .entry-step h3 { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin: 0 0 6px; }
     .entry-steps .status.open { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
@@ -637,14 +642,14 @@
 <body class="calm-page">
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
-<div class="cw-layout no-toc">
+<div class="cw-layout">
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
     <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
 <details><summary>Stacks</summary><ul><li><a href="./stack.html">Every stack</a></li><li><a href="./compose-a-stack.html">Compose and check a stack</a></li><li><a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a></li></ul></details>
 <details><summary>Apps</summary><ul><li><a href="./apps.html">Every app</a></li><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="./testing.html">Find a starting configuration</a></li></ul></details>
 <details><summary>Plugins</summary><ul><li><a href="./plugins.html">Every cub plugin</a></li><li><a href="./bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
 <details><summary>Guides</summary><ul><li><a href="./guides.html">Every Guide</a></li><li><a href="./journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="./journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="./journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./ai.html">Use with your AI</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./how-it-works.html">Release, promote and roll back</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="./see-what-is-running.html">See what is running with cub scout</a></li><li><a href="./view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="./bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="./check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="./take-a-config-further.html">Take a config further</a></li><li><a href="./change-a-config-safely.html">Change a config safely</a></li><li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="./operate-a-fleet.html">Operate a fleet</a></li><li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="./choose-a-tool.html">Choose a tool and start</a></li><li><a href="./deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
-<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./catalog-docs.html">Catalog docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="./aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="./public-questions.html">What happens to a public question</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></nav>
+<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./catalog-docs.html">Catalog docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./d/docs/user/model-and-vocabulary.html">The model</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="./aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="./public-questions.html">What happens to a public question</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
 <details class="cw-mobile-nav"><summary>Browse the site</summary><p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
     <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><details><summary>Configs</summary><ul><li><a href="./charts/index.html">Find a configuration</a></li><li><a href="./did-this-chart-version-change.html">Did a version change?</a></li><li><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></li><li><a href="./why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li></ul></details>
@@ -652,7 +657,7 @@
 <details><summary>Apps</summary><ul><li><a href="./apps.html">Every app</a></li><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="./testing.html">Find a starting configuration</a></li></ul></details>
 <details><summary>Plugins</summary><ul><li><a href="./plugins.html">Every cub plugin</a></li><li><a href="./bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
 <details><summary>Guides</summary><ul><li><a href="./guides.html">Every Guide</a></li><li><a href="./journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="./journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="./journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./ai.html">Use with your AI</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./how-it-works.html">Release, promote and roll back</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="./see-what-is-running.html">See what is running with cub scout</a></li><li><a href="./view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="./bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="./check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="./take-a-config-further.html">Take a config further</a></li><li><a href="./change-a-config-safely.html">Change a config safely</a></li><li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="./operate-a-fleet.html">Operate a fleet</a></li><li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="./choose-a-tool.html">Choose a tool and start</a></li><li><a href="./deploy-one-thing.html">Deploy one thing, and look before you do</a></li></ul></details>
-<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./catalog-docs.html">Catalog docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="./aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="./public-questions.html">What happens to a public question</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
+<details><summary>Docs</summary><ul><li><a href="./docs.html">Docs</a></li><li><a href="./catalog-docs.html">Catalog docs</a></li><li><a href="./config.html">How configuration works</a></li><li><a href="./d/docs/user/model-and-vocabulary.html">The model</a></li><li><a href="./variants.html">Variants</a></li><li><a href="./oci.html">OCI shapes</a></li><li><a href="./quirks.html">What charts hide</a></li><li><a href="./how-confighub-works.html">How ConfigHub works</a></li><li><a href="./confighub.html">ConfigHub Server</a></li><li><a href="./proof.html">Why trust it</a></li><li><a href="./known-gaps.html">Known gaps</a></li><li><a href="./matrix.html">Evidence index</a></li><li><a href="./kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="./aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="./public-questions.html">What happens to a public question</a></li><li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="./offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
     
     <h1>Choose a NIMService model variant</h1>
@@ -699,7 +704,7 @@
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -770,7 +775,7 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -841,7 +846,7 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-basic-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -912,7 +917,7 @@ d078fa423dbb9be6197e33568c0e222e8aa46039e18ee2f470901ba01b00a2fa  nimservice-aut
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -983,7 +988,7 @@ ce7c2a54d6cf71c90ca9947697ad3565289b6811660b33ca0722a8dd1ba31e7c  nimservice-bas
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-basic-model-free-llama-3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1054,7 +1059,7 @@ ce7c2a54d6cf71c90ca9947697ad3565289b6811660b33ca0722a8dd1ba31e7c  nimservice-bas
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1126,7 +1131,7 @@ b47f6df0183fb5ceefea7f9751adbe4952f3fc64287a1627050c023825a9f462  nimservice-con
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-epp-meta-llama3-8b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1179,7 +1184,7 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-example0-meta-llama3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1250,7 +1255,7 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-example1-meta-llama3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1321,7 +1326,7 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-example2-meta-llama3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1392,7 +1397,7 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-full-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1463,7 +1468,7 @@ eb3952f4209f4b63a9cce3e232b28c01016c55fe28e3128ae0cbda3559382668  nimservice-epp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1534,7 +1539,7 @@ cf2fcef92859da8db83cd4f529d7a44c8b13afcb43af9ad221e11d23a929ab21  nimservice-ful
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-grpcroutes-riva-tts/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1605,7 +1610,7 @@ daa8e038c7e4a6cb6c540094e607da9066fd23356a72c2e1d9d3a57302d281a9  nimservice-grp
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1676,7 +1681,7 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1748,7 +1753,7 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-ingress-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1819,7 +1824,7 @@ cfcb9c6cd91e8c90f4146de2f642c41890cff6075f0b6619b60333a0bc0539b9  nimservice-htt
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1890,7 +1895,7 @@ baa21918b9ff3d9d54713c6dfa8b8207b8189840b9c28a24247da8cae762a905  nimservice-ing
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-knative-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -1961,7 +1966,7 @@ e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b  nimservice-kna
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2033,7 +2038,7 @@ e260f8b3941ea74d3611923473d9c76da0d073b8faffa83fd8c04a381778d90b  nimservice-kna
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-lora-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2105,7 +2110,7 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2176,7 +2181,7 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-manual-meta-llama3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2247,7 +2252,7 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-multi-node-deepseek-r1-multi-node-nimservice/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2318,7 +2323,7 @@ a4afe2337f856a22fb4837b9b24931044f60a64c0d89fd5f77776eac92cd170a  nimservice-lor
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2390,7 +2395,7 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-multi-node-llama-3-1-8b-instruct-multinode/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2461,7 +2466,7 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-nim-3-nemotron-3-super-120b-a12b/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2532,7 +2537,7 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2603,7 +2608,7 @@ f0672c0b775a61b57f937e73f57e55f1f10e70cc047730733e49710d6707aedc  nimservice-mul
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2674,7 +2679,7 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2745,7 +2750,7 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2816,7 +2821,7 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2887,7 +2892,7 @@ da0727a0adbe8f036fca448fee699e2d6b25a48398b940ee7b66bda955e0ec1e  nimservice-no-
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-no-precaching-model-free-llama-3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -2958,7 +2963,7 @@ c2d3c95da50e4931b40d614e30e6750a171c4a3072a8d65995b940dbd2a3fba9  nimservice-no-
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-retriever-llama-nemotron-embed-vl-1b-v2/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3030,7 +3035,7 @@ c7058d52175464fba77c58613365c7c163034d9cd396ae3b33c87fe5ebc0fabe  nimservice-ret
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3101,7 +3106,7 @@ d8ce2dbe3d62044a657f18613cdf8d39e346e20b4abc4a2444238736c65aacdb  nimservice-sch
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3172,7 +3177,7 @@ a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634  nimservice-sid
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-standard-meta-llama-3-2-1b-instruct/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3243,7 +3248,7 @@ a283dedc018fd5b19ad075fa1390204e6e61de22a5d22d132538305dfa43b634  nimservice-sid
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-standard-nim-service-model-free/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3314,7 +3319,7 @@ adec6f4cb47e17dba45b40f177c7b8c206bd59607baed41bd5c7df5de6a38904  nimservice-sta
         
         
         <p><strong>Test the plain objects yourself.</strong> <a href="./sh/entries/nimservice-standard-nim-service-multi-llm/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
-        <p><strong>What this test does not show.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</p>
+        
         
         <p><a href="./config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
@@ -3370,10 +3375,18 @@ ff06cecd94d3e6e2fc8e7c59718a617b2915efdca60c6bc154a4cc1cd3631b68  nimservice-sta
       </details>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="./listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json">nimservice-autoscaling-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-basic-meta-llama-3-2-1b-instruct-llm.json">nimservice-basic-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-basic-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-basic-model-free-llama-3-2-1b-instruct.json">nimservice-basic-model-free-llama-3-2-1b-instruct.json</a>, <a href="./listings/nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json">nimservice-confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox.json</a>, <a href="./listings/nimservice-epp-meta-llama3-8b-instruct.json">nimservice-epp-meta-llama3-8b-instruct.json</a>, <a href="./listings/nimservice-example0-meta-llama3-2-1b-instruct.json">nimservice-example0-meta-llama3-2-1b-instruct.json</a>, <a href="./listings/nimservice-example1-meta-llama3-2-1b-instruct.json">nimservice-example1-meta-llama3-2-1b-instruct.json</a>, <a href="./listings/nimservice-example2-meta-llama3-2-1b-instruct.json">nimservice-example2-meta-llama3-2-1b-instruct.json</a>, <a href="./listings/nimservice-full-meta-llama-3-2-1b-instruct-llm.json">nimservice-full-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-full-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-grpcroutes-riva-tts.json">nimservice-grpcroutes-riva-tts.json</a>, <a href="./listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json">nimservice-httproutes-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-httproutes-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json">nimservice-ingress-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-ingress-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-knative-meta-llama-3-2-1b-instruct-llm.json">nimservice-knative-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-lora-meta-llama-3-2-1b-instruct-llm.json">nimservice-lora-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json">nimservice-lora-meta-llama-3-2-1b-instruct-multi-llm.json</a>, <a href="./listings/nimservice-manual-meta-llama3-2-1b-instruct.json">nimservice-manual-meta-llama3-2-1b-instruct.json</a>, <a href="./listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice.json">nimservice-multi-node-deepseek-r1-multi-node-nimservice.json</a>, <a href="./listings/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json">nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma.json</a>, <a href="./listings/nimservice-multi-node-llama-3-1-8b-instruct-multinode.json">nimservice-multi-node-llama-3-1-8b-instruct-multinode.json</a>, <a href="./listings/nimservice-nim-3-nemotron-3-super-120b-a12b.json">nimservice-nim-3-nemotron-3-super-120b-a12b.json</a>, <a href="./listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json">nimservice-no-precaching-meta-llama-3-2-1b-instruct-emptydir.json</a>, <a href="./listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json">nimservice-no-precaching-meta-llama-3-2-1b-instruct-hostpath.json</a>, <a href="./listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json">nimservice-no-precaching-meta-llama-3-2-1b-instruct-llm.json</a>, <a href="./listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json">nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf.json</a>, <a href="./listings/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json">nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc.json</a>, <a href="./listings/nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json">nimservice-no-precaching-model-free-llama-3-2-1b-instruct.json</a>, <a href="./listings/nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json">nimservice-retriever-llama-nemotron-embed-vl-1b-v2.json</a>, <a href="./listings/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json">nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling.json</a>, <a href="./listings/nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json">nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars.json</a>, <a href="./listings/nimservice-standard-meta-llama-3-2-1b-instruct.json">nimservice-standard-meta-llama-3-2-1b-instruct.json</a>, <a href="./listings/nimservice-standard-nim-service-model-free.json">nimservice-standard-nim-service-model-free.json</a>, <a href="./listings/nimservice-standard-nim-service-multi-llm.json">nimservice-standard-nim-service-multi-llm.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
+  <section class="technical-notes" aria-labelledby="technical-notes">
+      <h2 id="technical-notes">Technical notes and disclaimers</h2>
+      <ul>
+        <li><strong>autoscaling-meta-llama-3-2-1b-instruct-llm, autoscaling-meta-llama-3-2-1b-instruct-multi-llm, basic-meta-llama-3-2-1b-instruct-llm, basic-meta-llama-3-2-1b-instruct-multi-llm, basic-model-free-llama-3-2-1b-instruct, example0-meta-llama3-2-1b-instruct, example1-meta-llama3-2-1b-instruct, example2-meta-llama3-2-1b-instruct, full-meta-llama-3-2-1b-instruct-llm, full-meta-llama-3-2-1b-instruct-multi-llm, grpcroutes-riva-tts, httproutes-meta-llama-3-2-1b-instruct-llm, httproutes-meta-llama-3-2-1b-instruct-multi-llm, ingress-meta-llama-3-2-1b-instruct-llm, ingress-meta-llama-3-2-1b-instruct-multi-llm, knative-meta-llama-3-2-1b-instruct-llm, knative-meta-llama-3-2-1b-instruct-multi-llm, manual-meta-llama3-2-1b-instruct, multi-node-deepseek-r1-multi-node-nimservice, multi-node-deepseek-r1-multi-node-nimservice-rdma, multi-node-llama-3-1-8b-instruct-multinode, nim-3-nemotron-3-super-120b-a12b, retriever-llama-nemotron-embed-vl-1b-v2, standard-meta-llama-3-2-1b-instruct, standard-nim-service-model-free, standard-nim-service-multi-llm.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses 2 kinds that it does not define. The script stops when the cluster does not serve them. The script does not run the steps the plan names for an upgrade or a delete.</li>
+        <li><strong>confidential-computing-meta-llama-3-2-1b-instruct-kata-sandbox, epp-meta-llama3-8b-instruct, lora-meta-llama-3-2-1b-instruct-llm, lora-meta-llama-3-2-1b-instruct-multi-llm, no-precaching-meta-llama-3-2-1b-instruct-emptydir, no-precaching-meta-llama-3-2-1b-instruct-hostpath, no-precaching-meta-llama-3-2-1b-instruct-llm, no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf, no-precaching-meta-llama-3-2-1b-instruct-multi-llm-ngc, no-precaching-model-free-llama-3-2-1b-instruct, scheduling-meta-llama-3-2-1b-instruct-scheduling, sidecars-meta-llama-3-2-1b-instruct-sidecars.</strong> The plain-objects script stops before it applies anything. 4 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The file uses one kind that it does not define. The script stops when the cluster does not serve it. The script does not run the steps the plan names for an upgrade or a delete.</li>
+      </ul>
+    </section>
   </main>
   <footer><p>Generated from the committed <a href="./listings/index.json">Catalog listing index</a> and the listing of each variant. <a href="./formats.html#kubernetes-yaml">Browse the other Kubernetes YAML entries</a> or <a href="./charts/index.html">return to the Catalog</a>.</p></footer>
 </div>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#variants">Pick a model variant</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul></nav>
 </div>
-<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">GPU nodes and AICR</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">NVIDIA AICR v1.0.0</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
 </html>
