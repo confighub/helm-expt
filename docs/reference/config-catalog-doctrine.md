@@ -71,18 +71,18 @@ different results; none proves an application request unless that request was ru
 This distinction applies to every source. For example, AICR snapshot and diff can
 compare existing GPU nodes without a recipe or bundle. That comparison reports
 observed differences; it does not define desired state. Decide whether a difference
-is a fault only after binding the node to the provider-curated source variant meant
-for its service, accelerator, operating system, workload intent, platform, and
-relevant hardware. Its `expected-resources` check then depends on that selected
-variant and the declared components being deployed.
+is a fault only after binding the node to the recipe the provider intends for its
+service, accelerator, operating system, workload intent, platform, and relevant
+hardware. Its `expected-resources` check then depends on that selected recipe and
+the declared components being deployed.
 Helm rendering can produce exact objects without a cluster, but destination CRDs,
 hook handling, workload health, and rollback need later evidence. Literal YAML and
 configuration OCI use a recorded no-op for materialization; they still need separate
 destination and live checks.
 
-Every maintained entry must distinguish three layers: a source variant or other
-source selection, the exact base variant retained after materialization, and any
-derived ConfigHub variants. The source selection names its provider. NVIDIA curates
+Every maintained entry must distinguish three things: the recipe or other source
+selection, the exact base retained after flattening, and any ConfigHub variants
+made from that base. The source selection names its provider. NVIDIA curates
 the built-in AICR catalog; other catalog providers may curate additional overlays
 and leaf variants. ConfigHub Workshop curates its Helm presets. A custom variant needs
 its own intended-target statement and evidence.
@@ -92,7 +92,7 @@ provider identity, exact catalog-content digest, selected variant, selection
 dimensions, and provider evidence. The resulting `BaseVariantRecord` carries that
 imported selection unchanged. A ConfigHub upload receipt carries the same binding
 beside the exact objects it retained. Provider evidence remains attached to the
-source variant; it does not become evidence for a ConfigHub change, destination,
+recipe; it does not become evidence for a ConfigHub change, destination,
 delivery controller, or running workload.
 
 The generated [assessment cases](../../data/config-assessment-stages/summary.md)

@@ -88,7 +88,7 @@ steps, and none has been carried out.
 
 | Step | What it asks |
 | --- | --- |
-| Match the target | Compare what the destination has with what NVIDIA's source variant expects. |
+| Match the target | Compare what the destination has with what NVIDIA's recipe expects. |
 | Argo CD first | Make the Argo CD Application API and controller available. |
 | Component order | Reconcile the component Applications in AICR's dependency order. |
 | The charts inside | Handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source. The nested sources are not materialized for v1.0.0. |
@@ -96,7 +96,7 @@ steps, and none has been carried out.
 | System node selector | Replace the placeholder with the label on the destination cluster's system node group. |
 | DRA plugin eviction | Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. |
 | Node inspection | Collect and compare node facts with AICR's own tool. |
-| Configuration validation | Run the AICR checks whose prerequisites the source variant satisfies. |
+| Configuration validation | Run the AICR checks whose prerequisites the recipe satisfies. |
 
 The [route intent](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml)
 is the record behind this table. The
@@ -137,7 +137,7 @@ comparison. No health check has run on EKS in this entry.
 
 | Stage | Result | Record |
 | --- | --- | --- |
-| Select the AICR source variant | Complete. The five criteria resolve to one provider-curated variant. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml) |
+| Select the AICR recipe | Complete. The five criteria resolve to one recipe that NVIDIA curates. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml) |
 | Verify the upstream source | Complete. Checksums, binary provenance, recipe-catalog signature, and SBOM attestation pass. | [Source verification](../../../data/aicr-provenance-v1-0-0/summary.md) |
 | Generate the wrapper and exact Applications | Complete. The retained result contains 17 Applications. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml) |
 | Publish source and literal configuration OCI | Not run. Both artifacts are kept as local OCI layouts in this repository. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml) |
