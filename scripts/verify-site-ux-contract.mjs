@@ -1978,6 +1978,50 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   }
 }
 
+// The skim test. A reader who only skims must get the point from the first
+// screen. An entry page opens with the answer: what the entry is and how to
+// install it, in a short box before any heading. A page states its limits
+// once, in a last section, and never under a "does not show" heading.
+{
+  const skimWords = (html) => html
+    .replace(/<code[\s\S]*?<\/code>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? walk(full) : entry.name.endsWith(".html") ? [full] : [];
+  });
+  const sitePages = walk(path.join(root, "site"));
+  let boxes = 0;
+  for (const file of sitePages) {
+    const rel = path.relative(root, file);
+    const html = fs.readFileSync(file, "utf8");
+    const mainStart = html.indexOf("<main");
+    const main = mainStart < 0 ? "" : html.slice(mainStart);
+    const isChartVersionPage = /^site\/charts\/[^/]+\.html$/.test(rel) && main.includes("data-entry-steps=");
+    const box = /<section class="at-a-glance"[\s\S]*?<\/section>/.exec(main)?.[0] ?? "";
+    if (isChartVersionPage && !box) failures.push(`${rel}: an entry page must open with the answer-first box`);
+    if (box) {
+      boxes += 1;
+      const firstHeading = main.search(/<h2[\s>]/);
+      if (firstHeading >= 0 && main.indexOf(box) > firstHeading) failures.push(`${rel}: the answer-first box must come before the first heading`);
+      if (!/What it is\./.test(box)) failures.push(`${rel}: the answer-first box must say what the entry is`);
+      if (!/Install (it|one)\./.test(box)) failures.push(`${rel}: the answer-first box must say how to install the entry`);
+      const words = skimWords(box);
+      if (words > 110) failures.push(`${rel}: the answer-first box has ${words} words outside code, and the limit is 110`);
+    }
+    if (/<h[2-4][^>]*>\s*What (this|these|it)[^<]*(does|do) not show/i.test(main)) {
+      failures.push(`${rel}: limits go in the last section, "Technical notes and disclaimers", and not under a "does not show" heading`);
+    }
+    const notesAt = main.lastIndexOf('id="technical-notes"');
+    if (notesAt >= 0 && /<h2[\s>]/.test(main.slice(notesAt + 20))) {
+      failures.push(`${rel}: "Technical notes and disclaimers" must be the last section of the page`);
+    }
+  }
+  if (boxes < 300) failures.push(`the skim test found the answer-first box on ${boxes} page(s), and it expects it on every entry page`);
+}
+
 if (failures.length) {
   console.error("site UX contract failed:");
   for (const failure of failures) console.error(`- ${failure}`);
