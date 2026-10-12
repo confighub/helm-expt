@@ -99,7 +99,7 @@ const checks = [
   // about each step, and link the script that tests the install steps.
   {
     file: "site/charts/nvidia-gpu-operator-v26-7-1.html",
-    terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "carried out this entry's upgrade and delete steps by hand", "What these tests do not show", "It does not wait for the workloads to start", "It does not show the workload using a GPU"],
+    terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "carried out this entry's upgrade and delete steps by hand", "Technical notes and disclaimers", "What it is.", "Install it.", "Needs first.", "It does not wait for the workloads to start", "It does not show the workload using a GPU"],
   },
   // An entry with no packaged base still has a script that tests its retained
   // objects. Its page must offer that script, say what it needs, and link the

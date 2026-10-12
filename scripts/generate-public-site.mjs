@@ -33,6 +33,7 @@ import {
   retainedObjectsScript,
   retainedObjectsScriptDir,
   retainedObjectsScriptEligibility,
+  retainedObjectsScriptStopSteps,
   retainedObjectsScriptLimits,
 } from "./lib/retained-objects-script.mjs";
 import {
@@ -2699,6 +2700,11 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   // A page that is the page of a Catalog entry carries that entry's five
   // steps after its own text, and one link to them from the top.
   const entrySteps = entryStepsDocPlan().plan.get(repoPath);
+  const sameRecipe = /^docs\/demo\/aicr\/([^/]+)\.md$/.exec(repoPath)?.[1] ?? "";
+  const sameRecipeAs = sameRecipe ? aicrSameRecipeEntry(sameRecipe) : "";
+  const sameRecipeNote = sameRecipeAs
+    ? `<p class="at-a-glance"><strong>Same recipe.</strong> This is the same NVIDIA recipe and version as <a href="./${escapeHtml(sameRecipeAs)}.html">${escapeHtml(sameRecipeAs)}</a>. Start there. It has the plan, the changes from the earlier release, and the current status.</p>\n`
+    : "";
   const entryStepsNote = entrySteps?.withoutOwnPage.length
     ? `This block is for ${entrySteps.withoutOwnPage.map((id) => `<code>${escapeHtml(id)}</code>`).join(" and ")}, which ${entrySteps.withoutOwnPage.length === 1 ? "has" : "have"} no page of ${entrySteps.withoutOwnPage.length === 1 ? "its" : "their"} own.`
     : "";
@@ -2718,7 +2724,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
     ${entryStepsTopLinkHtml()}` : ""}
   </header>
   <main>
-${sourceStamp ? `    ${sourceStamp}\n` : ""}    <article class="doc-body">
+${sourceStamp ? `    ${sourceStamp}\n` : ""}${sameRecipeNote}${entrySteps && entrySteps.withoutOwnPage.length === 0 ? `    ${entryAtAGlanceHtml(entrySteps.listings)}\n` : ""}    <article class="doc-body">
 ${body}
     </article>${entrySteps ? `
     ${entryStepsSectionHtml(entrySteps.listings, { siteHref: base, note: entryStepsNote })}` : ""}
@@ -2877,7 +2883,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR")])
+    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "NVIDIA AICR v1.0.0")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
     + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
@@ -2917,7 +2923,7 @@ function siteSections() {
     ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring Kubara's managed add-ons into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
-    ["guides.html", "Every Guide"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
+    ["guides.html", "Every Guide"], ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
@@ -2925,7 +2931,7 @@ function siteSections() {
     ...SPLIT_PAGES.filter((page) => !page.doc).map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
+    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["d/docs/user/model-and-vocabulary.html", "The model"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
     ["quirks.html", "What charts hide"], ["how-confighub-works.html", "How ConfigHub works"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ...SPLIT_PAGES.filter((page) => page.reference).map((page) => [page.file, page.title]),
@@ -3216,7 +3222,74 @@ function injectAgentAsk(html, relPath) {
   return html.slice(0, h1.index + h1[0].length) + line + html.slice(h1.index + h1[0].length);
 }
 
+// The Catalog can hold one NVIDIA recipe twice at one version: once in the
+// version series whose entry name ends with the version, and once among the
+// mirrored recipes. This gives, for a mirrored entry, the series entry that
+// has the same five criteria and the same version. The series entry is the one
+// a reader should start from.
+function aicrSameRecipeEntry(id) {
+  aicrSameRecipeEntry.byId ??= (() => {
+    const criteriaKeys = new Set(["service", "accelerator", "os", "intent", "platform"]);
+    const groups = new Map();
+    for (const facts of aicrListingFacts) {
+      const listing = readListingFile(facts.id);
+      const directory = /^examples\/aicr\/([^/]+)\//.exec(`${listing.flattened?.objects ?? ""}/`)?.[1] ?? "";
+      const criteria = (listing.source?.fixedAtBuildTime ?? [])
+        .filter((item) => criteriaKeys.has(String(item).split("=")[0]))
+        .sort()
+        .join(",");
+      if (!directory || !criteria) continue;
+      const key = `${listing.identity.version}|${criteria}`;
+      if (!groups.has(key)) groups.set(key, new Set());
+      groups.get(key).add(directory);
+    }
+    const byId = new Map();
+    for (const directories of groups.values()) {
+      const series = [...directories].filter((directory) => /-v\d+-\d+-\d+$/.test(directory));
+      if (series.length !== 1) continue;
+      for (const directory of directories) if (directory !== series[0]) byId.set(directory, series[0]);
+    }
+    return byId;
+  })();
+  return aicrSameRecipeEntry.byId.get(id) ?? "";
+}
+
+// A page states its limits once, in a last section with this title. Any part
+// of a page can leave a note with technicalNoteHtml. finalizePage takes the
+// notes out of the body and writes them as one list before the end of main.
+// The title and the pattern are set inside the functions, because pages are
+// built while this module is still loading.
+function technicalNoteHtml(base, text) {
+  return `<template class="tech-note" data-base="${escapeHtml(base)}">${text}</template>`;
+}
+
+function gatherTechnicalNotes(html) {
+  const TECHNICAL_NOTES_TITLE = "Technical notes and disclaimers";
+  const notes = new Map();
+  const body = String(html ?? "").replace(/<template class="tech-note" data-base="([^"]*)">([\s\S]*?)<\/template>/g, (match, base, text) => {
+    if (!notes.has(text)) notes.set(text, []);
+    if (!notes.get(text).includes(base)) notes.get(text).push(base);
+    return "";
+  });
+  if (notes.size === 0) return body;
+  const everyBase = new Set([...notes.values()].flat());
+  const items = [...notes].map(([text, bases]) => {
+    const label = everyBase.size > 1 && bases.length < everyBase.size ? `<strong>${bases.join(", ")}.</strong> ` : "";
+    return `<li>${label}${text}</li>`;
+  }).join("\n        ");
+  const section = `<section class="technical-notes" aria-labelledby="technical-notes">
+      <h2 id="technical-notes">${TECHNICAL_NOTES_TITLE}</h2>
+      <ul>
+        ${items}
+      </ul>
+    </section>
+  `;
+  const end = body.lastIndexOf("</main>");
+  return end < 0 ? body : `${body.slice(0, end)}${section}${body.slice(end)}`;
+}
+
 function finalizePage(html, relPath, renderedDocs = new Set()) {
+  html = gatherTechnicalNotes(html);
   // A page with git conflict markers is a broken merge, never content. One
   // reached the live site on 2026-10-10 because no gate looked for them.
   if (/^(<<<<<<< |>>>>>>> )/m.test(String(html ?? ""))) {
@@ -4757,7 +4830,7 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
       ["You want to", "Use", "What it is"],
       ["Run something now with no GPU, cluster or account", `<a href="#run-aicr">The CPU starter on this page</a>`, `Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.`],
       ["Inspect the whole recipe and take it into ConfigHub", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a>`, "All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version."],
-      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/h100-eks-ubuntu-training-kubeflow.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here."],
+      ["See the newest NVIDIA release", `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">The v1.0.0 entry</a>`, "The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here."],
     ], { rawSecondColumn: true, rawThirdColumn: true })}
     <p>None of the three has run on a GPU. Each entry page says what was and was not run for it.</p>
   </section>
@@ -11880,8 +11953,12 @@ function aicrCatalogRows() {
     ]
       .join(" ")
       .toLowerCase();
+    const sameAs = aicrSameRecipeEntry(id);
+    const sameAsHtml = sameAs
+      ? `<br><strong>Same recipe.</strong> This is the same NVIDIA recipe and version as <a href="../d/docs/demo/aicr/${escapeHtml(sameAs)}.html">${escapeHtml(sameAs)}</a>. Start there.`
+      : "";
     return `<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="${escapeHtml(search)}">
-        <td><a href="${page || stepsHref || listingHref}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
+        <td><a href="${page || stepsHref || listingHref}">${escapeHtml(id)}</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span>${sameAsHtml}</td>
         <td class="mono">${escapeHtml(version)}</td>
         <td>${startLinks}</td>
         <td>${builds[id] ? `${escapeHtml(builds[id])} ` : ""}${escapeHtml(state)}${flag}</td>
@@ -13399,6 +13476,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
+    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(row), row.default_base), "..")}
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
       <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and ${published ? "publication receipt" : "publication status"} reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
@@ -13869,6 +13947,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ${chartOverviewLinkHtml(entry.chart)}
   </header>
   <main>
+    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(entry), entry.start_variant), "..")}
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
       <p>Every chart page follows the same order. Choose a configuration, inspect its objects and setup work, then read the tests that have run. <a href="../testing.html">Open the worked examples</a>.</p>
@@ -15883,6 +15962,11 @@ function entryStepsTopLinkHtml() {
 
 function entryStepsCss() {
   return `
+    .at-a-glance { border: 1px solid var(--line); border-left: 4px solid var(--accent, #c2410c); border-radius: 8px; padding: 8px 16px; margin: 0 0 22px; background: var(--panel); }
+    .at-a-glance p { margin: 6px 0; }
+    .at-a-glance code { overflow-wrap: anywhere; }
+    .technical-notes { margin-top: 36px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .technical-notes h2 { font-size: 1rem; color: var(--muted); margin-top: 8px; }
     .entry-steps .entry-step { border-top: 1px solid var(--line); padding: 14px 0 2px; }
     .entry-steps .entry-step h3 { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin: 0 0 6px; }
     .entry-steps .status.open { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
@@ -16079,6 +16163,74 @@ function planStepBrief(step) {
   return `${brief}${rest}`;
 }
 
+// The first thing on an entry page: what the entry is, the one command that
+// installs it, and what it needs first. It reads the first listing of the
+// page, which is the default preset.
+function entryAtAGlanceHtml(listings, siteHref = "") {
+  const listing = listings[0];
+  if (!listing) return "";
+  // An entry with a page that walks through it links that page from the box.
+  const walkthroughs = new Map([
+    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator from the Catalog"]],
+  ]);
+  const walkthrough = siteHref ? walkthroughs.get(listing.identity.name) : null;
+  const walkthroughHtml = walkthrough
+    ? `
+      <p><strong>Step by step.</strong> <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>.</p>`
+    : "";
+  const { name, version, base, format, formatLabel } = listing.identity;
+  const presets = listings.filter((item) => item.identity.format === format).length;
+  const count = Number(listing.flattened?.objectCount ?? 0);
+  const isAicr = format === "aicr";
+  const unit = isAicr ? "Argo CD Application" : "Kubernetes object";
+  const objects = count > 0 ? `${count} ${unit}${count === 1 ? "" : "s"}` : `${unit}s`;
+  // A long version, such as a digest, is left out of the sentence.
+  const versionText = /^v?\d/.test(String(version ?? "")) && String(version).length <= 24 ? ` ${escapeHtml(version)}` : "";
+  const what = format === "helm"
+    ? `<code>${escapeHtml(name)}</code>${versionText}, as ${objects} in its <code>${escapeHtml(base)}</code> preset.${presets > 1 ? ` The Catalog holds ${presets} presets of this version.` : ""}`
+    : `${escapeHtml(formatLabel ?? format)} <code>${escapeHtml(name)}</code>${versionText}, as ${objects}.`;
+  const eligibility = retainedObjectsScriptEligibility(listing);
+  const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">The five steps below</a> give the commands.`;
+  const install = eligibility.eligible
+    ? `<code>curl -fsSL -o try-objects.sh ${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME} &amp;&amp; bash try-objects.sh</code>`
+    : isAicr
+      ? `Apply its Applications on a cluster that runs Argo CD. ${steps}`
+      : ({
+        "needs-sveltos": `Apply it on a Sveltos management cluster. ${steps}`,
+        "verdict": format === "helm" ? `Use its installer package with <code>cub installer</code>. ${steps}` : steps,
+      })[eligibility.reason] ?? steps;
+  const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
+  const bundle = published
+    ? `<p><strong>Bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
+    : "";
+  // What an install needs first. With a test script these are the steps the
+  // script stops for. Without one they are the first steps of the plan.
+  const firstSteps = eligibility.eligible
+    ? retainedObjectsScriptStopSteps({
+      listing,
+      text: readFileSync(join(repoRoot, String(listing.flattened.retainedObjects.path)), "utf8"),
+    })
+    : (listing.routing?.routes ?? []);
+  // A plan step can be recorded as a phrase. The box shows it as a sentence.
+  const asSentence = (text) => {
+    const trimmed = String(text ?? "").trim();
+    if (!trimmed) return "";
+    const capital = trimmed[0].toUpperCase() + trimmed.slice(1);
+    return /[.!?]$/.test(capital) ? capital : `${capital}.`;
+  };
+  const needs = eligibility.reason === "needs-sveltos"
+    ? "A Sveltos management cluster, and the clusters it selects."
+    : firstSteps.length === 0
+      ? (eligibility.eligible ? "Nothing. The script applies any CRDs first." : "")
+      : `${firstSteps.slice(0, 2).map((step) => escapeHtml(asSentence(planStepBrief(step)))).join(" ")}${firstSteps.length > 2 ? ` The plan below lists ${firstSteps.length - 2} more.` : ""}`;
+  return `<section class="at-a-glance" aria-label="At a glance">
+      <p><strong>What it is.</strong> ${what}</p>
+      <p><strong>Install it.</strong> ${install}</p>
+      ${bundle}${needs ? `
+      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}
+    </section>`;
+}
+
 // The plan for one listing: its recorded steps, who carries each out and what
 // the Catalog knows about it, then the script that tests the install steps.
 // The maps are built inside the function for the same reason as above.
@@ -16201,10 +16353,14 @@ function entryPlanHtml(listing, siteHref) {
       limitSentences.push("A cluster with no GPUs shows that the objects apply. It does not show the workload using a GPU.");
     }
   }
+  // Limits are stated once, at the bottom of the page. Each is written here as
+  // a marked note, and finalizePage gathers the notes into one last section.
   const limitsHtml = [
-    limitSentences.length > 0 ? `<p><strong>${scriptHtml && objectsRel ? "What these tests do not show" : "What this test does not show"}.</strong> ${limitSentences.join(" ")}</p>` : "",
-    noTestReason ? `<p><strong>Why there is no plain-objects test.</strong> ${noTestReason}</p>` : "",
-  ].filter(Boolean).join("\n        ");
+    limitSentences.length > 0 ? limitSentences.join(" ") : "",
+    noTestReason,
+  ].filter(Boolean)
+    .map((text) => technicalNoteHtml(listing.identity.base || listing.identity.id, text))
+    .join("");
   // The two-cluster comparison with plain Helm, where one is recorded for
   // this exact chart, version and base. The rows are read once.
   entryPlanHtml.parityRows ??= parseCsv(readFileSync(join(repoRoot, "data/live-kind-parity/summary.csv"), "utf8"));

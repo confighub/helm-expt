@@ -268,6 +268,23 @@ export function retainedObjectsScriptLimits({ listing, text }) {
   };
 }
 
+// The plan steps an install needs first, which the script cannot do. A page
+// names them at its top, and the script stops for the same ones.
+export function retainedObjectsScriptStopSteps({ listing, text }) {
+  const file = describeRetainedFile(text, listing.identity.id);
+  const builtFor = (listing.source?.fixedAtBuildTime ?? [])
+    .map((item) => /^namespace=(.+)$/.exec(String(item))?.[1])
+    .filter(Boolean);
+  const unplacedNamespace = file.unplaced.length > 0 ? builtFor[0] ?? "" : "";
+  const ensuredNamespaces = new Set([
+    ...[...file.namedNamespaces, unplacedNamespace].filter(Boolean),
+    ...file.definedNamespaces,
+  ]);
+  return planStepRoles(listing, file, ensuredNamespaces)
+    .filter((entry) => entry.role === "stop")
+    .map((entry) => entry.step);
+}
+
 export function retainedObjectsScript({ listing, text, stepBrief }) {
   const id = listing.identity.id;
   if (!NAME_PATTERN.test(String(id))) throw new Error(`${id}: the listing id cannot name a directory`);
