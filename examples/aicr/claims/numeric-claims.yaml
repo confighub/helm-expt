@@ -75,6 +75,9 @@ spec:
     - id: training-v100-applications
       description: The Argo CD Applications the v1.0.0 training entry renders.
       compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v100-components
+      description: The components AICR resolved for the v1.0.0 training recipe.
+      compute: { kind: number, file: examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml, path: spec.result.componentCount }
     - id: training-v100-overlays
       description: The overlays AICR resolved to produce the v1.0.0 training recipe.
       compute: { kind: number, file: examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml, path: spec.result.overlaysResolved }
@@ -1614,6 +1617,10 @@ spec:
       quantity: version-diff-v0200-to-v100-version-moves
       page: eks-h100-training-kubeflow-v1-0-0.md
       phrases: ["Eight components"]
+    - id: v100-page-declares-components
+      quantity: training-v100-components
+      page: eks-h100-training-kubeflow-v1-0-0.md
+      phrases: ["16 components"]
     - id: v100-page-resolves-overlays
       quantity: training-v100-overlays
       page: eks-h100-training-kubeflow-v1-0-0.md

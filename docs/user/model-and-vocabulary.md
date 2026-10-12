@@ -42,9 +42,10 @@ ConfigHub works on what comes out of it.
 | **Variant** | A reviewed change to a bundle for one environment, region or customer. | Many for a bundle | In ConfigHub. |
 | **Deployment** | One variant, or one bundle, on one cluster. The plan is carried out there and the result is recorded. | One for each cluster | On the cluster. A receipt records it. |
 
-The plan is the part of a bundle that plain objects cannot carry, such as an
-order, a job at an upgrade, or a choice that is still open. An entry that
-needs none of that has a bundle with no plan. The bundle of a
+Not all source configuration can be completely flattened. The configuration
+steps taken after flattening are called the plan. A plan can hold an order, a
+job at an upgrade, or a choice that is still open. An entry that needs none of
+that has a bundle with no plan. The bundle of a
 recipe is its base variant, in the form that is kept and shipped.
 
 This page writes deployment in lower case for the fifth word. `Deployment` in

@@ -441,6 +441,8 @@
 
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    /* No column of a doc table is narrower than a short word. */
+    .doc-body th, .doc-body td { min-width: 5.5rem; }
     .doc-body th { background: var(--panel); }
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
@@ -497,6 +499,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -560,7 +570,7 @@
 <p>UNOFFICIAL/EXPERIMENTAL. This entry keeps NVIDIA AICR v1.0.0 beside the <a href="eks-h100-training-kubeflow.html">v0.14.0</a>, <a href="eks-h100-training-kubeflow-v0-18-0.html">v0.18.0</a>, <a href="eks-h100-training-kubeflow-v0-19-0.html">v0.19.0</a>, and <a href="eks-h100-training-kubeflow-v0-20-0.html">v0.20.0</a> entries. It uses the same EKS, H100, Ubuntu, training, and Kubeflow choices, so you can see what the v1.0.0 release changes without replacing the earlier configurations.</p>
 <h2 id="why-use-this-entry">Why use this entry?</h2>
 
-<p>The v1.0.0 entry is less far along than the v0.20.0 entry. It is generated, retained, and checked against its source. It is not published to a public registry, and it is not stored in ConfigHub. The <a href="#current-status">status table</a> says what has run.</p>
+<p>Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept in this repository, and checked against NVIDIA's signed release. It is not published to a public registry, and it is not in ConfigHub. The <a href="#current-status">status table</a> says what has run.</p>
 <h2 id="this-entry-in-the-models-five-words">This entry in the model's five words</h2>
 <p>The <a href="../../user/model-and-vocabulary.html">model page</a> describes every entry as Pack, Recipe, Bundle, Variant, and Deployment.</p>
 <table><thead><tr><th>Word</th><th>For the v1.0.0 training entry</th></tr></thead><tbody><tr><td>Source catalog</td><td>NVIDIA's AICR built-in catalog, version v1.0.0.</td></tr>
@@ -571,9 +581,9 @@
 <tr><td>Variant</td><td>None yet. The entry is not in ConfigHub.</td></tr>
 <tr><td>Deployment</td><td>None. Nothing has been delivered or run.</td></tr></tbody></table>
 <h2 id="what-the-source-produces">What the source produces</h2>
-<p>AICR resolves the five criteria through nine overlays into one source variant with 16 ordered components. It generates an Argo CD app-of-apps Helm chart from 15 of them. It leaves out <code>dra-node-labeler</code>, because no DRA eviction node label was supplied. Helm renders that chart into 17 exact Application objects.</p>
-<p>The wrapper is only a partial flattening boundary. The 17 Application objects are exact. Sixteen of them point to Helm charts or local chart sources that Argo CD renders later, at deployment.</p>
-<ul><li>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml">generation receipt</a> records the commands, the inputs, and the source version.</li><li>The <a href="../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/README.html">digest index</a> binds the selected inputs, the source package, and the rendered Applications under one platform digest.</li><li>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml">source record</a> names NVIDIA as the provider, the catalog version, and the selected source variant.</li><li>The <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-provenance-v1-0-0/summary.md">source verification</a> checks the release checksum, the signed binary provenance, the recipe-catalog signature, and the SBOM attestation.</li></ul>
+<p>AICR reads nine overlays and turns the five criteria into one recipe with 16 components, in order. It makes one Helm chart from 15 of them. It leaves out <code>dra-node-labeler</code>, because no DRA eviction node label was supplied. Helm renders that chart into 17 Application objects, and those are what this entry keeps.</p>
+<p>The entry is only partly flattened. Sixteen of the 17 Application objects still name a Helm chart. Argo CD renders those charts later, on the cluster.</p>
+<ul><li>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml">generation receipt</a> records the commands, the inputs, and the source version.</li><li>The <a href="../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/README.html">digest index</a> gives one digest that covers the inputs, the source package, and the rendered Applications. If any of them changes, the digest changes.</li><li>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml">source record</a> names NVIDIA as the provider, the catalog version, and the selected source variant.</li><li>The <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-provenance-v1-0-0/summary.md">source verification</a> checks the release checksum, the signed binary provenance, the recipe-catalog signature, and the SBOM attestation.</li></ul>
 <p>Run these two repository checks to repeat the verification without Docker or network access:</p>
 <pre><code>npm run aicr-training-v100:verify
 npm run aicr-provenance-v100:verify</code></pre>
@@ -585,7 +595,7 @@ npm run aicr-provenance-v100:verify</code></pre>
 <tr><td>Deployer</td><td><code>argocd-helm</code></td></tr></tbody></table>
 <p>A change to one of these inputs is made before the bundle, by generating the entry again. A change for one environment is made after the bundle, as a variant in ConfigHub.</p>
 <h2 id="the-plan">The plan</h2>
-<p>The plan is the work that the 17 Application objects cannot carry. Each step below is recorded. None has been carried out for this entry.</p>
+<p>Not all source configuration can be completely flattened. The configuration steps taken after flattening are called the plan. This entry's plan has nine steps, and none has been carried out.</p>
 <table><thead><tr><th>Step</th><th>What it asks</th></tr></thead><tbody><tr><td>Match the target</td><td>Compare what the destination has with what NVIDIA's source variant expects.</td></tr>
 <tr><td>Argo CD first</td><td>Make the Argo CD Application API and controller available.</td></tr>
 <tr><td>Component order</td><td>Reconcile the component Applications in AICR's dependency order.</td></tr>
@@ -595,7 +605,7 @@ npm run aicr-provenance-v100:verify</code></pre>
 <tr><td>DRA plugin eviction</td><td>Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts.</td></tr>
 <tr><td>Node inspection</td><td>Collect and compare node facts with AICR's own tool.</td></tr>
 <tr><td>Configuration validation</td><td>Run the AICR checks whose prerequisites the source variant satisfies.</td></tr></tbody></table>
-<p>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml">route intent</a> is the record behind this table. The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/field-policy-assessment.yaml">field-policy assessment</a> separates source-controlled choices from fields that may become reviewed ConfigHub changes.</p>
+<p>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml">route intent</a> is the record behind this table. The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/field-policy-assessment.yaml">field-policy assessment</a> says which fields NVIDIA's source controls and which you may change in ConfigHub.</p>
 <h2 id="what-changed-from-v0200">What changed from v0.20.0?</h2>
 <p>The <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-version-diff/summary.md">computed comparison</a> records these differences. The Catalog retains no v0.21.0 entry, so the step between is not compared.</p>
 <table><thead><tr><th></th><th>v0.20.0</th><th>v1.0.0</th></tr></thead><tbody><tr><td>Components in the recipe</td><td>15</td><td>16</td></tr>

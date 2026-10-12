@@ -26,6 +26,7 @@ cover.
 | `training-v0190-components` | 15 | `listLength` | The components the retained v0.19.0 AICR recipe declares an order for. |
 | `training-v0200-applications` | 17 | `files` | The Argo CD Applications the v0.20.0 training entry renders. |
 | `training-v100-applications` | 17 | `files` | The Argo CD Applications the v1.0.0 training entry renders. |
+| `training-v100-components` | 16 | `number` | The components AICR resolved for the v1.0.0 training recipe. |
 | `training-v100-overlays` | 9 | `number` | The overlays AICR resolved to produce the v1.0.0 training recipe. |
 | `version-diff-v0200-to-v100-version-moves` | 8 | `countWhere` | Components whose chart version moved between the v0.20.0 and v1.0.0 training entries. It reads the fourth recorded transition, which is the one between those two versions. |
 | `training-v0200-components-with-crds` | 8 | `number` | The v0.20.0 nested components whose selected local render contains CRDs. |
@@ -469,6 +470,7 @@ cover.
 | `v0190-page-declares-fifteen-components` | `eks-h100-training-kubeflow-v0-19-0.md` | "15 components" | `training-v0190-components` = 15 |
 | `v100-page-renders-seventeen` | `eks-h100-training-kubeflow-v1-0-0.md` | "17 Applications", "17 Application objects" | `training-v100-applications` = 17 |
 | `v100-page-cites-version-moves` | `eks-h100-training-kubeflow-v1-0-0.md` | "Eight components" | `version-diff-v0200-to-v100-version-moves` = 8 |
+| `v100-page-declares-components` | `eks-h100-training-kubeflow-v1-0-0.md` | "16 components" | `training-v100-components` = 16 |
 | `v100-page-resolves-overlays` | `eks-h100-training-kubeflow-v1-0-0.md` | "nine overlays" | `training-v100-overlays` = 9 |
 | `v0200-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-20-0.md` | "17 Applications", "17 Application objects" | `training-v0200-applications` = 17 |
 | `v0200-page-cites-components-with-crds` | `eks-h100-training-kubeflow-v0-20-0.md` | "Eight components" | `training-v0200-components-with-crds` = 8 |
@@ -866,7 +868,7 @@ cover.
 | `vr200-rke2-ubuntu-training-kubeflow-declares-components` | `vr200-rke2-ubuntu-training-kubeflow.md` | "15 components" | `vr200-rke2-ubuntu-training-kubeflow-components` = 15 |
 | `vr200-rke2-ubuntu-training-kubeflow-resolves-overlays` | `vr200-rke2-ubuntu-training-kubeflow.md` | "six overlays" | `vr200-rke2-ubuntu-training-kubeflow-overlays` = 6 |
 
-427 claims across 143 pages are covered. A
+428 claims across 143 pages are covered. A
 sentence that adds a new count fails the lane until it is declared here, which
 is the difference between a register and a list somebody once wrote.
 
