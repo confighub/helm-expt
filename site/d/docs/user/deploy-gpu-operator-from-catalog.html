@@ -441,6 +441,8 @@
 
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    /* No column of a doc table is narrower than a short word. */
+    .doc-body th, .doc-body td { min-width: 5.5rem; }
     .doc-body th { background: var(--panel); }
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
@@ -478,6 +480,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -533,18 +543,17 @@
   <header class="hero human-hero">
     
     <h1>Deploy the GPU Operator from the Catalog</h1>
-    <p class="lead">Install NVIDIA's GPU Operator on a Kubernetes cluster in two commands. Then keep it up to date across your environments with two more steps. <a href="../../../../docs/user/deploy-gpu-operator-from-catalog.md">View source markdown</a>.</p>
+    <p class="lead">Install NVIDIA's GPU Operator on a Kubernetes cluster in two commands. Then keep it up to date across your environments, and test it on a GPU node. <a href="../../../../docs/user/deploy-gpu-operator-from-catalog.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
-<p>Every command on this page was run, and the output shown is what it printed.</p>
 <h2 id="three-terms">Three terms</h2>
 <table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Recipe</td><td>A chart, its version, and one set of values.</td></tr>
 <tr><td>Bundle</td><td>The Kubernetes objects that a recipe produces, with a plan for the steps that objects cannot do. It is one OCI artifact.</td></tr>
 <tr><td>Variant</td><td>Your copy of a bundle for one environment, such as dev or QA.</td></tr></tbody></table>
 <h2 id="what-you-need">What you need</h2>
-<ul><li>Steps 1 and 2: <code>kubectl</code> and a cluster.</li><li>Steps 3 and 4: a ConfigHub account and the <code>cub</code> CLI.</li></ul>
+<ul><li>Steps 1 and 2: <code>kubectl</code> and a cluster.</li><li>Steps 3 and 4: a ConfigHub account and the <code>cub</code> CLI.</li><li>Step 5: a node with an NVIDIA GPU.</li></ul>
 <h2 id="step-1-install-it">Step 1. Install it</h2>
 <p>The Catalog gives each bundle a script. It downloads the objects, checks their SHA-256, applies the CRDs, and then applies the rest.</p>
 <pre><code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/nvidia-gpu-operator-v26-3-3/default/try-objects.sh
@@ -561,21 +570,23 @@ The file matches: sha256 73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a3
 <h2 id="step-3-store-it-in-confighub-and-make-a-variant-for-each-environment">Step 3. Store it in ConfigHub and make a variant for each environment</h2>
 <p>Upload the bundle. ConfigHub makes one Unit for each object and keeps the plan beside them. This example starts one version back, at v26.3.2, so that step 4 has a new version to take.</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre><code>cub variant upload --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Seed the base at v26.3.2 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484</code></pre>
-<pre><code>Space cwwalk-1009-gpu-operator-base (Create)
+  <pre><code>BUNDLE=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-2-default:r001@sha256:0f6f399365cb045906854c9b568afa8dcb960d7898db5e5b47a317a3eed10484
+cub variant upload --component gpu-operator --variant base --namespace gpu-operator &quot;$BUNDLE&quot;</code></pre>
+<pre><code>Space gpu-operator-base (Create)
   Create    gpu-operator
   Create    cluster-policy-clusterpolicy
   ... (25 more Units)</code></pre>
 <p>Make a variant for dev, and one for QA that follows dev.</p>
-<pre><code>cub variant create dev cwwalk-1009-gpu-operator-base --environment Dev --change-desc 'Clone the base as dev'
-cub variant create qa cwwalk-1009-gpu-operator-dev --environment QA --change-desc 'Clone dev as qa'</code></pre>
-<pre><code>Created variant space cwwalk-1009-gpu-operator-dev
+<pre><code>cub variant create dev gpu-operator-base --environment Dev
+cub variant create qa gpu-operator-dev --environment QA</code></pre>
+<pre><code>Created variant space gpu-operator-dev
 Bulk create operation completed:
   Success: 27 unit(s)</code></pre>
 <h2 id="step-4-take-a-new-version-and-promote-it">Step 4. Take a new version and promote it</h2>
 <p>Upload v26.3.3 over the base. ConfigHub lists what changes.</p>
-<pre><code>cub variant upload --yes --component cwwalk-1009-gpu-operator --variant base --namespace gpu-operator --change-desc 'Move the base to v26.3.3 default' oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e</code></pre>
-<pre><code>Space cwwalk-1009-gpu-operator-base (Update)
+<pre><code>BUNDLE=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
+cub variant upload --yes --component gpu-operator --variant base --namespace gpu-operator &quot;$BUNDLE&quot;</code></pre>
+<pre><code>Space gpu-operator-base (Update)
   Update    gpu-operator-serviceaccount
   Update    gpu-operator-clusterrole
   Update    gpu-operator-clusterrolebinding
@@ -586,21 +597,44 @@ Bulk create operation completed:
   ... (6 lines for the plan documents)
   Unchanged 17 Unit(s)</code></pre>
 <p>Seven objects changed and 17 did not. Dev and QA still hold the old version. Preview the promotion, then promote dev, then QA.</p>
-<pre><code>cub variant promote cwwalk-1009-gpu-operator-dev --dry-run
-cub variant promote cwwalk-1009-gpu-operator-dev --change-desc 'Take v26.3.3 from the base'
-cub variant promote cwwalk-1009-gpu-operator-qa --change-desc 'Take v26.3.3 from dev'</code></pre>
+<pre><code>cub variant promote gpu-operator-dev --dry-run
+cub variant promote gpu-operator-dev
+cub variant promote gpu-operator-qa</code></pre>
 <pre><code>Would upgrade 10 unit(s) behind their upstream
 Upgraded 10 unit(s) behind their upstream</code></pre>
 <p>Each environment now holds v26.3.3, and each change is recorded.</p>
+<h2 id="step-5-test-it-on-a-gpu-node">Step 5. Test it on a GPU node</h2>
+<p>This step needs a node with an NVIDIA GPU. It is NVIDIA's own check, from the <a href="https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html">GPU Operator documentation</a>.</p>
+<p>Check that the operator's pods are up. All of them should be <code>Running</code> or <code>Completed</code>.</p>
+<pre><code>kubectl get pods -n gpu-operator
+kubectl get clusterpolicy</code></pre>
+<p>Run NVIDIA's sample workload, which asks for one GPU.</p>
+<pre><code>cat &gt; cuda-vectoradd.yaml &lt;&lt;'YAML'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cuda-vectoradd
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: cuda-vectoradd
+      image: &quot;nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda12.5.0-ubuntu22.04&quot;
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+YAML
+kubectl apply -f cuda-vectoradd.yaml
+kubectl logs pod/cuda-vectoradd</code></pre>
+<p>The log ends with <code>Test PASSED</code> when the pod has used the GPU.</p>
 <h2 id="where-to-go-next">Where to go next</h2>
 <ul><li><a href="../../../charts/nvidia-gpu-operator-v26-3-3.html">The GPU Operator entry</a> has the plan, the other presets, and the bundle's address.</li><li><a href="workshop-gpu-operator-upgrade-guide.html">See what a gpu-operator upgrade changes</a> compares versions field by field.</li><li><a href="model-and-vocabulary.html">The model</a> defines recipe, bundle, and variant in full.</li></ul>
 <h2 id="technical-notes-and-disclaimers">Technical notes and disclaimers</h2>
-<ul><li>UNOFFICIAL/EXPERIMENTAL.</li><li>Steps 1 and 2 ran on a local kind cluster with no GPUs, on 11 October 2026. The <a href="live-walk-test-plain-objects-2026-10-11.html">log</a> has every line. The script was fetched from the site on 12 October and matched the copy that ran.</li><li>Steps 3 and 4 ran in a ConfigHub organization on 9 October 2026. The <a href="live-walk-gpu-operator-dev-qa-2026-10-09.html">log</a> has every line. The name <code>cwwalk-1009-gpu-operator</code> is from that run. Use your own.</li><li>The output blocks are shortened. A line that starts with <code>...</code> marks a cut.</li><li>The plan has two more steps, one before an upgrade and one after a delete. The script in step 1 does not run them. The entry page lists them.</li></ul>
+<ul><li>UNOFFICIAL/EXPERIMENTAL.</li><li>Steps 1 to 4 were run, and each output block is what the command printed, shortened. A line that starts with <code>...</code> marks a cut.</li><li>Steps 1 and 2 ran on a local kind cluster with no GPUs, on 11 October 2026. The <a href="live-walk-test-plain-objects-2026-10-11.html">log</a> has every line.</li><li>Steps 3 and 4 ran in a ConfigHub organization on 9 October 2026, under the name <code>cwwalk-1009-gpu-operator</code> and with a description on each change. The <a href="live-walk-gpu-operator-dev-qa-2026-10-09.html">log</a> has every line.</li><li>Step 5 has not been run by the Catalog, which has no GPU. The commands and the sample pod are NVIDIA's.</li><li>The plan has two more steps, one before an upgrade and one after a delete. The script in step 1 does not run them. The entry page lists them.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/deploy-gpu-operator-from-catalog.md</code>. The source file is the authoritative version.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#three-terms">Three terms</a></li><li><a href="#what-you-need">What you need</a></li><li><a href="#step-1-install-it">Step 1. Install it</a></li><li><a href="#step-2-check-that-it-is-running">Step 2. Check that it is running</a></li><li><a href="#step-3-store-it-in-confighub-and-make-a-variant-for-each-environment">Step 3. Store it in ConfigHub and make a variant for each environment</a></li><li><a href="#step-4-take-a-new-version-and-promote-it">Step 4. Take a new version and promote it</a></li><li><a href="#where-to-go-next">Where to go next</a></li><li><a href="#technical-notes-and-disclaimers">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#three-terms">Three terms</a></li><li><a href="#what-you-need">What you need</a></li><li><a href="#step-1-install-it">Step 1. Install it</a></li><li><a href="#step-2-check-that-it-is-running">Step 2. Check that it is running</a></li><li><a href="#step-3-store-it-in-confighub-and-make-a-variant-for-each-environment">Step 3. Store it in ConfigHub and make a variant for each environment</a></li><li><a href="#step-4-take-a-new-version-and-promote-it">Step 4. Take a new version and promote it</a></li><li><a href="#step-5-test-it-on-a-gpu-node">Step 5. Test it on a GPU node</a></li><li><a href="#where-to-go-next">Where to go next</a></li><li><a href="#technical-notes-and-disclaimers">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../charts/index.html">Find a configuration &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

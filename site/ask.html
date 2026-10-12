@@ -574,6 +574,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -655,7 +663,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
@@ -670,7 +679,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 4.5k tokens and the core <code>SKILL.md</code> is about 5.1k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
@@ -691,7 +701,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
   </section>
@@ -890,7 +901,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -906,7 +918,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
         th:first-child, td:first-child { min-width: 10ch; }
       </style>
@@ -1293,7 +1306,8 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>Additional references:</strong> <a href="./ask.html">Helm investigation details</a> · <a href="./d/docs/user/chart-hooks-what-happens.html">hooks and CRD setup</a> · <a href="./known-gaps.html">delivery limitations</a> · <a href="./check-a-claim-yourself.html#check-one-claim">checks and publication receipts</a> · <a href="./testing.html#platforms">promotion and fleet examples</a></p>

@@ -586,6 +586,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -684,7 +692,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>A generator turns a recipe into a bundle. Here the generator is Helm, and the Catalog ran it once.</p>
@@ -742,7 +751,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>A Catalog entry can shorten any investigation, but it is never a prerequisite for inspecting or processing your own configuration. If the required destination or deployment does not exist, the check is <strong>blocked</strong> or <strong>not run</strong>. That is not a failed configuration, a failed workload, or a failed conformance result.</p>
@@ -755,7 +765,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>A configuration that is <strong>unsafe to flatten</strong> does not fall out of this model. Its source stays authoritative and its processor runs late, at install time. But the result rejoins at the base step. The render-late objects are retained, derived, promoted, and released like any other base, and only where the objects are produced differs.</p>
@@ -783,7 +794,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>Every format above is a real catalog entry you can browse. Open the <a href="./charts/index.html">Catalog</a> and use its Format filter to list one, for example <a href="./charts/index.html?format=ai-platform">all AICR platforms</a> or <a href="./charts/index.html?format=timoni">the Timoni module</a>.</p>
@@ -830,7 +842,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>You upload the bundle to ConfigHub as it is. The three documents arrive beside the 24 objects, one Unit each. The <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html#promote-a-version-step-through-dev-and-qa">GPU Operator Guide</a> does this and promotes the result through dev and QA.</p>
@@ -857,7 +870,8 @@ bash ./try.sh</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>The GPU Operator's plan has the first three kinds, so nothing is rendered again. An AICR recipe's plan also has the last two. Every entry page lists the open choices under "What is fixed, and what you supply".</p>
@@ -889,7 +903,8 @@ bash ./try.sh</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>A verdict is decided per base, not per chart. The same chart with <code>auth.existingSecret</code> set is a different question from the same chart without it. The recorded scope says which values move the answer.</p>
@@ -943,7 +958,8 @@ bash ./try.sh</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <details class="deep">
@@ -975,7 +991,8 @@ bash ./try.sh</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>When a check could not run, the page says blocked or not run. That is a different result from a check that failed.</p>
@@ -990,7 +1007,8 @@ bash ./try.sh</code></pre>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A missing prerequisite is reported as blocked or not-run. It is a different result from a configuration that failed, and we keep the two labelled apart.</p>
