@@ -159,7 +159,7 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
       ${markdownLikeTable([
         ["You start from", "Go to", "What you find there"],
         ["A Helm chart", `<a href="./charts/index.html">Configs</a>`, "Search for the chart and its version. The chart page lists the tested starting configurations and carries the five steps this page follows."],
-        ["An AICR recipe", `<a href="./charts/index.html">Configs</a>, then <a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a>`, "Configs lists the AICR entries too, and each entry page carries the same five steps. The second page pulls one retained configuration to read, with no GPU."],
+        ["An AICR recipe", `<a href="./charts/index.html">Configs</a>, then <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>`, "Configs lists the AICR entries too, and each entry page carries the same five steps. The second page pulls one retained configuration to read, with no GPU."],
         ["A stack", `<a href="./stack.html">Stacks</a>`, "Every shipped stack is listed with the check that looks for conflicts between its parts before anything renders."],
         ["An example app", `<a href="./apps.html">Apps</a>, then <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a>`, "Apps lists every worked example app. The Guide checks one app against the platform it would run on."],
         ["Your own YAML or OCI", `<a href="./ask.html">Is my configuration right?</a>, then <a href="./oci.html">OCI shapes</a>`, "The first page checks your own chart and values, or YAML you have already rendered. The second names each OCI shape and the tool that reads it."],

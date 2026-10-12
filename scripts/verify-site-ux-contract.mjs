@@ -227,7 +227,7 @@ const checks = [
   },
   {
     file: "site/try-aicr.html",
-    terms: ["Compare GPU nodes and pull an AICR config", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference", "never becomes the running, governed platform that stack could be"],
+    terms: ["Try NVIDIA AICR for GPUs", "AICR recipes at v1.0.0", "An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference", "never becomes the running, governed platform that stack could be"],
   },
   {
     file: "site/oci.html",

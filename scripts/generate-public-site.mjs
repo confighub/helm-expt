@@ -4760,20 +4760,23 @@ function tryAicrHtml() {
     .map((record) => `<tr><td><code>${escapeHtml(record.name)}</code></td><td>${record.syncWave}</td></tr>`)
     .join("\n        ");
   const { v020SourceCatalog, v020Selection, v020Dimensions } = aicrV020SourceBits();
+  const aicrRecipesAtV100 = aicrListingFacts.filter((facts) => /-v1-0-0-argocd$/.test(facts.id)).length;
+  check(aicrRecipesAtV100 > 0, "the AICR starting page would say the Catalog holds no v1.0.0 recipe");
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare GPU nodes and pull an AICR config · ConfigHub Workshop</title>
+<title>Try NVIDIA AICR for GPUs · ConfigHub Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Compare GPU nodes and pull an AICR config</h1>
-  <p class="boundary-chip">Two independent starting paths</p>
-  <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
+  <h1>Try NVIDIA AICR for GPUs</h1>
+  <p class="lead">NVIDIA AICR turns five choices into one recipe for a GPU cluster. The choices are the service, the accelerator, the operating system, the workload and the platform. The Catalog holds ${aicrRecipesAtV100} AICR recipes at v1.0.0, each kept as Argo CD Applications that you can read without a GPU.</p>
+  <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
+  <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
   <details><summary>What each path needs and proves</summary>
   <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>
@@ -5668,7 +5671,7 @@ function deepDetailsCss() {
 function stackHtml() {
   const rows = sectionRows("stacks").map((row) => [
     `<a href="${escapeHtml(row.source)}">${escapeHtml(row.name)}</a><br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
-    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./try-aicr.html">Compare GPU nodes and pull an AICR config</a>.` : ""),
+    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>.` : ""),
     `${row.parts.map((part) => escapeHtml(part)).join(", ")}. ${row.checked ? "Every part has a receipt." : "Not every part has a receipt."}`,
   ]);
   return `<!doctype html>

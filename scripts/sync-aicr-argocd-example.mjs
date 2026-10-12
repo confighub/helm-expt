@@ -1078,16 +1078,32 @@ function verifyUploadReceipt(receipt) {
   check(receipt.spec?.space?.labels?.ResourceClass === "system-configuration", "AICR Space resource class changed");
   check(receipt.spec?.policy?.filter === approvalRequiredFilterRef, "AICR approval-required filter changed");
   check(receipt.spec?.policy?.reason === "system-configuration", "AICR approval reason changed");
-  const expectedPolicyCount = modernEntry
-    ? readYaml(policyPath).spec.approvalRequired.checks.length
-    : 6;
+  // A receipt is a dated record, and the policy has changed since some were
+  // written. Each common check a receipt names must still be one the policy
+  // names. Approval was a policy check until 2026-09-26, when it moved to
+  // workflow attestations and left the policy's check list, so a receipt
+  // verified before that day names the approval gate and a later one does not.
+  const approvalPolicyCheck = "platform/require-approval";
+  const approvalWasAPolicyCheck = String(receipt.spec?.verifiedAt ?? "") < "2026-09-26";
+  const recordedChecks = receipt.spec?.policy?.checks ?? [];
+  const recordedCommonChecks = recordedChecks.filter((item) => item !== approvalPolicyCheck);
+  if (modernEntry) {
+    const policyCommonChecks = readYaml(policyPath).spec.approvalRequired.checks
+      .map((item) => item.trigger)
+      .filter((item) => item !== approvalPolicyCheck);
+    const unknownChecks = recordedCommonChecks.filter((item) => !policyCommonChecks.includes(item));
+    check(
+      recordedCommonChecks.length >= 5 && unknownChecks.length === 0,
+      `AICR upload records a common check the policy does not name: ${unknownChecks.join(", ") || "fewer than 5 recorded"}`,
+    );
+  } else {
+    check(recordedCommonChecks.length === 5, "AICR upload must record 5 common checks");
+  }
   check(
-    receipt.spec?.policy?.checks?.length === expectedPolicyCount,
-    `AICR upload must record ${expectedPolicyCount - 1} common checks plus approval`,
-  );
-  check(
-    receipt.spec.policy.checks.includes("platform/require-approval"),
-    "AICR upload policy must require approval",
+    recordedChecks.includes(approvalPolicyCheck) === approvalWasAPolicyCheck,
+    approvalWasAPolicyCheck
+      ? "AICR upload policy must require approval"
+      : "AICR upload names the approval gate, which left the policy on 2026-09-26",
   );
   check(receipt.status?.configHubBaseVariantUpload === "pass", "AICR base variant upload is not pass");
   check(receipt.status?.objectIdentitiesMatched === "pass", "AICR object comparison is not pass");
@@ -3254,7 +3270,7 @@ function verifyV020PersistentPromotionReceipt(receipt, uploadReceipt) {
     check(
       record.applicationCount === 17
         && record.readmeUnit.fromLinkIds.length === 0
-        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && sameStringSet(commonCheckSlugs(record.policyChecks), expectedPersistentCheckSlugs())
         && record.applyGates.includes(approvalGate),
       `${record.space} receipt evidence changed`,
     );
@@ -3355,7 +3371,7 @@ function verifyLegacyPersistentPromotionReceipt(receipt, uploadReceipt) {
     check(
       record.applicationCount === 17
         && record.readmeUnit.fromLinkIds.length === 0
-        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && sameStringSet(commonCheckSlugs(record.policyChecks), expectedPersistentCheckSlugs())
         && record.applyGates.includes(approvalGate),
       `${record.space} receipt evidence changed`,
     );
@@ -3611,9 +3627,16 @@ function selectedPersistentTriggerSlugs(space) {
 }
 
 function expectedPersistentCheckSlugs() {
-  return readYaml(policyPath).spec.approvalRequired.checks
-    .map((item) => item.trigger.split("/").at(-1))
-    .sort();
+  return commonCheckSlugs(readYaml(policyPath).spec.approvalRequired.checks
+    .map((item) => item.trigger.split("/").at(-1)));
+}
+
+// Approval was a policy check until 2026-09-26, when it moved to workflow
+// attestations. A receipt written before that day still lists it, so the
+// comparison is made on the common checks. Each record's apply gates are
+// checked beside this.
+function commonCheckSlugs(slugs) {
+  return [...(slugs ?? [])].filter((slug) => slug !== "require-approval").sort();
 }
 
 function previousPromotionEvidence() {

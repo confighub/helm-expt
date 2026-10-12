@@ -1,4 +1,4 @@
-# AICR v1.0.0: inspect an EKS H100 training platform
+# One AICR v1.0.0 recipe for EKS H100 training
 
 UNOFFICIAL/EXPERIMENTAL. This entry keeps NVIDIA AICR v1.0.0 beside the
 [v0.14.0](./eks-h100-training-kubeflow.md),
