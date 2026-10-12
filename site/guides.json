@@ -513,7 +513,7 @@
       "id": "try-aicr",
       "group": "stacks-and-platforms",
       "groupTitle": "Stacks and platforms",
-      "title": "Compare GPU nodes and pull an AICR config",
+      "title": "Try NVIDIA AICR for GPUs",
       "summary": "Compare existing GPU nodes with a recipe, or pull and read a retained AICR configuration with ORAS.",
       "state": "published",
       "address": "https://confighub.github.io/helm-expt/site/try-aicr.html",

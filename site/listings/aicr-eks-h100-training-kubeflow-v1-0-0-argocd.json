@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:fa17390b7c5a4739649505a5291532119837a3c24cf023944bb8f7649af531a4",
+      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml",
-      "sha256": "sha256:18ca9515a8dc049eec5ed51867d859ffa2dd237cda17b81ed323d069f610a63a",
+      "sha256": "sha256:434d1f951bd09ce5f16e7a2bbb52d77fb2d3783dbc5b5e2b46cff700bdaa5c1e",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -128,11 +128,19 @@
       },
       {
         "role": "confighub-upload",
-        "state": "not-published",
-        "status": "not-run",
-        "reference": "",
-        "referenceState": "none",
-        "digests": []
+        "state": "published",
+        "status": "pass",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0",
+        "referenceState": "published",
+        "digests": [
+          {
+            "field": "sourceOciDigest",
+            "value": "sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19"
+          }
+        ],
+        "receipt": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml",
+        "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml",
+        "referenceField": "sourceRef"
       },
       {
         "role": "confighub-release",
@@ -146,8 +154,8 @@
     "runtimes": [
       {
         "runtime": "argo-cd",
-        "state": "not-run",
-        "status": "not-run"
+        "state": "partial",
+        "status": "applications-retained-not-reconciled"
       },
       {
         "runtime": "flux",
@@ -712,6 +720,11 @@
         "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/argocd-rendered/checksums.txt"
       },
       {
+        "name": "configHubUploadReceipt",
+        "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml"
+      },
+      {
         "name": "digestIndex",
         "path": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/platform-index.json",
         "url": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/platform-index.json"
@@ -859,8 +872,8 @@
     {
       "id": "upload",
       "label": "Upload it as a variant",
-      "state": "not-run-for-this-entry",
-      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -885,13 +898,15 @@
           "needsAccount": true,
           "writes": true
         }
-      ]
+      ],
+      "receipt": "examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml",
+      "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml"
     },
     {
       "id": "deploy",
       "label": "Deploy it",
-      "state": "not-run-for-this-entry",
-      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux does not apply, and kubectl has no record.",
+      "state": "partly-run-for-this-entry",
+      "summary": "A delivery is partly recorded for this entry, and no run has passed. Argo CD is partly recorded, Flux does not apply, and kubectl has no record.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"

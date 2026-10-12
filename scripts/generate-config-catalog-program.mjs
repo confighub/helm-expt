@@ -243,6 +243,9 @@ function aicrModernGenerationBeforePublication(generation) {
   const unpublished = structuredClone(generation);
   unpublished.spec.processing.transport.publicStatus = "not-run";
   unpublished.status.publicOciPublication = "not-run";
+  // The fixtures are the entry before anything left the machine, so the
+  // upload that followed the publication has not happened either.
+  unpublished.status.configHubUpload = "not-run";
   delete unpublished.status.published;
   return unpublished;
 }
@@ -1044,9 +1047,14 @@ function buildAicrModernArgoCdRecord(version) {
   const publicReceipt = readPublication && existsRepo(publicReceiptPath)
     ? readYaml(join(repoRoot, publicReceiptPath))
     : null;
-  const uploadReceipt = existsRepo(uploadReceiptPath)
+  // The self-test's fixtures are the entry before anything left the machine,
+  // so they read no upload receipt either.
+  const uploadReceipt = readPublication && existsRepo(uploadReceiptPath)
     ? readYaml(join(repoRoot, uploadReceiptPath))
     : null;
+  // ConfigHub once kept every Application in one Unit and now keeps one Unit
+  // for each. A receipt records which, and the record repeats what it has.
+  const uploadedPerUnit = uploadReceipt?.spec?.layout === "one-unit-per-object";
   const policyReceipt = existsRepo(policyReceiptPath)
     ? readYaml(join(repoRoot, policyReceiptPath))
     : null;
@@ -1239,7 +1247,13 @@ function buildAicrModernArgoCdRecord(version) {
             ? {
                 sourceRef: uploadReceipt.spec.source.reference,
                 sourceOciDigest: uploadReceipt.spec.source.digest,
-                configHubDataHash: uploadReceipt.spec.unit.dataHash,
+                ...(uploadedPerUnit
+                  ? {
+                      layout: uploadReceipt.spec.layout,
+                      configHubUnitCount: uploadReceipt.spec.units.length,
+                      configHubObjectSetSha256: uploadReceipt.spec.storedObjectSetSha256,
+                    }
+                  : { configHubDataHash: uploadReceipt.spec.unit.dataHash }),
                 objectIdentitiesMatched:
                   uploadReceipt.spec.provenanceBinding.objectIdentitiesMatched,
                 bindingMethod: uploadReceipt.spec.provenanceBinding.method,
@@ -1338,7 +1352,9 @@ function buildAicrModernArgoCdRecord(version) {
           ? "Both OCI artifacts were anonymously pulled at their recorded digests."
           : "The two OCI layouts are verified locally but have not yet been published at their public references.",
         uploadPassed
-          ? `ConfigHub recorded the literal OCI digest and its separate Unit data hash ${uploadReceipt.spec.unit.dataHash}; the upload receipt binds them by exact-object comparison.`
+          ? uploadedPerUnit
+            ? `ConfigHub holds the base as ${uploadReceipt.spec.units.length} Units, one for each Application, uploaded from the literal OCI digest; the upload receipt binds them by exact-object comparison.`
+            : `ConfigHub recorded the literal OCI digest and its separate Unit data hash ${uploadReceipt.spec.unit.dataHash}; the upload receipt binds them by exact-object comparison.`
           : `This ${retainedVersion} base has not yet been uploaded to ConfigHub.`,
         promotionPassed
           ? `The persistent ${hasProduction ? "development, staging, and production" : "development and staging"} variants contain the one reviewed Grafana Secret-reference change.`

@@ -1,4 +1,4 @@
-# AICR v1.0.0: inspect an EKS H100 training platform
+# One AICR v1.0.0 recipe for EKS H100 training
 
 UNOFFICIAL/EXPERIMENTAL. This entry keeps NVIDIA AICR v1.0.0 beside the
 [v0.14.0](./eks-h100-training-kubeflow.md),
@@ -18,8 +18,8 @@ a GPU.
 Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept
 in this repository, and checked against NVIDIA's signed release. Its source
 package and its literal configuration are published as two public OCI
-artifacts. It is not in ConfigHub. The [status table](#current-status) says
-what has run.
+artifacts. Its base is stored in ConfigHub as 17 Units. The
+[status table](#current-status) says what has run.
 
 The two public OCI artifacts have different jobs.
 
@@ -50,7 +50,8 @@ Pack, Recipe, Bundle, Variant, and Deployment.
 | Recipe | Five criteria, `service=eks`, `accelerator=h100`, `os=ubuntu`, `intent=training`, and `platform=kubeflow`, with the build inputs listed below. |
 | Generator | `aicr recipe`, then `aicr bundle` with the `argocd-helm` deployer, then `helm template`. |
 | Bundle | 17 exact Argo CD Application objects, retained here with a plan of nine steps and published as `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0`. |
-| Variant | None yet. The entry is not in ConfigHub. |
+| Base | Stored in ConfigHub as one Space with 17 Units, one for each Application. |
+| Variant | None yet. No copy of the base has been made for an environment. |
 | Deployment | None. Nothing has been delivered or run. |
 
 ## What the source produces
@@ -159,10 +160,11 @@ comparison. No health check has run on EKS in this entry.
 | Generate the wrapper and exact Applications | Complete. The retained result contains 17 Applications. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml) |
 | Publish source and literal configuration OCI | Complete. Both artifacts were pulled without registry credentials at their recorded digests. | [Public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml) |
 | Materialize the 16 nested sources | Not done for v1.0.0. | The plan's fourth step. |
-| Retain a ConfigHub base and create derived variants | Not run. | None. |
+| Store the base in ConfigHub | Complete. One Space holds 17 Units, and every stored object matches the retained file. | [Upload receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml) |
+| Make variants for development, staging and production | Not run. | None. |
 | Check approval, promote, and publish a release OCI | Not run. | None. |
 | Deliver through Argo CD or Flux | Not run. | None. |
 | Run on EKS and H100 | Not run. No training request, observation, or rollback is claimed. | Tracked in issue #1581. |
 
 The next step for this entry is one the v0.20.0 entry has already taken, which
-is to store the base in ConfigHub.
+is to make a variant of the base for each environment.

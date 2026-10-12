@@ -625,7 +625,7 @@ spec:
       destinationPage: try-aicr.html
       maxClicks: 1
       contentMarkers:
-        - Compare GPU nodes and pull an AICR config
+        - Try NVIDIA AICR for GPUs
         - OCI
       terminalStage: expand-return
       startAction: Pull and inspect the public package locally without an account or cluster.
