@@ -30,21 +30,22 @@ npm run aicr-v0200:public-verify
 The [public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml)
 records the exact references, digests, and anonymous pulls.
 
-## Three kinds of variant
+## Recipe, base and variant
 
-The word *variant* appears at three different points. They are related, but
-they are not interchangeable.
+Three words name three different points. A recipe is chosen before
+flattening. A base is the flattened result. A variant is a copy of the base
+with changes for one environment.
 
-| Variant | Meaning here | Current v0.20.0 status |
+| Word | Meaning here | Current v0.20.0 status |
 | --- | --- | --- |
-| Source variant | NVIDIA's curated combination of service, accelerator, operating system, workload, and platform: `h100-eks-ubuntu-training-kubeflow`. | Selected and retained. |
-| Base variant | The checked starting configuration: source and intent, 17 exact Applications, lifecycle plan, field policy, digests, and receipts. | Retained in the Catalog, published as OCI, and stored in the live ConfigHub Catalog organization. |
-| Derived variant | A reviewed change made from the base for development, staging, production, a region, or a customer. | Development, staging, and production variants now contain one promoted Grafana Secret change. |
+| Recipe | NVIDIA's curated combination of service, accelerator, operating system, workload, and platform: `h100-eks-ubuntu-training-kubeflow`. | Selected and retained. |
+| Base | The checked starting configuration: source and intent, 17 exact Applications, lifecycle plan, field policy, digests, and receipts. | Retained in the Catalog, published as OCI, and stored in the live ConfigHub Catalog organization. |
+| Variant | A reviewed change made from the base for development, staging, production, a region, or a customer. | Development, staging, and production variants now contain one promoted Grafana Secret change. |
 
 The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml)
 keeps three counts separate: 103 overlay files in the retained source tree, 102
 entries in the embedded catalog, and 45 resolved leaves. The five choices select
-one of those leaves. NVIDIA curates the built-in source variants. Other Catalog
+one of those leaves. NVIDIA curates the built-in recipes. Other Catalog
 providers can add target-specific configurations. A snapshot diff alone cannot
 decide what a particular target ought to contain.
 
@@ -56,22 +57,21 @@ ConfigHub Workshop generator:
 | Provider | NVIDIA, acting as the source-catalog curator |
 | Source catalog | NVIDIA AICR built-in catalog `v0.20.0` |
 | Catalog content digest | `sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8` |
-| Selected source variant | `h100-eks-ubuntu-training-kubeflow` |
+| Selected recipe | `h100-eks-ubuntu-training-kubeflow` |
 | Selection dimensions | `service=eks`, `accelerator=h100`, `os=ubuntu`, `intent=training`, `platform=kubeflow` |
 
 The generated
 [base-variant record](../../../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml)
 copies those fields from the source-catalog record. The
 [ConfigHub upload receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml)
-carries the same provider, catalog digest, selected variant, and dimensions beside
+carries the same provider, catalog digest, selected recipe, and dimensions beside
 the exact-object comparison. This keeps the provider's source choice separate from
 the ConfigHub base and the later development, staging, and production changes.
 Provider-linked evidence is not treated as ConfigHub delivery or runtime evidence.
 
 ## What the source produces
 
-AICR resolves the selected source variant into a recipe with 15 ordered
-components. It then generates an Argo CD app-of-apps Helm chart. Helm renders
+AICR resolves the five criteria into a recipe with 15 ordered components. It then generates an Argo CD app-of-apps Helm chart. Helm renders
 that wrapper chart into 17 exact Application objects.
 
 The [digest index](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/digest-index/README.md)
@@ -175,7 +175,7 @@ health check has not run on EKS in this entry.
 
 | Stage | Result | Record |
 | --- | --- | --- |
-| Select the AICR source variant | Complete. The five criteria resolve to one provider-curated variant. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml) |
+| Select the AICR recipe | Complete. The five criteria resolve to one recipe that NVIDIA curates. | [Source record](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml) |
 | Verify the upstream source | Complete. Checksums, binary provenance, recipe-catalog signature, and SBOM attestation pass. | [Source verification](../../../data/aicr-provenance-v0-20-0/summary.md) |
 | Generate the wrapper and exact Applications | Complete. The retained result contains 17 Applications. | [Generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/generation-receipt.yaml) |
 | Publish source and literal configuration OCI | Complete. Both artifacts pull anonymously and match the retained bytes. | [Public OCI receipt](../../../examples/aicr/eks-h100-training-kubeflow-v0-20-0/public-oci-receipt.yaml) |
