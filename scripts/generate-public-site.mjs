@@ -10101,6 +10101,13 @@ function nimServiceCatalogRow() {
       </tr>`;
 }
 
+// The link to a variant's test script, where the variant has one.
+function nimServiceScriptLinkHtml(id) {
+  const listing = readListingFile(id);
+  if (!retainedObjectsScriptEligibility(listing).eligible) return "";
+  return ` · <a href="./${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}">Test script</a>`;
+}
+
 // The page of the nimservice entry. It is one entry, so it has one page, and
 // its model variants are rows of one table. The five steps of every variant
 // follow, each read from that variant's listing.
@@ -10115,8 +10122,26 @@ function nimServiceEntryHtml() {
     escapeHtml(nimServiceGpuCell(facts)),
     facts.flagged ? "Flagged for review" : "None",
     facts.literalPublished ? "Published" : "Not published",
-    `<a href="./listings/${escapeHtml(facts.id)}.json">Listing</a> · <a href="${escapeHtml(facts.objectsUrl)}">Objects</a>`,
+    `<a href="./listings/${escapeHtml(facts.id)}.json">Listing</a> · <a href="${escapeHtml(facts.objectsUrl)}">Objects</a>${nimServiceScriptLinkHtml(facts.id)}`,
   ]);
+  // What every variant needs first, read from the plan steps the listings
+  // name. The page says it once, above the table.
+  const needPhrases = new Map([
+    ["nim-operator-first", "the NIM Operator"],
+    ["image-pull-secret", "an image pull Secret"],
+    ["model-auth-secret", "an API key Secret"],
+    ["model-storage", "storage for the model"],
+  ]);
+  const needIds = new Set(listings.flatMap((listing) => (listing.routing?.routes ?? []).map((step) => step.id)));
+  const needs = [...needPhrases].filter(([id]) => needIds.has(id)).map(([, phrase]) => phrase);
+  const needsSentence = needs.length > 1
+    ? `${needs.slice(0, -1).join(", ")} and ${needs.at(-1)}`
+    : needs[0] ?? "";
+  const atAGlance = `<section class="at-a-glance" aria-label="At a glance">
+      <p><strong>What it is.</strong> ${nimServiceVariantCount} NIMService samples from NVIDIA's k8s-nim-operator, one for each model variant.</p>
+      <p><strong>Install one.</strong> Pick a row in the table and run its test script with <code>bash</code>.</p>${needsSentence ? `
+      <p><strong>Needs first.</strong> ${needsSentence[0].toUpperCase()}${needsSentence.slice(1)}. The script stops and lists them until they are in place.</p>` : ""}
+    </section>`;
   const table = markdownLikeTable(
     [["Model variant", "Image the sample names", "GPU request", "Flags", "Published as OCI", "Read"], ...rows],
     { rawColumns: [0, 1, 2, 3, 4, 5] },
@@ -10142,6 +10167,7 @@ function nimServiceEntryHtml() {
     ${entryStepsTopLinkHtml()}
   </header>
   <main>
+    ${atAGlance}
     <section aria-labelledby="variants">
       <h2 id="variants">Pick a model variant</h2>
       <p>Every variant is <code>flatten-with-routes</code>. Its objects are kept as they are, and its plan names the NIM Operator, the image pull Secret, the model API key Secret and the model storage that come first.</p>
@@ -15139,6 +15165,14 @@ function chartCompareSectionHtml(model) {
     <script type="module" src="../chart-compare.js"></script>`;
 }
 
+// The answer first on a chart's overview page. It is the box of the newest
+// version's first base, the same entry whose five steps the page carries.
+function chartOverviewAtAGlanceHtml(model) {
+  const newest = model.versions[0];
+  const first = newest?.bases.find((base) => base.isDefault && base.listing) ?? newest?.bases.find((base) => base.listing);
+  return first ? entryAtAGlanceHtml([first.listing], "..") : "";
+}
+
 // The five steps for the newest version's default base, laid out by the same
 // function every entry page uses, then a link to the block of every other base.
 function chartUseSectionHtml(model) {
@@ -15190,6 +15224,7 @@ function chartOverviewPageHtml(model, liveExample) {
     ${chartGuideLinksHtml(model.chart)}
   </header>
   <main>
+    ${chartOverviewAtAGlanceHtml(model)}
     ${chartVersionsSectionHtml(model)}
 
     ${chartCompareSectionHtml(model)}
