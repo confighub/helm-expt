@@ -574,21 +574,27 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> AICR recipe <code>aicr-eks-h100-training-kubeflow</code> v1.0.0, as 17 Argo CD Applications.</p>
       <p><strong>Install it.</strong> Apply its Applications on a cluster that runs Argo CD. <a href="#use-in-confighub">The five steps below</a> give the commands.</p>
-      
+      <p><strong>Bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0</code></p>
       <p><strong>Needs first.</strong> Compare observed destination facts with the intended NVIDIA source variant. Make the Argo CD Application API and controller available. The plan below lists 7 more.</p>
     </section>
     <article class="doc-body">
 <p>UNOFFICIAL/EXPERIMENTAL. This entry keeps NVIDIA AICR v1.0.0 beside the <a href="eks-h100-training-kubeflow.html">v0.14.0</a>, <a href="eks-h100-training-kubeflow-v0-18-0.html">v0.18.0</a>, <a href="eks-h100-training-kubeflow-v0-19-0.html">v0.19.0</a>, and <a href="eks-h100-training-kubeflow-v0-20-0.html">v0.20.0</a> entries. It uses the same EKS, H100, Ubuntu, training, and Kubeflow choices, so you can see what the v1.0.0 release changes without replacing the earlier configurations.</p>
 <h2 id="why-use-this-entry">Why use this entry?</h2>
 
-<p>Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept in this repository, and checked against NVIDIA's signed release. It is not published to a public registry, and it is not in ConfigHub. The <a href="#current-status">status table</a> says what has run.</p>
+<p>Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept in this repository, and checked against NVIDIA's signed release. Its source package and its literal configuration are published as two public OCI artifacts. It is not in ConfigHub. The <a href="#current-status">status table</a> says what has run.</p>
+<p>The two public OCI artifacts have different jobs.</p>
+<table><thead><tr><th>Artifact</th><th>What it contains</th><th>Digest</th></tr></thead><tbody><tr><td>Source package</td><td>The AICR-generated app-of-apps Helm chart.</td><td><code>sha256:b187253b95bfe5a30d28128b94ed5edeb39f4e08ad8b409d25ebe3c9982eebb3</code></td></tr>
+<tr><td>Literal configuration</td><td>The 17 exact Argo CD Application objects, one YAML layer per object.</td><td><code>sha256:631dba7ef35a676eafa1590f11149c4bae02867af046dba36dc1dcfd5c9edc19</code></td></tr></tbody></table>
+<p>Run this repository check to pull both artifacts without registry credentials and compare every pulled blob with the retained copy.</p>
+<pre><code>npm run aicr-v100:public-verify</code></pre>
+<p>The <a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml">public OCI receipt</a> records the exact references, digests, and anonymous pulls.</p>
 <h2 id="this-entry-in-the-models-five-words">This entry in the model's five words</h2>
 <p>The <a href="../../user/model-and-vocabulary.html">model page</a> describes every entry as Pack, Recipe, Bundle, Variant, and Deployment.</p>
 <table><thead><tr><th>Word</th><th>For the v1.0.0 training entry</th></tr></thead><tbody><tr><td>Source catalog</td><td>NVIDIA's AICR built-in catalog, version v1.0.0.</td></tr>
 <tr><td>Data pack</td><td>None. The entry uses NVIDIA's catalog as it is.</td></tr>
 <tr><td>Recipe</td><td>Five criteria, <code>service=eks</code>, <code>accelerator=h100</code>, <code>os=ubuntu</code>, <code>intent=training</code>, and <code>platform=kubeflow</code>, with the build inputs listed below.</td></tr>
 <tr><td>Generator</td><td><code>aicr recipe</code>, then <code>aicr bundle</code> with the <code>argocd-helm</code> deployer, then <code>helm template</code>.</td></tr>
-<tr><td>Bundle</td><td>17 exact Argo CD Application objects, retained here with a plan of nine steps. No bundle is published.</td></tr>
+<tr><td>Bundle</td><td>17 exact Argo CD Application objects, retained here with a plan of nine steps and published as <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0</code>.</td></tr>
 <tr><td>Variant</td><td>None yet. The entry is not in ConfigHub.</td></tr>
 <tr><td>Deployment</td><td>None. Nothing has been delivered or run.</td></tr></tbody></table>
 <h2 id="what-the-source-produces">What the source produces</h2>
@@ -634,18 +640,18 @@ npm run aicr-provenance-v100:verify</code></pre>
 <table><thead><tr><th>Stage</th><th>Result</th><th>Record</th></tr></thead><tbody><tr><td>Select the AICR source variant</td><td>Complete. The five criteria resolve to one provider-curated variant.</td><td><a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml">Source record</a></td></tr>
 <tr><td>Verify the upstream source</td><td>Complete. Checksums, binary provenance, recipe-catalog signature, and SBOM attestation pass.</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-provenance-v1-0-0/summary.md">Source verification</a></td></tr>
 <tr><td>Generate the wrapper and exact Applications</td><td>Complete. The retained result contains 17 Applications.</td><td><a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml">Generation receipt</a></td></tr>
-<tr><td>Publish source and literal configuration OCI</td><td>Not run. Both artifacts are kept as local OCI layouts in this repository.</td><td><a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml">Generation receipt</a></td></tr>
+<tr><td>Publish source and literal configuration OCI</td><td>Complete. Both artifacts were pulled without registry credentials at their recorded digests.</td><td><a href="../../../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/public-oci-receipt.yaml">Public OCI receipt</a></td></tr>
 <tr><td>Materialize the 16 nested sources</td><td>Not done for v1.0.0.</td><td>The plan's fourth step.</td></tr>
 <tr><td>Retain a ConfigHub base and create derived variants</td><td>Not run.</td><td>None.</td></tr>
 <tr><td>Check approval, promote, and publish a release OCI</td><td>Not run.</td><td>None.</td></tr>
 <tr><td>Deliver through Argo CD or Flux</td><td>Not run.</td><td>None.</td></tr>
 <tr><td>Run on EKS and H100</td><td>Not run. No training request, observation, or rollback is claimed.</td><td>Tracked in issue #1581.</td></tr></tbody></table>
-<p>The next step for this entry is the one the v0.20.0 entry has already taken: publish the two OCI artifacts and store the base in ConfigHub.</p>
+<p>The next step for this entry is one the v0.20.0 entry has already taken, which is to store the base in ConfigHub.</p>
     </article>
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../../../../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.58</code> adds.</p>
+      <p>Steps 1 and 2 need no account. <a href="../../../../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.58</code> adds. A <a href="../../../../d/docs/user/live-run-log-2026-10-08.html">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.</p>
       <div data-entry-steps="aicr-eks-h100-training-kubeflow-v1-0-0-argocd">
         <details class="entry-inputs" data-entry-inputs="aicr-eks-h100-training-kubeflow-v1-0-0-argocd" open>
         <summary>What is fixed, and what you supply</summary>
@@ -702,17 +708,35 @@ npm run aicr-provenance-v100:verify</code></pre>
 <span class="term-comment"># list what changed from v0.20.0 to v1.0.0</span>
 <span class="term-prompt">$</span> cub config diff aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml --summary</code></pre>
         </div>
-        <div class="entry-step" data-step="upload" data-state="not-available">
-          <h3>3. Upload it as a variant <span class="status none">Not available yet</span></h3>
-          <p>This entry is not published, so there is no public artifact to upload. The listing records its literal configuration bundle as held only as a local layout. Publishing the rendered objects as that bundle, with a receipt, would make this step available.</p>
+        <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
+          <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
+          <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
+<span class="term-prompt">$</span> cub auth login
+
+<span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
+<span class="term-prompt">$</span> cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v1-0-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0
+
+<span class="term-comment"># upload the bundle as a base Space of Units</span>
+<span class="term-prompt">$</span> cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v1-0-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0</code></pre>
         </div>
-        <div class="entry-step" data-step="deploy" data-state="not-available">
-          <h3>4. Deploy it <span class="status none">Not available yet</span></h3>
-          <p>This step needs an upload command from step 3, and this entry has none. A published artifact for this entry, with a receipt, would make this step available.</p>
+        <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
+          <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux does not apply, and kubectl has no record. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 7 inputs that the destination must supply, so read them before you deploy.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
+<span class="term-prompt">$</span> cub variant create dev aicr-eks-h100-training-kubeflow-v1-0-0-argocd --target workshop/target --space-pattern &quot;template:aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev&quot;
+
+<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
+<span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="not-available">
-          <h3>5. Promote a change <span class="status none">Not available yet</span></h3>
-          <p>This step needs an upload command from step 3, and this entry has none. A published artifact for this entry, with a receipt, would make this step available.</p>
+        <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
+          <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
+          <p>No promotion is recorded for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.</p>
+          <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
+<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev --dry-run -o mutations
+
+<span class="term-comment"># promote once you have read the preview</span>
+<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
         </div>
       </div>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
