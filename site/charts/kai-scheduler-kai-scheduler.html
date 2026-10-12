@@ -590,6 +590,12 @@
     <p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
+    <section class="at-a-glance" aria-label="At a glance">
+      <p><strong>What it is.</strong> <code>kai-scheduler/kai-scheduler</code> v0.16.9, as 37 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/kai-scheduler-kai-scheduler-v0-16-9/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
+      <p><strong>Bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-16-9-default:latest@sha256:8063202c689d2cd7221cad04da18d409462c7d78049ee75472d88e9c5bd971c5</code></p>
+      <p><strong>Needs first.</strong> Before an install or an upgrade, move the CRDs forward and migrate topologies. Helm runs these in hook-weight order before it applies the chart's objects. The listing gives the rest.</p>
+    </section>
     <section aria-labelledby="versions">
       <h2 id="versions">Pick a version and a base</h2>
       <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
