@@ -1,0 +1,34 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87.19.2-minimal-establish-prometheus-operator-crds"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects."
+  declaration:
+    step: "establish-prometheus-operator-crds"
+    phase: "pre-apply"
+    requirementRefs:
+      - "establish-prometheus-operator-crds"
+    supportedRuntimes:
+      []
+    checks:
+      - "a destination receipt for CRD establishment"
+      - "Apply the retained CRD companion and record establishment before apply."
+    recorded:
+      status: "recorded"
+      sourceStatus: "routed"
+    evidence:
+      - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+      - "runs/prometheus-operator-minimal-candidate/config-catalog/package-extras/prometheus-community/kube-prometheus-stack/87.19.2/generation-receipt.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it routed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml"
+    verdictRef: "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml"

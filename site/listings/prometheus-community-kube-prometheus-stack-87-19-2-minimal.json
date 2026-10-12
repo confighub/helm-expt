@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9b70ded98e058c71ef4dc33df24f2c3ca02f6c80f5407dafda5cf98d55704492",
+      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml",
-      "sha256": "sha256:70a7a29b5511a29bd1259d0289e0712d1d29eddd08422139afa76ba5dda223a6",
+      "sha256": "sha256:ac1045b435d41ffaced184c73e2bde1ec657072afff5eb57e1780abb60e05890",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -117,24 +117,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf"
+            "value": "sha256:84dca900530136818db631d2878923f3bd35c2143e3da4a9cb6f4227188b9c72"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965"
+            "value": "sha256:84596d535a4d310e59d7109e872b76c1410adca8c1f5c62d6c4fdfa9025e55f6"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:fb40e81321a0d0e1177826032e05677ee2e725487351c40d0fb7afa348000bd3"
+            "value": "sha256:dac994812a28bec5fb826c3f2a6df461ce4eb4762b2952c8e96fee2ae4a2a6a7"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
+            "value": "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1"
           },
           {
             "field": "objectSetSha256",
@@ -297,6 +297,24 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "Admission webhook TLS material owned by the target."
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects."
+      },
+      {
+        "id": "lifecycle",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
+      },
+      {
+        "id": "webhook-ca",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
       }
     ],
     "routes": [
@@ -362,9 +380,93 @@
           "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
           "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "lifecycle"
+        ],
+        "checks": [
+          "stop and report; never continue past a stage that did not pass"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+        ]
+      },
+      {
+        "id": "webhook-ca",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "webhook-ca"
+        ],
+        "checks": [
+          "stop and report; never continue past a stage that did not pass"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+      },
+      {
+        "name": "lifecycle.yaml",
+        "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+      },
+      {
+        "name": "webhook-ca.yaml",
+        "path": "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
+      },
       {
         "name": "catalog-profile.yaml",
         "path": "examples/prometheus-operator-minimal/catalog-profile.yaml",
@@ -768,12 +870,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true,
           "writes": true
         }

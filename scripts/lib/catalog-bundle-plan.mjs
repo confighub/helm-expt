@@ -322,11 +322,8 @@ export const PUBLISHED_BEFORE_THE_PLAN_RULE = new Set([
   "catalog-rook-release-rook-ceph-v1.19.5-default",
   "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default",
   "catalog-strimzi-strimzi-kafka-operator-1.0.0-default",
-  // These five are built by their own functions in the receipt generator, and
-  // were also published before the rule.
-  "catalog-gatekeeper-gatekeeper-3.22.2-default",
+  // These two are listed by hand in the receipt generator, and were also
+  // published before the rule.
   "catalog-jetstack-cert-manager-v1.21.0-crds-enabled",
-  "catalog-projectcalico-tigera-operator-v3.32.0-default",
-  "catalog-prometheus-community-kube-prometheus-stack-87.19.2-minimal",
   "catalog-traefik-traefik-41.0.2-default",
 ]);

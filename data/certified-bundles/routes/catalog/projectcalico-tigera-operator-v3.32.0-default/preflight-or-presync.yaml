@@ -1,0 +1,39 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "projectcalico-tigera-operator-v3.32.0-default-preflight-or-presync"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects."
+  declaration:
+    step: "preflight-or-presync"
+    phase: "preflight"
+    requirementRefs:
+      - "preflight-or-presync"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+      - "data/hook-lifecycle/top100-hooks.csv"
+      - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+      - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+      - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
+    verdictRef: "recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml"

@@ -32,12 +32,41 @@ spec:
         bytes: 5831
         role: "route: helm-hooks"
       -
+        path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/explicit-delete-cleanup-action.yaml"
+        sha256: "2c469c8ce2e1bf802512de0965f5a8aff8526e1858d15c6aef1d8ce8314c86a9"
+        bytes: 1959
+        role: "route: plan-step explicit-delete-cleanup-action"
+      -
+        path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/preflight-or-presync.yaml"
+        sha256: "b03c3894193a0a5fbbffa8ef4bbed5540ab09eabb0ac13042a4c9d065d54159c"
+        bytes: 1924
+        role: "route: plan-step preflight-or-presync"
+      -
         path: "data/certified-bundles/guides/catalog/tigera-operator-v3.32.0-default/space-guide.md"
-        sha256: "8b5ff22ac5395dff9a66bae1041f466500796e74ec83cabd49a87f9b4ceacdda"
-        bytes: 1339
+        sha256: "8d7d2be3206214e78556c2b361eea24be3799484bf7df2c376d894c236d94fab"
+        bytes: 2627
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "lifecycle"
+        -
+          path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/explicit-delete-cleanup-action.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "explicit-delete-cleanup-action"
+        -
+          path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/preflight-or-presync.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "preflight-or-presync"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -50,8 +79,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest"
-    manifestDigest: "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
-    layerDigest: "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9"
+    manifestDigest: "sha256:720c8bd806c36911a1897444f18e0a37e7c3eebe20ac339683ee0c29a9da1061"
+    layerDigest: "sha256:b9e478d168dd9d4d0f7a2690f91f6d5eda14c7f044dfcf8f692345a5013957ee"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -127,4 +156,5 @@ spec:
       - "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/projectcalico/tigera-operator/v3.32.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
       - "runs/certified-bundles/catalog-projectcalico-tigera-operator-v3-32-0-default/publication-receipt.yaml"

@@ -172,7 +172,25 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "Admission webhook TLS material owned by the target."
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects."
+        -
+          id: "lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
+        -
+          id: "webhook-ca"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
       records:
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
         - "examples/prometheus-operator-minimal/catalog-profile.yaml"
     routeIntent:
       status: "recorded"
@@ -231,7 +249,64 @@ spec:
           evidence:
             - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
             - "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/receipts/install-gate.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 10 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 14 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+        -
+          id: "lifecycle"
+          requirementRefs:
+            - "lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "stop and report; never continue past a stage that did not pass"
+          evidence:
+            - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+        -
+          id: "webhook-ca"
+          requirementRefs:
+            - "webhook-ca"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks. The ordered stages are target-version, namespace, crds-apply, crds-established, admission-prepare, platform-apply, admission-finish, app-apply, app-ready, prometheus-ready, scrape-query, workloads."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "stop and report; never continue past a stage that did not pass"
+          evidence:
+            - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
       records:
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+        - "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
         - "examples/prometheus-operator-minimal/catalog-profile.yaml"
     targetFacts:
       status: "recorded"
@@ -266,14 +341,14 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
-      manifestDigest: "sha256:e35b0a38460604f3ab4725d513be1ad2b9bb19fe4d6fd6212ab7058d4f11e0e7"
-      layerDigest: "sha256:f0ad279b50198e7a97d0a296284bded7916bf007fc9c531f50928fd6fdccb2cf"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1"
+      manifestDigest: "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1"
+      layerDigest: "sha256:84dca900530136818db631d2878923f3bd35c2143e3da4a9cb6f4227188b9c72"
       objectSetSha256: "sha256:9947d9f86e3cabce7870b80560cda7ffd0381a909d253c43c6120f56c0b5a78c"
       receipt: "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml"
-      receiptSha256: "sha256:b405de9da8dbe3030904d6c759e55dad04e63d46b5134aa2a7fc811eb9912965"
+      receiptSha256: "sha256:84596d535a4d310e59d7109e872b76c1410adca8c1f5c62d6c4fdfa9025e55f6"
       publicationReceipt: "runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:fb40e81321a0d0e1177826032e05677ee2e725487351c40d0fb7afa348000bd3"
+      publicationReceiptSha256: "sha256:dac994812a28bec5fb826c3f2a6df461ce4eb4762b2952c8e96fee2ae4a2a6a7"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
@@ -287,6 +362,18 @@ spec:
           path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
           sha256: "sha256:efa6fc777f0e1caa6b26b3d5437384eef573b317e34a23f0bd7a4a51f00f7aea"
           role: "route: webhook-ca"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/establish-prometheus-operator-crds.yaml"
+          sha256: "sha256:260f9caaf6cba0ca4b0aa4e50a5c86a1bd4c6baeb982a0b513a6deda282dbf34"
+          role: "route: plan-step establish-prometheus-operator-crds"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/create-or-keep-admission-secret.yaml"
+          sha256: "sha256:68115c066edf91ad66ac56753c7c2d1afd0b3a5052232bc6ce3469aeafcbd701"
+          role: "route: plan-step create-or-keep-admission-secret"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/patch-and-check-admission-webhook.yaml"
+          sha256: "sha256:3a38864837e603539296d97c732f01bb4c79e958da1b414e2868c25eafb178d1"
+          role: "route: plan-step patch-and-check-admission-webhook"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"

@@ -1,0 +1,39 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "projectcalico-tigera-operator-v3.32.0-default-explicit-delete-cleanup-action"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough."
+  declaration:
+    step: "explicit-delete-cleanup-action"
+    phase: "observe"
+    requirementRefs:
+      - "explicit-delete-cleanup-action"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+      - "data/hook-lifecycle/top100-hooks.csv"
+      - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+      - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+      - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml"
+    verdictRef: "recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml"

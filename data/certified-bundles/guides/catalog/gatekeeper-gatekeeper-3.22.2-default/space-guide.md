@@ -6,20 +6,44 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 3 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 5 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml` discharges crd-ordering
-- `data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml` discharges helm-hooks
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `lifecycle` | `routes/lifecycle.yaml` | the committed render |
+| `preflight-or-presync` | `routes/preflight-or-presync.yaml` | the record |
+| `upgrade-action-with-receipt` | `routes/upgrade-action-with-receipt.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### lifecycle
+
+The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below.
+
+### preflight-or-presync
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `observed`.
+
+CRD and admission-webhook prerequisites must be checked before apply.
+
+### upgrade-action-with-receipt
+
+This step is due around an upgrade. The record names `delivery workflow` for it and marks it `observed`.
+
+The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.
 
 ## How it was ingested
 

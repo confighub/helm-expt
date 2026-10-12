@@ -1,0 +1,37 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2-default-preflight-or-presync"
+spec:
+  routeKind: "recorded-plan-step"
+  discharges: "CRD and admission-webhook prerequisites must be checked before apply."
+  declaration:
+    step: "preflight-or-presync"
+    phase: "preflight"
+    requirementRefs:
+      - "preflight-or-presync"
+    supportedRuntimes:
+      - "Argo CD"
+      - "Flux"
+      - "direct apply"
+    checks:
+      - "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+    recorded:
+      status: "recorded"
+      sourceStatus: "observed"
+    evidence:
+      - "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml"
+      - "data/hook-lifecycle/top100-hooks.csv"
+      - "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml"
+      - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+  executedBy:
+    invokedBy: "delivery workflow"
+    automatic: false
+  boundedness:
+    - "This document repeats one plan step of the Catalog record data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml. It adds nothing the record does not say."
+    - "The step is not automatic. The record marks it observed."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    verdictRef: "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"

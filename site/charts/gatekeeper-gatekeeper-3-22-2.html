@@ -579,8 +579,8 @@
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>gatekeeper/gatekeeper</code> 3.22.2, as 30 Kubernetes objects in its <code>default</code> preset. The Catalog holds 2 presets of this version.</p>
       <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119</code></p>
-      <p><strong>Needs first.</strong> CRD and admission-webhook prerequisites must be checked before apply.</p>
+      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930</code></p>
+      <p><strong>Needs first.</strong> CRD and admission-webhook prerequisites must be checked before apply. The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.</p>
     </section>
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
@@ -741,7 +741,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <details class="entry-inputs" data-entry-plan="gatekeeper-gatekeeper-3-22-2-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> CRD and admission-webhook prerequisites must be checked before apply. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims. Who: delivery workflow. <em>Seen in a recorded run.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> CRD and admission-webhook prerequisites must be checked before apply. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>When you deliver.</strong> Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest. Who: whatever applies the objects. <em>Seen in a recorded run.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/gatekeeper-gatekeeper-3-22-2/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         <p><strong>Test the plain objects.</strong> <a href="../sh/gatekeeper-gatekeeper-3-22-2/default/try-objects.sh">A second script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. The Catalog has no recorded run of this script.</p>
@@ -1284,7 +1284,7 @@ ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c  gatekeeper-gat
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>
       <ul>
-        <li><strong>default.</strong> The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</li>
+        <li><strong>default.</strong> The plain-objects script stops before it applies anything. 2 steps of the plan are yours to do first, and it prints them. When you run it again it applies the objects and ends. It does not wait for the workloads to start. Neither script runs the steps the plan names for an upgrade or a delete.</li>
         <li><strong>no-crds.</strong> The script does not run the steps the plan names for an upgrade or a delete.</li>
         <li><strong>no-crds.</strong> The Catalog publishes no plain objects for this entry, because its verdict is unsafe-to-flatten. It has no plain-objects test.</li>
       </ul>

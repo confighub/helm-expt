@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:9b70ded98e058c71ef4dc33df24f2c3ca02f6c80f5407dafda5cf98d55704492",
+      "sha256": "sha256:b62aa0d77deacf12bc9784c9d36b154e6d1353ff55713abe28d81bdbd4f4e60b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml",
-      "sha256": "sha256:9887a0efa8513efc6e096df6366e81aad266cca95679db5012078031c08cf706",
+      "sha256": "sha256:1a78b0daf325cdc8975e058e670968a000ae7242e4bd9d8b8db45183e2b51f04",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:6ceb90c120d6e9059397dbe15d4a94d9ad8d0785b6d33150b7031f68292cdf22"
+            "value": "sha256:ff51b01ffb9f7727c16b6eec0ec3533be5dfbf2b0c85a26d653abb83d16818d4"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:c2e671ad4d2540ae69c10dfeeb437a5af56b0ddf0ab969ed6547079ec3d32cf8"
+            "value": "sha256:3c6dcf5d559fa09c04c3d583354ffd060dbf5f6c23eec7a062f45f6f0198a2a9"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:91423d2b992dc03512eff614f695aa090fdd207da28ef57b968293020076f93d"
+            "value": "sha256:4feebe3e229b3a97fb6d090ec61c68bcc19c3d56d27e4886e00e16efd5da52cf"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:ff993bc8233dfc3f0483fad74de3f8fac0d314aaa3d48252ae694a0a980b7119"
+            "value": "sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930"
           },
           {
             "field": "objectSetSha256",
@@ -256,6 +256,18 @@
         "type": "lifecycle-action",
         "origin": "base",
         "detail": "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims."
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+      },
+      {
+        "id": "lifecycle",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run."
       }
     ],
     "routes": [
@@ -310,9 +322,65 @@
           "recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml",
           "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
         ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+        ]
+      },
+      {
+        "id": "lifecycle",
+        "phase": "destination-resolution",
+        "status": "recorded",
+        "sourceStatus": "observed",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are cub-installer-setup, kubectl-apply-separated-secrets, kubectl-apply-manifests, crds-established, controller-manager-ready, audit-ready, webhook-service-endpoints, webhook-secret-populated, webhook-configurations-routed, admission-server-dry-run, pre-upgrade-crd-route-apply, pre-upgrade-crds-established, pre-upgrade-webhook-configurations-routed, pre-upgrade-admission-server-dry-run.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "lifecycle"
+        ],
+        "checks": [
+          "stop and report; never continue past a stage that did not pass"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
+        ]
       }
     ],
     "records": [
+      {
+        "name": "crd-ordering.yaml",
+        "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+      },
+      {
+        "name": "lifecycle.yaml",
+        "path": "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
+      },
       {
         "name": "gatekeeper-gatekeeper-3-22-2-default.yaml",
         "path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml",

@@ -49,17 +49,18 @@ for n in 0001 0002 0003 0004 0005 0006 0007 0008 0009 0010; do mv "$work/docs/do
 ls "$work/rest"
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  say "Stop before applying anything. This entry's plan has 1 step that an install needs first"
+  say "Stop before applying anything. This entry's plan has 2 steps that an install needs first"
   cat >&2 <<'EOF_REQUIREMENTS'
-This script cannot carry out this step of the plan. It is yours to do, with your own values:
+This script cannot carry out these steps of the plan. They are yours to do, with your own values:
   - Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.
-Nothing was applied. Complete it before you apply the objects.
-When it is done, re-run with:
+  - The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
+Nothing was applied. Complete them before you apply the objects.
+When they are done, re-run with:
   REQUIREMENTS_READY=1 bash try-objects.sh
 EOF_REQUIREMENTS
   exit 1
 fi
-say "REQUIREMENTS_READY=1 is set. The script takes your word for 1 step and does not check it"
+say "REQUIREMENTS_READY=1 is set. The script takes your word for 2 steps and does not check them"
 
 say "Check that kubectl reaches a cluster"
 if ! kubectl get --raw /version >/dev/null 2>&1; then
@@ -102,8 +103,9 @@ kubectl apply -f "$work/rest"
 
 say "Done. kubectl applied the 10 objects of this entry's retained file."
 say "The script stops here. It did not wait for any workload to start"
-say "Not run by this script: 2 steps of this entry's plan. The entry page says who runs each one."
+say "Not run by this script: 3 steps of this entry's plan. The entry page says who runs each one."
 cat <<'EOF_NOT_RUN'
    - Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.
+   - The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest.
    - Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.
 EOF_NOT_RUN
