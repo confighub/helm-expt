@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare GPU nodes and pull an AICR config · ConfigHub Workshop</title>
+<title>Try NVIDIA AICR for GPUs · ConfigHub Workshop</title>
   <meta name="description" content="Compare two GPU-node snapshots against their intended roles, or pull one public AICR configuration and write a local OCI without an account or cluster.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try-aicr.html">
-  <meta property="og:title" content="Compare GPU nodes and pull an AICR config · ConfigHub Workshop">
+  <meta property="og:title" content="Try NVIDIA AICR for GPUs · ConfigHub Workshop">
   <meta property="og:description" content="Compare two GPU-node snapshots against their intended roles, or pull one public AICR configuration and write a local OCI without an account or cluster.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try-aicr.html">
@@ -630,10 +630,11 @@
 <details><summary>More in this Guide</summary><ul><li><a href="./try-aicr.html#aicr-next">Choose what to do next</a></li></ul></details></details>
 <header class="hero human-hero">
   
-  <h1>Compare GPU nodes and pull an AICR config</h1>
-  <p class="boundary-chip">Two independent starting paths</p>
-  <p class="lead">Compare GPU nodes you already run, or inspect one retained AI-platform configuration without a GPU.</p>
+  <h1>Try NVIDIA AICR for GPUs</h1>
+  <p class="lead">NVIDIA AICR turns five choices into one recipe for a GPU cluster. The choices are the service, the accelerator, the operating system, the workload and the platform. The Catalog holds 132 AICR recipes at v1.0.0, each kept as Argo CD Applications that you can read without a GPU.</p>
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span>“Compare my GPU nodes with the AICR recipe for &lt;workload&gt;, and tell me which configuration fits and why.”</aside>
+  <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
+  <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
   <details><summary>What each path needs and proves</summary>
   <p>An &ldquo;AICR platform&rdquo; here is the composed set of Argo CD Applications AICR generates for one AI target, whether training or inference. This page never runs it, so it stays a <a href="./stack.html#what-a-stack-is">stack</a> in this site's sense, and never becomes the running, governed platform that stack could be.</p>

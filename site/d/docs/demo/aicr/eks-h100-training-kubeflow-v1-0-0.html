@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AICR v1.0.0: inspect an EKS H100 training platform · ConfigHub Workshop</title>
-  <meta name="description" content="AICR v1.0.0: inspect an EKS H100 training platform: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>One AICR v1.0.0 recipe for EKS H100 training · ConfigHub Workshop</title>
+  <meta name="description" content="One AICR v1.0.0 recipe for EKS H100 training: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">
-  <meta property="og:title" content="AICR v1.0.0: inspect an EKS H100 training platform · ConfigHub Workshop">
-  <meta property="og:description" content="AICR v1.0.0: inspect an EKS H100 training platform: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="One AICR v1.0.0 recipe for EKS H100 training · ConfigHub Workshop">
+  <meta property="og:description" content="One AICR v1.0.0 recipe for EKS H100 training: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">
   <style>
@@ -566,7 +566,7 @@
 <details><summary>Docs</summary><ul><li><a href="../../../../docs.html">Docs</a></li><li><a href="../../../../catalog-docs.html">Catalog docs</a></li><li><a href="../../../../config.html">How configuration works</a></li><li><a href="../../../../variants.html">Variants</a></li><li><a href="../../../../oci.html">OCI shapes</a></li><li><a href="../../../../quirks.html">What charts hide</a></li><li><a href="../../../../how-confighub-works.html">How ConfigHub works</a></li><li><a href="../../../../confighub.html">ConfigHub Server</a></li><li><a href="../../../../proof.html">Why trust it</a></li><li><a href="../../../../known-gaps.html">Known gaps</a></li><li><a href="../../../../matrix.html">Evidence index</a></li><li><a href="../../../../kubara-and-confighub.html">Kubara and ConfigHub, explained</a></li><li><a href="../../../../aicr-configurations.html">Where an AICR configuration comes from</a></li><li><a href="../../../../agents-maintain-the-catalog.html">How agents help maintain the Catalog</a></li><li><a href="../../../../public-questions.html">What happens to a public question</a></li><li><a href="../../../../d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a></li><li><a href="../../../../offering.html">Offering</a></li></ul></details></details>
   <header class="hero human-hero">
     
-    <h1>AICR v1.0.0: inspect an EKS H100 training platform</h1>
+    <h1>One AICR v1.0.0 recipe for EKS H100 training</h1>
     <p class="lead">Use it when you want to read what NVIDIA's first 1.0 release produces for an EKS H100 training platform. You can inspect all 17 generated Argo CD Applications in this repository without a ConfigHub account, an EKS cluster, or a GPU. You can also <a href="../../../../../docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.md">view this as a markdown file</a>.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
   </header>
@@ -710,9 +710,9 @@ npm run aicr-provenance-v100:verify</code></pre>
 <span class="term-comment"># list what changed from v0.20.0 to v1.0.0</span>
 <span class="term-prompt">$</span> cub config diff aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml --summary</code></pre>
         </div>
-        <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
-          <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
-          <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
+        <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
+          <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v1-0-0/confighub-upload-receipt.yaml">Read the receipt</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
@@ -722,9 +722,9 @@ npm run aicr-provenance-v100:verify</code></pre>
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
 <span class="term-prompt">$</span> cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v1-0-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:1.0.0</code></pre>
         </div>
-        <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
-          <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux does not apply, and kubectl has no record. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 7 inputs that the destination must supply, so read them before you deploy.</p>
+        <div class="entry-step" data-step="deploy" data-state="partly-run-for-this-entry">
+          <h3>4. Deploy it <span class="status warn">Partly run for this entry</span></h3>
+          <p>A delivery is partly recorded for this entry, and no run has passed. Argo CD is partly recorded, Flux does not apply, and kubectl has no record. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 7 inputs that the destination must supply, so read them before you deploy. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev aicr-eks-h100-training-kubeflow-v1-0-0-argocd --target workshop/target --space-pattern &quot;template:aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev&quot;
 

@@ -243,6 +243,9 @@ function aicrModernGenerationBeforePublication(generation) {
   const unpublished = structuredClone(generation);
   unpublished.spec.processing.transport.publicStatus = "not-run";
   unpublished.status.publicOciPublication = "not-run";
+  // The fixtures are the entry before anything left the machine, so the
+  // upload that followed the publication has not happened either.
+  unpublished.status.configHubUpload = "not-run";
   delete unpublished.status.published;
   return unpublished;
 }
