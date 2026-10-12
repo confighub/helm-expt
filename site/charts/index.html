@@ -444,6 +444,7 @@
        of the sticky site header when the page scrolls to it. */
     .chart-results { margin: 14px 0 8px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--surface); font-weight: 600; scroll-margin-top: 120px; }
     .chart-results a { font-weight: 400; }
+    .format-intro { margin: 14px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); scroll-margin-top: 120px; }
     @media (max-width: 860px) { .chart-results { scroll-margin-top: 210px; } }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
     /* The formats-and-patterns panel: one glance shows the catalog is not
@@ -559,7 +560,7 @@
 <span class="term-prompt">$</span> cub config verify oci://registry/team/redis@sha256:…</code></pre></div>
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry follows one model, and <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> explains it in three steps. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
      <div class="support-panel" aria-label="Formats and patterns we support">
        <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring one of these formats as config-as-data, or compose and deliver it with these patterns.</p>
        <p class="support-group">Bring any format</p>
@@ -603,6 +604,10 @@
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
         <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>Use this entry in ConfigHub</strong>, and each step says what the Catalog has run for that entry.</p>
+      </div>
+      <div id="format-intro">
+        <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> Each chart was flattened once into plain Kubernetes objects. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> explains the three steps, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through all of them. <a href="index.html">Show every format</a>.</p>
+        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept here as Argo CD Applications. Start at <a href="../try-aicr.html">Try NVIDIA AICR for GPUs</a>, or read <a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">one AICR v1.0.0 recipe</a>. <a href="index.html">Show every format</a>.</p>
       </div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
@@ -3059,6 +3064,7 @@
             // of them without scrolling.
             const filtered = query || [format, level, category, status, hooks, crds].some((node) => node.value);
             results.hidden = !filtered;
+            for (const intro of document.querySelectorAll("#format-intro .format-intro")) intro.hidden = intro.dataset.format !== format.value;
             if (filtered) {
               const matches = visible === 1 ? "1 entry matches" : visible + " entries match";
               const edit = document.createElement("a");
@@ -3092,7 +3098,9 @@
           [text, format, level, category, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
           // An address that carries a search or a filter opens at its results.
-          if (!results.hidden && !window.location.hash) results.scrollIntoView({ block: "start" });
+          // A format's own explanation sits above the count, so the page opens there.
+          const shownIntro = document.querySelector("#format-intro .format-intro:not([hidden])");
+          if (!results.hidden && !window.location.hash) (shownIntro || results).scrollIntoView({ block: "start" });
         })();
       </script>
     </section>

@@ -2757,8 +2757,14 @@ function docPageContent(repoPath, sourceHref, body) {
       if (/^(unofficial|experimental|status\b|owner\b|audience\b|scope\b|generated\b)/i.test(text)) continue;
       const start = match.index;
       const end = start + match[0].length;
+      // An AICR document says where the AICR pages start, so a reader who
+      // lands on one can find the others.
+      const aicrDocument = repoPath.startsWith("docs/demo/aicr/")
+        || /^docs\/user\/(workshop-aicr-guide|live-walk-aicr-)/.test(repoPath);
+      const up = "../".repeat(repoPath.split("/").length);
+      const aicrPointer = aicrDocument ? ` It is one of the <a href="${up}try-aicr.html#aicr-pages">NVIDIA AICR pages</a>.` : "";
       return {
-        lead: `${match[1]} You can also <a href="${sourceHref}">view this as a markdown file</a>.`,
+        lead: `${match[1]}${aicrPointer} You can also <a href="${sourceHref}">view this as a markdown file</a>.`,
         body: `${body.slice(0, start)}${body.slice(end)}`,
       };
     }
@@ -2882,7 +2888,7 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
-    + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How it works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
+    + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How the model works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
@@ -2910,7 +2916,7 @@ function injectSiteFooterNav(html, relPath) {
 function siteSections() {
   return [
   { label: "Configs", hub: "charts/index.html", pages: [
-    ["d/docs/user/model-and-vocabulary.html", "How it works"],
+    ["d/docs/user/model-and-vocabulary.html", "How the model works"],
     ["charts/index.html", "Find a configuration"], ["did-this-chart-version-change.html", "Did a version change?"],
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
@@ -3030,6 +3036,7 @@ function siteSectionFor(relPath) {
 function sectionStartingQuestions(label) {
   return {
     Configs: [
+      ["d/docs/user/model-and-vocabulary.html", "How our model for config works"],
       ["config.html", "How does Helm become configuration as data?"],
       ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
       ["did-this-chart-version-change.html", "Did a chart version change?"],
@@ -3939,11 +3946,14 @@ function configTestCentreHome(catalog) {
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
+        <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
         <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <p class="rail-h"><strong>Common Questions</strong></p>
         <a href="./charts/index.html">What’s in the Config Catalog?</a>
+        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">How do I deploy a Helm chart from the Catalog?</a>
+        <a href="./try-aicr.html">How do I use NVIDIA AICR?</a>
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
@@ -4019,7 +4029,7 @@ ${homeJourneyLinks()}
             <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
             <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} cub plugins, each marked by its state.</li>
             <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} known paths an agent walks with you, the five journeys first.</li>
-            <li><a href="./docs.html">Docs</a>: how it works, why you can trust it, and every reference.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust it, and every reference.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
@@ -4027,7 +4037,7 @@ ${homeJourneyLinks()}
           <h2>What is the Workshop?</h2>
           <p class="intro">The Catalog supplies configurations and evidence. Workshop combines it with Guides and tools. <code>cub</code> is the command-line interface that you and your agent use. ConfigHub Server keeps shared configuration and manages its releases. You can run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
           <p class="intro">Other catalogs give you charts. We give your agents the rendered objects, digests and recorded checks to assess them before use.</p>
-          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported.</p>
+          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> gives the three steps.</p>
         </section>
         </div>
       </main>
@@ -4786,6 +4796,20 @@ function tryAicrHtml() {
 </header>
 <main>
     <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
+  <section aria-labelledby="aicr-pages">
+    <h2 id="aicr-pages">Every AICR page</h2>
+    ${markdownLikeTable([
+      ["Page", "Use it to"],
+      [`<a href="./charts/index.html?format=ai-platform">The AICR entries in the Catalog</a>`, "Find the recipe for your service, accelerator and workload."],
+      [`<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a>`, "Read one recipe end to end. It is published as OCI and stored in ConfigHub."],
+      [`<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">One AICR v0.20.0 recipe</a>`, "See a recipe promoted through development, staging and production."],
+      [`<a href="./d/docs/user/workshop-aicr-guide.html">Questions AICR users ask</a>`, "Get answers with the commands that give them."],
+      [`<a href="./d/docs/demo/aicr/snapshot-diff.html">Compare two GPU nodes</a>`, "See how two nodes differ, with no recipe."],
+      [`<a href="./d/docs/user/live-walk-aicr-kind-argocd-2026-10-11.html">One recipe under Argo CD</a>`, "Read what happened when one recipe ran on a throwaway cluster."],
+      [`<a href="./aicr-configurations.html">Where an AICR configuration comes from</a>`, "Check which NVIDIA recipe an entry came from."],
+      [`<a href="./d/docs/demo/aicr/refusal-corpus.html">What the AICR entries refuse</a>`, "See what the Catalog will not claim for AICR."],
+    ], { rawFirstColumn: true })}
+  </section>
   <section aria-labelledby="aicr-questions">
     <h2 id="aicr-questions">Choose the question first</h2>
     <p><strong>New to AICR, with no GPU or cluster?</strong> <a href="#retained-config-path">Start with the local configuration exercise</a>. You will inspect retained files and their identity; you will not deploy them.</p>
@@ -4931,6 +4955,7 @@ function configHtml(catalog) {
   ${topNav(".")}
   <h1>A simple model for all your config, templates and recipes</h1>
   <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
+  <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> states the model in three steps on one short page. This page shows it for one real entry.</p>
   <div class="hero-actions">
     <a class="button primary" href="./ask.html">Check a configuration</a>
     <a class="button secondary" href="#lifecycle">See the five stages</a>
@@ -7873,15 +7898,26 @@ function docsHtml(catalog) {
 
 
 
+    <section aria-labelledby="read-first">
+      <h2 id="read-first">Read first</h2>
+      <ul>
+        <li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>. Three steps on one short page.</li>
+        <li><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>. One Helm chart from the Catalog, in five steps.</li>
+        <li><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>. What AICR is, and every AICR page.</li>
+        <li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a>. The Catalog, the Guides and the tools.</li>
+        <li><a href="./proof.html">Why trust it</a>. What was tested, and how you can check it.</li>
+        <li><a href="./known-gaps.html">Known gaps</a>. What is not done.</li>
+      </ul>
+    </section>
     <section aria-labelledby="areas">
       <h2 id="areas">Find your topic</h2>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
         <article class="card"><h3>AI and agents</h3><p>Give an agent a useful task and review its answer.</p><p><a href="./ai.html">Start with Claude or Codex</a> · <a href="./ask.html">Check your own configuration</a></p></article>
         <article class="card"><h3>GitOps</h3><p>Keep your controller while introducing reviewed configuration.</p><p><a href="./bring-argo-into-confighub.html">Argo CD</a> · <a href="./bring-flux-into-confighub.html">Flux</a> · <a href="./deploy-with-flux-or-argo.html">Delivery choices</a></p></article>
         <article class="card"><h3>Deployment and promotion</h3><p>Take a checked result into deployment, then manage changes.</p><p><a href="./confighub.html">Deploy and manage with ConfigHub</a> · <a href="./how-it-works.html">Release, promote and roll back</a></p></article>
-        <article class="card"><h3>Configuration and Helm</h3><p>Understand rendered configuration, values and variants.</p><p><a href="./config.html">Configuration as data</a> · <a href="./variants.html">Variants</a> · <a href="./quirks.html">Hooks, CRDs and chart behavior</a></p></article>
+        <article class="card"><h3>Configuration and Helm</h3><p>Understand rendered configuration, values and variants.</p><p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> · <a href="./config.html">Configuration as data</a> · <a href="./variants.html">Variants</a> · <a href="./quirks.html">Hooks, CRDs and chart behavior</a></p></article>
         <article class="card"><h3>Apps, platforms and fleets</h3><p>Learn what an app looks like and how its dependencies fit.</p><p><a href="./apps.html">Example apps</a> · <a href="./compose-a-stack.html">Compose a stack</a> · <a href="./operate-a-fleet.html">Operate a fleet</a></p></article>
-        <article class="card"><h3>GPUs, AICR and NIM</h3><p>Inspect an AI configuration and understand its target requirements.</p><p><a href="./try-aicr.html">Start with AICR</a> · <a href="./aicr-configurations.html">Where configurations come from</a> · <a href="./d/docs/demo/aicr/kserve-nim-inference.html">NIM example</a></p></article>
+        <article class="card"><h3>GPUs, AICR and NIM</h3><p>Inspect an AI configuration and understand its target requirements.</p><p><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a> · <a href="./aicr-configurations.html">Where configurations come from</a> · <a href="./d/docs/demo/aicr/kserve-nim-inference.html">NIM example</a></p></article>
         <article class="card"><h3>ConfigHub and UIs</h3><p>Understand the server and choose a view of stored or live configuration.</p><p><a href="./how-confighub-works.html">How ConfigHub works</a> · <a href="./view-and-change-config-with-uis.html">Official GUI and other interfaces</a> · <a href="./see-what-is-running.html">Scout cluster view</a></p></article>
         <article class="card"><h3>Trust and evidence</h3><p>Find what was checked and what remains unknown.</p><p><a href="./proof.html">Why trust it</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./check-a-claim-yourself.html">Check a claim</a></p></article>
       </div>
@@ -8727,7 +8763,8 @@ function aicrConfigurationsHtml(catalog) {
     eyebrow: "Docs",
     title: "Where an AICR configuration comes from",
     lead: "The provider chooses an AICR recipe, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.",
-    body: `  <section aria-labelledby="aicr-source-catalog">
+    body: `  <p class="notice">This is one of the <a href="./try-aicr.html#aicr-pages">NVIDIA AICR pages</a>. Start there if you are new to AICR.</p>
+  <section aria-labelledby="aicr-source-catalog">
     <h2 id="aicr-source-catalog">1. Where the selected configuration came from</h2>
     <p>The provider chooses the recipe. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
     ${markdownLikeTable([
@@ -12051,6 +12088,10 @@ function aicrCatalogRows() {
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
         <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
+      <div id="format-intro">
+        <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> <a href="../config.html">Read more about Helm in the Catalog here</a>. Each chart was flattened once into plain Kubernetes objects, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through every step. <a href="index.html">Show every format</a>.</p>
+        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept in the Catalog as Argo CD Applications. <a href="index.html">Show every format</a>.</p>
+      </div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
@@ -12096,6 +12137,7 @@ ${nonHelmCatalogRowsHtml}
             // of them without scrolling.
             const filtered = query || [format, level, category, status, hooks, crds].some((node) => node.value);
             results.hidden = !filtered;
+            for (const intro of document.querySelectorAll("#format-intro .format-intro")) intro.hidden = intro.dataset.format !== format.value;
             if (filtered) {
               const matches = visible === 1 ? "1 entry matches" : visible + " entries match";
               const edit = document.createElement("a");
@@ -12129,7 +12171,12 @@ ${nonHelmCatalogRowsHtml}
           [text, format, level, category, status, hooks, crds].forEach((node) => node.addEventListener("input", () => { update(); remember(); }));
           update();
           // An address that carries a search or a filter opens at its results.
-          if (!results.hidden && !window.location.hash) results.scrollIntoView({ block: "start" });
+          // A format's own explanation sits above the count, so the page opens there.
+          const shownIntro = document.querySelector("#format-intro .format-intro:not([hidden])");
+          if (!results.hidden && !window.location.hash) {
+            if (shownIntro) shownIntro.scrollIntoView({ block: "start" });
+            else results.scrollIntoView({ block: "start" });
+          }
         })();
       </script>`;
   return `<!doctype html>
@@ -12144,6 +12191,7 @@ ${nonHelmCatalogRowsHtml}
        of the sticky site header when the page scrolls to it. */
     .chart-results { margin: 14px 0 8px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--surface); font-weight: 600; scroll-margin-top: 120px; }
     .chart-results a { font-weight: 400; }
+    .format-intro { margin: 14px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); scroll-margin-top: 120px; }
     @media (max-width: 860px) { .chart-results { scroll-margin-top: 210px; } }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
     /* The formats-and-patterns panel: one glance shows the catalog is not
@@ -12163,6 +12211,7 @@ ${nonHelmCatalogRowsHtml}
     <h1>Configs</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every published entry is an image of the exact objects, checked, with a receipt. An entry that is not published says so.</p>
+    <p class="format-doors"><strong>Find out more and learn how each format works:</strong> <a href="../config.html">Helm</a>, <a href="../try-aicr.html">NVIDIA AICR</a>, <a href="../try.html">cub installer</a>, <a href="../bring-kubara-into-confighub.html">Kubara</a>, <a href="../bring-sveltos-into-confighub.html">Sveltos</a>, <a href="../oci.html">OCI</a>, and <a href="../formats.html">every other format</a>. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> is the same for all of them.</p>
      ${commandBlock([
        { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
        { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
@@ -12170,7 +12219,7 @@ ${nonHelmCatalogRowsHtml}
      ], { title: "run it", label: "Run it: check and verify a catalog image" })}
      <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
 
-     <p><strong>You want a configuration, at a version.</strong> Every entry is the same shape underneath, and <a href="../config.html">Config</a> explains that model. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
+     <p><strong>You want a configuration, at a version.</strong> Every entry follows one model, and <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> explains it in three steps. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
      <div class="support-panel" aria-label="Formats and patterns we support">
        <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring one of these formats as config-as-data, or compose and deliver it with these patterns.</p>
        <p class="support-group">Bring any format</p>
