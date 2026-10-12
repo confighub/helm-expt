@@ -2923,7 +2923,7 @@ function siteSections() {
     ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring Kubara's managed add-ons into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
-    ["guides.html", "Every Guide"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
+    ["guides.html", "Every Guide"], ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
@@ -13476,7 +13476,7 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
-    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(row), row.default_base))}
+    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(row), row.default_base), "..")}
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
       <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and ${published ? "publication receipt" : "publication status"} reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
@@ -13947,7 +13947,7 @@ function chartPageHtml(catalog, entry, coverageEntry) {
     ${chartOverviewLinkHtml(entry.chart)}
   </header>
   <main>
-    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(entry), entry.start_variant))}
+    ${entryAtAGlanceHtml(entryStepsForChartPage(chartPageFileName(entry), entry.start_variant), "..")}
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
       <p>Every chart page follows the same order. Choose a configuration, inspect its objects and setup work, then read the tests that have run. <a href="../testing.html">Open the worked examples</a>.</p>
@@ -16166,9 +16166,18 @@ function planStepBrief(step) {
 // The first thing on an entry page: what the entry is, the one command that
 // installs it, and what it needs first. It reads the first listing of the
 // page, which is the default preset.
-function entryAtAGlanceHtml(listings) {
+function entryAtAGlanceHtml(listings, siteHref = "") {
   const listing = listings[0];
   if (!listing) return "";
+  // An entry with a page that walks through it links that page from the box.
+  const walkthroughs = new Map([
+    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator from the Catalog"]],
+  ]);
+  const walkthrough = siteHref ? walkthroughs.get(listing.identity.name) : null;
+  const walkthroughHtml = walkthrough
+    ? `
+      <p><strong>Step by step.</strong> <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>.</p>`
+    : "";
   const { name, version, base, format, formatLabel } = listing.identity;
   const presets = listings.filter((item) => item.identity.format === format).length;
   const count = Number(listing.flattened?.objectCount ?? 0);
@@ -16218,7 +16227,7 @@ function entryAtAGlanceHtml(listings) {
       <p><strong>What it is.</strong> ${what}</p>
       <p><strong>Install it.</strong> ${install}</p>
       ${bundle}${needs ? `
-      <p><strong>Needs first.</strong> ${needs}</p>` : ""}
+      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}
     </section>`;
 }
 

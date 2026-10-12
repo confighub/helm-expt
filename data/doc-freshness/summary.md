@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-12 (commit `85832ff829`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-12 (commit `c2042ce659`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -72,7 +72,7 @@ most recently changed triggers.
 | [docs/reference/what-hook-support-means.md](../../docs/reference/what-hook-support-means.md) | reference | 2026-08-02 | 68 | `data/hook-lifecycle/summary.md (2026-10-09)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 68 | `data/lifecycle-route-actions/summary.md (2026-10-09)`<br>`data/per-chart-hooks/summary.md (2026-10-09)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 68 | `tests/README.md (2026-10-02)`<br>`tests/doctrine.md (2026-09-02)` |
-| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 65 | `data/aicr-claim-integrity/summary.md (2026-10-11)`<br>`data/aicr-entry-naming/summary.md (2026-10-11)` |
+| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 65 | `data/aicr-claim-integrity/summary.md (2026-10-12)`<br>`data/aicr-entry-naming/summary.md (2026-10-11)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 64 | `data/flattening-safety/summary.md (2026-10-09)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 62 | `data/aicr-platform-evidence/summary.md (2026-10-09)`<br>`data/aicr-version-diff/summary.md (2026-10-09)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 62 | `data/aicr-version-diff/summary.md (2026-10-09)` |
