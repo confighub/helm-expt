@@ -37,12 +37,46 @@ spec:
         bytes: 7108
         role: "route: helm-hooks"
       -
+        path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/preflight-or-presync.yaml"
+        sha256: "e8caa611917bac253c8327e667b6e5e13b7a35998571fd227784b52b3d4e5348"
+        bytes: 1557
+        role: "route: plan-step preflight-or-presync"
+      -
+        path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/upgrade-action-with-receipt.yaml"
+        sha256: "275685e034d904939a16ed2428d31d56f9708120368779c1a8baa7c34a8c8c41"
+        bytes: 1615
+        role: "route: plan-step upgrade-action-with-receipt"
+      -
         path: "data/certified-bundles/guides/catalog/gatekeeper-gatekeeper-3.22.2-default/space-guide.md"
-        sha256: "cedc3deab3d9e49ae695da651ecad8e4f564def6e7dd814e8271fe87162467ed"
-        bytes: 1409
+        sha256: "e8cdc0e4337fe81232a6fbae0b7754c02b01a9cec192507675789548ad46860a"
+        bytes: 2620
         role: "space-guide"
     objectCount: 30
     objectInventoryRef: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/lifecycle.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "lifecycle"
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/preflight-or-presync.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "preflight-or-presync"
+        -
+          path: "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-3.22.2-default/upgrade-action-with-receipt.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "upgrade-action-with-receipt"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -133,4 +167,5 @@ spec:
       - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/gatekeeper/gatekeeper/3.22.2/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml"
       - "runs/certified-bundles/catalog-gatekeeper-gatekeeper-3-22-2-default/publication-receipt.yaml"

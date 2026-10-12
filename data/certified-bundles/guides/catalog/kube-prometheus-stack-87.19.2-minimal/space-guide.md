@@ -6,21 +6,56 @@ This configuration bundle can be ingested into a Space with cub v0.5.5. The serv
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 4 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 7 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict-minimal.yaml
 
-## What its routes owe
+## The plan
 
-This bundle carries route declarations and retained observations. They are not executable controllers: complete and verify these prerequisites manually before delivery.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml` discharges crd-ordering
-- `data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml` discharges helm-hooks
-- `data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml` discharges webhook-ca
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `crd-ordering` | `routes/crd-ordering.yaml` | the committed render |
+| `lifecycle` | `routes/lifecycle.yaml` | the committed render |
+| `webhook-ca` | `routes/webhook-ca.yaml` | the committed render |
+| `establish-prometheus-operator-crds` | `routes/establish-prometheus-operator-crds.yaml` | the record |
+| `create-or-keep-admission-secret` | `routes/create-or-keep-admission-secret.yaml` | the record |
+| `patch-and-check-admission-webhook` | `routes/patch-and-check-admission-webhook.yaml` | the record |
+
+### crd-ordering
+
+Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning.
+
+### lifecycle
+
+The chart defines 7 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below.
+
+### webhook-ca
+
+The target-owned admission certificate must exist and its CA must be patched into all webhook configurations before admission is ready. The retained manual lifecycle observation records creation, patching and readiness checks.
+
+### establish-prometheus-operator-crds
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `routed`.
+
+Follow the certified CRD ordering route and wait for the ten retained CRDs before the ordinary platform objects.
+
+### create-or-keep-admission-secret
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `routed`.
+
+Follow the certified lifecycle route to create or retain the target-owned admission Secret before webhook readiness checks.
+
+### patch-and-check-admission-webhook
+
+This step is due after you deliver. The record names `delivery workflow` for it and marks it `routed`.
+
+Follow the certified lifecycle route to patch the admission webhook after the operator and Secret exist, then check readiness.
 
 Establish the ten Prometheus Operator CRDs, create the target-owned admission Secret, apply the platform, then patch and check the webhook. The exact retained procedure and observation are in scripts/run-prometheus-operator-minimal-live.mjs and runs/prometheus-operator-minimal-live/receipt.yaml in the Catalog repository. Applications and ServiceMonitors are separate. One kind run proved a synthetic application scrape; production, upgrades, rollback and automatic GitOps execution remain unproven.
 

@@ -6,19 +6,39 @@ This Space holds one certified bundle, ingested one Unit per file. It was produc
 
 ## What produced it
 
-Producer: config-workshop-catalog. Contents: rendered-config, 2 file(s).
+Producer: config-workshop-catalog. Contents: rendered-config, 4 file(s).
 
 ## Whether it may ship as plain YAML
 
-Lane: **flatten-with-routes** (certified). This bundle needs companion artifacts to deliver safely. They travel with it, and they are listed below.
+Lane: **flatten-with-routes** (certified). This bundle carries a plan beside its objects. The plan is below.
 
 Decided by: the flattening-safety audit at recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml
 
-## What its routes owe
+## The plan
 
-This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+The plan is the steps that plain objects cannot carry. The Catalog record `data/base-variant-records/records/projectcalico-tigera-operator-v3-32-0-default.yaml` names the steps of this entry, and this bundle carries a plan document for each one. A step written from the record is never automatic. Uploading the bundle stores the plan and does not carry it out.
 
-- `data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml` discharges helm-hooks
+| Step | Carried by | Written from |
+| --- | --- | --- |
+| `lifecycle` | `routes/lifecycle.yaml` | the committed render |
+| `explicit-delete-cleanup-action` | `routes/explicit-delete-cleanup-action.yaml` | the record |
+| `preflight-or-presync` | `routes/preflight-or-presync.yaml` | the record |
+
+### lifecycle
+
+The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below.
+
+### explicit-delete-cleanup-action
+
+This step is due around a delete. The record names `delivery workflow` for it and marks it `observed`.
+
+Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.
+
+### preflight-or-presync
+
+This step is due before you deliver. The record names `delivery workflow` for it and marks it `observed`.
+
+Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.
 
 ## How it was ingested
 

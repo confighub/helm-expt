@@ -1469,6 +1469,14 @@ function planRecordFor(entry) {
   return planRecordsByName.get(catalogRecordName(entry)) ?? null;
 }
 
+// A bundle listed by hand below takes its plan from its record the same way.
+function planRecordNamed(entry) {
+  const path = repoPath(catalogRecordRel(catalogRecordName(entry)));
+  check(existsSync(path), `${relativeRepo(path)} is missing, and a flatten-with-routes bundle takes its plan from that record`);
+  const [[, record]] = readYamlFiles([path]);
+  return { record, rel: relativeRepo(path) };
+}
+
 // The plan documents of one bundle, written from its record, and the block
 // the receipt carries about them.
 function buildRecordPlan({ slug, chartName, chartVersion, base, lane, bundleFile, objectCount, verdictRel, routeFiles, renderRoutes, planRecord }) {
@@ -2976,6 +2984,7 @@ function buildAll() {
           hookDocCount: 7,
           webhookCA: true,
         },
+        planRecord: planRecordNamed({ repo: "prometheus-community", chart: "kube-prometheus-stack", version: "87.19.2", base: "minimal" }),
         notes: "A separately published minimal configuration profile derived from the exact chart, not a replacement of its immutable three-base installer. Applications and their ServiceMonitors remain separate. CRD establishment and admission certificate creation/patching/cleanup are explicit manual prerequisites. The retained kind run observed this payload and a synthetic app scrape once; upgrades, rollback and GitOps execution remain unproven.",
       }),
     },
@@ -3004,6 +3013,7 @@ function buildAll() {
           observationRel: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml",
           hookDocCount: 17,
         },
+        planRecord: planRecordNamed({ repo: "gatekeeper", chart: "gatekeeper", version: "3.22.2", base: "default" }),
         notes:
           "The first bundle whose hook disposition points at a route rather than at an intention. The chart defines 17 hook objects and none of them travel here, so the lifecycle route carries the stages a recorded live run watched instead: the separated Secret, CRD establishment, controller and webhook readiness, and a server-side admission dry-run. The route is not automatic, because it runs work rather than declaring order.",
       }),
@@ -3020,6 +3030,7 @@ function buildAll() {
           observationRel: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml",
           hookDocCount: 1,
         },
+        planRecord: planRecordNamed({ repo: "projectcalico", chart: "tigera-operator", version: "v3.32.0", base: "default" }),
         notes:
           "The teardown is the whole hook story here. A flattened bundle drops the pre-delete Job silently, and the release only misses it when it goes away, which is the worst time to find out. The recorded run rendered that Job and ran it, so the route's stages include the execution itself rather than a rehearsal of it.",
       }),

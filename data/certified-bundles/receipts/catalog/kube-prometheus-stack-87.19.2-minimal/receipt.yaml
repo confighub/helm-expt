@@ -42,12 +42,61 @@ spec:
         bytes: 5077
         role: "route: webhook-ca"
       -
+        path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/establish-prometheus-operator-crds.yaml"
+        sha256: "260f9caaf6cba0ca4b0aa4e50a5c86a1bd4c6baeb982a0b513a6deda282dbf34"
+        bytes: 1775
+        role: "route: plan-step establish-prometheus-operator-crds"
+      -
+        path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/create-or-keep-admission-secret.yaml"
+        sha256: "68115c066edf91ad66ac56753c7c2d1afd0b3a5052232bc6ce3469aeafcbd701"
+        bytes: 1772
+        role: "route: plan-step create-or-keep-admission-secret"
+      -
+        path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/patch-and-check-admission-webhook.yaml"
+        sha256: "3a38864837e603539296d97c732f01bb4c79e958da1b414e2868c25eafb178d1"
+        bytes: 1779
+        role: "route: plan-step patch-and-check-admission-webhook"
+      -
         path: "data/certified-bundles/guides/catalog/kube-prometheus-stack-87.19.2-minimal/space-guide.md"
-        sha256: "1e33a27cbbcad7c609ea300a6bbf9ed02744b647cd1d1990e4345e88d71c4959"
-        bytes: 2429
+        sha256: "9acaa1c3f73d2d4a897897fe1c2e03eb2243c3f91ebfceaeeb66644b3981145e"
+        bytes: 4207
         role: "space-guide"
     objectCount: 24
     objectInventoryRef: "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/lifecycle.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "lifecycle"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/webhook-ca.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "webhook-ca"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/establish-prometheus-operator-crds.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "establish-prometheus-operator-crds"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/create-or-keep-admission-secret.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "create-or-keep-admission-secret"
+        -
+          path: "data/certified-bundles/routes/catalog/prometheus-community-kube-prometheus-stack-87.19.2-minimal/patch-and-check-admission-webhook.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "patch-and-check-admission-webhook"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 4
@@ -149,4 +198,5 @@ spec:
       - "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/variant-revision.yaml"
       - "runs/prometheus-operator-minimal-candidate/recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/minimal/r001/rendered/release-objects.yaml"
       - "runs/prometheus-operator-minimal-candidate/packages/prometheus-community/kube-prometheus-stack/87.19.2/bases/minimal/upstream.yaml"
+      - "data/base-variant-records/records/prometheus-community-kube-prometheus-stack-87-19-2-minimal.yaml"
       - "runs/certified-bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal/publication-receipt.yaml"
