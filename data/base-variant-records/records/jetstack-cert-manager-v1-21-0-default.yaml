@@ -217,11 +217,6 @@ spec:
       status: "recorded"
       items:
         -
-          id: "lifecycle"
-          origin: "base"
-          type: "lifecycle-action"
-          detail: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
-        -
           id: "challenges.acme.cert-manager.io"
           origin: "base"
           type: "target-fact"
@@ -251,30 +246,17 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "lifecycle"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
       records:
         - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
     routeIntent:
       status: "recorded"
       routes:
-        -
-          id: "lifecycle"
-          requirementRefs:
-            - "lifecycle"
-          phase: "destination-resolution"
-          proposedActor: "selected applier"
-          proposedMechanism: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
-          automatic: false
-          status: "recorded"
-          sourceStatus: "observed"
-          supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
-          checks:
-            - "stop and report; never continue past a stage that did not pass"
-          evidence:
-            - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
         -
           id: "crd-before-apply"
           requirementRefs:
@@ -297,6 +279,24 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
             - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+        -
+          id: "lifecycle"
+          requirementRefs:
+            - "lifecycle"
+          phase: "destination-resolution"
+          proposedActor: "selected applier"
+          proposedMechanism: "The chart defines 4 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The ordered stages are kind-create, cluster-version, external-crds-established, namespace-created, default-base-applied, deployment-ready:cert-manager, deployment-ready:cert-manager-cainjector, deployment-ready:cert-manager-webhook, webhook-ca-bundle:mutatingwebhookconfiguration, webhook-ca-bundle:validatingwebhookconfiguration, startupapicheck-complete."
+          automatic: false
+          status: "recorded"
+          sourceStatus: "observed"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "stop and report; never continue past a stage that did not pass"
+          evidence:
+            - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
       records:
         - "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
         - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
@@ -400,19 +400,24 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
-      manifestDigest: "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
-      layerDigest: "sha256:1290efeb7c691aac7842263899bbf34c6fc0a3e0a2748db3bfc4d09d84e60dbe"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest@sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+      manifestDigest: "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+      layerDigest: "sha256:23f3b3c45f30de3e2091a6ac295520458b5b4e9efbb2b934438fc91af8c70847"
       objectSetSha256: "sha256:9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
       receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml"
-      receiptSha256: "sha256:5aa6e35a73f5f560e171c45e2653f7685907dac3d8a36dee8a9b51fa54959ef1"
+      receiptSha256: "sha256:bf3efc5dd76707a96b2aceea3a2005496f328901037f4d00034c3385bd64cb25"
       publicationReceipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:2b8811b5a8c88c5ac8c2c180a4ccbe62c4b9b540c213ece82503cd3faa946158"
+      publicationReceiptSha256: "sha256:dced22ed88dff184341cb8b82b24a684587e7022edf68be1a75e522195a5046a"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/lifecycle.yaml"
           sha256: "sha256:2fd09c4ebdddad2febb6a5faf5b67b87345e0751016f1fd07ba8ed3cc6da44b1"
           role: "route: helm-hooks"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-default/target-requirements.yaml"
+          sha256: "sha256:2cd72204bbfd3271849dc1f09a158b1af684e962a3ac2331e76b865e96a88b23"
+          role: "requirement: target"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"

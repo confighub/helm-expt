@@ -70,8 +70,8 @@ spec:
           pinnedBy: "digest"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest"
-    manifestDigest: "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
-    layerDigest: "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+    manifestDigest: "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+    layerDigest: "sha256:3efe868f87ece4feebc02e29eadfad689bb48b2bb8ef7ab08060d390bacfa426"
     reproducible: true
   ingest:
     granularity: "per-file"

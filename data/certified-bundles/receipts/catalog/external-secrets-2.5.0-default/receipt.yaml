@@ -69,8 +69,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-5-0-default:latest"
-    manifestDigest: "sha256:f41046f1031143255122750fc40ee1ef07e157065133fdcdc0baaf297ff95ee3"
-    layerDigest: "sha256:548655351d0be4034dcaa2ca8cf01b61763e489acf7731cd6cad0d9d0527e960"
+    manifestDigest: "sha256:d85f2a5e9b8a71e3b67e2e9ad5d4d9b8a377fa4aefe367d3b5f643b524b43161"
+    layerDigest: "sha256:7d1c42d546788462ba02d47ae3a8227b4e92a9cbecd5647c087849660f9e84ca"
     reproducible: true
   ingest:
     granularity: "per-file"

@@ -75,8 +75,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest"
-    manifestDigest: "sha256:a1934ca7c7e37ca035e1be0a65165834b45d3eddb0a8dab948dac0f5a3524af5"
-    layerDigest: "sha256:1290efeb7c691aac7842263899bbf34c6fc0a3e0a2748db3bfc4d09d84e60dbe"
+    manifestDigest: "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+    layerDigest: "sha256:23f3b3c45f30de3e2091a6ac295520458b5b4e9efbb2b934438fc91af8c70847"
     reproducible: true
   ingest:
     granularity: "per-file"

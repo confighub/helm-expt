@@ -85,8 +85,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-15-default:latest"
-    manifestDigest: "sha256:db5f1c04f70374dafee19c4e88a0fa82b55e74eb8baf8feb7dc8e7c715426135"
-    layerDigest: "sha256:8b4a27c14d9f791a013f7156ea35f0eb4e89995a16e4c3e6689320d0a5f3f740"
+    manifestDigest: "sha256:d803c145ccb4adf766ffe1e51e87b8c57dbf5d54fddc4875615cf899ba5a19db"
+    layerDigest: "sha256:024af94fc468f4016df0ec6b524f98bb68e1e88acfa5d58893c11871863d34c8"
     reproducible: true
   ingest:
     granularity: "per-file"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:477fae0584cbaf1712b3e5e7cfc1b82c6f94c97132f82026edac41bd0231527b",
+      "sha256": "sha256:0bd5b22d2f7c6b58a949dd45b61bdcedb6c0166fa6a6a00b9a6151244dbe3f37",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
-      "sha256": "sha256:c42f8b3182e863497c09567507fe1b78184e87646ba119a8d1a9c7ae4d86e902",
+      "sha256": "sha256:c03ff9a0ecd9537dddd213986066e1dfbcc21536d63f6d582b1b43b1c0a417c2",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -106,24 +106,24 @@
         "role": "literal-config",
         "state": "published",
         "status": "published-with-receipt",
-        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference:latest@sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e",
+        "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference:latest@sha256:f9a639546e17efb8dc93277d741c823b7ba78e7f676d60b06620c7301377488c",
         "referenceState": "published",
         "digests": [
           {
             "field": "layerDigest",
-            "value": "sha256:70b3156bd9593927e48ac810ef479409ad994a396be0429633824ecc69c22364"
+            "value": "sha256:fac62acff678a7e4245ccd7b075d0ee9dadf8d23ab506a5bff97771667a59fca"
           },
           {
             "field": "receiptSha256",
-            "value": "sha256:62915d9b14f1ee9c17986b7f352688ef5f4a376e82be2d8d514638e6d70c4ddc"
+            "value": "sha256:e2b720e83d55e9cb4f8f58f3618b4861e9eb5d6538ffac3af0a8a3b2ac0c5226"
           },
           {
             "field": "publicationReceiptSha256",
-            "value": "sha256:996672f25371b1cc37db20c7304b59b6eb06a0a2a6ce55d00bde9f50677226aa"
+            "value": "sha256:5377cdd9b9584e3c95d916d9d818c2317dc41f352bfee498ae8872715198b482"
           },
           {
             "field": "manifestDigest",
-            "value": "sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
+            "value": "sha256:f9a639546e17efb8dc93277d741c823b7ba78e7f676d60b06620c7301377488c"
           },
           {
             "field": "objectSetSha256",
@@ -246,12 +246,6 @@
     "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
     "requirements": [
       {
-        "id": "crd-ordering",
-        "type": "lifecycle-action",
-        "origin": "base",
-        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
-      },
-      {
         "id": "ack-system/aws-creds",
         "type": "target-fact",
         "origin": "base",
@@ -262,32 +256,15 @@
         "type": "target-fact",
         "origin": "base",
         "detail": "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+      },
+      {
+        "id": "crd-ordering",
+        "type": "lifecycle-action",
+        "origin": "base",
+        "detail": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects."
       }
     ],
     "routes": [
-      {
-        "id": "crd-ordering",
-        "phase": "apply",
-        "status": "requires-destination-resolution",
-        "sourceStatus": "recorded-not-run",
-        "automatic": false,
-        "actor": "selected applier",
-        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
-        "supportedRuntimes": [
-          "Argo CD",
-          "Flux",
-          "cub-direct applier"
-        ],
-        "requirementRefs": [
-          "crd-ordering"
-        ],
-        "checks": [
-          "every named definition reports the Established condition"
-        ],
-        "evidence": [
-          "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
-        ]
-      },
       {
         "id": "secret-before-apply",
         "phase": "pre-apply",
@@ -322,6 +299,29 @@
         "evidence": [
           "data/helm-render-intents/intents/aws-controllers-k8s-iam-chart-1-7-3-eks-inference.yaml",
           "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+        ]
+      },
+      {
+        "id": "crd-ordering",
+        "phase": "apply",
+        "status": "requires-destination-resolution",
+        "sourceStatus": "recorded-not-run",
+        "automatic": false,
+        "actor": "selected applier",
+        "mechanism": "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 9 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 10 objects.",
+        "supportedRuntimes": [
+          "Argo CD",
+          "Flux",
+          "cub-direct applier"
+        ],
+        "requirementRefs": [
+          "crd-ordering"
+        ],
+        "checks": [
+          "every named definition reports the Established condition"
+        ],
+        "evidence": [
+          "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
         ]
       }
     ],

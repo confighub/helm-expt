@@ -70,8 +70,8 @@ spec:
           pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference:latest"
-    manifestDigest: "sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
-    layerDigest: "sha256:70b3156bd9593927e48ac810ef479409ad994a396be0429633824ecc69c22364"
+    manifestDigest: "sha256:f9a639546e17efb8dc93277d741c823b7ba78e7f676d60b06620c7301377488c"
+    layerDigest: "sha256:fac62acff678a7e4245ccd7b075d0ee9dadf8d23ab506a5bff97771667a59fca"
     reproducible: true
   ingest:
     granularity: "per-file"

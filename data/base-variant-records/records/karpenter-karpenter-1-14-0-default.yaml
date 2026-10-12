@@ -150,11 +150,6 @@ spec:
       status: "recorded"
       items:
         -
-          id: "crd-ordering"
-          origin: "base"
-          type: "lifecycle-action"
-          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
-        -
           id: "target topology"
           origin: "base"
           type: "target-fact"
@@ -164,30 +159,17 @@ spec:
           origin: "base"
           type: "target-fact"
           detail: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
+        -
+          id: "crd-ordering"
+          origin: "base"
+          type: "lifecycle-action"
+          detail: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
       records:
         - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
     routeIntent:
       status: "recorded"
       routes:
-        -
-          id: "crd-ordering"
-          requirementRefs:
-            - "crd-ordering"
-          phase: "apply"
-          proposedActor: "selected applier"
-          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
-          automatic: false
-          status: "requires-destination-resolution"
-          sourceStatus: "recorded-not-run"
-          supportedRuntimes:
-            - "Argo CD"
-            - "Flux"
-            - "cub-direct applier"
-          checks:
-            - "every named definition reports the Established condition"
-          evidence:
-            - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
         -
           id: "topology-before-apply"
           requirementRefs:
@@ -222,6 +204,24 @@ spec:
           evidence:
             - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
             - "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
+        -
+          id: "crd-ordering"
+          requirementRefs:
+            - "crd-ordering"
+          phase: "apply"
+          proposedActor: "selected applier"
+          proposedMechanism: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning. Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Then apply the other 13 objects."
+          automatic: false
+          status: "requires-destination-resolution"
+          sourceStatus: "recorded-not-run"
+          supportedRuntimes:
+            - "Argo CD"
+            - "Flux"
+            - "cub-direct applier"
+          checks:
+            - "every named definition reports the Established condition"
+          evidence:
+            - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
       records:
         - "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
         - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml"
@@ -266,19 +266,24 @@ spec:
   delivery:
     literalConfigOci:
       status: "published-with-receipt"
-      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"
-      manifestDigest: "sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"
-      layerDigest: "sha256:e9ccd7e84a90262271a84245917000021c251b45cf2b59405e4c4a7cc9ce9573"
+      observedReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d"
+      manifestDigest: "sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d"
+      layerDigest: "sha256:01613b24b3c9755a0c0b102779784918c6e558144e0f704f23d6c9b9488aa58e"
       objectSetSha256: "sha256:c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
       receipt: "data/certified-bundles/receipts/catalog/karpenter-1.14.0-default/receipt.yaml"
-      receiptSha256: "sha256:dfd1787ee522a05cced0651ff58434679f80bca49a32552d2121c6f3456ef5f6"
+      receiptSha256: "sha256:077a4a6601c4c40c9d4fde18ae5e7d09c3b4c0516a680344ec0305a03ebc78df"
       publicationReceipt: "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-default/publication-receipt.yaml"
-      publicationReceiptSha256: "sha256:9bb55fc08229a8ae1afa4e2fa363b62866c1803ea91b2cac08cc72de976f21dc"
+      publicationReceiptSha256: "sha256:b3bf07b6ac116c829c1654ef1f31f25f370eb6e304016d978c8f1e08cd411e7c"
       routes:
         -
           path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/crd-ordering.yaml"
           sha256: "sha256:b3e9a3cfd00e230beb8d431d5288ece87a0e0b8cfd703bf0922abdcee7a9d84d"
           role: "route: crd-ordering"
+      requirements:
+        -
+          path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-default/target-requirements.yaml"
+          sha256: "sha256:1fe499bd3394ca212965a1d9a3ce41fab1a2d724274568e9244c14e02904bc8a"
+          role: "requirement: target"
       note: "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
     configHubReleaseOci:
       status: "not-recorded-for-this-base"
