@@ -543,15 +543,16 @@
   <header class="hero human-hero">
     
     <h1>How it works</h1>
-    <p class="lead">_New to the vocabulary (Unit, space, target, OCI bundle)? Start with the <a href="confighub-data-model.html">data model</a>._ <a href="../../../../docs/user/how-it-works.md">View source markdown</a>.</p>
+    <p class="lead">This is an earlier explanation. <a href="model-and-vocabulary.html">The configuration processing model</a> is the current one, and it wins where the two differ. <a href="../../../../docs/user/how-it-works.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
+
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> The whole system is <b>four moves</b> - <i>render → route → deliver → observe</i> - plus how you customize, promote, and operate over time. This page is the map; each link goes deeper.</p>
 <h2 id="the-mental-model">The mental model</h2>
 <ol><li><b>Render</b> - turn a chart into the <i>exact</i> Kubernetes objects (the <b>recipe</b>).</li><li><b>Route</b> - everything that is <i>not</i> in the recipe (hooks, CRD installs, target facts, <code>lookup()</code>, …) becomes an <b>explicit, named step</b> - never silently run.</li><li><b>Deliver</b> - publish the recipe <b>once to OCI</b>; Argo, Flux, or plain <code>kubectl</code> all pull the <b>same</b> bundle.</li><li><b>Observe</b> - prove it live with <b>receipts</b>; report an <b>honest disposition</b>, never &quot;just green.&quot;</li></ol>
-
+<p>_New to the vocabulary (Unit, space, target, OCI bundle)? Start with the <a href="confighub-data-model.html">data model</a>._</p>
 <p>The reason for the model is simpler than the vocabulary. Helm remains the chart source. The catalog turns common chart shapes into vetted package releases, with most choices fixed before install and only a small, documented input surface left open. ConfigHub then becomes the source of record for which package, preset, allowed inputs, and target each app, cluster, customer, or environment should run.</p>
 <hr>
 <h2 id="1-render-the-recipe">1. Render - the recipe</h2>

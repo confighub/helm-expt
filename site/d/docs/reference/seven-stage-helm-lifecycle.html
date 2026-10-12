@@ -543,11 +543,12 @@
   <header class="hero human-hero">
     
     <h1>Seven-Stage Helm Lifecycle</h1>
-    <p class="lead">This is the doctrine for how the harness handles Helm charts, hooks, CRDs, generated values, target facts, overlays, and other chart quirks. <a href="../../../../docs/reference/seven-stage-helm-lifecycle.md">View source markdown</a>.</p>
+    <p class="lead">This is an earlier explanation. <a href="../user/model-and-vocabulary.html">The configuration processing model</a> is the current one, and it wins where the two differ. <a href="../../../../docs/reference/seven-stage-helm-lifecycle.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
+<p>This is the doctrine for how the harness handles Helm charts, hooks, CRDs, generated values, target facts, overlays, and other chart quirks.</p>
 <p>The pipeline has seven stages. Every chart follows the same stages. What changes from chart to chart is which quirks appear and which stage owns each decision.</p>
 <h2 id="render-parity">Render Parity</h2>
 <p>Render parity means:</p>

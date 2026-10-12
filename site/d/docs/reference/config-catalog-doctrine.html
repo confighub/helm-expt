@@ -543,12 +543,13 @@
   <header class="hero human-hero">
     
     <h1>Config catalog doctrine</h1>
-    <p class="lead">The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
+    <p class="lead">The words on this page are defined in <a href="../user/model-and-vocabulary.html">the configuration processing model</a>. Where a definition here differs, the model is right. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 
+<p>The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>.</p>
 <p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> owns the product onboarding journey. This catalog owns source-specific preparation, public package testing, and evidence. See <a href="../planning/onboarding-and-entry-paths.html">Onboarding And Entry Paths</a>.</p>
 <h2 id="business-purpose-and-user-journey">Business purpose and user journey</h2>
 <p>This section is the canonical statement of the project's business purpose and user journey. Other documents and website pages may explain the part relevant to their reader, but they should link here instead of maintaining a competing full summary.</p>
@@ -679,7 +680,7 @@ lifecycle handling
 <p>The following rules apply at every source boundary:</p>
 <ol><li>Record the source identity and choices before claiming that an object set is reproducible.</li><li>Give the exact object set its own digest. Do not substitute a source-package, OCI-manifest, or ConfigHub Unit hash for it.</li><li>Decide flattening for one exact processing boundary. A flat wrapper does not make its nested sources flat.</li><li>Treat a missing lifecycle record as a gap. It is not evidence that no route is required.</li><li>Recheck requirements and field ownership after a derived variant changes.</li><li>Resolve routes only when the exact variant, destination, and delivery runtime are known. Promotion reviews that resolution; delivery performs it.</li><li>Call lifecycle work executed only when the required receipt exists.</li><li>Name the role of every OCI artifact and digest. OCI transports records; it does not perform hooks, provision infrastructure, or prove runtime health.</li></ol>
 <p>These terms describe different decisions. Do not use them interchangeably.</p>
-<table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Source package or source configuration</td><td>The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. Recipe is not a general name for every configuration.</td></tr>
+<table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>Source package or source configuration</td><td>The chart, source-native recipe, package, generator input, OCI, or YAML that the user starts with. A recipe is the pinned inputs that produce one bundle, in every format. It is not the configuration they produce.</td></tr>
 <tr><td>Processing intent</td><td>The source identity and the choices needed to produce or select exact objects. It includes build or render inputs, target assumptions, and known lifecycle decisions.</td></tr>
 <tr><td>Materialize</td><td>Produce or read the exact Kubernetes objects that will be reviewed. Helm renders; Timoni builds; AICR and Kubara generate or compose; a source OCI invokes its declared processor; literal YAML and literal configuration OCI need no source transformation. Materializing does not apply objects or prove runtime health.</td></tr>
 <tr><td>Exact configuration revision</td><td>The accepted Kubernetes objects, object inventory, and digest for one revision. This is the source-neutral equivalent of a captured output.</td></tr>
@@ -776,7 +777,7 @@ lifecycle handling
 <p>These states belong in the generated source record, base-variant record, master matrix, and Catalog page. Missing information must not be presented as &quot;nothing required.&quot;</p>
 <h2 id="the-oci-packages-are-not-all-the-same">The OCI packages are not all the same</h2>
 <p>The word OCI covers four related artifacts in this work.</p>
-<table><thead><tr><th>OCI artifact</th><th>What it contains</th><th>What consumes it</th></tr></thead><tbody><tr><td>Source or installer package</td><td>A chart or source bundle, preset configurations, and the files needed to produce a selected result</td><td><code>cub installer</code> or another source tool</td></tr>
+<table><thead><tr><th>OCI artifact</th><th>What it contains</th><th>What consumes it</th></tr></thead><tbody><tr><td>Source or installer package</td><td>For an installer package, the rendered objects of every preset, with their prerequisites. For another source package, the source and the files needed to produce a result.</td><td><code>cub installer</code> or another source tool</td></tr>
 <tr><td>Literal configuration bundle</td><td>Kubernetes YAML that is ready to become ConfigHub Units</td><td><code>cub variant upload oci://...</code></td></tr>
 <tr><td>Portable deployment bundle</td><td>Reviewed Kubernetes objects in a standard OCI content layer</td><td>An anonymous pull, Argo CD, Flux, or another external consumer</td></tr>
 <tr><td>ConfigHub release bundle</td><td>Approved desired configuration published for delivery</td><td>Argo CD, Flux, or another ConfigHub delivery path</td></tr></tbody></table>
