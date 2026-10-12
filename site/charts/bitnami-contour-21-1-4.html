@@ -494,6 +494,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -585,12 +593,13 @@
       <p>A named capability gap affects the recommended path.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>21.1.4</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds;legacy</td></tr><tr><td>Not yet available</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>21.1.4</td></tr><tr><td>Exact installer package</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e</code></td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds;legacy</td></tr><tr><td>Not yet available</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -605,7 +614,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p><a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-contour-21-1-4-default.yaml">Open the complete assessment, source, lifecycle, and evidence record</a>.</p>
@@ -620,7 +630,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
@@ -638,7 +649,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>A flattening-safety verdict has decided this version: <strong>default:unsafe-to-flatten; legacy:unsafe-to-flatten; no-crds:unsafe-to-flatten</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>
@@ -658,7 +670,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <div class="grid">
@@ -1006,7 +1019,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1160,7 +1174,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><strong>What this does not check:</strong> hook execution, CRD readiness, target Secrets and cloud services, admission behavior, workload health, or rollback. The linked Catalog review covers chart-specific source and operating questions. ConfigHub validation and approval are separate managed controls.</p>
@@ -1176,7 +1191,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1191,7 +1207,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a> · <a href="../d/docs/user/cub-deployment-path.html">cub deployment path</a></p>
@@ -1207,17 +1224,19 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Not ready yet</td></tr><tr><td>Can I use it?</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td></tr><tr><td>First base</td><td>legacy</td></tr><tr><td>Exact installer package</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e</td></tr><tr><td>Tests completed</td><td>checked with named limitation (render parity 3/3; Local live 0/3; Live parity 0/3)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; optional chart inputs handled by reviewed base configurations; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Not ready yet</td></tr><tr><td>Can I use it?</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td></tr><tr><td>First base</td><td>legacy</td></tr><tr><td>Exact installer package</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e</code></td></tr><tr><td>Tests completed</td><td>checked with named limitation (render parity 3/3; Local live 0/3; Live parity 0/3)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; optional chart inputs handled by reviewed base configurations; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>The source data lives in <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-skills/summary.md">chart skills</a> and <a href="https://github.com/confighub/helm-expt/blob/main/data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
@@ -1304,7 +1323,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1319,7 +1339,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1336,7 +1357,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>If no plan is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
@@ -1348,7 +1370,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
 <h4>legacy</h4><div class="card"><table>
@@ -1358,7 +1381,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml">data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml</a><br><a href="../../recipes/bitnami/contour/21.1.4/lifecycle-route.yaml">recipes/bitnami/contour/21.1.4/lifecycle-route.yaml</a><br><a href="../../recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml">recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml</a><br><a href="../../packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh">packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh</a><br><a href="../../runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml">runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml</a><br><a href="../../runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml">runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml</a></p>
 <h4>no-crds</h4><div class="card"><table>
@@ -1368,7 +1392,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1383,7 +1408,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -1397,7 +1423,8 @@ c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f  bitnami-contou
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>

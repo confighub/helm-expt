@@ -15,9 +15,9 @@ EKS H100 training platform. You can inspect all 17 generated Argo CD
 Applications in this repository without a ConfigHub account, an EKS cluster, or
 a GPU.
 
-The v1.0.0 entry is less far along than the v0.20.0 entry. It is generated,
-retained, and checked against its source. It is not published to a public
-registry, and it is not stored in ConfigHub. The
+Less has been done for v1.0.0 than for v0.20.0. The entry is generated, kept
+in this repository, and checked against NVIDIA's signed release. It is not
+published to a public registry, and it is not in ConfigHub. The
 [status table](#current-status) says what has run.
 
 ## This entry in the model's five words
@@ -37,20 +37,20 @@ Pack, Recipe, Bundle, Variant, and Deployment.
 
 ## What the source produces
 
-AICR resolves the five criteria through nine overlays into one source variant
-with 16 ordered components. It generates an Argo CD app-of-apps Helm chart from
-15 of them. It leaves out `dra-node-labeler`, because no DRA eviction node label
-was supplied. Helm renders that chart into 17 exact Application objects.
+AICR reads nine overlays and turns the five criteria into one recipe with 16
+components, in order. It makes one Helm chart from 15 of them. It leaves out
+`dra-node-labeler`, because no DRA eviction node label was supplied. Helm
+renders that chart into 17 Application objects, and those are what this entry
+keeps.
 
-The wrapper is only a partial flattening boundary. The 17 Application objects
-are exact. Sixteen of them point to Helm charts or local chart sources that
-Argo CD renders later, at deployment.
+The entry is only partly flattened. Sixteen of the 17 Application objects
+still name a Helm chart. Argo CD renders those charts later, on the cluster.
 
 - The [generation receipt](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/generation-receipt.yaml)
   records the commands, the inputs, and the source version.
 - The [digest index](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/digest-index/README.md)
-  binds the selected inputs, the source package, and the rendered Applications
-  under one platform digest.
+  gives one digest that covers the inputs, the source package, and the
+  rendered Applications. If any of them changes, the digest changes.
 - The [source record](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/source-catalog/source-catalog-record.yaml)
   names NVIDIA as the provider, the catalog version, and the selected source
   variant.
@@ -82,8 +82,9 @@ variant in ConfigHub.
 
 ## The plan
 
-The plan is the work that the 17 Application objects cannot carry. Each step
-below is recorded. None has been carried out for this entry.
+Not all source configuration can be completely flattened. The configuration
+steps taken after flattening are called the plan. This entry's plan has nine
+steps, and none has been carried out.
 
 | Step | What it asks |
 | --- | --- |
@@ -100,8 +101,8 @@ below is recorded. None has been carried out for this entry.
 The [route intent](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/route-intent.yaml)
 is the record behind this table. The
 [field-policy assessment](../../../examples/aicr/eks-h100-training-kubeflow-v1-0-0/field-policy-assessment.yaml)
-separates source-controlled choices from fields that may become reviewed
-ConfigHub changes.
+says which fields NVIDIA's source controls and which you may change in
+ConfigHub.
 
 ## What changed from v0.20.0?
 

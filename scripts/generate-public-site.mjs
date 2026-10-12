@@ -2676,6 +2676,8 @@ function docPageCss(repoPath) {
   return `
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    /* No column of a doc table is narrower than a short word. */
+    .doc-body th, .doc-body td { min-width: 5.5rem; }
     .doc-body th { background: var(--panel); }
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
@@ -2964,6 +2966,14 @@ function siteChromeCss() {
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -15621,7 +15631,8 @@ function markdownLikeTable(rows, options = {}) {
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }${firstColumnRule}
       </style>`;
 }
@@ -15636,6 +15647,9 @@ function formatTableCell(cell, index, options) {
   // or a link) name every raw column explicitly instead of adding a sixth and
   // seventh named flag.
   if (options.rawColumns?.includes(index)) return String(cell ?? "");
+  // One long token with no space in it is a reference or a path. As code it
+  // may break anywhere, where plain text would widen the whole table.
+  if (typeof cell === "string" && cell.length > 40 && !/\s/.test(cell)) return `<code>${escapeHtml(cell)}</code>`;
   return escapeHtml(cell);
 }
 

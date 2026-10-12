@@ -588,6 +588,14 @@
   .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
   .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
+  /* The rule above would split a word across lines in a narrow table column.
+     A cell breaks between words. Code, links and mono text may break anywhere,
+     so a long reference still fits. A table of seven or more columns uses
+     smaller type and padding, so that its columns stay wide enough to read. */
+  .cw-content th, .cw-content td { overflow-wrap: break-word; word-break: normal; }
+  .cw-content th code, .cw-content td code, .cw-content td a, .cw-content td .mono { overflow-wrap: anywhere; }
+  .cw-content table:has(th:nth-child(7)) { font-size: .8rem; }
+  .cw-content table:has(th:nth-child(7)) th, .cw-content table:has(th:nth-child(7)) td { padding: 5px 6px; }
   .cw-guide .cw-content { max-width: 880px; }
   .cw-guide .cw-content p, .cw-guide .cw-content li { max-width: 74ch; }
   .cw-content :is(h2, h3, section, details)[id] { scroll-margin-top: 110px; }
@@ -700,7 +708,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -715,7 +724,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -730,7 +740,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>The <a href="./d/docs/user/model-and-vocabulary.html">model and vocabulary guide</a> defines base variants, render intents, Units, Spaces, routes, and receipts.</p>
@@ -752,7 +763,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -767,7 +779,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
         th:first-child, td:first-child { min-width: 12ch; }
       </style>
@@ -784,7 +797,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
@@ -799,7 +813,8 @@
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>

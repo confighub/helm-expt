@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `c4c0b76c28`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-11 (commit `22fa412a8f`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 490 |
-| Fresh (no linked source newer than the doc) | 68 |
-| **Review-due** | 94 |
+| Fresh (no linked source newer than the doc) | 69 |
+| **Review-due** | 93 |
 | No linked evidence sources (cannot auto-trigger) | 328 |
 
 ## Review queue
@@ -72,8 +72,8 @@ most recently changed triggers.
 | [docs/reference/what-hook-support-means.md](../../docs/reference/what-hook-support-means.md) | reference | 2026-08-02 | 68 | `data/hook-lifecycle/summary.md (2026-10-09)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 68 | `data/lifecycle-route-actions/summary.md (2026-10-09)`<br>`data/per-chart-hooks/summary.md (2026-10-09)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 68 | `tests/README.md (2026-10-02)`<br>`tests/doctrine.md (2026-09-02)` |
+| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 65 | `data/aicr-claim-integrity/summary.md (2026-10-11)`<br>`data/aicr-entry-naming/summary.md (2026-10-11)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 64 | `data/flattening-safety/summary.md (2026-10-09)`<br>`data/redis-upgrade-app-proof/summary.md (2026-08-20)` |
-| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 62 | `data/aicr-claim-integrity/summary.md (2026-10-09)`<br>`data/aicr-entry-naming/summary.md (2026-10-09)` |
 | [docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) | demo | 2026-08-08 | 62 | `data/aicr-platform-evidence/summary.md (2026-10-09)`<br>`data/aicr-version-diff/summary.md (2026-10-09)`<br>`data/aicr-ordering-parity/summary.md (2026-08-22)` |
 | [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md) | planning | 2026-08-08 | 62 | `data/aicr-version-diff/summary.md (2026-10-09)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 61 | `tests/persona-ux-strategy.md (2026-08-21)` |
@@ -125,7 +125,6 @@ most recently changed triggers.
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
-| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-10-11 | 1 | `data/certified-bundles/summary.md (2026-10-11)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-10-08 | 1 | `data/variant-promotion/summary.md (2026-10-09)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
