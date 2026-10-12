@@ -2882,11 +2882,11 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
-    + group("Configs", [a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "GPU nodes and AICR"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "NVIDIA AICR v1.0.0")])
+    + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How it works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
+    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
-    + group("Guides", [a("guides.html", "Every Guide"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
+    + group("Guides", [a("guides.html", "Every Guide"), a("d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
     + group("Docs", [a("docs.html", "Docs"), a("config.html", "How configuration works"), a("proof.html", "Why trust it"), a("known-gaps.html", "Known gaps"), a("d/docs/user/what-config-workshop-is.html", "What ConfigHub Workshop is"), a("offering.html", "Offering")])
     + `<div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span>${signupLink("footer", "Upload a result into ConfigHub")}${a("confighub.html", "ConfigHub Server")}</div>`
     + `</div></nav>`;
@@ -2910,11 +2910,13 @@ function injectSiteFooterNav(html, relPath) {
 function siteSections() {
   return [
   { label: "Configs", hub: "charts/index.html", pages: [
+    ["d/docs/user/model-and-vocabulary.html", "How it works"],
     ["charts/index.html", "Find a configuration"], ["did-this-chart-version-change.html", "Did a version change?"],
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Compare GPU nodes and pull an AICR config"],
+    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Try NVIDIA AICR for GPUs"],
+    ["d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe"],
   ] },
   { label: "Apps", hub: "apps.html", pages: [
     ["apps.html", "Every app"], ["put-an-app-on-a-platform.html", "Put an app on a platform"], ["testing.html", "Find a starting configuration"],
@@ -2931,7 +2933,7 @@ function siteSections() {
     ...SPLIT_PAGES.filter((page) => !page.doc).map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
-    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["d/docs/user/model-and-vocabulary.html", "The model"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
+    ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],
     ["quirks.html", "What charts hide"], ["how-confighub-works.html", "How ConfigHub works"], ["confighub.html", "ConfigHub Server"],
     ["proof.html", "Why trust it"], ["known-gaps.html", "Known gaps"], ["matrix.html", "Evidence index"],
     ...SPLIT_PAGES.filter((page) => page.reference).map((page) => [page.file, page.title]),
