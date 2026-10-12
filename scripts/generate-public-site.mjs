@@ -2743,7 +2743,7 @@ function docPageContent(repoPath, sourceHref, body) {
   if (isHumanGuideDoc(repoPath)) {
     if (repoPath.endsWith("/confighub-proof-transcript.md")) {
       return {
-        lead: `Exact commands and output from this recorded ConfigHub example. Use the transcript when you need to check what actually ran. <a href="${sourceHref}">View source markdown</a>.`,
+        lead: `Exact commands and output from this recorded ConfigHub example. Use the transcript when you need to check what actually ran. You can also <a href="${sourceHref}">view this as a markdown file</a>.`,
         body,
       };
     }
@@ -2758,7 +2758,7 @@ function docPageContent(repoPath, sourceHref, body) {
       const start = match.index;
       const end = start + match[0].length;
       return {
-        lead: `${match[1]} <a href="${sourceHref}">View source markdown</a>.`,
+        lead: `${match[1]} You can also <a href="${sourceHref}">view this as a markdown file</a>.`,
         body: `${body.slice(0, start)}${body.slice(end)}`,
       };
     }
@@ -2768,12 +2768,12 @@ function docPageContent(repoPath, sourceHref, body) {
 
 function docPageLead(repoPath, sourceHref) {
   if (repoPath === "data/helm-catalog-readmes/summary.md") {
-    return `The website index for the README pages used in the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
+    return `The website index for the README pages used in the live <code>helm-catalog</code> demo org. You can also <a href="${sourceHref}">view this as a markdown file</a>.`;
   }
   if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
-    return `This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="${sourceHref}">View source markdown</a>.`;
+    return `This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. You can also <a href="${sourceHref}">view this as a markdown file</a>.`;
   }
-  return `A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.`;
+  return `A repository document, rendered for the site. You can also <a href="${sourceHref}">view this as a markdown file</a>.`;
 }
 
 function docGeneratedLabel(repoPath) {

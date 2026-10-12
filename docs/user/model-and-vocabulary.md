@@ -1,7 +1,8 @@
 # The configuration processing model
 
-This page is the one written model of how the Catalog treats configuration.
-[The model, in detail](./model-reference.md) has the full definitions.
+This page explains how the Catalog treats configuration.
+[The detail page](./model-reference.md) has the full definitions of each step
+in the model.
 
 ## The model in one line
 
