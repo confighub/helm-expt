@@ -1,5 +1,7 @@
 # One flattening model for every plugin
 
+This is an earlier explanation. [The configuration processing model](../user/model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 The Workshop's flattening model decides when exact Kubernetes objects may stand in
 for the source that produced them. [When to flatten configuration](./flattening-alignment.md)
 sets out the four verdicts, [Deciding a flattening lane](./deciding-a-flattening-lane.md)

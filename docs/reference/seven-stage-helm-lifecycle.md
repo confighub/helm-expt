@@ -1,5 +1,7 @@
 # Seven-Stage Helm Lifecycle
 
+This is an earlier explanation. [The configuration processing model](../user/model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 This is the doctrine for how the harness handles Helm charts, hooks, CRDs,
 generated values, target facts, overlays, and other chart quirks.
 

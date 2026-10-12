@@ -1,5 +1,7 @@
 # Config catalog doctrine
 
+The words on this page are defined in [the configuration processing model](../user/model-and-vocabulary.md). Where a definition here differs, the model is right.
+
 The simplest architecture for this project is **OCI in, managed configuration, OCI
 out**.
 

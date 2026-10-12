@@ -2,6 +2,8 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+This is an earlier explanation. [The configuration processing model](model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 This document explains where a Helm change belongs before delivery.
 
 The public word is **preset**. The repo word is **base variant**. Use a preset

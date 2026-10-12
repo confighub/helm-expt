@@ -1,5 +1,7 @@
 # How it works
 
+This is an earlier explanation. [The configuration processing model](model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 **UNOFFICIAL/EXPERIMENTAL.** The whole system is **four moves** — *render → route →
 deliver → observe* — plus how you customize, promote, and operate over time. This page
 is the map; each link goes deeper.

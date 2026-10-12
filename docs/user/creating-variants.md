@@ -2,6 +2,8 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+This is an earlier explanation. [The configuration processing model](model-and-vocabulary.md) is the current one, and it wins where the two differ.
+
 This guide explains how a Helm user should think about variants in this
 project.
 
