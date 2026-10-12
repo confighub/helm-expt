@@ -32,12 +32,31 @@ spec:
         bytes: 3209
         role: "route: crd-ordering"
       -
+        path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.5.0-default/target-requirements.yaml"
+        sha256: "8778a38377578d4fd5bbbca256712b139e7df2d9bdb100d9164dbc9edeb2a2cd"
+        bytes: 1869
+        role: "requirement: target"
+      -
         path: "data/certified-bundles/guides/catalog/external-secrets-2.5.0-default/space-guide.md"
-        sha256: "1ae15963b3d24bae902d26de7dd5c6ca31cbc0667a1db9ef228a43c32bd51028"
-        bytes: 1353
+        sha256: "b194d6190ddbea11a7db39b62ee0ffdb8d4b6a34a0873b0bda8f1d858d3b9846"
+        bytes: 2129
         role: "space-guide"
     objectCount: 42
     objectInventoryRef: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/object-inventory.yaml"
+    plan:
+      record: "data/base-variant-records/records/external-secrets-external-secrets-2-5-0-default.yaml"
+      rule: "The plan documents of this bundle carry every step the record names, and the record names every step they carry."
+      documents:
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.5.0-default/crd-ordering.yaml"
+          writtenFrom: "the committed render"
+          steps:
+            - "crd-ordering"
+        -
+          path: "data/certified-bundles/routes/catalog/external-secrets-external-secrets-2.5.0-default/target-requirements.yaml"
+          writtenFrom: "the record"
+          steps:
+            - "secret-before-apply"
     images:
       scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
       count: 1
@@ -126,4 +145,5 @@ spec:
       - "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/external-secrets/external-secrets/2.5.0/bases/default/upstream.yaml"
+      - "data/base-variant-records/records/external-secrets-external-secrets-2-5-0-default.yaml"
       - "runs/certified-bundles/catalog-external-secrets-external-secrets-2-5-0-default/publication-receipt.yaml"

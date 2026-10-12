@@ -1,0 +1,54 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0-default-target-requirements"
+spec:
+  subject:
+    catalogEntry: "jetstack-cert-manager-v1-21-0-default"
+    chart: "jetstack/cert-manager"
+    version: "v1.21.0"
+    base: "default"
+  requirements:
+    -
+      step: "crd-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "6 CRDs must exist before apply. cert-manager CRD staged before the default chart and its startup API check."
+      names:
+        -
+          id: "challenges.acme.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "orders.acme.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "certificaterequests.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "certificates.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "clusterissuers.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+        -
+          id: "issuers.cert-manager.io"
+          detail: "cert-manager CRD staged before the default chart and its startup API check"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-default.yaml"
+        - "recipes/jetstack/cert-manager/v1.21.0/variants/default/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-default.yaml"
+    verdictRef: "recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml"

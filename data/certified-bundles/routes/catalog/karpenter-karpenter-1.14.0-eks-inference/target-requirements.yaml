@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleTargetRequirements"
+metadata:
+  name: "karpenter-karpenter-1.14.0-eks-inference-target-requirements"
+spec:
+  subject:
+    catalogEntry: "karpenter-karpenter-1-14-0-eks-inference"
+    chart: "karpenter/karpenter"
+    version: "1.14.0"
+    base: "eks-inference"
+  requirements:
+    -
+      step: "topology-before-apply"
+      phase: "pre-apply"
+      invokedBy: "operator"
+      statement: "The destination must provide the recorded topology before apply. replicas 1 needs one schedulable non-Karpenter node on the system nodegroup."
+      names:
+        -
+          id: "target topology"
+          detail: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+        - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+    -
+      step: "value-before-render"
+      phase: "destination-resolution"
+      invokedBy: "operator"
+      statement: "The value controller.env[AWS_REGION] must be set before render. AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup."
+      names:
+        -
+          id: "controller.env[AWS_REGION]"
+          detail: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+      checks:
+        []
+      automatic: false
+      evidenceState: "not-run"
+      recorded:
+        status: "requires-destination-resolution"
+        sourceStatus: "recorded-not-run"
+      evidence:
+        - "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-eks-inference.yaml"
+        - "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+  flattening:
+    lane: "flatten-with-routes"
+    verdict: "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+  checked: "No destination has been checked against these requirements."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "data/base-variant-records/records/karpenter-karpenter-1-14-0-eks-inference.yaml"
+    verdictRef: "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
