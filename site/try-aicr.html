@@ -669,8 +669,8 @@
 # select the other node or repeat after the change
 aicr snapshot --output current.yaml
 aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code></pre>
-    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a variant intended for RDMA may require them.</p>
-    <p>Choose the provider-curated source variant meant for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR variants. Other catalog providers can publish and review additional variants.</p>
+    <p>A difference is not automatically a fault. Missing <code>iommu=pt</code> or <code>nvidia_peermem</code> is an observation first. A node without Mellanox networking may correctly omit both settings; a recipe intended for RDMA may require them.</p>
+    <p>Choose the recipe the provider intends for that node's service, accelerator, operating system, workload intent, platform, and relevant hardware before deciding what should change. NVIDIA curates the built-in AICR recipes. Other catalog providers can publish and review additional recipes.</p>
     <div class="card"><table>
         <thead><tr><th>Same observed target</th><th>Result</th></tr></thead>
         <tbody><tr><td>Assigned to standard networking</td><td>Pass. The two RDMA settings do not apply.</td></tr><tr><td>Assigned to Mellanox RDMA</td><td>Two findings: iommu=pt and nvidia_peermem.</td></tr></tbody>
@@ -691,8 +691,8 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
     <h2 id="retained-config-path">Path B: inspect a retained configuration</h2>
     <p>This path reads a reviewed AICR-generated package. It does not inspect a live GPU node or prove that the selected platform runs.</p>
     <div class="card"><table>
-        <thead><tr><th>Layer</th><th>What it means here</th></tr></thead>
-        <tbody><tr><td>Source variant</td><td>The provider-curated AICR leaf selected before generation.</td></tr><tr><td>Retained base variant</td><td>The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub.</td></tr><tr><td>Derived ConfigHub variant</td><td>A later environment or policy change linked to that retained base.</td></tr></tbody>
+        <thead><tr><th>Word</th><th>What it means here</th></tr></thead>
+        <tbody><tr><td>Recipe</td><td>The AICR recipe that NVIDIA curates, selected before generation.</td></tr><tr><td>Base</td><td>The exact generated objects, digest, requirements, and evidence kept by the Catalog or ConfigHub.</td></tr><tr><td>Variant</td><td>A later environment or policy change linked to that base.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -705,7 +705,7 @@ aicr diff --baseline baseline.yaml --target current.yaml --fail-on-drift</code><
     <p>The Catalog holds the same NVIDIA AICR recipe at several versions, and this page runs a smaller selection from one of them. Choose by what you want to do.</p>
     <div class="card"><table>
         <thead><tr><th>You want to</th><th>Use</th><th>What it is</th></tr></thead>
-        <tbody><tr><td>Run something now with no GPU, cluster or account</td><td><a href="#run-aicr">The CPU starter on this page</a></td><td>Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.</td></tr><tr><td>Inspect the whole recipe and take it into ConfigHub</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a></td><td>All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version.</td></tr><tr><td>See the newest NVIDIA release</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">The v1.0.0 entry</a></td><td>The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is not published as OCI, and the charts inside its Applications are not rendered here.</td></tr></tbody>
+        <tbody><tr><td>Run something now with no GPU, cluster or account</td><td><a href="#run-aicr">The CPU starter on this page</a></td><td>Seven of the 17 Applications from NVIDIA AICR v0.14.0, selected by the Workshop because they need no GPU. It is not an upstream NVIDIA recipe. <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a>.</td></tr><tr><td>Inspect the whole recipe and take it into ConfigHub</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html#use-in-confighub">The v0.20.0 entry</a></td><td>All 17 Applications of the EKS H100 training recipe with Kubeflow, with the charts inside them rendered and the five ConfigHub steps. It is the most fully recorded version.</td></tr><tr><td>See the newest NVIDIA release</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">The v1.0.0 entry</a></td><td>The same recipe at NVIDIA AICR v1.0.0, as 17 Applications. It is published as OCI. The charts inside its Applications are not rendered here.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -755,7 +755,7 @@ oras manifest fetch --oci-layout ./aicr-cpu-starter/aicr-cpu-starter.oci:0.14.0<
   </section>
 
 
-  <p><a href="./aicr-configurations.html">Where an AICR configuration comes from</a> records the provider, catalog and selected source variant behind the retained configuration, and what this example proves.</p>
+  <p><a href="./aicr-configurations.html">Where an AICR configuration comes from</a> records the provider, catalog and selected recipe behind the retained configuration, and what this example proves.</p>
   <section aria-labelledby="aicr-next">
     <h2 id="aicr-next">Choose what to do next</h2>
     <p>Keep the files and OCI locally, or <a href="./confighub.html">upload it into ConfigHub</a> when your team needs shared changes, environment variants, approvals, and promotion from development to production. That account step is the same for every configuration.</p>

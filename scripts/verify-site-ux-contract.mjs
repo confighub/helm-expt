@@ -152,7 +152,7 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Three variant layers", "Four things called base", "Two words worth defining", "Change a config safely", "2. Tell what set a field", "Where each setting lives", "3. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "4. See what is inside ConfigHub", "What the package contains", "5. Read the details", "Deciding whether to flatten"],
+    terms: ["Turn a recipe and values into a base, and decide where a change belongs", "1. See the model", "payments-api/prod-us", "Recipe, base and variant", "Four things called base", "Two words worth defining", "Change a config safely", "2. Tell what set a field", "Where each setting lives", "3. Understand a chart preset", "The claim", "What a chart preset records", "The short model", "4. See what is inside ConfigHub", "What the package contains", "5. Read the details", "Deciding whether to flatten"],
   },
   // Site IA phase 4, step 7b: where a change belongs, and how to make it, moved to its Guide.
   {
@@ -243,7 +243,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["flatten-with-routes, wrapper only, plan recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "provider-curated source variant", "A difference is not automatically a fault"],
+    terms: ["flatten-with-routes, wrapper only, plan recorded, not published", ...(aicrEntriesFlaggedForReview > 0 ? ["<strong>This entry is flagged for review.</strong>"] : []), "It is not published and has not run.", "Listing JSON", "AICR entries", "An entry flagged for review reads <code>completed/watch</code>", "id=\"chart-filter\"", "Configs · ConfigHub Workshop", "<h1>Configs</h1>", "Search the catalog", "entries shown", "Readiness", "Ready to try", "Review before use", "Package published; review before use", "Not ready yet", "Workload category", "Security and secrets", "Databases and messaging", "First configuration", "Base variants by version", "Flattens as plain YAML?", "No entry matches these filters", "Check your chart and values locally", "recipe the provider intends", "A difference is not automatically a fault"],
   },
   // Site IA phase 4, step 3: the Catalog page's explanation moved to How
   // configuration works, its trust and verification to Why trust it, and its

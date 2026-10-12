@@ -127,7 +127,7 @@ function validateSource(document) {
   );
   check(
     snapshot.answer.includes("observed differences")
-      && snapshot.answer.includes("provider-curated source variant")
+      && snapshot.answer.includes("recipe the provider intends")
       && snapshot.claimBoundary.includes("do not select an intended variant"),
     "AICR snapshot/diff was presented as desired-state or conformance evidence",
   );

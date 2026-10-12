@@ -77,7 +77,7 @@ spec:
       deploymentRequired: false
       evidenceState: completed
       resultState: available
-      answer: AICR snapshot and diff report observed differences between GPU nodes without selecting a recipe or deploying a bundle. To decide whether a difference is a fault, compare each node with the provider-curated source variant intended for its service, accelerator, operating system, workload intent, platform, and relevant hardware.
+      answer: AICR snapshot and diff report observed differences between GPU nodes without selecting a recipe or deploying a bundle. To decide whether a difference is a fault, compare each node with the recipe the provider intends for its service, accelerator, operating system, workload intent, platform, and relevant hardware.
       evidence:
         - tests/fixtures/config-assessment/aicr-snapshot-baseline.yaml
         - tests/fixtures/config-assessment/aicr-snapshot-target.yaml

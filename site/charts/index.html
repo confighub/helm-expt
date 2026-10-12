@@ -587,7 +587,7 @@
       <h2 id="search">Search the catalog</h2>
       <p>The catalog holds 124 Helm charts and non-Helm entries in one filterable table: 140 AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry. The nimservice entry is one row with 38 model variants, and 37 of them are published as OCI. Use the <strong>Format</strong> filter to narrow to any one, for example all 140 AICR entries; the other filters and the text search span every entry.</p>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.</aside>
-      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the provider-curated source variant intended for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
+      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search the catalog</strong></label>
         <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -1769,13 +1769,13 @@
         <td>flatten-with-routes, wrapper only, plan recorded, published</td>
         <td>argocd. Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
       </tr>
-<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-training-kubeflow-v1-0-0 aicr ai platform v1.0.0 argocd   v1.0.0 training entry aicr v1.0.0 entry flatten-with-routes, wrapper only, plan recorded, not published it is rendered as 17 argo cd applications and retained. it is not published and has not run.  placeholder">
+<tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-training-kubeflow-v1-0-0 aicr ai platform v1.0.0 argocd   v1.0.0 training entry aicr v1.0.0 entry flatten-with-routes, wrapper only, plan recorded, published it is rendered as 17 argo cd applications and retained. it is published as oci. delivery is partly recorded, and no run has passed.  placeholder">
         <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">eks-h100-training-kubeflow-v1-0-0</a><br><span style="color:var(--muted);font-size:.85rem">AI platform entry, from an AICR recipe</span></td>
         <td class="mono">v1.0.0</td>
         <td><a href="../d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read the entry</a> · <a href="../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">Listing JSON</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.yaml">Record</a></td>
-        <td>It is rendered as 17 Argo CD Applications and retained. It is not published and has not run.</td>
+        <td>It is rendered as 17 Argo CD Applications and retained. It is published as OCI. Delivery is partly recorded, and no run has passed.</td>
         <td>The systemNodeSelector value is a placeholder. Change it to match your cluster, then regenerate the entry or make a variant.</td>
-        <td>flatten-with-routes, wrapper only, plan recorded, not published</td>
+        <td>flatten-with-routes, wrapper only, plan recorded, published</td>
         <td>argocd. Retained exactly as generated. <a href="../d/docs/demo/aicr/index.html">How these entries work</a></td>
       </tr>
 <tr data-chart-row data-kind="ai-platform" data-level="" data-status="" data-hooks="" data-crds="" data-search="eks-h100-inference-nim aicr ai platform v0.14.0 argocd a cluster that can serve nim models. aws, gpu capacity, and ngc access for the model images. aicr-native inference entry aicr-native nim platform flatten-with-routes, wrapper only, plan recorded, not published it is rendered as 20 argo cd applications and retained. it is not published and has not run.  ">

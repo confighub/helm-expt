@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Where an AICR configuration comes from · ConfigHub Workshop</title>
-  <meta name="description" content="The provider, catalog and selected source variant behind a retained AICR configuration, and what the example proves.">
+  <meta name="description" content="The provider, catalog and selected recipe behind a retained AICR configuration, and what the example proves.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/aicr-configurations.html">
   <meta property="og:title" content="Where an AICR configuration comes from · ConfigHub Workshop">
-  <meta property="og:description" content="The provider, catalog and selected source variant behind a retained AICR configuration, and what the example proves.">
+  <meta property="og:description" content="The provider, catalog and selected recipe behind a retained AICR configuration, and what the example proves.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/aicr-configurations.html">
   <style>
@@ -638,16 +638,16 @@
 
     <p class="eyebrow">Docs</p>
     <h1>Where an AICR configuration comes from</h1>
-    <p class="lead">The provider chooses an AICR source variant, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.</p>
+    <p class="lead">The provider chooses an AICR recipe, and the Workshop records that choice before it keeps the generated objects as a base. This doc shows the record, and what the retained example proves.</p>
 
   </header>
   <main>
   <section aria-labelledby="aicr-source-catalog">
     <h2 id="aicr-source-catalog">1. Where the selected configuration came from</h2>
-    <p>The provider chooses the source variant. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
+    <p>The provider chooses the recipe. ConfigHub Workshop records that choice before it keeps the generated objects as a base. Later ConfigHub variants are changes to that retained base; they do not rewrite the provider's catalog record.</p>
     <div class="card"><table>
         <thead><tr><th>Record</th><th>Exact v0.20.0 value</th></tr></thead>
-        <tbody><tr><td>Provider</td><td>NVIDIA · <a href="https://github.com/NVIDIA/aicr">provider source</a></td></tr><tr><td>Provider catalog</td><td>NVIDIA AICR built-in catalog v0.20.0 · <code>sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8</code></td></tr><tr><td>Selected source variant</td><td><code>h100-eks-ubuntu-training-kubeflow</code> · accelerator=h100, intent=training, os=ubuntu, platform=kubeflow, service=eks</td></tr><tr><td>Retained base</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a></td></tr><tr><td>ConfigHub handoff</td><td><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a></td></tr></tbody>
+        <tbody><tr><td>Provider</td><td>NVIDIA · <a href="https://github.com/NVIDIA/aicr">provider source</a></td></tr><tr><td>Provider catalog</td><td>NVIDIA AICR built-in catalog v0.20.0 · <code>sha256:676f2d59eacd79ae1b72e5cbe00216b577def1da412dbdabb032f317a62dc1d8</code></td></tr><tr><td>Selected recipe</td><td><code>h100-eks-ubuntu-training-kubeflow</code> · accelerator=h100, intent=training, os=ubuntu, platform=kubeflow, service=eks</td></tr><tr><td>Retained base</td><td><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">17 exact Argo CD Applications plus source and lifecycle records</a></td></tr><tr><td>ConfigHub handoff</td><td><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">The upload receipt carries the same provider, catalog digest, selected variant, and dimensions</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -656,7 +656,7 @@
         td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected source variant. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
+    <p><a href="../examples/aicr/eks-h100-training-kubeflow-v0-20-0/source-catalog/source-catalog-record.yaml">Open the complete source-catalog record</a> · <a href="../data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml">Open the retained BaseVariantRecord</a>. Provider evidence applies to the selected recipe. ConfigHub evidence starts with the exact retained objects and records later changes, promotion, release, and delivery separately.</p>
   </section>
   <section aria-labelledby="aicr-boundary">
     <h2 id="aicr-boundary">2. What the retained-configuration example proves</h2>
@@ -665,7 +665,7 @@
     <p>An AI can propose that change, but a checker decides whether to accept it. The recorded example keeps all seven Application identities, changes only <code>kube-prometheus-stack</code>, and changes only its StorageClass field. A second request also moves a namespace, so the checker refuses it and writes no candidate.</p>
     <p><a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-platform-variant/summary.md">Compare the accepted and refused requests</a>.</p>
     <p><a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-cpu-starter-public-proof/summary.md">Read the recorded anonymous run</a> · <a href="./d/docs/demo/aicr/cpu-starter.html">Read how the selection was made</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/vllm-cpu-starter-proof/summary.md">See the separate live CPU inference result</a></p>
-    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the most fully recorded source variant, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-v0-20-0-route-resolution/summary.md">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
+    <p><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">Open the AICR v0.20.0 starting configuration</a> to inspect the most fully recorded recipe, 17 exact Applications, all 16 nested source renders, and the separate Argo CD and Flux lifecycle plans. The records bind 409 local objects to exact chart, values, and output digests without claiming that a GPU target ran. <a href="https://github.com/confighub/helm-expt/blob/main/data/aicr-v0-20-0-route-resolution/summary.md">Read the nested and destination result</a>. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-19-0.html">The v0.19.0 entry</a> continues further into ConfigHub variants and release OCI.</p>
   </section>
   </main>
 </div>

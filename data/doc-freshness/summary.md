@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-12 (commit `858072cb51`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-12 (commit `f5a71330fa`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 492 |
-| Fresh (no linked source newer than the doc) | 67 |
-| **Review-due** | 95 |
+| Fresh (no linked source newer than the doc) | 69 |
+| **Review-due** | 93 |
 | No linked evidence sources (cannot auto-trigger) | 330 |
 
 ## Review queue
@@ -94,19 +94,17 @@ most recently changed triggers.
 | [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 45 | `data/helm-render-intents/contract-gaps.csv (2026-10-09)`<br>`data/helm-render-intents/contract-gaps.md (2026-10-09)`<br>`data/helm-render-intents/contract.md (2026-10-09)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 45 | `data/installer-oci-packages/packages.csv (2026-10-09)`<br>`data/installer-oci-packages/packages.json (2026-10-09)`<br>`data/installer-oci-packages/summary.md (2026-10-09)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 45 | `data/master-catalog-matrix/summary.md (2026-10-09)` |
-| [docs/user/verification.md](../../docs/user/verification.md) | user | 2026-08-25 | 45 | `data/outcome-coverage/summary.md (2026-10-09)`<br>`data/status-dashboard/summary.md (2026-10-09)`<br>`tests/npm-scripts.md (2026-10-07)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 44 | `tests/doctrine.md (2026-10-12)`<br>`scripts/lib/configuration-questions.mjs (2026-09-30)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
 | [docs/planning/certified-bundle-track-backlog.md](../../docs/planning/certified-bundle-track-backlog.md) | planning | 2026-09-03 | 39 | `tests/doctrine.md (2026-10-12)` |
 | [docs/planning/composition-certification.md](../../docs/planning/composition-certification.md) | planning | 2026-09-03 | 39 | `tests/doctrine.md (2026-10-12)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 39 | `data/certified-bundles/summary.md (2026-10-11)` |
-| [docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md](../../docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md) | demo | 2026-09-03 | 36 | `data/aicr-version-diff/summary.md (2026-10-09)`<br>`data/aicr-v0-20-0-nested-sources/summary.md (2026-10-08)`<br>`data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml (2026-09-26)` |
-| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 36 | `tests/doctrine.md (2026-10-12)`<br>`data/receipt-aging/summary.md (2026-10-11)`<br>`data/upstream-provenance/summary.md (2026-10-09)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 36 | `data/receipt-aging/summary.md (2026-10-12)`<br>`tests/doctrine.md (2026-10-12)`<br>`data/upstream-provenance/summary.md (2026-10-09)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 36 | `data/chart-use-guide/summary.md (2026-10-09)`<br>`data/lifecycle-boundary/summary.md (2026-10-09)`<br>`data/master-catalog-matrix/matrix.html (2026-10-09)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 36 | `data/installer-package-signatures/summary.md (2026-10-09)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 33 | `data/chart-skills/summary.md (2026-10-09)` |
 | [docs/planning/aicr-track-conclusion.md](../../docs/planning/aicr-track-conclusion.md) | planning | 2026-09-07 | 32 | `data/aicr-platform-evidence/summary.md (2026-10-09)` |
-| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 32 | `data/base-variant-records/records.json (2026-10-11)` |
+| [docs/reference/catalog-record-lookup.md](../../docs/reference/catalog-record-lookup.md) | reference | 2026-09-10 | 32 | `data/base-variant-records/records.json (2026-10-12)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/reference/workshop-in-depth.md](../../docs/reference/workshop-in-depth.md) | reference | 2026-09-15 | 24 | `data/extension-slots/summary.md (2026-10-09)`<br>`data/runtime-gitops/summary.md (2026-10-09)`<br>`data/status-dashboard/summary.md (2026-10-09)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |

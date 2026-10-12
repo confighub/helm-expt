@@ -669,11 +669,11 @@ Variants:
       </style>
       <p>The team can then answer four questions. Which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
 
-      <h3 id="layers">Three variant layers</h3>
-      <p>The word variant can describe a choice at three different stages. Keep the layers separate.</p>
+      <h3 id="layers">Recipe, base and variant</h3>
+      <p>Three words name three different stages. A recipe is chosen before flattening. A base is what flattening one recipe gives. A variant is a copy of a base with changes.</p>
       <div class="card"><table>
-        <thead><tr><th>Layer</th><th>What it is</th><th>Example</th></tr></thead>
-        <tbody><tr><td>Source variant</td><td>A provider-curated choice before materialization. Its provider records which target and use case it is for.</td><td>A Catalog Helm preset with recorded values, or an AICR leaf selected by service, accelerator, and platform.</td></tr><tr><td>Retained base variant</td><td>The exact objects produced from one source variant, with their digest, source link, and evidence.</td><td>One rendered Helm preset, or the Argo CD Applications produced from one AICR leaf.</td></tr><tr><td>Derived ConfigHub variant</td><td>A recorded change to a retained base for an environment, region, customer, or policy.</td><td>Development, staging, and production revisions linked to the same base.</td></tr></tbody>
+        <thead><tr><th>Word</th><th>What it is</th><th>Example</th></tr></thead>
+        <tbody><tr><td>Recipe</td><td>A pinned choice before flattening. Its provider records which target and use case it is for.</td><td>A Catalog Helm preset with recorded values, or an AICR recipe selected by service, accelerator, and platform.</td></tr><tr><td>Base</td><td>The exact objects produced from one recipe, with their digest, source link, and evidence.</td><td>One rendered Helm preset, or the Argo CD Applications produced from one AICR recipe.</td></tr><tr><td>Variant</td><td>A recorded change to a base for an environment, region, customer, or policy.</td><td>Development, staging, and production revisions linked to the same base.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

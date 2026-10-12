@@ -1037,7 +1037,7 @@ requireCondition(
 );
 requireCondition(
   aicrSnapshot?.answer?.includes("observed differences")
-    && aicrSnapshot.answer.includes("provider-curated source variant")
+    && aicrSnapshot.answer.includes("recipe the provider intends")
     && aicrSnapshot?.claimBoundary?.includes("do not select an intended variant"),
   "AICR snapshot/diff is presented as desired-state or conformance evidence",
 );
@@ -1045,7 +1045,7 @@ for (const [label, document] of Object.entries({
   tryAicr: documents.tryAicr,
   catalog: documents.catalog,
 })) {
-  requireText(document, "provider-curated source variant", `${label} AICR variant boundary`);
+  requireText(document, "recipe the provider intends", `${label} AICR variant boundary`);
   requireText(document, "A difference is not automatically a fault", `${label} AICR observation boundary`);
 }
 const expectedResources = assessmentCases.cases.find(
