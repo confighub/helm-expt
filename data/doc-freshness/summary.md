@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-11 (commit `22fa412a8f`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-12 (commit `85832ff829`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 490 |
+| Authored docs tracked | 491 |
 | Fresh (no linked source newer than the doc) | 69 |
 | **Review-due** | 93 |
-| No linked evidence sources (cannot auto-trigger) | 328 |
+| No linked evidence sources (cannot auto-trigger) | 329 |
 
 ## Review queue
 
@@ -421,6 +421,7 @@ into this freshness model.
 - [docs/user/creating-variants.md](../../docs/user/creating-variants.md)
 - [docs/user/cub-variant-command-surface.md](../../docs/user/cub-variant-command-surface.md)
 - [docs/user/custom-overlays.md](../../docs/user/custom-overlays.md)
+- [docs/user/deploy-gpu-operator-from-catalog.md](../../docs/user/deploy-gpu-operator-from-catalog.md)
 - [docs/user/derived-variant-walkthrough.md](../../docs/user/derived-variant-walkthrough.md)
 - [docs/user/example-rendered-diff.md](../../docs/user/example-rendered-diff.md)
 - [docs/user/existing-helm-release-diagnostic.md](../../docs/user/existing-helm-release-diagnostic.md)

@@ -735,6 +735,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/custom-overlays.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-story.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/deploy-gpu-operator-from-catalog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/derived-variant-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/example-rendered-diff.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/existing-helm-release-diagnostic.html</loc></url>
