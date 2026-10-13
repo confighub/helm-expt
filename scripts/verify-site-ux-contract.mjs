@@ -892,13 +892,22 @@ if (fs.existsSync(homePath)) {
   if (home.includes("tested configurations, each rendered to the exact objects it installs")) {
     failures.push("site/index.html: the Configs line calls every entry tested and installable, which overstates the AICR recipes that are rendered and not published or run");
   }
-  // Site IA phase 4: the home page keeps the mission, the five journeys, the
+  // Site IA phase 4: the home page keeps the mission, its demos list, the
   // agent prompt and skill, and one line per Catalog section.
   for (const href of ["./charts/index.html", "./stack.html", "./apps.html", "./plugins.html", "./guides.html", "./docs.html", "./confighub.html", "./ai.html", "./try.html", "./llms.txt"]) {
     if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing section or start link ${href}`);
   }
+  // The maintainer shortened the home page's demos list on 2026-10-13. It
+  // links three journeys, the GPU Operator page, the AICR page and the
+  // platforms and fleets start. The Guides page links all five journeys.
+  const guidesPage = fs.readFileSync(path.join(root, "site/guides.html"), "utf8");
+  const journeysOnTheHomePage = ["journey-values-did-nothing", "journey-preserve-my-fixes", "journey-before-gitops"];
+  for (const href of ["./d/docs/user/deploy-gpu-operator-from-catalog.html", "./try-aicr.html", "./guides.html#guides-platforms-fleets", "./d/docs/user/model-and-vocabulary.html"]) {
+    if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: the left column is missing ${href}`);
+  }
   for (const journey of ["journey-values-did-nothing", "journey-preserve-my-fixes", "journey-what-my-app-needs", "journey-before-gitops", "journey-installs-never-starts"]) {
-    if (!home.includes(`href="./${journey}.html"`)) failures.push(`site/index.html: missing journey Guide ${journey}`);
+    if (journeysOnTheHomePage.includes(journey) && !home.includes(`href="./${journey}.html"`)) failures.push(`site/index.html: missing journey Guide ${journey}`);
+    if (!guidesPage.includes(`${journey}.html"`)) failures.push(`site/guides.html: missing journey Guide ${journey}`);
     const page = path.join(root, `site/${journey}.html`);
     if (!fs.existsSync(page)) { failures.push(`site/${journey}.html: missing journey Guide`); continue; }
     const text = fs.readFileSync(page, "utf8");

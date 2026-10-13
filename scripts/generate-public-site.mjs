@@ -3119,7 +3119,7 @@ function siteSidebarHtml(relPath, section, html = "") {
     .sort((left, right) => Number(Boolean(section) && right.label === section.label) - Number(Boolean(section) && left.label === section.label));
   // Two links under each of the other two headings, as the home page has.
   const aiLinks = list([["ai.html#install-skill", "Set up my AI agent"], ["ask.html", "Check my charts and values"]]);
-  const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["promote.html", "Promote my config"]]);
+  const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["how-it-works.html", "Promotions and Pipelines"]]);
   // The same two Deep Dives the home page lists, on every page's left column.
   const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
   if (relPath === "guides.html" || isGuidePage(relPath)) {
@@ -3766,9 +3766,14 @@ ${bannerCss()}
 `;
 }
 
+// The home page lists three of the five journeys, and the Guides page lists
+// all five. The list is built inside the function, because the generator runs
+// at module load and a constant declared here would not exist yet.
 function homeJourneyLinks() {
+  const JOURNEYS_ON_THE_GUIDES_PAGE_ONLY = ["journey-what-my-app-needs.html", "journey-installs-never-starts.html"];
   return sectionRows("guides")
     .filter((row) => row.group === "journeys")
+    .filter((row) => !JOURNEYS_ON_THE_GUIDES_PAGE_ONLY.some((file) => row.address.endsWith(`/${file}`)))
     .map((row, i) => `        <a${i === 0 ? ' class="rail-primary"' : ""} href="${escapeHtml(row.address.startsWith(SITE_BASE_URL) ? `./${row.address.slice(SITE_BASE_URL.length)}` : row.address)}">${escapeHtml(row.title)}</a>`)
     .join("\n");
 }
@@ -3961,6 +3966,9 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
+        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
+        <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
+        <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
         <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
@@ -3969,11 +3977,9 @@ ${homeJourneyLinks()}
         <a href="./ask.html">Check my charts and values</a>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <a href="./deploy-one-thing.html">Deploy one thing</a>
-        <a href="./promote.html">Promote my config</a>
+        <a href="./how-it-works.html">Promotions and Pipelines</a>
         <p class="rail-h"><strong>Common Questions</strong></p>
         <a href="./charts/index.html">What’s in the Config Catalog?</a>
-        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">How do I deploy a Helm chart from the Catalog?</a>
-        <a href="./try-aicr.html">How do I use NVIDIA AICR?</a>
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
