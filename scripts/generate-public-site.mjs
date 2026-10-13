@@ -3110,6 +3110,8 @@ function guideHeadings(html) {
 function siteSidebarHtml(relPath, section, html = "") {
   const base = pageBasePrefix(relPath);
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
+  // The same two Deep Dives the home page lists, on every page's left column.
+  const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
   if (relPath === "guides.html" || isGuidePage(relPath)) {
     const local = relPath === "guides.html"
       ? [["guides.html#guides-journeys", "Try a demo"], ["guides.html#guides-your-tools", "Start with your tools"], ["guides.html#guides-start-here", "Browse by topic"]]
@@ -3117,16 +3119,19 @@ function siteSidebarHtml(relPath, section, html = "") {
     const primary = local.slice(0, 7);
     const extra = local.slice(7);
     return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "In this Guide"}</strong></p>${list(primary)}
+      ${deepDives}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
 ${extra.length ? `<details><summary>More in this Guide</summary>${list(extra)}</details>` : ""}`;
   }
   if (section?.hub === relPath) {
     return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
+      ${deepDives}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
       <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>`;
   }
-  return `<p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
+  return `${deepDives}
+    <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
     <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>` + siteSections().map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
 }
 
@@ -12084,6 +12089,7 @@ function aicrCatalogRows() {
           <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
           <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
         </div>
+        <p>Each row gives a flattening verdict, such as <code>flatten-with-routes</code>. <a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">What the flattening verdict means</a> explains each one and what you do with it.</p>
         <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
         <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
@@ -13694,7 +13700,7 @@ function flatteningSectionHtml(catalog, entry) {
 
   const lanes = String(row.decided_lanes || "").trim();
   const laneLine = lanes
-    ? `<p>A flattening-safety verdict has decided this version: <strong>${escapeHtml(lanes)}</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>`
+    ? `<p>A flattening-safety verdict has decided this version: <strong>${escapeHtml(lanes)}</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship. <a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">What the flattening verdict means</a>.</p>`
     : `<p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>`;
 
   const body = constructs.length
