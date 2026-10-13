@@ -17,9 +17,15 @@ name: Full verify chain
 # a package through the cub installer, read an OCI artifact through oras,
 # template a chart through helm, or scan rendered objects with kube-linter, and
 # none of that can be done by reading files.
-# Those run in their own job so the install cost is paid once instead of six
-# times, and so a hiccup reaching hub.confighub.com cannot mask a real failure
-# in the offline gates.
+# Those run in their own job, so a hiccup reaching hub.confighub.com cannot
+# mask a real failure in the offline gates.
+#
+# That job ran its 37 gates one after another and took 32 minutes, which made
+# it the wait on every pull request, a one-line website change included. Four
+# gates account for 25 of those minutes. It is now six shards, as the offline
+# gates are. Installing the tools takes under two minutes and is paid six
+# times, and the longest shard takes about fourteen. Every gate still runs on
+# every pull request.
 #
 # Twenty-four gates were already failing on main when this was written, with
 # nothing in CI to notice. They are declared in tests/verify-chain-known-red.yaml
@@ -89,13 +95,20 @@ jobs:
         run: node scripts/run-verify-shard.mjs --shard ${{ matrix.shard }} --of 6 --without-cli --allow-known-red
 
   cli-gates:
-    name: gates needing a command-line tool
+    name: gates needing a command-line tool, ${{ matrix.shard }} of 6
     runs-on: ubuntu-latest
-    # This job verifies every installer package with the real cub and
-    # installer, so its time grows with the package count. At 180 packages it
-    # ran past 30 minutes on its last package and was cancelled with every
-    # gate before it green.
-    timeout-minutes: 50
+    # These gates verify every installer package with the real cub and
+    # installer, so their time grows with the package count. As one job at 180
+    # packages they ran past 30 minutes and were cancelled with every gate
+    # before the last one green. The slowest gate alone takes about ten
+    # minutes, so a shard has room.
+    timeout-minutes: 30
+
+    strategy:
+      # As above: every shard finishes, so a run reports each failure.
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
 
     steps:
       - name: Check out helm-expt
@@ -160,4 +173,4 @@ jobs:
           echo "$HOME/.confighub/bin" >> "$GITHUB_PATH"
 
       - name: Run the gates that shell out
-        run: node scripts/run-verify-shard.mjs --shard 1 --of 1 --only-cli --allow-known-red
+        run: node scripts/run-verify-shard.mjs --shard ${{ matrix.shard }} --of 6 --only-cli --allow-known-red

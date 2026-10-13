@@ -39,7 +39,7 @@ editing prose.
 npm run verify
 ```
 
-That is the whole chain. CI runs it as six shards plus one shard for commands
+That is the whole chain. CI runs it as six shards, plus six more for commands
 that need a command-line tool (`.github/workflows/full-verify.yml`). Lanes the
 repository already knows are red are declared in
 `tests/verify-chain-known-red.yaml`; a pull request that fixes one of them
