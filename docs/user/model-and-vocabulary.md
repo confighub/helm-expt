@@ -68,6 +68,37 @@ you load it over the base and promote the change to each variant.
 | 2. OCI bundle | Objects, and a plan if needed | Objects, and a plan if needed | Argo CD Applications, and a plan | Objects |
 | 3. Load into ConfigHub | A base, then variants | A base, then variants | A base, then variants | A base, then variants |
 
+## What the flattening verdict means
+
+Every entry records a flattening verdict. It answers one question: can this
+source be flattened once and delivered as plain objects?
+
+| Verdict | What it means | What you do |
+| --- | --- | --- |
+| `safe-to-flatten` | The objects are everything. No step is needed around them. | Load the bundle and deliver it. |
+| `flatten-with-routes` | The source is flattened, and some steps must still happen when you deliver. Those steps are the plan. "Routes" is the stored name for the plan's steps. | Load the bundle, and carry out the plan when you deliver. |
+| `unsafe-to-flatten` | Flattening would lose something the source does at install time. | Use the installer package with `cub installer`. No bundle is published. |
+| `born-flattened` | The source is already plain objects. | Load it and deliver it. |
+
+Three questions people ask about `flatten-with-routes`.
+
+**Is it completely flattened?** For a Helm chart, yes. Helm has run, and
+nothing renders again when you install. Most plan steps are work around the
+objects, such as "apply the CRDs first", "this Secret must exist" or a hook
+Job. A few name a value that only your destination knows, such as a cluster
+name. For those you flatten again with that value, which gives a new bundle.
+For an AICR recipe the bundle holds Argo CD Applications, and Argo CD still
+renders the charts inside them when it deploys.
+
+**Can I load it into ConfigHub?** Yes. `cub variant upload` loads the bundle
+as a base, and you make variants of it as you do for any other entry. The plan
+travels inside the bundle.
+
+**What do I do with the plan?** Read it on the entry page, which lists each
+step, who carries it out and whether the Catalog has run it. You, or your
+pipeline, carry out the steps when you deliver. The test script on an entry
+page stops and names any step it cannot do for you.
+
 ## Try it
 
 [Deploy the GPU Operator from the Catalog](./deploy-gpu-operator-from-catalog.md)
