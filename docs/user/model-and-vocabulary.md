@@ -86,8 +86,10 @@ Three questions people ask about `flatten-with-routes`.
 nothing renders again when you install. Most plan steps are work around the
 objects, such as "apply the CRDs first", "this Secret must exist" or a hook
 Job. A few name a value that only your destination knows, such as a cluster
-name or a region. The entry records that value as one you must supply for each
-destination before you deliver. For an AICR recipe the bundle holds Argo CD Applications, and Argo CD still
+name or a region. The objects hold the placeholder `confighubplaceholder` where
+that value goes, and the entry page lists it as an input the destination must
+supply. You replace the placeholder for each destination before you deliver.
+For an AICR recipe the bundle holds Argo CD Applications, and Argo CD still
 renders the charts inside them when it deploys.
 
 **Can I load it into ConfigHub?** Yes. `cub variant upload` loads the bundle
