@@ -248,6 +248,11 @@
     .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
+    .copy-prompt { display: inline-block; margin: 8px 0 0; padding: 3px 10px; font: 600 .78rem var(--sans, system-ui, sans-serif); letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--bg, #fff); border: 1px solid var(--line-strong, var(--line)); border-radius: 6px; cursor: pointer; }
+    .copy-prompt:hover, .copy-prompt:focus-visible { border-color: var(--accent); color: var(--accent-ink, var(--ink)); }
+    .agent-note .prompt-text, .agent-prompt .prompt-text { display: block; }
+    .prompt-pre { margin: 0 0 14px; }
+    .prompt-pre pre { margin-bottom: 0; }
   .site-footer { border-top: 1px solid var(--line); margin-top: 56px; background: var(--surface-2); }
   .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 28px 20px 36px; display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 22px 30px; }
   .site-footer .sf-group { display: flex; flex-direction: column; gap: 7px; }
@@ -408,7 +413,7 @@
           <span class="eyebrow">For your agent</span>
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
-          <p class="agent-prompt"><code>Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code></p>
+          <p class="agent-prompt"><code class="prompt-text">Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
@@ -442,6 +447,28 @@
       </footer>
     </div>
   </div>
+<script data-copy-prompt-script>(() => {
+  for (const button of document.querySelectorAll("button.copy-prompt")) {
+    button.addEventListener("click", async () => {
+      const box = button.closest(".agent-note, .agent-prompt, .prompt-pre");
+      const source = box && box.querySelector(".prompt-text");
+      if (!source) return;
+      const text = source.textContent.trim().replace(/^“/, "").replace(/”$/, "");
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied";
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(source);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        button.textContent = "Selected. Now copy";
+      }
+      setTimeout(() => { button.textContent = "Copy"; }, 2500);
+    });
+  }
+})();</script>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
 </html>

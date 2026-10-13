@@ -3323,7 +3323,7 @@ function finalizePage(html, relPath, renderedDocs = new Set()) {
   const withCommandNote = injectInstallerCommandNote(withInstallNote);
   const withMeta = injectHeadMeta(withCommandNote, relPath);
   const withBackendLinks = linkBackendPagesToGithub(rewriteMdHrefs(withMeta, relPath, renderedDocs));
-  return injectSiteChrome(withBackendLinks, relPath);
+  return injectCopyPromptScript(injectSiteChrome(withBackendLinks, relPath));
 }
 
 function finalizeSite(site, catalog) {
@@ -3763,6 +3763,11 @@ ${bannerCss()}
     .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
+    .copy-prompt { display: inline-block; margin: 8px 0 0; padding: 3px 10px; font: 600 .78rem var(--sans, system-ui, sans-serif); letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--bg, #fff); border: 1px solid var(--line-strong, var(--line)); border-radius: 6px; cursor: pointer; }
+    .copy-prompt:hover, .copy-prompt:focus-visible { border-color: var(--accent); color: var(--accent-ink, var(--ink)); }
+    .agent-note .prompt-text, .agent-prompt .prompt-text { display: block; }
+    .prompt-pre { margin: 0 0 14px; }
+    .prompt-pre pre { margin-bottom: 0; }
 `;
 }
 
@@ -4039,7 +4044,7 @@ ${homeJourneyLinks()}
           <span class="eyebrow">For your agent</span>
           <h2>Prompt Claude or Codex to get started</h2>
           <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
-          <p class="agent-prompt"><code>${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code></p>
+          <p class="agent-prompt"><code class="prompt-text">${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code>${copyPromptButton()}</p>
           <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
           ${agentNote(`Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
           <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
@@ -10528,7 +10533,7 @@ function aiHtml(catalog) {
     <p><a class="button primary" href="#ai-starting-points">Choose an AI journey</a> <a class="button secondary" href="#ai-token-budget">Plan token cost</a> <a class="button secondary" href="./ask.html#ask-token-budget">Use the zero-token checks</a></p>
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
-      <pre><code>${escapeHtml("Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt as a router. Search only enough of the relevant index to identify one entry, then read one relevant Guide and listing or receipt; do not load whole indexes or the whole catalog into context. Start from my existing files and tools. Run deterministic local checks before using model context for explanation. State the expected result, what the completed checks prove, what remains untested, and the token-optimal next step. Keep it local until I ask to save in ConfigHub or change delivery.")}</code></pre>
+      <div class="prompt-pre"><pre><code class="prompt-text">${escapeHtml("Help me with [my Kubernetes configuration question or task]. Use https://confighub.github.io/helm-expt/site/llms.txt as a router. Search only enough of the relevant index to identify one entry, then read one relevant Guide and listing or receipt; do not load whole indexes or the whole catalog into context. Start from my existing files and tools. Run deterministic local checks before using model context for explanation. State the expected result, what the completed checks prove, what remains untested, and the token-optimal next step. Keep it local until I ask to save in ConfigHub or change delivery.")}</code></pre>${copyPromptButton()}</div>
       <p>Use this prompt for a one-off question, or <a href="#install-skill">install the skill</a> to keep the instructions in your project.</p>
       <p>For a new project, use <a href="#fuller-prompt">the fuller prompt</a>. It also says what is in the Catalog and when you need ConfigHub server.</p>
     </div>
@@ -10541,7 +10546,7 @@ function aiHtml(catalog) {
       <p>You can also <a href="./.well-known/agent-skills/config-workshop/SKILL.md">read the skill first</a>. It holds no credentials and applies nothing. Local Workshop checks do not upload configuration to ConfigHub. What your agent sends to its AI provider depends on that tool and its settings. The skill instructs it to redact Secrets, pin versions and digests, report skipped checks and preview changes.</p>
       <details id="fuller-prompt"><summary>Read the fuller prompt for a new project</summary>
       <p>The <a href="#paste-a-prompt">short prompt above</a> is enough for most questions. This fuller version adds Catalog context and explains when ConfigHub Server is useful; it needs no skill installation.</p>
-      <pre><code>${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>
+      <div class="prompt-pre"><pre><code class="prompt-text">${escapeHtml(AGENT_PROMPT_FULLER)}</code></pre>${copyPromptButton()}</div>
       </details>
     </section>
 
@@ -16573,7 +16578,45 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
 // A note written for agents, not people: a prompt to hand an agent, or where
 // an agent reads the same content as data. It renders in its own labelled box.
 function agentNote(html, label = "For agents") {
+  // A prompt to hand an agent is text a person copies, so it has a button.
+  if (label === "Give this to your agent") {
+    return `<aside class="agent-note" aria-label="${escapeHtml(label)}"><span class="agent-note-label">${escapeHtml(label)}</span><span class="prompt-text">${html}</span>${copyPromptButton()}</aside>`;
+  }
   return `<aside class="agent-note" aria-label="${escapeHtml(label)}"><span class="agent-note-label">${escapeHtml(label)}</span>${html}</aside>`;
+}
+
+function copyPromptButton() {
+  return `<button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button>`;
+}
+
+// The script behind every Copy button. It copies the prompt without the
+// quotation marks the page prints around it. Where the browser refuses the
+// clipboard, it selects the text so the reader can copy it by hand.
+function injectCopyPromptScript(html) {
+  if (!html.includes('class="copy-prompt"') || html.includes("data-copy-prompt-script")) return html;
+  const script = `<script data-copy-prompt-script>(() => {
+  for (const button of document.querySelectorAll("button.copy-prompt")) {
+    button.addEventListener("click", async () => {
+      const box = button.closest(".agent-note, .agent-prompt, .prompt-pre");
+      const source = box && box.querySelector(".prompt-text");
+      if (!source) return;
+      const text = source.textContent.trim().replace(/^\u201c/, "").replace(/\u201d$/, "");
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied";
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(source);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        button.textContent = "Selected. Now copy";
+      }
+      setTimeout(() => { button.textContent = "Copy"; }, 2500);
+    });
+  }
+})();</script>`;
+  return html.includes("</body>") ? html.replace("</body>", `${script}\n</body>`) : `${html}\n${script}`;
 }
 
 function siteCss() {
@@ -16967,6 +17010,11 @@ ${bannerCss()}
     .agent-note { border: 1px dashed var(--line-strong, var(--line)); border-radius: 8px; padding: 10px 14px; margin: 14px 0; background: var(--surface); font-family: var(--mono); font-size: .82rem; line-height: 1.5; color: var(--muted); max-width: 760px; }
     .agent-note-label { display: block; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; color: var(--muted); }
     .agent-note a { color: inherit; }
+    .copy-prompt { display: inline-block; margin: 8px 0 0; padding: 3px 10px; font: 600 .78rem var(--sans, system-ui, sans-serif); letter-spacing: 0; text-transform: none; color: var(--ink); background: var(--bg, #fff); border: 1px solid var(--line-strong, var(--line)); border-radius: 6px; cursor: pointer; }
+    .copy-prompt:hover, .copy-prompt:focus-visible { border-color: var(--accent); color: var(--accent-ink, var(--ink)); }
+    .agent-note .prompt-text, .agent-prompt .prompt-text { display: block; }
+    .prompt-pre { margin: 0 0 14px; }
+    .prompt-pre pre { margin-bottom: 0; }
 `;
 }
 
