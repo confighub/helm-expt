@@ -3110,6 +3110,16 @@ function guideHeadings(html) {
 function siteSidebarHtml(relPath, section, html = "") {
   const base = pageBasePrefix(relPath);
   const list = (pages) => `<ul>${pages.map(([path, label]) => `<li><a href="${base}/${path}"${path === relPath ? ' aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`).join("")}</ul>`;
+  // The group this page belongs to comes first, and the page itself is first
+  // in that group, so a reader sees where they are near the top of the column.
+  const sectionsCurrentFirst = siteSections()
+    .map((item) => (section && item.label === section.label && item.pages.some(([path]) => path === relPath)
+      ? { ...item, pages: [...item.pages.filter(([path]) => path === relPath), ...item.pages.filter(([path]) => path !== relPath)] }
+      : item))
+    .sort((left, right) => Number(Boolean(section) && right.label === section.label) - Number(Boolean(section) && left.label === section.label));
+  // Two links under each of the other two headings, as the home page has.
+  const aiLinks = list([["ai.html#install-skill", "Set up my AI agent"], ["ask.html", "Check my charts and values"]]);
+  const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["how-it-works.html", "Promotions and Pipelines"]]);
   // The same two Deep Dives the home page lists, on every page's left column.
   const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
   if (relPath === "guides.html" || isGuidePage(relPath)) {
@@ -3120,19 +3130,19 @@ function siteSidebarHtml(relPath, section, html = "") {
     const extra = local.slice(7);
     return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "In this Guide"}</strong></p>${list(primary)}
       ${deepDives}
-      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
-      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
+      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}
 ${extra.length ? `<details><summary>More in this Guide</summary>${list(extra)}</details>` : ""}`;
   }
   if (section?.hub === relPath) {
     return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
       ${deepDives}
-      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
-      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>`;
+      <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
+      <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}`;
   }
   return `${deepDives}
-    <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>
-    <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>` + siteSections().map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
+    <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
+    <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}` + sectionsCurrentFirst.map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
 }
 
 function siteTocHtml(html) {
@@ -3756,9 +3766,14 @@ ${bannerCss()}
 `;
 }
 
+// The home page lists three of the five journeys, and the Guides page lists
+// all five. The list is built inside the function, because the generator runs
+// at module load and a constant declared here would not exist yet.
 function homeJourneyLinks() {
+  const JOURNEYS_ON_THE_GUIDES_PAGE_ONLY = ["journey-what-my-app-needs.html", "journey-installs-never-starts.html"];
   return sectionRows("guides")
     .filter((row) => row.group === "journeys")
+    .filter((row) => !JOURNEYS_ON_THE_GUIDES_PAGE_ONLY.some((file) => row.address.endsWith(`/${file}`)))
     .map((row, i) => `        <a${i === 0 ? ' class="rail-primary"' : ""} href="${escapeHtml(row.address.startsWith(SITE_BASE_URL) ? `./${row.address.slice(SITE_BASE_URL.length)}` : row.address)}">${escapeHtml(row.title)}</a>`)
     .join("\n");
 }
@@ -3951,15 +3966,20 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
+        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
+        <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
+        <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
         <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
+        <a href="./ai.html#install-skill">Set up my AI agent</a>
+        <a href="./ask.html">Check my charts and values</a>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
+        <a href="./deploy-one-thing.html">Deploy one thing</a>
+        <a href="./how-it-works.html">Promotions and Pipelines</a>
         <p class="rail-h"><strong>Common Questions</strong></p>
         <a href="./charts/index.html">What’s in the Config Catalog?</a>
-        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">How do I deploy a Helm chart from the Catalog?</a>
-        <a href="./try-aicr.html">How do I use NVIDIA AICR?</a>
         <a href="./apps.html">What does an example app look like?</a>
         <a href="./compose-a-stack.html">How do I build my own platform?</a>
         <a href="./stack.html">How do I run a pre-tested stack?</a>
