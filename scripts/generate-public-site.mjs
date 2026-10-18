@@ -3313,7 +3313,7 @@ function gatherTechnicalNotes(html) {
 }
 
 function finalizePage(html, relPath, renderedDocs = new Set()) {
-  html = gatherTechnicalNotes(html);
+  html = anchorEntryPlans(gatherTechnicalNotes(html));
   // A page with git conflict markers is a broken merge, never content. One
   // reached the live site on 2026-10-10 because no gate looked for them.
   if (/^(<<<<<<< |>>>>>>> )/m.test(String(html ?? ""))) {
@@ -16583,6 +16583,36 @@ function agentNote(html, label = "For agents") {
     return `<aside class="agent-note" aria-label="${escapeHtml(label)}"><span class="agent-note-label">${escapeHtml(label)}</span><span class="prompt-text">${html}</span>${copyPromptButton()}</aside>`;
   }
   return `<aside class="agent-note" aria-label="${escapeHtml(label)}"><span class="agent-note-label">${escapeHtml(label)}</span>${html}</aside>`;
+}
+
+// Every plan on a page has its own address, #plan-<listing id>, and the first
+// plan on a page also answers to #plan. The first one is open, and a link to
+// any of them opens it, because a plan is what a reader is sent to read.
+function anchorEntryPlans(html) {
+  let index = 0;
+  const anchored = html.replace(/<details class="entry-inputs" data-entry-plan="([^"]+)">/g, (_, id) => {
+    const first = index === 0;
+    index += 1;
+    const short = first && !/\bid="plan"/.test(html) ? '<span id="plan"></span>' : "";
+    return `${short}<details class="entry-inputs" id="plan-${id}" data-entry-plan="${id}"${first ? " open" : ""}>`;
+  });
+  if (index === 0 || anchored.includes("data-open-linked-plan-script")) return anchored;
+  const script = `<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>`;
+  return anchored.includes("</body>") ? anchored.replace("</body>", `${script}\n</body>`) : `${anchored}\n${script}`;
 }
 
 function copyPromptButton() {

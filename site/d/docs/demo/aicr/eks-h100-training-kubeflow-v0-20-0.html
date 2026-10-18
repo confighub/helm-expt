@@ -657,7 +657,7 @@
         <ul class="entry-inputs-list"><li>Argo CD and its Application CRD must exist before the retained wrapper objects can be applied. <em>Declared. Not checked on any destination.</em></li><li>The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training recipe. <em>Declared. Not checked on any destination.</em></li><li>A gp3 StorageClass must be available for the selected storage input. <em>Declared. Not checked on any destination.</em></li><li>GPU nodes must carry nvidia.com/gpu.present=true for the selected placement. <em>Declared. Not checked on any destination.</em></li><li>EFA, RDMA, driver, and nvidia_peermem requirements must be checked against the actual node and network role. <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="aicr-eks-h100-training-kubeflow-v0-20-0-argocd">
+        <span id="plan"></span><details class="entry-inputs" id="plan-aicr-eks-h100-training-kubeflow-v0-20-0-argocd" data-entry-plan="aicr-eks-h100-training-kubeflow-v0-20-0-argocd" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> compare observed destination facts with the intended NVIDIA recipe Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> make the Argo CD Application API and controller available Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> reconcile component Applications in AICR dependency order Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source Who: selected destination actor. <em>Recorded as materialized-awaits-destination-execution.</em></li><li><strong>Once the destination is known.</strong> collect and compare node facts without requiring a selected recipe Who: selected destination actor. <em>Recorded as available-not-run-for-this-entry.</em></li><li><strong>Once the destination is known.</strong> run checks whose prerequisites are satisfied by the selected recipe Who: selected destination actor. <em>Not run.</em></li></ul>
@@ -745,6 +745,21 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#why-use-this-entry">Why use this entry?</a></li><li><a href="#recipe-base-and-variant">Recipe, base and variant</a></li><li><a href="#what-the-source-produces">What the source produces</a></li><li><a href="#rendering-and-lifecycle-work">Rendering and lifecycle work</a></li><li><a href="#stored-changed-and-promoted-in-confighub">Stored, changed, and promoted in ConfigHub</a></li><li><a href="#what-changed-from-v0190">What changed from v0.19.0?</a></li><li><a href="#current-status">Current status</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

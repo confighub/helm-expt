@@ -632,7 +632,7 @@
         <ul class="entry-inputs-list"><li>The Deployment references this Secret; the credential is not stored in the public OCI. <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="configuration-oci-nginx-replicas-4">
+        <span id="plan"></span><details class="entry-inputs" id="plan-configuration-oci-nginx-replicas-4" data-entry-plan="configuration-oci-nginx-replicas-4" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         
@@ -696,6 +696,21 @@
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/transform-oci-package.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#before-you-change-it">Before you change it</a></li><li><a href="#change-one-field">Change one field</a></li><li><a href="#what-the-output-contains">What the output contains</a></li><li><a href="#what-happens-next">What happens next</a></li><li><a href="#proof-and-limits">Proof and limits</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

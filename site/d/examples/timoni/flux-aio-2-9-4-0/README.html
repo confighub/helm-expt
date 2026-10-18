@@ -602,7 +602,7 @@
         <ul class="entry-inputs-list"><li>1.21.0 <em>Required. Not checked in a live run.</em></li><li>source, kustomize, helm, notification, and watcher controllers <em>Required. Not checked in a live run.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="timoni-flux-aio-2-9-4-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-timoni-flux-aio-2-9-4-0-default" data-entry-plan="timoni-flux-aio-2-9-4-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 15 Flux CustomResourceDefinitions before relying on controller reconciliation of Flux custom resources. Who: selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li><li><strong>After you deliver.</strong> Observe source, kustomize, helm, notification, and watcher controller readiness after apply. Who: selected destination actor. <em>Recorded as proposed-destination-requirement.</em></li></ul>
@@ -650,6 +650,21 @@ ef43b86cb0b2de345b59d1925d0f29927e600c65c7b84c42a1bfb8710d772e8e  timoni-flux-ai
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>examples/timoni/flux-aio-2-9-4-0/README.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

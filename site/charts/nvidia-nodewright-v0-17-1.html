@@ -641,7 +641,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="nvidia-nodewright-v0-17-1-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-nvidia-nodewright-v0-17-1-default" data-entry-plan="nvidia-nodewright-v0-17-1-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 2 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -744,7 +744,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="nvidia-nodewright-v0-17-1-aicr-eks-training">
+        <details class="entry-inputs" id="plan-nvidia-nodewright-v0-17-1-aicr-eks-training" data-entry-plan="nvidia-nodewright-v0-17-1-aicr-eks-training">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Install and establish the 2 CRDs before the operator starts. The operator Deployment watches these custom resources as soon as it starts. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, delete the operator Deployment if its selector would change. A Deployment's selector is immutable. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> Before a delete, remove the custom resources and the webhook configurations. Two Jobs run while the operator is still there. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -1015,6 +1015,21 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
     </section>
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

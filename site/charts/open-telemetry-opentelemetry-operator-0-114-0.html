@@ -747,7 +747,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>cert-manager Certificate CRD required by the chart-rendered serving certificate object. Install cert-manager or apply the cert-manager Certificate CRD before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager Issuer CRD required by the chart-rendered self-signed issuer object. Install cert-manager or apply the cert-manager Issuer CRD before applying this base <em>Declared. Not checked on any destination.</em></li><li>Webhook serving certificate Secret mounted by the operator Deployment. Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="open-telemetry-opentelemetry-operator-0-114-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-open-telemetry-opentelemetry-operator-0-114-0-default" data-entry-plan="open-telemetry-opentelemetry-operator-0-114-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/open-telemetry-opentelemetry-operator-0-114-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -841,7 +841,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>cert-manager Certificate CRD required by the chart-rendered serving certificate object. Install cert-manager or apply the cert-manager Certificate CRD before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager Issuer CRD required by the chart-rendered self-signed issuer object. Install cert-manager or apply the cert-manager Issuer CRD before applying this base <em>Declared. Not checked on any destination.</em></li><li>OpenTelemetry Operator CRD managed outside this no-crds base. Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>OpenTelemetry Operator CRD managed outside this no-crds base. Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>OpenTelemetry Operator CRD managed outside this no-crds base. Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>OpenTelemetry Operator CRD managed outside this no-crds base. Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Webhook serving certificate Secret mounted by the operator Deployment. Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="open-telemetry-opentelemetry-operator-0-114-0-no-crds">
+        <details class="entry-inputs" id="plan-open-telemetry-opentelemetry-operator-0-114-0-no-crds" data-entry-plan="open-telemetry-opentelemetry-operator-0-114-0-no-crds">
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/open-telemetry-opentelemetry-operator-0-114-0/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -1291,6 +1291,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
   </main>
   <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#runtime-review">What We Tested On A Cluster</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

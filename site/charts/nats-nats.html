@@ -676,7 +676,7 @@
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>nats/nats</code></li><li><code>version</code> is <code>2.14.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/nats/nats/2.14.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>nats</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="nats-nats-2-14-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-nats-nats-2-14-0-default" data-entry-plan="nats-nats-2-14-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/nats-nats-2-14-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -787,6 +787,21 @@
     </section>
   </main>
   <footer>Generated from the Catalog listings of nats/nats. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

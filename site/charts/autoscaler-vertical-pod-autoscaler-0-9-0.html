@@ -748,7 +748,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook. Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="autoscaler-vertical-pod-autoscaler-0-9-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-autoscaler-vertical-pod-autoscaler-0-9-0-default" data-entry-plan="autoscaler-vertical-pod-autoscaler-0-9-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Secret default/vpa-tls-certs must exist before apply. Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>When you deliver.</strong> Apply the 2 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -845,7 +845,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook. Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="autoscaler-vertical-pod-autoscaler-0-9-0-no-crds">
+        <details class="entry-inputs" id="plan-autoscaler-vertical-pod-autoscaler-0-9-0-no-crds" data-entry-plan="autoscaler-vertical-pod-autoscaler-0-9-0-no-crds">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Secret default/vpa-tls-certs must exist before apply. Webhook serving certificate Secret mounted by the VPA admission controller; Helm normally creates this via the certgen hook. Who: operator. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -1281,6 +1281,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
   </main>
   <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

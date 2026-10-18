@@ -622,7 +622,7 @@ helm template aicr-argocd ./argocd-helm-bundle --namespace argocd \
         <ul class="entry-inputs-list"><li>Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace. <em>Declared. Not checked on any destination.</em></li><li>2 of the 14 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-a100-oke-ubuntu-training-kubeflow/aicr-bundle at 1.0.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them. <em>Declared. Not checked on any destination.</em></li><li>AICR generated this recipe for accelerator=a100, intent=training, os=ubuntu, platform=kubeflow, service=oke. A destination has to match those criteria, and nothing here has checked one. <em>Declared. Not checked on any destination.</em></li><li>systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 11 rendered Applications at 23 field paths. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be and more. The listing gives the rest. <em>A placeholder. Change it to match your cluster.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd">
+        <span id="plan"></span><details class="entry-inputs" id="plan-aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd" data-entry-plan="aicr-a100-oke-ubuntu-training-kubeflow-v1-0-0-argocd" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> Apply the 13 component Applications in the 5 sync-waves they carry, from wave 1 to wave 14. The order is recorded as a route beside the bundle and no runtime has executed it. Who: Argo CD on the selected destination. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> Argo CD renders 12 upstream charts and 2 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them. Who: Argo CD on the selected destination. <em>Not evaluated.</em></li><li><strong>Once the destination is known.</strong> Replace the placeholder systemNodeSelector nodeGroup=system-worker with the label on your own cluster's system node group, before the bundle is delivered to a destination. That means regenerating the bundle with the new value or making a variant from this entry. Who: platform operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Decide whether the destination needs dra-node-labeler, which the selected recipe names and the bundle does not deploy. Including one means regenerating the bundle with the input AICR names for it. Who: platform operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts. The bundle was generated with no DRA eviction node label, so dra-node-labeler is not deployed. The listing gives the rest. Who: platform operator. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -680,6 +680,21 @@ helm template aicr-argocd ./argocd-helm-bundle --namespace argocd \
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/a100-oke-ubuntu-training-kubeflow.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-it-is">What it is</a></li><li><a href="#inputs-you-have-to-check">Inputs you have to check</a></li><li><a href="#what-the-entry-retains">What the entry retains</a></li><li><a href="#one-digest-pins-this-entry-too">One digest pins this entry too</a></li><li><a href="#what-is-proven-and-what-is-not">What is proven and what is not</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

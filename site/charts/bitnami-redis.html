@@ -696,7 +696,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
         <ul class="entry-inputs-list"><li>Redis authentication password <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="bitnami-redis-27-0-0-reuse-existing-secret">
+        <span id="plan"></span><details class="entry-inputs" id="plan-bitnami-redis-27-0-0-reuse-existing-secret" data-entry-plan="bitnami-redis-27-0-0-reuse-existing-secret" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         
@@ -813,6 +813,21 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
     </section>
   </main>
   <footer>Generated from the Catalog listings of bitnami/redis. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>
