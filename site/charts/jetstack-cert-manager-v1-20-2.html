@@ -746,7 +746,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>jetstack/cert-manager</code></li><li><code>version</code> is <code>v1.20.2</code></li><li><code>base</code> is <code>crds-enabled</code></li><li><code>valuesProfile</code> is <code>recipes/jetstack/cert-manager/v1.20.2/effective-values-crds-enabled.yaml</code></li><li><code>namespace</code> is <code>cert-manager</code></li><li><code>releaseName</code> is <code>cert-manager</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="jetstack-cert-manager-v1-20-2-crds-enabled">
+        <span id="plan"></span><details class="entry-inputs" id="plan-jetstack-cert-manager-v1-20-2-crds-enabled" data-entry-plan="jetstack-cert-manager-v1-20-2-crds-enabled" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> CRD ordering declaration for the 6 CustomResourceDefinition(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Prune protection for the 6 keep-annotated object(s) this base renders. Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>After you deliver.</strong> Route to cert-manager or a certgen lifecycle route for the 2 webhook configuration(s) this base renders. The cert-manager webhook makes its own CA Secret after it starts and the cainjector copies it into both webhook configurations, so you do nothing for this step. Who: the cert-manager webhook and cainjector. <em>Seen in a recorded run.</em></li><li><strong>After you deliver.</strong> Lifecycle route for the packaged chart's 3 non-test hook occurrence(s). The chart's hooks all belong to one Job that only checks the cert-manager API after an install, and the retained file leaves it out, so check the API yourself afterwards. Who: delivery runtime. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -849,7 +849,7 @@ e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0  jetstack-cert-
         <ul class="entry-inputs-list"><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD managed outside this default base. Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="jetstack-cert-manager-v1-20-2-default">
+        <details class="entry-inputs" id="plan-jetstack-cert-manager-v1-20-2-default" data-entry-plan="jetstack-cert-manager-v1-20-2-default">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The installer package includes these CRDs as prerequisites/target-facts/default-crds.yaml. Apply the missing CRDs server-side and leave existing CRDs under their current owner. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -1302,6 +1302,21 @@ e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0  jetstack-cert-
     </section>
   </main>
   <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

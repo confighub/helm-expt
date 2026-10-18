@@ -598,7 +598,7 @@
         <ul class="entry-inputs-list"><li><code>source</code> is <code>examples/plain-yaml/acme-web</code></li><li><code>objectSetSha256</code> is <code>963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="kubernetes-yaml-acme-web-base">
+        <span id="plan"></span><details class="entry-inputs" id="plan-kubernetes-yaml-acme-web-base" data-entry-plan="kubernetes-yaml-acme-web-base" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         
@@ -637,6 +637,21 @@
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>examples/plain-yaml/acme-web/README.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

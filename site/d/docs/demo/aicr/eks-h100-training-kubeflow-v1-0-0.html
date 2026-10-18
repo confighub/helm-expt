@@ -670,7 +670,7 @@ npm run aicr-provenance-v100:verify</code></pre>
         <ul class="entry-inputs-list"><li>Argo CD and its Application CRD must exist before the retained wrapper objects can be applied. <em>Declared. Not checked on any destination.</em></li><li>The destination must match the selected EKS, H100, Ubuntu, and Kubeflow training recipe. <em>Declared. Not checked on any destination.</em></li><li>A gp3 StorageClass must be available for the selected storage input. <em>Declared. Not checked on any destination.</em></li><li>Nodes that run system components must carry the system node selector label. This bundle carries the placeholder nodeGroup=system-worker, and the destination's own label replaces it. <em>Declared. Not checked on any destination.</em></li><li>GPU nodes must carry nvidia.com/gpu.present=true before the node-tuning object is applied. <em>Declared. Not checked on any destination.</em></li><li>The GPU driver, EFA device plugin, and node tuning must suit the actual node and network role. <em>Declared. Not checked on any destination.</em></li><li>systemNodeSelector=nodeGroup=system-worker is a placeholder, confirmed as one on 2026-10-07. Change it to the label on your own cluster's system node group. It is written into spec.source.helm.values of 12 rendered Applications at 24 field paths. A different value changes the bundle bytes and every digest in this entry, so the entry must be regenerated with the new value or a variant must be and more. The listing gives the rest. <em>A placeholder. Change it to match your cluster.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="aicr-eks-h100-training-kubeflow-v1-0-0-argocd">
+        <span id="plan"></span><details class="entry-inputs" id="plan-aicr-eks-h100-training-kubeflow-v1-0-0-argocd" data-entry-plan="aicr-eks-h100-training-kubeflow-v1-0-0-argocd" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> compare observed destination facts with the intended NVIDIA recipe Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> make the Argo CD Application API and controller available Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> reconcile component Applications in AICR dependency order Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> handle CRDs, hooks, certificates, operators, and setup Jobs for every nested source Who: selected destination actor. <em>Recorded as not-yet-materialized-for-v1.0.0.</em></li><li><strong>Around an install.</strong> follow the manual steps AICR lists before applying this bundle over an earlier installation Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> replace the placeholder system node selector nodeGroup=system-worker with the label on the destination cluster's system node group Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> decide whether the DRA kubelet plugin is evicted before a GPU driver container restarts Who: selected destination actor. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> collect and compare node facts Who: selected destination actor. <em>Recorded as available-not-run-for-this-entry.</em></li></ul>
@@ -758,6 +758,21 @@ npm run aicr-provenance-v100:verify</code></pre>
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#why-use-this-entry">Why use this entry?</a></li><li><a href="#this-entry-in-the-models-five-words">This entry in the model's five words</a></li><li><a href="#what-the-source-produces">What the source produces</a></li><li><a href="#the-inputs-fixed-when-the-entry-was-built">The inputs fixed when the entry was built</a></li><li><a href="#the-plan">The plan</a></li><li><a href="#what-changed-from-v0200">What changed from v0.20.0?</a></li><li><a href="#current-status">Current status</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../apps.html">Every app &rarr;</a></li></ul></nav>
 </div>

@@ -643,7 +643,7 @@ npm run sveltos-oci-delivery:verify</code></pre>
         <ul class="entry-inputs-list"><li>Kubernetes v1.35.0 with Sveltos v1.12.0 <em>Checked in a live run.</em></li><li>SveltosCluster labeled environment=staging <em>Checked in a live run.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="sveltos-kyverno-fleet-3-8-1-staging">
+        <span id="plan"></span><details class="entry-inputs" id="plan-sveltos-kyverno-fleet-3-8-1-staging" data-entry-plan="sveltos-kyverno-fleet-3-8-1-staging" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets. Who: not selected. <em>Passed in a live run.</em></li><li><strong>Once the destination is known.</strong> After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three. Who: not selected. <em>Passed in a live run.</em></li></ul>
@@ -690,6 +690,21 @@ npm run sveltos-oci-delivery:verify</code></pre>
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>examples/sveltos/kyverno-fleet/README.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-to-inspect">What to inspect</a></li><li><a href="#what-the-live-tests-showed">What the live tests showed</a></li><li><a href="#what-remains">What remains</a></li><li><a href="#chapter-three">Chapter three</a></li><li><a href="#repeat-and-verify">Repeat and verify</a></li><li><a href="#how-to-run-the-live-proof">How to run the live proof</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

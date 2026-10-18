@@ -746,7 +746,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>gatekeeper/gatekeeper</code></li><li><code>version</code> is <code>3.22.2</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/gatekeeper/gatekeeper/3.22.2/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>gatekeeper</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="gatekeeper-gatekeeper-3-22-2-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-gatekeeper-gatekeeper-3-22-2-default" data-entry-plan="gatekeeper-gatekeeper-3-22-2-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> CRD and admission-webhook prerequisites must be checked before apply. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>Around an upgrade.</strong> The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims. Who: delivery workflow. <em>Seen in a recorded run.</em></li><li><strong>When you deliver.</strong> Apply the 17 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below. The listing gives the rest. Who: whatever applies the objects. <em>Seen in a recorded run.</em></li></ul>
@@ -843,7 +843,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <ul class="entry-inputs-list"><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li><li>Gatekeeper CRD managed outside this no-crds base. Apply the default base CRDs or install Gatekeeper CRDs before applying this base <em>Declared. Not checked on any destination.</em></li></ul>
         <p>The listing records 17 of these. This list shows the first 12.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="gatekeeper-gatekeeper-3-22-2-no-crds">
+        <details class="entry-inputs" id="plan-gatekeeper-gatekeeper-3-22-2-no-crds" data-entry-plan="gatekeeper-gatekeeper-3-22-2-no-crds">
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/gatekeeper-gatekeeper-3-22-2/no-crds/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -1299,6 +1299,21 @@ ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c  gatekeeper-gat
     </section>
   </main>
   <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#pillars-here">What this page gives you</a></li><li><a href="#summary">What To Use</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#setting-sources">Where This Chart's Settings Come From</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#render-record-route">What The Starting Configuration Records</a></li><li><a href="#run-this">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#after-render">After You Render It</a></li><li><a href="#matrix-options">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#adoption-caveats">First-Run Caveats</a></li><li><a href="#playbooks">Advice And Current Status</a></li><li><a href="#proof">What Has Been Tested</a></li><li><a href="#quirks">What You Must Provide</a></li><li><a href="#lifecycle">Hooks, CRDs, And Setup Work</a></li><li><a href="#production">Before Production</a></li><li><a href="#files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

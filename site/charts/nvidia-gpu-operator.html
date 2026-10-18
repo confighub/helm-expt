@@ -730,7 +730,7 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
         <ul class="entry-inputs-list"><li>gpu-operator CRD included in this base; it must be established before Kubernetes accepts the rendered ClusterPolicy object <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the workloads that use it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="nvidia-gpu-operator-v26-7-1-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-nvidia-gpu-operator-v26-7-1-default" data-entry-plan="nvidia-gpu-operator-v26-7-1-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 8 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> Before deleting, remove a chart-managed GPUCluster and wait for it to go. The Job deletes the chart-managed GPUCluster object and waits until it is gone, so the operator can drain workloads under its finalizer while it is still running. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around a delete.</strong> After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -872,6 +872,21 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
     </section>
   </main>
   <footer>Generated from the Catalog listings of nvidia/gpu-operator. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#live-example">Open a live example in ConfigHub</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

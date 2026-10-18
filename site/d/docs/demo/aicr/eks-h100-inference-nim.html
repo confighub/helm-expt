@@ -632,7 +632,7 @@
         <ul class="entry-inputs-list"><li>Argo CD and its Application API must exist on the destination, with the argocd namespace, because every object in this base is an Argo CD Application in that namespace. <em>Declared. Not checked on any destination.</em></li><li>4 of the 20 Applications take their source from oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle at 0.14.0. That package is not published, so a destination needs a reachable copy before Argo CD can resolve them. <em>Declared. Not checked on any destination.</em></li><li>AICR generated this recipe for accelerator=h100, intent=inference, os=ubuntu, platform=nim, service=eks. A destination has to match those criteria, and nothing here has checked one. <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="aicr-eks-h100-inference-nim-v0-14-0-argocd">
+        <span id="plan"></span><details class="entry-inputs" id="plan-aicr-eks-h100-inference-nim-v0-14-0-argocd" data-entry-plan="aicr-eks-h100-inference-nim-v0-14-0-argocd" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>Once the destination is known.</strong> Apply the 19 component Applications in the 19 sync-waves they carry, from wave 0 to wave 18. The order is recorded as a route beside the bundle and no runtime has executed it. Who: Argo CD on the selected destination. <em>Generated. Not run on a cluster.</em></li><li><strong>Once the destination is known.</strong> Argo CD renders 16 upstream charts and 4 AICR bundle paths at sync time. Their CRDs, hooks, certificates and operators are handled there, and this entry has not rendered or assessed them. Who: Argo CD on the selected destination. <em>Not evaluated.</em></li></ul>
@@ -690,6 +690,21 @@
     </section>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/eks-h100-inference-nim.md</code>. The source file is the authoritative version.</p></footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-it-is">What it is</a></li><li><a href="#what-changes-between-training-and-inference">What changes between training and inference</a></li><li><a href="#how-the-two-inference-entries-differ">How the two inference entries differ</a></li><li><a href="#one-digest-pins-this-entry-too">One digest pins this entry too</a></li><li><a href="#the-operators-config-surface-proven-on-a-cluster">The operator's config surface, proven on a cluster</a></li><li><a href="#what-is-proven-and-what-is-not">What is proven and what is not</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../../../../d/docs/user/model-and-vocabulary.html">How the model works &rarr;</a></li></ul></nav>
 </div>

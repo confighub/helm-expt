@@ -639,7 +639,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>prometheus-community/prometheus-blackbox-exporter</code></li><li><code>version</code> is <code>11.10.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>prometheus-blackbox-exporter</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="prometheus-community-prometheus-blackbox-exporter-11-10-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-prometheus-community-prometheus-blackbox-exporter-11-10-0-default" data-entry-plan="prometheus-community-prometheus-blackbox-exporter-11-10-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         
@@ -738,7 +738,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>prometheus-community/prometheus-blackbox-exporter</code></li><li><code>version</code> is <code>11.10.0</code></li><li><code>base</code> is <code>cluster-metrics-readonly</code></li><li><code>valuesProfile</code> is <code>recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>prometheus-blackbox-exporter</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly">
+        <details class="entry-inputs" id="plan-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly" data-entry-plan="prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly">
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         
@@ -1007,6 +1007,21 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
     </section>
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

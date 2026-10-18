@@ -677,7 +677,7 @@ cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2  bitnami-rabbit
         <ul class="entry-inputs-list"><li>RabbitMQ administrator password <em>Declared. Not checked on any destination.</em></li><li>RabbitMQ Erlang cookie for node clustering <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="bitnami-rabbitmq-16-0-14-existing-secret">
+        <span id="plan"></span><details class="entry-inputs" id="plan-bitnami-rabbitmq-16-0-14-existing-secret" data-entry-plan="bitnami-rabbitmq-16-0-14-existing-secret" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/bitnami-rabbitmq-16-0-14/existing-secret/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -788,6 +788,21 @@ cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2  bitnami-rabbit
     </section>
   </main>
   <footer>Generated from the Catalog listings of bitnami/rabbitmq. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

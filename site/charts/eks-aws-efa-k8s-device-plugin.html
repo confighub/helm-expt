@@ -676,7 +676,7 @@ c1e96376a8ef0c55ca0218fdc91a6e4a5cffb9b2782e54b6559df906fcad3d71  eks-aws-efa-k8
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>eks/aws-efa-k8s-device-plugin</code></li><li><code>version</code> is <code>v0.5.29</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/effective-values.yaml</code></li><li><code>namespace</code> is <code>kube-system</code></li><li><code>releaseName</code> is <code>aws-efa</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.31.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="eks-aws-efa-k8s-device-plugin-v0-5-29-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-eks-aws-efa-k8s-device-plugin-v0-5-29-default" data-entry-plan="eks-aws-efa-k8s-device-plugin-v0-5-29-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/eks-aws-efa-k8s-device-plugin-v0-5-29/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -787,6 +787,21 @@ c1ef5b2dfd1b02b944714537189ff29d7fa937dedcb2ce32b40495bebdb5b8f8  eks-aws-efa-k8
     </section>
   </main>
   <footer>Generated from the Catalog listings of eks/aws-efa-k8s-device-plugin. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

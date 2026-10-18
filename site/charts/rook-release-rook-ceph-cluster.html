@@ -642,7 +642,7 @@
         <ul class="entry-inputs-list"><li>Rook Ceph cluster base creates CephBlockPool resources <em>Declared. Not checked on any destination.</em></li><li>Rook Ceph cluster base creates CephCluster resources <em>Declared. Not checked on any destination.</em></li><li>Rook Ceph cluster base creates CephFilesystem resources <em>Declared. Not checked on any destination.</em></li><li>Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources <em>Declared. Not checked on any destination.</em></li><li>Rook Ceph cluster base creates CephObjectStore resources <em>Declared. Not checked on any destination.</em></li><li>The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent.. kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f - <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="rook-release-rook-ceph-cluster-v1-19-5-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-rook-release-rook-ceph-cluster-v1-19-5-default" data-entry-plan="rook-release-rook-ceph-cluster-v1-19-5-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>The record lists no plan step for this entry.</p>
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/rook-release-rook-ceph-cluster-v1-19-5/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
@@ -742,6 +742,21 @@
     </section>
   </main>
   <footer>Generated from the Catalog listings of rook-release/rook-ceph-cluster. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

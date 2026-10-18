@@ -641,7 +641,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="nvidia-k8s-nim-operator-3-1-0-default">
+        <span id="plan"></span><details class="entry-inputs" id="plan-nvidia-k8s-nim-operator-3-1-0-default" data-entry-plan="nvidia-k8s-nim-operator-3-1-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 9 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -744,7 +744,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         <ul class="entry-inputs-list"><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>CRD included in this base and applied before the operator that reconciles it <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate <em>Declared. Not checked on any destination.</em></li><li>cert-manager CRD required before Kubernetes accepts the rendered Certificate and Issuer objects; the chart does not ship it, and cert-manager itself must be running to issue the webhook certificate <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <details class="entry-inputs" data-entry-plan="nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference">
+        <details class="entry-inputs" id="plan-nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference" data-entry-plan="nvidia-k8s-nim-operator-3-1-0-aicr-eks-inference">
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>When you deliver.</strong> Apply the 9 CustomResourceDefinition objects first, server-side. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Around an upgrade.</strong> Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job. The listing gives the rest. Who: delivery workflow. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The base holds a webhook configuration with no CA bundle and the cert-manager objects that ask for its certificate. Nothing in the bundle issues that certificate. The listing gives the rest. Who: cert-manager running on the target. <em>Written down. Not run by the Catalog.</em></li></ul>
@@ -1016,6 +1016,21 @@ ef6956d9cec1d29fa5955d22d5e5df9db12fa1a122613c7da358e0edcd19dbf8  nvidia-k8s-nim
     </section>
   </main>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#retained-page-summary">What this page gives you</a></li><li><a href="#assessment-questions">Four Separate Questions</a></li><li><a href="#try-retained-chart">Try This Chart</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#retained-configurations">Available Configurations</a></li><li><a href="#shared-local-checks">Local Configuration Checks</a></li><li><a href="#flattening">What This Chart Contains</a></li><li><a href="#images-pulled">Images This Chart Pulls</a></li><li><a href="#retained-tests">What Has Been Tested</a></li><li><a href="#retained-requirements">What You Must Provide</a></li><li><a href="#retained-production">Before Production</a></li><li><a href="#retained-files">Source And Evidence Files</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>

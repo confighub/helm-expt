@@ -676,7 +676,7 @@ f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955  hashicorp-vaul
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>hashicorp/vault</code></li><li><code>version</code> is <code>0.32.0</code></li><li><code>base</code> is <code>dev-mode</code></li><li><code>valuesProfile</code> is <code>recipes/hashicorp/vault/0.32.0/effective-values-dev-mode.yaml</code></li><li><code>namespace</code> is <code>vault</code></li><li><code>releaseName</code> is <code>vault</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The listing records no input for the destination. The Catalog has not ruled one out for your cluster.</p>
       </details>
-        <details class="entry-inputs" data-entry-plan="hashicorp-vault-0-32-0-dev-mode">
+        <span id="plan"></span><details class="entry-inputs" id="plan-hashicorp-vault-0-32-0-dev-mode" data-entry-plan="hashicorp-vault-0-32-0-dev-mode" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><strong>After you deliver.</strong> Route to cert-manager or a certgen lifecycle route for the 1 webhook configuration(s) this base renders. The Vault agent injector makes its own certificate after it starts and fills the caBundle of the webhook configuration vault-agent-injector-cfg, so you do nothing for this step. Who: the Vault agent injector. <em>Seen in a recorded run.</em></li></ul>
@@ -789,6 +789,21 @@ f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955  hashicorp-vaul
     </section>
   </main>
   <footer>Generated from the Catalog listings of hashicorp/vault. Do not edit by hand.</footer>
+<script data-open-linked-plan-script>(() => {
+  const openLinkedPlan = () => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const plan = target.matches("details") ? target : target.closest("details") || target.nextElementSibling;
+    if (plan && plan.matches("details")) {
+      plan.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  };
+  window.addEventListener("hashchange", openLinkedPlan);
+  openLinkedPlan();
+})();</script>
 </div>
 <nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>
