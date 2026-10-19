@@ -82,7 +82,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.58";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.59";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -6634,6 +6634,20 @@ function askHtml(catalog) {
         ["Did it work?", "Not before deployment. Record controller, resource, runtime, drift, and rollback results after the exact revision is delivered."],
       ])}
       <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
+    </section>
+    <section aria-labelledby="what-each-check-catches">
+      <h2 id="what-each-check-catches">What each check catches</h2>
+      <p>Each command answers one question about your configuration. None of them says whether the workload runs on your cluster.</p>
+      ${markdownLikeTable([
+        ["Command", "Catches", "Does not catch", "Needs"],
+        ["<code>cub config check</code>", "YAML or JSON that does not parse. Invalid container resource requests and limits. A workload whose selector does not match its pod labels. A schema violation, such as a wrong field type, an unknown field or a broken CEL rule. CRDs, Helm hooks, setup Jobs, webhooks that need a certificate, and images that are not pinned.", "Admission policies, quotas and anything that depends on your cluster.", "Nothing for the file checks. The schema step needs <code>flux</code> 2.9 or later with <code>flux plugin install schema</code>, and network access."],
+        ["<code>cub config check --images</code>", "Images that do not exist or cannot be pulled anonymously.", "Private images, which read as incomplete.", "<code>oras</code> and network access."],
+        ["<code>cub config values</code>", "Values that changed nothing in the render.", "Whether a value that did change something is right.", "<code>helm</code>."],
+        ["<code>cub config diff</code>", "Every object and field that changed between two files.", "Whether the change is safe.", "Nothing."],
+        ["<code>cub app check</code>", "The platform services a workload needs.", "Whether a platform provides them. <code>cub app match</code> compares.", "Nothing."],
+        ["<code>cub stack check</code>", "Conflicts and missing needs between components, and schema violations.", "Whether the components work together at runtime.", "The schema step needs <code>flux</code> as above."],
+      ], { rawColumns: [0, 1, 2, 3] })}
+      <p>The scan plugin's <code>cub check</code> adds best-practice and security findings, such as missing resource limits or a container that may run as root. In ConfigHub, the <code>vet-schemas</code> function blocks an apply that fails its schema. The schema step and the selector check arrived in the Workshop plugin's release 0.6.59.</p>
     </section>
     ${askTokenPlanningHtml()}
     <section aria-labelledby="build-prompt">
