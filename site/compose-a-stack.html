@@ -755,7 +755,7 @@
           <a class="button secondary" href="#run-and-govern">Run and govern it</a>
         </div>
       </div>
-      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
+      <div class="terminal-card" aria-label="One install, three commands"><div class="terminal-title">one install, three commands</div><pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.59
 
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
   [PASS] no resource conflicts across components (130 objects)
@@ -819,7 +819,7 @@ cub stack check my-platform/stack.yaml</code></pre>
       <h2 id="first-stack-live">Deploy a tiny first stack</h2>
       <p><code>web-tiny</code> is the bounded teaching path: two components, each holding one ConfigMap in the <code>web</code> namespace. The steps below continue beyond upload into two ConfigHub Bases, two target-bound dev variants, two Releases, two Argo CD Applications, and two object checks. They are a runnable path, not a retained live receipt, and they do not claim that every arbitrary stack is safe to deploy this way.</p>
       <h3>1. Check the composition and create a target</h3>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.59
 
 <span class="term-prompt">$</span> cub stack check web-tiny
 CHECKED; two ConfigMaps; no cluster write
@@ -951,7 +951,7 @@ both rows must report Synced and Healthy
     <section class="narrow-section" aria-labelledby="run-it-stacks">
       <h2 id="run-it-stacks">Run it</h2>
       <p>These four run here. <a href="./demo.html">The ten-minute demo</a> walks all of them end to end, from one chart to a governed fleet.</p>
-      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.58
+      <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-workshop@v0.6.59
 
 <span class="term-comment"># CHECKED, 130 objects, no cluster</span>
 <span class="term-prompt">$</span> cub stack sandbox eks-inference
