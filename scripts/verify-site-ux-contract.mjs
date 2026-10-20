@@ -92,7 +92,7 @@ const checks = [
   // limits of a file comparison beside the commands.
   {
     file: "site/d/docs/user/workshop-gpu-operator-upgrade-guide.html",
-    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.58", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
+    terms: ["See what a gpu-operator upgrade changes", "cub plugin install confighub/cub-workshop@v0.6.59", "https://helm.ngc.nvidia.com/nvidia", "cub config diff gpu-operator-25.10.1.yaml gpu-operator-26.3.3.yaml --summary", "cub config diff gpu-operator-26.3.2.yaml gpu-operator-26.3.3.yaml --summary", "--set driver.version=580.126.20", "/spec/driver/version replace", "The Catalog holds this chart", "Hooks appear as ordinary objects", "--include-crds", "Exit 0 is not approval", "A task for an assistant", "workshop-upgrade-guide.html", "workshop-lifecycle-guide.html"],
   },
   // An entry page shows its plan beside its steps. It must say that ConfigHub
   // stores the plan and does not carry it out, name what the Catalog knows
@@ -120,7 +120,7 @@ const checks = [
   // commands, the swapped entry, and the limits of a static check.
   {
     file: "site/d/docs/user/workshop-stack-from-catalog-guide.html",
-    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.58", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "The plan is recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
+    terms: ["Make a stack from Catalog entries", "cub plugin install confighub/cub-workshop@v0.6.59", "cub config list --role gpu", "nvidia-gpu-operator-v26-3-3-default", "nvidia-nvsentinel-v1-25-0-default", "nvidia-cluster-readiness-engine-v0-6-0-default", "cub stack compose --entry", "cub stack check ./gpu-node/stack.yaml", "nvidia-nvsentinel-v1-25-0-no-pod-monitor", "A passing composition is not runtime compatibility", "The plan is recorded and not executed", "The stack is not in ConfigHub", "The stack of three has not been deployed", "live-walk-entry-steps-2026-10-08.html", "A task for an assistant", "workshop-compose-guide.html", "compose-a-stack.html"],
   },
   {
     file: "site/index.html",
