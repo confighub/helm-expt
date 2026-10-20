@@ -676,6 +676,22 @@
       </style>
       <p>Already comparing GPU nodes rather than a deployable configuration? <a href="./try-aicr.html">Use AICR snapshot and diff</a>. That read-only path needs cluster access but no recipe or bundle deployment.</p>
     </section>
+    <section aria-labelledby="what-each-check-catches">
+      <h2 id="what-each-check-catches">What each check catches</h2>
+      <p>Each command answers one question about your configuration. None of them says whether the workload runs on your cluster.</p>
+      <div class="card"><table>
+        <thead><tr><th>Command</th><th>Catches</th><th>Does not catch</th><th>Needs</th></tr></thead>
+        <tbody><tr><td><code>cub config check</code></td><td>YAML or JSON that does not parse. Invalid container resource requests and limits. A workload whose selector does not match its pod labels. A schema violation, such as a wrong field type, an unknown field or a broken CEL rule. CRDs, Helm hooks, setup Jobs, webhooks that need a certificate, and images that are not pinned.</td><td>Admission policies, quotas and anything that depends on your cluster.</td><td>Nothing for the file checks. The schema step needs <code>flux</code> 2.9 or later with <code>flux plugin install schema</code>, and network access.</td></tr><tr><td><code>cub config check --images</code></td><td>Images that do not exist or cannot be pulled anonymously.</td><td>Private images, which read as incomplete.</td><td><code>oras</code> and network access.</td></tr><tr><td><code>cub config values</code></td><td>Values that changed nothing in the render.</td><td>Whether a value that did change something is right.</td><td><code>helm</code>.</td></tr><tr><td><code>cub config diff</code></td><td>Every object and field that changed between two files.</td><td>Whether the change is safe.</td><td>Nothing.</td></tr><tr><td><code>cub app check</code></td><td>The platform services a workload needs.</td><td>Whether a platform provides them. <code>cub app match</code> compares.</td><td>Nothing.</td></tr><tr><td><code>cub stack check</code></td><td>Conflicts and missing needs between components, and schema violations.</td><td>Whether the components work together at runtime.</td><td>The schema step needs <code>flux</code> as above.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The scan plugin's <code>cub check</code> adds best-practice and security findings, such as missing resource limits or a container that may run as root. In ConfigHub, the <code>vet-schemas</code> function blocks an apply that fails its schema. The schema step and the selector check arrived in the Workshop plugin's release 0.6.59.</p>
+    </section>
     <section aria-labelledby="ask-token-budget">
     <h2 id="ask-token-budget">Choose the lowest-token route that can answer the question</h2>
     <p>Use a deterministic check when it can answer the question. AI is most useful for selecting evidence, explaining a diff, or proposing a bounded change; it should not spend tokens reproducing work that Helm, <code>cub</code>, or this browser can do exactly.</p>
@@ -1327,7 +1343,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
   <script src="./config-workshop-yaml.js"></script>
   <script src="./check-config.js"></script>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#ask-token-budget">Choose the lowest-token route that can answer the question</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#check-scope">What this page can answer</a></li><li><a href="#what-each-check-catches">What each check catches</a></li><li><a href="#ask-token-budget">Choose the lowest-token route that can answer the question</a></li><li><a href="#build-prompt">Start with a chart and values</a></li><li><a href="#run-prompt">Run the investigation on your machine</a></li><li><a href="#check-command-title">Run the shared checks on your machine</a></li><li><a href="#completed-decision">See what a completed review looks like</a></li><li><a href="#check-files-title">Or: Check rendered objects in this browser</a></li><li><a href="#review-result-title">Keep or share the reviewed result</a></li><li><a href="#four-common-helm-questions">Four common Helm questions</a></li><li><a href="#questions-we-answer">Questions people are asking</a></li><li><a href="#faq">Find a direct answer</a></li><li><a href="#next-jobs">What happens next</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl &rarr;</a></li></ul></nav>
 </div>
 <script data-copy-prompt-script>(() => {
   for (const button of document.querySelectorAll("button.copy-prompt")) {
