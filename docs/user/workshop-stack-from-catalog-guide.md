@@ -18,14 +18,14 @@ You can run the steps yourself or
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [ORAS](https://oras.land/docs/installation). Then install the Workshop
-plugin release this Guide was checked with (version 0.6.58).
+plugin release this Guide was checked with (version 0.6.59).
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.58
+cub plugin install confighub/cub-workshop@v0.6.59
 ```
 
 Every command below was run with plugin v0.6.57, and the commands in steps 1
-to 3 were run again with v0.6.58. Release v0.6.56 refuses these entries. It
+to 4 were run again with v0.6.59. Release v0.6.56 refuses these entries. It
 stops with `receiptUrl is not a supported GitHub receipt URL`.
 
 From v0.6.58 the plugin also ships these three as a stack named `gpu-node`, so
@@ -276,7 +276,7 @@ three has not been deployed.
 Start a fresh session in an empty directory with normal approvals.
 
 ```text
-Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.58.
+Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.59.
 Run cub config list --role gpu and find the ids of the default bases of
 NVIDIA gpu-operator v26.3.3, nvsentinel v1.25.0 and cluster-readiness-engine
 v0.6.0. Compose them with cub stack compose, one --entry for each, --name

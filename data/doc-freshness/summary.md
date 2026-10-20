@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-18 (commit `0fba150e74`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-10-19 (commit `71dcc9baca`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 492 |
-| Fresh (no linked source newer than the doc) | 70 |
-| **Review-due** | 92 |
+| Fresh (no linked source newer than the doc) | 71 |
+| **Review-due** | 91 |
 | No linked evidence sources (cannot auto-trigger) | 330 |
 
 ## Review queue
@@ -115,7 +115,6 @@ most recently changed triggers.
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-29 | 11 | `data/confighub-example-guides/summary.md (2026-10-09)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-09-29 | 11 | `data/chart-use-guide/summary.md (2026-10-09)` |
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
-| [docs/user/what-config-workshop-is.md](../../docs/user/what-config-workshop-is.md) | user | 2026-10-09 | 3 | `data/confighub-ready/summary.md (2026-10-11)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-10-08 | 2 | `data/chart-use-guide/summary.md (2026-10-09)` |
