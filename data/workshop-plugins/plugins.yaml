@@ -85,7 +85,7 @@ spec:
       summary: Installs a self-hosted ConfigHub server.
       repository: confighub/cub-server
       state: released
-      release: {tag: v0.2.4, date: "2026-10-09"}
+      release: {tag: v0.2.5, date: "2026-10-21"}
       install: cub plugin install confighub/cub-server
     - id: demo
       name: Demo
