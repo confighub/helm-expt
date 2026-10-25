@@ -2,8 +2,8 @@
 // Record the before-and-after examples under examples/before-after/, or check
 // a recorded set offline.
 //
-//   node scripts/generate-before-after.mjs --generate   needs the network, helm,
-//       kustomize, oras, git and cub with the workshop and argo plugins
+//   node scripts/generate-before-after.mjs --generate [id ...]   needs the network, helm,
+//       kustomize, oras, git and cub with the workshop, argo and flux plugins
 //   node scripts/generate-before-after.mjs --verify     offline
 //
 // Each example keeps the files a person has today under before/, what the
@@ -28,6 +28,7 @@ const GPU_SOURCE_LOCK = "recipes/nvidia/gpu-operator/v26.3.3/source-lock.yaml";
 const GPU_RETAINED = "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml";
 const KUSTOMIZE_PATH = "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique";
 const ARGO_PATH = "gitops/argo/beginner-app-of-apps";
+const FLUX_PATH = "gitops/flux/beginner";
 
 const sha = (bytes) => `sha256:${sha256(bytes)}`;
 const run = (command, args, options = {}) => execFileSync(command, args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, ...options });
@@ -57,6 +58,7 @@ function toolVersions() {
     cub: run("cub", ["version"]).match(/^\s+Version:[ \t]+(v\S+)/m)?.[1],
     workshopPlugin: plugin("workshop"),
     argoPlugin: plugin("argo"),
+    fluxPlugin: plugin("flux"),
     helm: run("helm", ["version", "--short"]).trim(),
     kustomize: run("kustomize", ["version"]).trim(),
     fluxSchemaPlugin: run("flux", ["plugin", "list"]).match(/^schema\s+(\S+)/m)?.[1],
@@ -155,6 +157,24 @@ function generateArgo(examples, work, out) {
   };
 }
 
+function generateFlux(examples, work, out) {
+  const source = join(examples, FLUX_PATH);
+  copyYaml(source, join(out, "before"));
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  writeFileSync(join(out, "transcripts/flux-plan.txt"), transcript(["flux", "plan", ".", "--require", "Healthy"], source));
+  const onboard = join(work, "flux-onboard");
+  run("cub", ["flux", "apply", ".", "--require", "Healthy", "--out", onboard], { cwd: source });
+  cpSync(join(onboard, "layers"), join(out, "after", "layers"), { recursive: true });
+  return {
+    sources: [{ what: "the Flux fleet", repository: EXAMPLES_REPO, commit: EXAMPLES_COMMIT, path: FLUX_PATH }],
+    commands: ["cub flux plan . --require Healthy", "cub flux apply . --require Healthy --out onboard"],
+    notes: [
+      "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+      "after/layers/ keeps what Flux runs for each cluster and layer after the handover. __CONFIGHUB_OCI__ and __CONFIGHUB_OCI_INSECURE__ are placeholders the handover script fills. The scripts that apply also writes are left out, because they name the directory they were written to.",
+    ],
+  };
+}
+
 function writeReceipt(id, out, recorded, tools) {
   const files = Object.fromEntries(filesUnder(out).map((path) => [relative(out, path), sha(readFileSync(path))]));
   for (const [path, text] of Object.entries(files)) check(!/\/private\/|\/tmp\/|\/Users\//.test(path + text), `${id}/${path} names a local path`);
@@ -174,8 +194,10 @@ function generate() {
       "helm-gpu-operator": (out) => generateHelm(work, out),
       "kustomize-apptique": (out) => generateKustomize(examples, out),
       "argo-app-of-apps": (out) => generateArgo(examples, work, out),
+      "flux-beginner": (out) => generateFlux(examples, work, out),
     };
-    for (const [id, make] of Object.entries(build)) {
+    const only = process.argv.slice(3);
+    for (const [id, make] of Object.entries(build).filter(([name]) => only.length === 0 || only.includes(name))) {
       const out = join(repoRoot, BEFORE_AFTER_ROOT, id);
       rmSync(out, { recursive: true, force: true });
       mkdirSync(out, { recursive: true });

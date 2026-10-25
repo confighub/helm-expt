@@ -1,0 +1,35 @@
+# apps on prod: what Flux runs for this layer, reading flux-apps-prod.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  insecure: __CONFIGHUB_OCI_INSECURE__
+  interval: 1m
+  ref:
+    tag: latest
+  secretRef:
+    name: confighub-flux-targets
+  url: oci://__CONFIGHUB_OCI__/space/flux-apps-prod
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: frontend
+      namespace: apptique-prod
+  interval: 5m
+  path: ./
+  prune: true
+  sourceRef:
+    kind: OCIRepository
+    name: apps
+  targetNamespace: apptique-prod

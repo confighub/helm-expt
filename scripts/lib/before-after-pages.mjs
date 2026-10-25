@@ -41,6 +41,15 @@ export const BEFORE_AFTER_PAGES = [
     description: "An Argo CD app of apps planned into ConfigHub: Argo CD keeps syncing, and each Application changes only its source.",
     card: "Argo CD keeps syncing. Each Application changes three lines, from a Git path to a ConfigHub release.",
   },
+  {
+    id: "flux-beginner",
+    key: "beforeAfterFluxBeginnerHtml",
+    file: "before-after-flux-beginner.html",
+    kicker: "Flux fleet",
+    title: "See what a Flux fleet becomes",
+    description: "A Flux fleet of two clusters and two layers planned into ConfigHub: each Flux Kustomization keeps its name and settings, and reads a ConfigHub release instead of Git.",
+    card: "Flux keeps reconciling. Each layer's Kustomization keeps its name and settings, and changes only where it reads from.",
+  },
 ];
 
 const read = (id, path) => readFileSync(join(repoRoot, ROOT, id, path), "utf8");
@@ -355,6 +364,100 @@ function argoPage(h) {
   };
 }
 
+function fluxPage(h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const id = "flux-beginner";
+  const rec = receipt(id);
+  const plan = transcriptLines(read(id, "transcripts/flux-plan.txt"));
+  const beforeFiles = Object.keys(rec.files).filter((path) => path.startsWith("before/")).sort();
+  const layerFiles = Object.keys(rec.files).filter((path) => path.startsWith("after/layers/")).sort();
+  const rows = [];
+  const added = [];
+  for (const path of layerFiles) {
+    const [env, file] = path.split("/").slice(-2);
+    const layer = file.replace(/\.yaml$/, "");
+    const before = objects(read(id, `before/clusters/${env}/${file}`));
+    const after = objects(read(id, path));
+    check(before.length === 1 && before[0].kind === "Kustomization", `${ROOT}/${id}/before/clusters/${env}/${file} is not one Flux Kustomization`);
+    const kept = after.filter((doc) => doc.kind === "Kustomization");
+    check(kept.length === 1 && kept[0].metadata.name === before[0].metadata.name, `${ROOT}/${id}/${path} does not keep the Kustomization ${before[0].metadata.name} under its own name`);
+    for (const row of fieldDifferences(before, kept)) {
+      check(row.path === "spec.path" || row.path.startsWith("spec.sourceRef."), `${ROOT}/${id}/${path} changes ${row.path}, and the page says only the path and the source change`);
+      rows.push([escapeHtml(`${env} ${layer}`), `<code>${escapeHtml(row.path)}</code>`, `<code>${escapeHtml(String(row.left))}</code>`, `<code>${escapeHtml(String(row.right))}</code>`]);
+    }
+    for (const doc of after.filter((d) => d.kind !== "Kustomization")) added.push([escapeHtml(`${env} ${layer}`), escapeHtml(doc.kind), `<code>${escapeHtml(doc.spec.url)}</code>`]);
+  }
+  check(layerFiles.length === 4 && added.length === 4 && added.every((row) => row[1] === "OCIRepository"), `${ROOT}/${id}: the page describes 4 layers that each add one OCIRepository`);
+  check(plan[0].startsWith("Flux fleet: 2 clusters, 2 layers, 4 variants"), `${ROOT}/${id}/transcripts/flux-plan.txt changed its summary`);
+  check(plan.some((line) => line.includes("first prove each variant renders exactly what Git renders today")) && plan.some((line) => line.includes("so Flux keeps its inventory and nothing is reinstalled")), `${ROOT}/${id}/transcripts/flux-plan.txt no longer says what the page restates about the handover`);
+  const source = rec.sources[0];
+  const sourceUrl = `${source.repository}/tree/${source.commit}/${source.path}`;
+  const describe = (path) => {
+    const short = path.replace(/^before\//, "");
+    const docs = objects(read(id, path));
+    if (short.startsWith("clusters/")) return `the Flux Kustomization ${docs[0].metadata.name} for the ${short.split("/")[1]} cluster, which reads <code>${escapeHtml(docs[0].spec.path)}</code> from Git`;
+    if (short.endsWith("kustomization.yaml")) return "the Kustomize file for this directory";
+    return escapeHtml(docs.map((doc) => `the ${doc.kind} ${doc.metadata.name}`).join(" and "));
+  };
+  const fileRows = beforeFiles.map((path) => [`<code>${escapeHtml(path.replace(/^before\//, ""))}</code>`, describe(path)]);
+
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES[3].title,
+    lead: "Flux keeps reconciling. ConfigHub holds a base and a variant per cluster for each layer, and each Flux Kustomization keeps its name and settings and reads a ConfigHub release instead of a path in Git.",
+    opening: `    <p><strong>What you need.</strong> <code>git</code> and <code>cub</code> with the flux plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>The example is a Flux fleet in <a href="${sourceUrl}">confighub/examples</a>. Two clusters, dev and prod, each run two layers, infrastructure and then apps, from one GitRepository.</p>
+      ${markdownLikeTable([["File", "What it is"], ...fileRows], { rawColumns: [0, 1] })}
+    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what ConfigHub would hold</h2>
+      <p>The plan reads the files and says what ConfigHub would hold. It runs nothing and changes no cluster.</p>
+      ${terminal(escapeHtml, { title: "after: the plan for this Flux fleet", cmd: "cub flux plan . --require Healthy", output: plan, mark: [/^ {2}base {5}/, / variant flux-/, /^ {2}1\. keep each layer/] })}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See what changes in each Kustomization</h2>
+      <p>After the handover each layer's Kustomization keeps its name, so Flux keeps its inventory and reinstalls nothing. These are the only fields that change.</p>
+      ${markdownLikeTable([["Cluster and layer", "Field", "Before", "After"], ...rows], { rawColumns: [1, 2, 3] })}
+      <p>The interval, prune, dependsOn, health checks and target namespace stay as they are. Each layer also gets one new object, the OCIRepository it now reads.</p>
+      ${markdownLikeTable([["Cluster and layer", "New object", "Reads"], ...added], { rawColumns: [2] })}
+      <p><code>__CONFIGHUB_OCI__</code> stands for the gateway, the OCI address your ConfigHub serves releases from. You give it as <code>CONFIGHUB_OCI</code> when you run <code>apply.sh</code> and <code>handover.sh</code>.</p>
+    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub</a> and the flux plugin as <a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a> shows, first.</p>
+      ${commandBlock([
+        { comment: "fetch the example at the commit this page was built from", cmd: `git clone https://github.com/confighub/examples.git && git -C examples checkout ${source.commit}` },
+        { cmd: `cd examples/${source.path}` },
+        { comment: "read the plan; it runs nothing", cmd: "cub flux plan . --require Healthy" },
+        { comment: "write what Flux would run after the handover, and the scripts, to onboard/", cmd: "cub flux apply . --require Healthy --out onboard" },
+      ])}
+      <p>Compare <code>clusters/dev/apps.yaml</code> with <code>onboard/layers/dev/apps.yaml</code> to see the table above for yourself.</p>
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      ${commandBlock([
+        { comment: "sign in to your organization", cmd: "cub auth login" },
+        { comment: "fill ConfigHub with the bases and variants the plan names; it changes no cluster", cmd: "CONFIGHUB_OCI=<gateway> bash onboard/apply.sh" },
+      ])}
+      <p><code>onboard/cleanup.sh</code> takes everything back out. The handover, which moves Flux onto ConfigHub releases one cluster at a time, is a separate step in <a href="./bring-flux-into-confighub.html#connect-deployment">the Flux Guide</a>.</p>
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>The plan ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)} and flux plugin ${escapeHtml(rec.tools.fluxPlugin)}, inside a checkout of the example. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>Both layers prune, so anything a release lacks would be deleted. The plan says to prove first that each variant renders exactly what Git renders today.</li>
+        <li>The <code>flux-system</code> bootstrap stays outside ConfigHub, because <code>flux bootstrap</code> owns it.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
 function baCss() {
   return `
     .ba-shot { margin: 18px 0; }
@@ -375,6 +478,7 @@ export function beforeAfterPage(id, helpers) {
   if (id === "helm-gpu-operator") return helmPage(helpers);
   if (id === "kustomize-apptique") return kustomizePage(helpers);
   if (id === "argo-app-of-apps") return argoPage(helpers);
+  if (id === "flux-beginner") return fluxPage(helpers);
   throw new Error(`no before-and-after page for ${id}`);
 }
 
@@ -391,6 +495,6 @@ export function beforeAfterGalleryHtml(escapeHtml) {
       <div class="doors ba-gallery">
 ${cards}
       </div>
-      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+      <style>.ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>`;
 }

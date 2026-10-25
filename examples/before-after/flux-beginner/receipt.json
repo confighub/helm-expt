@@ -1,0 +1,52 @@
+{
+  "id": "flux-beginner",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.2",
+    "fluxPlugin": "0.4.0",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the Flux fleet",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/flux/beginner"
+    }
+  ],
+  "commands": [
+    "cub flux plan . --require Healthy",
+    "cub flux apply . --require Healthy --out onboard"
+  ],
+  "notes": [
+    "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+    "after/layers/ keeps what Flux runs for each cluster and layer after the handover. __CONFIGHUB_OCI__ and __CONFIGHUB_OCI_INSECURE__ are placeholders the handover script fills. The scripts that apply also writes are left out, because they name the directory they were written to."
+  ],
+  "files": {
+    "after/layers/dev/apps.yaml": "sha256:f69baedf176161f29017f6448e652faa9139e449034b2f75484f948d419bc398",
+    "after/layers/dev/infrastructure.yaml": "sha256:ac2382050d7ec9c8e1310933a758c05e1ca65bfd2a3fce75c20371bbac919dc6",
+    "after/layers/prod/apps.yaml": "sha256:cd97f4495e90d9d94e9b347b426e719c0f7d0e1ec89489295ba75aaca151b334",
+    "after/layers/prod/infrastructure.yaml": "sha256:929d963cd5248e6916cff5a47b6e7bea43e67f2e83b600a9b4f9e8a4c5a52592",
+    "before/apps/base/deployment.yaml": "sha256:b6d0d55450ac3851cf14c8ac181ad83d0f47f2b6d7fb42fcbaf7b984a33179eb",
+    "before/apps/base/kustomization.yaml": "sha256:4c05aae8b6d3561e6b60f78000bf3c205996db5a699b2114c18d6bb74a7ff4ea",
+    "before/apps/base/service.yaml": "sha256:4d47fefd33b97ef46bdd191f5efa491385bab8fba5d60b3d3cfdcf34d16b5441",
+    "before/apps/dev/kustomization.yaml": "sha256:1df8436b7c6f6cbff4db98d4ece67f4dd644e09f107536718686f3943cd393a3",
+    "before/apps/dev/namespace.yaml": "sha256:ad75eb999d959e1b4ef16e380359f16ed7effa9478be68581a2b79c6e9ecd616",
+    "before/apps/prod/kustomization.yaml": "sha256:0d130e6590702446e5e463b3e8bca6ee3359734c365e84e1867acfcb6ae1511d",
+    "before/apps/prod/namespace.yaml": "sha256:7443ec601264c8a5554ae8e51b40c0f3cb07692b82e8c6a898d34445193df6c6",
+    "before/clusters/dev/apps.yaml": "sha256:036f67d636f77ba46c393dabd93eaea21271bff07e4a582877261d104203cf6c",
+    "before/clusters/dev/infrastructure.yaml": "sha256:b91214117bea51a8d6858a7ec1e5d57953c51bbc5d18a2c1cca9d2a8706eda08",
+    "before/clusters/prod/apps.yaml": "sha256:0daa0f9812c889937fa260749f144a5a02f4f9213d1f0a3db5deb7ba46aa7827",
+    "before/clusters/prod/infrastructure.yaml": "sha256:ea88e27bf12ecc662d1699eaa975e7268be76817f50da71f079efea823ccb18a",
+    "before/infrastructure/base/kustomization.yaml": "sha256:0ebd2771cedfaa52ce02dcd0d034c4a6682fd960e5f64fea33524ee7922c1e14",
+    "before/infrastructure/base/sources/apptique-examples.yaml": "sha256:10aca3800669875f8a08e18515b31eea5ab16fe8fe8e7c5487db9d4e0f574c25",
+    "before/infrastructure/dev/kustomization.yaml": "sha256:73fd64a75cef41286542730f0996e65595c9535844c5fc9cb80a61d7c21bdad4",
+    "before/infrastructure/prod/kustomization.yaml": "sha256:73fd64a75cef41286542730f0996e65595c9535844c5fc9cb80a61d7c21bdad4",
+    "transcripts/flux-plan.txt": "sha256:23eb8ad75d2856fef6b8e63eee8400c4ce8fcc4d440b8210228ca597c689cc90"
+  }
+}
