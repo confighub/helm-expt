@@ -455,6 +455,9 @@
     @media (max-width: 900px) { .ba-pair { grid-template-columns: 1fr; } }
     .ba-live { margin: 28px 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--surface); }
     .ba-live summary { cursor: pointer; font-weight: 600; }
+    .ba-ui { margin: 16px 0; }
+    .ba-ui img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .ba-ui figcaption { margin-top: 6px; font-size: .85rem; color: var(--muted); }
 
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
@@ -779,7 +782,9 @@ Schema
 
 <span class="term-comment"># list what was loaded</span>
 <span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
-      <p>These are the commands on the entry page. The Catalog has not run the upload for this entry.</p>
+      <p>These are the commands on the entry page. The screenshot below shows one run of them. The Catalog's own record for this entry still holds no upload.</p>
+      <h3 id="live-screenshot">What it looks like in ConfigHub</h3>
+      <figure class="ba-ui"><img src="./before-after/helm-gpu-operator-confighub.png" alt="ConfigHub showing the Units of the Space the installer upload created, one for each object" loading="lazy"><figcaption>The helm-catalog organization on 2026-10-25, showing the Units of the Space the installer upload created, one for each object. It was loaded as this panel describes. cub installer upload --component labelled the Space and created no Component, so it did not show in the Components view until cub component create and cub space update --component made one.</figcaption></figure>
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>

@@ -27,6 +27,13 @@
   "notes": [
     "dev.yaml and prod.yaml are built from the files under before/, so the stored inputs give the stored outputs."
   ],
+  "confighub": {
+    "file": "confighub/components.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "space": "before-after-apptique-base",
+    "shows": "the base and its dev and prod variants"
+  },
   "files": {
     "after/dev.yaml": "sha256:ad8c0ccc045a5282ede2d4775e9d0d5ec8b5d2833e3ef0c67e79283431cd54cb",
     "after/prod.yaml": "sha256:3fb29e7c7f22f00712779de83252f5580fe2c0e013b06abab38994f3ace8d219",
@@ -37,6 +44,7 @@
     "before/dev/namespace.yaml": "sha256:ad75eb999d959e1b4ef16e380359f16ed7effa9478be68581a2b79c6e9ecd616",
     "before/prod/kustomization.yaml": "sha256:f65dd4229544a974692f36d5913c3d066c734d80b3a5436db221e2662143bc59",
     "before/prod/namespace.yaml": "sha256:7443ec601264c8a5554ae8e51b40c0f3cb07692b82e8c6a898d34445193df6c6",
+    "confighub/components.png": "sha256:e7aa1b8ec9b2ecbb45333d38a6cabc8ad8e1d11b6f1454c2ca0952031e807f56",
     "transcripts/check-dev.txt": "sha256:38b1520a2def4638a039b004e8977145f945b60584f778756da6de6aa7368248",
     "transcripts/check-prod.txt": "sha256:6e5bab13eebbe3aafde133199099fbed06c7abc0a938e74ebabbc4a7598d5d22"
   }
