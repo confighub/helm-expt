@@ -452,6 +452,11 @@ function selfTest() {
 }
 
 function selfTestUpstreamReport() {
+  // A pinned install keeps everything after its tag, such as the --name a
+  // plugin installed from a shared repository needs.
+  const pinned = updatedPinnedInstall({ id: "argo", repository: "acme/examples", install: "cub plugin install acme/examples@tool-v1.0.0 --name argo" }, "tool-v1.1.0");
+  check(pinned === "cub plugin install acme/examples@tool-v1.1.0 --name argo", `self-test upstream: a pinned install became ${pinned}`);
+  check(updatedPinnedInstall({ id: "w", repository: "acme/w", install: "cub plugin install acme/w@v1.0.0" }, "v1.1.0") === "cub plugin install acme/w@v1.1.0", "self-test upstream: a pinned install with nothing after its tag changed shape");
   const sha = (letter) => letter.repeat(40);
   const releases = [
     { tag_name: "tool-v1.2.0-rc.1", published_at: "2026-10-03T00:00:00Z", prerelease: true, draft: false },
@@ -749,7 +754,7 @@ function updatedPinnedInstall(plugin, latestTag) {
   const pattern = new RegExp(`^(cub plugin install ${escaped})@([^\\s]+)(.*)$`);
   const match = install.match(pattern);
   if (!match) return install;
-  return `${match[1]}@${latestTag}${match[2]}`;
+  return `${match[1]}@${latestTag}${match[3]}`;
 }
 
 function syncPlugins() {
