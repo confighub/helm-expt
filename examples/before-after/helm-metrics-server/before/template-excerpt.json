@@ -1,0 +1,22 @@
+{
+  "file": "metrics-server/templates/deployment.yaml",
+  "firstLine": 63,
+  "lines": [
+    "      containers:",
+    "        - name: metrics-server",
+    "          {{- with .Values.securityContext }}",
+    "          securityContext:",
+    "            {{- toYaml . | nindent 12 }}",
+    "          {{- end }}",
+    "          image: {{ include \"metrics-server.image\" . }}",
+    "          imagePullPolicy: {{ .Values.image.pullPolicy }}",
+    "          args:",
+    "            - {{ printf \"--secure-port=%d\" (int .Values.containerPort) }}",
+    "          {{- range .Values.defaultArgs }}",
+    "            - {{ . }}",
+    "          {{- end }}",
+    "          {{- if .Values.metrics.enabled }}",
+    "            - --authorization-always-allow-paths=/metrics",
+    "          {{- end }}"
+  ]
+}

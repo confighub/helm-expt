@@ -43,8 +43,16 @@
   "notes": [
     "after.yaml is recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the Gatekeeper controller-manager Deployment, at its image line"
+  },
   "files": {
     "before/before.yaml": "sha256:22b61d8932ccbe0ebdc06606d7ce369ab3669fdf703e1d60001c531efae6ad56",
+    "before/template-excerpt.json": "sha256:2c6601f68904ea72c399593e03744f1a87a7393783ce2bc70855308204a2c7a1",
+    "confighub/object.png": "sha256:88de60f5cf7b6ae966ebf5b3db05c06d210671decd5212ed0842b45ca1f20479",
     "transcripts/check-after.txt": "sha256:ccc2e04fc38aa6494095672f47cde3e5dac25ea27ef7d766ee6e4195272f2223",
     "transcripts/check-before.txt": "sha256:f70f9ced551196dc82461434b957e20ede52d93d40e6db6b8cef8256b7f0db75"
   }

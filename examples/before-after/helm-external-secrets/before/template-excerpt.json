@@ -1,0 +1,22 @@
+{
+  "file": "external-secrets/templates/deployment.yaml",
+  "firstLine": 64,
+  "lines": [
+    "          {{- with .Values.securityContext }}",
+    "          {{- if and (.enabled) (gt (keys . | len) 1) }}",
+    "          securityContext:",
+    "            {{- include \"external-secrets.renderSecurityContext\" (dict \"securityContext\" . \"context\" $) | nindent 12 }}",
+    "          {{- end }}",
+    "          {{- end }}",
+    "          image: {{ include \"external-secrets.image\" (dict \"chartAppVersion\" .Chart.AppVersion \"image\" .Values.image \"context\" .) | trim }}",
+    "          imagePullPolicy: {{ .Values.image.pullPolicy }}",
+    "          args:",
+    "          {{- if .Values.leaderElect }}",
+    "          - --enable-leader-election=true",
+    "          {{- end }}",
+    "          {{- if .Values.leaderElectionID }}",
+    "          - --leader-election-id={{ .Values.leaderElectionID }}",
+    "          {{- end }}",
+    "          {{- if .Values.leaderElectionLeaseDuration }}"
+  ]
+}

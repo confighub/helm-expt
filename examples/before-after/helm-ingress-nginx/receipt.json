@@ -43,8 +43,16 @@
   "notes": [
     "after.yaml is recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the ingress-nginx controller Deployment, at its image line"
+  },
   "files": {
     "before/before.yaml": "sha256:ddf1c7dc0dec091b5a18785e49dc222adcd13e99f205a211cffd7c924a455a21",
+    "before/template-excerpt.json": "sha256:833b36d20d247f38c5bf790e4588b39f3ab34ae443323ae686e3a379a866598f",
+    "confighub/object.png": "sha256:f118fab04b97cc176bf10bae8b40bcf49de338aa25a2bb6b2b46db2bffcee129",
     "transcripts/check-after.txt": "sha256:356b1d678be7c6f63438d337e9757c4bb3f91f16242938db110ecf4fcaf0e552",
     "transcripts/check-before.txt": "sha256:019a7d2afddf25338fdb72573daf69142a08dd49ed22a6e97ac322f52ec6e762"
   }

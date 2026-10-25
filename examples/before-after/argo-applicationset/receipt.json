@@ -27,6 +27,12 @@
     "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
     "after/apps/ keeps the Applications the ApplicationSet's template renders for each directory it selects, as cub argo apply writes them."
   ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the base with the two variants the ApplicationSet generates, and the settings prod changes"
+  },
   "files": {
     "after/apps/argo-apptique-dev.yaml": "sha256:bb0f1e23a7a7f76a575d8db3c6a6c5e78df46114708e9ee59872f8964717f381",
     "after/apps/argo-apptique-prod.yaml": "sha256:550ffd0ce42b14a7aabfa200c21185852ba06238e81bbabf952eb722f8c824e5",
@@ -38,6 +44,7 @@
     "before/apps/apptique/overlays/prod/kustomization.yaml": "sha256:24209f80a29bba940abfe7652256d16468fbcb7dca7333366863f99699154cb2",
     "before/apps/apptique/overlays/prod/namespace.yaml": "sha256:7443ec601264c8a5554ae8e51b40c0f3cb07692b82e8c6a898d34445193df6c6",
     "before/bootstrap/applicationset.yaml": "sha256:5587d13d4a801b27c95bb22dde4dbc810c248afd8c0c4f9472b2f80c1f26ec60",
+    "confighub/overrides.png": "sha256:f3a07174c61bdbc2d2e30627d87411f7784f99440e33365cf6b5c986f49ae5cf",
     "transcripts/argo-plan.txt": "sha256:f42639410304eae08609c396cdb4d014ead04084b18ecf04561a4c8a712cfc42"
   }
 }

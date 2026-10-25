@@ -27,6 +27,12 @@
     "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
     "after/layers/ keeps what Flux runs for each cluster and layer after the handover."
   ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the apps layer's base with a variant for each cluster, and the settings prod-1 changes"
+  },
   "files": {
     "after/layers/dev-1/apps.yaml": "sha256:5a6db918753aa1fd82c3d58343a76682a5ed7f08c9330627184ce2b86e49201f",
     "after/layers/dev-1/image-automation.yaml": "sha256:aab87cdef4bd91816a030484df7deab5fefc9add54f53e037d5b5e5af8f99449",
@@ -80,6 +86,7 @@
     "before/tenants/dev/kustomization.yaml": "sha256:f09f0cb1c33bb73e5d77878469273143bec6e3ba2a526fbf8c9b1a5460400401",
     "before/tenants/prod/kustomization.yaml": "sha256:c30e5ab5220e4bec767f28ccb46e8f862ee409e5117d7debd552c40253d8a407",
     "before/tenants/staging/kustomization.yaml": "sha256:eae0fd2da4b2c83bc749b45f181ed538418759b90cf3772041eb6bed3ad74ee9",
+    "confighub/overrides.png": "sha256:a4df6a0ddf2678992a62ebf24feaa9a36a928e27e7f1e6b4cb24cb7a4fca89e6",
     "transcripts/flux-plan.txt": "sha256:f1e5903139bf8117ab4799f057c356f10c518519e4333afaf8f8e3d0280347aa"
   }
 }

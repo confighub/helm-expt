@@ -20,7 +20,7 @@ import {
 import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
-import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY } from "./lib/before-after-pages.mjs";
+import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY, SIMPLE_PAGES, simpleBeforeAfterPage } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -821,6 +821,7 @@ const SPLIT_PAGES = [
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
   ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
+  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as a Helm chart and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY) })) })),
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 

@@ -1011,6 +1011,22 @@
   <url><loc>https://confighub.github.io/helm-expt/site/did-your-bitnami-chart-stop-pulling.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/docs.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/does-cluster-match-approved-config.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-argo-cd-app-of-apps.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-argo-cd-applicationset.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-argo-cd.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-cert-manager.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-external-secrets.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-flux-fleet.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-flux-which-version-where.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-gatekeeper.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-gpu-operator.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-ingress-nginx.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-kube-prometheus-stack.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-kustomize-dev-and-prod.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-kustomize-helm-chart.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-metrics-server.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-postgresql.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/example-redis.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/formats.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/guides.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/handle-hooks-and-crds.html</loc></url>

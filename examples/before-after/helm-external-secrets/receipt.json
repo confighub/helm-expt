@@ -44,8 +44,16 @@
   "notes": [
     "after.yaml is recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the External Secrets Deployment, at its image line"
+  },
   "files": {
     "before/before.yaml": "sha256:40f83af77c0ba0146430a96a794c0d42fb252d6dc4596915677cafce60e2cd87",
+    "before/template-excerpt.json": "sha256:156a770456e52cb53d803ade6b3c589679dd587260200a630c415123d9cb9de8",
+    "confighub/object.png": "sha256:06a66a3a83265f7584c46a498a308e5828879f452e13876a891747b465b0d53c",
     "transcripts/check-after.txt": "sha256:e63299b12b6c2711b5842402c0a3632afb9f94ae349cf28835b13565651e8382",
     "transcripts/check-before.txt": "sha256:a1dae1f91b55de3bf367797fb533ecd0c045fae2ba127c2f81f6eef6dd895b6f"
   }

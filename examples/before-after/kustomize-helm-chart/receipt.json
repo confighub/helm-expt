@@ -30,6 +30,12 @@
   "notes": [
     "Each build ran from the files under before/, with the helm on this machine, which kustomize calls to inflate the chart."
   ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the base with its dev, staging and prod variants, and the settings prod changes"
+  },
   "files": {
     "after/dev.yaml": "sha256:0f5ba03a833c6788cdc90a4c5e35405bb9c4fc797e5efed1a5b231d3aeb6165c",
     "after/prod.yaml": "sha256:f70a0e44c4372da4fd20b06eb4a065808869e544178fdbfd4e741f15c8f8938f",
@@ -42,6 +48,7 @@
     "before/overlays/dev/kustomization.yaml": "sha256:b588e3680f4af12522c5c581375451e390c0b6e76c283b1117250f8c7145d81f",
     "before/overlays/prod/kustomization.yaml": "sha256:7019231db5283a923d461432f2afad46ef48b7c7bb41f32dcb277b8e25012fd7",
     "before/overlays/staging/kustomization.yaml": "sha256:7506ec903721650e8d777f69df6e790286cd07eabd5eed6baa519304360e194e",
+    "confighub/overrides.png": "sha256:ef73945cc32f4eb06b40cc2a6a85c27ce0f0d72c61761eb15fd7d8b054551999",
     "transcripts/check-dev.txt": "sha256:4684fd83a21598dff481dd1d3c45505e9c6148a9bcecf1222e2a4a18583f9d6a",
     "transcripts/check-prod.txt": "sha256:de7af0440b0ae5601ff5fe14bb78d7dfd8ac5e784bedced997e12767555b5d61",
     "transcripts/check-staging.txt": "sha256:22050bffb05486e69852a0b6926becb189a59b6760271df85b2a1e70bcf1cd42"

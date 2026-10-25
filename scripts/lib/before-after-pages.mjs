@@ -969,6 +969,233 @@ function fluxFleetPage(h) {
   };
 }
 
+// The simple pages: two pictures, three sentences, two buttons and a link to
+// the detailed page. They are for someone seeing this for the first time.
+const EXAMPLES_SHA = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
+const clone = `git clone https://github.com/confighub/examples.git && git -C examples checkout ${EXAMPLES_SHA}`;
+const HELM_SIMPLE = [
+  ["helm-redis", "redis", "Redis"], ["helm-postgresql", "postgresql", "PostgreSQL"], ["helm-ingress-nginx", "ingress-nginx", "ingress-nginx"],
+  ["helm-cert-manager", "cert-manager", "cert-manager"], ["helm-kube-prometheus-stack", "kube-prometheus-stack", "kube-prometheus-stack"],
+  ["helm-argo-cd", "argo-cd", "Argo CD"], ["helm-external-secrets", "external-secrets", "External Secrets"],
+  ["helm-metrics-server", "metrics-server", "metrics-server"], ["helm-gatekeeper", "gatekeeper", "Gatekeeper"], ["helm-gpu-operator", "gpu-operator", "NVIDIA GPU Operator"],
+];
+const GITOPS_SIMPLE = [
+  {
+    id: "kustomize-apptique", file: "example-kustomize-dev-and-prod.html", name: "Kustomize dev and prod", kicker: "Kustomize overlays",
+    lead: "A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.",
+    before: "before/prod/kustomization.yaml", beforeLabel: "Before: the prod overlay",
+    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Dev and prod stay linked to one base, so a change to the base can reach both.", "Every object is written out, with nothing left to work out from patches."],
+    facts: [["after/prod.yaml", /replicas: 3/]],
+    dir: "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique",
+    load: ["kustomize build base > base.yaml",
+      "cub variant upload --component apptique-example --variant base --namespace apptique --create-namespace --change-desc \"Seed the base from the repository base directory\" base.yaml",
+      "cub function set --space apptique-example-base --unit frontend --change-desc \"Run image tag v1.3.0\" set-container-image-reference server :v1.3.0",
+      "cub variant create dev apptique-example-base --namespace apptique-dev --change-desc \"Clone the base as dev\"",
+      "cub variant create prod apptique-example-base --namespace apptique-prod --change-desc \"Clone the base as prod\"",
+      "cub function set --space apptique-example-dev --change-desc \"Label every object environment dev\" set-label environment dev",
+      "cub function set --space apptique-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
+      "cub function set --space apptique-example-prod --unit frontend --change-desc \"Run three replicas in prod\" set-replicas 3",
+      "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
+    laptop: ["kustomize build prod"], needs: "kustomize",
+  },
+  {
+    id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
+    lead: "A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.",
+    before: "before/base/kustomization.yaml", beforeLabel: "Before: Kustomize inflating a chart",
+    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and a 1Gi memory limit.", "Each object lands in the namespace you can see, not the one Argo CD happens to use.", "No one has to run Helm inside Kustomize to know what an environment runs."],
+    facts: [["after/prod.yaml", /replicas: 3/], ["after/prod.yaml", /memory: 1Gi/]],
+    dir: "gitops/argo/expert-app-of-apps/apps/checkout-cache",
+    load: ["kustomize build --enable-helm base > base.yaml",
+      "cub variant upload --component checkout-cache-example --variant base --namespace storefront --change-desc \"Seed the base from the chart Kustomize inflates\" base.yaml",
+      "for env in dev staging prod; do cub variant create $env checkout-cache-example-base --namespace storefront-$env --change-desc \"Clone the base as $env\" && cub function set --space checkout-cache-example-$env --change-desc \"Label every object environment $env\" set-label environment $env; done",
+      "cub function set --space checkout-cache-example-staging --unit checkout-cache --change-desc \"Run two replicas in staging\" set-replicas 2",
+      "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Run three replicas in prod\" set-replicas 3",
+      "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
+    laptop: ["kustomize build --enable-helm overlays/prod"], needs: "kustomize and helm",
+  },
+  {
+    id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
+    lead: "Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.",
+    before: "before/apps/apptique-prod.yaml", beforeLabel: "Before: an Argo CD Application",
+    sentences: ["Each app becomes a base and a variant for the cluster it runs on, released and ready.", "You can read what prod runs in ConfigHub, here 3 replicas of the frontend.", "Argo CD keeps syncing Git until you choose to hand over."],
+    facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
+    dir: "gitops/argo/beginner-app-of-apps",
+    load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+  },
+  {
+    id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
+    lead: "An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.",
+    before: "before/bootstrap/applicationset.yaml", beforeLabel: "Before: a template with placeholders",
+    sentences: ["The two Applications the template would make are written out as variants of one base.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Nothing is generated on the cluster before you have read it."],
+    facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
+    dir: "gitops/argo/beginner-applicationset",
+    load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+  },
+  {
+    id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
+    lead: "Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.",
+    before: "before/clusters/prod/apps.yaml", beforeLabel: "Before: a Flux Kustomization",
+    sentences: ["Each layer becomes a base and a variant for each cluster.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Flux keeps reconciling Git until you choose to hand over."],
+    facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
+    dir: "gitops/flux/beginner",
+    load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+  },
+  {
+    id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
+    lead: "Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version each cluster runs.",
+    before: "before/apps/prod/kustomization.yaml", beforeLabel: "Before: one of many overlays",
+    sentences: ["Each layer is one base, with a variant for each cluster that runs it.", "Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
+    facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
+    dir: "gitops/flux/expert-fleet",
+    load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+  },
+];
+
+export const SIMPLE_PAGES = [
+  ...HELM_SIMPLE.map(([id, short, name]) => ({ id, file: `example-${short}.html`, name, space: `${short}-example`, kicker: "Helm chart", lead: "A Helm chart you can't read becomes objects you can." })),
+  ...GITOPS_SIMPLE,
+];
+
+function highlightTemplate(escapeHtml, line) {
+  return escapeHtml(line).replace(/\{\{.*?\}\}/g, (match) => `<span class="ex-tpl">${match}</span>`);
+}
+
+function simpleHelmSentences(f) {
+  const point = helmPoint(f);
+  const sentences = ["The template's image line becomes one plain value you can read, and so does every other field."];
+  if (point.kind === "random") sentences.push("Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.");
+  if (f.changed.some((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).some((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right))))) {
+    sentences.push("The image is pinned to exact bytes, so it can't change under you.");
+  }
+  if (f.hooks.length) {
+    const jobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
+    const planned = f.plan.some((step) => /hook/i.test(step.detail) || jobs.some((job) => step.detail.includes(job)));
+    sentences.push(planned
+      ? `The ${f.hooks.length} setup objects Helm runs out of sight become steps you can read.`
+      : `The ${f.hooks.length} setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.`);
+  }
+  if (sentences.length < 3) sentences.push("Every object is written out, so you can review it before anything runs.");
+  return sentences.slice(0, 3);
+}
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, sentences, loadRows, loadNote, laptopRows, laptopNote, needs, wide }) {
+  const { escapeHtml, commandBlock } = h;
+  const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
+  return `    <section aria-labelledby="pictures" class="ex">
+      <h2 id="pictures" class="ex-hidden">Before and after</h2>
+      <div class="ex-pair${wide ? " ex-wide" : ""}">
+        <figure class="ex-card">
+          <figcaption>${escapeHtml(beforeLabel)}</figcaption>
+          <pre class="ex-code"><code>${beforeHtml}</code></pre>
+          <p class="ex-note">${escapeHtml(beforeNote)}</p>
+        </figure>
+        <figure class="ex-card">
+          <figcaption>After: in ConfigHub</figcaption>
+          <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
+          <p class="ex-note">${escapeHtml(afterNote)}</p>
+        </figure>
+      </div>
+      <ul class="ex-checks">
+        ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
+      </ul>
+      <div class="ex-actions">
+        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
+          <p class="installer-command-note">${loadNote}</p>
+          ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+        </details>
+        <details class="ex-button"><summary>Try it on your laptop</summary>
+          <p class="installer-command-note">${laptopNote}</p>
+          ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+        </details>
+      </div>
+      <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
+    </section>
+`;
+}
+
+function simplePage(id, h) {
+  const { check, escapeHtml } = h;
+  const page = SIMPLE_PAGES.find((row) => row.id === id);
+  const rec = receipt(id);
+  const shot = rec.confighub;
+  check(shot, `${ROOT}/${id} has no ConfigHub screenshot, and its simple page shows one`);
+  const caption = `Taken in the ${shot.organization} organization on ${shot.takenOn}, showing ${shot.shows}.`;
+  let body;
+  if (page.kicker === "Helm chart") {
+    const f = helmFacts(id);
+    const excerpt = JSON.parse(read(id, "before/template-excerpt.json"));
+    check(excerpt.lines.some((line) => /^\s+image:/.test(line)), `${ROOT}/${id}: the excerpt has no image line, and the ConfigHub picture shows one`);
+    const setup = (f.listing.nextSteps ?? []).find((step) => step.id === "get-objects")?.commands.find((command) => command.command.startsWith("cub installer setup"));
+    check(setup, `site/listings/${f.rec.listing}.json has no cub installer setup command`);
+    const setupHere = setup.command.replace(/--work-dir \S+/, `--work-dir ./${page.space}`);
+    body = simpleLayout(h, {
+      id, shot, beforeLabel: "Before: the Helm chart",
+      beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
+      beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
+      afterNote: `The same image line in ConfigHub, as a plain value. ${caption}`,
+      sentences: simpleHelmSentences(f),
+      loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
+      loadNote: `Sign in, then paste the second line. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization.`,
+      laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
+      laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open.`,
+      needs: "its installer plugin",
+    });
+  } else {
+    for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);
+    const lines = read(id, page.before).replace(/\n+$/, "").split("\n");
+    body = simpleLayout(h, {
+      id, shot, wide: true, beforeLabel: page.beforeLabel,
+      beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
+      beforeNote: `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
+      afterNote: caption,
+      sentences: page.sentences,
+      loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
+      loadNote: "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization.",
+      laptopRows: [clone, `cd examples/${page.dir}`, ...page.laptop],
+      laptopNote: "No account needed. This fetches the example and shows what each environment runs.",
+      needs: page.needs,
+    });
+  }
+  return {
+    eyebrow: "Before and after",
+    title: `${page.name}, before and after`,
+    lead: page.lead,
+    opening: "",
+    body,
+    css: `
+    .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .ex-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 8px 0 20px; }
+    .ex-pair.ex-wide { grid-template-columns: minmax(0, 1fr); }
+    .ex-pair.ex-wide .ex-code { max-height: 22rem; overflow: auto; }
+    @media (max-width: 860px) { .ex-pair, .ex-pair.ex-wide { grid-template-columns: 1fr; } }
+    .ex-card { margin: 0; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 8px; }
+    .ex-card figcaption { font-weight: 600; }
+    .ex-card img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .ex-code { margin: 0; padding: 10px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); font-size: .72rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }
+    .ex-tpl { color: #b8501c; font-weight: 600; }
+    .ex-note { margin: 0; font-size: .85rem; color: var(--muted); }
+    .ex-checks { list-style: none; padding: 0; margin: 0 0 20px; }
+    .ex-checks li { padding-left: 1.6em; margin: 6px 0; position: relative; font-size: 1.05rem; }
+    .ex-checks li::before { content: "\\2713"; position: absolute; left: 0; color: #2f7a3a; font-weight: 700; }
+    .ex-actions { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+    .ex-actions details.ex-button { border: 0; padding: 0; margin: 0; background: none; }
+    .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); }
+    .ex-actions details.ex-button > summary::-webkit-details-marker { display: none; }
+    .ex-actions details.ex-button > summary::marker { content: ""; }
+    .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
+    .ex-actions details.ex-button[open] { flex-basis: 100%; }
+    .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-more { margin-top: 20px; color: var(--muted); }
+`,
+  };
+}
+
 function baCss() {
   return `
     .ba-shot { margin: 18px 0; }
@@ -1000,21 +1227,24 @@ export function beforeAfterPage(id, helpers) {
   throw new Error(`no before-and-after page for ${id}`);
 }
 
-// The gallery at the top of the Apps page.
+// The gallery at the top of the Apps page. Each card opens a simple page.
 export function beforeAfterGalleryHtml(escapeHtml) {
-  // Helm charts first, then the other formats, each group in its own order.
-  const ordered = [...BEFORE_AFTER_PAGES.filter((page) => page.kicker === "Helm chart"), ...BEFORE_AFTER_PAGES.filter((page) => page.kicker !== "Helm chart")];
-  const cards = ordered.map((page) => `        <article class="door">
+  const cardText = (page) => (page.kicker === "Helm chart" ? simpleHelmSentences(helmFacts(page.id))[1] : page.lead);
+  const cards = SIMPLE_PAGES.map((page) => `        <article class="door">
           <span class="kicker">${escapeHtml(page.kicker)}</span>
-          <h3><a href="./${page.file}">${escapeHtml(page.title)}</a></h3>
-          <p>${escapeHtml(page.card ?? helmCard(page.id))}</p>
+          <h3><a href="./${page.file}">${escapeHtml(`${page.name}, before and after`)}</a></h3>
+          <p>${escapeHtml(cardText(page))}</p>
         </article>`).join("\n");
   return `<section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example starts from files you may have today and shows what the Workshop gives you instead. Every output is recorded from a real run, and you can run each one yourself with no account.</p>
+      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
       <div class="doors ba-gallery">
 ${cards}
       </div>
       <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>`;
+}
+
+export function simpleBeforeAfterPage(id, helpers) {
+  return simplePage(id, helpers);
 }

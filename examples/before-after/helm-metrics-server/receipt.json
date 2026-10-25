@@ -44,9 +44,17 @@
   "notes": [
     "after.yaml is recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the metrics-server Deployment, at its image line"
+  },
   "files": {
     "before/before.yaml": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2",
+    "before/template-excerpt.json": "sha256:0b3e7f780df066b4f527759044c714b3e9394aa3dac3484ef07943cfbe25f11f",
     "before/values.yaml": "sha256:d5584b389725d7fd8de437157c50d3d5451b55b3d0b41e02b5ecf99a0986c806",
+    "confighub/object.png": "sha256:42f52b7c3e8a1640ed2559dbe4739f917a59f42d391187efcf82b4e5fe44ee6d",
     "transcripts/check-after.txt": "sha256:92a9b877574b0731a5a28467bbe4132ee3be81e6275ce1945f6730a82444c400",
     "transcripts/check-before.txt": "sha256:535f0727c47cbf51677ce6a5bea5e3151020eca9a3125868eeec3f30e87b8800"
   }

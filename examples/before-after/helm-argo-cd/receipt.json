@@ -44,8 +44,16 @@
   "notes": [
     "after.yaml is recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the Argo CD repo-server Deployment, at its image line"
+  },
   "files": {
     "before/before.yaml": "sha256:bc038ed97363f89258f9fb1b858431e905fa0547cf7758522e787e8a496926e0",
+    "before/template-excerpt.json": "sha256:e665b349b51d2cce4bfdea22fb208faeafc220ac9023e23a17cce76d80e86808",
+    "confighub/object.png": "sha256:fc04aa52bdc7042877401af475bf471a45d3e938ed02a15ea52aab79e68f2649",
     "transcripts/check-after.txt": "sha256:80d851bbbe3be80317d59f5dfff1f569f2fbd8e2e980f2180dbe14b569d02514",
     "transcripts/check-before.txt": "sha256:4f709803f141119e72746fa05e96e9fa5babe082cad3dd886d2f8c109904e09e"
   }

@@ -5,11 +5,13 @@
   "tools": {
     "cub": "v0.9.0",
     "workshopPlugin": "0.6.59",
-    "argoPlugin": "0.3.2",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
     "helm": "v4.1.4+g05fa379",
     "kustomize": "v5.8.1",
     "fluxSchemaPlugin": "0.16.0"
   },
+  "listing": "nvidia-gpu-operator-v26-3-3-default",
   "sources": [
     {
       "what": "the chart",
@@ -37,12 +39,10 @@
     "after.yaml is the bundle's upstream.yaml. It is byte for byte recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml, so it is not stored twice."
   ],
   "confighub": {
-    "file": "confighub/components.png",
+    "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "space": "before-after-gpu-operator",
-    "shows": "the Units of the Space the installer upload created, one for each object",
-    "note": "cub installer upload --component labelled the Space and created no Component, so it did not show in the Components view until cub component create and cub space update --component made one."
+    "shows": "the GPU Operator Deployment, at its image line"
   },
   "files": {
     "after/bundle/README.md": "sha256:ac95b0e7e3cccacc44313532a19a3ede85b87a3ba49df2dfee7eaac1cfb9e012",
@@ -50,7 +50,8 @@
     "after/bundle/routes/crd-ordering.yaml": "sha256:d5e98c6ace3536eddf692d34d9212c5f7b2cf4ea3d351ac1d9b76fe825db1b77",
     "after/bundle/routes/lifecycle-actions.yaml": "sha256:2edf2358a7e32955653f000d97735f94378ae28d79deaf75a8db9cd9ffc68476",
     "before/before.yaml": "sha256:16cb9475548637eefeefd023f6ee8280aba88ebfa03c3761c9e5d2552b115bc0",
-    "confighub/components.png": "sha256:ad9abc0bd3adeef5e1e9244f877283b26752efbdebfdd0d887ff9c5bc147bb6c",
+    "before/template-excerpt.json": "sha256:16f01a137bc0c85bdc442509df95a9a905cb7e9b50674cf19a07314d50abaa9e",
+    "confighub/object.png": "sha256:89111d1b08d89daf189c7d35d7ab65c3e8c1bea3d8d229ad5e189df51723a415",
     "transcripts/check-after.txt": "sha256:c0bbc307a1b6d26165a0a7c490d361e0e431ff714bc4d5e0a8d0f3f803ae5663",
     "transcripts/check-before.txt": "sha256:34451f94459a501d000f078f8dc4d488efa944679bf861e5fe578091f05dbb0d"
   }

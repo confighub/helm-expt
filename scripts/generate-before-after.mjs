@@ -27,13 +27,28 @@ export const EXAMPLES_COMMIT = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
 
 // Screenshots of each example as ConfigHub holds it, taken in a browser and
 // cropped by hand, so they are recorded here rather than made by --generate.
-// Each was loaded with the commands its page prints. A crop leaves out the
-// activity feed and the account menu, which name the person signed in.
+// Each was loaded with the commands its page prints. A Helm picture shows the
+// image line of the object the page's template excerpt renders; a GitOps or
+// Kustomize picture shows the graph of the base and its variants beside the
+// settings prod changes. A crop leaves out the activity feed and the account
+// menu, which name the person signed in.
 export const SCREENSHOTS = {
-  "helm-gpu-operator": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "before-after-gpu-operator", shows: "the Units of the Space the installer upload created, one for each object", note: "cub installer upload --component labelled the Space and created no Component, so it did not show in the Components view until cub component create and cub space update --component made one." },
-  "kustomize-apptique": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "before-after-apptique-base", shows: "the base and its dev and prod variants" },
-  "argo-app-of-apps": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "argo-apptique-dev-base", shows: "the apptique-dev base and its in-cluster variant at release 1" },
-  "flux-beginner": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "flux-apps-base", shows: "the apps layer's base and its dev and prod variants, each at release 1" },
+  "helm-redis": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the redis-replicas StatefulSet, at its image line" },
+  "helm-postgresql": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the PostgreSQL StatefulSet, at its image line" },
+  "helm-ingress-nginx": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the ingress-nginx controller Deployment, at its image line" },
+  "helm-cert-manager": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the cert-manager controller Deployment, at its image line" },
+  "helm-kube-prometheus-stack": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Prometheus object, at its image line" },
+  "helm-argo-cd": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Argo CD repo-server Deployment, at its image line" },
+  "helm-external-secrets": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the External Secrets Deployment, at its image line" },
+  "helm-metrics-server": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the metrics-server Deployment, at its image line" },
+  "helm-gatekeeper": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Gatekeeper controller-manager Deployment, at its image line" },
+  "helm-gpu-operator": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the GPU Operator Deployment, at its image line" },
+  "kustomize-apptique": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with its dev and prod variants, and the settings prod changes" },
+  "kustomize-helm-chart": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with its dev, staging and prod variants, and the settings prod changes" },
+  "argo-app-of-apps": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apptique-prod base with its in-cluster variant, and the prod Deployment's settings" },
+  "argo-applicationset": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with the two variants the ApplicationSet generates, and the settings prod changes" },
+  "flux-beginner": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apps layer's base with its dev and prod variants, and the settings prod changes" },
+  "flux-expert-fleet": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apps layer's base with a variant for each cluster, and the settings prod-1 changes" },
 };
 
 // Helm charts shown from a Catalog entry. "before" is what a person renders
@@ -140,6 +155,7 @@ function generateHelm(work, out) {
 
   mkdirSync(join(out, "before"), { recursive: true });
   writeFileSync(join(out, "before/before.yaml"), before);
+  recordTemplateExcerpt(join(dir, "chart.tgz"), before, dir, out);
   for (const file of ["README.md", "routes/crd-ordering.yaml", "routes/lifecycle-actions.yaml", "requirements/target-requirements.yaml"]) {
     mkdirSync(dirname(join(out, "after/bundle", file)), { recursive: true });
     cpSync(join(dir, "unpacked", file), join(out, "after/bundle", file));
@@ -148,6 +164,7 @@ function generateHelm(work, out) {
   writeFileSync(join(out, "transcripts/check-before.txt"), transcript(["config", "check", "before.yaml"], dir));
   writeFileSync(join(out, "transcripts/check-after.txt"), transcript(["config", "check", "after.yaml"], dir));
   return {
+    listing: listing.identity.id,
     sources: [
       { what: "the chart", url, sha256: `sha256:${chartSha}`, recordedIn: GPU_SOURCE_LOCK },
       { what: "the published bundle", reference: bundle, recordedIn: GPU_LISTING },
@@ -167,6 +184,28 @@ function generateHelm(work, out) {
 }
 
 const yamlDump = (value) => py("import json, sys, yaml\nprint(json.dumps(yaml.safe_dump(json.load(sys.stdin), sort_keys=False)))", JSON.stringify(value));
+
+// The picture of "before": the 16 lines of the chart's main workload template
+// with the most template expressions, as a person opening the chart sees them.
+// Only templates the render used are candidates.
+function recordTemplateExcerpt(chart, before, dir, out) {
+  mkdirSync(join(dir, "chart-unpacked"));
+  run("tar", ["-xzf", chart, "-C", join(dir, "chart-unpacked")]);
+  const templates = filesUnder(join(dir, "chart-unpacked")).filter((path) => /\/templates\/.+\.ya?ml$/.test(path) && !/\/charts\/.+\/templates\//.test(relative(join(dir, "chart-unpacked"), path).replace(/^[^/]+\//, "x/")));
+  const rendered = new Set([...before.matchAll(/^# Source: (.+)$/gm)].map((m) => m[1].trim()));
+  const workload = templates.filter((path) => rendered.has(relative(join(dir, "chart-unpacked"), path))).filter((path) => /^\s+containers:\s*$/m.test(readFileSync(path, "utf8")) && !/kind:\s*(Job|CronJob)\b/.test(readFileSync(path, "utf8")));
+  const count = (text) => (text.match(/\{\{/g) ?? []).length;
+  // The main container's image, not one of an optional helper container.
+  const imageAt = (path) => readFileSync(path, "utf8").split("\n").findIndex((line) => /^\s+image:\s*\S/.test(line) && !/volumePermissions|metrics|exporter|sidecar|init/i.test(line));
+  // The workload template that sets an image, with the most template
+  // expressions; the excerpt is the 16 lines around its first image line, so
+  // the ConfigHub picture can show the same line, resolved.
+  const pick = [...(workload.length ? workload : templates)].filter((path) => imageAt(path) >= 0).sort((a, b) => count(readFileSync(b, "utf8")) - count(readFileSync(a, "utf8")))[0];
+  check(pick, `${chart}: no rendered workload template sets an image`);
+  const lines = readFileSync(pick, "utf8").split("\n");
+  const best = Math.max(0, Math.min(imageAt(pick) - 6, lines.length - 16));
+  writeFileSync(join(out, "before/template-excerpt.json"), `${JSON.stringify({ file: relative(join(dir, "chart-unpacked"), pick), firstLine: best + 1, lines: lines.slice(best, best + 16) }, null, 2)}\n`);
+}
 
 function generateHelmListing(work, out, spec) {
   const intentPath = `data/helm-render-intents/intents/${spec.listing}.yaml`;
@@ -202,6 +241,7 @@ function generateHelmListing(work, out, spec) {
     writeFileSync(join(out, "transcripts/diff-rerender.txt"), transcript(["config", "diff", "before.yaml", "before-again.yaml", "--summary"], dir));
   }
   const crdsFolder = [].concat(readYamlText(run("helm", ["show", "crds", chart])) ?? []).filter((doc) => doc?.kind === "CustomResourceDefinition").length;
+  recordTemplateExcerpt(chart, before, dir, out);
   const after = readFileSync(join(repoRoot, intent.renderOutput.renderedObjects));
   writeFileSync(join(dir, "after.yaml"), after);
   writeFileSync(join(out, "transcripts/check-before.txt"), transcript(["config", "check", "before.yaml"], dir));
@@ -380,7 +420,10 @@ function recordScreenshots() {
     const { files, ...rest } = receipt;
     delete rest.confighub;
     const all = Object.fromEntries(filesUnder(out).filter((path) => !path.endsWith("receipt.json")).map((path) => [relative(out, path), sha(readFileSync(path))]));
-    for (const [path, digest] of Object.entries(files)) check(all[path] === digest, `${BEFORE_AFTER_ROOT}/${id}/${path} changed since it was recorded; run --generate instead`);
+    // The screenshots under confighub/ are this mode's to change; every other
+    // file must be as --generate recorded it.
+    for (const [path, digest] of Object.entries(files)) if (!path.startsWith("confighub/")) check(all[path] === digest, `${BEFORE_AFTER_ROOT}/${id}/${path} changed since it was recorded; run --generate instead`);
+    for (const path of Object.keys(all)) if (!files[path]) check(path.startsWith("confighub/"), `${BEFORE_AFTER_ROOT}/${id}/${path} is new and not a screenshot; run --generate instead`);
     writeFileSync(join(out, "receipt.json"), `${JSON.stringify({ ...rest, confighub: shot, files: all }, null, 2)}\n`);
     console.log(`recorded ${BEFORE_AFTER_ROOT}/${id}/${shot.file}`);
   }

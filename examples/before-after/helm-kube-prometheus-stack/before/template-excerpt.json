@@ -1,0 +1,22 @@
+{
+  "file": "kube-prometheus-stack/templates/prometheus/prometheus.yaml",
+  "firstLine": 50,
+  "lines": [
+    "{{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}",
+    "{{- end }}",
+    "{{- if .Values.prometheus.prometheusSpec.image }}",
+    "  {{- $registry := .Values.global.imageRegistry | default .Values.prometheus.prometheusSpec.image.registry -}}",
+    "  {{- $tag := (.Values.prometheus.prometheusSpec.image.tag | empty | not) | ternary (printf \":%s\" .Values.prometheus.prometheusSpec.image.tag) \"\" -}}",
+    "  {{- $sha := (.Values.prometheus.prometheusSpec.image.sha | empty | not) | ternary (printf \"@sha256:%s\" .Values.prometheus.prometheusSpec.image.sha) \"\" }}",
+    "  image: \"{{ printf \"%s/%s%s%s\" $registry .Values.prometheus.prometheusSpec.image.repository $tag $sha }}\"",
+    "  imagePullPolicy: \"{{ .Values.prometheus.prometheusSpec.image.pullPolicy }}\"",
+    "  version: \"{{ default .Values.prometheus.prometheusSpec.image.tag .Values.prometheus.prometheusSpec.version }}\"",
+    "{{- end }}",
+    "{{- if .Values.prometheus.prometheusSpec.additionalArgs }}",
+    "  additionalArgs:",
+    "{{ toYaml .Values.prometheus.prometheusSpec.additionalArgs | indent 4}}",
+    "{{- end -}}",
+    "{{- if .Values.prometheus.prometheusSpec.externalLabels }}",
+    "  externalLabels:"
+  ]
+}

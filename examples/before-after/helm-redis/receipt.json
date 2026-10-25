@@ -45,10 +45,18 @@
     "after.yaml is recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice.",
     "recipes/bitnami/redis/25.5.3/source-lock.yaml records no SHA-256 for the chart, so the one downloaded is recorded here."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the redis-replicas StatefulSet, at its image line"
+  },
   "files": {
     "after/values.yaml": "sha256:a1ad14d5153bd30d64488da0364f9141933189a5f9226346c963b91f38aab1e3",
-    "before/before-again.yaml": "sha256:f93ed5ae4d61f9aebaf1a9304ce42b79e617e7805af82c4d5c958f97dc60ce38",
-    "before/before.yaml": "sha256:a671910c6406f9a4a79fe32805de1dff7117cab64b053efe901518c6148326fc",
+    "before/before-again.yaml": "sha256:66718e3d25857acb9d05a7dea20a0bf10df668884c723fa4c526c52a71885230",
+    "before/before.yaml": "sha256:9a03954b93aff26dec7350fbd0398e6dd7f6ecff2a96d36f50db78695ff0a41b",
+    "before/template-excerpt.json": "sha256:c5a2a9e192c27677e882e3dbe30abb8550d34d61e79320b942820acb2c54cd7e",
+    "confighub/object.png": "sha256:5a4c5ed139b64d7a247f37da3398d557b0ee4a6ac9a78d39e8147614d705997e",
     "transcripts/check-after.txt": "sha256:6e974142df7fc256e2ed4765937fe29ff86d752c99ea87f864f6c244805b0462",
     "transcripts/check-before.txt": "sha256:73899bd26367164c19d5e77dd11b52c45847a7abaf58bd241489616bb77545e6",
     "transcripts/diff-rerender.txt": "sha256:03bb8a0597c3244a7c815214a3685ea1302eaebab7e6246a004ddef6446a2190"

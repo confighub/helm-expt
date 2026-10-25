@@ -44,10 +44,18 @@
   "notes": [
     "after.yaml is recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
   ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the PostgreSQL StatefulSet, at its image line"
+  },
   "files": {
     "after/values.yaml": "sha256:a00ff4601184d79ad50a311cde21139db8dc3f845aa382813e9732043ffa1c2a",
-    "before/before-again.yaml": "sha256:fa3126b2b63f8b539aa37b97f1e9dd076d345c5dab61b2bcbdd38dcdaee42dcd",
-    "before/before.yaml": "sha256:8c969f888afd61e121317ecb279a25c3ba41a73e4a24d3c33349cedec567b684",
+    "before/before-again.yaml": "sha256:d7de525065aecd0db33fc54e151d7a6dc52430730c195e237fc6e88ca520077e",
+    "before/before.yaml": "sha256:1f43d0215cc04272a593223e44ed73b3ecceca5f235e5688f0ef19d95a45de94",
+    "before/template-excerpt.json": "sha256:abf752f1f2a6464cc10b8402a884eb65fb367d61c59eabe66ef8909e17805d0a",
+    "confighub/object.png": "sha256:0a7af69e257d37cbe57e0c77dca222c01f54e3f455bbf4c61814d3d9519bac0b",
     "transcripts/check-after.txt": "sha256:01b1f443323252d5bf0fc89c78f09fed1408fe62e8573bc4797d46c5d1decb65",
     "transcripts/check-before.txt": "sha256:bb5ddc980ab5ec4aaab200a409e461dc32db7a91848ddadfe2ead9f38abc16b6",
     "transcripts/diff-rerender.txt": "sha256:de533635004015890a13287f5d73a0d27f399ff22e50d6e0b7c13cc99dba2435"
