@@ -1,0 +1,21 @@
+
+Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  30 objects: 1 ClusterRole, 1 ClusterRoleBinding, 17 CustomResourceDefinition, 2 Deployment, 1 MutatingWebhookConfiguration, 1 PodDisruptionBudget, 1 ResourceQuota, 1 Role, 1 RoleBinding, 1 Secret, 1 Service, 1 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: default
+
+Lifecycle work
+  [NOTE] CRDs: 17 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [NOTE] admission webhooks needing a certificate: 2
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [FAIL] schema validation: 1 violation(s) in 1 object(s) against the default and ecosystem catalogs (flux-schema/0.16.0); fix these fields and check again:
+         ResourceQuota/default/gatekeeper-critical-pods  /spec/hard/pods: got number, want string
+
+  [FAIL] one or more objects do not match their Kubernetes schema; no output was written.
+[exit 1]

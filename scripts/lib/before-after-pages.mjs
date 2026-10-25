@@ -7,11 +7,25 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readYamlText, repoRoot } from "./proof-common.mjs";
+import { HELM_EXAMPLES } from "../generate-before-after.mjs";
 
 const ROOT = "examples/before-after";
 const GITHUB = "https://github.com/confighub/helm-expt/tree/main";
 export const GPU_ENTRY = "nvidia-gpu-operator-v26-3-3-default";
 const HELM_TEMPLATE = "helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator > before.yaml";
+
+// The name each Helm chart goes by on its page.
+const HELM_NAMES = {
+  "helm-redis": "Bitnami Redis",
+  "helm-postgresql": "Bitnami PostgreSQL",
+  "helm-ingress-nginx": "ingress-nginx",
+  "helm-cert-manager": "cert-manager",
+  "helm-kube-prometheus-stack": "kube-prometheus-stack",
+  "helm-argo-cd": "Argo CD",
+  "helm-external-secrets": "External Secrets",
+  "helm-metrics-server": "metrics-server",
+  "helm-gatekeeper": "Gatekeeper",
+};
 
 export const BEFORE_AFTER_PAGES = [
   {
@@ -50,6 +64,18 @@ export const BEFORE_AFTER_PAGES = [
     description: "A Flux fleet of two clusters and two layers planned into ConfigHub: each Flux Kustomization keeps its name and settings, and reads a ConfigHub release instead of Git.",
     card: "Flux keeps reconciling. Each layer's Kustomization keeps its name and settings, and changes only where it reads from.",
   },
+  ...HELM_EXAMPLES.map((spec) => {
+    const name = HELM_NAMES[spec.id];
+    return {
+      id: spec.id,
+      key: `beforeAfter${spec.id.replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase())}Html`,
+      file: `before-after-${spec.id}.html`,
+      kicker: "Helm chart",
+      title: `See what the ${name} Helm chart becomes`,
+      description: `Plain helm template for ${name} against the base the Catalog keeps for it: what changes in the objects, and the plan that comes with them.`,
+      card: null,
+    };
+  }),
 ];
 
 const read = (id, path) => readFileSync(join(repoRoot, ROOT, id, path), "utf8");
@@ -478,6 +504,187 @@ function fluxPage(h) {
   };
 }
 
+
+// What a Helm example measures, from its recorded files and its listing.
+function helmFacts(id) {
+  const rec = receipt(id);
+  const listing = JSON.parse(readFileSync(join(repoRoot, "site/listings", `${rec.listing}.json`), "utf8"));
+  const before = objects(read(id, "before/before.yaml"));
+  const after = objects(readFileSync(join(repoRoot, Object.keys(rec.repoFiles)[0]), "utf8"));
+  const key = (doc) => `${doc.kind}/${doc.metadata.namespace ?? ""}/${doc.metadata.name}`;
+  const hook = (doc) => doc.metadata?.annotations?.["helm.sh/hook"];
+  const hooks = before.filter(hook);
+  const plain = before.filter((doc) => !hook(doc));
+  const afterByKey = new Map(after.map((doc) => [key(doc), doc]));
+  const same = plain.filter((doc) => afterByKey.has(key(doc)) && JSON.stringify(afterByKey.get(key(doc))) === JSON.stringify(doc));
+  const changed = plain.filter((doc) => afterByKey.has(key(doc)) && JSON.stringify(afterByKey.get(key(doc))) !== JSON.stringify(doc));
+  const onlyBefore = plain.filter((doc) => !afterByKey.has(key(doc)));
+  const plainKeys = new Set(plain.map(key));
+  const onlyAfter = after.filter((doc) => !plainKeys.has(key(doc)));
+  const again = rec.files["before/before-again.yaml"] ? objects(read(id, "before/before-again.yaml")) : null;
+  const rerendered = again ? fieldDifferences(before, again) : [];
+  const plan = listing.routing?.requirements ?? [];
+  return { rec, listing, before, after, hooks, plain, same, changed, onlyBefore, onlyAfter, rerendered, plan, key, afterByKey,
+    crdsBefore: before.filter((doc) => doc.kind === "CustomResourceDefinition").length,
+    crdsAfter: after.filter((doc) => doc.kind === "CustomResourceDefinition").length,
+    crdsOnlyAfter: onlyAfter.filter((doc) => doc.kind === "CustomResourceDefinition").length };
+}
+
+// The one point a Helm page makes, chosen from what was measured.
+function helmPoint(f) {
+  const steps = `${f.plan.length} step${f.plan.length === 1 ? "" : "s"}`;
+  if (f.rerendered.length) {
+    return {
+      kind: "random",
+      lead: `With the chart's own defaults, every <code>helm template</code> run writes a new random password into a Secret, so two renders of the same chart differ. The Catalog's <code>${f.listing.identity.base}</code> base holds no Secret: its pods read one you create, and its plan names it.`,
+      card: "With the chart's defaults every render writes a new random password. The Catalog's base holds no Secret and names the one you create.",
+    };
+  }
+  if (f.hooks.length) {
+    const crds = f.crdsOnlyAfter ? `, including the ${f.crdsOnlyAfter} CRDs that <code>helm template</code> leaves out,` : "";
+    return {
+      kind: "hooks",
+      lead: `Plain <code>helm template</code> renders ${f.before.length} objects, and ${f.hooks.length} of them are Helm hooks that must never be applied with the rest. The Catalog's base holds the ${f.after.length} objects to apply${crds} and a plan of ${steps}.`,
+      card: `Helm mixes ${f.hooks.length} hook objects into the ${f.before.length} it renders. The base holds the ${f.after.length} objects to apply${f.crdsOnlyAfter ? `, ${f.crdsOnlyAfter} CRDs among them,` : ""} and a plan of ${steps}.`,
+    };
+  }
+  if (f.plan.length) {
+    return {
+      kind: "plan",
+      lead: `The ${f.before.length} objects are the same on both sides. What the Workshop adds is the plan: ${steps} that the objects alone do not say.`,
+      card: `The ${f.before.length} objects are the same on both sides. The Workshop adds a plan of ${steps} the objects do not say.`,
+    };
+  }
+  return {
+    kind: "nothing",
+    lead: `The ${f.before.length} objects are the same on both sides, and the plan is empty: the Catalog records no step before, during or after the apply. This chart can be applied as its objects are.`,
+    card: `The same ${f.before.length} objects on both sides and an empty plan. This chart can be applied as its objects are.`,
+  };
+}
+
+export function helmCard(id) {
+  return helmPoint(helmFacts(id)).card;
+}
+
+function helmListingPage(id, h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const f = helmFacts(id);
+  const { rec, listing } = f;
+  const name = HELM_NAMES[id];
+  const point = helmPoint(f);
+  const checkBefore = transcriptLines(read(id, "transcripts/check-before.txt"));
+  const checkAfter = transcriptLines(read(id, "transcripts/check-after.txt"));
+  const base = listing.identity.base;
+  const page = BEFORE_AFTER_PAGES.find((row) => row.id === id);
+
+  check(listing.identity.id === rec.listing, `${ROOT}/${id} records ${rec.listing}, and the listing names ${listing.identity.id}`);
+  check(f.after.length === listing.flattened.objectCount, `site/listings/${rec.listing}.json counts ${listing.flattened.objectCount} objects, and the retained file holds ${f.after.length}`);
+  check(checkBefore.some((line) => line.includes(`${f.before.length} objects:`)) && checkBefore.some((line) => line.includes(`Helm hooks: ${f.hooks.length}`)), `${ROOT}/${id}/transcripts/check-before.txt does not report ${f.before.length} objects and ${f.hooks.length} hooks`);
+  check(checkAfter.some((line) => line.includes(`${f.after.length} objects:`)) && checkAfter.some((line) => /Helm hooks: 0$/.test(line)), `${ROOT}/${id}/transcripts/check-after.txt does not report ${f.after.length} objects and no hooks`);
+  check(f.onlyAfter.every((doc) => doc.kind === "CustomResourceDefinition") && f.crdsOnlyAfter === rec.chart.crdsFolder, `${ROOT}/${id}: the objects only the base holds are not the ${rec.chart.crdsFolder} CRDs of the chart's crds folder`);
+  if (point.kind === "random") {
+    check(rec.before === "defaults" && f.rerendered.length > 0 && !f.after.some((doc) => doc.kind === "Secret") && f.onlyBefore.every((doc) => doc.kind === "Secret") && f.plan.some((step) => step.type === "target-fact"), `${ROOT}/${id}: the page says the defaults make a random Secret and the base holds none and names one, and the recording does not show that`);
+  } else {
+    check(rec.before === "base" && f.changed.length === 0 && f.onlyBefore.length === 0, `${ROOT}/${id}: the page says every object the two sides share is the same, and ${f.changed.length + f.onlyBefore.length} differ`);
+  }
+  if (point.kind === "plan" || point.kind === "nothing") check(f.hooks.length === 0 && f.same.length === f.before.length && f.after.length === f.before.length, `${ROOT}/${id}: the page says the objects are the same on both sides`);
+  const rerenderLines = rec.files["transcripts/diff-rerender.txt"] ? transcriptLines(read(id, "transcripts/diff-rerender.txt")) : [];
+  if (point.kind === "random") check(rerenderLines[0]?.startsWith("Configuration diff: 0 added, 0 removed, 1 changed"), `${ROOT}/${id}/transcripts/diff-rerender.txt no longer reports one changed object`);
+  const schemaFail = checkBefore.some((line) => /\[FAIL\] schema validation/.test(line));
+
+  const hookRows = f.hooks.map((doc) => [doc.kind, `<code>${escapeHtml(doc.metadata.name)}</code>`, escapeHtml(doc.metadata.annotations["helm.sh/hook"])]);
+  const planRows = f.plan.map((step) => [`<code>${escapeHtml(step.id)}</code>`, escapeHtml(step.type === "target-fact" ? "must exist on the target" : "a step of the apply"), escapeHtml(step.detail)]);
+  const value = (v) => (v === undefined ? "not set" : `<code>${escapeHtml(String(v).length > 60 ? `${String(v).slice(0, 57)}...` : String(v))}</code>`);
+  const changedRows = f.changed.flatMap((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).map((row) => [escapeHtml(`${doc.kind} ${doc.metadata.name}`), `<code>${escapeHtml(row.path)}</code>`, value(row.left), value(row.right)]));
+  const hookJobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
+  const hooksUnplanned = f.hooks.length > 0 && !f.plan.some((step) => /hook/i.test(step.detail) || hookJobs.some((job) => step.detail.includes(job)));
+  const planHookCount = Number(f.plan.map((step) => step.detail.match(/defines (\d+) hook object/)?.[1]).find(Boolean) ?? 0);
+  const movingImage = f.changed.flatMap((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))])).find((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right)))?.left;
+  const helmTemplate = rec.commands[0];
+  const getObjects = (listing.nextSteps ?? []).find((step) => step.id === "get-objects");
+  check(getObjects?.commands?.[0]?.command?.startsWith("curl -fsSL -o "), `site/listings/${rec.listing}.json has no curl command for its objects`);
+  const fetchAfter = getObjects.commands[0].command.replace(/-o \S+/, "-o after.yaml");
+  const setup = getObjects.commands.find((command) => command.command.startsWith("cub installer setup"));
+  const upload = (listing.nextSteps ?? []).find((step) => step.id === "upload")?.commands ?? [];
+  const entryPage = `./charts/${listing.identity.page.split("/").pop()}`;
+  const tableRows = [
+    ["", "Before, helm template", `After, the ${base} base`],
+    ["Objects", String(f.before.length), String(f.after.length)],
+    ["Helm hook objects in the file", String(f.hooks.length), "0"],
+    ["CRDs", String(f.crdsBefore), String(f.crdsAfter)],
+    ...(point.kind === "random" ? [["A Secret with a generated password", "yes, new on every render", "no"]] : []),
+    ...(movingImage ? [["Images on a moving tag", "yes, :latest", "no, pinned by digest"]] : []),
+    ["Objects that are the same on both sides", String(f.same.length), String(f.same.length)],
+    ["Plan steps", "none", String(f.plan.length)],
+  ];
+
+  return {
+    eyebrow: "Before and after",
+    title: page.title,
+    lead: point.lead,
+    opening: `    <p><strong>What you need.</strong> <code>helm</code>, <code>curl</code> and <code>cub</code> with the Workshop plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>${rec.before === "defaults" ? `You have the ${escapeHtml(name)} chart ${escapeHtml(rec.chart.version)} and its own defaults, which is how most people start.` : `You have the ${escapeHtml(name)} chart ${escapeHtml(rec.chart.version)} with the values of the Catalog's <code>${escapeHtml(base)}</code> base${rec.files["before/values.yaml"] ? `, shown in <a href="${GITHUB}/${ROOT}/${id}/before/values.yaml">values.yaml</a>` : ", which are the chart's defaults"}.`} Helm renders it like this, and the Workshop's check reads the result.</p>
+      ${terminal(escapeHtml, { title: "before: plain helm template", first: [helmTemplate], cmd: "cub config check before.yaml", output: checkBefore, mark: [/Helm hooks: [1-9]/, /setup Jobs: [1-9]/, /CRDs: 0$/, /\[FAIL\]/, /tagged latest or not tagged: [1-9]/] })}
+${point.kind === "random" ? `      <p>Render it a second time and compare the two.</p>
+      ${terminal(escapeHtml, { title: "before: the same chart, rendered twice", first: [helmTemplate.replace("> before.yaml", "> before-again.yaml")], cmd: "cub config diff before.yaml before-again.yaml --summary", output: rerenderLines.slice(0, 2), mark: [/1 changed/] })}
+      <p>${f.rerendered.length === 1 ? "One field" : `${f.rerendered.length} fields`} changed between the two renders: ${f.rerendered.map((row) => `<code>${escapeHtml(row.path)}</code> on ${escapeHtml(row.objects.join(", "))}`).join("; ")}. Apply the second render and the Secret no longer holds the password the database was first set up with.</p>
+` : ""}${f.hooks.length ? `      <p>The ${f.hooks.length} hook objects sit in the same file as everything else. Apply the file and they run at once, outside the order Helm gives them.${hooksUnplanned ? ` No step of the plan mentions them, so the base leaves out what they do.` : ""}${planHookCount && planHookCount !== f.hooks.length ? ` The plan counts the ${planHookCount} hook objects the chart's templates define, and these values turn on ${f.hooks.length} of them.` : ""}</p>
+      ${markdownLikeTable([["Kind", "Name", "Helm hook"], ...hookRows], { rawColumns: [1] })}
+` : ""}${f.crdsOnlyAfter ? `      <p>The file holds none of the chart's ${f.crdsOnlyAfter} CRDs. They sit in its <code>crds</code> folder, which <code>helm template</code> leaves out. Helm installs them on the first install only, and never upgrades them.</p>
+` : ""}    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what the Workshop gives you</h2>
+      <p>The Catalog keeps the objects of its <code>${escapeHtml(base)}</code> base for this chart${rec.files["after/values.yaml"] ? `, rendered with <a href="${GITHUB}/${ROOT}/${id}/after/values.yaml">these values</a>` : ""}, and a plan for everything that is not an object to apply.</p>
+      ${terminal(escapeHtml, { title: `after: the ${base} base`, cmd: "cub config check after.yaml", output: checkAfter, mark: [/Helm hooks: 0$/, /CRDs: [1-9]/] })}
+      ${f.plan.length ? `<p>The plan has ${f.plan.length} step${f.plan.length === 1 ? "" : "s"}.</p>
+      ${markdownLikeTable([["Step", "What it is", "What it says"], ...planRows], { rawColumns: [0] })}` : "<p>The plan is empty. The Catalog records nothing that must exist first and no step of the apply.</p>"}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See what changed</h2>
+      ${markdownLikeTable(tableRows)}
+${changedRows.length ? `      <p>These are the fields that differ in the objects both sides hold.${movingImage ? ` The chart's default image is the moving tag <code>${escapeHtml(movingImage)}</code>, and the base pins it by digest, so it pulls the same bytes every time.` : ""}${point.kind === "random" ? " The base's pods read the Secret you create." : ""}</p>
+      ${markdownLikeTable([["Object", "Field", "Before", "After"], ...changedRows], { rawColumns: [1, 2, 3] })}
+` : ""}    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub and the Workshop plugin</a> first.</p>
+      ${commandBlock([
+        { comment: "before: render the chart as Helm does", cmd: helmTemplate },
+        { cmd: "cub config check before.yaml" },
+        { comment: "after: fetch the objects the Catalog keeps for this base", cmd: fetchAfter },
+        { cmd: "cub config check after.yaml" },
+      ])}
+${rec.files["before/values.yaml"] ? `      <p>Save <a href="${GITHUB}/${ROOT}/${id}/before/values.yaml">values.yaml</a> next to the commands first.</p>\n` : ""}      <p><a href="${entryPage}#plan-${rec.listing}">The entry page</a> shows the plan and every other base of this chart.</p>
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      ${setup && upload.length === 3 ? commandBlock([
+        { comment: "render the base from the signed package", cmd: setup.command },
+        { comment: "sign in to your organization", cmd: upload[0].command },
+        { comment: "load the objects as a Space of Units, under names you choose", cmd: upload[1].command },
+        { comment: "list what was loaded", cmd: upload[2].command },
+      ]) : `<p>The <a href="${entryPage}">entry page</a> gives the commands to load this base.</p>`}
+      ${liveScreenshot(id, escapeHtml)}
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>Both checks ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)}, Workshop plugin ${escapeHtml(rec.tools.workshopPlugin)} and helm ${escapeHtml(rec.tools.helm)}. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output on this page.</li>
+        <li>Both sides render for Kubernetes ${escapeHtml(rec.render.kubeVersion)}, as the Catalog does, so only the handling differs.</li>
+        ${rec.chart.lockedSha256 ? "" : `<li>The Catalog's source lock records no SHA-256 for this chart, so the receipt records the one downloaded, <code>${escapeHtml(rec.chart.sha256)}</code>.</li>`}
+        ${schemaFail ? `<li>The schema step fails the chart's own render on a quantity written as a number. Kubernetes accepts a number for a quantity, so this is a false alarm in the check.</li>` : ""}
+        <li>No step of the plan has been run on a cluster for this page. The plan says what a delivery workflow must do, and nothing runs it automatically.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
 function baCss() {
   return `
     .ba-shot { margin: 18px 0; }
@@ -502,15 +709,18 @@ export function beforeAfterPage(id, helpers) {
   if (id === "kustomize-apptique") return kustomizePage(helpers);
   if (id === "argo-app-of-apps") return argoPage(helpers);
   if (id === "flux-beginner") return fluxPage(helpers);
+  if (HELM_NAMES[id]) return helmListingPage(id, helpers);
   throw new Error(`no before-and-after page for ${id}`);
 }
 
 // The gallery at the top of the Apps page.
 export function beforeAfterGalleryHtml(escapeHtml) {
-  const cards = BEFORE_AFTER_PAGES.map((page) => `        <article class="door">
+  // Helm charts first, then the other formats, each group in its own order.
+  const ordered = [...BEFORE_AFTER_PAGES.filter((page) => page.kicker === "Helm chart"), ...BEFORE_AFTER_PAGES.filter((page) => page.kicker !== "Helm chart")];
+  const cards = ordered.map((page) => `        <article class="door">
           <span class="kicker">${escapeHtml(page.kicker)}</span>
           <h3><a href="./${page.file}">${escapeHtml(page.title)}</a></h3>
-          <p>${escapeHtml(page.card)}</p>
+          <p>${escapeHtml(page.card ?? helmCard(page.id))}</p>
         </article>`).join("\n");
   return `<section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
@@ -518,6 +728,6 @@ export function beforeAfterGalleryHtml(escapeHtml) {
       <div class="doors ba-gallery">
 ${cards}
       </div>
-      <style>.ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>`;
 }

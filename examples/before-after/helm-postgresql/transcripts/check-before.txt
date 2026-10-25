@@ -1,0 +1,20 @@
+
+Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  7 objects: 1 NetworkPolicy, 1 PodDisruptionBudget, 1 Secret, 2 Service, 1 ServiceAccount, 1 StatefulSet
+  namespaces that must already exist: postgresql
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [NOTE] images tagged latest or not tagged: 1 (registry-1.docker.io/bitnami/postgresql:latest). The same name can pull different bytes later
+
+Schema
+  [PASS] schema validation: 7 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

@@ -1,0 +1,52 @@
+{
+  "id": "helm-external-secrets",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "external-secrets-external-secrets-2-8-0-default",
+  "before": "base",
+  "chart": {
+    "name": "external-secrets",
+    "version": "2.8.0",
+    "repository": "https://charts.external-secrets.io",
+    "url": "https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.8.0/external-secrets-2.8.0.tgz",
+    "sha256": "sha256:251e4615013c6d2f9ade5cedf1cd8615613f286bfc381e44fb005f197e611ecd",
+    "lockedSha256": "sha256:251e4615013c6d2f9ade5cedf1cd8615613f286bfc381e44fb005f197e611ecd",
+    "crdsFolder": 0
+  },
+  "render": {
+    "release": "external-secrets",
+    "namespace": "external-secrets",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/external-secrets-external-secrets-2-8-0-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/release-objects.yaml": "sha256:bb3555fb22fc50b3cebf8a96068d20a887fcf58fc52cb3785704928cdaf40be3"
+  },
+  "commands": [
+    "helm template external-secrets external-secrets --repo https://charts.external-secrets.io --version 2.8.0 --namespace external-secrets --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "files": {
+    "before/before.yaml": "sha256:40f83af77c0ba0146430a96a794c0d42fb252d6dc4596915677cafce60e2cd87",
+    "transcripts/check-after.txt": "sha256:e63299b12b6c2711b5842402c0a3632afb9f94ae349cf28835b13565651e8382",
+    "transcripts/check-before.txt": "sha256:a1dae1f91b55de3bf367797fb533ecd0c045fae2ba127c2f81f6eef6dd895b6f"
+  }
+}

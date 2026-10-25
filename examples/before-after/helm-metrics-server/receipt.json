@@ -1,0 +1,53 @@
+{
+  "id": "helm-metrics-server",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "metrics-server-metrics-server-3-14-0-default",
+  "before": "base",
+  "chart": {
+    "name": "metrics-server",
+    "version": "3.14.0",
+    "repository": "https://kubernetes-sigs.github.io/metrics-server/",
+    "url": "https://github.com/kubernetes-sigs/metrics-server/releases/download/metrics-server-helm-chart-3.14.0/metrics-server-3.14.0.tgz",
+    "sha256": "sha256:c2ca1185c01e6e7f53dd1b7d131f0c9b3fa50e003ed068b784563a1b5a3422a1",
+    "lockedSha256": "sha256:c2ca1185c01e6e7f53dd1b7d131f0c9b3fa50e003ed068b784563a1b5a3422a1",
+    "crdsFolder": 0
+  },
+  "render": {
+    "release": "metrics-server",
+    "namespace": "kube-system",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/metrics-server-metrics-server-3-14-0-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/rendered/release-objects.yaml": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2"
+  },
+  "commands": [
+    "helm template metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/ --version 3.14.0 --namespace kube-system -f values.yaml --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/metrics-server/metrics-server/3.14.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "files": {
+    "before/before.yaml": "sha256:6e0dc279447462b6ad2ca64f6af6e40c5fac2057c1d6498933d720ffd7d810b2",
+    "before/values.yaml": "sha256:d5584b389725d7fd8de437157c50d3d5451b55b3d0b41e02b5ecf99a0986c806",
+    "transcripts/check-after.txt": "sha256:92a9b877574b0731a5a28467bbe4132ee3be81e6275ce1945f6730a82444c400",
+    "transcripts/check-before.txt": "sha256:535f0727c47cbf51677ce6a5bea5e3151020eca9a3125868eeec3f30e87b8800"
+  }
+}

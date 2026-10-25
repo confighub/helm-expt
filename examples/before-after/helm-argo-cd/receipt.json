@@ -1,0 +1,52 @@
+{
+  "id": "helm-argo-cd",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "argo-cd-argo-cd-10-7-0-default",
+  "before": "base",
+  "chart": {
+    "name": "argo-cd",
+    "version": "10.7.0",
+    "repository": "https://argoproj.github.io/argo-helm",
+    "url": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.7.0/argo-cd-10.7.0.tgz",
+    "sha256": "sha256:820d1abc8135cb882fa3c35dfe0f828f98134b0769cbbd280d140ddc89fb9935",
+    "lockedSha256": "sha256:820d1abc8135cb882fa3c35dfe0f828f98134b0769cbbd280d140ddc89fb9935",
+    "crdsFolder": 0
+  },
+  "render": {
+    "release": "argo-cd",
+    "namespace": "argocd",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/argo-cd-argo-cd-10-7-0-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml": "sha256:5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface"
+  },
+  "commands": [
+    "helm template argo-cd argo-cd --repo https://argoproj.github.io/argo-helm --version 10.7.0 --namespace argocd --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "files": {
+    "before/before.yaml": "sha256:bc038ed97363f89258f9fb1b858431e905fa0547cf7758522e787e8a496926e0",
+    "transcripts/check-after.txt": "sha256:80d851bbbe3be80317d59f5dfff1f569f2fbd8e2e980f2180dbe14b569d02514",
+    "transcripts/check-before.txt": "sha256:4f709803f141119e72746fa05e96e9fa5babe082cad3dd886d2f8c109904e09e"
+  }
+}

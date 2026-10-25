@@ -1,0 +1,51 @@
+{
+  "id": "helm-gatekeeper",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "gatekeeper-gatekeeper-3-22-2-default",
+  "before": "base",
+  "chart": {
+    "name": "gatekeeper",
+    "version": "3.22.2",
+    "repository": "https://open-policy-agent.github.io/gatekeeper/charts",
+    "sha256": "sha256:aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801",
+    "lockedSha256": "sha256:aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801",
+    "crdsFolder": 17
+  },
+  "render": {
+    "release": "gatekeeper",
+    "namespace": "default",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml": "sha256:757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d"
+  },
+  "commands": [
+    "helm template gatekeeper gatekeeper --repo https://open-policy-agent.github.io/gatekeeper/charts --version 3.22.2 --namespace default --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "files": {
+    "before/before.yaml": "sha256:22b61d8932ccbe0ebdc06606d7ce369ab3669fdf703e1d60001c531efae6ad56",
+    "transcripts/check-after.txt": "sha256:ccc2e04fc38aa6494095672f47cde3e5dac25ea27ef7d766ee6e4195272f2223",
+    "transcripts/check-before.txt": "sha256:f70f9ced551196dc82461434b957e20ede52d93d40e6db6b8cef8256b7f0db75"
+  }
+}

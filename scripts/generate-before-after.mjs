@@ -15,11 +15,11 @@
 // pages read these files and nothing else, so a page cannot show an output that
 // was not recorded here.
 
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
-import { check, repoRoot, sha256 } from "./lib/proof-common.mjs";
+import { check, py, readYamlText, repoRoot, sha256 } from "./lib/proof-common.mjs";
 
 export const BEFORE_AFTER_ROOT = "examples/before-after";
 export const EXAMPLES_REPO = "https://github.com/confighub/examples";
@@ -36,6 +36,22 @@ export const SCREENSHOTS = {
   "flux-beginner": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "flux-apps-base", shows: "the apps layer's base and its dev and prod variants, each at release 1" },
 };
 
+// Helm charts shown from a Catalog entry. "before" is what a person renders
+// today: "base" uses the same values as the entry's base, "defaults" uses the
+// chart's own defaults, which is how most people start. The listing names the
+// render inputs, the retained objects and the plan.
+export const HELM_EXAMPLES = [
+  { id: "helm-redis", listing: "bitnami-redis-25-5-3-reuse-existing-secret", before: "defaults" },
+  { id: "helm-postgresql", listing: "bitnami-postgresql-18-7-0-existing-secret", before: "defaults" },
+  { id: "helm-ingress-nginx", listing: "ingress-nginx-ingress-nginx-4-15-1-default", before: "base" },
+  { id: "helm-cert-manager", listing: "jetstack-cert-manager-v1-21-1-crds-enabled", before: "base" },
+  { id: "helm-kube-prometheus-stack", listing: "prometheus-community-kube-prometheus-stack-88-6-3-default", before: "base" },
+  { id: "helm-argo-cd", listing: "argo-cd-argo-cd-10-7-0-default", before: "base" },
+  { id: "helm-external-secrets", listing: "external-secrets-external-secrets-2-8-0-default", before: "base" },
+  { id: "helm-metrics-server", listing: "metrics-server-metrics-server-3-14-0-default", before: "base" },
+  { id: "helm-gatekeeper", listing: "gatekeeper-gatekeeper-3-22-2-default", before: "base" },
+];
+
 const GPU_LISTING = "site/listings/nvidia-gpu-operator-v26-3-3-default.json";
 const GPU_SOURCE_LOCK = "recipes/nvidia/gpu-operator/v26.3.3/source-lock.yaml";
 const GPU_RETAINED = "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml";
@@ -47,7 +63,15 @@ const sha = (bytes) => `sha256:${sha256(bytes)}`;
 const run = (command, args, options = {}) => execFileSync(command, args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, ...options });
 // cub prints its result on stdout and its notes on stderr, so a transcript
 // keeps both, in the order a terminal shows them.
-const transcript = (args, cwd) => run("sh", ["-c", `cub ${args.map((arg) => `'${arg}'`).join(" ")} 2>&1`], { cwd });
+// A note about the machine's own ConfigHub sign-in is left out: these commands
+// read local files only, and the note says nothing about the example.
+// A command that reports a failure is recorded as it printed, with its exit
+// code, because the failure is part of what the page shows.
+const transcript = (args, cwd) => {
+  const result = spawnSync("sh", ["-c", `cub ${args.map((arg) => `'${arg}'`).join(" ")} 2>&1`], { cwd, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+  const text = result.stdout.split("\n").filter((line) => !/^Warning: the session for context /.test(line)).join("\n");
+  return result.status === 0 ? text : `${text.replace(/\n*$/, "\n")}[exit ${result.status}]\n`;
+};
 
 function filesUnder(dir) {
   if (!existsSync(dir)) return [];
@@ -68,7 +92,9 @@ function copyYaml(from, to) {
 function toolVersions() {
   const plugin = (name) => readFileSync(join(process.env.HOME, ".confighub/plugins", name, "cub-plugin.yaml"), "utf8").match(/^version:\s*(\S+)/m)?.[1];
   return {
-    cub: run("cub", ["version"]).match(/^\s+Version:[ \t]+(v\S+)/m)?.[1],
+    // cub version also asks the server, and exits 1 when the selected
+    // context's sign-in has expired; the client version is printed either way.
+    cub: spawnSync("cub", ["version"], { encoding: "utf8" }).stdout.match(/^\s+Version:[ \t]+(v\S+)/m)?.[1],
     workshopPlugin: plugin("workshop"),
     argoPlugin: plugin("argo"),
     fluxPlugin: plugin("flux"),
@@ -137,6 +163,67 @@ function generateHelm(work, out) {
   };
 }
 
+const yamlDump = (value) => py("import json, sys, yaml\nprint(json.dumps(yaml.safe_dump(json.load(sys.stdin), sort_keys=False)))", JSON.stringify(value));
+
+function generateHelmListing(work, out, spec) {
+  const intentPath = `data/helm-render-intents/intents/${spec.listing}.yaml`;
+  const intent = readYamlText(readFileSync(join(repoRoot, intentPath), "utf8")).spec;
+  const ri = intent.renderInputs;
+  const lock = readYamlText(readFileSync(join(repoRoot, ri.sourceLock), "utf8")).spec;
+  const dir = join(work, spec.id);
+  mkdirSync(join(dir, "chart"), { recursive: true });
+  const url = lock.exactArtifact?.url?.startsWith("http") ? lock.exactArtifact.url : "";
+  if (url) run("curl", ["-fsSL", "-o", join(dir, "chart", "chart.tgz"), url]);
+  else run("helm", ["pull", lock.chart, "--repo", lock.repositoryURL, "--version", String(lock.version), "-d", join(dir, "chart")]);
+  const chart = filesUnder(join(dir, "chart"))[0];
+  const chartSha = sha256(readFileSync(chart));
+  if (lock.packageSHA256) check(chartSha === lock.packageSHA256, `${spec.listing}: the downloaded chart differs from ${ri.sourceLock}`);
+  const baseValues = readYamlText(readFileSync(join(repoRoot, ri.valuesProfile), "utf8")).spec.values ?? {};
+  const beforeValues = spec.before === "base" ? baseValues : {};
+  const kube = ri.capabilityProfile?.kubeVersion || "1.30.0";
+  const valuesArgs = (values, path) => (Object.keys(values).length ? ["-f", path] : []);
+  mkdirSync(join(out, "before"), { recursive: true });
+  mkdirSync(join(out, "after"), { recursive: true });
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  if (Object.keys(beforeValues).length) writeFileSync(join(out, "before/values.yaml"), yamlDump(beforeValues));
+  if (spec.before === "defaults" && Object.keys(baseValues).length) writeFileSync(join(out, "after/values.yaml"), yamlDump(baseValues));
+  writeFileSync(join(dir, "values.yaml"), yamlDump(beforeValues));
+  const template = ["template", ri.releaseName, chart, "--namespace", ri.namespace, ...valuesArgs(beforeValues, join(dir, "values.yaml")), "--kube-version", kube];
+  const before = run("helm", template);
+  writeFileSync(join(out, "before/before.yaml"), before);
+  writeFileSync(join(dir, "before.yaml"), before);
+  const again = run("helm", template);
+  if (again !== before) {
+    writeFileSync(join(out, "before/before-again.yaml"), again);
+    writeFileSync(join(dir, "before-again.yaml"), again);
+    writeFileSync(join(out, "transcripts/diff-rerender.txt"), transcript(["config", "diff", "before.yaml", "before-again.yaml", "--summary"], dir));
+  }
+  const crdsFolder = [].concat(readYamlText(run("helm", ["show", "crds", chart])) ?? []).filter((doc) => doc?.kind === "CustomResourceDefinition").length;
+  const after = readFileSync(join(repoRoot, intent.renderOutput.renderedObjects));
+  writeFileSync(join(dir, "after.yaml"), after);
+  writeFileSync(join(out, "transcripts/check-before.txt"), transcript(["config", "check", "before.yaml"], dir));
+  writeFileSync(join(out, "transcripts/check-after.txt"), transcript(["config", "check", "after.yaml"], dir));
+  const repoFlag = `--repo ${lock.repositoryURL} --version ${lock.version}`;
+  return {
+    listing: spec.listing,
+    before: spec.before,
+    chart: { name: lock.chart, version: String(lock.version), repository: lock.repositoryURL, ...(url ? { url } : {}), sha256: `sha256:${chartSha}`, lockedSha256: lock.packageSHA256 ? `sha256:${lock.packageSHA256}` : null, crdsFolder },
+    render: { release: ri.releaseName, namespace: ri.namespace, kubeVersion: kube },
+    sources: [{ what: "the render inputs", recordedIn: intentPath }],
+    repoFiles: { [intent.renderOutput.renderedObjects]: sha(after) },
+    commands: [
+      `helm template ${ri.releaseName} ${lock.chart} ${repoFlag} --namespace ${ri.namespace}${Object.keys(beforeValues).length ? " -f values.yaml" : ""} --kube-version ${kube} > before.yaml`,
+      "cub config check before.yaml",
+      "cub config check after.yaml",
+      ...(again !== before ? ["cub config diff before.yaml before-again.yaml --summary"] : []),
+    ],
+    notes: [
+      `after.yaml is ${intent.renderOutput.renderedObjects}, the objects the Catalog keeps for this base, so it is not stored twice.`,
+      ...(lock.packageSHA256 ? [] : [`${ri.sourceLock} records no SHA-256 for the chart, so the one downloaded is recorded here.`]),
+    ],
+  };
+}
+
 function generateKustomize(examples, out) {
   copyYaml(join(examples, KUSTOMIZE_PATH), join(out, "before"));
   mkdirSync(join(out, "after"), { recursive: true });
@@ -193,6 +280,7 @@ function writeReceipt(id, out, recorded, tools) {
   for (const [path, text] of Object.entries(files).filter(([path]) => !path.endsWith(".png"))) check(!/\/private\/|\/tmp\/|\/Users\//.test(path + text), `${id}/${path} names a local path`);
   for (const path of filesUnder(join(out, "transcripts"))) {
     check(!/\/private\/|\/tmp\/|\/Users\//.test(readFileSync(path, "utf8")), `${relative(repoRoot, path)} names a local path`);
+    check(!/session for context|cub auth login/.test(readFileSync(path, "utf8")), `${relative(repoRoot, path)} carries a note about this machine's ConfigHub sign-in`);
   }
   const receipt = { id, generatedBy: "scripts/generate-before-after.mjs", recordedOn: new Date().toISOString().slice(0, 10), tools, ...recorded, ...(SCREENSHOTS[id] && existsSync(join(out, SCREENSHOTS[id].file)) ? { confighub: SCREENSHOTS[id] } : {}), files };
   writeFileSync(join(out, "receipt.json"), `${JSON.stringify(receipt, null, 2)}\n`);
@@ -208,6 +296,7 @@ function generate() {
       "kustomize-apptique": (out) => generateKustomize(examples, out),
       "argo-app-of-apps": (out) => generateArgo(examples, work, out),
       "flux-beginner": (out) => generateFlux(examples, work, out),
+      ...Object.fromEntries(HELM_EXAMPLES.map((spec) => [spec.id, (out) => generateHelmListing(work, out, spec)])),
     };
     const only = process.argv.slice(3);
     for (const [id, make] of Object.entries(build).filter(([name]) => only.length === 0 || only.includes(name))) {

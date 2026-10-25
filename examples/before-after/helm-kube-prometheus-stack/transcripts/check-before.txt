@@ -1,0 +1,20 @@
+
+Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  122 objects: 1 Alertmanager, 5 ClusterRole, 5 ClusterRoleBinding, 32 ConfigMap, 1 DaemonSet, 3 Deployment, 2 Job, 1 MutatingWebhookConfiguration, 1 Prometheus, 35 PrometheusRule, 1 Role, 1 RoleBinding, 2 Secret, 11 Service, 7 ServiceAccount, 13 ServiceMonitor, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: kube-system, monitoring
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [NOTE] Helm hooks: 7
+  [NOTE] setup Jobs: 2
+  [NOTE] admission webhooks needing a certificate: 2
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 122 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

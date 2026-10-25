@@ -1,0 +1,20 @@
+
+Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  18 objects: 2 ClusterRole, 2 ClusterRoleBinding, 1 ConfigMap, 1 Deployment, 1 IngressClass, 2 Job, 2 Role, 2 RoleBinding, 2 Service, 2 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: ingress-nginx
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [NOTE] Helm hooks: 7
+  [NOTE] setup Jobs: 2
+  [NOTE] admission webhooks needing a certificate: 1
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 18 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

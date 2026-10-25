@@ -1,0 +1,51 @@
+{
+  "id": "helm-ingress-nginx",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "ingress-nginx-ingress-nginx-4-15-1-default",
+  "before": "base",
+  "chart": {
+    "name": "ingress-nginx",
+    "version": "4.15.1",
+    "repository": "https://kubernetes.github.io/ingress-nginx",
+    "sha256": "sha256:3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c",
+    "lockedSha256": "sha256:3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c",
+    "crdsFolder": 0
+  },
+  "render": {
+    "release": "ingress-nginx",
+    "namespace": "ingress-nginx",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml": "sha256:257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d"
+  },
+  "commands": [
+    "helm template ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --version 4.15.1 --namespace ingress-nginx --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "files": {
+    "before/before.yaml": "sha256:ddf1c7dc0dec091b5a18785e49dc222adcd13e99f205a211cffd7c924a455a21",
+    "transcripts/check-after.txt": "sha256:356b1d678be7c6f63438d337e9757c4bb3f91f16242938db110ecf4fcaf0e552",
+    "transcripts/check-before.txt": "sha256:019a7d2afddf25338fdb72573daf69142a08dd49ed22a6e97ac322f52ec6e762"
+  }
+}

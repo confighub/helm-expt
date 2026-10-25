@@ -652,6 +652,51 @@
           <p>Helm hides 8 hook objects among the 27 it renders. The bundle holds the 24 objects to apply, CRDs first, and a plan for the hooks.</p>
         </article>
         <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-redis.html">See what the Bitnami Redis Helm chart becomes</a></h3>
+          <p>With the chart's defaults every render writes a new random password. The Catalog's base holds no Secret and names the one you create.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-postgresql.html">See what the Bitnami PostgreSQL Helm chart becomes</a></h3>
+          <p>With the chart's defaults every render writes a new random password. The Catalog's base holds no Secret and names the one you create.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-ingress-nginx.html">See what the ingress-nginx Helm chart becomes</a></h3>
+          <p>Helm mixes 7 hook objects into the 18 it renders. The base holds the 11 objects to apply and a plan of 1 step.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-cert-manager.html">See what the cert-manager Helm chart becomes</a></h3>
+          <p>Helm mixes 4 hook objects into the 50 it renders. The base holds the 46 objects to apply and a plan of 2 steps.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-kube-prometheus-stack.html">See what the kube-prometheus-stack Helm chart becomes</a></h3>
+          <p>Helm mixes 7 hook objects into the 122 it renders. The base holds the 125 objects to apply, 10 CRDs among them, and a plan of 19 steps.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-argo-cd.html">See what the Argo CD Helm chart becomes</a></h3>
+          <p>Helm mixes 4 hook objects into the 59 it renders. The base holds the 55 objects to apply and a plan of 3 steps.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-external-secrets.html">See what the External Secrets Helm chart becomes</a></h3>
+          <p>The 44 objects are the same on both sides. The Workshop adds a plan of 2 steps the objects do not say.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-metrics-server.html">See what the metrics-server Helm chart becomes</a></h3>
+          <p>The same 9 objects on both sides and an empty plan. This chart can be applied as its objects are.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-gatekeeper.html">See what the Gatekeeper Helm chart becomes</a></h3>
+          <p>Helm mixes 8 hook objects into the 21 it renders. The base holds the 30 objects to apply, 17 CRDs among them, and a plan of 4 steps.</p>
+        </article>
+        <article class="door">
           <span class="kicker">Kustomize overlays</span>
           <h3><a href="./before-after-kustomize-apptique.html">See what dev and prod Kustomize overlays become</a></h3>
           <p>A base, two overlays and their patches become two flat files, and one table lists every field that differs.</p>
@@ -667,7 +712,7 @@
           <p>Flux keeps reconciling. Each layer's Kustomization keeps its name and settings, and changes only where it reads from.</p>
         </article>
       </div>
-      <style>.ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>
     <section aria-labelledby="apps-change-path">
       <h2 id="apps-change-path">See what changes—and what stays yours</h2>
