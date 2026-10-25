@@ -1,0 +1,48 @@
+{
+  "id": "helm-gpu-operator",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.2",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the chart",
+      "url": "https://helm.ngc.nvidia.com/nvidia/charts/gpu-operator-v26.3.3.tgz",
+      "sha256": "sha256:59abb5852a24b3ae0ef757bfea3051f419acbf559ee5efd72f0672d28af56a68",
+      "recordedIn": "recipes/nvidia/gpu-operator/v26.3.3/source-lock.yaml"
+    },
+    {
+      "what": "the published bundle",
+      "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e",
+      "recordedIn": "site/listings/nvidia-gpu-operator-v26-3-3-default.json"
+    }
+  ],
+  "repoFiles": {
+    "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml": "sha256:73ebb5f6de3d1f010330d266db11b99b508be84dfc92b9d5deb01a39b66fee7c"
+  },
+  "commands": [
+    "helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator > before.yaml",
+    "oras pull europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "before.yaml was rendered from the chart file above. Rendering with --repo gives the same bytes.",
+    "after.yaml is the bundle's upstream.yaml. It is byte for byte recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001/rendered/release-objects.yaml, so it is not stored twice."
+  ],
+  "files": {
+    "after/bundle/README.md": "sha256:ac95b0e7e3cccacc44313532a19a3ede85b87a3ba49df2dfee7eaac1cfb9e012",
+    "after/bundle/requirements/target-requirements.yaml": "sha256:362ea2702d4e0ba155b4773b8b99c8d0e9101b0b45f6890c6f3913f1bf4a9942",
+    "after/bundle/routes/crd-ordering.yaml": "sha256:d5e98c6ace3536eddf692d34d9212c5f7b2cf4ea3d351ac1d9b76fe825db1b77",
+    "after/bundle/routes/lifecycle-actions.yaml": "sha256:2edf2358a7e32955653f000d97735f94378ae28d79deaf75a8db9cd9ffc68476",
+    "before/before.yaml": "sha256:16cb9475548637eefeefd023f6ee8280aba88ebfa03c3761c9e5d2552b115bc0",
+    "transcripts/check-after.txt": "sha256:c0bbc307a1b6d26165a0a7c490d361e0e431ff714bc4d5e0a8d0f3f803ae5663",
+    "transcripts/check-before.txt": "sha256:34451f94459a501d000f078f8dc4d488efa944679bf861e5fe578091f05dbb0d"
+  }
+}

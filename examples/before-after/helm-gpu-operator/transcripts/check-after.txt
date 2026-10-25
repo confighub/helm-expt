@@ -1,0 +1,20 @@
+
+Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  24 objects: 1 ClusterPolicy, 3 ClusterRole, 3 ClusterRoleBinding, 2 ConfigMap, 5 CustomResourceDefinition, 1 DaemonSet, 3 Deployment, 2 Role, 2 RoleBinding, 2 ServiceAccount
+  namespaces that must already exist: gpu-operator
+
+Lifecycle work
+  [NOTE] CRDs: 5 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 24 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

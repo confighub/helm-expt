@@ -1,0 +1,43 @@
+{
+  "id": "kustomize-apptique",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.2",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the dev and prod overlays",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique"
+    }
+  ],
+  "commands": [
+    "kustomize build dev > dev.yaml",
+    "kustomize build prod > prod.yaml",
+    "cub config check dev.yaml",
+    "cub config check prod.yaml"
+  ],
+  "notes": [
+    "dev.yaml and prod.yaml are built from the files under before/, so the stored inputs give the stored outputs."
+  ],
+  "files": {
+    "after/dev.yaml": "sha256:ad8c0ccc045a5282ede2d4775e9d0d5ec8b5d2833e3ef0c67e79283431cd54cb",
+    "after/prod.yaml": "sha256:3fb29e7c7f22f00712779de83252f5580fe2c0e013b06abab38994f3ace8d219",
+    "before/base/deployment.yaml": "sha256:2ae48be95b8792f2fa052efaf33462869515fa22c6d6cd67d3c611868491fe4d",
+    "before/base/kustomization.yaml": "sha256:4c05aae8b6d3561e6b60f78000bf3c205996db5a699b2114c18d6bb74a7ff4ea",
+    "before/base/service.yaml": "sha256:4d47fefd33b97ef46bdd191f5efa491385bab8fba5d60b3d3cfdcf34d16b5441",
+    "before/dev/kustomization.yaml": "sha256:c210d0821072978dd0ed329cf97f55445b93b69a65386c440ae950803fa5de2b",
+    "before/dev/namespace.yaml": "sha256:ad75eb999d959e1b4ef16e380359f16ed7effa9478be68581a2b79c6e9ecd616",
+    "before/prod/kustomization.yaml": "sha256:f65dd4229544a974692f36d5913c3d066c734d80b3a5436db221e2662143bc59",
+    "before/prod/namespace.yaml": "sha256:7443ec601264c8a5554ae8e51b40c0f3cb07692b82e8c6a898d34445193df6c6",
+    "transcripts/check-dev.txt": "sha256:38b1520a2def4638a039b004e8977145f945b60584f778756da6de6aa7368248",
+    "transcripts/check-prod.txt": "sha256:6e5bab13eebbe3aafde133199099fbed06c7abc0a938e74ebabbc4a7598d5d22"
+  }
+}

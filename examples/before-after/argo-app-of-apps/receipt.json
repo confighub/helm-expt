@@ -1,0 +1,41 @@
+{
+  "id": "argo-app-of-apps",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.2",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the app of apps",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/argo/beginner-app-of-apps"
+    }
+  ],
+  "commands": [
+    "cub argo plan .",
+    "cub argo apply . --out onboard"
+  ],
+  "notes": [
+    "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+    "after/ keeps the Applications as Argo CD has them today (control/) and as they read after the handover (repointed/). The scripts that apply also writes are left out, because they name the directory they were written to."
+  ],
+  "files": {
+    "after/control/argo-apptique-apps-children/apptique-dev.yaml": "sha256:8a3f1a977fa9f99f8627365489015f0f5653f5b2100d7bb0e8cb5b7e4c394cc8",
+    "after/control/argo-apptique-apps-children/apptique-prod.yaml": "sha256:4c4bc5a728523549395a7ed8fafd8e25eed82435ab186a6228fafc67f316b252",
+    "after/repointed/argo-apptique-apps-children/apptique-dev.yaml": "sha256:e7eca7d914a479b6ffc1feac1114a05c388db470ad740277c06ed650b0ef6307",
+    "after/repointed/argo-apptique-apps-children/apptique-prod.yaml": "sha256:2fbb7959c96e9a2a24010213b4d4b5b4f711d6457718c73134b5f3a9925d0704",
+    "before/apps/apptique-dev.yaml": "sha256:8a3f1a977fa9f99f8627365489015f0f5653f5b2100d7bb0e8cb5b7e4c394cc8",
+    "before/apps/apptique-prod.yaml": "sha256:4c4bc5a728523549395a7ed8fafd8e25eed82435ab186a6228fafc67f316b252",
+    "before/manifests/apptique/dev/deployment.yaml": "sha256:07a7be8b0a324918c5729e9a050ef1364142a307cf4a8784936d7b777acc4449",
+    "before/manifests/apptique/prod/deployment.yaml": "sha256:fcca4f7fd8d98764fe9a066a40367d2420a36e4d9fb1e8ace3ab349bf49917f0",
+    "before/root/root-app.yaml": "sha256:4e135867baad83ace17da8c808dbb2c0c1d0255fc84469cb3e25858fa8f6c53a",
+    "transcripts/argo-plan.txt": "sha256:8278f6978840d7b51f93b48ac834f29e97c6208723c675ea5e49ad7068224dea"
+  }
+}
