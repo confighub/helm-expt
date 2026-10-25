@@ -27,6 +27,13 @@
     "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
     "after/layers/ keeps what Flux runs for each cluster and layer after the handover. __CONFIGHUB_OCI__ and __CONFIGHUB_OCI_INSECURE__ are placeholders the handover script fills. The scripts that apply also writes are left out, because they name the directory they were written to."
   ],
+  "confighub": {
+    "file": "confighub/components.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "space": "flux-apps-base",
+    "shows": "the apps layer's base and its dev and prod variants, each at release 1"
+  },
   "files": {
     "after/layers/dev/apps.yaml": "sha256:f69baedf176161f29017f6448e652faa9139e449034b2f75484f948d419bc398",
     "after/layers/dev/infrastructure.yaml": "sha256:ac2382050d7ec9c8e1310933a758c05e1ca65bfd2a3fce75c20371bbac919dc6",
@@ -47,6 +54,7 @@
     "before/infrastructure/base/sources/apptique-examples.yaml": "sha256:10aca3800669875f8a08e18515b31eea5ab16fe8fe8e7c5487db9d4e0f574c25",
     "before/infrastructure/dev/kustomization.yaml": "sha256:73fd64a75cef41286542730f0996e65595c9535844c5fc9cb80a61d7c21bdad4",
     "before/infrastructure/prod/kustomization.yaml": "sha256:73fd64a75cef41286542730f0996e65595c9535844c5fc9cb80a61d7c21bdad4",
+    "confighub/components.png": "sha256:cbc84e774aa882063eaf330e9767457645efe834d683e9dc6c8b611b79d12176",
     "transcripts/flux-plan.txt": "sha256:23eb8ad75d2856fef6b8e63eee8400c4ce8fcc4d440b8210228ca597c689cc90"
   }
 }

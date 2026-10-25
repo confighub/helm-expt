@@ -20,7 +20,7 @@ import {
 import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
-import { BEFORE_AFTER_PAGES, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY } from "./lib/before-after-pages.mjs";
+import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -1041,6 +1041,7 @@ if (mode === "--generate") {
   write(kubaraGuidePath, site.kubaraGuideHtml);
   for (const journey of JOURNEY_PAGES) write(join(siteRoot, journey.file), site[journey.key]);
   for (const guide of SPLIT_PAGES) write(join(siteRoot, guide.file), site[guide.key]);
+  for (const asset of beforeAfterAssets()) write(join(siteRoot, asset.site), readFileSync(join(repoRoot, asset.from)));
   write(askPath, site.askHtml);
   write(promotePath, site.promoteHtml);
   write(ignoredValuesPath, site.ignoredValuesHtml);
@@ -1206,6 +1207,7 @@ if (mode === "--generate") {
   check(readFileSync(kubaraGuidePath, "utf8") === site.kubaraGuideHtml, "site/bring-kubara-into-confighub.html is stale");
   for (const journey of JOURNEY_PAGES) check(readFileSync(join(siteRoot, journey.file), "utf8") === site[journey.key], `site/${journey.file} is stale`);
   for (const guide of SPLIT_PAGES) check(readFileSync(join(siteRoot, guide.file), "utf8") === site[guide.key], `site/${guide.file} is stale`);
+  for (const asset of beforeAfterAssets()) check(existsSync(join(siteRoot, asset.site)) && readFileSync(join(siteRoot, asset.site)).equals(readFileSync(join(repoRoot, asset.from))), `site/${asset.site} is stale`);
   check(existsSync(askPath), "site/ask.html is missing; run npm run site:generate");
   check(readFileSync(askPath, "utf8") === site.askHtml, "site/ask.html is stale");
   check(existsSync(promotePath), "site/promote.html is missing; run npm run site:generate");

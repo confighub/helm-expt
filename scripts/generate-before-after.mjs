@@ -4,6 +4,8 @@
 //
 //   node scripts/generate-before-after.mjs --generate [id ...]   needs the network, helm,
 //       kustomize, oras, git and cub with the workshop, argo and flux plugins
+//   node scripts/generate-before-after.mjs --screenshots   records the ConfigHub
+//       screenshots under <id>/confighub/ in each receipt
 //   node scripts/generate-before-after.mjs --verify     offline
 //
 // Each example keeps the files a person has today under before/, what the
@@ -22,6 +24,17 @@ import { check, repoRoot, sha256 } from "./lib/proof-common.mjs";
 export const BEFORE_AFTER_ROOT = "examples/before-after";
 export const EXAMPLES_REPO = "https://github.com/confighub/examples";
 export const EXAMPLES_COMMIT = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
+
+// Screenshots of each example as ConfigHub holds it, taken in a browser and
+// cropped by hand, so they are recorded here rather than made by --generate.
+// Each was loaded with the commands its page prints. A crop leaves out the
+// activity feed and the account menu, which name the person signed in.
+export const SCREENSHOTS = {
+  "helm-gpu-operator": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "before-after-gpu-operator", shows: "the Units of the Space the installer upload created, one for each object", note: "cub installer upload --component labelled the Space and created no Component, so it did not show in the Components view until cub component create and cub space update --component made one." },
+  "kustomize-apptique": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "before-after-apptique-base", shows: "the base and its dev and prod variants" },
+  "argo-app-of-apps": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "argo-apptique-dev-base", shows: "the apptique-dev base and its in-cluster variant at release 1" },
+  "flux-beginner": { file: "confighub/components.png", organization: "helm-catalog", takenOn: "2026-10-25", space: "flux-apps-base", shows: "the apps layer's base and its dev and prod variants, each at release 1" },
+};
 
 const GPU_LISTING = "site/listings/nvidia-gpu-operator-v26-3-3-default.json";
 const GPU_SOURCE_LOCK = "recipes/nvidia/gpu-operator/v26.3.3/source-lock.yaml";
@@ -177,11 +190,11 @@ function generateFlux(examples, work, out) {
 
 function writeReceipt(id, out, recorded, tools) {
   const files = Object.fromEntries(filesUnder(out).map((path) => [relative(out, path), sha(readFileSync(path))]));
-  for (const [path, text] of Object.entries(files)) check(!/\/private\/|\/tmp\/|\/Users\//.test(path + text), `${id}/${path} names a local path`);
+  for (const [path, text] of Object.entries(files).filter(([path]) => !path.endsWith(".png"))) check(!/\/private\/|\/tmp\/|\/Users\//.test(path + text), `${id}/${path} names a local path`);
   for (const path of filesUnder(join(out, "transcripts"))) {
     check(!/\/private\/|\/tmp\/|\/Users\//.test(readFileSync(path, "utf8")), `${relative(repoRoot, path)} names a local path`);
   }
-  const receipt = { id, generatedBy: "scripts/generate-before-after.mjs", recordedOn: new Date().toISOString().slice(0, 10), tools, ...recorded, files };
+  const receipt = { id, generatedBy: "scripts/generate-before-after.mjs", recordedOn: new Date().toISOString().slice(0, 10), tools, ...recorded, ...(SCREENSHOTS[id] && existsSync(join(out, SCREENSHOTS[id].file)) ? { confighub: SCREENSHOTS[id] } : {}), files };
   writeFileSync(join(out, "receipt.json"), `${JSON.stringify(receipt, null, 2)}\n`);
 }
 
@@ -199,13 +212,29 @@ function generate() {
     const only = process.argv.slice(3);
     for (const [id, make] of Object.entries(build).filter(([name]) => only.length === 0 || only.includes(name))) {
       const out = join(repoRoot, BEFORE_AFTER_ROOT, id);
-      rmSync(out, { recursive: true, force: true });
+      // The screenshots under confighub/ are not made here, so they stay.
+      for (const name of existsSync(out) ? readdirSync(out) : []) if (name !== "confighub") rmSync(join(out, name), { recursive: true, force: true });
       mkdirSync(out, { recursive: true });
       writeReceipt(id, out, make(out), tools);
       console.log(`recorded ${BEFORE_AFTER_ROOT}/${id}`);
     }
   } finally {
     rmSync(work, { recursive: true, force: true });
+  }
+}
+
+// Record the screenshots in each receipt without running anything else again.
+function recordScreenshots() {
+  for (const [id, shot] of Object.entries(SCREENSHOTS)) {
+    const out = join(repoRoot, BEFORE_AFTER_ROOT, id);
+    check(existsSync(join(out, shot.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.file} is missing`);
+    const receipt = JSON.parse(readFileSync(join(out, "receipt.json"), "utf8"));
+    const { files, ...rest } = receipt;
+    delete rest.confighub;
+    const all = Object.fromEntries(filesUnder(out).filter((path) => !path.endsWith("receipt.json")).map((path) => [relative(out, path), sha(readFileSync(path))]));
+    for (const [path, digest] of Object.entries(files)) check(all[path] === digest, `${BEFORE_AFTER_ROOT}/${id}/${path} changed since it was recorded; run --generate instead`);
+    writeFileSync(join(out, "receipt.json"), `${JSON.stringify({ ...rest, confighub: shot, files: all }, null, 2)}\n`);
+    console.log(`recorded ${BEFORE_AFTER_ROOT}/${id}/${shot.file}`);
   }
 }
 
@@ -225,6 +254,7 @@ export function verifyBeforeAfter() {
       check(receipt.files[path] === sha(readFileSync(join(dir, path))), `${BEFORE_AFTER_ROOT}/${id}/${path} changed since it was recorded`);
     }
     for (const path of Object.keys(receipt.files)) check(present.includes(path), `${BEFORE_AFTER_ROOT}/${id}/${path} is in the receipt and missing`);
+    if (receipt.confighub) check(receipt.files[receipt.confighub.file] && JSON.stringify(receipt.confighub) === JSON.stringify(SCREENSHOTS[id]), `${BEFORE_AFTER_ROOT}/${id}/receipt.json records a screenshot this script does not name`);
     for (const [path, digest] of Object.entries(receipt.repoFiles ?? {})) {
       check(digest === sha(readFileSync(join(repoRoot, path))), `${path} changed, and ${BEFORE_AFTER_ROOT}/${id} recorded it as its after file`);
     }
@@ -235,9 +265,10 @@ export function verifyBeforeAfter() {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const mode = process.argv[2];
   if (mode === "--generate") generate();
+  else if (mode === "--screenshots") recordScreenshots();
   else if (mode === "--verify") console.log(`before-after: ${verifyBeforeAfter().length} examples match their receipts`);
   else {
-    console.error("usage: node scripts/generate-before-after.mjs --generate | --verify");
+    console.error("usage: node scripts/generate-before-after.mjs --generate [id ...] | --screenshots | --verify");
     process.exit(2);
   }
 }

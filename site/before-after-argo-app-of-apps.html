@@ -455,6 +455,9 @@
     @media (max-width: 900px) { .ba-pair { grid-template-columns: 1fr; } }
     .ba-live { margin: 28px 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--surface); }
     .ba-live summary { cursor: pointer; font-weight: 600; }
+    .ba-ui { margin: 16px 0; }
+    .ba-ui img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .ba-ui figcaption { margin-top: 6px; font-size: .85rem; color: var(--muted); }
 
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
@@ -760,6 +763,8 @@ Next
 <span class="term-comment"># fill ConfigHub with the bases and variants the plan names; it changes no cluster</span>
 <span class="term-prompt">$</span> bash onboard/apply.sh</code></pre>
       <p><code>apply.sh</code> also needs <code>kustomize</code>. <code>onboard/cleanup.sh</code> takes everything back out. The handover, which moves Argo CD onto ConfigHub releases, is a separate step in <a href="./bring-argo-into-confighub.html#connect-deployment">the Argo CD Guide</a>.</p>
+      <h3 id="live-screenshot">What it looks like in ConfigHub</h3>
+      <figure class="ba-ui"><img src="./before-after/argo-app-of-apps-confighub.png" alt="ConfigHub showing the apptique-dev base and its in-cluster variant at release 1" loading="lazy"><figcaption>The helm-catalog organization on 2026-10-25, showing the apptique-dev base and its in-cluster variant at release 1. It was loaded as this panel describes.</figcaption></figure>
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>

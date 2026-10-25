@@ -100,6 +100,22 @@ function liveIntro() {
   return `<p>Everything above runs on your own machine with no account. To see the same example in ConfigHub, load it into your own organization with the commands below.</p>`;
 }
 
+// The screenshot the example's receipt records, copied into the site next to
+// the page. Its caption says where and when it was taken and what it shows.
+export function beforeAfterAssets() {
+  return BEFORE_AFTER_PAGES.flatMap((page) => {
+    const shot = receipt(page.id).confighub;
+    return shot ? [{ site: `before-after/${page.id}-confighub.png`, from: join(ROOT, page.id, shot.file) }] : [];
+  });
+}
+
+function liveScreenshot(id, escapeHtml) {
+  const shot = receipt(id).confighub;
+  if (!shot) return "";
+  return `<h3 id="live-screenshot">What it looks like in ConfigHub</h3>
+      <figure class="ba-ui"><img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}" loading="lazy"><figcaption>${escapeHtml(`The ${shot.organization} organization on ${shot.takenOn}, showing ${shot.shows}. It was loaded as this panel describes.${shot.note ? ` ${shot.note}` : ""}`)}</figcaption></figure>`;
+}
+
 function helmPage(h) {
   const { check, escapeHtml, markdownLikeTable, commandBlock, listing } = h;
   const id = "helm-gpu-operator";
@@ -193,7 +209,8 @@ function helmPage(h) {
         { comment: "load the objects as a Space of Units, under names you choose", cmd: upload[1].command },
         { comment: "list what was loaded", cmd: upload[2].command },
       ])}
-      <p>These are the commands on the entry page. The Catalog has not run the upload for this entry.</p>
+      <p>These are the commands on the entry page. The screenshot below shows one run of them. The Catalog's own record for this entry still holds no upload.</p>
+      ${liveScreenshot("helm-gpu-operator", escapeHtml)}
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
@@ -271,6 +288,7 @@ function kustomizePage(h) {
       ${liveIntro()}
       <h3 id="live-own-account">With your own account</h3>
       <p>The Guide <a href="./d/docs/user/workshop-review-a-change-guide.html">Review one change before it ships</a> loads this same app into ConfigHub as one base with a dev and a prod variant. A recorded run of it checked that what ConfigHub held for prod matched this prod build.</p>
+      ${liveScreenshot("kustomize-apptique", escapeHtml)}
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
@@ -350,6 +368,7 @@ function argoPage(h) {
         { comment: "fill ConfigHub with the bases and variants the plan names; it changes no cluster", cmd: "bash onboard/apply.sh" },
       ])}
       <p><code>apply.sh</code> also needs <code>kustomize</code>. <code>onboard/cleanup.sh</code> takes everything back out. The handover, which moves Argo CD onto ConfigHub releases, is a separate step in <a href="./bring-argo-into-confighub.html#connect-deployment">the Argo CD Guide</a>.</p>
+      ${liveScreenshot("argo-app-of-apps", escapeHtml)}
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
@@ -444,6 +463,7 @@ function fluxPage(h) {
         { comment: "fill ConfigHub with the bases and variants the plan names; it changes no cluster", cmd: "CONFIGHUB_OCI=<gateway> bash onboard/apply.sh" },
       ])}
       <p><code>onboard/cleanup.sh</code> takes everything back out. The handover, which moves Flux onto ConfigHub releases one cluster at a time, is a separate step in <a href="./bring-flux-into-confighub.html#connect-deployment">the Flux Guide</a>.</p>
+      ${liveScreenshot("flux-beginner", escapeHtml)}
     </details>
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
@@ -471,6 +491,9 @@ function baCss() {
     @media (max-width: 900px) { .ba-pair { grid-template-columns: 1fr; } }
     .ba-live { margin: 28px 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--surface); }
     .ba-live summary { cursor: pointer; font-weight: 600; }
+    .ba-ui { margin: 16px 0; }
+    .ba-ui img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .ba-ui figcaption { margin-top: 6px; font-size: .85rem; color: var(--muted); }
 `;
 }
 
