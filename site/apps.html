@@ -624,12 +624,12 @@
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc">
-<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
+<nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./apps.html#before-and-after">What does my config look like before and after?</a></li><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p><ul><li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p><ul><li><a href="./ai.html#install-skill">Set up my AI agent</a></li><li><a href="./ask.html">Check my charts and values</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><ul><li><a href="./deploy-one-thing.html">Deploy one thing</a></li><li><a href="./how-it-works.html">Promotions and Pipelines</a></li></ul></nav>
 <div class="cw-content" id="cw-content" tabindex="-1">
-<details class="cw-mobile-nav"><summary>Browse Apps</summary><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
+<details class="cw-mobile-nav"><summary>Browse Apps</summary><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="./apps.html#before-and-after">What does my config look like before and after?</a></li><li><a href="./testing.html">What does a complete example app look like?</a></li><li><a href="./journey-what-my-app-needs.html">What does my app need to run?</a></li><li><a href="./put-an-app-on-a-platform.html">How do I put my app on a platform?</a></li><li><a href="./journey-installs-never-starts.html">Why does my app install but never start?</a></li><li><a href="./confighub.html#promote-a-change">How do I release and promote my app?</a></li><li><a href="./build-a-confighub-app.html">Can I build a tool that operates on configs?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p><ul><li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p><ul><li><a href="./ai.html#install-skill">Set up my AI agent</a></li><li><a href="./ask.html">Check my charts and values</a></li></ul>
       <p class="cw-nav-title"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p><ul><li><a href="./deploy-one-thing.html">Deploy one thing</a></li><li><a href="./how-it-works.html">Promotions and Pipelines</a></li></ul></details>
@@ -638,10 +638,32 @@
     <h1>Apps</h1>
     <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
   </header>
   <main>
+    <section aria-labelledby="before-and-after">
+      <h2 id="before-and-after">See a config before and after</h2>
+      <p>Each example starts from files you may have today and shows what the Workshop gives you instead. Every output is recorded from a real run, and you can run each one yourself with no account.</p>
+      <div class="doors ba-gallery">
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./before-after-helm-gpu-operator.html">See what the GPU Operator Helm chart becomes</a></h3>
+          <p>Helm hides 8 hook objects among the 27 it renders. The bundle holds the 24 objects to apply, CRDs first, and a plan for the hooks.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Kustomize overlays</span>
+          <h3><a href="./before-after-kustomize-apptique.html">See what dev and prod Kustomize overlays become</a></h3>
+          <p>A base, two overlays and their patches become two flat files, and one table lists every field that differs.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Argo CD app of apps</span>
+          <h3><a href="./before-after-argo-app-of-apps.html">See what an Argo CD app of apps becomes</a></h3>
+          <p>Argo CD keeps syncing. Each Application changes three lines, from a Git path to a ConfigHub release.</p>
+        </article>
+      </div>
+      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+    </section>
     <section aria-labelledby="apps-change-path">
       <h2 id="apps-change-path">See what changes—and what stays yours</h2>
       <p>Keep your app, your Git repos, and the Argo CD or Flux setup you already use. Start by seeing exactly what a change would do. When you’re ready, bring that configuration into ConfigHub so your team can review, approve and release it together.</p>

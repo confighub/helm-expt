@@ -20,6 +20,7 @@ import {
 import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
+import { BEFORE_AFTER_PAGES, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -819,6 +820,7 @@ const SPLIT_PAGES = [
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
+  ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, build: () => beforeAfterHtml(page.id) })),
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -3038,6 +3040,7 @@ function sectionStartingQuestions(label) {
     Configs: [
       ["d/docs/user/model-and-vocabulary.html", "How our model for config works"],
       ["config.html", "How does Helm become configuration as data?"],
+      ["apps.html#before-and-after", "What does a config look like before and after?"],
       ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
       ["did-this-chart-version-change.html", "Did a chart version change?"],
       ["did-your-bitnami-chart-stop-pulling.html", "Did my chart stop pulling?"],
@@ -3055,6 +3058,7 @@ function sectionStartingQuestions(label) {
       ["confighub.html#import-and-deploy", "How do I deploy with Argo CD or Flux?"],
     ],
     Apps: [
+      ["apps.html#before-and-after", "What does my config look like before and after?"],
       ["testing.html", "What does a complete example app look like?"],
       ["journey-what-my-app-needs.html", "What does my app need to run?"],
       ["put-an-app-on-a-platform.html", "How do I put my app on a platform?"],
@@ -3971,6 +3975,7 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
+        <a href="./apps.html#before-and-after">See a config before and after</a>
         <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
         <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
@@ -8192,6 +8197,18 @@ function deployOneThingHtml() {
   }));
 }
 
+// A before-and-after example. Its page reads only the files recorded under
+// examples/before-after/ and, for the Helm example, the entry's listing.
+function beforeAfterHtml(id) {
+  return splitGuideHtml(beforeAfterPage(id, {
+    check,
+    escapeHtml,
+    markdownLikeTable,
+    commandBlock,
+    listing: readListingFile(GPU_ENTRY),
+  }));
+}
+
 // opening is a block of labelled lines that sits in the header under the lead.
 function splitGuideHtml({ title, lead, opening = "", ask = "", body, css = "", eyebrow = "A Guide", compactAgent = true }) {
   return `<!doctype html>
@@ -10292,10 +10309,11 @@ function appsHtml() {
     <h1>Apps</h1>
     <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
+    ${beforeAfterGalleryHtml(escapeHtml)}
     ${appLearningPathsHtml()}
     <section aria-labelledby="what-an-app-is">
       <h2 id="what-an-app-is">Every worked example app</h2>
@@ -12257,7 +12275,7 @@ ${nonHelmCatalogRowsHtml}
     <h1>Configs</h1>
   <p class="boundary-chip">Runs on your laptop</p>
     <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every published entry is an image of the exact objects, checked, with a receipt. An entry that is not published says so.</p>
-    <p class="format-doors"><strong>Find out more and learn how each format works:</strong> <a href="../config.html">Helm</a>, <a href="../try-aicr.html">NVIDIA AICR</a>, <a href="../try.html">cub installer</a>, <a href="../bring-kubara-into-confighub.html">Kubara</a>, <a href="../bring-sveltos-into-confighub.html">Sveltos</a>, <a href="../oci.html">OCI</a>, and <a href="../formats.html">every other format</a>. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> is the same for all of them.</p>
+    <p class="format-doors"><strong>Find out more and learn how each format works:</strong> <a href="../config.html">Helm</a>, <a href="../try-aicr.html">NVIDIA AICR</a>, <a href="../try.html">cub installer</a>, <a href="../bring-kubara-into-confighub.html">Kubara</a>, <a href="../bring-sveltos-into-confighub.html">Sveltos</a>, <a href="../oci.html">OCI</a>, and <a href="../formats.html">every other format</a>. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> is the same for all of them. <a href="../apps.html#before-and-after">See a Helm chart, Kustomize overlays and an Argo CD app before and after</a>.</p>
      ${commandBlock([
        { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
        { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },

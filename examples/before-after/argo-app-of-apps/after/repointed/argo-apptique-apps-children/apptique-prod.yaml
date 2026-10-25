@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apptique-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: apptique
+    app.kubernetes.io/instance: apptique-prod
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: oci://<gateway>/space/argo-apptique-prod-in-cluster
+    path: .
+    targetRevision: latest
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apptique-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
