@@ -58,6 +58,9 @@ const GPU_RETAINED = "recipes/nvidia/gpu-operator/v26.3.3/revisions/default/r001
 const KUSTOMIZE_PATH = "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique";
 const ARGO_PATH = "gitops/argo/beginner-app-of-apps";
 const FLUX_PATH = "gitops/flux/beginner";
+const APPSET_PATH = "gitops/argo/beginner-applicationset";
+const FLUX_FLEET_PATH = "gitops/flux/expert-fleet";
+const KUSTOMIZE_HELM_PATH = "gitops/argo/expert-app-of-apps/apps/checkout-cache";
 
 const sha = (bytes) => `sha256:${sha256(bytes)}`;
 const run = (command, args, options = {}) => execFileSync(command, args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, ...options });
@@ -275,6 +278,59 @@ function generateFlux(examples, work, out) {
   };
 }
 
+function generateAppSet(examples, work, out) {
+  const source = join(examples, APPSET_PATH);
+  copyYaml(source, join(out, "before"));
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  writeFileSync(join(out, "transcripts/argo-plan.txt"), transcript(["argo", "plan", "."], source));
+  const onboard = join(work, "appset-onboard");
+  run("cub", ["argo", "apply", ".", "--out", onboard], { cwd: source });
+  cpSync(join(onboard, "apps"), join(out, "after", "apps"), { recursive: true });
+  return {
+    sources: [{ what: "the ApplicationSet", repository: EXAMPLES_REPO, commit: EXAMPLES_COMMIT, path: APPSET_PATH }],
+    commands: ["cub argo plan .", "cub argo apply . --out onboard"],
+    notes: [
+      "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+      "after/apps/ keeps the Applications the ApplicationSet's template renders for each directory it selects, as cub argo apply writes them.",
+    ],
+  };
+}
+
+function generateFluxFleet(examples, work, out) {
+  const source = join(examples, FLUX_FLEET_PATH);
+  copyYaml(source, join(out, "before"));
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  writeFileSync(join(out, "transcripts/flux-plan.txt"), transcript(["flux", "plan", ".", "--require", "Healthy"], source));
+  const onboard = join(work, "fleet-onboard");
+  run("cub", ["flux", "apply", ".", "--require", "Healthy", "--out", onboard], { cwd: source });
+  cpSync(join(onboard, "layers"), join(out, "after", "layers"), { recursive: true });
+  return {
+    sources: [{ what: "the Flux fleet", repository: EXAMPLES_REPO, commit: EXAMPLES_COMMIT, path: FLUX_FLEET_PATH }],
+    commands: ["cub flux plan . --require Healthy", "cub flux apply . --require Healthy --out onboard"],
+    notes: [
+      "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+      "after/layers/ keeps what Flux runs for each cluster and layer after the handover.",
+    ],
+  };
+}
+
+function generateKustomizeHelm(examples, out) {
+  copyYaml(join(examples, KUSTOMIZE_HELM_PATH), join(out, "before"));
+  mkdirSync(join(out, "after"), { recursive: true });
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  const envs = readdirSync(join(out, "before/overlays")).sort();
+  for (const env of envs) {
+    writeFileSync(join(out, `after/${env}.yaml`), run("kustomize", ["build", "--enable-helm", join(out, "before/overlays", env)]));
+    writeFileSync(join(out, `transcripts/check-${env}.txt`), transcript(["config", "check", `${env}.yaml`], join(out, "after")));
+  }
+  rmSync(join(out, "before/charts/checkout-cache/charts"), { recursive: true, force: true });
+  return {
+    sources: [{ what: "the overlays and the chart they inflate", repository: EXAMPLES_REPO, commit: EXAMPLES_COMMIT, path: KUSTOMIZE_HELM_PATH }],
+    commands: [...envs.map((env) => `kustomize build --enable-helm overlays/${env} > ${env}.yaml`), ...envs.map((env) => `cub config check ${env}.yaml`)],
+    notes: ["Each build ran from the files under before/, with the helm on this machine, which kustomize calls to inflate the chart."],
+  };
+}
+
 function writeReceipt(id, out, recorded, tools) {
   const files = Object.fromEntries(filesUnder(out).map((path) => [relative(out, path), sha(readFileSync(path))]));
   for (const [path, text] of Object.entries(files).filter(([path]) => !path.endsWith(".png"))) check(!/\/private\/|\/tmp\/|\/Users\//.test(path + text), `${id}/${path} names a local path`);
@@ -296,6 +352,9 @@ function generate() {
       "kustomize-apptique": (out) => generateKustomize(examples, out),
       "argo-app-of-apps": (out) => generateArgo(examples, work, out),
       "flux-beginner": (out) => generateFlux(examples, work, out),
+      "argo-applicationset": (out) => generateAppSet(examples, work, out),
+      "flux-expert-fleet": (out) => generateFluxFleet(examples, work, out),
+      "kustomize-helm-chart": (out) => generateKustomizeHelm(examples, out),
       ...Object.fromEntries(HELM_EXAMPLES.map((spec) => [spec.id, (out) => generateHelmListing(work, out, spec)])),
     };
     const only = process.argv.slice(3);

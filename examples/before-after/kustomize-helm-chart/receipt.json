@@ -1,0 +1,49 @@
+{
+  "id": "kustomize-helm-chart",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the overlays and the chart they inflate",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/argo/expert-app-of-apps/apps/checkout-cache"
+    }
+  ],
+  "commands": [
+    "kustomize build --enable-helm overlays/dev > dev.yaml",
+    "kustomize build --enable-helm overlays/prod > prod.yaml",
+    "kustomize build --enable-helm overlays/staging > staging.yaml",
+    "cub config check dev.yaml",
+    "cub config check prod.yaml",
+    "cub config check staging.yaml"
+  ],
+  "notes": [
+    "Each build ran from the files under before/, with the helm on this machine, which kustomize calls to inflate the chart."
+  ],
+  "files": {
+    "after/dev.yaml": "sha256:0f5ba03a833c6788cdc90a4c5e35405bb9c4fc797e5efed1a5b231d3aeb6165c",
+    "after/prod.yaml": "sha256:f70a0e44c4372da4fd20b06eb4a065808869e544178fdbfd4e741f15c8f8938f",
+    "after/staging.yaml": "sha256:ee411acb2e3ff248005d24db972025484ef9f4a32b6f0b4a9c2204bd10fbaa55",
+    "before/base/charts/checkout-cache/Chart.yaml": "sha256:df1b8e38f3004d9af1fb8ecb347cc33592a24a8d19dc0cd848b872e553d032e8",
+    "before/base/charts/checkout-cache/templates/deployment.yaml": "sha256:53573b94e4ee4d86c5df57eb346cf10196902cc10725c33cdf14c6d1531cb420",
+    "before/base/charts/checkout-cache/templates/service.yaml": "sha256:f241016660607e7f179c720a79459d709f44b073c09632fdde96df7235c077f0",
+    "before/base/charts/checkout-cache/values.yaml": "sha256:9ea9ee474a601babf0b298d1727bf4beb278a8f6a7f254d2b8310b6d5b7b9b38",
+    "before/base/kustomization.yaml": "sha256:be9cf3b6f2bf7291e77c385fa2d929c154a1d4b93b0af5fa01140df7b7ed9c70",
+    "before/overlays/dev/kustomization.yaml": "sha256:b588e3680f4af12522c5c581375451e390c0b6e76c283b1117250f8c7145d81f",
+    "before/overlays/prod/kustomization.yaml": "sha256:7019231db5283a923d461432f2afad46ef48b7c7bb41f32dcb277b8e25012fd7",
+    "before/overlays/staging/kustomization.yaml": "sha256:7506ec903721650e8d777f69df6e790286cd07eabd5eed6baa519304360e194e",
+    "transcripts/check-dev.txt": "sha256:4684fd83a21598dff481dd1d3c45505e9c6148a9bcecf1222e2a4a18583f9d6a",
+    "transcripts/check-prod.txt": "sha256:de7af0440b0ae5601ff5fe14bb78d7dfd8ac5e784bedced997e12767555b5d61",
+    "transcripts/check-staging.txt": "sha256:22050bffb05486e69852a0b6926becb189a59b6760271df85b2a1e70bcf1cd42"
+  }
+}

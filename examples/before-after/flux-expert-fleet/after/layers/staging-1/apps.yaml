@@ -1,0 +1,40 @@
+# apps on staging-1: what Flux runs for this layer, reading flux-apps-staging-1.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  insecure: __CONFIGHUB_OCI_INSECURE__
+  interval: 1m
+  ref:
+    tag: latest
+  secretRef:
+    name: confighub-flux-targets
+  url: oci://__CONFIGHUB_OCI__/space/flux-apps-staging-1
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: frontend
+      namespace: apptique-staging
+  interval: 5m
+  path: ./
+  postBuild:
+    substitute:
+      cluster_name: staging-1
+      environment: staging
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: OCIRepository
+    name: apps
+  wait: true

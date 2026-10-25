@@ -1,0 +1,20 @@
+
+Config: dev
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  2 objects: 1 Deployment, 1 Service
+  namespaces that must already exist: storefront-dev
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 2 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

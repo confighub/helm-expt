@@ -1,0 +1,25 @@
+Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 1 components, 2 variants
+Read 9 objects
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique  (ApplicationSet, project default, wave 0)
+  selects  2 directories under gitops/argo/beginner-applicationset/apps/apptique/overlays/*
+  base     argo-apptique-base  reaches no cluster: its destination is empty
+  each variant differs from the base in metadata.labels.app.kubernetes.io/instance, metadata.labels.environment, metadata.name, spec.destination.namespace, spec.source.path
+  stage fleet
+    dev         variant argo-apptique-dev  ->  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-applicationset/apps/apptique/overlays/dev
+    prod        variant argo-apptique-prod  ->  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-applicationset/apps/apptique/overlays/prod
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. ApplicationSet apptique is applied by hand, so its template cannot be repointed under review. Either patch the template in the cluster, or delete it with 'kubectl delete --cascade=orphan' and repoint apptique-dev, apptique-prod one by one. Orphaning is the fallback here, not the plan
+  3. never delete every Application apptique generates: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.
