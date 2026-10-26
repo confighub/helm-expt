@@ -756,7 +756,7 @@ Next
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
       <ul>
-        <li>The plan ran on 2026-10-25 with cub v0.9.0 and argo plugin 0.3.3, inside a checkout of the example. <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/argo-applicationset">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>The plan ran on 2026-10-26 with cub v0.9.0 and argo plugin 0.3.3, inside a checkout of the example. <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/argo-applicationset">The recorded files and their receipt</a> hold every input and output.</li>
         <li>This ApplicationSet is applied by hand, so the handover cannot repoint its template under review. The plan says to patch the template in the cluster, or to delete it with <code>--cascade=orphan</code> and repoint each Application.</li>
         <li>Never delete every Application it generates. Their finalizer deletes everything they deployed.</li>
       </ul>

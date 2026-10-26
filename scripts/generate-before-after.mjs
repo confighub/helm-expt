@@ -196,7 +196,7 @@ function recordTemplateExcerpt(chart, before, dir, out) {
   const workload = templates.filter((path) => rendered.has(relative(join(dir, "chart-unpacked"), path))).filter((path) => /^\s+containers:\s*$/m.test(readFileSync(path, "utf8")) && !/kind:\s*(Job|CronJob)\b/.test(readFileSync(path, "utf8")));
   const count = (text) => (text.match(/\{\{/g) ?? []).length;
   // The main container's image, not one of an optional helper container.
-  const imageAt = (path) => readFileSync(path, "utf8").split("\n").findIndex((line) => /^\s+image:\s*\S/.test(line) && !/volumePermissions|metrics|exporter|sidecar|init/i.test(line));
+  const imageAt = (path) => readFileSync(path, "utf8").split("\n").findIndex((line) => /^\s+image:\s*\S/.test(line) && !/\.(volumePermissions|metrics|exporter|sidecar|init)/i.test(line));
   // The workload template that sets an image, with the most template
   // expressions; the excerpt is the 16 lines around its first image line, so
   // the ConfigHub picture can show the same line, resolved.
