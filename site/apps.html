@@ -645,58 +645,59 @@
     <section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
       <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
+      <p>Go to <a href="#ba-helm">Helm charts</a>, <a href="#ba-kustomize">Kustomize</a>, <a href="#ba-argo">Argo CD</a> or <a href="#ba-flux">Flux</a>.</p>
       <div class="doors ba-gallery">
-        <article class="door">
+        <article class="door" id="ba-helm">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-redis.html">Redis, before and after</a></h3>
-          <p>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+          <p>The Redis chart makes 14 objects. Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-postgresql.html">PostgreSQL, before and after</a></h3>
-          <p>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+          <p>The PostgreSQL chart makes 7 objects. Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-ingress-nginx.html">ingress-nginx, before and after</a></h3>
-          <p>The 7 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>The ingress-nginx chart makes 18 objects. The 7 setup objects Helm runs out of sight become steps you can read.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-cert-manager.html">cert-manager, before and after</a></h3>
-          <p>The 4 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
+          <p>The cert-manager chart makes 50 objects. The 4 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-kube-prometheus-stack.html">kube-prometheus-stack, before and after</a></h3>
-          <p>The 7 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>The kube-prometheus-stack chart makes 122 objects. The 7 setup objects Helm runs out of sight become steps you can read.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-argo-cd.html">Argo CD, before and after</a></h3>
-          <p>The 4 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>The Argo CD chart makes 59 objects. The 4 setup objects Helm runs out of sight become steps you can read.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-external-secrets.html">External Secrets, before and after</a></h3>
-          <p>Every object is written out, so you can review it before anything runs.</p>
+          <p>The External Secrets chart makes 44 objects. Every object is written out, so you can review it before anything runs.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-metrics-server.html">metrics-server, before and after</a></h3>
-          <p>Every object is written out, so you can review it before anything runs.</p>
+          <p>The metrics-server chart makes 9 objects. Every object is written out, so you can review it before anything runs.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-gatekeeper.html">Gatekeeper, before and after</a></h3>
-          <p>The 8 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>The Gatekeeper chart makes 21 objects. The 8 setup objects Helm runs out of sight become steps you can read.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-gpu-operator.html">NVIDIA GPU Operator, before and after</a></h3>
-          <p>The 8 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
+          <p>The NVIDIA GPU Operator chart makes 27 objects. The 8 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
         </article>
-        <article class="door">
+        <article class="door" id="ba-kustomize">
           <span class="kicker">Kustomize overlays</span>
           <h3><a href="./example-kustomize-dev-and-prod.html">Kustomize dev and prod, before and after</a></h3>
           <p>A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.</p>
@@ -706,7 +707,7 @@
           <h3><a href="./example-kustomize-helm-chart.html">A Helm chart inside Kustomize, before and after</a></h3>
           <p>A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.</p>
         </article>
-        <article class="door">
+        <article class="door" id="ba-argo">
           <span class="kicker">Argo CD app of apps</span>
           <h3><a href="./example-argo-cd-app-of-apps.html">An Argo CD app of apps, before and after</a></h3>
           <p>Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.</p>
@@ -716,7 +717,7 @@
           <h3><a href="./example-argo-cd-applicationset.html">An Argo CD ApplicationSet, before and after</a></h3>
           <p>An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.</p>
         </article>
-        <article class="door">
+        <article class="door" id="ba-flux">
           <span class="kicker">Flux fleet</span>
           <h3><a href="./example-flux-fleet.html">A Flux fleet, before and after</a></h3>
           <p>Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.</p>

@@ -969,6 +969,19 @@ function fluxFleetPage(h) {
   };
 }
 
+// The version each cluster runs, from the plan's in-flight line, for the
+// simple Flux page. The detail page reads the same line.
+function fleetVersionsHtml({ check, escapeHtml }) {
+  const id = "flux-expert-fleet";
+  const inFlight = transcriptLines(read(id, "transcripts/flux-plan.txt")).find((line) => /^\s+in flight\s+/.test(line));
+  check(inFlight, `${ROOT}/${id}/transcripts/flux-plan.txt no longer says which version runs where`);
+  const [, imageName, placements] = inFlight.match(/in flight\s+(\S+): (.*)$/);
+  const rows = placements.split("; ").map((part) => part.match(/^(\S+) on (\S+)$/)).filter(Boolean);
+  check(rows.length >= 2, `${ROOT}/${id}: the in-flight line names fewer than two clusters`);
+  return `<table class="ex-versions"><thead><tr><th>Cluster</th><th>${escapeHtml(imageName)} version</th></tr></thead><tbody>${rows.map(([, version, cluster]) => `<tr><td>${escapeHtml(cluster)}</td><td><code>${escapeHtml(version)}</code></td></tr>`).join("")}</tbody></table>
+          <p class="ex-note">This is what the repository says each cluster should run. Nothing here reads a live cluster.</p>`;
+}
+
 // The simple pages: two pictures, three sentences, two buttons and a link to
 // the detailed page. They are for someone seeing this for the first time.
 const EXAMPLES_SHA = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
@@ -996,7 +1009,8 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
-    laptop: ["kustomize build prod"], needs: "kustomize",
+    laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", laptopNeeds: "kustomize and the Workshop plugin",
+    laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
   },
   {
     id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
@@ -1012,7 +1026,8 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-staging --unit checkout-cache --change-desc \"Run two replicas in staging\" set-replicas 2",
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
-    laptop: ["kustomize build --enable-helm overlays/prod"], needs: "kustomize and helm",
+    laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", laptopNeeds: "kustomize, helm and the Workshop plugin",
+    laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
   },
   {
     id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
@@ -1022,7 +1037,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh.",
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
@@ -1032,7 +1047,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh.",
   },
   {
     id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
@@ -1042,7 +1057,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh.",
   },
   {
     id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
@@ -1052,7 +1067,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh.",
   },
 ];
 
@@ -1083,8 +1098,8 @@ function simpleHelmSentences(f) {
   return sentences.slice(0, 3);
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, sentences, loadRows, loadNote, laptopRows, laptopNote, needs, wide }) {
-  const { escapeHtml, commandBlock } = h;
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
+  const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
@@ -1098,21 +1113,23 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterN
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
           <p class="ex-note">${escapeHtml(afterNote)}</p>
+          ${afterExtra}
         </figure>
       </div>
       <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
       </ul>
+      <p class="ex-words">${escapeHtml(words)}</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
           <p class="installer-command-note">${loadNote}</p>
           ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+          <p class="ex-note">You need a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">${laptopNote}</p>
           ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(laptopNeeds)}.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
@@ -1141,11 +1158,12 @@ function simplePage(id, h) {
       beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
       afterNote: `The same image line in ConfigHub, as a plain value. ${caption}`,
       sentences: simpleHelmSentences(f),
+      words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
       loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
-      loadNote: `Sign in, then paste the second line. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization.`,
+      loadNote: `Sign in, then paste the second line. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization. It touches no cluster.`,
       laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
       laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open.`,
-      needs: "its installer plugin",
+      needs: "its installer plugin and kustomize",
     });
   } else {
     for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);
@@ -1156,11 +1174,13 @@ function simplePage(id, h) {
       beforeNote: `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
       afterNote: caption,
       sentences: page.sentences,
+      words: "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
+      afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
-      loadNote: "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization.",
+      loadNote: `Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.safety)}`,
       laptopRows: [clone, `cd examples/${page.dir}`, ...page.laptop],
-      laptopNote: "No account needed. This fetches the example and shows what each environment runs.",
-      needs: page.needs,
+      laptopNote: page.laptopNote ?? "No account needed. This fetches the example and shows what each environment runs.",
+      needs: page.needs, laptopNeeds: page.laptopNeeds,
     });
   }
   return {
@@ -1193,6 +1213,9 @@ function simplePage(id, h) {
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
+    .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-versions { border-collapse: collapse; font-size: .9rem; }
+    .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 `,
   };
 }
@@ -1230,8 +1253,15 @@ export function beforeAfterPage(id, helpers) {
 
 // The gallery at the top of the Apps page. Each card opens a simple page.
 export function beforeAfterGalleryHtml(escapeHtml) {
-  const cardText = (page) => (page.kicker === "Helm chart" ? simpleHelmSentences(helmFacts(page.id))[1] : page.lead);
-  const cards = SIMPLE_PAGES.map((page) => `        <article class="door">
+  const cardText = (page) => {
+    if (page.kicker !== "Helm chart") return page.lead;
+    const f = helmFacts(page.id);
+    return `The ${page.name} chart makes ${f.before.length} objects. ${simpleHelmSentences(f)[1]}`;
+  };
+  const groups = [["helm", "Helm charts"], ["kustomize", "Kustomize"], ["argo", "Argo CD"], ["flux", "Flux"]];
+  const firstOf = new Map(groups.map(([prefix]) => [SIMPLE_PAGES.find((page) => page.id.startsWith(`${prefix}-`))?.id, prefix]));
+  const jumps = groups.map(([prefix, label]) => `<a href="#ba-${prefix}">${label}</a>`);
+  const cards = SIMPLE_PAGES.map((page) => `        <article class="door"${firstOf.has(page.id) ? ` id="ba-${firstOf.get(page.id)}"` : ""}>
           <span class="kicker">${escapeHtml(page.kicker)}</span>
           <h3><a href="./${page.file}">${escapeHtml(`${page.name}, before and after`)}</a></h3>
           <p>${escapeHtml(cardText(page))}</p>
@@ -1239,6 +1269,7 @@ export function beforeAfterGalleryHtml(escapeHtml) {
   return `<section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
       <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
+      <p>Go to ${jumps.slice(0, -1).join(", ")} or ${jumps.at(-1)}.</p>
       <div class="doors ba-gallery">
 ${cards}
       </div>
