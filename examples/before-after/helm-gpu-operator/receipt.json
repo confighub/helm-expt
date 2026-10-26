@@ -11,6 +11,9 @@
     "kustomize": "v5.8.1",
     "fluxSchemaPlugin": "0.16.0"
   },
+  "installer": {
+    "manifests": 25
+  },
   "listing": "nvidia-gpu-operator-v26-3-3-default",
   "sources": [
     {

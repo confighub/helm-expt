@@ -21,6 +21,9 @@
     "lockedSha256": "sha256:aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801",
     "crdsFolder": 17
   },
+  "installer": {
+    "manifests": 30
+  },
   "render": {
     "release": "gatekeeper",
     "namespace": "default",

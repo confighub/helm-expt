@@ -22,6 +22,9 @@
     "lockedSha256": "sha256:c2ca1185c01e6e7f53dd1b7d131f0c9b3fa50e003ed068b784563a1b5a3422a1",
     "crdsFolder": 0
   },
+  "installer": {
+    "manifests": 10
+  },
   "render": {
     "release": "metrics-server",
     "namespace": "kube-system",

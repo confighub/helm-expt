@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -703,6 +706,7 @@
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-kube-prometheus-stack-confighub.png" alt="ConfigHub showing the Prometheus object, at its image line">
           <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the Prometheus object, at its image line.</p>
+          <p class="ex-note">ConfigHub holds this as 125 Units, one for each of the 124 objects the installer writes and one installer record.</p>
           
         </figure>
       </div>
@@ -710,6 +714,13 @@
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>The 7 setup objects Helm runs out of sight become steps you can read.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>10 CRDs are ordinary objects in ConfigHub, and a written step applies them before anything that uses them. 10 of them come from the chart's crds folder, which a plain helm template leaves out.</li>
+        <li>Helm's 7 hook objects (1 ServiceAccount, 1 ClusterRole, 1 ClusterRoleBinding, 1 Role, 1 RoleBinding, 2 Jobs) don't travel. Written steps describe their work for whoever delivers.</li>
+        <li>The webhook certificate monitoring/kube-prometheus-stack-admission is made by the chart's setup Job, which a written step runs.</li>
+        <li>The plan writes down 8 more steps for whoever delivers. Show me the details lists them.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">

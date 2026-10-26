@@ -22,6 +22,9 @@
     "lockedSha256": "sha256:c66cb763940b7d9e12923dd4667aabd672ae298ed39d7a4ee9ff7bf34fe45923",
     "crdsFolder": 10
   },
+  "installer": {
+    "manifests": 124
+  },
   "render": {
     "release": "kube-prometheus-stack",
     "namespace": "monitoring",

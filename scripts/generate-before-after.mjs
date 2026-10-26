@@ -131,6 +131,21 @@ function checkoutExamples(work) {
   return dir;
 }
 
+// What the page's laptop command writes: the installer's manifests for the
+// listing's base. Loading uploads one Unit per manifest and one installer
+// record, so the page counts Units from this number.
+function installerManifests(listingPath, work, id) {
+  const listing = JSON.parse(readFileSync(join(repoRoot, listingPath), "utf8"));
+  const setup = (listing.nextSteps ?? []).find((step) => step.id === "get-objects")?.commands.find((command) => command.command.startsWith("cub installer setup"));
+  check(setup, `${listingPath} has no cub installer setup command`);
+  check(!/["'$\\|;&]/.test(setup.command), `${listingPath}: the setup command needs a shell, and this runs it without one`);
+  const dir = join(work, `${id}-installer`);
+  mkdirSync(dir, { recursive: true });
+  const args = setup.command.replace(/--work-dir \S+/, "--work-dir ./pkg").split(/\s+/).slice(1);
+  run("cub", args, { cwd: dir });
+  return { manifests: readdirSync(join(dir, "pkg/out/manifests")).filter((name) => /\.ya?ml$/.test(name)).length };
+}
+
 function generateHelm(work, out) {
   const listing = JSON.parse(readFileSync(join(repoRoot, GPU_LISTING), "utf8"));
   const lock = readFileSync(join(repoRoot, GPU_SOURCE_LOCK), "utf8");
@@ -163,7 +178,9 @@ function generateHelm(work, out) {
   mkdirSync(join(out, "transcripts"));
   writeFileSync(join(out, "transcripts/check-before.txt"), transcript(["config", "check", "before.yaml"], dir));
   writeFileSync(join(out, "transcripts/check-after.txt"), transcript(["config", "check", "after.yaml"], dir));
+  const installer = installerManifests(GPU_LISTING, work, "helm-gpu-operator");
   return {
+    installer,
     listing: listing.identity.id,
     sources: [
       { what: "the chart", url, sha256: `sha256:${chartSha}`, recordedIn: GPU_SOURCE_LOCK },
@@ -251,6 +268,7 @@ function generateHelmListing(work, out, spec) {
     listing: spec.listing,
     before: spec.before,
     chart: { name: lock.chart, version: String(lock.version), repository: lock.repositoryURL, ...(url ? { url } : {}), sha256: `sha256:${chartSha}`, lockedSha256: lock.packageSHA256 ? `sha256:${lock.packageSHA256}` : null, crdsFolder },
+    installer: installerManifests(`site/listings/${spec.listing}.json`, work, spec.id),
     render: { release: ri.releaseName, namespace: ri.namespace, kubeVersion: kube },
     sources: [{ what: "the render inputs", recordedIn: intentPath }],
     repoFiles: { [intent.renderOutput.renderedObjects]: sha(after) },

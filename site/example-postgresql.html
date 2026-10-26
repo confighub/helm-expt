@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -703,6 +706,7 @@
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-postgresql-confighub.png" alt="ConfigHub showing the PostgreSQL StatefulSet, at its image line">
           <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the PostgreSQL StatefulSet, at its image line.</p>
+          <p class="ex-note">ConfigHub holds this as 8 Units, one for each of the 7 objects the installer writes and one installer record.</p>
           
         </figure>
       </div>
@@ -710,6 +714,10 @@
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</li>
         <li>The image is pinned to exact bytes, so it can't change under you.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>You create the Secret postgresql/postgresql-auth once. It holds the PostgreSQL administrator password.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">

@@ -76,7 +76,7 @@ metadata:
     helm.sh/chart: postgresql-18.7.0
 type: Opaque
 data:
-  postgres-password: "WFNYYm9MRjNtcTFYTHpFMzhTV1JBTHVS"
+  postgres-password: "UzZNOGVqNUVzNkJiN2ZyVTRGR2plTDFO"
     # We don't auto-generate metrics password when it's not provided as we do for other passwords
   # We don't auto-generate LDAP password when it's not provided as we do for other passwords
 ---

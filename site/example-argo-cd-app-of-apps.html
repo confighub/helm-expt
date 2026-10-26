@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -713,6 +716,7 @@ spec:
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/argo-app-of-apps-confighub.png" alt="ConfigHub showing the apptique-prod base with its in-cluster variant, and the prod Deployment's settings">
           <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the apptique-prod base with its in-cluster variant, and the prod Deployment's settings.</p>
+          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its Application deploys.</p>
           
         </figure>
       </div>
@@ -720,6 +724,11 @@ spec:
         <li>Each app becomes a base and a variant for the cluster it runs on, released and ready.</li>
         <li>You can read what prod runs in ConfigHub, here 3 replicas of the frontend.</li>
         <li>Argo CD keeps syncing Git until you choose to hand over.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>The root Application and the Applications it makes stay with Argo CD, as the control tree.</li>
+        <li>What each Application deploys goes into ConfigHub, as a base and a variant for its cluster.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">

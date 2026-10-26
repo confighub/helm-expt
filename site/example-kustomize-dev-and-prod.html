@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -713,6 +716,7 @@ patches:
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/kustomize-apptique-confighub.png" alt="ConfigHub showing the base with its dev and prod variants, and the settings prod changes">
           <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the base with its dev and prod variants, and the settings prod changes.</p>
+          <p class="ex-note">Each variant holds 4 Units in ConfigHub, one per object.</p>
           
         </figure>
       </div>
@@ -720,6 +724,11 @@ patches:
         <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
         <li>Dev and prod stay linked to one base, so a change to the base can reach both.</li>
         <li>Every object is written out, with nothing left to work out from patches.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>The overlays' patches, labels and namespace are applied, so each variant holds finished objects.</li>
+        <li>There are no CRDs or Helm hooks here, so nothing else has to go anywhere.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
