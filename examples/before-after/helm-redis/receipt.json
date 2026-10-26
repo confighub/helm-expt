@@ -21,6 +21,9 @@
     "lockedSha256": null,
     "crdsFolder": 0
   },
+  "installer": {
+    "manifests": 14
+  },
   "render": {
     "release": "redis",
     "namespace": "redis",
@@ -53,8 +56,8 @@
   },
   "files": {
     "after/values.yaml": "sha256:a1ad14d5153bd30d64488da0364f9141933189a5f9226346c963b91f38aab1e3",
-    "before/before-again.yaml": "sha256:7ef5a10b2a93e2853006a55f780c993255ad5b4551619c627f451a4c89762921",
-    "before/before.yaml": "sha256:09b2aa2679da158a057fa474d6dfa25a2e10a06f6433d14607791eb26316313a",
+    "before/before-again.yaml": "sha256:4af8fb6a03decfeb7eb6e0d0106a254a0c2bc22b4c44e7e65095c55a5f2be710",
+    "before/before.yaml": "sha256:968644587f8257c2d622c98033c9ee3bca80c7e5ba103cd95c2fa77bf2543b8f",
     "before/template-excerpt.json": "sha256:c5a2a9e192c27677e882e3dbe30abb8550d34d61e79320b942820acb2c54cd7e",
     "confighub/object.png": "sha256:5a4c5ed139b64d7a247f37da3398d557b0ee4a6ac9a78d39e8147614d705997e",
     "transcripts/check-after.txt": "sha256:6e974142df7fc256e2ed4765937fe29ff86d752c99ea87f864f6c244805b0462",

@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -703,12 +706,17 @@
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-metrics-server-confighub.png" alt="ConfigHub showing the metrics-server Deployment, at its image line">
           <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the metrics-server Deployment, at its image line.</p>
+          <p class="ex-note">ConfigHub holds this as 11 Units, one for each of the 10 objects the installer writes and one installer record.</p>
           
         </figure>
       </div>
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>Nothing else. Every object the chart makes is in ConfigHub as it is.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">

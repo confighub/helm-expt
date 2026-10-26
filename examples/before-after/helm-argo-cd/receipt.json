@@ -22,6 +22,9 @@
     "lockedSha256": "sha256:820d1abc8135cb882fa3c35dfe0f828f98134b0769cbbd280d140ddc89fb9935",
     "crdsFolder": 0
   },
+  "installer": {
+    "manifests": 54
+  },
   "render": {
     "release": "argo-cd",
     "namespace": "argocd",

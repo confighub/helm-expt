@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -707,6 +710,7 @@ spec:
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/flux-beginner-confighub.png" alt="ConfigHub showing the apps layer's base with its dev and prod variants, and the settings prod changes">
           <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the apps layer's base with its dev and prod variants, and the settings prod changes.</p>
+          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.</p>
           
         </figure>
       </div>
@@ -714,6 +718,11 @@ spec:
         <li>Each layer becomes a base and a variant for each cluster.</li>
         <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
         <li>Flux keeps reconciling Git until you choose to hand over.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>Each layer's Flux Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.</li>
+        <li>The flux-system bootstrap stays outside ConfigHub, and the plan lists it.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">

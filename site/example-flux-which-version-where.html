@@ -468,6 +468,9 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -712,6 +715,7 @@ patches:
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/flux-expert-fleet-confighub.png" alt="ConfigHub showing the apps layer's base with a variant for each cluster, and the settings prod-1 changes">
           <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the apps layer's base with a variant for each cluster, and the settings prod-1 changes.</p>
+          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.</p>
           <table class="ex-versions"><thead><tr><th>Cluster</th><th>nginx version</th></tr></thead><tbody><tr><td>dev-1</td><td><code>1.27.3-alpine</code></td></tr><tr><td>staging-1</td><td><code>1.27.2-alpine</code></td></tr><tr><td>prod-1</td><td><code>1.26.3-alpine</code></td></tr></tbody></table>
           <p class="ex-note">This is what the repository says each cluster should run. Nothing here reads a live cluster.</p>
         </figure>
@@ -720,6 +724,11 @@ patches:
         <li>Each layer is one base, with a variant for each cluster that runs it.</li>
         <li>Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.</li>
         <li>Dev, staging and prod are stages in that order, so a version moves from one to the next.</li>
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        <li>Image automation still writes new tags into the dev overlay, and the plan names it.</li>
+        <li>The edge-router chart is pinned to 2.4.x, so helm-controller picks the exact version when it reconciles. The plan says to pin one version to close that.</li>
       </ul>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">

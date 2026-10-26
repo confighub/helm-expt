@@ -1011,6 +1011,8 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
     laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", laptopNeeds: "kustomize and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
+    units: "Each variant holds 4 Units in ConfigHub, one per object.",
+    went: ["The overlays' patches, labels and namespace are applied, so each variant holds finished objects.", "There are no CRDs or Helm hooks here, so nothing else has to go anywhere."],
   },
   {
     id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
@@ -1028,6 +1030,8 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
     laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", laptopNeeds: "kustomize, helm and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
+    units: "Each variant holds 2 Units in ConfigHub, one per object.",
+    went: ["Kustomize's Helm step runs once, and what it renders becomes the base.", "The chart has no CRDs or Helm hooks, so nothing else has to go anywhere."],
   },
   {
     id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
@@ -1038,6 +1042,8 @@ const GITOPS_SIMPLE = [
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
     laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    units: "Each variant is one Unit in ConfigHub, holding everything its Application deploys.",
+    went: ["The root Application and the Applications it makes stay with Argo CD, as the control tree.", "What each Application deploys goes into ConfigHub, as a base and a variant for its cluster."],
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
@@ -1048,6 +1054,8 @@ const GITOPS_SIMPLE = [
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
     laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    units: "Each variant is one Unit in ConfigHub, holding everything its Application deploys.",
+    went: ["The template's placeholders are filled in, one Application per environment.", "The ApplicationSet itself stays in the cluster. It was applied by hand, so the plan says handover must patch it or repoint its Applications one by one."],
   },
   {
     id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
@@ -1058,6 +1066,8 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    units: "Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.",
+    went: ["Each layer's Flux Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.", "The flux-system bootstrap stays outside ConfigHub, and the plan lists it."],
   },
   {
     id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
@@ -1068,6 +1078,8 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    units: "Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.",
+    went: ["Image automation still writes new tags into the dev overlay, and the plan names it.", "The edge-router chart is pinned to 2.4.x, so helm-controller picks the exact version when it reconciles. The plan says to pin one version to close that."],
   },
 ];
 
@@ -1088,9 +1100,7 @@ function simpleHelmSentences(f) {
     sentences.push("The image is pinned to exact bytes, so it can't change under you.");
   }
   if (f.hooks.length) {
-    const jobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
-    const planned = f.plan.some((step) => /hook/i.test(step.detail) || jobs.some((job) => step.detail.includes(job)));
-    sentences.push(planned
+    sentences.push(hooksPlanned(f)
       ? `The ${f.hooks.length} setup objects Helm runs out of sight become steps you can read.`
       : `The ${f.hooks.length} setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.`);
   }
@@ -1098,7 +1108,52 @@ function simpleHelmSentences(f) {
   return sentences.slice(0, 3);
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
+// What a Helm page says about the parts a template hides: CRDs, hooks, what
+// the cluster supplies, and how many more steps the plan writes down. Each
+// sentence comes from the receipt or the listing's plan; a cluster-side input
+// with no sentence below stops the build.
+const SUPPLIED = {
+  "redis/redis-existing-secret": "You create the Secret redis/redis-existing-secret once. It holds the Redis password.",
+  "postgresql/postgresql-auth": "You create the Secret postgresql/postgresql-auth once. It holds the PostgreSQL administrator password.",
+  "argocd/argocd-redis": "The Secret argocd/argocd-redis must be created before delivery. Helm's secret-init hook made it.",
+  "ingress-nginx/ingress-nginx-admission": "The webhook certificate ingress-nginx/ingress-nginx-admission must be created before delivery. Helm's hook Jobs made it.",
+  "external-secrets/external-secrets-webhook": "The webhook Secret external-secrets/external-secrets-webhook is filled in by the cert-controller after apply.",
+  "monitoring/kube-prometheus-stack-admission": "The webhook certificate monitoring/kube-prometheus-stack-admission is made by the chart's setup Job, which a written step runs.",
+};
+function hooksPlanned(f) {
+  const jobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
+  return f.plan.some((step) => /hook/i.test(step.detail) || jobs.some((job) => step.detail.includes(job)) || (step.type === "lifecycle-action" && /\bJob\b/.test(step.detail)));
+}
+function helmWent(f, check) {
+  const went = [];
+  const ids = new Set(f.plan.map((step) => step.id));
+  const ordered = ids.has("crd-ordering") || f.plan.some((step) => /applie[sd] (the locked CRDs )?before|established before/i.test(step.detail));
+  if (f.crdsAfter) went.push(`${f.crdsAfter} CRDs are ordinary objects in ConfigHub${ordered ? ", and a written step applies them before anything that uses them" : ""}.${f.crdsOnlyAfter ? ` ${f.crdsOnlyAfter} of them come from the chart's crds folder, which a plain helm template leaves out.` : ""}`);
+  if (f.hooks.length) {
+    const kinds = Object.entries(f.hooks.reduce((m, doc) => ({ ...m, [doc.kind]: (m[doc.kind] ?? 0) + 1 }), {})).map(([kind, n]) => `${n} ${kind}${n === 1 ? "" : "s"}`).join(", ");
+    const bySteps = f.plan.some((step) => step.type !== "target-fact") && hooksPlanned({ ...f, plan: f.plan.filter((step) => step.type !== "target-fact") });
+    went.push(bySteps
+      ? `Helm's ${f.hooks.length} hook objects (${kinds}) don't travel. Written steps describe their work for whoever delivers.`
+      : hooksPlanned(f)
+        ? `Helm's ${f.hooks.length} hook objects (${kinds}) don't travel. The next line says what they made.`
+        : `Helm's ${f.hooks.length} hook objects (${kinds}) are left out, and nothing runs them.`);
+  }
+  for (const step of f.plan.filter((row) => row.type === "target-fact" && row.id.includes("/"))) {
+    check(SUPPLIED[step.id], `${f.rec.listing}: no plain sentence for what the cluster supplies, ${step.id}`);
+    went.push(SUPPLIED[step.id]);
+  }
+  const more = f.plan.filter((step) => step.type !== "target-fact" && !["crd-ordering", "lifecycle"].includes(step.id)).length;
+  if (more) went.push(`The plan writes down ${more} more step${more === 1 ? "" : "s"} for whoever delivers. Show me the details lists ${more === 1 ? "it" : "them"}.`);
+  if (!went.length) went.push("Nothing else. Every object the chart makes is in ConfigHub as it is.");
+  return went;
+}
+function helmUnits(f, check) {
+  const n = f.rec.installer?.manifests;
+  check(n, `${ROOT}/${f.rec.id}: the receipt has no installer manifest count; record it with --generate`);
+  return `ConfigHub holds this as ${n + 1} Units, one for each of the ${n} objects the installer writes and one installer record.`;
+}
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", units, went, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1113,11 +1168,16 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterN
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
           <p class="ex-note">${escapeHtml(afterNote)}</p>
+          <p class="ex-note">${escapeHtml(units)}</p>
           ${afterExtra}
         </figure>
       </div>
       <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
+      </ul>
+      <h3 class="ex-went-h">Where the rest went</h3>
+      <ul class="ex-went">
+        ${went.map((line) => `<li>${escapeHtml(line)}</li>`).join("\n        ")}
       </ul>
       <p class="ex-words">${escapeHtml(words)}</p>
       <div class="ex-actions">
@@ -1158,6 +1218,7 @@ function simplePage(id, h) {
       beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
       afterNote: `The same image line in ConfigHub, as a plain value. ${caption}`,
       sentences: simpleHelmSentences(f),
+      units: helmUnits(f, check), went: helmWent(f, check),
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
       loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
       loadNote: `Sign in with the first line, then paste the second. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization. It touches no cluster.`,
@@ -1173,7 +1234,7 @@ function simplePage(id, h) {
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
       beforeNote: `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
       afterNote: caption,
-      sentences: page.sentences,
+      sentences: page.sentences, units: page.units, went: page.went,
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
@@ -1214,6 +1275,9 @@ function simplePage(id, h) {
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
+    .ex-went li { margin: 4px 0; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 `,
