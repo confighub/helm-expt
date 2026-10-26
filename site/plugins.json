@@ -62,8 +62,8 @@
       ],
       "repository": "confighub/sveltos-confighub",
       "release": {
-        "date": "2026-10-09",
-        "tag": "v0.14.0"
+        "date": "2026-10-26",
+        "tag": "v0.14.1"
       },
       "install": "cub plugin install confighub/sveltos-confighub",
       "note": "Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.",

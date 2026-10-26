@@ -36,7 +36,7 @@ spec:
       note: Handover rollback and chart-rendered Secret handling remain open upstream work; review those limits before importing a fleet.
       repository: confighub/sveltos-confighub
       state: released
-      release: {tag: v0.14.0, date: "2026-10-09"}
+      release: {tag: v0.14.1, date: "2026-10-26"}
       install: cub plugin install confighub/sveltos-confighub
     - id: eks-inference
       name: EKS inference

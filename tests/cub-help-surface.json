@@ -28,7 +28,7 @@
       ]
     },
     "sveltos-confighub": {
-      "version": "0.13.0",
+      "version": "0.14.1",
       "commands": [
         "sveltos"
       ]
@@ -8698,7 +8698,7 @@
       ]
     },
     "sveltos": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [
         "apply",
@@ -8717,12 +8717,13 @@
       ]
     },
     "sveltos apply": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
         "--approver",
         "--class-label",
+        "--gateway",
         "--help",
         "--include-hooks",
         "--management",
@@ -8737,7 +8738,7 @@
       ]
     },
     "sveltos check": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
@@ -8756,13 +8757,13 @@
       ]
     },
     "sveltos compare": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
         "--cluster",
-        "--context",
         "--help",
+        "--kube-context",
         "--kubeconfig-dir",
         "--release",
         "--space",
@@ -8770,19 +8771,19 @@
       ]
     },
     "sveltos facts": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
-        "--context",
         "--dry-run",
         "--help",
+        "--kube-context",
         "--kubeconfigs",
         "--targets"
       ]
     },
     "sveltos impact": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
@@ -8802,13 +8803,14 @@
       ]
     },
     "sveltos plan": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
         "--approver",
         "--class-label",
         "--format",
+        "--gateway",
         "--help",
         "--include-hooks",
         "--management",
@@ -8822,20 +8824,20 @@
       ]
     },
     "sveltos status": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
-        "--context",
         "--dry-run",
         "--help",
         "--interval",
+        "--kube-context",
         "--refresh",
         "--watch"
       ]
     },
     "sveltos ui": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [
         "install"
@@ -8848,7 +8850,7 @@
       ]
     },
     "sveltos ui install": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
@@ -8859,7 +8861,7 @@
       ]
     },
     "sveltos version": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
@@ -8867,16 +8869,17 @@
       ]
     },
     "sveltos watch": {
-      "source": "plugin sveltos-confighub 0.13.0",
+      "source": "plugin sveltos-confighub 0.14.1",
       "style": "cobra",
       "subcommands": [],
       "flags": [
         "--approver",
         "--class-label",
-        "--context",
+        "--gateway",
         "--help",
         "--include-hooks",
         "--interval",
+        "--kube-context",
         "--management",
         "--management-release",
         "--once",
