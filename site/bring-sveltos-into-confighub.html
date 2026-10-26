@@ -646,7 +646,7 @@
     <section aria-labelledby="sveltos-preview">
       <h2 id="sveltos-preview">1. Preview the setup</h2>
       <p>Install <a href="./try.html#install-cub">the cub CLI</a> and the released plugin. The plugin renders charts with <code>helm template</code>, so it also needs Helm v3 or v4 on your PATH.</p>
-      <pre><code>cub plugin install confighub/sveltos-confighub@v0.14.1</code></pre>
+      <pre><code>cub plugin install confighub/sveltos-confighub@v0.15.0</code></pre>
       <p><strong>Confirm the management context.</strong> Check that kubectl is pointed at the Sveltos management cluster before exporting:</p>
 <pre><code>kubectl config current-context</code></pre>
       <p><strong>Prepare the inputs.</strong> The exports can contain sensitive configuration. Keep Secrets and credentials out of review files. On the confirmed Sveltos management cluster, export the profiles and clusters the first input file should describe:</p>
@@ -656,7 +656,7 @@
       <p>Once these YAML files are ready, planning is offline and needs no ConfigHub account or cluster mutation:</p>
 <pre><code>cub sveltos plan my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod</code></pre>
       <p>The plan shows the shared base, a variant for each selected cluster, the rollout stages, and the objects rendered from charts and policy ConfigMaps. Review its exclusions and warnings too: hooks and unsupported ownership may need a deliberate decision. A hooks refusal is a prompt to review the lifecycle, not a reason to add <code>--include-hooks</code> blindly.</p>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.14.1/docs/user/onboard-your-sveltos-fleet.md#1-export-what-sveltos-knows">Prepare the example inputs</a> · <a href="https://github.com/confighub/sveltos-confighub/blob/v0.14.1/docs/user/onboard-your-sveltos-fleet.md#2-see-the-plan">read the planning reference</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.15.0/docs/user/onboard-your-sveltos-fleet.md#1-export-what-sveltos-knows">Prepare the example inputs</a> · <a href="https://github.com/confighub/sveltos-confighub/blob/v0.15.0/docs/user/onboard-your-sveltos-fleet.md#2-see-the-plan">read the planning reference</a>.</p>
     </section>
 
     <p><strong>You can stop here.</strong> The plan reads the exported YAML and does not change the cluster. To generate setup scripts, connect delivery, or make a reviewed change, open the advanced steps below.</p>
@@ -672,7 +672,7 @@
 <pre><code>cub plugin install confighub/cub-workshop@v0.6.61
 for base in ingress-nginx kyverno kyverno-policies; do cub config check onboard/$base/$base.yaml; done</code></pre>
       <p>On the example it reports 19, 71 and 1 objects, and each passes the schema step. The schema step names any field the API server would reject, so you can fix it before you save.</p>
-      <p>Read <code>onboard/apply.sh</code> before running it. Running it needs ConfigHub login and a management-cluster context. It can change that cluster: for profiles that are not already live, it creates the gateway Secret and delivery profiles. Sveltos then begins delivering ConfigHub releases. Existing live profiles are deferred to handover and remain in control until then.</p>
+      <p>Read <code>onboard/apply.sh</code> before running it. Running it needs ConfigHub login, <code>cub</code> v0.8.13 or newer and a management-cluster context. In ConfigHub it makes a service account, <code>sveltos-delivery</code>, that can only read its Targets' releases. It can change that cluster: for profiles that are not already live, it creates the gateway Secret, which holds that account's token, and the delivery profiles. Sveltos then begins delivering ConfigHub releases. Existing live profiles are deferred to handover and remain in control until then.</p>
 <pre><code>MGMT_CONTEXT=&lt;management-cluster-context&gt; bash onboard/apply.sh</code></pre>
       <p>Use a disposable fleet first. A missing Unit can mean a released profile removes objects it no longer holds.</p>
     </section>
@@ -682,7 +682,7 @@ for base in ingress-nginx kyverno kyverno-policies; do cub config check onboard/
       <p>Only live profiles need handover. The generated script checks the planned render, Helm’s recorded release, cluster reachability, and current ownership before changing a profile.</p>
 <pre><code>MGMT_CONTEXT=&lt;management-cluster-context&gt; bash onboard/handover.sh</code></pre>
       <p>It is a managed fleet operation, not a universal single-profile shortcut. Keep workload Secrets out of exported review files, review the printed recovery order, and retain backups. The guide records open limits around handover rollback and chart-rendered Secret handling.</p>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.14.1/docs/user/onboard-your-sveltos-fleet.md#if-your-profiles-are-live">Advanced handover and recovery reference</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.15.0/docs/user/onboard-your-sveltos-fleet.md#if-your-profiles-are-live">Advanced handover and recovery reference</a>.</p>
     </section>
 
     <section aria-labelledby="sveltos-change">
@@ -694,7 +694,7 @@ for base in ingress-nginx kyverno kyverno-policies; do cub config check onboard/
       <p>To deliver the change, follow the linked reference to create its change order, promote, approve and publish each stage. The starter workflow allows the author to approve; set <code>AllowAuthors: false</code> when independent approval is required.</p>
       <p>Live status writes Sveltos observations to ConfigHub:</p>
 <pre><code>cub sveltos status --kube-context &lt;management-cluster-context&gt; --watch</code></pre>
-      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.14.1/docs/user/onboard-your-sveltos-fleet.md#making-a-change-afterwards">Read change, approval, release, and status details</a>.</p>
+      <p><a href="https://github.com/confighub/sveltos-confighub/blob/v0.15.0/docs/user/onboard-your-sveltos-fleet.md#making-a-change-afterwards">Read change, approval, release, and status details</a>.</p>
     </section>
     </details>  </main>
 </div>
