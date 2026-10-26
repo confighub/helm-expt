@@ -714,14 +714,14 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the second line. It fetches the cert-manager package, writes its files, and saves them as a Space called <code>cert-manager-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the second. It fetches the cert-manager package, writes its files, and saves them as a Space called <code>cert-manager-example</code> in your organization. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base crds-enabled --work-dir ./cert-manager-example --non-interactive --namespace cert-manager &amp;&amp; cub installer upload --work-dir ./cert-manager-example --space cert-manager-example &amp;&amp; cub component create cert-manager-example &amp;&amp; cub space update --patch cert-manager-example --component cert-manager-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
-          <p class="installer-command-note">No account needed. This fetches the cert-manager package and writes every object into a folder you can open.</p>
+          <p class="installer-command-note">No account needed. This fetches the cert-manager package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base crds-enabled --work-dir ./cert-manager-example --non-interactive --namespace cert-manager &amp;&amp; ls ./cert-manager-example/out/manifests</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>

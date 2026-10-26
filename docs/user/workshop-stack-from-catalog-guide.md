@@ -18,14 +18,15 @@ You can run the steps yourself or
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [ORAS](https://oras.land/docs/installation). Then install the Workshop
-plugin release this Guide was checked with (version 0.6.60).
+plugin release this Guide was checked with (version 0.6.61).
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.60
+cub plugin install confighub/cub-workshop@v0.6.61
 ```
 
 Every command below was run with plugin v0.6.57, and the commands in steps 1
-to 4 were run again with v0.6.60, without the Flux schema plugin. Release
+to 4 were run again with v0.6.61. The outputs below come from runs without
+the Flux schema plugin. Release
 v0.6.56 refuses these entries. It
 stops with `receiptUrl is not a supported GitHub receipt URL`.
 
@@ -220,11 +221,16 @@ cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Con
 The check printed the same seven lines as step 3, with 89 objects. The diff
 printed three lines.
 
-With the Flux schema plugin installed, the compose for this swap stops instead.
-Its schema step reports `ClusterPolicy/cluster-policy
-/spec/migManager/config/name: got null, want string`. A kind cluster with the
-chart's own CRD accepts that ClusterPolicy and fills in the field's default,
-so the refusal is a false alarm in the check, not a fault in the entry.
+With the Flux schema plugin installed, the schema line of this check passes
+and counts one null.
+
+```text
+  [PASS] schema validation: 85 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 4 without a catalog schema skipped; 1 null in a custom resource field, which the API server drops before defaulting
+```
+
+The null is `/spec/migManager/config/name` in the ClusterPolicy. The API
+server drops it and fills in the field's default, so the entry is accepted as
+it is. Releases before v0.6.61 refused this compose on that null.
 
 ```text
 Configuration diff: 0 added, 0 removed, 21 changed, 68 unchanged
@@ -283,7 +289,7 @@ three has not been deployed.
 Start a fresh session in an empty directory with normal approvals.
 
 ```text
-Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.60.
+Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.61.
 Run cub config list --role gpu and find the ids of the default bases of
 NVIDIA gpu-operator v26.3.3, nvsentinel v1.25.0 and cluster-readiness-engine
 v0.6.0. Compose them with cub stack compose, one --entry for each, --name
