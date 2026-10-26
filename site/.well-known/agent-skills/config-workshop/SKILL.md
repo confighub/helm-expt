@@ -104,13 +104,13 @@ Two plugins do different jobs. Name the one you mean.
 
 The cub-workshop plugin adds `cub config`, `cub app`, `cub stack`, and
 `cub fleet`. Install the release the site's journey pages
-were checked with, version 0.6.59:
+were checked with, version 0.6.60:
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.59
+cub plugin install confighub/cub-workshop@v0.6.60
 ```
 
-From that release, `cub config check` also prints a `Schema` section. Without
+Since release 0.6.59, `cub config check` also prints a `Schema` section. Without
 the Flux schema plugin it reads `[WARN] schema validation not run`, and the
 check still passes. The journey pages do not show that section yet.
 
