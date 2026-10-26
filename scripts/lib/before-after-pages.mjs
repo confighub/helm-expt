@@ -158,7 +158,9 @@ function liveIntro() {
 export function beforeAfterAssets() {
   return BEFORE_AFTER_PAGES.flatMap((page) => {
     const shot = receipt(page.id).confighub;
-    return shot ? [{ site: `before-after/${page.id}-confighub.png`, from: join(ROOT, page.id, shot.file) }] : [];
+    if (!shot) return [];
+    return [{ site: `before-after/${page.id}-confighub.png`, from: join(ROOT, page.id, shot.file) },
+      ...(shot.graph ? [{ site: `before-after/${page.id}-graph.png`, from: join(ROOT, page.id, shot.graph.file) }] : [])];
   });
 }
 
@@ -1153,7 +1155,24 @@ function helmUnits(f, check) {
   return `ConfigHub holds this as ${n + 1} Units, one for each of the ${n} objects the installer writes and one installer record.`;
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", units, went, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
+// Helm examples loaded with dev and prod variants, so ConfigHub shows a base
+// and its variants. These are the commands that made the graph screenshot.
+const HELM_VARIANTS = {
+  "helm-redis": {
+    rows: [
+      "cub variant create dev redis-example --change-desc \"Clone the Redis base as dev\"",
+      "cub variant create prod redis-example --change-desc \"Clone the Redis base as prod\"",
+      "cub function set --space redis-example-dev --change-desc \"Label every object environment dev\" set-label environment dev",
+      "cub function set --space redis-example-dev --unit statefulset-redis-redis-replicas --change-desc \"Run one read replica in dev\" set-replicas 1",
+      "cub function set --space redis-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
+      "cub function set --space redis-example-prod --unit statefulset-redis-redis-master --change-desc \"Give the prod master its own requests and limits\" set-container-resources redis all 500m 512Mi 2",
+    ],
+    note: "The rest makes a dev and a prod variant of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits.",
+    graphNote: "Prod's panel lists what prod changes from the base, here its label and the master's requests and limits.",
+  },
+};
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", graphNote = "", units, went, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1172,6 +1191,12 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterN
           ${afterExtra}
         </figure>
       </div>
+${shot.graph ? `      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/${id}-graph.png" alt="${escapeHtml(`ConfigHub showing ${shot.graph.shows}`)}">
+        <p class="ex-note">${escapeHtml(`${graphNote} Taken in the ${shot.organization} organization on ${shot.graph.takenOn}, showing ${shot.graph.shows}.`.trim())}</p>
+      </figure>
+` : ""}
       <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
       </ul>
@@ -1220,8 +1245,9 @@ function simplePage(id, h) {
       sentences: simpleHelmSentences(f),
       units: helmUnits(f, check), went: helmWent(f, check),
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
-      loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
-      loadNote: `Sign in with the first line, then paste the second. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization. It touches no cluster.`,
+      loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
+      graphNote: HELM_VARIANTS[id]?.graphNote ?? "",
+      loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
       laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
       laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
       needs: "its installer plugin and kustomize",
@@ -1275,6 +1301,7 @@ function simplePage(id, h) {
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
     .ex-went li { margin: 4px 0; }

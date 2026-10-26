@@ -468,6 +468,7 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
     .ex-went li { margin: 4px 0; }
@@ -710,6 +711,7 @@
           
         </figure>
       </div>
+
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>The 7 setup objects Helm runs out of sight become steps you can read.</li>
@@ -725,7 +727,7 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the second. It fetches the kube-prometheus-stack package, writes its files, and saves them as a Space called <code>kube-prometheus-stack-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the kube-prometheus-stack package, writes its files, and saves them as a Space called <code>kube-prometheus-stack-example</code> in your organization. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a --base default --work-dir ./kube-prometheus-stack-example --non-interactive --namespace monitoring &amp;&amp; cub installer upload --work-dir ./kube-prometheus-stack-example --space kube-prometheus-stack-example &amp;&amp; cub component create kube-prometheus-stack-example &amp;&amp; cub space update --patch kube-prometheus-stack-example --component kube-prometheus-stack-example</code></pre>

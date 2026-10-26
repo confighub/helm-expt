@@ -33,7 +33,8 @@ export const EXAMPLES_COMMIT = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
 // settings prod changes. A crop leaves out the activity feed and the account
 // menu, which name the person signed in.
 export const SCREENSHOTS = {
-  "helm-redis": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the redis-replicas StatefulSet, at its image line" },
+  "helm-redis": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the redis-replicas StatefulSet, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master" } },
   "helm-postgresql": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the PostgreSQL StatefulSet, at its image line" },
   "helm-ingress-nginx": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the ingress-nginx controller Deployment, at its image line" },
   "helm-cert-manager": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the cert-manager controller Deployment, at its image line" },
@@ -434,6 +435,7 @@ function recordScreenshots() {
   for (const [id, shot] of Object.entries(SCREENSHOTS)) {
     const out = join(repoRoot, BEFORE_AFTER_ROOT, id);
     check(existsSync(join(out, shot.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.file} is missing`);
+    if (shot.graph) check(existsSync(join(out, shot.graph.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.graph.file} is missing`);
     const receipt = JSON.parse(readFileSync(join(out, "receipt.json"), "utf8"));
     const { files, ...rest } = receipt;
     delete rest.confighub;
