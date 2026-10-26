@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -727,11 +731,14 @@ spec:
         <li>You can read what prod runs in ConfigHub, here 3 replicas of the frontend.</li>
         <li>Argo CD keeps syncing Git until you choose to hand over.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>The root Application and the Applications it makes stay with Argo CD, as the control tree.</li>
-        <li>What each Application deploys goes into ConfigHub, as a base and a variant for its cluster.</li>
-      </ul>
+      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <tbody>
+          <tr><td>A root Application makes other Applications, and each one points at a folder in Git.</td><td>The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a variant for its cluster.</td></tr>
+          <tr><td>Argo CD syncs whatever is in Git.</td><td>Argo CD keeps syncing Git until you run handover.sh, which points each Application at ConfigHub's releases.</td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

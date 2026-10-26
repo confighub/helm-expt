@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -717,13 +721,14 @@
         <li>The 4 setup objects Helm runs out of sight become steps you can read.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>3 CRDs are ordinary objects in ConfigHub, and a written step applies them before anything that uses them.</li>
-        <li>Helm's 4 hook objects (1 ServiceAccount, 1 Role, 1 RoleBinding, 1 Job) don't travel. The next line says what they made.</li>
-        <li>The Secret argocd/argocd-redis must be created before delivery. Helm's secret-init hook made it.</li>
-        <li>The plan writes down 1 more step for whoever delivers. Show me the details lists it.</li>
-      </ul>
+      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Adds 3 new kinds of Kubernetes object, such as Application, ApplicationSet, AppProject.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected. They are also marked to stay if the rest is deleted, because deleting a CRD deletes every object of that kind.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-argo-cd-crds.png" alt="ConfigHub showing the 3 Argo CD CRDs as Units in the base"><p class="ex-note">The 3 new kinds</p><ul><li><code>Application</code></li><li><code>ApplicationSet</code></li><li><code>AppProject</code></li></ul></details></td></tr>
+          <tr><td>Runs a Job before installing that makes a password Secret for Argo CD's own Redis.</td><td>Nothing runs out of sight. The Secret argocd/argocd-redis must exist before delivery.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>Role argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>RoleBinding argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>Job argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li></ul></details></td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

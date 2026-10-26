@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -727,11 +731,14 @@ patches:
         <li>Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.</li>
         <li>Dev, staging and prod are stages in that order, so a version moves from one to the next.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>Image automation still writes new tags into the dev overlay, and the plan names it.</li>
-        <li>The edge-router chart is pinned to 2.4.x, so helm-controller picks the exact version when it reconciles. The plan says to pin one version to close that.</li>
-      </ul>
+      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Image automation writes new tags into the dev overlay.</td><td>It keeps doing so, and the plan names it, so you know dev's version can change without a review.</td></tr>
+          <tr><td>A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.</td><td>The plan says to pin one exact version, so what runs changes only when a release says so.</td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

@@ -51,12 +51,24 @@
     "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "shows": "the cert-manager controller Deployment, at its image line"
+    "shows": "the cert-manager controller Deployment, at its image line",
+    "graph": {
+      "file": "confighub/graph.png",
+      "takenOn": "2026-10-26",
+      "shows": "the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller"
+    },
+    "crds": {
+      "file": "confighub/crds.png",
+      "takenOn": "2026-10-26",
+      "shows": "the 6 cert-manager CRDs as Units in the base"
+    }
   },
   "files": {
     "before/before.yaml": "sha256:2d6a867c8afe4bffab664b75f4a7b9d493672d6e00c1aaf7f5fcf04ce7f60d6b",
     "before/template-excerpt.json": "sha256:ca5aa9d7f51e1ed69d1e1a8c0de46e171bd52e2fe13fa80cf1ab640c19a12604",
     "before/values.yaml": "sha256:b878275258eb101b16ca769726370bb7473976349ed5e350ef189aa28a6db5a1",
+    "confighub/crds.png": "sha256:47376f04fdd3213b7630cb95c20b76e979860eb840bf1e049be45046650d69a8",
+    "confighub/graph.png": "sha256:11ec5d55a3096ea1e20042368f0b81e2d66a78fff339d42cbc5fcc78442212da",
     "confighub/object.png": "sha256:451b90e23a4bd7e180811449390ed9563408cd7ae4c141d94a90bdcf58f1b372",
     "transcripts/check-after.txt": "sha256:7be1612532ce6fe450712c233c0b188e008866f78bea7266878d6ae065a80899",
     "transcripts/check-before.txt": "sha256:98e56d591aaa2b0e7ebf77862f1ec9a5fb0b5452ef50d6dd077a06a15efb6cb1"

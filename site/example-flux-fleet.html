@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -721,11 +725,14 @@ spec:
         <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
         <li>Flux keeps reconciling Git until you choose to hand over.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>Each layer's Flux Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.</li>
-        <li>The flux-system bootstrap stays outside ConfigHub, and the plan lists it.</li>
-      </ul>
+      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Each cluster's Kustomization points at an overlay in Git, and Flux applies it.</td><td>Each layer is a base in ConfigHub with a variant for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.</td></tr>
+          <tr><td>flux bootstrap owns flux-system.</td><td>It stays outside ConfigHub, and the plan lists it.</td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

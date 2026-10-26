@@ -45,7 +45,17 @@
     "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "shows": "the GPU Operator Deployment, at its image line"
+    "shows": "the GPU Operator Deployment, at its image line",
+    "graph": {
+      "file": "confighub/graph.png",
+      "takenOn": "2026-10-26",
+      "shows": "the GPU Operator base with its dev and prod variants, and the label and three replicas prod sets on the operator"
+    },
+    "crds": {
+      "file": "confighub/crds.png",
+      "takenOn": "2026-10-26",
+      "shows": "the 5 GPU Operator CRDs as Units in the base"
+    }
   },
   "files": {
     "after/bundle/README.md": "sha256:ac95b0e7e3cccacc44313532a19a3ede85b87a3ba49df2dfee7eaac1cfb9e012",
@@ -54,6 +64,8 @@
     "after/bundle/routes/lifecycle-actions.yaml": "sha256:2edf2358a7e32955653f000d97735f94378ae28d79deaf75a8db9cd9ffc68476",
     "before/before.yaml": "sha256:16cb9475548637eefeefd023f6ee8280aba88ebfa03c3761c9e5d2552b115bc0",
     "before/template-excerpt.json": "sha256:16f01a137bc0c85bdc442509df95a9a905cb7e9b50674cf19a07314d50abaa9e",
+    "confighub/crds.png": "sha256:6cfd80135d066a15f4174753c3bce3a246aaa608e98bab062a0d6d47afcbab45",
+    "confighub/graph.png": "sha256:4e87bc7aa84d007ac4484b141b4ca943adf2d2344b6e3b4b06f817fd6e9fc13e",
     "confighub/object.png": "sha256:89111d1b08d89daf189c7d35d7ab65c3e8c1bea3d8d229ad5e189df51723a415",
     "transcripts/check-after.txt": "sha256:c0bbc307a1b6d26165a0a7c490d361e0e431ff714bc4d5e0a8d0f3f803ae5663",
     "transcripts/check-before.txt": "sha256:34451f94459a501d000f078f8dc4d488efa944679bf861e5fe578091f05dbb0d"
