@@ -18,14 +18,15 @@ You can run the steps yourself or
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [ORAS](https://oras.land/docs/installation). Then install the Workshop
-plugin release this Guide was checked with (version 0.6.59).
+plugin release this Guide was checked with (version 0.6.60).
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.59
+cub plugin install confighub/cub-workshop@v0.6.60
 ```
 
 Every command below was run with plugin v0.6.57, and the commands in steps 1
-to 4 were run again with v0.6.59. Release v0.6.56 refuses these entries. It
+to 4 were run again with v0.6.60, without the Flux schema plugin. Release
+v0.6.56 refuses these entries. It
 stops with `receiptUrl is not a supported GitHub receipt URL`.
 
 From v0.6.58 the plugin also ships these three as a stack named `gpu-node`, so
@@ -219,6 +220,12 @@ cub config diff gpu-node/rendered.yaml gpu-node-v25/rendered.yaml | grep -E 'Con
 The check printed the same seven lines as step 3, with 89 objects. The diff
 printed three lines.
 
+With the Flux schema plugin installed, the compose for this swap stops instead.
+Its schema step reports `ClusterPolicy/cluster-policy
+/spec/migManager/config/name: got null, want string`. A kind cluster with the
+chart's own CRD accepts that ClusterPolicy and fills in the field's default,
+so the refusal is a false alarm in the check, not a fault in the entry.
+
 ```text
 Configuration diff: 0 added, 0 removed, 21 changed, 68 unchanged
     /spec/driver/version replace: "580.126.20" -> "580.105.08"
@@ -276,7 +283,7 @@ three has not been deployed.
 Start a fresh session in an empty directory with normal approvals.
 
 ```text
-Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.59.
+Install the Workshop plugin with cub plugin install confighub/cub-workshop@v0.6.60.
 Run cub config list --role gpu and find the ids of the default bases of
 NVIDIA gpu-operator v26.3.3, nvsentinel v1.25.0 and cluster-readiness-engine
 v0.6.0. Compose them with cub stack compose, one --entry for each, --name

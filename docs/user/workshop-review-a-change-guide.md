@@ -103,11 +103,11 @@ This part needs no account and no cluster.
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/).
 Then install the Workshop plugin release this part was checked with
-(version 0.6.59). The recorded run had version 0.6.56 installed. Part 1 was
-run again from a fresh clone with 0.6.59 and printed the same output.
+(version 0.6.60). The recorded run had version 0.6.56 installed. Part 1 was
+run again from a fresh clone with 0.6.60 and printed the same output.
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.59
+cub plugin install confighub/cub-workshop@v0.6.60
 ```
 
 Fetch the example. It is a small public repository layout with a `base`, a
