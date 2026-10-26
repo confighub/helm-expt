@@ -43,7 +43,7 @@ export const SCREENSHOTS = {
   "helm-cert-manager": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the cert-manager controller Deployment, at its image line",
     graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 6 cert-manager CRDs as Units in the base" } },
   "helm-kube-prometheus-stack": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Prometheus object, at its image line",
-    crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 10 Prometheus Operator CRDs as Units in the base" } },
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the kube-prometheus-stack base with its dev and prod variants, and the label and three replicas prod sets on the operator" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 10 Prometheus Operator CRDs as Units in the base" } },
   "helm-argo-cd": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Argo CD repo-server Deployment, at its image line",
     graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the Argo CD base with its dev and prod variants, and the label and three replicas prod sets on the server" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 3 Argo CD CRDs as Units in the base" } },
   "helm-external-secrets": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the External Secrets Deployment, at its image line",
