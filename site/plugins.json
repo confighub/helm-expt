@@ -140,8 +140,8 @@
       ],
       "repository": "confighub/cub-scout",
       "release": {
-        "date": "2026-10-11",
-        "tag": "v2.14.1"
+        "date": "2026-10-26",
+        "tag": "v2.14.2"
       },
       "install": "cub plugin install confighub/cub-scout",
       "next": {
