@@ -1,0 +1,29 @@
+# tenants on dev-1: what Flux runs for this layer, reading flux-tenants-dev-1.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: tenants
+  namespace: flux-system
+spec:
+  insecure: __CONFIGHUB_OCI_INSECURE__
+  interval: 1m
+  ref:
+    tag: latest
+  secretRef:
+    name: confighub-flux-targets
+  url: oci://__CONFIGHUB_OCI__/space/flux-tenants-dev-1
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tenants
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure
+  interval: 10m
+  path: ./
+  prune: true
+  sourceRef:
+    kind: OCIRepository
+    name: tenants

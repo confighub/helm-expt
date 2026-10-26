@@ -1,0 +1,61 @@
+{
+  "id": "helm-kube-prometheus-stack",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "prometheus-community-kube-prometheus-stack-88-6-3-default",
+  "before": "base",
+  "chart": {
+    "name": "kube-prometheus-stack",
+    "version": "88.6.3",
+    "repository": "https://prometheus-community.github.io/helm-charts",
+    "url": "https://github.com/prometheus-community/helm-charts/releases/download/kube-prometheus-stack-88.6.3/kube-prometheus-stack-88.6.3.tgz",
+    "sha256": "sha256:c66cb763940b7d9e12923dd4667aabd672ae298ed39d7a4ee9ff7bf34fe45923",
+    "lockedSha256": "sha256:c66cb763940b7d9e12923dd4667aabd672ae298ed39d7a4ee9ff7bf34fe45923",
+    "crdsFolder": 10
+  },
+  "render": {
+    "release": "kube-prometheus-stack",
+    "namespace": "monitoring",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-88-6-3-default.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml": "sha256:7b1bb6bd944ccfff3fa9e42b82a1fe442ddffefccf28f08f670b841c12906f4d"
+  },
+  "commands": [
+    "helm template kube-prometheus-stack kube-prometheus-stack --repo https://prometheus-community.github.io/helm-charts --version 88.6.3 --namespace monitoring -f values.yaml --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the Prometheus object, at its image line"
+  },
+  "files": {
+    "before/before.yaml": "sha256:ea967ddc700c78e71ffe9441396fdb26fb87006a3cc3baf4e8dcd11b0dae5476",
+    "before/template-excerpt.json": "sha256:3176bca8418fd2b4289ec4f5c574ba4f30f810a49e3a423edd0a8c30da3808d5",
+    "before/values.yaml": "sha256:dd22b3db01aeb3835e2f8989021e512fd14ff6a1783bf17efb8f9589d76dafac",
+    "confighub/object.png": "sha256:c19f3855c0b8ffe0f38ec26b2249566765d9e6ceccf7e4e4389cda006fe262ae",
+    "transcripts/check-after.txt": "sha256:a07286b9df92a9d4e287e78da11244843a68f114bcac6eda406d50e97eaefeb3",
+    "transcripts/check-before.txt": "sha256:dc7a3ababb46e014d7fc88591eee120bd063603a0c2d6546db1c8c240698857e"
+  }
+}

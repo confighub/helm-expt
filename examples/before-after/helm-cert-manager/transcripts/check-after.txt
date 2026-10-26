@@ -1,0 +1,20 @@
+
+Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  46 objects: 13 ClusterRole, 10 ClusterRoleBinding, 6 CustomResourceDefinition, 3 Deployment, 1 MutatingWebhookConfiguration, 3 Role, 3 RoleBinding, 3 Service, 3 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: cert-manager, kube-system
+
+Lifecycle work
+  [NOTE] CRDs: 6 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [NOTE] admission webhooks needing a certificate: 2
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 46 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

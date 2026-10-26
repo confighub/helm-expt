@@ -1,0 +1,22 @@
+{
+  "file": "redis/templates/replicas/application.yaml",
+  "firstLine": 109,
+  "lines": [
+    "      dnsConfig: {{- include \"common.tplvalues.render\" (dict \"value\" .Values.replica.dnsConfig \"context\" $) | nindent 8 }}",
+    "      {{- end }}",
+    "      enableServiceLinks: {{ .Values.replica.enableServiceLinks }}",
+    "      terminationGracePeriodSeconds: {{ .Values.replica.terminationGracePeriodSeconds }}",
+    "      containers:",
+    "        - name: redis",
+    "          image: {{ template \"redis.image\" . }}",
+    "          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}",
+    "          {{- if not .Values.diagnosticMode.enabled }}",
+    "          {{- if .Values.replica.lifecycleHooks }}",
+    "          lifecycle: {{- include \"common.tplvalues.render\" (dict \"value\" .Values.replica.lifecycleHooks \"context\" $) | nindent 12 }}",
+    "          {{- end }}",
+    "          {{- end }}",
+    "          {{- if .Values.replica.containerSecurityContext.enabled }}",
+    "          securityContext: {{- include \"common.compatibility.renderSecurityContext\" (dict \"secContext\" .Values.replica.containerSecurityContext \"context\" $) | nindent 12 }}",
+    "          {{- end }}"
+  ]
+}

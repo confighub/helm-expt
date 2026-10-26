@@ -27,11 +27,10 @@
     "after/ keeps the Applications as Argo CD has them today (control/) and as they read after the handover (repointed/). The scripts that apply also writes are left out, because they name the directory they were written to."
   ],
   "confighub": {
-    "file": "confighub/components.png",
+    "file": "confighub/overrides.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "space": "argo-apptique-dev-base",
-    "shows": "the apptique-dev base and its in-cluster variant at release 1"
+    "shows": "the apptique-prod base with its in-cluster variant, and the prod Deployment's settings"
   },
   "files": {
     "after/control/argo-apptique-apps-children/apptique-dev.yaml": "sha256:8a3f1a977fa9f99f8627365489015f0f5653f5b2100d7bb0e8cb5b7e4c394cc8",
@@ -43,7 +42,7 @@
     "before/manifests/apptique/dev/deployment.yaml": "sha256:07a7be8b0a324918c5729e9a050ef1364142a307cf4a8784936d7b777acc4449",
     "before/manifests/apptique/prod/deployment.yaml": "sha256:fcca4f7fd8d98764fe9a066a40367d2420a36e4d9fb1e8ace3ab349bf49917f0",
     "before/root/root-app.yaml": "sha256:4e135867baad83ace17da8c808dbb2c0c1d0255fc84469cb3e25858fa8f6c53a",
-    "confighub/components.png": "sha256:74bf148464231dd68c9fa379e7ea283a3c70fd688274f9538431bbab101a1531",
+    "confighub/overrides.png": "sha256:a5e909a426b9ab289f467f0ba9540b9f9ebacea3cf00ad3c634515e05e620abd",
     "transcripts/argo-plan.txt": "sha256:8278f6978840d7b51f93b48ac834f29e97c6208723c675ea5e49ad7068224dea"
   }
 }

@@ -1,0 +1,61 @@
+{
+  "id": "helm-cert-manager",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "listing": "jetstack-cert-manager-v1-21-1-crds-enabled",
+  "before": "base",
+  "chart": {
+    "name": "cert-manager",
+    "version": "v1.21.1",
+    "repository": "https://charts.jetstack.io",
+    "url": "https://charts.jetstack.io/charts/cert-manager-v1.21.1.tgz",
+    "sha256": "sha256:c27101f3f3e2349fb4a9e704316105bf7b52ad73b8c8257d3498ef7f2f6a4adc",
+    "lockedSha256": "sha256:c27101f3f3e2349fb4a9e704316105bf7b52ad73b8c8257d3498ef7f2f6a4adc",
+    "crdsFolder": 0
+  },
+  "render": {
+    "release": "cert-manager",
+    "namespace": "cert-manager",
+    "kubeVersion": "1.30.0"
+  },
+  "sources": [
+    {
+      "what": "the render inputs",
+      "recordedIn": "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-1-crds-enabled.yaml"
+    }
+  ],
+  "repoFiles": {
+    "recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml": "sha256:b086f94f9123688449e03f4a7af2071f8f97ad4ccafa226c375fc2bb44a6c2db"
+  },
+  "commands": [
+    "helm template cert-manager cert-manager --repo https://charts.jetstack.io --version v1.21.1 --namespace cert-manager -f values.yaml --kube-version 1.30.0 > before.yaml",
+    "cub config check before.yaml",
+    "cub config check after.yaml"
+  ],
+  "notes": [
+    "after.yaml is recipes/jetstack/cert-manager/v1.21.1/revisions/crds-enabled/r001/rendered/release-objects.yaml, the objects the Catalog keeps for this base, so it is not stored twice."
+  ],
+  "confighub": {
+    "file": "confighub/object.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the cert-manager controller Deployment, at its image line"
+  },
+  "files": {
+    "before/before.yaml": "sha256:2d6a867c8afe4bffab664b75f4a7b9d493672d6e00c1aaf7f5fcf04ce7f60d6b",
+    "before/template-excerpt.json": "sha256:ca5aa9d7f51e1ed69d1e1a8c0de46e171bd52e2fe13fa80cf1ab640c19a12604",
+    "before/values.yaml": "sha256:b878275258eb101b16ca769726370bb7473976349ed5e350ef189aa28a6db5a1",
+    "confighub/object.png": "sha256:451b90e23a4bd7e180811449390ed9563408cd7ae4c141d94a90bdcf58f1b372",
+    "transcripts/check-after.txt": "sha256:7be1612532ce6fe450712c233c0b188e008866f78bea7266878d6ae065a80899",
+    "transcripts/check-before.txt": "sha256:98e56d591aaa2b0e7ebf77862f1ec9a5fb0b5452ef50d6dd077a06a15efb6cb1"
+  }
+}

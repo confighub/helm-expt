@@ -1,0 +1,22 @@
+{
+  "file": "gatekeeper/templates/gatekeeper-controller-manager-deployment.yaml",
+  "firstLine": 53,
+  "lines": [
+    "    spec:",
+    "      affinity:",
+    "        {{- toYaml .Values.controllerManager.affinity | nindent 8 }}",
+    "      automountServiceAccountToken: {{ .Values.controllerManager.serviceAccount.automountServiceAccountToken }}",
+    "      containers:",
+    "      - {{- if .Values.image.release }}",
+    "        image: {{ .Values.image.repository }}:{{ .Values.image.release }}",
+    "        {{- else }}",
+    "        image: {{ .Values.image.repository }}",
+    "        {{- end }}",
+    "        args:",
+    "        - --port={{ .Values.controllerManager.port }}",
+    "        - --health-addr=:{{ .Values.controllerManager.healthPort }}",
+    "        - --prometheus-port={{ .Values.controllerManager.metricsPort }}",
+    "        - --logtostderr",
+    "        - --log-denies={{ .Values.logDenies }}"
+  ]
+}

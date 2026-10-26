@@ -1,0 +1,20 @@
+
+Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget, 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
+  namespaces that must already exist: redis
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [NOTE] images tagged latest or not tagged: 1 (registry-1.docker.io/bitnami/redis:latest). The same name can pull different bytes later
+
+Schema
+  [PASS] schema validation: 14 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

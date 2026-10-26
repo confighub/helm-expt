@@ -20,7 +20,7 @@ import {
 import { scoutUiGuide, configUiGuide } from "./lib/config-ui-guides.mjs";
 import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-guide.mjs";
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
-import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY } from "./lib/before-after-pages.mjs";
+import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY, SIMPLE_PAGES, simpleBeforeAfterPage } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
@@ -820,7 +820,8 @@ const SPLIT_PAGES = [
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
-  ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, build: () => beforeAfterHtml(page.id) })),
+  ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
+  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as a Helm chart and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY) })) })),
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -2935,12 +2936,13 @@ function siteSections() {
     ["plugins.html", "Every cub plugin"], ["bring-kubara-into-confighub.html", "Bring Kubara's managed add-ons into ConfigHub"],
   ] },
   { label: "Guides", hub: "guides.html", pages: [
-    ["guides.html", "Every Guide"], ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
+    ["guides.html", "Every Guide"], ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"], ["apps.html#before-and-after", "See a config before and after"], ...JOURNEY_PAGES.map((journey) => [journey.file, journey.title]), ["try.html", "Try it: Redis in ten minutes"], ["redis-walkthrough.html", "Detailed Redis walkthrough"],
     ["demo.html", "The ten-minute demo"], ["ai.html", "Use with your AI"], ["ask.html", "Is my configuration right?"],
     ["deploy-with-flux-or-argo.html", "Run it with Flux, Argo CD, or kubectl"], ["promote.html", "Promote my config"],
     ["does-cluster-match-approved-config.html", "Does the cluster match?"], ["why-do-dev-and-prod-differ.html", "Why do dev and prod differ?"],
     ["how-it-works.html", "Release, promote and roll back"],
-    ...SPLIT_PAGES.filter((page) => !page.doc).map((guide) => [guide.file, guide.title]),
+    // The before-and-after pages share one front door, the gallery on Apps.
+    ...SPLIT_PAGES.filter((page) => !page.doc && !page.beforeAfter).map((guide) => [guide.file, guide.title]),
   ] },
   { label: "Docs", hub: "docs.html", pages: [
     ["docs.html", "Docs"], ["catalog-docs.html", "Catalog docs"], ["config.html", "How configuration works"], ["variants.html", "Variants"], ["oci.html", "OCI shapes"],

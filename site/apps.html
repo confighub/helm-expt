@@ -644,30 +644,90 @@
   <main>
     <section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example starts from files you may have today and shows what the Workshop gives you instead. Every output is recorded from a real run, and you can run each one yourself with no account.</p>
+      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
       <div class="doors ba-gallery">
         <article class="door">
           <span class="kicker">Helm chart</span>
-          <h3><a href="./before-after-helm-gpu-operator.html">See what the GPU Operator Helm chart becomes</a></h3>
-          <p>Helm hides 8 hook objects among the 27 it renders. The bundle holds the 24 objects to apply, CRDs first, and a plan for the hooks.</p>
+          <h3><a href="./example-redis.html">Redis, before and after</a></h3>
+          <p>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-postgresql.html">PostgreSQL, before and after</a></h3>
+          <p>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-ingress-nginx.html">ingress-nginx, before and after</a></h3>
+          <p>The 7 setup objects Helm runs out of sight become steps you can read.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-cert-manager.html">cert-manager, before and after</a></h3>
+          <p>The 4 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-kube-prometheus-stack.html">kube-prometheus-stack, before and after</a></h3>
+          <p>The 7 setup objects Helm runs out of sight become steps you can read.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-argo-cd.html">Argo CD, before and after</a></h3>
+          <p>The 4 setup objects Helm runs out of sight become steps you can read.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-external-secrets.html">External Secrets, before and after</a></h3>
+          <p>Every object is written out, so you can review it before anything runs.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-metrics-server.html">metrics-server, before and after</a></h3>
+          <p>Every object is written out, so you can review it before anything runs.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-gatekeeper.html">Gatekeeper, before and after</a></h3>
+          <p>The 8 setup objects Helm runs out of sight become steps you can read.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Helm chart</span>
+          <h3><a href="./example-gpu-operator.html">NVIDIA GPU Operator, before and after</a></h3>
+          <p>The 8 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
         </article>
         <article class="door">
           <span class="kicker">Kustomize overlays</span>
-          <h3><a href="./before-after-kustomize-apptique.html">See what dev and prod Kustomize overlays become</a></h3>
-          <p>A base, two overlays and their patches become two flat files, and one table lists every field that differs.</p>
+          <h3><a href="./example-kustomize-dev-and-prod.html">Kustomize dev and prod, before and after</a></h3>
+          <p>A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Kustomize with a Helm chart</span>
+          <h3><a href="./example-kustomize-helm-chart.html">A Helm chart inside Kustomize, before and after</a></h3>
+          <p>A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.</p>
         </article>
         <article class="door">
           <span class="kicker">Argo CD app of apps</span>
-          <h3><a href="./before-after-argo-app-of-apps.html">See what an Argo CD app of apps becomes</a></h3>
-          <p>Argo CD keeps syncing. Each Application changes three lines, from a Git path to a ConfigHub release.</p>
+          <h3><a href="./example-argo-cd-app-of-apps.html">An Argo CD app of apps, before and after</a></h3>
+          <p>Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Argo CD ApplicationSet</span>
+          <h3><a href="./example-argo-cd-applicationset.html">An Argo CD ApplicationSet, before and after</a></h3>
+          <p>An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.</p>
         </article>
         <article class="door">
           <span class="kicker">Flux fleet</span>
-          <h3><a href="./before-after-flux-beginner.html">See what a Flux fleet becomes</a></h3>
-          <p>Flux keeps reconciling. Each layer's Kustomization keeps its name and settings, and changes only where it reads from.</p>
+          <h3><a href="./example-flux-fleet.html">A Flux fleet, before and after</a></h3>
+          <p>Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.</p>
+        </article>
+        <article class="door">
+          <span class="kicker">Flux fleet</span>
+          <h3><a href="./example-flux-which-version-where.html">Which version runs where, before and after</a></h3>
+          <p>Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version each cluster runs.</p>
         </article>
       </div>
-      <style>.ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>
     <section aria-labelledby="apps-change-path">
       <h2 id="apps-change-path">See what changes—and what stays yours</h2>

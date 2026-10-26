@@ -1,0 +1,22 @@
+{
+  "file": "cert-manager/templates/deployment.yaml",
+  "firstLine": 83,
+  "lines": [
+    "        {{ with .Values.volumes }}",
+    "        {{- toYaml . | nindent 8 }}",
+    "        {{- end }}",
+    "      {{- end }}",
+    "      containers:",
+    "        - name: {{ .Chart.Name }}-controller",
+    "          image: \"{{ template \"cert-manager.image\" (tuple .Values.image .Values.imageRegistry .Values.imageNamespace (printf \":%s\" .Chart.AppVersion)) }}\"",
+    "          imagePullPolicy: {{ .Values.image.pullPolicy }}",
+    "          args:",
+    "          {{- /* The if statement below is equivalent to {{- if $value }} but will also return true for 0. */ -}}",
+    "          {{- if not (has (quote .Values.global.logLevel) (list \"\" (quote \"\"))) }}",
+    "          - --v={{ .Values.global.logLevel }}",
+    "          {{- end }}",
+    "          {{- if .Values.config }}",
+    "          - --config=/var/cert-manager/config/config.yaml",
+    "          {{- end }}"
+  ]
+}

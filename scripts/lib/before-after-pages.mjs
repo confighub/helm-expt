@@ -7,11 +7,25 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readYamlText, repoRoot } from "./proof-common.mjs";
+import { HELM_EXAMPLES } from "../generate-before-after.mjs";
 
 const ROOT = "examples/before-after";
 const GITHUB = "https://github.com/confighub/helm-expt/tree/main";
 export const GPU_ENTRY = "nvidia-gpu-operator-v26-3-3-default";
 const HELM_TEMPLATE = "helm template gpu-operator gpu-operator --repo https://helm.ngc.nvidia.com/nvidia --version v26.3.3 --namespace gpu-operator > before.yaml";
+
+// The name each Helm chart goes by on its page.
+const HELM_NAMES = {
+  "helm-redis": "Bitnami Redis",
+  "helm-postgresql": "Bitnami PostgreSQL",
+  "helm-ingress-nginx": "ingress-nginx",
+  "helm-cert-manager": "cert-manager",
+  "helm-kube-prometheus-stack": "kube-prometheus-stack",
+  "helm-argo-cd": "Argo CD",
+  "helm-external-secrets": "External Secrets",
+  "helm-metrics-server": "metrics-server",
+  "helm-gatekeeper": "Gatekeeper",
+};
 
 export const BEFORE_AFTER_PAGES = [
   {
@@ -50,6 +64,45 @@ export const BEFORE_AFTER_PAGES = [
     description: "A Flux fleet of two clusters and two layers planned into ConfigHub: each Flux Kustomization keeps its name and settings, and reads a ConfigHub release instead of Git.",
     card: "Flux keeps reconciling. Each layer's Kustomization keeps its name and settings, and changes only where it reads from.",
   },
+  {
+    id: "kustomize-helm-chart",
+    key: "beforeAfterKustomizeHelmChartHtml",
+    file: "before-after-kustomize-helm-chart.html",
+    kicker: "Kustomize with a Helm chart",
+    title: "See what a Helm chart inside Kustomize becomes",
+    description: "A Helm chart inflated by Kustomize for dev, staging and prod, built flat, with the namespace each object really gets.",
+    card: "Kustomize's namespace setting misses objects inflated from a chart. Built flat, each environment shows the namespace every object gets.",
+  },
+  {
+    id: "argo-applicationset",
+    key: "beforeAfterArgoApplicationsetHtml",
+    file: "before-after-argo-applicationset.html",
+    kicker: "Argo CD ApplicationSet",
+    title: "See what an Argo CD ApplicationSet becomes",
+    description: "An ApplicationSet with a directory generator, planned into ConfigHub: the Applications it would generate, written out before Argo CD makes them.",
+    card: "A template full of placeholders becomes the two Applications Argo CD would generate, written out where you can read them first.",
+  },
+  {
+    id: "flux-expert-fleet",
+    key: "beforeAfterFluxExpertFleetHtml",
+    file: "before-after-flux-expert-fleet.html",
+    kicker: "Flux fleet",
+    title: "See which version runs where in a Flux fleet",
+    description: "A Flux fleet of three clusters and four layers planned into ConfigHub: one base per layer, one variant per cluster, and the version each cluster runs.",
+    card: "Three clusters and four layers become ten variants, and one line says which nginx version each cluster runs.",
+  },
+  ...HELM_EXAMPLES.map((spec) => {
+    const name = HELM_NAMES[spec.id];
+    return {
+      id: spec.id,
+      key: `beforeAfter${spec.id.replace(/(^|-)(\w)/g, (_, __, c) => c.toUpperCase())}Html`,
+      file: `before-after-${spec.id}.html`,
+      kicker: "Helm chart",
+      title: `See what the ${name} Helm chart becomes`,
+      description: `Plain helm template for ${name} against the base the Catalog keeps for it: what changes in the objects, and the plan that comes with them.`,
+      card: null,
+    };
+  }),
 ];
 
 const read = (id, path) => readFileSync(join(repoRoot, ROOT, id, path), "utf8");
@@ -478,6 +531,672 @@ function fluxPage(h) {
   };
 }
 
+
+// What a Helm example measures, from its recorded files and its listing.
+function helmFacts(id) {
+  const rec = receipt(id);
+  const listing = JSON.parse(readFileSync(join(repoRoot, "site/listings", `${rec.listing}.json`), "utf8"));
+  const before = objects(read(id, "before/before.yaml"));
+  const after = objects(readFileSync(join(repoRoot, Object.keys(rec.repoFiles)[0]), "utf8"));
+  const key = (doc) => `${doc.kind}/${doc.metadata.namespace ?? ""}/${doc.metadata.name}`;
+  const hook = (doc) => doc.metadata?.annotations?.["helm.sh/hook"];
+  const hooks = before.filter(hook);
+  const plain = before.filter((doc) => !hook(doc));
+  const afterByKey = new Map(after.map((doc) => [key(doc), doc]));
+  const same = plain.filter((doc) => afterByKey.has(key(doc)) && JSON.stringify(afterByKey.get(key(doc))) === JSON.stringify(doc));
+  const changed = plain.filter((doc) => afterByKey.has(key(doc)) && JSON.stringify(afterByKey.get(key(doc))) !== JSON.stringify(doc));
+  const onlyBefore = plain.filter((doc) => !afterByKey.has(key(doc)));
+  const plainKeys = new Set(plain.map(key));
+  const onlyAfter = after.filter((doc) => !plainKeys.has(key(doc)));
+  const again = rec.files["before/before-again.yaml"] ? objects(read(id, "before/before-again.yaml")) : null;
+  const rerendered = again ? fieldDifferences(before, again) : [];
+  const plan = listing.routing?.requirements ?? [];
+  return { rec, listing, before, after, hooks, plain, same, changed, onlyBefore, onlyAfter, rerendered, plan, key, afterByKey,
+    crdsBefore: before.filter((doc) => doc.kind === "CustomResourceDefinition").length,
+    crdsAfter: after.filter((doc) => doc.kind === "CustomResourceDefinition").length,
+    crdsOnlyAfter: onlyAfter.filter((doc) => doc.kind === "CustomResourceDefinition").length };
+}
+
+// The one point a Helm page makes, chosen from what was measured.
+function helmPoint(f) {
+  const steps = `${f.plan.length} step${f.plan.length === 1 ? "" : "s"}`;
+  if (f.rerendered.length) {
+    return {
+      kind: "random",
+      lead: `With the chart's own defaults, every <code>helm template</code> run writes a new random password into a Secret, so two renders of the same chart differ. The Catalog's <code>${f.listing.identity.base}</code> base holds no Secret: its pods read one you create, and its plan names it.`,
+      card: "With the chart's defaults every render writes a new random password. The Catalog's base holds no Secret and names the one you create.",
+    };
+  }
+  if (f.hooks.length) {
+    const crds = f.crdsOnlyAfter ? `, including the ${f.crdsOnlyAfter} CRDs that <code>helm template</code> leaves out,` : "";
+    return {
+      kind: "hooks",
+      lead: `Plain <code>helm template</code> renders ${f.before.length} objects, and ${f.hooks.length} of them are Helm hooks that must never be applied with the rest. The Catalog's base holds the ${f.after.length} objects to apply${crds} and a plan of ${steps}.`,
+      card: `Helm mixes ${f.hooks.length} hook objects into the ${f.before.length} it renders. The base holds the ${f.after.length} objects to apply${f.crdsOnlyAfter ? `, ${f.crdsOnlyAfter} CRDs among them,` : ""} and a plan of ${steps}.`,
+    };
+  }
+  if (f.plan.length) {
+    return {
+      kind: "plan",
+      lead: `The ${f.before.length} objects are the same on both sides. What the Workshop adds is the plan: ${steps} that the objects alone do not say.`,
+      card: `The ${f.before.length} objects are the same on both sides. The Workshop adds a plan of ${steps} the objects do not say.`,
+    };
+  }
+  return {
+    kind: "nothing",
+    lead: `The ${f.before.length} objects are the same on both sides, and the plan is empty: the Catalog records no step before, during or after the apply. This chart can be applied as its objects are.`,
+    card: `The same ${f.before.length} objects on both sides and an empty plan. This chart can be applied as its objects are.`,
+  };
+}
+
+export function helmCard(id) {
+  return helmPoint(helmFacts(id)).card;
+}
+
+function helmListingPage(id, h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const f = helmFacts(id);
+  const { rec, listing } = f;
+  const name = HELM_NAMES[id];
+  const point = helmPoint(f);
+  const checkBefore = transcriptLines(read(id, "transcripts/check-before.txt"));
+  const checkAfter = transcriptLines(read(id, "transcripts/check-after.txt"));
+  const base = listing.identity.base;
+  const page = BEFORE_AFTER_PAGES.find((row) => row.id === id);
+
+  check(listing.identity.id === rec.listing, `${ROOT}/${id} records ${rec.listing}, and the listing names ${listing.identity.id}`);
+  check(f.after.length === listing.flattened.objectCount, `site/listings/${rec.listing}.json counts ${listing.flattened.objectCount} objects, and the retained file holds ${f.after.length}`);
+  check(checkBefore.some((line) => line.includes(`${f.before.length} objects:`)) && checkBefore.some((line) => line.includes(`Helm hooks: ${f.hooks.length}`)), `${ROOT}/${id}/transcripts/check-before.txt does not report ${f.before.length} objects and ${f.hooks.length} hooks`);
+  check(checkAfter.some((line) => line.includes(`${f.after.length} objects:`)) && checkAfter.some((line) => /Helm hooks: 0$/.test(line)), `${ROOT}/${id}/transcripts/check-after.txt does not report ${f.after.length} objects and no hooks`);
+  check(f.onlyAfter.every((doc) => doc.kind === "CustomResourceDefinition") && f.crdsOnlyAfter === rec.chart.crdsFolder, `${ROOT}/${id}: the objects only the base holds are not the ${rec.chart.crdsFolder} CRDs of the chart's crds folder`);
+  if (point.kind === "random") {
+    check(rec.before === "defaults" && f.rerendered.length > 0 && !f.after.some((doc) => doc.kind === "Secret") && f.onlyBefore.every((doc) => doc.kind === "Secret") && f.plan.some((step) => step.type === "target-fact"), `${ROOT}/${id}: the page says the defaults make a random Secret and the base holds none and names one, and the recording does not show that`);
+  } else {
+    check(rec.before === "base" && f.changed.length === 0 && f.onlyBefore.length === 0, `${ROOT}/${id}: the page says every object the two sides share is the same, and ${f.changed.length + f.onlyBefore.length} differ`);
+  }
+  if (point.kind === "plan" || point.kind === "nothing") check(f.hooks.length === 0 && f.same.length === f.before.length && f.after.length === f.before.length, `${ROOT}/${id}: the page says the objects are the same on both sides`);
+  const rerenderLines = rec.files["transcripts/diff-rerender.txt"] ? transcriptLines(read(id, "transcripts/diff-rerender.txt")) : [];
+  if (point.kind === "random") check(rerenderLines[0]?.startsWith("Configuration diff: 0 added, 0 removed, 1 changed"), `${ROOT}/${id}/transcripts/diff-rerender.txt no longer reports one changed object`);
+  const schemaFail = checkBefore.some((line) => /\[FAIL\] schema validation/.test(line));
+
+  const hookRows = f.hooks.map((doc) => [doc.kind, `<code>${escapeHtml(doc.metadata.name)}</code>`, escapeHtml(doc.metadata.annotations["helm.sh/hook"])]);
+  const planRows = f.plan.map((step) => [`<code>${escapeHtml(step.id)}</code>`, escapeHtml(step.type === "target-fact" ? "must exist on the target" : "a step of the apply"), escapeHtml(step.detail)]);
+  const value = (v) => (v === undefined ? "not set" : `<code>${escapeHtml(String(v).length > 60 ? `${String(v).slice(0, 57)}...` : String(v))}</code>`);
+  const changedRows = f.changed.flatMap((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).map((row) => [escapeHtml(`${doc.kind} ${doc.metadata.name}`), `<code>${escapeHtml(row.path)}</code>`, value(row.left), value(row.right)]));
+  const hookJobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
+  const hooksUnplanned = f.hooks.length > 0 && !f.plan.some((step) => /hook/i.test(step.detail) || hookJobs.some((job) => step.detail.includes(job)));
+  const planHookCount = Number(f.plan.map((step) => step.detail.match(/defines (\d+) hook object/)?.[1]).find(Boolean) ?? 0);
+  const movingImage = f.changed.flatMap((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))])).find((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right)))?.left;
+  const helmTemplate = rec.commands[0];
+  const getObjects = (listing.nextSteps ?? []).find((step) => step.id === "get-objects");
+  check(getObjects?.commands?.[0]?.command?.startsWith("curl -fsSL -o "), `site/listings/${rec.listing}.json has no curl command for its objects`);
+  const fetchAfter = getObjects.commands[0].command.replace(/-o \S+/, "-o after.yaml");
+  const setup = getObjects.commands.find((command) => command.command.startsWith("cub installer setup"));
+  const upload = (listing.nextSteps ?? []).find((step) => step.id === "upload")?.commands ?? [];
+  const entryPage = `./charts/${listing.identity.page.split("/").pop()}`;
+  const tableRows = [
+    ["", "Before, helm template", `After, the ${base} base`],
+    ["Objects", String(f.before.length), String(f.after.length)],
+    ["Helm hook objects in the file", String(f.hooks.length), "0"],
+    ["CRDs", String(f.crdsBefore), String(f.crdsAfter)],
+    ...(point.kind === "random" ? [["A Secret with a generated password", "yes, new on every render", "no"]] : []),
+    ...(movingImage ? [["Images on a moving tag", "yes, :latest", "no, pinned by digest"]] : []),
+    ["Objects that are the same on both sides", String(f.same.length), String(f.same.length)],
+    ["Plan steps", "none", String(f.plan.length)],
+  ];
+
+  return {
+    eyebrow: "Before and after",
+    title: page.title,
+    lead: point.lead,
+    opening: `    <p><strong>What you need.</strong> <code>helm</code>, <code>curl</code> and <code>cub</code> with the Workshop plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>${rec.before === "defaults" ? `You have the ${escapeHtml(name)} chart ${escapeHtml(rec.chart.version)} and its own defaults, which is how most people start.` : `You have the ${escapeHtml(name)} chart ${escapeHtml(rec.chart.version)} with the values of the Catalog's <code>${escapeHtml(base)}</code> base${rec.files["before/values.yaml"] ? `, shown in <a href="${GITHUB}/${ROOT}/${id}/before/values.yaml">values.yaml</a>` : ", which are the chart's defaults"}.`} Helm renders it like this, and the Workshop's check reads the result.</p>
+      ${terminal(escapeHtml, { title: "before: plain helm template", first: [helmTemplate], cmd: "cub config check before.yaml", output: checkBefore, mark: [/Helm hooks: [1-9]/, /setup Jobs: [1-9]/, /CRDs: 0$/, /\[FAIL\]/, /tagged latest or not tagged: [1-9]/] })}
+${point.kind === "random" ? `      <p>Render it a second time and compare the two.</p>
+      ${terminal(escapeHtml, { title: "before: the same chart, rendered twice", first: [helmTemplate.replace("> before.yaml", "> before-again.yaml")], cmd: "cub config diff before.yaml before-again.yaml --summary", output: rerenderLines.slice(0, 2), mark: [/1 changed/] })}
+      <p>${f.rerendered.length === 1 ? "One field" : `${f.rerendered.length} fields`} changed between the two renders: ${f.rerendered.map((row) => `<code>${escapeHtml(row.path)}</code> on ${escapeHtml(row.objects.join(", "))}`).join("; ")}. Apply the second render and the Secret no longer holds the password the database was first set up with.</p>
+` : ""}${f.hooks.length ? `      <p>The ${f.hooks.length} hook objects sit in the same file as everything else. Apply the file and they run at once, outside the order Helm gives them.${hooksUnplanned ? ` No step of the plan mentions them, so the base leaves out what they do.` : ""}${planHookCount && planHookCount !== f.hooks.length ? ` The plan counts the ${planHookCount} hook objects the chart's templates define, and these values turn on ${f.hooks.length} of them.` : ""}</p>
+      ${markdownLikeTable([["Kind", "Name", "Helm hook"], ...hookRows], { rawColumns: [1] })}
+` : ""}${f.crdsOnlyAfter ? `      <p>The file holds none of the chart's ${f.crdsOnlyAfter} CRDs. They sit in its <code>crds</code> folder, which <code>helm template</code> leaves out. Helm installs them on the first install only, and never upgrades them.</p>
+` : ""}    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what the Workshop gives you</h2>
+      <p>The Catalog keeps the objects of its <code>${escapeHtml(base)}</code> base for this chart${rec.files["after/values.yaml"] ? `, rendered with <a href="${GITHUB}/${ROOT}/${id}/after/values.yaml">these values</a>` : ""}, and a plan for everything that is not an object to apply.</p>
+      ${terminal(escapeHtml, { title: `after: the ${base} base`, cmd: "cub config check after.yaml", output: checkAfter, mark: [/Helm hooks: 0$/, /CRDs: [1-9]/] })}
+      ${f.plan.length ? `<p>The plan has ${f.plan.length} step${f.plan.length === 1 ? "" : "s"}.</p>
+      ${markdownLikeTable([["Step", "What it is", "What it says"], ...planRows], { rawColumns: [0] })}` : "<p>The plan is empty. The Catalog records nothing that must exist first and no step of the apply.</p>"}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See what changed</h2>
+      ${markdownLikeTable(tableRows)}
+${changedRows.length ? `      <p>These are the fields that differ in the objects both sides hold.${movingImage ? ` The chart's default image is the moving tag <code>${escapeHtml(movingImage)}</code>, and the base pins it by digest, so it pulls the same bytes every time.` : ""}${point.kind === "random" ? " The base's pods read the Secret you create." : ""}</p>
+      ${markdownLikeTable([["Object", "Field", "Before", "After"], ...changedRows], { rawColumns: [1, 2, 3] })}
+` : ""}    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub and the Workshop plugin</a> first.</p>
+      ${commandBlock([
+        { comment: "before: render the chart as Helm does", cmd: helmTemplate },
+        { cmd: "cub config check before.yaml" },
+        { comment: "after: fetch the objects the Catalog keeps for this base", cmd: fetchAfter },
+        { cmd: "cub config check after.yaml" },
+      ])}
+${rec.files["before/values.yaml"] ? `      <p>Save <a href="${GITHUB}/${ROOT}/${id}/before/values.yaml">values.yaml</a> next to the commands first.</p>\n` : ""}      <p><a href="${entryPage}#plan-${rec.listing}">The entry page</a> shows the plan and every other base of this chart.</p>
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      ${setup && upload.length === 3 ? commandBlock([
+        { comment: "render the base from the signed package", cmd: setup.command },
+        { comment: "sign in to your organization", cmd: upload[0].command },
+        { comment: "load the objects as a Space of Units, under names you choose", cmd: upload[1].command },
+        { comment: "list what was loaded", cmd: upload[2].command },
+      ]) : `<p>The <a href="${entryPage}">entry page</a> gives the commands to load this base.</p>`}
+      ${liveScreenshot(id, escapeHtml)}
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>Both checks ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)}, Workshop plugin ${escapeHtml(rec.tools.workshopPlugin)} and helm ${escapeHtml(rec.tools.helm)}. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output on this page.</li>
+        <li>Both sides render for Kubernetes ${escapeHtml(rec.render.kubeVersion)}, as the Catalog does, so only the handling differs.</li>
+        ${rec.chart.lockedSha256 ? "" : `<li>The Catalog's source lock records no SHA-256 for this chart, so the receipt records the one downloaded, <code>${escapeHtml(rec.chart.sha256)}</code>.</li>`}
+        ${schemaFail ? `<li>The schema step fails the chart's own render on a quantity written as a number. Kubernetes accepts a number for a quantity, so this is a false alarm in the check.</li>` : ""}
+        <li>No step of the plan has been run on a cluster for this page. The plan says what a delivery workflow must do, and nothing runs it automatically.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
+// Every field that differs between builds of the same objects, one column per
+// build. Objects are matched by kind and name, since the namespace is what
+// differs.
+function multiDifferences(builds) {
+  const names = Object.keys(builds);
+  const key = (doc) => `${doc.kind}/${doc.metadata.name}`;
+  const byName = Object.fromEntries(names.map((name) => [name, new Map(builds[name].map((doc) => [key(doc), leaves(doc)]))]));
+  const rows = new Map();
+  for (const object of [...byName[names[0]].keys()]) {
+    const paths = new Set(names.flatMap((name) => Object.keys(byName[name].get(object) ?? {})));
+    for (const path of [...paths].sort()) {
+      const values = names.map((name) => byName[name].get(object)?.[path]);
+      if (values.every((v) => v === values[0])) continue;
+      const id = `${path}\u0000${values.join("\u0000")}`;
+      if (!rows.has(id)) rows.set(id, { path, values, objects: [] });
+      rows.get(id).objects.push(object);
+    }
+  }
+  return [...rows.values()];
+}
+
+function kustomizeHelmPage(h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const id = "kustomize-helm-chart";
+  const rec = receipt(id);
+  const envs = Object.keys(rec.files).filter((path) => /^after\/[^/]+\.yaml$/.test(path)).map((path) => path.slice(6, -5));
+  const order = ["dev", "staging", "prod"].filter((env) => envs.includes(env));
+  check(order.length === envs.length && order.length === 3, `${ROOT}/${id}: the page describes dev, staging and prod, and the recording holds ${envs.join(", ")}`);
+  const builds = Object.fromEntries(order.map((env) => [env, objects(read(id, `after/${env}.yaml`))]));
+  const diffs = multiDifferences(builds);
+  const base = read(id, "before/base/kustomization.yaml");
+  check(/helmCharts:/.test(base) && !/^namespace:/m.test(base), `${ROOT}/${id}: the base no longer inflates a chart without a namespace`);
+  for (const env of order) check(/path: \/metadata\/namespace/.test(read(id, `before/overlays/${env}/kustomization.yaml`)), `${ROOT}/${id}: the ${env} overlay no longer patches the namespace in`);
+  const nsRow = diffs.find((row) => row.path === "metadata.namespace");
+  check(nsRow && order.every((env, i) => nsRow.values[i] === `storefront-${env}`), `${ROOT}/${id}: the builds no longer put each object in storefront-<env>`);
+  const kinds = Object.entries(countKinds(builds.prod)).map(([kind, n]) => `${n} ${kind}`).join(" and ");
+  const checkProd = transcriptLines(read(id, "transcripts/check-prod.txt"));
+  check(checkProd.some((line) => line.includes(`${builds.prod.length} objects:`)), `${ROOT}/${id}/transcripts/check-prod.txt does not report ${builds.prod.length} objects`);
+  const source = rec.sources[0];
+  const sourceUrl = `${source.repository}/tree/${source.commit}/${source.path}`;
+  const value = (v) => (v === undefined ? "not set" : `<code>${escapeHtml(String(v))}</code>`);
+  const fileRows = Object.keys(rec.files).filter((path) => path.startsWith("before/")).sort().map((path) => {
+    const short = path.replace(/^before\//, "");
+    const what = short === "base/kustomization.yaml" ? "inflates the chart with its values and adds a label"
+      : /^overlays\/.*kustomization\.yaml$/.test(short) ? `adds the environment label and patches in ${[...new Set([...read(id, path).matchAll(/path: (\/\S+)/g)].map((m) => m[1]))].map((p) => p === "/metadata/namespace" ? "the namespace" : p.replace(/^\/spec\/template\/spec\/containers\/0\//, "the container's ").replace(/^\/spec\//, "").replaceAll("/", " ")).join(", ")}`
+      : short.startsWith("base/charts/") ? "part of the Helm chart, kept in the repository" : "";
+    return [`<code>${escapeHtml(short)}</code>`, escapeHtml(what)];
+  });
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES.find((page) => page.id === id).title,
+    lead: "This app is a Helm chart that Kustomize inflates, and Kustomize's <code>namespace:</code> setting does not reach objects that come from a chart, so each overlay patches the namespace in. Built flat, each environment is one file, and you can read the namespace every object gets.",
+    opening: `    <p><strong>What you need.</strong> <code>kustomize</code>, <code>helm</code>, <code>git</code> and <code>cub</code> with the Workshop plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>The example is the checkout cache of a storefront in <a href="${sourceUrl}">confighub/examples</a>. Its base wraps a small Helm chart, and three overlays set dev, staging and prod.</p>
+      ${markdownLikeTable([["File", "What it does"], ...fileRows], { rawColumns: [0] })}
+      <p>To see what any environment runs, Kustomize has to call Helm. <code>kustomize build</code> refuses the chart unless you pass <code>--enable-helm</code>.</p>
+    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what the Workshop gives you</h2>
+      <p>Each overlay builds into one flat file of ${escapeHtml(kinds)}. The Workshop's check reads each one.</p>
+      ${terminal(escapeHtml, { title: "after: prod, built flat", first: ["kustomize build --enable-helm overlays/prod > prod.yaml"], cmd: "cub config check prod.yaml", output: checkProd, mark: [/objects:/] })}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See every field that differs</h2>
+      <p>These are all the differences between the three builds.</p>
+      ${markdownLikeTable([["Field", ...order, "On"], ...diffs.map((row) => [`<code>${escapeHtml(row.path)}</code>`, ...row.values.map(value), escapeHtml(row.objects.join(", "))])], { rawColumns: [0, 1, 2, 3] })}
+      <p>The namespace row is the one the overlays work for. Drop a patch, and that object lands in whatever namespace Argo CD is told to use.</p>
+    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub and the Workshop plugin</a>, <code>kustomize</code> and <code>helm</code> first.</p>
+      ${commandBlock([
+        { comment: "fetch the example at the commit this page was built from", cmd: `git clone https://github.com/confighub/examples.git && git -C examples checkout ${source.commit}` },
+        { cmd: `cd examples/${source.path}` },
+        { comment: "build each overlay flat; Kustomize calls Helm for the chart", cmd: "for env in dev staging prod; do kustomize build --enable-helm overlays/$env > $env.yaml; done" },
+        { cmd: "cub config check prod.yaml" },
+      ])}
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      <p>This app is one of the children of an Argo CD app of apps. <a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a> loads the whole estate, and <code>apply.sh</code> builds each overlay as above before it saves it.</p>
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>The builds and checks ran on ${escapeHtml(rec.recordedOn)} with kustomize ${escapeHtml(rec.tools.kustomize)}, helm ${escapeHtml(rec.tools.helm)}, cub ${escapeHtml(rec.tools.cub)} and Workshop plugin ${escapeHtml(rec.tools.workshopPlugin)}. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>What a chart inflates can change with the helm version Kustomize calls, so the flat files are the ones to review, not the overlays.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
+function argoAppSetPage(h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const id = "argo-applicationset";
+  const rec = receipt(id);
+  const plan = transcriptLines(read(id, "transcripts/argo-plan.txt"));
+  const appFiles = Object.keys(rec.files).filter((path) => path.startsWith("after/apps/")).sort();
+  const apps = appFiles.map((path) => readYamlText(read(id, path)));
+  check(apps.length === 2, `${ROOT}/${id}: the page describes two generated Applications, and the recording has ${apps.length}`);
+  check(apps.every((doc) => doc.metadata.name.startsWith("apptique-")), `${ROOT}/${id}: a generated Application is not named apptique-<directory>`);
+  const appset = readYamlText(read(id, "before/bootstrap/applicationset.yaml"));
+  check(appset.kind === "ApplicationSet" && /\{\{path\.basename\}\}/.test(JSON.stringify(appset.spec.template)), `${ROOT}/${id}: the ApplicationSet's template no longer uses path.basename`);
+  check(plan.some((line) => line.includes("selects  2 directories")) && plan.some((line) => line.includes("applied by hand, so its template cannot be repointed under review")), `${ROOT}/${id}/transcripts/argo-plan.txt no longer says what the page restates`);
+  const diffs = fieldDifferences([apps[0]], [apps[1]].map((doc) => ({ ...doc, metadata: { ...doc.metadata, name: apps[0].metadata.name } })));
+  const templateLeaves = leaves(appset.spec.template);
+  const templateValue = (path) => templateLeaves[path];
+  const source = rec.sources[0];
+  const sourceUrl = `${source.repository}/tree/${source.commit}/${source.path}`;
+  const fileRows = Object.keys(rec.files).filter((path) => path.startsWith("before/")).sort().map((path) => {
+    const short = path.replace(/^before\//, "");
+    return [`<code>${escapeHtml(short)}</code>`, escapeHtml(short.startsWith("bootstrap/") ? "the ApplicationSet, applied by hand: one Application per directory under overlays/" : short.endsWith("kustomization.yaml") ? "a Kustomize file" : objects(read(id, path)).map((doc) => `the ${doc.kind} ${doc.metadata.name}`).join(" and "))];
+  });
+  check(diffs.every((row) => templateValue(row.path) !== undefined), `${ROOT}/${id}: a field the Applications differ in has no line in the template`);
+  const rows = diffs.map((row) => [`<code>${escapeHtml(row.path)}</code>`, `<code>${escapeHtml(String(templateValue(row.path) ?? ""))}</code>`, `<code>${escapeHtml(String(row.left))}</code>`, `<code>${escapeHtml(String(row.right))}</code>`]);
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES.find((page) => page.id === id).title,
+    lead: `An ApplicationSet is a template with placeholders, and Argo CD fills them in on the cluster. The plan writes out the ${apps.length} Applications it would generate, so you can read them before Argo CD makes them, and ConfigHub holds a base and a variant for each.`,
+    opening: `    <p><strong>What you need.</strong> <code>git</code> and <code>cub</code> with the argo plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>The example is an ApplicationSet in <a href="${sourceUrl}">confighub/examples</a>. Its git directory generator makes one Application for each directory under <code>overlays/</code>.</p>
+      ${markdownLikeTable([["File", "What it is"], ...fileRows], { rawColumns: [0] })}
+      <p>Nothing in these files names the Applications. They exist only once Argo CD has run the generator.</p>
+    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what ConfigHub would hold</h2>
+      <p>The plan reads the files and says what ConfigHub would hold. It runs nothing and changes no cluster.</p>
+      ${terminal(escapeHtml, { title: "after: the plan for this ApplicationSet", cmd: "cub argo plan .", output: plan, mark: [/selects /, /^ {2}base {5}/, / variant argo-/, /^ {2}2\. ApplicationSet/] })}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See the Applications it would generate</h2>
+      <p>These are the fields where the generated Applications differ, with the template line each one comes from.</p>
+      ${markdownLikeTable([["Field", "In the template", apps[0].metadata.name, apps[1].metadata.name], ["<code>metadata.name</code>", `<code>${escapeHtml(appset.spec.template.metadata.name)}</code>`, `<code>${escapeHtml(apps[0].metadata.name)}</code>`, `<code>${escapeHtml(apps[1].metadata.name)}</code>`], ...rows], { rawColumns: [0, 1, 2, 3] })}
+      <p>Everything else in the two Applications is the template as written.</p>
+    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub</a> and the argo plugin as <a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a> shows, first.</p>
+      ${commandBlock([
+        { comment: "fetch the example at the commit this page was built from", cmd: `git clone https://github.com/confighub/examples.git && git -C examples checkout ${source.commit}` },
+        { cmd: `cd examples/${source.path}` },
+        { comment: "read the plan; it runs nothing", cmd: "cub argo plan ." },
+        { comment: "write the generated Applications, and the scripts, to onboard/", cmd: "cub argo apply . --out onboard" },
+      ])}
+      <p>The generated Applications are in <code>onboard/apps/</code>.</p>
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      ${commandBlock([
+        { comment: "sign in to your organization", cmd: "cub auth login" },
+        { comment: "fill ConfigHub with the base and variants the plan names; it changes no cluster", cmd: "bash onboard/apply.sh" },
+      ])}
+      <p><code>apply.sh</code> also needs <code>kustomize</code>, and <code>onboard/cleanup.sh</code> takes everything back out.</p>
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>The plan ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)} and argo plugin ${escapeHtml(rec.tools.argoPlugin)}, inside a checkout of the example. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>This ApplicationSet is applied by hand, so the handover cannot repoint its template under review. The plan says to patch the template in the cluster, or to delete it with <code>--cascade=orphan</code> and repoint each Application.</li>
+        <li>Never delete every Application it generates. Their finalizer deletes everything they deployed.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
+function fluxFleetPage(h) {
+  const { check, escapeHtml, markdownLikeTable, commandBlock } = h;
+  const id = "flux-expert-fleet";
+  const rec = receipt(id);
+  const plan = transcriptLines(read(id, "transcripts/flux-plan.txt"));
+  const head = plan[0].match(/^Flux fleet: (\d+) clusters, (\d+) layers, (\d+) variants$/);
+  check(head, `${ROOT}/${id}/transcripts/flux-plan.txt changed its summary`);
+  const [, clusterCount, layerCount, variantCount] = head.map(Number);
+  const inFlight = plan.find((line) => /^\s+in flight\s+/.test(line));
+  check(inFlight, `${ROOT}/${id}/transcripts/flux-plan.txt no longer says which version runs where`);
+  const [, imageName, placements] = inFlight.match(/in flight\s+(\S+): (.*)$/);
+  const versions = placements.split("; ").map((part) => part.match(/^(\S+) on (\S+)$/)).filter(Boolean).map(([, version, cluster]) => ({ version, cluster }));
+  const layerFiles = Object.keys(rec.files).filter((path) => path.startsWith("after/layers/")).sort();
+  const clusters = [...new Set(layerFiles.map((path) => path.split("/")[2]))];
+  const layers = [...new Set(layerFiles.map((path) => path.split("/")[3].replace(/\.yaml$/, "")))];
+  check(clusters.length === clusterCount && layers.length === layerCount && layerFiles.length === variantCount, `${ROOT}/${id}: the recorded layers do not match the plan's ${clusterCount} clusters, ${layerCount} layers and ${variantCount} variants`);
+  check(versions.length === clusterCount && versions.every((row) => clusters.includes(row.cluster)), `${ROOT}/${id}: the in-flight line does not name every cluster`);
+  const order = ["infrastructure", "apps", "tenants", "image-automation"].filter((layer) => layers.includes(layer));
+  const beforeFiles = Object.keys(rec.files).filter((path) => path.startsWith("before/"));
+  const objectCount = beforeFiles.reduce((n, path) => n + objects(read(id, path)).length, 0);
+  check(plan[1] === `Read ${objectCount} objects`, `${ROOT}/${id}: the plan read ${plan[1]}, and the recorded files hold ${objectCount} objects`);
+  const byDir = beforeFiles.reduce((m, path) => { const dir = path.split("/")[1]; m[dir] = (m[dir] ?? 0) + 1; return m; }, {});
+  const source = rec.sources[0];
+  const sourceUrl = `${source.repository}/tree/${source.commit}/${source.path}`;
+  check(plan.some((line) => /Clusters, one stage each, in order: dev-1 .*, staging-1 .*, prod-1 /.test(line)) && plan.some((line) => /image .* \(written by image automation\)/.test(line)), `${ROOT}/${id}/transcripts/flux-plan.txt no longer gives the stage order or the image automation the page restates`);
+  const matrix = versions.map(({ cluster }) => cluster).map((cluster) => [escapeHtml(cluster), ...order.map((layer) => (rec.files[`after/layers/${cluster}/${layer}.yaml`] ? "yes" : "no")), `<code>${escapeHtml(`${imageName} ${versions.find((row) => row.cluster === cluster).version}`)}</code>`]);
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES.find((page) => page.id === id).title,
+    lead: `This Flux fleet spreads over ${clusterCount} clusters, ${layerCount} layers and ${beforeFiles.length} files, so which version runs where is a question of reading all of them. The plan makes ${variantCount} variants of it, and one line answers that question.`,
+    opening: `    <p><strong>What you need.</strong> <code>git</code> and <code>cub</code> with the flux plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. See what you have today</h2>
+      <p>The example is a Flux fleet in <a href="${sourceUrl}">confighub/examples</a>, with ${objectCount} objects across these directories.</p>
+      ${markdownLikeTable([["Directory", "Files"], ...Object.entries(byDir).sort().map(([dir, n]) => [`<code>${escapeHtml(dir)}/</code>`, String(n)])], { rawColumns: [0] })}
+      <p>Each cluster's directory names the layers it runs, the layers have overlays per environment, and image automation writes new tags into the dev overlay of the app.</p>
+    </section>
+    <section aria-labelledby="after">
+      <h2 id="after">2. See what ConfigHub would hold</h2>
+      <p>The plan reads all of it and says what ConfigHub would hold. It runs nothing and changes no cluster.</p>
+      ${terminal(escapeHtml, { title: "after: the plan for this Flux fleet", cmd: "cub flux plan . --require Healthy", output: plan, mark: [/^Flux fleet:/, /^ {2}base {5}/, /in flight/] })}
+    </section>
+    <section aria-labelledby="point">
+      <h2 id="point">3. See which version runs where</h2>
+      <p>Each row is a cluster, and each column a layer it runs as a variant in ConfigHub.</p>
+      ${markdownLikeTable([["Cluster", ...order, `${imageName} it runs`], ...matrix], { rawColumns: [0, order.length + 1] })}
+      <p>Dev runs the newest version, which image automation wrote there, and staging and prod run older ones, set in their own overlays. In ConfigHub the three clusters are three stages in that order, so a version moves from dev to staging to prod.</p>
+    </section>
+    <section aria-labelledby="try">
+      <h2 id="try">4. Try it yourself, with no account</h2>
+      <p><a href="./try.html#install-cub">Install cub</a> and the flux plugin as <a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a> shows, first.</p>
+      ${commandBlock([
+        { comment: "fetch the example at the commit this page was built from", cmd: `git clone https://github.com/confighub/examples.git && git -C examples checkout ${source.commit}` },
+        { cmd: `cd examples/${source.path}` },
+        { comment: "read the plan; it runs nothing", cmd: "cub flux plan . --require Healthy" },
+        { comment: "write what Flux would run after the handover, and the scripts, to onboard/", cmd: "cub flux apply . --require Healthy --out onboard" },
+      ])}
+    </section>
+    <details class="ba-live" id="live">
+      <summary>See it live in ConfigHub</summary>
+      ${liveIntro()}
+      <h3 id="live-own-account">With your own account</h3>
+      ${commandBlock([
+        { comment: "sign in to your organization", cmd: "cub auth login" },
+        { comment: "fill ConfigHub with the bases and variants the plan names; it changes no cluster", cmd: "CONFIGHUB_OCI=<gateway> bash onboard/apply.sh" },
+      ])}
+      <p><code>onboard/cleanup.sh</code> takes everything back out. The handover is a separate step in <a href="./bring-flux-into-confighub.html#connect-deployment">the Flux Guide</a>.</p>
+    </details>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>The plan ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)} and flux plugin ${escapeHtml(rec.tools.fluxPlugin)}, inside a checkout of the example. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>The versions are what the repository says each cluster should run, read from its files. Nothing on this page reads a live cluster.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
+// The simple pages: two pictures, three sentences, two buttons and a link to
+// the detailed page. They are for someone seeing this for the first time.
+const EXAMPLES_SHA = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
+const clone = `git clone https://github.com/confighub/examples.git && git -C examples checkout ${EXAMPLES_SHA}`;
+const HELM_SIMPLE = [
+  ["helm-redis", "redis", "Redis"], ["helm-postgresql", "postgresql", "PostgreSQL"], ["helm-ingress-nginx", "ingress-nginx", "ingress-nginx"],
+  ["helm-cert-manager", "cert-manager", "cert-manager"], ["helm-kube-prometheus-stack", "kube-prometheus-stack", "kube-prometheus-stack"],
+  ["helm-argo-cd", "argo-cd", "Argo CD"], ["helm-external-secrets", "external-secrets", "External Secrets"],
+  ["helm-metrics-server", "metrics-server", "metrics-server"], ["helm-gatekeeper", "gatekeeper", "Gatekeeper"], ["helm-gpu-operator", "gpu-operator", "NVIDIA GPU Operator"],
+];
+const GITOPS_SIMPLE = [
+  {
+    id: "kustomize-apptique", file: "example-kustomize-dev-and-prod.html", name: "Kustomize dev and prod", kicker: "Kustomize overlays",
+    lead: "A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.",
+    before: "before/prod/kustomization.yaml", beforeLabel: "Before: the prod overlay",
+    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Dev and prod stay linked to one base, so a change to the base can reach both.", "Every object is written out, with nothing left to work out from patches."],
+    facts: [["after/prod.yaml", /replicas: 3/]],
+    dir: "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique",
+    load: ["kustomize build base > base.yaml",
+      "cub variant upload --component apptique-example --variant base --namespace apptique --create-namespace --change-desc \"Seed the base from the repository base directory\" base.yaml",
+      "cub function set --space apptique-example-base --unit frontend --change-desc \"Run image tag v1.3.0\" set-container-image-reference server :v1.3.0",
+      "cub variant create dev apptique-example-base --namespace apptique-dev --change-desc \"Clone the base as dev\"",
+      "cub variant create prod apptique-example-base --namespace apptique-prod --change-desc \"Clone the base as prod\"",
+      "cub function set --space apptique-example-dev --change-desc \"Label every object environment dev\" set-label environment dev",
+      "cub function set --space apptique-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
+      "cub function set --space apptique-example-prod --unit frontend --change-desc \"Run three replicas in prod\" set-replicas 3",
+      "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
+    laptop: ["kustomize build prod"], needs: "kustomize",
+  },
+  {
+    id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
+    lead: "A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.",
+    before: "before/base/kustomization.yaml", beforeLabel: "Before: Kustomize inflating a chart",
+    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and a 1Gi memory limit.", "Each object lands in the namespace you can see, not the one Argo CD happens to use.", "No one has to run Helm inside Kustomize to know what an environment runs."],
+    facts: [["after/prod.yaml", /replicas: 3/], ["after/prod.yaml", /memory: 1Gi/]],
+    dir: "gitops/argo/expert-app-of-apps/apps/checkout-cache",
+    load: ["kustomize build --enable-helm base > base.yaml",
+      "cub variant upload --component checkout-cache-example --variant base --namespace storefront --change-desc \"Seed the base from the chart Kustomize inflates\" base.yaml",
+      "for env in dev staging prod; do cub variant create $env checkout-cache-example-base --namespace storefront-$env --change-desc \"Clone the base as $env\"; done",
+      "for env in dev staging prod; do cub function set --space checkout-cache-example-$env --change-desc \"Label every object environment $env\" set-label environment $env; done",
+      "cub function set --space checkout-cache-example-staging --unit checkout-cache --change-desc \"Run two replicas in staging\" set-replicas 2",
+      "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Run three replicas in prod\" set-replicas 3",
+      "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
+    laptop: ["kustomize build --enable-helm overlays/prod"], needs: "kustomize and helm",
+  },
+  {
+    id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
+    lead: "Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.",
+    before: "before/apps/apptique-prod.yaml", beforeLabel: "Before: an Argo CD Application",
+    sentences: ["Each app becomes a base and a variant for the cluster it runs on, released and ready.", "You can read what prod runs in ConfigHub, here 3 replicas of the frontend.", "Argo CD keeps syncing Git until you choose to hand over."],
+    facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
+    dir: "gitops/argo/beginner-app-of-apps",
+    load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+  },
+  {
+    id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
+    lead: "An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.",
+    before: "before/bootstrap/applicationset.yaml", beforeLabel: "Before: a template with placeholders",
+    sentences: ["The two Applications the template would make are written out as variants of one base.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Nothing is generated on the cluster before you have read it."],
+    facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
+    dir: "gitops/argo/beginner-applicationset",
+    load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize",
+  },
+  {
+    id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
+    lead: "Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.",
+    before: "before/clusters/prod/apps.yaml", beforeLabel: "Before: a Flux Kustomization",
+    sentences: ["Each layer becomes a base and a variant for each cluster.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Flux keeps reconciling Git until you choose to hand over."],
+    facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
+    dir: "gitops/flux/beginner",
+    load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+  },
+  {
+    id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
+    lead: "Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version each cluster runs.",
+    before: "before/apps/prod/kustomization.yaml", beforeLabel: "Before: one of many overlays",
+    sentences: ["Each layer is one base, with a variant for each cluster that runs it.", "Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
+    facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
+    dir: "gitops/flux/expert-fleet",
+    load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize",
+  },
+];
+
+export const SIMPLE_PAGES = [
+  ...HELM_SIMPLE.map(([id, short, name]) => ({ id, file: `example-${short}.html`, name, space: `${short}-example`, kicker: "Helm chart", lead: "A Helm chart you can't read becomes objects you can." })),
+  ...GITOPS_SIMPLE,
+];
+
+function highlightTemplate(escapeHtml, line) {
+  return escapeHtml(line).replace(/\{\{.*?\}\}/g, (match) => `<span class="ex-tpl">${match}</span>`);
+}
+
+function simpleHelmSentences(f) {
+  const point = helmPoint(f);
+  const sentences = ["The template's image line becomes one plain value you can read, and so does every other field."];
+  if (point.kind === "random") sentences.push("Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.");
+  if (f.changed.some((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).some((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right))))) {
+    sentences.push("The image is pinned to exact bytes, so it can't change under you.");
+  }
+  if (f.hooks.length) {
+    const jobs = f.hooks.filter((doc) => doc.kind === "Job").map((doc) => doc.metadata.name);
+    const planned = f.plan.some((step) => /hook/i.test(step.detail) || jobs.some((job) => step.detail.includes(job)));
+    sentences.push(planned
+      ? `The ${f.hooks.length} setup objects Helm runs out of sight become steps you can read.`
+      : `The ${f.hooks.length} setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.`);
+  }
+  if (sentences.length < 3) sentences.push("Every object is written out, so you can review it before anything runs.");
+  return sentences.slice(0, 3);
+}
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, sentences, loadRows, loadNote, laptopRows, laptopNote, needs, wide }) {
+  const { escapeHtml, commandBlock } = h;
+  const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
+  return `    <section aria-labelledby="pictures" class="ex">
+      <h2 id="pictures" class="ex-hidden">Before and after</h2>
+      <div class="ex-pair${wide ? " ex-wide" : ""}">
+        <figure class="ex-card">
+          <figcaption>${escapeHtml(beforeLabel)}</figcaption>
+          <pre class="ex-code"><code>${beforeHtml}</code></pre>
+          <p class="ex-note">${escapeHtml(beforeNote)}</p>
+        </figure>
+        <figure class="ex-card">
+          <figcaption>After: in ConfigHub</figcaption>
+          <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
+          <p class="ex-note">${escapeHtml(afterNote)}</p>
+        </figure>
+      </div>
+      <ul class="ex-checks">
+        ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
+      </ul>
+      <div class="ex-actions">
+        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
+          <p class="installer-command-note">${loadNote}</p>
+          ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+        </details>
+        <details class="ex-button"><summary>Try it on your laptop</summary>
+          <p class="installer-command-note">${laptopNote}</p>
+          ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+        </details>
+      </div>
+      <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
+    </section>
+`;
+}
+
+function simplePage(id, h) {
+  const { check, escapeHtml } = h;
+  const page = SIMPLE_PAGES.find((row) => row.id === id);
+  const rec = receipt(id);
+  const shot = rec.confighub;
+  check(shot, `${ROOT}/${id} has no ConfigHub screenshot, and its simple page shows one`);
+  const caption = `Taken in the ${shot.organization} organization on ${shot.takenOn}, showing ${shot.shows}.`;
+  let body;
+  if (page.kicker === "Helm chart") {
+    const f = helmFacts(id);
+    const excerpt = JSON.parse(read(id, "before/template-excerpt.json"));
+    check(excerpt.lines.some((line) => /^\s+image:/.test(line)), `${ROOT}/${id}: the excerpt has no image line, and the ConfigHub picture shows one`);
+    const setup = (f.listing.nextSteps ?? []).find((step) => step.id === "get-objects")?.commands.find((command) => command.command.startsWith("cub installer setup"));
+    check(setup, `site/listings/${f.rec.listing}.json has no cub installer setup command`);
+    const setupHere = setup.command.replace(/--work-dir \S+/, `--work-dir ./${page.space}`);
+    body = simpleLayout(h, {
+      id, shot, beforeLabel: "Before: the Helm chart",
+      beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
+      beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
+      afterNote: `The same image line in ConfigHub, as a plain value. ${caption}`,
+      sentences: simpleHelmSentences(f),
+      loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
+      loadNote: `Sign in, then paste the second line. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization.`,
+      laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
+      laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open.`,
+      needs: "its installer plugin",
+    });
+  } else {
+    for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);
+    const lines = read(id, page.before).replace(/\n+$/, "").split("\n");
+    body = simpleLayout(h, {
+      id, shot, wide: true, beforeLabel: page.beforeLabel,
+      beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
+      beforeNote: `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
+      afterNote: caption,
+      sentences: page.sentences,
+      loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
+      loadNote: "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization.",
+      laptopRows: [clone, `cd examples/${page.dir}`, ...page.laptop],
+      laptopNote: "No account needed. This fetches the example and shows what each environment runs.",
+      needs: page.needs,
+    });
+  }
+  return {
+    eyebrow: "Before and after",
+    title: `${page.name}, before and after`,
+    lead: page.lead,
+    opening: "",
+    body,
+    css: `
+    .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .ex-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 8px 0 20px; }
+    .ex-pair.ex-wide { grid-template-columns: minmax(0, 1fr); }
+    .ex-pair.ex-wide .ex-code { max-height: 22rem; overflow: auto; }
+    @media (max-width: 860px) { .ex-pair, .ex-pair.ex-wide { grid-template-columns: 1fr; } }
+    .ex-card { margin: 0; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 8px; }
+    .ex-card figcaption { font-weight: 600; }
+    .ex-card img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+    .ex-code { margin: 0; padding: 10px; border-radius: 8px; background: var(--panel); border: 1px solid var(--line); font-size: .72rem; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }
+    .ex-tpl { color: #b8501c; font-weight: 600; }
+    .ex-note { margin: 0; font-size: .85rem; color: var(--muted); }
+    .ex-checks { list-style: none; padding: 0; margin: 0 0 20px; }
+    .ex-checks li { padding-left: 1.6em; margin: 6px 0; position: relative; font-size: 1.05rem; }
+    .ex-checks li::before { content: "\\2713"; position: absolute; left: 0; color: #2f7a3a; font-weight: 700; }
+    .ex-actions { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
+    .ex-actions details.ex-button { border: 0; padding: 0; margin: 0; background: none; }
+    .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); }
+    .ex-actions details.ex-button > summary::-webkit-details-marker { display: none; }
+    .ex-actions details.ex-button > summary::marker { content: ""; }
+    .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
+    .ex-actions details.ex-button[open] { flex-basis: 100%; }
+    .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-more { margin-top: 20px; color: var(--muted); }
+`,
+  };
+}
+
 function baCss() {
   return `
     .ba-shot { margin: 18px 0; }
@@ -502,22 +1221,31 @@ export function beforeAfterPage(id, helpers) {
   if (id === "kustomize-apptique") return kustomizePage(helpers);
   if (id === "argo-app-of-apps") return argoPage(helpers);
   if (id === "flux-beginner") return fluxPage(helpers);
+  if (id === "kustomize-helm-chart") return kustomizeHelmPage(helpers);
+  if (id === "argo-applicationset") return argoAppSetPage(helpers);
+  if (id === "flux-expert-fleet") return fluxFleetPage(helpers);
+  if (HELM_NAMES[id]) return helmListingPage(id, helpers);
   throw new Error(`no before-and-after page for ${id}`);
 }
 
-// The gallery at the top of the Apps page.
+// The gallery at the top of the Apps page. Each card opens a simple page.
 export function beforeAfterGalleryHtml(escapeHtml) {
-  const cards = BEFORE_AFTER_PAGES.map((page) => `        <article class="door">
+  const cardText = (page) => (page.kicker === "Helm chart" ? simpleHelmSentences(helmFacts(page.id))[1] : page.lead);
+  const cards = SIMPLE_PAGES.map((page) => `        <article class="door">
           <span class="kicker">${escapeHtml(page.kicker)}</span>
-          <h3><a href="./${page.file}">${escapeHtml(page.title)}</a></h3>
-          <p>${escapeHtml(page.card)}</p>
+          <h3><a href="./${page.file}">${escapeHtml(`${page.name}, before and after`)}</a></h3>
+          <p>${escapeHtml(cardText(page))}</p>
         </article>`).join("\n");
   return `<section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example starts from files you may have today and shows what the Workshop gives you instead. Every output is recorded from a real run, and you can run each one yourself with no account.</p>
+      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
       <div class="doors ba-gallery">
 ${cards}
       </div>
-      <style>.ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } @media (max-width: 900px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
+      <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>
     </section>`;
+}
+
+export function simpleBeforeAfterPage(id, helpers) {
+  return simplePage(id, helpers);
 }

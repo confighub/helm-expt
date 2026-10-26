@@ -1,0 +1,20 @@
+
+Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  55 objects: 3 ClusterRole, 3 ClusterRoleBinding, 8 ConfigMap, 3 CustomResourceDefinition, 6 Deployment, 6 NetworkPolicy, 6 Role, 6 RoleBinding, 2 Secret, 5 Service, 6 ServiceAccount, 1 StatefulSet
+  namespaces that must already exist: argocd
+
+Lifecycle work
+  [NOTE] CRDs: 3 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 55 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+

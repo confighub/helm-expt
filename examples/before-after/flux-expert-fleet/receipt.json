@@ -1,0 +1,92 @@
+{
+  "id": "flux-expert-fleet",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the Flux fleet",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/flux/expert-fleet"
+    }
+  ],
+  "commands": [
+    "cub flux plan . --require Healthy",
+    "cub flux apply . --require Healthy --out onboard"
+  ],
+  "notes": [
+    "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+    "after/layers/ keeps what Flux runs for each cluster and layer after the handover."
+  ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the apps layer's base with a variant for each cluster, and the settings prod-1 changes"
+  },
+  "files": {
+    "after/layers/dev-1/apps.yaml": "sha256:5a6db918753aa1fd82c3d58343a76682a5ed7f08c9330627184ce2b86e49201f",
+    "after/layers/dev-1/image-automation.yaml": "sha256:aab87cdef4bd91816a030484df7deab5fefc9add54f53e037d5b5e5af8f99449",
+    "after/layers/dev-1/infrastructure.yaml": "sha256:b167f5f1873dcff1b718a1808669262135fadd0e0b617a058842773d19d132a0",
+    "after/layers/dev-1/tenants.yaml": "sha256:c9d0ef314e8e49e3bd49cd3a48becdd84d78433a2d891e4afe1232e4abfa4bbb",
+    "after/layers/prod-1/apps.yaml": "sha256:d72df2422d755d87a3acfa752983cbf167f36d96477b421701161e5da267aa87",
+    "after/layers/prod-1/infrastructure.yaml": "sha256:90957949b31d15db66c6b88ee878a97914aa577260ab64a7e3946c594d6c689f",
+    "after/layers/prod-1/tenants.yaml": "sha256:2639c8dd4bad16531d3c77cef55dd91a8c6dd8d5faae603b8232db61ba052e47",
+    "after/layers/staging-1/apps.yaml": "sha256:1b2384ee8c3ef8afaab354de1317bcf6a1ecb89a2ec2bf4e1dc51767b0421225",
+    "after/layers/staging-1/infrastructure.yaml": "sha256:566a41b7ee510cc1ac5caec4c5cb55124ec38ceff816148c9b5f59bd7bbd1939",
+    "after/layers/staging-1/tenants.yaml": "sha256:243610d2e0ad969a392daefdc9788bcf001cd7e1535de12617b0fd4c6f0a6899",
+    "before/apps/base/apptique/deployment.yaml": "sha256:5ec1bdc7c9fc5261ca22ce467871e50b6b234ff0ed3c85bfa049ee0489fff0e7",
+    "before/apps/base/apptique/kustomization.yaml": "sha256:c582bc2250c0428104aafb07bccdff8750adecc9be5b1d4690c6d11243e1ee73",
+    "before/apps/base/apptique/service.yaml": "sha256:4d47fefd33b97ef46bdd191f5efa491385bab8fba5d60b3d3cfdcf34d16b5441",
+    "before/apps/dev/kustomization.yaml": "sha256:31f2f3d7d3b5b992420a345451d2280a9edcdcf5dfdf0f72b61aa8fadb61276b",
+    "before/apps/dev/namespace.yaml": "sha256:d8639436fd23be4e32e1957123b0492c58a9263725d2420d0bcb2a87bf716bbc",
+    "before/apps/prod/kustomization.yaml": "sha256:f858a575d262fbecd02fcce0c70919f8feafa1eedb3b880aebfdaf48e79b4f3d",
+    "before/apps/prod/namespace.yaml": "sha256:d20fe1e07f0e5d8afec11708911fdb70b3510f88a5e5a366757f57a2c81f2643",
+    "before/apps/staging/kustomization.yaml": "sha256:1e0c921a4320193456ade08d41976e3c34c4e3572aa74a24d532d7714ba9e03f",
+    "before/apps/staging/namespace.yaml": "sha256:59d874e963ab4ecc71185f31a3e4951b6d79e1d946d9eb8942f8dbdc59f199b6",
+    "before/clusters/dev/apps.yaml": "sha256:c0a3730ce76d1a369ea322d6ad98cc7e9432ab28bd386cbec82420d3602184d6",
+    "before/clusters/dev/image-automation.yaml": "sha256:2c2dad070f9c62f7f60b87ad2947b5b55b6ef3b9fc11bc31185618336c7fdc5d",
+    "before/clusters/dev/infrastructure.yaml": "sha256:59f549737b043af5de2a41cab94a48d9d7b8c62c51ec6899c346db699367e427",
+    "before/clusters/dev/kustomization.yaml": "sha256:2b3583fd696bb1d7ba56877987e54c08142b44c5a46ac847fb6492eb7636b73f",
+    "before/clusters/dev/tenants.yaml": "sha256:b14615cd96884b03651e724799f8647320394cbcd8d6fbd470d293dd53fb03aa",
+    "before/clusters/prod/apps.yaml": "sha256:4923c26fde5139ddfed3067c6489c6ebf1541fbb7df4b39756e82aac16030ca8",
+    "before/clusters/prod/infrastructure.yaml": "sha256:a671eecad35010567c6c36122d5ce8e832c90feeaa0cb7e19bfc81ee2cfb2c0c",
+    "before/clusters/prod/kustomization.yaml": "sha256:84c274259bf4b474e3361b136fb54ac2f9660b7232d78bb985acef8fe2939c20",
+    "before/clusters/prod/tenants.yaml": "sha256:e9a965fd5d4ce6ee31d8150cbdeba034746a7aeeec448b718585c147d4707a7f",
+    "before/clusters/staging/apps.yaml": "sha256:0bdae7addcca742ee4d241a0de0163e595b703b33d09d0bc559b7988d7ea2a8c",
+    "before/clusters/staging/infrastructure.yaml": "sha256:5b2703f702b212f0782e054e2d5021c8160587dade7faab6519287a11d26e48d",
+    "before/clusters/staging/kustomization.yaml": "sha256:0c4108c16666075dbbdf6e4cee3895e0694661a86f3534dd07e017d3820604b2",
+    "before/clusters/staging/tenants.yaml": "sha256:e47d12707a72d81a1710a79c2e268d61c34b0be42249f90db1624893c56b2efe",
+    "before/image-automation/imagepolicy.yaml": "sha256:e005300bcdbe1ff313cadd2852c6a55634f634514cd80817bad21a853bddcac4",
+    "before/image-automation/imagerepository.yaml": "sha256:b6c0fa11e7d3d5d85c96eb28163d646f98c77ecc0bb5400fc35f0c668cac6715",
+    "before/image-automation/imageupdateautomation.yaml": "sha256:ca13d85b6fb937187e54b76a8be7a1dc28d691da6a7514572d1c6f4fd817bb9c",
+    "before/image-automation/kustomization.yaml": "sha256:f36ebfb55b3e55bbc55ab84dd80e2ababf04479f2c5543b8136dac0ba5d2bf5d",
+    "before/infrastructure/base/controllers/edge-router.yaml": "sha256:ffcdc23c107d9bedd5853ed1bda88a126b1c362348ecf0baee0969465177701a",
+    "before/infrastructure/base/controllers/namespace.yaml": "sha256:2191334652c14492fb12e34d343874f26415a074166e06ad7c27ca24e0a572b6",
+    "before/infrastructure/base/kustomization.yaml": "sha256:b6ae6ba1a4a0e14b9359dc7e4e734ec1bd1ab42f7f1f7020ffd9ab9f10f1aa3b",
+    "before/infrastructure/base/sources/charts.yaml": "sha256:79154d9d47862ce12507f26b138214562d754c552b3620fa775bbac2bd2f8973",
+    "before/infrastructure/base/sources/fleet-repo.yaml": "sha256:9fd78be2d958b089c4e189b09c0d053115baa28968c8cc3b678d3cf88ddbb530",
+    "before/infrastructure/dev/kustomization.yaml": "sha256:de732164d3b2a11f07be9632d41c0e34dd8c05a75d71232513d91d1670fc3a3c",
+    "before/infrastructure/prod/kustomization.yaml": "sha256:b2d7c7921b0f166f38d815b4f3a098589f08342404504774047541699fea6cb8",
+    "before/infrastructure/staging/kustomization.yaml": "sha256:6630a07806fdc65ea3bb5b921f7314048707c056140ca74b7b125615f2f4f599",
+    "before/tenants/base/team-checkout/kustomization.yaml": "sha256:ce5a4011a8f8c386079447756744a30b66ffcdec03832bd2e53dcc314dcd020a",
+    "before/tenants/base/team-checkout/rbac.yaml": "sha256:078b042b3d173ff578a73eb881c25ab7f3d07768bea5bd8da56010f8b096ef5c",
+    "before/tenants/base/team-checkout/sync.yaml": "sha256:0d3938ccf206a192e9aa6749359abd02bc42c71aae1179a7730c42120d543372",
+    "before/tenants/base/team-checkout/workloads/deployment.yaml": "sha256:23932cf1959a7770802aa3d83626c4f31e7f37c3a91acb467a43ef7f2ae7ea48",
+    "before/tenants/base/team-checkout/workloads/kustomization.yaml": "sha256:3d1a84a30960d9d58e87a6f52f3226d6e0de9503e32d29eb888ae8c81f139596",
+    "before/tenants/dev/kustomization.yaml": "sha256:f09f0cb1c33bb73e5d77878469273143bec6e3ba2a526fbf8c9b1a5460400401",
+    "before/tenants/prod/kustomization.yaml": "sha256:c30e5ab5220e4bec767f28ccb46e8f862ee409e5117d7debd552c40253d8a407",
+    "before/tenants/staging/kustomization.yaml": "sha256:eae0fd2da4b2c83bc749b45f181ed538418759b90cf3772041eb6bed3ad74ee9",
+    "confighub/overrides.png": "sha256:a4df6a0ddf2678992a62ebf24feaa9a36a928e27e7f1e6b4cb24cb7a4fca89e6",
+    "transcripts/flux-plan.txt": "sha256:f1e5903139bf8117ab4799f057c356f10c518519e4333afaf8f8e3d0280347aa"
+  }
+}

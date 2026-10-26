@@ -1,0 +1,9 @@
+Configuration diff: 0 added, 0 removed, 1 changed, 6 unchanged
+Kind summary (inventory only):
+  apps/v1 StatefulSet: 1 -> 1 (+0)
+  networking.k8s.io/v1 NetworkPolicy: 1 -> 1 (+0)
+  policy/v1 PodDisruptionBudget: 1 -> 1 (+0)
+  v1 Secret: 1 -> 1 (+0)
+  v1 Service: 2 -> 2 (+0)
+  v1 ServiceAccount: 1 -> 1 (+0)
+Local inventory comparison only. Matching kind counts do not establish object or behavior equivalence; this does not merge, protect edits or inspect a live target.

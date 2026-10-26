@@ -1,0 +1,50 @@
+{
+  "id": "argo-applicationset",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-25",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.59",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the ApplicationSet",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "gitops/argo/beginner-applicationset"
+    }
+  ],
+  "commands": [
+    "cub argo plan .",
+    "cub argo apply . --out onboard"
+  ],
+  "notes": [
+    "Both commands ran inside a checkout of the repository at the commit above, because the plugin reads the source paths from it.",
+    "after/apps/ keeps the Applications the ApplicationSet's template renders for each directory it selects, as cub argo apply writes them."
+  ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-25",
+    "shows": "the base with the two variants the ApplicationSet generates, and the settings prod changes"
+  },
+  "files": {
+    "after/apps/argo-apptique-dev.yaml": "sha256:bb0f1e23a7a7f76a575d8db3c6a6c5e78df46114708e9ee59872f8964717f381",
+    "after/apps/argo-apptique-prod.yaml": "sha256:550ffd0ce42b14a7aabfa200c21185852ba06238e81bbabf952eb722f8c824e5",
+    "before/apps/apptique/base/deployment.yaml": "sha256:b6d0d55450ac3851cf14c8ac181ad83d0f47f2b6d7fb42fcbaf7b984a33179eb",
+    "before/apps/apptique/base/kustomization.yaml": "sha256:4c05aae8b6d3561e6b60f78000bf3c205996db5a699b2114c18d6bb74a7ff4ea",
+    "before/apps/apptique/base/service.yaml": "sha256:4d47fefd33b97ef46bdd191f5efa491385bab8fba5d60b3d3cfdcf34d16b5441",
+    "before/apps/apptique/overlays/dev/kustomization.yaml": "sha256:8c96fae5557fa317ec8ec89cf6c85485d179f0199a9de1ac49d099f14860f180",
+    "before/apps/apptique/overlays/dev/namespace.yaml": "sha256:ad75eb999d959e1b4ef16e380359f16ed7effa9478be68581a2b79c6e9ecd616",
+    "before/apps/apptique/overlays/prod/kustomization.yaml": "sha256:24209f80a29bba940abfe7652256d16468fbcb7dca7333366863f99699154cb2",
+    "before/apps/apptique/overlays/prod/namespace.yaml": "sha256:7443ec601264c8a5554ae8e51b40c0f3cb07692b82e8c6a898d34445193df6c6",
+    "before/bootstrap/applicationset.yaml": "sha256:5587d13d4a801b27c95bb22dde4dbc810c248afd8c0c4f9472b2f80c1f26ec60",
+    "confighub/overrides.png": "sha256:f3a07174c61bdbc2d2e30627d87411f7784f99440e33365cf6b5c986f49ae5cf",
+    "transcripts/argo-plan.txt": "sha256:f42639410304eae08609c396cdb4d014ead04084b18ecf04561a4c8a712cfc42"
+  }
+}

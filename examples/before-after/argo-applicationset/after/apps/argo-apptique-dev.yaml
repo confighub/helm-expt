@@ -1,0 +1,23 @@
+# What the ApplicationSet's template renders for this cluster, written by
+# `cub argo apply`. move-applications.sh makes a joined cluster's Unit from it.
+metadata:
+  labels:
+    app.kubernetes.io/instance: apptique-dev
+    app.kubernetes.io/name: apptique
+    environment: dev
+  name: apptique-dev
+spec:
+  destination:
+    namespace: apptique-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: gitops/argo/beginner-applicationset/apps/apptique/overlays/dev
+    repoURL: https://github.com/confighub/examples.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
