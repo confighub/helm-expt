@@ -335,8 +335,9 @@ ${commandBlock(guide.status)}${kind === "flux" ? '\n      <p>That reports for as
 // Sveltos has a different starting input: exported ClusterProfiles and
 // SveltosClusters. Its published guide deliberately separates that read from
 // the offline plan, and only hands over profiles that are already live.
-export function sveltosOnboardingGuide({ install, referenceUrl } = {}) {
+export function sveltosOnboardingGuide({ install, referenceUrl, workshopInstall } = {}) {
   if (!install) throw new Error("sveltos onboarding needs the released plugin install command");
+  if (!workshopInstall) throw new Error("sveltos onboarding needs the Workshop plugin install command for its check step");
   if (!referenceUrl) throw new Error("sveltos onboarding needs its upstream reference URL");
   return {
     title: "Bring your Sveltos fleet into ConfigHub",
@@ -344,7 +345,7 @@ export function sveltosOnboardingGuide({ install, referenceUrl } = {}) {
     ask: "“Help me inspect my Sveltos fleet. You may run read-only investigation and explain the plan; ask me before any command that writes local files, ConfigHub, or a cluster.”",
     body: `    <section aria-labelledby="sveltos-preview">
       <h2 id="sveltos-preview">1. Preview the setup</h2>
-      <p>Install ${link("./try.html#install-cub", "the cub CLI")} and the released plugin:</p>
+      <p>Install ${link("./try.html#install-cub", "the cub CLI")} and the released plugin. The plugin renders charts with <code>helm template</code>, so it also needs Helm v3 or v4 on your PATH.</p>
       <pre><code>${escapeHtml(install)}</code></pre>
       <p><strong>Confirm the management context.</strong> Check that kubectl is pointed at the Sveltos management cluster before exporting:</p>
 ${commandBlock("kubectl config current-context")}
@@ -366,6 +367,10 @@ ${commandBlock("cub sveltos plan my-fleet.yaml kyverno-policies.yaml --stage-lab
       <h2 id="sveltos-save">2. Review setup before running it</h2>
       <p>Generate scripts first. This writes files only.</p>
 ${commandBlock("cub sveltos apply my-fleet.yaml kyverno-policies.yaml --stage-label env --stages staging,prod --out onboard")}
+      <h3 id="sveltos-check-before-saving">Check what apply wrote</h3>
+      <p><code>apply</code> writes the objects each base renders to <code>onboard/&lt;base&gt;/&lt;base&gt;.yaml</code>, and <code>apply.sh</code> stores those. Before you run it, you can check them with <code>cub config check</code> from the Workshop plugin. It reads files only. On the published example fleet the three bases are <code>ingress-nginx</code>, <code>kyverno</code> and <code>kyverno-policies</code>:</p>
+${commandBlock(`${workshopInstall}\nfor base in ingress-nginx kyverno kyverno-policies; do cub config check onboard/$base/$base.yaml; done`)}
+      <p>On the example it reports 19, 71 and 1 objects, and each passes the schema step. The schema step names any field the API server would reject, so you can fix it before you save.</p>
       <p>Read <code>onboard/apply.sh</code> before running it. Running it needs ConfigHub login and a management-cluster context. It can change that cluster: for profiles that are not already live, it creates the gateway Secret and delivery profiles. Sveltos then begins delivering ConfigHub releases. Existing live profiles are deferred to handover and remain in control until then.</p>
 ${commandBlock("MGMT_CONTEXT=<management-cluster-context> bash onboard/apply.sh")}
       <p>Use a disposable fleet first. A missing Unit can mean a released profile removes objects it no longer holds.</p>
@@ -386,7 +391,7 @@ ${commandBlock("MGMT_CONTEXT=<management-cluster-context> bash onboard/handover.
 ${commandBlock("cub function set --space sveltos-kyverno-base --unit kyverno --change-desc \"Admission controller at 4 replicas\" -- \\\n  set-yq '(select(.kind == \"Deployment\" and .metadata.name == \"kyverno-admission-controller\") | .spec.replicas) = 4'")}
       <p>To deliver the change, follow the linked reference to create its change order, promote, approve and publish each stage. The starter workflow allows the author to approve; set <code>AllowAuthors: false</code> when independent approval is required.</p>
       <p>Live status writes Sveltos observations to ConfigHub:</p>
-${commandBlock("cub sveltos status --context <management-cluster-context> --watch")}
+${commandBlock("cub sveltos status --kube-context <management-cluster-context> --watch")}
       <p>${link(`${referenceUrl}#making-a-change-afterwards`, "Read change, approval, release, and status details")}.</p>
     </section>
     </details>`,
