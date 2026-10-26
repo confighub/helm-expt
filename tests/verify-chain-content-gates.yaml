@@ -1,0 +1,63 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: VerifyChainContentGates
+metadata:
+  name: verify-chain-content-gates
+spec:
+  description: >-
+    A pull request that only edits content runs these steps of the verify chain
+    instead of the whole chain. Content means the files under paths below,
+    modified in place: no file added, removed or renamed. The site and text
+    gates workflow runs the other steps that read those files, so the two
+    together cover every chain step that reads them.
+  why: >-
+    The whole chain takes about seventeen minutes on every pull request, and a
+    one-line change to a page waited for all of it. Most of the chain never
+    reads a page or a doc. These are the steps that do.
+  discovery: >-
+    Found by running every offline step of the chain on main with a preload that
+    logged each file it read, listed or executed, and keeping the steps that
+    touched a path below and are not already in site-verify.yml. The steps that
+    need a command-line tool were read by hand, and none touches these paths.
+    Re-run that trace after adding a step that reads docs/user/, docs/README.md,
+    site/ or the site generator, and add it here.
+  paths:
+    - "docs/user/**/*.md"
+    - "docs/README.md"
+    - "site/**"
+    - "scripts/generate-public-site.mjs"
+    - "scripts/lib/*-pages.mjs"
+    - "scripts/lib/*guides*.mjs"
+  steps:
+    - "node scripts/verify-source-catalog-imports.mjs --verify"
+    - "node scripts/verify-config-processing-model.mjs"
+    - "node scripts/verify-installer-command-surface.mjs"
+    - "node scripts/verify-variant-command-surface.mjs"
+    - "node scripts/verify-script-cub-commands.mjs"
+    - "node scripts/verify-cluster-command-surface.mjs"
+    - "node scripts/generate-top100-catalog-analysis.mjs --verify"
+    - "node scripts/generate-top100-catalog-analysis.mjs --self-test"
+    - "node scripts/generate-top100-coverage.mjs --verify"
+    - "node scripts/verify-vendored-config-diff.mjs"
+    - "node scripts/test-catalog-chart-pages.mjs"
+    - "node scripts/generate-workshop-sections.mjs --verify"
+    - "node scripts/generate-workshop-sections.mjs --self-test"
+    - "node scripts/verify-code-block-doctrine.mjs"
+    - "node scripts/verify-config-workshop-machine-contract.mjs"
+    - "node scripts/verify-chart-claim-integrity.mjs --verify"
+    - "node scripts/verify-helm-pain-doc.mjs"
+    - "node scripts/generate-claims-register.mjs --verify"
+    - "node scripts/generate-config-catalog-program.mjs --verify"
+    - "node scripts/generate-config-catalog-program.mjs --self-test"
+    - "node scripts/generate-catalog-listings.mjs --verify"
+    - "node scripts/sync-literal-config-examples.mjs --verify"
+    - "node scripts/generate-managed-journey-coverage.mjs --verify"
+    - "node scripts/verify-onboarding-journeys.mjs"
+    - "node scripts/generate-outcome-evidence-contract.mjs --verify"
+    - "node scripts/generate-production-disposition-lane.mjs --verify"
+    - "node scripts/generate-production-disposition-details.mjs --verify"
+    - "node scripts/generate-latest-candidate-promotion-readiness.mjs --verify"
+    - "node scripts/generate-attack-plan-workdown.mjs --verify"
+    - "node scripts/generate-top50-completion.mjs --verify"
+    - "node scripts/generate-confighub-example-guides.mjs --verify"
+    - "node scripts/generate-helm-catalog-readmes.mjs --verify"
+    - "node scripts/verify-enterprise-parity-contract.mjs"

@@ -90,6 +90,9 @@ if (args.includes("--self-test")) {
     const result = spawnSync(process.execPath, [process.argv[1], ...flags, "--list"], { encoding: "utf8", timeout: 30000 });
     check(result.status === 2 && result.stderr.includes("Usage:"), `incomplete shard arguments did not report usage: ${flags.join(" ")}`);
   }
+  const content = listSteps(["--content-gates"]);
+  check(content.length > 0 && content.every((step) => actualSteps.includes(step)), "the content gates are not all steps of the chain");
+  console.log(`self-test passed: the ${content.length} content gates are steps of the chain that need no command-line tool`);
   console.log("self-test passed: unsharded selections preserve complete chains and incomplete shard arguments report usage");
   console.log(`self-test passed: npm lifecycle hooks, invalid declarations, and complete positional coverage of ${actualSteps.length} steps`);
   console.log(`self-test passed: ${cases.length} reason-matching cases, including a truncated entry and a mismatched failure`);
@@ -114,12 +117,17 @@ check(!(withoutCli && onlyCli), "--without-cli and --only-cli ask for opposite t
 // that passes fails the run, because a register that only grows is a list of
 // excuses rather than a ratchet.
 const allowKnownRed = args.includes("--allow-known-red");
-const knownFlags = ["--shard", "--of", "--list", "--without-cli", "--only-cli", "--allow-known-red"];
+// A pull request that only edits content runs the steps that read content and
+// nothing else. tests/verify-chain-content-gates.yaml names them and says what
+// counts as content; scripts/classify-content-change.mjs decides.
+const contentGates = args.includes("--content-gates");
+check(!(contentGates && (withoutCli || onlyCli)), "--content-gates is its own selection, without --without-cli or --only-cli");
+const knownFlags = ["--shard", "--of", "--list", "--without-cli", "--only-cli", "--content-gates", "--allow-known-red"];
 const validArguments = args.every((arg, index) => knownFlags.includes(arg) || (index > 0 && ["--shard", "--of"].includes(args[index - 1])));
 
 if (!validArguments || hasShard !== hasTotal || !Number.isInteger(shard) || !Number.isInteger(total)) {
   console.error(`Usage:
-  node scripts/run-verify-shard.mjs [--without-cli | --only-cli] [--allow-known-red]
+  node scripts/run-verify-shard.mjs [--without-cli | --only-cli | --content-gates] [--allow-known-red]
   node scripts/run-verify-shard.mjs --shard <n> --of <m>
   node scripts/run-verify-shard.mjs --shard 1 --of 6 --list`);
   process.exit(2);
@@ -127,7 +135,9 @@ if (!validArguments || hasShard !== hasTotal || !Number.isInteger(shard) || !Num
 
 const allSteps = chainSteps();
 const cliSteps = cliDependentSteps(allSteps);
-const steps = withoutCli
+const steps = contentGates
+  ? contentGateSteps(allSteps, cliSteps)
+  : withoutCli
   ? allSteps.filter((step) => !cliSteps.has(step))
   : onlyCli
     ? allSteps.filter((step) => cliSteps.has(step))
@@ -147,7 +157,9 @@ if (listOnly) {
   process.exit(0);
 }
 
-const selection = withoutCli
+const selection = contentGates
+  ? " (only the content gates)"
+  : withoutCli
   ? ` (${cliSteps.size} gates needing a command-line tool run in their own job)`
   : onlyCli
     ? " (only the gates needing a command-line tool)"
@@ -241,6 +253,25 @@ function cliDependentSteps(steps) {
     `${relativeRepo(path)} names steps the chain no longer has: ${stale.slice(0, 3).join("; ")}`,
   );
   return new Set(declared);
+}
+
+// The content register is checked against the chain like the CLI one. A step
+// the chain no longer has would be a gate content changes skip without anyone
+// noticing, and a step that needs a command-line tool cannot run on the bare
+// runner the content job uses.
+function contentGateSteps(steps, cli) {
+  const path = join(repoRoot, "tests", "verify-chain-content-gates.yaml");
+  const doc = readYaml(path);
+  check(doc.kind === "VerifyChainContentGates", `${relativeRepo(path)}: expected kind VerifyChainContentGates`);
+  const declared = doc.spec?.steps ?? [];
+  check(declared.length > 0, `${relativeRepo(path)}: no steps are declared`);
+  const known = new Set(steps);
+  const stale = declared.filter((step) => !known.has(step));
+  check(stale.length === 0, `${relativeRepo(path)} names steps the chain no longer has: ${stale.slice(0, 3).join("; ")}`);
+  const needsTool = declared.filter((step) => cli.has(step));
+  check(needsTool.length === 0, `${relativeRepo(path)} names steps that need a command-line tool: ${needsTool.slice(0, 3).join("; ")}`);
+  check(new Set(declared).size === declared.length, `${relativeRepo(path)} names a step twice`);
+  return declared;
 }
 
 // The recorded reason is prose, and several entries are truncated mid-sentence,

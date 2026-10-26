@@ -33,6 +33,15 @@ name: Full verify chain
 # chain out of CI until someone worked through them. A declared gate that starts
 # passing fails the run, so the list can only shrink.
 #
+# A pull request that only edits content does not wait for all of it. The
+# classify job reads the diff, and when every file is modified in place under
+# the content paths in tests/verify-chain-content-gates.yaml, the twelve shards
+# are skipped and one job runs the chain steps that read those files instead.
+# The site and text gates run the rest of them, as they do on every pull
+# request. A file added, removed or renamed runs the whole chain. The shards
+# are skipped by a job condition rather than a paths filter, so a skipped run
+# reports skipped jobs and never leaves a check waiting.
+#
 # This does not replace the site and text gates. A three-minute answer about a
 # stale rendered page is worth more than the same answer inside a longer run,
 # and both start at once.
@@ -60,8 +69,71 @@ env:
   EXPECTED_HELM_VERSION: "v4.1.4+g05fa379"
 
 jobs:
+  classify:
+    name: content change or whole chain
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      content: ${{ steps.classify.outputs.content }}
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader the generators shell out to
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Classify the change
+        id: classify
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -z "$BASE_SHA" ]; then
+            echo "not a pull request, so the whole chain runs"
+            echo "content=false" >> "$GITHUB_OUTPUT"
+          else
+            node scripts/classify-content-change.mjs --base "$BASE_SHA"
+          fi
+
+  content-gates:
+    name: content gates
+    needs: classify
+    if: needs.classify.outputs.content == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader the generators shell out to
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Run the chain steps that read content
+        run: node scripts/run-verify-shard.mjs --content-gates --allow-known-red
+
   offline-gates:
     name: gates ${{ matrix.shard }} of 6
+    needs: classify
+    if: needs.classify.outputs.content != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -96,6 +168,8 @@ jobs:
 
   cli-gates:
     name: gates needing a command-line tool, ${{ matrix.shard }} of 6
+    needs: classify
+    if: needs.classify.outputs.content != 'true'
     runs-on: ubuntu-latest
     # These gates verify every installer package with the real cub and
     # installer, so their time grows with the package count. As one job at 180

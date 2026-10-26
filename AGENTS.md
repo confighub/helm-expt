@@ -40,7 +40,11 @@ npm run verify
 ```
 
 That is the whole chain. CI runs it as six shards, plus six more for commands
-that need a command-line tool (`.github/workflows/full-verify.yml`). Lanes the
+that need a command-line tool (`.github/workflows/full-verify.yml`). A pull request
+that only modifies content in place (`docs/user/`, `docs/README.md`, `site/`
+and the site generator's page files) skips the shards and runs the chain steps
+that read those files instead. `tests/verify-chain-content-gates.yaml` names
+them, and adding, removing or renaming a file runs the whole chain. Lanes the
 repository already knows are red are declared in
 `tests/verify-chain-known-red.yaml`; a pull request that fixes one of them
 fails until the entry is removed, on purpose. The register is empty today. The
