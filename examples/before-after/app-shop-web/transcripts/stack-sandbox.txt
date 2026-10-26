@@ -1,0 +1,26 @@
+
+Stack: shop-platform  —  A web platform with monitoring and a message queue, with the shop app running on it: ingress, certificates, the Prometheus stack, RabbitMQ, and shop-web.
+Resolving 5 components: cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, shop-web
+
+Check
+  [PASS] no resource conflicts across components (192 objects)
+  [PASS] CRD ordering: 10 CRDs are delivered before the 51 custom resources that need them
+  [PASS] served API versions: 51 custom resource(s) match their bundled CRD; target availability is not checked
+  [WARN] 1 custom resource(s) rely on CRDs this stack does not deliver, which must already exist: cert-manager.io (1)
+  [PASS] app needs met: shop-web needs an ingress controller, cert-manager, a Prometheus operator (kube-prometheus-stack), all carried by this stack
+  [WARN] 5 admission webhook(s) need a caBundle — cert-manager is in the stack and can issue it
+  [WARN] namespaces: 0 created, 6 must already exist (cert-manager, ingress-nginx, kube-system, monitoring, rabbitmq, shop)
+  [WARN] target prerequisite unknown: ClusterIssuer/letsencrypt; Include ClusterIssuer/letsencrypt in the stack, or verify it exists on the selected target before delivery.
+  [PASS] schema validation: 192 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+  => CHECKED
+
+Sandbox render  (free, no infrastructure)
+  192 objects total
+      cert-manager: 42  [mgmt]
+      ingress-nginx: 11  [mgmt]
+      kube-prometheus-stack: 124  [mgmt]
+      rabbitmq: 10  [workload]
+      shop-web: 5  [workload]  [authored]
+
+  Ready. `cub stack upload shop-platform --run` uploads the base Spaces and links the declared bindings in ConfigHub.
+

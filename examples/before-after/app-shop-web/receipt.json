@@ -1,0 +1,41 @@
+{
+  "id": "app-shop-web",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-26",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.61",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the app's files",
+      "repository": "https://github.com/confighub/cub-workshop",
+      "commit": "8f4c207a134c74e0d94c228c11b2c4b202ffed19",
+      "path": "apps/shop-web.yaml"
+    }
+  ],
+  "commands": [
+    "cub app check shop-web.yaml",
+    "cub stack sandbox shop-platform"
+  ],
+  "notes": [
+    "cub stack sandbox reads shop-platform, a stack the Workshop plugin ships, which places shop-web on ingress-nginx, cert-manager, kube-prometheus-stack and RabbitMQ."
+  ],
+  "confighub": {
+    "file": "confighub/overrides.png",
+    "organization": "helm-catalog",
+    "takenOn": "2026-10-26",
+    "shows": "the shop-web base with its dev and prod variants, and the label and five replicas prod sets"
+  },
+  "files": {
+    "before/shop-web.yaml": "sha256:aba21a14b46db7b3eb32f9b34e4f4e9252fbc3ab110b072e18372a0c5579f6d5",
+    "confighub/overrides.png": "sha256:6a233450e03c6a7c2855ab11daf7e6227646fa8ef932bc73932ca4cfedfa738d",
+    "transcripts/app-check.txt": "sha256:5267f2c1a28965f3adbf754a435a668f9ecf80ed38c08073ba60f827fccea263",
+    "transcripts/stack-sandbox.txt": "sha256:ef9d8c461a39fd90a5fdbf7a32e74476114414e662677033f939472309ebf1a5"
+  }
+}

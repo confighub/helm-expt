@@ -645,7 +645,7 @@
     <section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
       <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
-      <p>Go to <a href="#ba-helm">Helm charts</a>, <a href="#ba-kustomize">Kustomize</a>, <a href="#ba-argo">Argo CD</a> or <a href="#ba-flux">Flux</a>.</p>
+      <p>Go to <a href="#ba-helm">Helm charts</a>, <a href="#ba-kustomize">Kustomize</a>, <a href="#ba-argo">Argo CD</a>, <a href="#ba-flux">Flux</a> or <a href="#ba-app">Apps</a>.</p>
       <div class="doors ba-gallery">
         <article class="door" id="ba-helm">
           <span class="kicker">Helm chart</span>
@@ -726,6 +726,11 @@
           <span class="kicker">Flux fleet</span>
           <h3><a href="./example-flux-which-version-where.html">Which version runs where, before and after</a></h3>
           <p>Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version Git says each cluster runs.</p>
+        </article>
+        <article class="door" id="ba-app">
+          <span class="kicker">App</span>
+          <h3><a href="./example-app-shop-web.html">The shop-web app, before and after</a></h3>
+          <p>An app's YAML never says what the cluster must already run. ConfigHub lists what the app needs, and checks it against a platform.</p>
         </article>
       </div>
       <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>

@@ -103,6 +103,15 @@ export const BEFORE_AFTER_PAGES = [
       card: null,
     };
   }),
+  {
+    id: "app-shop-web",
+    key: "beforeAfterAppShopWebHtml",
+    file: "before-after-app-shop-web.html",
+    kicker: "App",
+    title: "See what the shop-web app needs from a platform",
+    description: "An app's own YAML, then what ConfigHub reads in it: the platform services it needs, and a check of a platform that carries them.",
+    card: null,
+  },
 ];
 
 const read = (id, path) => readFileSync(join(repoRoot, ROOT, id, path), "utf8");
@@ -1086,9 +1095,42 @@ const GITOPS_SIMPLE = [
   },
 ];
 
+// Apps, not charts: the before is the app's own YAML, and the after is what
+// ConfigHub says it needs and a check of a platform that carries it.
+const APP_SIMPLE = [
+  {
+    id: "app-shop-web", file: "example-app-shop-web.html", name: "The shop-web app", kicker: "App", noClone: true,
+    lead: "An app's YAML never says what the cluster must already run. ConfigHub lists what the app needs, and checks it against a platform.",
+    before: "before/shop-web.yaml", beforeLabel: "Before: the app's YAML",
+    beforeNote: "The app's five objects, as its team wrote them.",
+    sentences: ["ConfigHub lists what the app needs from a platform: an ingress controller, cert-manager and a Prometheus operator.", "The platform check confirms shop-platform provides all three, and warns about the one thing it cannot see, the letsencrypt ClusterIssuer.", "Dev and prod are variants of one base, and prod's changes are listed in one place."],
+    facts: [["transcripts/app-check.txt", /\[NEEDS\] an ingress controller/], ["transcripts/app-check.txt", /\[NEEDS\] cert-manager/], ["transcripts/app-check.txt", /\[NEEDS\] a Prometheus operator/], ["transcripts/stack-sandbox.txt", /app needs met: shop-web/], ["transcripts/stack-sandbox.txt", /ClusterIssuer\/letsencrypt/]],
+    load: [
+      "cub app upload shop-web --run",
+      "cub variant create dev shop-web-base --change-desc \"Clone the base as dev\"",
+      "cub variant create prod shop-web-base --change-desc \"Clone the base as prod\"",
+      "cub function set --space shop-web-dev --change-desc \"Label every object environment dev\" set-label environment dev",
+      "cub function set --space shop-web-prod --change-desc \"Label every object environment prod\" set-label environment prod",
+      "cub function set --space shop-web-prod --unit shop-web --change-desc \"Run five replicas in prod\" set-replicas 5",
+    ],
+    laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], needs: "the Workshop plugin",
+    laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
+    safety: "It touches no cluster.",
+    loadNote: "Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod variant of it.",
+    units: "Each variant holds 6 Units in ConfigHub: the app's 5 objects and its namespace.",
+    rows: [
+      { does: "The Ingress names the nginx class, and nothing in the files says the cluster must run an ingress controller.", instead: "cub app check lists an ingress controller as a need, and the platform check confirms shop-platform carries one." },
+      { does: "The Certificate needs cert-manager, and a ClusterIssuer called letsencrypt that none of these files creates.", instead: "cub app check lists cert-manager, and the platform check warns that ClusterIssuer/letsencrypt must already exist on the cluster." },
+      { does: "The ServiceMonitor only works if the Prometheus operator's CRDs are installed.", instead: "cub app check lists a Prometheus operator, and the platform check finds kube-prometheus-stack in shop-platform." },
+      { does: "The namespace shop must already exist.", instead: "Both checks name it, before anything is applied." },
+    ],
+  },
+];
+
 export const SIMPLE_PAGES = [
   ...HELM_SIMPLE.map(([id, short, name]) => ({ id, file: `example-${short}.html`, name, space: `${short}-example`, kicker: "Helm chart", lead: "A Helm chart you can't read becomes objects you can." })),
   ...GITOPS_SIMPLE,
+  ...APP_SIMPLE,
 ];
 
 function highlightTemplate(escapeHtml, line) {
@@ -1347,15 +1389,15 @@ function simplePage(id, h) {
     body = simpleLayout(h, {
       id, shot, wide: true, beforeLabel: page.beforeLabel,
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
-      beforeNote: `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
+      beforeNote: page.beforeNote ?? `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
       afterNote: caption,
       sentences: page.sentences, units: page.units, rows: page.rows,
       rowsHeading: "What you work out today, and what happens here instead", rowsColumns: ["Today", "Here instead"],
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
-      loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
-      loadNote: `Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.safety)}`,
-      laptopRows: [clone, `cd examples/${page.dir}`, ...page.laptop],
+      loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
+      loadNote: `${page.loadNote ?? "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization."} ${escapeHtml(page.safety)}`,
+      laptopRows: [...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.laptop],
       laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
     });
@@ -1424,6 +1466,50 @@ function baCss() {
 `;
 }
 
+function appShopWebPage(h) {
+  const { check, escapeHtml } = h;
+  const id = "app-shop-web";
+  const rec = receipt(id);
+  const docs = objects(read(id, "before/shop-web.yaml"));
+  const appCheck = transcriptLines(read(id, "transcripts/app-check.txt"));
+  const sandbox = transcriptLines(read(id, "transcripts/stack-sandbox.txt"));
+  const needs = appCheck.filter((line) => /\[NEEDS\]/.test(line));
+  check(needs.length === 3, `${ROOT}/${id}/transcripts/app-check.txt no longer names three needs`);
+  check(sandbox.some((line) => /app needs met: shop-web/.test(line)) && sandbox.some((line) => /=> CHECKED/.test(line)), `${ROOT}/${id}/transcripts/stack-sandbox.txt no longer checks the app on its platform`);
+  const source = rec.sources[0];
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES.find((page) => page.id === id).title,
+    lead: `shop-web is ${docs.length} objects, and three of them only work if the cluster already runs something the files never mention. This page shows what ConfigHub reads in them.`,
+    opening: `    <p><strong>What you need.</strong> <code>cub</code> with the Workshop plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. The app's files</h2>
+      <p>The app is <a href="${source.repository}/blob/${source.commit}/${source.path}">${escapeHtml(source.path)} in confighub/cub-workshop</a>, at the commit the Workshop's app list checked.</p>
+      <pre><code>${escapeHtml(read(id, "before/shop-web.yaml"))}</code></pre>
+    </section>
+    <section aria-labelledby="needs">
+      <h2 id="needs">2. What the app needs</h2>
+      <p>The check reads the files and names what a platform must provide. It runs nothing.</p>
+      ${terminal(escapeHtml, { title: "what shop-web needs", cmd: "cub app check shop-web.yaml", output: appCheck, mark: [/\[NEEDS\]/] })}
+    </section>
+    <section aria-labelledby="platform">
+      <h2 id="platform">3. Check it on a platform that carries those</h2>
+      <p>shop-platform is a stack the Workshop plugin ships: ingress-nginx, cert-manager, kube-prometheus-stack and RabbitMQ, with shop-web on them. The check renders all of it and tests the app's needs against the platform.</p>
+      ${terminal(escapeHtml, { title: "shop-web on shop-platform", cmd: "cub stack sandbox shop-platform", output: sandbox, mark: [/app needs met/, /ClusterIssuer\/letsencrypt/, /=> CHECKED/] })}
+      <p>One thing stays outside the stack. The Certificate asks for a ClusterIssuer called letsencrypt, and nothing in the stack creates it, so it must already exist on the cluster.</p>
+    </section>
+    <section aria-labelledby="notes">
+      <h2 id="notes">4. Technical notes and disclaimers</h2>
+      <ul>
+        <li>Both checks ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)} and Workshop plugin ${escapeHtml(rec.tools.workshopPlugin)}. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>Neither check contacts a cluster. A check that passes is not proof the app runs.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
 export function beforeAfterPage(id, helpers) {
   if (id === "helm-gpu-operator") return helmPage(helpers);
   if (id === "kustomize-apptique") return kustomizePage(helpers);
@@ -1432,6 +1518,7 @@ export function beforeAfterPage(id, helpers) {
   if (id === "kustomize-helm-chart") return kustomizeHelmPage(helpers);
   if (id === "argo-applicationset") return argoAppSetPage(helpers);
   if (id === "flux-expert-fleet") return fluxFleetPage(helpers);
+  if (id === "app-shop-web") return appShopWebPage(helpers);
   if (HELM_NAMES[id]) return helmListingPage(id, helpers);
   throw new Error(`no before-and-after page for ${id}`);
 }
@@ -1443,7 +1530,7 @@ export function beforeAfterGalleryHtml(escapeHtml) {
     const f = helmFacts(page.id);
     return `The ${page.name} chart makes ${f.before.length} objects. ${simpleHelmSentences(f)[1]}`;
   };
-  const groups = [["helm", "Helm charts"], ["kustomize", "Kustomize"], ["argo", "Argo CD"], ["flux", "Flux"]];
+  const groups = [["helm", "Helm charts"], ["kustomize", "Kustomize"], ["argo", "Argo CD"], ["flux", "Flux"], ["app", "Apps"]];
   const firstOf = new Map(groups.map(([prefix]) => [SIMPLE_PAGES.find((page) => page.id.startsWith(`${prefix}-`))?.id, prefix]));
   const jumps = groups.map(([prefix, label]) => `<a href="#ba-${prefix}">${label}</a>`);
   const cards = SIMPLE_PAGES.map((page) => `        <article class="door"${firstOf.has(page.id) ? ` id="ba-${firstOf.get(page.id)}"` : ""}>
