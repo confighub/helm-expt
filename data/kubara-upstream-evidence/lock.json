@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "repository": "confighub/kubara-confighub",
-  "commit": "bd57184d6841d253703fc2a0511432ca99545677",
+  "commit": "60ffa2986bb7d147b98528451160824f95d4e37f",
   "files": [
     {
       "path": "examples/kubara/current-platform/catalog-parity-receipt.yaml",
@@ -20,8 +20,8 @@
     },
     {
       "path": "data/kubara-release-acceptance/contract.yaml",
-      "sha256": "41f9a9de306d5f4463d478b3e89e74271ac63143b137161881b788d3473ad835",
-      "gitBlob": "738eee369cecec6cf1788027a61fe5b22d4f4817"
+      "sha256": "f58a88f4fa8eeb515afc9cb38631c763d9e405326e70c394f7fdbfee4e42ead9",
+      "gitBlob": "98b08aded26f2f99141bad23a4b3f092927670fa"
     },
     {
       "path": "data/kubara-platform-matrix/matrix.json",
@@ -60,13 +60,13 @@
     },
     {
       "path": "data/kubara-platform-matrix/matrix.html",
-      "sha256": "2e5179ed21a22fc3021e253347a752a19b20dadfe73b82fce1cc1f63d09ba01f",
-      "gitBlob": "3334fd529a3bfa78f56c76e68619b267e88967b6"
+      "sha256": "e877b8ecf5a5b40c0ffc73bc2530cc2028ec286d8fb8bc48021da91d8b965227",
+      "gitBlob": "7f1d924b7070dcf25af7bd614c810908ff44a10e"
     },
     {
       "path": "data/kubara-platform-matrix/summary.md",
-      "sha256": "d90007ef2e3a67eb4f50044b69e35f8dd4d51d8250057ddfe1700ab01e32ea59",
-      "gitBlob": "a54d338161c42f71fb7033ae3745148d243914c0"
+      "sha256": "ed4ac54c88b1ccfe809eb7b58f2d08581d7eb3ae4c3eacb2993096f33351a414",
+      "gitBlob": "cfe1dfbcd79258618281542e502d3fc2bb040a0f"
     },
     {
       "path": "data/kubara-platform-matrix/historical-v0.12.0/matrix.json",
