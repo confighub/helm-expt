@@ -724,7 +724,9 @@ labels:
 
 <span class="term-prompt">$</span> cub variant upload --component checkout-cache-example --variant base --namespace storefront --change-desc &quot;Seed the base from the chart Kustomize inflates&quot; base.yaml
 
-<span class="term-prompt">$</span> for env in dev staging prod; do cub variant create $env checkout-cache-example-base --namespace storefront-$env --change-desc &quot;Clone the base as $env&quot; &amp;&amp; cub function set --space checkout-cache-example-$env --change-desc &quot;Label every object environment $env&quot; set-label environment $env; done
+<span class="term-prompt">$</span> for env in dev staging prod; do cub variant create $env checkout-cache-example-base --namespace storefront-$env --change-desc &quot;Clone the base as $env&quot;; done
+
+<span class="term-prompt">$</span> for env in dev staging prod; do cub function set --space checkout-cache-example-$env --change-desc &quot;Label every object environment $env&quot; set-label environment $env; done
 
 <span class="term-prompt">$</span> cub function set --space checkout-cache-example-staging --unit checkout-cache --change-desc &quot;Run two replicas in staging&quot; set-replicas 2
 
