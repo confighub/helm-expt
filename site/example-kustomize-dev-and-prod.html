@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -727,11 +731,14 @@ patches:
         <li>Dev and prod stay linked to one base, so a change to the base can reach both.</li>
         <li>Every object is written out, with nothing left to work out from patches.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>The overlays' patches, labels and namespace are applied, so each variant holds finished objects.</li>
-        <li>There are no CRDs or Helm hooks here, so nothing else has to go anywhere.</li>
-      </ul>
+      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Prod is the base plus an overlay of patches, labels and a namespace, so you work out prod's objects in your head.</td><td>Each variant holds its finished objects, and prod's panel lists only what prod changes.</td></tr>
+          <tr><td>Nothing else. There are no CRDs and no Helm hooks.</td><td>Nothing else to move.</td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

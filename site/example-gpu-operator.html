@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -711,25 +715,43 @@
           
         </figure>
       </div>
+      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/helm-gpu-operator-graph.png" alt="ConfigHub showing the GPU Operator base with its dev and prod variants, and the label and three replicas prod sets on the operator">
+        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the operator. Taken in the helm-catalog organization on 2026-10-26, showing the GPU Operator base with its dev and prod variants, and the label and three replicas prod sets on the operator.</p>
+      </figure>
 
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>The 8 setup objects Helm runs out of sight become steps you can read.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>5 CRDs are ordinary objects in ConfigHub, and a written step applies them before anything that uses them. 5 of them come from the chart's crds folder, which a plain helm template leaves out.</li>
-        <li>Helm's 8 hook objects (2 ServiceAccounts, 2 ClusterRoles, 2 ClusterRoleBindings, 2 Jobs) don't travel. Written steps describe their work for whoever delivers.</li>
-        <li>The plan writes down 2 more steps for whoever delivers. Show me the details lists them.</li>
-      </ul>
+      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Adds 5 new kinds of Kubernetes object, such as ClusterPolicy, NVIDIADriver, NodeFeature. A plain helm template leaves them out.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-gpu-operator-crds.png" alt="ConfigHub showing the 5 GPU Operator CRDs as Units in the base"><p class="ex-note">The 5 new kinds</p><ul><li><code>ClusterPolicy</code></li><li><code>NVIDIADriver</code></li><li><code>NodeFeature</code></li><li><code>NodeFeatureGroup</code></li><li><code>NodeFeatureRule</code></li></ul></details></td></tr>
+          <tr><td>Runs a Job before each upgrade that moves its CRDs to the new version, and one after uninstalling that removes the node labels it added.</td><td>Nothing runs out of sight. The plan says to apply the new CRDs first on an upgrade, and to run the label clean-up Job after deleting.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount gpu-operator-node-feature-discovery-prune: after uninstalling</code></li><li><code>ServiceAccount gpu-operator-upgrade-crd-hook-sa: before upgrading</code></li><li><code>ClusterRole gpu-operator-node-feature-discovery-prune: after uninstalling</code></li><li><code>ClusterRole gpu-operator-upgrade-crd-hook-role: before upgrading</code></li><li><code>ClusterRoleBinding gpu-operator-node-feature-discovery-prune: after uninstalling</code></li><li><code>ClusterRoleBinding gpu-operator-upgrade-crd-hook-binding: before upgrading</code></li><li><code>Job gpu-operator-node-feature-discovery-prune: after uninstalling</code></li><li><code>Job gpu-operator-upgrade-crd: before upgrading</code></li></ul></details></td></tr>
+          <tr><td>Decides at install time when each of its hidden steps runs, in an order you cannot see.</td><td>The plan writes down 2 steps, in order, for whoever delivers.<details class="ex-show"><summary>Show me</summary><p class="ex-note">The plan's steps</p><ul><li><code>Before an upgrade, move the CRDs to the new version. Helm does not upgrade CRDs from a chart's crds directory, so the chart ships this Job: it applies the CRD files inside the new operator image, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. A workflow that applies this base's CRD bundle before the other objects does the same work and should skip the Job. A workflow that leaves CRDs alone must run these four objects first, wait for the Job to complete, then delete them.</code></li><li><code>After deleting, prune node-feature-discovery labels from the nodes. The Job runs nfd-master -prune, which removes node-feature-discovery labels, annotations and taints from every node, with its own ServiceAccount, ClusterRole and ClusterRoleBinding. Apply the four objects only after the base objects are deleted, wait for the Job to complete, then delete them. Never apply them with the base: at install time the prune would run immediately.</code></li></ul></details></td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the NVIDIA GPU Operator package, writes its files, and saves them as a Space called <code>gpu-operator-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the NVIDIA GPU Operator package, writes its files, and saves them as a Space called <code>gpu-operator-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the operator. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./gpu-operator-example --non-interactive --namespace gpu-operator &amp;&amp; cub installer upload --work-dir ./gpu-operator-example --space gpu-operator-example &amp;&amp; cub component create gpu-operator-example &amp;&amp; cub space update --patch gpu-operator-example --component gpu-operator-example</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./gpu-operator-example --non-interactive --namespace gpu-operator &amp;&amp; cub installer upload --work-dir ./gpu-operator-example --space gpu-operator-example &amp;&amp; cub component create gpu-operator-example &amp;&amp; cub space update --patch gpu-operator-example --component gpu-operator-example
+
+<span class="term-prompt">$</span> cub variant create dev gpu-operator-example --change-desc &quot;Clone the base as dev&quot;
+
+<span class="term-prompt">$</span> cub variant create prod gpu-operator-example --change-desc &quot;Clone the base as prod&quot;
+
+<span class="term-prompt">$</span> cub function set --space gpu-operator-example-dev --change-desc &quot;Label every object environment dev&quot; set-label environment dev
+
+<span class="term-prompt">$</span> cub function set --space gpu-operator-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
+
+<span class="term-prompt">$</span> cub function set --space gpu-operator-example-prod --unit deployment-gpu-operator-gpu-operator --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>

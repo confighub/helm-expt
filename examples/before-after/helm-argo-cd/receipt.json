@@ -51,11 +51,17 @@
     "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "shows": "the Argo CD repo-server Deployment, at its image line"
+    "shows": "the Argo CD repo-server Deployment, at its image line",
+    "crds": {
+      "file": "confighub/crds.png",
+      "takenOn": "2026-10-26",
+      "shows": "the 3 Argo CD CRDs as Units in the base"
+    }
   },
   "files": {
     "before/before.yaml": "sha256:bc038ed97363f89258f9fb1b858431e905fa0547cf7758522e787e8a496926e0",
     "before/template-excerpt.json": "sha256:e665b349b51d2cce4bfdea22fb208faeafc220ac9023e23a17cce76d80e86808",
+    "confighub/crds.png": "sha256:b84e1f563e4b63b516c15ef4ce321bd857425b15101eb02ee1ce499ab1b496cd",
     "confighub/object.png": "sha256:fc04aa52bdc7042877401af475bf471a45d3e938ed02a15ea52aab79e68f2649",
     "transcripts/check-after.txt": "sha256:80d851bbbe3be80317d59f5dfff1f569f2fbd8e2e980f2180dbe14b569d02514",
     "transcripts/check-before.txt": "sha256:4f709803f141119e72746fa05e96e9fa5babe082cad3dd886d2f8c109904e09e"

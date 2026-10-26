@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -711,25 +715,43 @@
           
         </figure>
       </div>
+      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/helm-gatekeeper-graph.png" alt="ConfigHub showing the Gatekeeper base with its dev and prod variants, and the label and three replicas prod sets on the audit Deployment">
+        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the audit Deployment. Taken in the helm-catalog organization on 2026-10-26, showing the Gatekeeper base with its dev and prod variants, and the label and three replicas prod sets on the audit Deployment.</p>
+      </figure>
 
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>The 8 setup objects Helm runs out of sight become steps you can read.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>17 CRDs are ordinary objects in ConfigHub, and a written step applies them before anything that uses them. 17 of them come from the chart's crds folder, which a plain helm template leaves out.</li>
-        <li>Helm's 8 hook objects (2 ServiceAccounts, 2 ClusterRoles, 2 ClusterRoleBindings, 2 Jobs) don't travel. Written steps describe their work for whoever delivers.</li>
-        <li>The plan writes down 2 more steps for whoever delivers. Show me the details lists them.</li>
-      </ul>
+      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Adds 17 new kinds of Kubernetes object, such as ConstraintTemplate, Config, Assign. A plain helm template leaves them out.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-gatekeeper-crds.png" alt="ConfigHub showing the 17 Gatekeeper CRDs among the base's Units"><p class="ex-note">The 17 new kinds</p><ul><li><code>Assign</code></li><li><code>AssignImage</code></li><li><code>AssignMetadata</code></li><li><code>Config</code></li><li><code>ConfigPodStatus</code></li><li><code>Connection</code></li><li><code>ConnectionPodStatus</code></li><li><code>ConstraintPodStatus</code></li><li><code>ConstraintTemplate</code></li><li><code>ConstraintTemplatePodStatus</code></li><li><code>ExpansionTemplate</code></li><li><code>ExpansionTemplatePodStatus</code></li><li><code>ModifySet</code></li><li><code>MutatorPodStatus</code></li><li><code>Provider</code></li><li><code>ProviderPodStatus</code></li><li><code>SyncSet</code></li></ul></details></td></tr>
+          <tr><td>Runs a Job before installing or upgrading that applies its CRDs, and one after installing that labels its own namespace so Gatekeeper does not police itself.</td><td>Nothing runs out of sight. The CRDs are in ConfigHub and go in first, and a recorded install without the Jobs checked each step that followed.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount gatekeeper-update-namespace-label: after installing</code></li><li><code>ServiceAccount gatekeeper-admin-upgrade-crds: before installing, before upgrading</code></li><li><code>ClusterRole gatekeeper-update-namespace-label: after installing</code></li><li><code>ClusterRole gatekeeper-admin-upgrade-crds: before installing, before upgrading</code></li><li><code>ClusterRoleBinding gatekeeper-update-namespace-label: after installing</code></li><li><code>ClusterRoleBinding gatekeeper-admin-upgrade-crds: before installing, before upgrading</code></li><li><code>Job gatekeeper-update-namespace-label: after installing</code></li><li><code>Job gatekeeper-update-crds-hook: before installing, before upgrading</code></li></ul></details></td></tr>
+          <tr><td>Decides at install time when each of its hidden steps runs, in an order you cannot see.</td><td>The plan writes down 2 steps, in order, for whoever delivers.<details class="ex-show"><summary>Show me</summary><p class="ex-note">The plan's steps</p><ul><li><code>CRD and admission-webhook prerequisites must be checked before apply.</code></li><li><code>The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.</code></li></ul></details></td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Gatekeeper package, writes its files, and saves them as a Space called <code>gatekeeper-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Gatekeeper package, writes its files, and saves them as a Space called <code>gatekeeper-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the audit Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir ./gatekeeper-example --non-interactive --namespace default &amp;&amp; cub installer upload --work-dir ./gatekeeper-example --space gatekeeper-example &amp;&amp; cub component create gatekeeper-example &amp;&amp; cub space update --patch gatekeeper-example --component gatekeeper-example</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir ./gatekeeper-example --non-interactive --namespace default &amp;&amp; cub installer upload --work-dir ./gatekeeper-example --space gatekeeper-example &amp;&amp; cub component create gatekeeper-example &amp;&amp; cub space update --patch gatekeeper-example --component gatekeeper-example
+
+<span class="term-prompt">$</span> cub variant create dev gatekeeper-example --change-desc &quot;Clone the base as dev&quot;
+
+<span class="term-prompt">$</span> cub variant create prod gatekeeper-example --change-desc &quot;Clone the base as prod&quot;
+
+<span class="term-prompt">$</span> cub function set --space gatekeeper-example-dev --change-desc &quot;Label every object environment dev&quot; set-label environment dev
+
+<span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
+
+<span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --unit deployment-default-gatekeeper-audit --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>

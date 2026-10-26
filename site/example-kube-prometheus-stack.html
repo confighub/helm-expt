@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -717,13 +721,15 @@
         <li>The 7 setup objects Helm runs out of sight become steps you can read.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>10 CRDs are ordinary objects in ConfigHub, and a written step applies them before anything that uses them. 10 of them come from the chart's crds folder, which a plain helm template leaves out.</li>
-        <li>Helm's 7 hook objects (1 ServiceAccount, 1 ClusterRole, 1 ClusterRoleBinding, 1 Role, 1 RoleBinding, 2 Jobs) don't travel. Written steps describe their work for whoever delivers.</li>
-        <li>The webhook certificate monitoring/kube-prometheus-stack-admission is made by the chart's setup Job, which a written step runs.</li>
-        <li>The plan writes down 8 more steps for whoever delivers. Show me the details lists them.</li>
-      </ul>
+      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Adds 10 new kinds of Kubernetes object, such as Prometheus, ServiceMonitor, PrometheusRule. A plain helm template leaves them out.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-kube-prometheus-stack-crds.png" alt="ConfigHub showing the 10 Prometheus Operator CRDs as Units in the base"><p class="ex-note">The 10 new kinds</p><ul><li><code>AlertmanagerConfig</code></li><li><code>Alertmanager</code></li><li><code>PodMonitor</code></li><li><code>Probe</code></li><li><code>PrometheusAgent</code></li><li><code>Prometheus</code></li><li><code>PrometheusRule</code></li><li><code>ScrapeConfig</code></li><li><code>ServiceMonitor</code></li><li><code>ThanosRuler</code></li></ul></details></td></tr>
+          <tr><td>Runs two short-lived Jobs while installing. The first makes a TLS certificate for the admission webhook, and the second hands that certificate to the webhook.</td><td>Nothing runs out of sight. The plan says to run the same two Jobs, in that order, and then remove them.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRole kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Role kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>RoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Job kube-prometheus-stack-admission-create: before installing, before upgrading</code></li><li><code>Job kube-prometheus-stack-admission-patch: after installing, after upgrading</code></li></ul></details></td></tr>
+          <tr><td>Decides at install time when each of its hidden steps runs, in an order you cannot see.</td><td>The plan writes down 8 steps, in order, for whoever delivers.<details class="ex-show"><summary>Show me</summary><p class="ex-note">The plan's steps</p><ul><li><code>The package applies the locked CRDs before the chart objects that use them.</code></li><li><code>The run removes both completed Jobs and their temporary RBAC objects.</code></li><li><code>The package runs the chart's webhook patch Job after the webhook objects exist.</code></li><li><code>The package runs the chart's certificate creation Job before applying the admission webhooks.</code></li><li><code>The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.</code></li><li><code>The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.</code></li><li><code>The certificate Job creates the required admission Secret with ca, cert, and key.</code></li><li><code>The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.</code></li></ul></details></td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>

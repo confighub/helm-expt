@@ -50,11 +50,23 @@
     "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "shows": "the Gatekeeper controller-manager Deployment, at its image line"
+    "shows": "the Gatekeeper controller-manager Deployment, at its image line",
+    "graph": {
+      "file": "confighub/graph.png",
+      "takenOn": "2026-10-26",
+      "shows": "the Gatekeeper base with its dev and prod variants, and the label and three replicas prod sets on the audit Deployment"
+    },
+    "crds": {
+      "file": "confighub/crds.png",
+      "takenOn": "2026-10-26",
+      "shows": "the 17 Gatekeeper CRDs among the base's Units"
+    }
   },
   "files": {
     "before/before.yaml": "sha256:22b61d8932ccbe0ebdc06606d7ce369ab3669fdf703e1d60001c531efae6ad56",
     "before/template-excerpt.json": "sha256:2c6601f68904ea72c399593e03744f1a87a7393783ce2bc70855308204a2c7a1",
+    "confighub/crds.png": "sha256:519560ee970f6ffc9dfd554015c04993fa960c8d93521d42b16610907452341c",
+    "confighub/graph.png": "sha256:04781a5ca791686855ab3969f6f25295ed915c826c261b2fa198ffa3f5745ffe",
     "confighub/object.png": "sha256:88de60f5cf7b6ae966ebf5b3db05c06d210671decd5212ed0842b45ca1f20479",
     "transcripts/check-after.txt": "sha256:5352c9dc622acff0b5665eeb113756ae066c97735ebaa269187bd63833197222",
     "transcripts/check-before.txt": "sha256:2a8cb8d6a55c3f0e017034d640e70a0cbc47af8aca15675ffcbbba0c31503531"

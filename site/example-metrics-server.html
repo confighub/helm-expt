@@ -470,8 +470,12 @@
     .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
-    .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
-    .ex-went li { margin: 4px 0; }
+    .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
+    .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .ex-table th { width: 50%; }
+    .ex-show summary { cursor: pointer; color: var(--accent); margin-top: 6px; }
+    .ex-show ul { margin: 6px 0 0; padding-left: 1.2em; }
+    .ex-show img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; }
     .ex-versions { border-collapse: collapse; font-size: .9rem; }
     .ex-versions th, .ex-versions td { border: 1px solid var(--line); padding: 4px 10px; text-align: left; }
 
@@ -711,22 +715,40 @@
           
         </figure>
       </div>
+      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/helm-metrics-server-graph.png" alt="ConfigHub showing the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment">
+        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of its Deployment. Taken in the helm-catalog organization on 2026-10-26, showing the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment.</p>
+      </figure>
 
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>Every object is written out, so you can review it before anything runs.</li>
       </ul>
-      <h3 class="ex-went-h">Where the rest went</h3>
-      <ul class="ex-went">
-        <li>Nothing else. Every object the chart makes is in ConfigHub as it is.</li>
-      </ul>
+      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <table class="ex-table">
+        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <tbody>
+          <tr><td>Nothing out of sight. The chart makes 9 objects and runs no hooks.</td><td>All 9 are in ConfigHub as they are.</td></tr>
+        </tbody>
+      </table>
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server package, writes its files, and saves them as a Space called <code>metrics-server-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server package, writes its files, and saves them as a Space called <code>metrics-server-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base default --work-dir ./metrics-server-example --non-interactive --namespace kube-system &amp;&amp; cub installer upload --work-dir ./metrics-server-example --space metrics-server-example &amp;&amp; cub component create metrics-server-example &amp;&amp; cub space update --patch metrics-server-example --component metrics-server-example</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base default --work-dir ./metrics-server-example --non-interactive --namespace kube-system &amp;&amp; cub installer upload --work-dir ./metrics-server-example --space metrics-server-example &amp;&amp; cub component create metrics-server-example &amp;&amp; cub space update --patch metrics-server-example --component metrics-server-example
+
+<span class="term-prompt">$</span> cub variant create dev metrics-server-example --change-desc &quot;Clone the base as dev&quot;
+
+<span class="term-prompt">$</span> cub variant create prod metrics-server-example --change-desc &quot;Clone the base as prod&quot;
+
+<span class="term-prompt">$</span> cub function set --space metrics-server-example-dev --change-desc &quot;Label every object environment dev&quot; set-label environment dev
+
+<span class="term-prompt">$</span> cub function set --space metrics-server-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
+
+<span class="term-prompt">$</span> cub function set --space metrics-server-example-prod --unit deployment-kube-system-metrics-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>

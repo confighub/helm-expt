@@ -36,15 +36,24 @@ export const EXAMPLES_COMMIT = "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd";
 export const SCREENSHOTS = {
   "helm-redis": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the redis-replicas StatefulSet, at its image line",
     graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master" } },
-  "helm-postgresql": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the PostgreSQL StatefulSet, at its image line" },
-  "helm-ingress-nginx": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the ingress-nginx controller Deployment, at its image line" },
-  "helm-cert-manager": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the cert-manager controller Deployment, at its image line" },
-  "helm-kube-prometheus-stack": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Prometheus object, at its image line" },
-  "helm-argo-cd": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Argo CD repo-server Deployment, at its image line" },
-  "helm-external-secrets": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the External Secrets Deployment, at its image line" },
-  "helm-metrics-server": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the metrics-server Deployment, at its image line" },
-  "helm-gatekeeper": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Gatekeeper controller-manager Deployment, at its image line" },
-  "helm-gpu-operator": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the GPU Operator Deployment, at its image line" },
+  "helm-postgresql": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the PostgreSQL StatefulSet, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the PostgreSQL base with its dev and prod variants, and the label and three replicas prod sets on its StatefulSet" } },
+  "helm-ingress-nginx": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the ingress-nginx controller Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the ingress-nginx base with its dev and prod variants, and the label and three replicas prod sets on the controller" } },
+  "helm-cert-manager": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the cert-manager controller Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 6 cert-manager CRDs as Units in the base" } },
+  "helm-kube-prometheus-stack": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Prometheus object, at its image line",
+    crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 10 Prometheus Operator CRDs as Units in the base" } },
+  "helm-argo-cd": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Argo CD repo-server Deployment, at its image line",
+    crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 3 Argo CD CRDs as Units in the base" } },
+  "helm-external-secrets": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the External Secrets Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the External Secrets base with its dev and prod variants, and the label and three replicas prod sets on the controller" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the External Secrets CRDs among the base's Units" } },
+  "helm-metrics-server": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the metrics-server Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment" } },
+  "helm-gatekeeper": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Gatekeeper controller-manager Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the Gatekeeper base with its dev and prod variants, and the label and three replicas prod sets on the audit Deployment" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 17 Gatekeeper CRDs among the base's Units" } },
+  "helm-gpu-operator": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the GPU Operator Deployment, at its image line",
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the GPU Operator base with its dev and prod variants, and the label and three replicas prod sets on the operator" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 5 GPU Operator CRDs as Units in the base" } },
   "kustomize-apptique": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with its dev and prod variants, and the settings prod changes" },
   "kustomize-helm-chart": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with its dev, staging and prod variants, and the settings prod changes" },
   "argo-app-of-apps": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apptique-prod base with its in-cluster variant, and the prod Deployment's settings" },
@@ -437,6 +446,7 @@ function recordScreenshots() {
     const out = join(repoRoot, BEFORE_AFTER_ROOT, id);
     check(existsSync(join(out, shot.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.file} is missing`);
     if (shot.graph) check(existsSync(join(out, shot.graph.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.graph.file} is missing`);
+    if (shot.crds) check(existsSync(join(out, shot.crds.file)), `${BEFORE_AFTER_ROOT}/${id}/${shot.crds.file} is missing`);
     const receipt = JSON.parse(readFileSync(join(out, "receipt.json"), "utf8"));
     const { files, ...rest } = receipt;
     delete rest.confighub;
