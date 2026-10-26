@@ -1241,6 +1241,7 @@ const PLAIN_VARIANTS = {
   "helm-external-secrets": { workload: "deployment-external-secrets-external-secrets", what: "the controller" },
   "helm-gpu-operator": { workload: "deployment-gpu-operator-gpu-operator", what: "the operator" },
   "helm-cert-manager": { workload: "deployment-cert-manager-cert-manager", what: "the controller", variants: ["prod"] },
+  "helm-argo-cd": { workload: "deployment-argocd-argo-cd-argocd-server", what: "the server" },
 };
 for (const [id, spec] of Object.entries(PLAIN_VARIANTS)) {
   const space = `${HELM_SIMPLE.find(([key]) => key === id)[1]}-example`;

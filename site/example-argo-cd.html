@@ -715,6 +715,11 @@
           
         </figure>
       </div>
+      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/helm-argo-cd-graph.png" alt="ConfigHub showing the Argo CD base with its dev and prod variants, and the label and three replicas prod sets on the server">
+        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the server. Taken in the helm-catalog organization on 2026-10-26, showing the Argo CD base with its dev and prod variants, and the label and three replicas prod sets on the server.</p>
+      </figure>
 
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
@@ -732,10 +737,20 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Argo CD package, writes its files, and saves them as a Space called <code>argo-cd-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Argo CD package, writes its files, and saves them as a Space called <code>argo-cd-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the server. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24 --base default --work-dir ./argo-cd-example --non-interactive --namespace argocd &amp;&amp; cub installer upload --work-dir ./argo-cd-example --space argo-cd-example &amp;&amp; cub component create argo-cd-example &amp;&amp; cub space update --patch argo-cd-example --component argo-cd-example</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24 --base default --work-dir ./argo-cd-example --non-interactive --namespace argocd &amp;&amp; cub installer upload --work-dir ./argo-cd-example --space argo-cd-example &amp;&amp; cub component create argo-cd-example &amp;&amp; cub space update --patch argo-cd-example --component argo-cd-example
+
+<span class="term-prompt">$</span> cub variant create dev argo-cd-example --change-desc &quot;Clone the base as dev&quot;
+
+<span class="term-prompt">$</span> cub variant create prod argo-cd-example --change-desc &quot;Clone the base as prod&quot;
+
+<span class="term-prompt">$</span> cub function set --space argo-cd-example-dev --change-desc &quot;Label every object environment dev&quot; set-label environment dev
+
+<span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
+
+<span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --unit deployment-argocd-argo-cd-argocd-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
