@@ -83,7 +83,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.60";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.61";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -821,7 +821,7 @@ const SPLIT_PAGES = [
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
   ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
-  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after") })) })),
+  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after"), workshopInstall: WORKSHOP_PLUGIN_INSTALL })) })),
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -8185,7 +8185,7 @@ function quirksHtml(catalog) {
 function gitopsOnboardingHtml(kind) {
   const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find((row) => row.id === kind);
   const referenceUrl = `https://github.com/confighub/examples/blob/${plugin.release.tag}/cub-${kind}/docs/onboard-your-${kind === "argo" ? "argo-estate" : "flux-fleet"}.md`;
-  return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl }), compactAgent: true });
+  return splitGuideHtml({ ...gitopsOnboardingGuide(kind, { install: plugin.install, referenceUrl, workshopInstall: WORKSHOP_PLUGIN_INSTALL }), compactAgent: true });
 }
 
 // The Guide that follows one Catalog entry from its exact objects to a release.

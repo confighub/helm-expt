@@ -1037,7 +1037,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh.",
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
@@ -1047,7 +1047,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh.",
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
   },
   {
     id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
@@ -1057,17 +1057,17 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh.",
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
   },
   {
     id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
-    lead: "Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version each cluster runs.",
+    lead: "Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version Git says each cluster runs.",
     before: "before/apps/prod/kustomization.yaml", beforeLabel: "Before: one of many overlays",
     sentences: ["Each layer is one base, with a variant for each cluster that runs it.", "Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh.",
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
   },
 ];
 
@@ -1129,7 +1129,7 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterN
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">${laptopNote}</p>
           ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(laptopNeeds)}.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(laptopNeeds)}.${/Workshop plugin/.test(laptopNeeds) ? ` Install the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.` : ""}</p>
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
@@ -1160,9 +1160,9 @@ function simplePage(id, h) {
       sentences: simpleHelmSentences(f),
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
       loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`],
-      loadNote: `Sign in, then paste the second line. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization. It touches no cluster.`,
+      loadNote: `Sign in with the first line, then paste the second. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization. It touches no cluster.`,
       laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
-      laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open.`,
+      laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
       needs: "its installer plugin and kustomize",
     });
   } else {
@@ -1179,7 +1179,7 @@ function simplePage(id, h) {
       loadRows: ["cub auth login", clone, `cd examples/${page.dir}`, ...page.load],
       loadNote: `Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.safety)}`,
       laptopRows: [clone, `cd examples/${page.dir}`, ...page.laptop],
-      laptopNote: page.laptopNote ?? "No account needed. This fetches the example and shows what each environment runs.",
+      laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
     });
   }

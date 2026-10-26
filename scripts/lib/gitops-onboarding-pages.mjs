@@ -50,6 +50,11 @@ const guides = {
     becomesAfter: "The Application keeps its name, project, destination and sync policy. It reads the Space the plan names as its variant, <code>argo-apptique-dev-in-cluster</code>.",
     becomesHelm: "An Application with <code>helm</code> or <code>kustomize</code> settings under <code>source</code> loses those settings in the repointed copy, because what Argo CD reads afterwards is already rendered. The fixture has no such Application, so this page shows none.",
     outside: "The Argo CD install, AppProject permissions, sync windows and cluster credentials stay where they are.",
+    check: {
+      note: "<code>apptique-dev</code> reads <code>manifests/apptique/dev</code>, a folder of plain manifests, so the step joins its files. A path with a <code>kustomization.yaml</code> builds with <code>kustomize build</code> instead",
+      commands: "for f in manifests/apptique/dev/*.yaml; do cat \"$f\"; echo ---; done > apptique-dev.yaml\ncub config check apptique-dev.yaml",
+      result: "3 objects (a Deployment, a Service and a ServiceAccount), no lifecycle work, and a passing schema check",
+    },
     backAfterHandover: "Put each Application's source back to Git first, leaves before parents. The script records each source before it changes it and prints the commands. Do not delete the ConfigHub Spaces first. Never delete the Applications, because their finalizer deletes what they deployed.",
   },
   flux: {
@@ -83,6 +88,11 @@ const guides = {
     becomesAfter: "The Kustomization keeps its name, so Flux keeps its record of what it applied. The new OCIRepository reads the Space the plan names as the variant, <code>flux-apps-dev</code>. The generated file holds placeholders for the gateway address, and the scripts fill them in.",
     becomesHelm: "A HelmRelease is stored as it is, and helm-controller goes on resolving it. The plugin does not render Helm charts. The fixture has no HelmRelease, so this page shows none.",
     outside: "The <code>flux-system</code> bootstrap and the Flux controllers stay outside ConfigHub, and the plan lists them.",
+    check: {
+      note: "the dev cluster's <code>apps</code> layer reads <code>apps/dev</code>. Check that path, not the files under <code>onboard/layers/</code>, which hold placeholders the scripts fill in",
+      commands: "kustomize build apps/dev > apps-dev.yaml\ncub config check apps-dev.yaml",
+      result: "4 objects (a Deployment, a Namespace, a Service and a ServiceAccount), no lifecycle work, and a passing schema check",
+    },
     backAfterHandover: "Stop the root pruning, restore both fields on each layer as the script recorded them, then remove the root. The script prints the commands in that order. Do not delete the ConfigHub Spaces first.",
   },
 };
@@ -190,11 +200,12 @@ Next
   cub flux apply . --require Healthy --out ./flux-onboarding
   That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.`;
 
-export function gitopsOnboardingGuide(kind, { install, referenceUrl } = {}) {
+export function gitopsOnboardingGuide(kind, { install, referenceUrl, workshopInstall } = {}) {
   const guide = guides[kind];
   if (!guide) throw new Error(`gitops onboarding kind must be argo or flux, not ${kind}`);
   if (!install) throw new Error(`${kind} onboarding needs the released plugin install command`);
   if (!referenceUrl) throw new Error(`${kind} onboarding needs its upstream reference URL`);
+  if (!workshopInstall) throw new Error(`${kind} onboarding needs the Workshop plugin install command for its check step`);
 
   const upper = kind === "argo" ? "Argo CD" : "Flux";
   const installCommand = escapeHtml(install);
@@ -280,6 +291,10 @@ ${guide.plan}`)}
       <p>When the plan is clear, generate the setup directory. This writes files and scripts only.</p>
 ${commandBlock(guide.apply)}
       <p>Read <code>onboard/</code>; delete it to discard this step. ${guide.setup}</p>
+      <h3 id="check-before-saving">Check what a source will store</h3>
+      <p><code>apply.sh</code> stores what each ${guide.object}'s source path renders to. Before you run it, you can check a source with <code>cub config check</code> from the Workshop plugin. It reads files only. On the fixture, ${guide.check.note}:</p>
+${commandBlock(`${workshopInstall}\n${guide.check.commands}`)}
+      <p>On the fixture it reports ${guide.check.result}. The schema step names any field the API server would reject, so you can fix it in Git before you save.</p>
       <p>Only the next command saves ConfigHub data. It needs <code>cub auth login</code>, <code>kustomize</code>, and any requested gateway. It creates bases, variants, stages, and releases, not cluster changes.</p>
 ${commandBlock(kind === "flux" ? "CONFIGHUB_OCI=<gateway> bash onboard/apply.sh" : "bash onboard/apply.sh")}
       <p>Keep this import separate from production handover; practice first with a disposable estate.</p>

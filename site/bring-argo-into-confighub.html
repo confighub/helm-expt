@@ -759,6 +759,12 @@ cub argo plan .</code></pre>
       <p>When the plan is clear, generate the setup directory. This writes files and scripts only.</p>
 <pre><code>cub argo apply . --out onboard</code></pre>
       <p>Read <code>onboard/</code>; delete it to discard this step. Argo CD keeps reading Git while you review the generated setup.</p>
+      <h3 id="check-before-saving">Check what a source will store</h3>
+      <p><code>apply.sh</code> stores what each Application's source path renders to. Before you run it, you can check a source with <code>cub config check</code> from the Workshop plugin. It reads files only. On the fixture, <code>apptique-dev</code> reads <code>manifests/apptique/dev</code>, a folder of plain manifests, so the step joins its files. A path with a <code>kustomization.yaml</code> builds with <code>kustomize build</code> instead:</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.61
+for f in manifests/apptique/dev/*.yaml; do cat &quot;$f&quot;; echo ---; done &gt; apptique-dev.yaml
+cub config check apptique-dev.yaml</code></pre>
+      <p>On the fixture it reports 3 objects (a Deployment, a Service and a ServiceAccount), no lifecycle work, and a passing schema check. The schema step names any field the API server would reject, so you can fix it in Git before you save.</p>
       <p>Only the next command saves ConfigHub data. It needs <code>cub auth login</code>, <code>kustomize</code>, and any requested gateway. It creates bases, variants, stages, and releases, not cluster changes.</p>
 <pre><code>bash onboard/apply.sh</code></pre>
       <p>Keep this import separate from production handover; practice first with a disposable estate.</p>

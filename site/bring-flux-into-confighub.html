@@ -779,6 +779,12 @@ cub flux plan . --require Healthy</code></pre>
       <p>When the plan is clear, generate the setup directory. This writes files and scripts only.</p>
 <pre><code>cub flux apply . --require Healthy --out onboard</code></pre>
       <p>Read <code>onboard/</code>; delete it to discard this step. Flux keeps reading Git while you review the generated setup.</p>
+      <h3 id="check-before-saving">Check what a source will store</h3>
+      <p><code>apply.sh</code> stores what each Kustomization's source path renders to. Before you run it, you can check a source with <code>cub config check</code> from the Workshop plugin. It reads files only. On the fixture, the dev cluster's <code>apps</code> layer reads <code>apps/dev</code>. Check that path, not the files under <code>onboard/layers/</code>, which hold placeholders the scripts fill in:</p>
+<pre><code>cub plugin install confighub/cub-workshop@v0.6.61
+kustomize build apps/dev &gt; apps-dev.yaml
+cub config check apps-dev.yaml</code></pre>
+      <p>On the fixture it reports 4 objects (a Deployment, a Namespace, a Service and a ServiceAccount), no lifecycle work, and a passing schema check. The schema step names any field the API server would reject, so you can fix it in Git before you save.</p>
       <p>Only the next command saves ConfigHub data. It needs <code>cub auth login</code>, <code>kustomize</code>, and any requested gateway. It creates bases, variants, stages, and releases, not cluster changes.</p>
 <pre><code>CONFIGHUB_OCI=&lt;gateway&gt; bash onboard/apply.sh</code></pre>
       <p>Keep this import separate from production handover; practice first with a disposable estate.</p>

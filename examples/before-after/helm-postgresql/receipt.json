@@ -4,7 +4,7 @@
   "recordedOn": "2026-10-26",
   "tools": {
     "cub": "v0.9.0",
-    "workshopPlugin": "0.6.60",
+    "workshopPlugin": "0.6.61",
     "argoPlugin": "0.3.3",
     "fluxPlugin": "0.4.1",
     "helm": "v4.1.4+g05fa379",
@@ -52,8 +52,8 @@
   },
   "files": {
     "after/values.yaml": "sha256:a00ff4601184d79ad50a311cde21139db8dc3f845aa382813e9732043ffa1c2a",
-    "before/before-again.yaml": "sha256:4c034ac4ed80137f1884ae0ad7ed3170072e7092e5859cec69b1716f5b6fe839",
-    "before/before.yaml": "sha256:e37ed92c380e60f1d7d05aff2be73bf65cb8f6136684a6203cadd78f8e9442e0",
+    "before/before-again.yaml": "sha256:039d169f9ad9027436a80bb9b092924324af7634fa26f5901be46be7e35a2832",
+    "before/before.yaml": "sha256:7a9fe91e78713962c1c0c3feac26a94f9f474088e715e1081d2646b89bb233d0",
     "before/template-excerpt.json": "sha256:abf752f1f2a6464cc10b8402a884eb65fb367d61c59eabe66ef8909e17805d0a",
     "confighub/object.png": "sha256:0a7af69e257d37cbe57e0c77dca222c01f54e3f455bbf4c61814d3d9519bac0b",
     "transcripts/check-after.txt": "sha256:01b1f443323252d5bf0fc89c78f09fed1408fe62e8573bc4797d46c5d1decb65",

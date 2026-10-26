@@ -4,7 +4,7 @@
   "recordedOn": "2026-10-26",
   "tools": {
     "cub": "v0.9.0",
-    "workshopPlugin": "0.6.60",
+    "workshopPlugin": "0.6.61",
     "argoPlugin": "0.3.3",
     "fluxPlugin": "0.4.1",
     "helm": "v4.1.4+g05fa379",

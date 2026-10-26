@@ -724,7 +724,7 @@ spec:
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -737,7 +737,7 @@ spec:
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the argo plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
-          <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs.</p>
+          <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs. In your own Argo CD repository, run the last line from its root.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
 
 <span class="term-prompt">$</span> cd examples/gitops/argo/beginner-app-of-apps

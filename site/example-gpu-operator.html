@@ -714,14 +714,14 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the second line. It fetches the NVIDIA GPU Operator package, writes its files, and saves them as a Space called <code>gpu-operator-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the second. It fetches the NVIDIA GPU Operator package, writes its files, and saves them as a Space called <code>gpu-operator-example</code> in your organization. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./gpu-operator-example --non-interactive --namespace gpu-operator &amp;&amp; cub installer upload --work-dir ./gpu-operator-example --space gpu-operator-example &amp;&amp; cub component create gpu-operator-example &amp;&amp; cub space update --patch gpu-operator-example --component gpu-operator-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
-          <p class="installer-command-note">No account needed. This fetches the NVIDIA GPU Operator package and writes every object into a folder you can open.</p>
+          <p class="installer-command-note">No account needed. This fetches the NVIDIA GPU Operator package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f --base default --work-dir ./gpu-operator-example --non-interactive --namespace gpu-operator &amp;&amp; ls ./gpu-operator-example/out/manifests</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>

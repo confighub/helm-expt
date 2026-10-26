@@ -714,14 +714,14 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the second line. It fetches the Redis package, writes its files, and saves them as a Space called <code>redis-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the second. It fetches the Redis package, writes its files, and saves them as a Space called <code>redis-example</code> in your organization. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
-          <p class="installer-command-note">No account needed. This fetches the Redis package and writes every object into a folder you can open.</p>
+          <p class="installer-command-note">No account needed. This fetches the Redis package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; ls ./redis-example/out/manifests</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
