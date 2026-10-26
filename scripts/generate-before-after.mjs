@@ -45,7 +45,7 @@ export const SCREENSHOTS = {
   "helm-kube-prometheus-stack": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Prometheus object, at its image line",
     crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 10 Prometheus Operator CRDs as Units in the base" } },
   "helm-argo-cd": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the Argo CD repo-server Deployment, at its image line",
-    crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 3 Argo CD CRDs as Units in the base" } },
+    graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the Argo CD base with its dev and prod variants, and the label and three replicas prod sets on the server" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the 3 Argo CD CRDs as Units in the base" } },
   "helm-external-secrets": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the External Secrets Deployment, at its image line",
     graph: { file: "confighub/graph.png", takenOn: "2026-10-26", shows: "the External Secrets base with its dev and prod variants, and the label and three replicas prod sets on the controller" }, crds: { file: "confighub/crds.png", takenOn: "2026-10-26", shows: "the External Secrets CRDs among the base's Units" } },
   "helm-metrics-server": { file: "confighub/object.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the metrics-server Deployment, at its image line",
