@@ -39,11 +39,11 @@
       ],
       "repository": "confighub/kubara-confighub",
       "release": {
-        "date": "2026-10-09",
-        "tag": "v0.4.0"
+        "date": "2026-10-26",
+        "tag": "v0.5.0"
       },
       "install": "cub plugin install confighub/kubara-confighub",
-      "note": "Tested on kind only. Handover needs cub and ConfigHub v0.8.2 or newer, where argobot records live status on each release. The grant argobot gets also covers a release's labels, annotations and withdrawal.",
+      "note": "Tested on kind only. Handover needs cub and ConfigHub v0.9.0 or newer; Argo CD pulls with a read-only service account and argobot runs as a second one. Issuing their credentials takes Impersonate on each service account.",
       "guide": {
         "address": "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md",
         "title": "Run a Kubara platform through ConfigHub"
