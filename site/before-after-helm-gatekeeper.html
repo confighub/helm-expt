@@ -685,11 +685,9 @@ Lifecycle work
   [PASS] images tagged latest or not tagged: 0
 
 Schema
-<span class="term-catch">  [FAIL] schema validation: 1 violation(s) in 1 object(s) against the default and ecosystem catalogs (flux-schema/0.16.0); fix these fields and check again:</span>
-         ResourceQuota/default/gatekeeper-critical-pods  /spec/hard/pods: got number, want string
+  [PASS] schema validation: 21 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
 
-<span class="term-catch">  [FAIL] one or more objects do not match their Kubernetes schema; no output was written.</span>
-[exit 1]</code></pre></div></figure>
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre></div></figure>
       <p>The 8 hook objects sit in the same file as everything else. Apply the file and they run at once, outside the order Helm gives them. The plan counts the 17 hook objects the chart's templates define, and these values turn on 8 of them.</p>
       <div class="card"><table>
         <thead><tr><th>Kind</th><th>Name</th><th>Helm hook</th></tr></thead>
@@ -723,11 +721,9 @@ Lifecycle work
   [PASS] images tagged latest or not tagged: 0
 
 Schema
-  [FAIL] schema validation: 1 violation(s) in 1 object(s) against the default and ecosystem catalogs (flux-schema/0.16.0); fix these fields and check again:
-         ResourceQuota/default/gatekeeper-critical-pods  /spec/hard/pods: got number, want string
+  [PASS] schema validation: 30 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
 
-  [FAIL] one or more objects do not match their Kubernetes schema; no output was written.
-[exit 1]</code></pre></div></figure>
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre></div></figure>
       <p>The plan has 4 steps.</p>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What it is</th><th>What it says</th></tr></thead>
@@ -791,10 +787,10 @@ Schema
     <section aria-labelledby="notes">
       <h2 id="notes">5. Technical notes and disclaimers</h2>
       <ul>
-        <li>Both checks ran on 2026-10-25 with cub v0.9.0, Workshop plugin 0.6.59 and helm v4.1.4+g05fa379. <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-gatekeeper">The recorded files and their receipt</a> hold every input and output on this page.</li>
+        <li>Both checks ran on 2026-10-26 with cub v0.9.0, Workshop plugin 0.6.60 and helm v4.1.4+g05fa379. <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-gatekeeper">The recorded files and their receipt</a> hold every input and output on this page.</li>
         <li>Both sides render for Kubernetes 1.30.0, as the Catalog does, so only the handling differs.</li>
         
-        <li>The schema step fails the chart's own render on a quantity written as a number. Kubernetes accepts a number for a quantity, so this is a false alarm in the check.</li>
+        
         <li>No step of the plan has been run on a cluster for this page. The plan says what a delivery workflow must do, and nothing runs it automatically.</li>
       </ul>
     </section>

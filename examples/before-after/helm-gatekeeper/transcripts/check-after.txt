@@ -14,8 +14,7 @@ Lifecycle work
   [PASS] images tagged latest or not tagged: 0
 
 Schema
-  [FAIL] schema validation: 1 violation(s) in 1 object(s) against the default and ecosystem catalogs (flux-schema/0.16.0); fix these fields and check again:
-         ResourceQuota/default/gatekeeper-critical-pods  /spec/hard/pods: got number, want string
+  [PASS] schema validation: 30 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
 
-  [FAIL] one or more objects do not match their Kubernetes schema; no output was written.
-[exit 1]
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+
