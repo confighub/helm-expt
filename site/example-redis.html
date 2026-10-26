@@ -468,6 +468,7 @@
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-words { margin: 0 0 20px; color: var(--muted); }
+    .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-went { margin: 0 0 16px; padding-left: 1.2em; }
     .ex-went li { margin: 4px 0; }
@@ -710,6 +711,12 @@
           
         </figure>
       </div>
+      <figure class="ex-card ex-graph">
+        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <img src="./before-after/helm-redis-graph.png" alt="ConfigHub showing the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master">
+        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and the master's requests and limits. Taken in the helm-catalog organization on 2026-10-26, showing the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master.</p>
+      </figure>
+
       <ul class="ex-checks">
         <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
         <li>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</li>
@@ -722,10 +729,22 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the second. It fetches the Redis package, writes its files, and saves them as a Space called <code>redis-example</code> in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Redis package, writes its files, and saves them as a Space called <code>redis-example</code> in your organization. The rest makes a dev and a prod variant of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example
+
+<span class="term-prompt">$</span> cub variant create dev redis-example --change-desc &quot;Clone the Redis base as dev&quot;
+
+<span class="term-prompt">$</span> cub variant create prod redis-example --change-desc &quot;Clone the Redis base as prod&quot;
+
+<span class="term-prompt">$</span> cub function set --space redis-example-dev --change-desc &quot;Label every object environment dev&quot; set-label environment dev
+
+<span class="term-prompt">$</span> cub function set --space redis-example-dev --unit statefulset-redis-redis-replicas --change-desc &quot;Run one read replica in dev&quot; set-replicas 1
+
+<span class="term-prompt">$</span> cub function set --space redis-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
+
+<span class="term-prompt">$</span> cub function set --space redis-example-prod --unit statefulset-redis-redis-master --change-desc &quot;Give the prod master its own requests and limits&quot; set-container-resources redis all 500m 512Mi 2</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>

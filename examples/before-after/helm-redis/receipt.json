@@ -52,13 +52,19 @@
     "file": "confighub/object.png",
     "organization": "helm-catalog",
     "takenOn": "2026-10-25",
-    "shows": "the redis-replicas StatefulSet, at its image line"
+    "shows": "the redis-replicas StatefulSet, at its image line",
+    "graph": {
+      "file": "confighub/graph.png",
+      "takenOn": "2026-10-26",
+      "shows": "the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master"
+    }
   },
   "files": {
     "after/values.yaml": "sha256:a1ad14d5153bd30d64488da0364f9141933189a5f9226346c963b91f38aab1e3",
     "before/before-again.yaml": "sha256:4af8fb6a03decfeb7eb6e0d0106a254a0c2bc22b4c44e7e65095c55a5f2be710",
     "before/before.yaml": "sha256:968644587f8257c2d622c98033c9ee3bca80c7e5ba103cd95c2fa77bf2543b8f",
     "before/template-excerpt.json": "sha256:c5a2a9e192c27677e882e3dbe30abb8550d34d61e79320b942820acb2c54cd7e",
+    "confighub/graph.png": "sha256:e1cef07c616b32a1943e048c47800549f1be5ef60d2f4340d8572b746fc53de8",
     "confighub/object.png": "sha256:5a4c5ed139b64d7a247f37da3398d557b0ee4a6ac9a78d39e8147614d705997e",
     "transcripts/check-after.txt": "sha256:6e974142df7fc256e2ed4765937fe29ff86d752c99ea87f864f6c244805b0462",
     "transcripts/check-before.txt": "sha256:73899bd26367164c19d5e77dd11b52c45847a7abaf58bd241489616bb77545e6",
