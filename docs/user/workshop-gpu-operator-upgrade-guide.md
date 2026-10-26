@@ -25,12 +25,12 @@ after step 4.
 
 Install [the cub CLI](https://confighub.github.io/helm-expt/site/try.html#install-cub)
 and [Helm](https://helm.sh/docs/intro/install/). Then install the Workshop
-plugin release this Guide was checked with (version 0.6.60). Steps 1 to 5 were
+plugin release this Guide was checked with (version 0.6.61). Steps 1 to 5 were
 run again with that release. Step 6 needs an account and was last run with
 version 0.6.58.
 
 ```sh
-cub plugin install confighub/cub-workshop@v0.6.60
+cub plugin install confighub/cub-workshop@v0.6.61
 ```
 
 Steps 1 to 5 were checked with cub 0.9.0 and Helm `v4.1.4`. Step 6 was run with cub 0.8.7.
