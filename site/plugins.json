@@ -177,8 +177,8 @@
       ],
       "repository": "confighub/cub-server",
       "release": {
-        "date": "2026-10-21",
-        "tag": "v0.2.5"
+        "date": "2026-10-26",
+        "tag": "v0.2.9"
       },
       "install": "cub plugin install confighub/cub-server",
       "next": {
@@ -214,17 +214,17 @@
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-argo",
       "release": {
-        "date": "2026-10-25",
-        "tag": "cub-argo-v0.3.3"
+        "date": "2026-10-26",
+        "tag": "cub-argo-v0.4.0"
       },
-      "install": "cub plugin install confighub/examples@cub-argo-v0.3.3 --name argo",
-      "note": "Start with plan, which needs no account and changes no cluster. Live status is recorded on each release by argobot (argobot.sh installs v0.1.9), or by cub argo status --watch --hard-refresh where argobot is not running; both make each release land at once. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.",
+      "install": "cub plugin install confighub/examples@cub-argo-v0.4.0 --name argo",
+      "note": "Start with plan, which needs no account and changes no cluster. Argo CD pulls as a service account, not a worker. Live status is recorded on each release by argobot (argobot.sh installs v0.2.3, on a Channel), or by cub argo status --watch --hard-refresh where argobot is not running; both make each release land at once. Needs cub v0.8.13 or newer for service-account tokens; live status needs ConfigHub v0.8.2 or newer.",
       "guide": {
         "address": "https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html",
         "title": "Bring your Argo CD apps into ConfigHub"
       },
       "next": {
-        "command": "cub plugin install confighub/examples@cub-argo-v0.3.3 --name argo"
+        "command": "cub plugin install confighub/examples@cub-argo-v0.4.0 --name argo"
       }
     },
     {
@@ -238,17 +238,17 @@
       "repository": "confighub/examples",
       "address": "https://github.com/confighub/examples/tree/main/cub-flux",
       "release": {
-        "date": "2026-10-25",
-        "tag": "cub-flux-v0.4.1"
+        "date": "2026-10-26",
+        "tag": "cub-flux-v0.5.0"
       },
-      "install": "cub plugin install confighub/examples@cub-flux-v0.4.1 --name flux",
-      "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover. fluxbot.sh runs the live-status reporter on the cluster, as one pod; cub flux status --watch is the same reporter run by hand. The Healthy gate reads what they record. Needs cub v0.7.0 or newer; live status needs ConfigHub v0.8.2 or newer.",
+      "install": "cub plugin install confighub/examples@cub-flux-v0.5.0 --name flux",
+      "note": "Start with plan, which changes no cluster. Healthy is reported only for layers that check their workloads with wait or healthChecks; review bootstrap ownership before handover. Flux pulls as a service account, not a worker. fluxbot.sh runs the live-status reporter on the cluster, as one pod signed in with that account's key; cub flux status --watch is the same reporter run by hand. The Healthy gate reads what they record. Needs cub v0.8.13 or newer for service-account tokens; live status needs ConfigHub v0.8.2 or newer.",
       "guide": {
         "address": "https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html",
         "title": "Bring your Flux fleet into ConfigHub"
       },
       "next": {
-        "command": "cub plugin install confighub/examples@cub-flux-v0.4.1 --name flux"
+        "command": "cub plugin install confighub/examples@cub-flux-v0.5.0 --name flux"
       }
     }
   ]
