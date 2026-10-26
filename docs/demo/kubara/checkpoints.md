@@ -25,16 +25,16 @@ reference organization, recorded in August 2026. That organization is retired
 and is not rerun, and its receipts predate the cub 0.4 field renames. By the
 owner's decision of 2026-09-30 the proof is accepted and labelled historical.
 The current live proof is the
-[kind lab](https://github.com/confighub/kubara-confighub/tree/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab)
-in confighub/kubara-confighub v0.5.1, with its
-[recorded run](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-2026-09-30.log),
-[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/handback-2026-09-30.log),
-[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-v0.16-2026-09-30.log),
-[run with a second approver](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-approve-2026-09-30.log),
-[recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/rebootstrap-2026-09-30.log),
-[run against ConfigHub v0.8.0](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-sdk-2026-10-02.log),
-[run with live status on the Release](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-live-status-2026-10-09.log)
-and [run with service accounts](https://github.com/confighub/kubara-confighub/blob/3e9521e246fca5cd43c5cf931b463db252cca525/examples/kind-lab/run-service-accounts-2026-10-26.log).
+[kind lab](https://github.com/confighub/kubara-confighub/tree/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab)
+in confighub/kubara-confighub v0.5.2, with its
+[recorded run](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-2026-09-30.log),
+[recorded hand-back](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/handback-2026-09-30.log),
+[run on Kubara v0.16](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-v0.16-2026-09-30.log),
+[run with a second approver](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-approve-2026-09-30.log),
+[recovery after `kubara bootstrap`](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/rebootstrap-2026-09-30.log),
+[run against ConfigHub v0.8.0](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-sdk-2026-10-02.log),
+[run with live status on the Release](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-live-status-2026-10-09.log)
+and [run with service accounts](https://github.com/confighub/kubara-confighub/blob/95d4b9c18ecd4c1bfc912e39df8bd429b398d5fc/examples/kind-lab/run-service-accounts-2026-10-26.log).
 
 | Claim | Exact evidence | Current status |
 | --- | --- | --- |
