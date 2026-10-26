@@ -1,0 +1,19 @@
+
+App: shop-web
+Rendering the workload (free, no infrastructure)
+
+Installs
+  5 objects: 1 Deployment, 1 Service, 1 Ingress, 1 Certificate, 1 ServiceMonitor
+  namespaces that must already exist: shop
+
+Dependencies (this app needs a platform to provide these)
+  [NEEDS] an ingress controller
+             Ingress shop-web (class nginx)
+  [NEEDS] cert-manager
+             Certificate shop-web-tls
+  [NEEDS] a Prometheus operator (kube-prometheus-stack)
+             ServiceMonitor shop-web
+
+  Install onto a platform that carries those services. cub stack sandbox shop-platform
+  checks one that already places shop-web; then your Argo CD or Flux reconciles it.
+

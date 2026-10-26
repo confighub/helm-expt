@@ -59,6 +59,7 @@ export const SCREENSHOTS = {
   "argo-app-of-apps": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apptique-prod base with its in-cluster variant, and the prod Deployment's settings" },
   "argo-applicationset": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the base with the two variants the ApplicationSet generates, and the settings prod changes" },
   "flux-beginner": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apps layer's base with its dev and prod variants, and the settings prod changes" },
+  "app-shop-web": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-26", shows: "the shop-web base with its dev and prod variants, and the label and five replicas prod sets" },
   "flux-expert-fleet": { file: "confighub/overrides.png", organization: "helm-catalog", takenOn: "2026-10-25", shows: "the apps layer's base with a variant for each cluster, and the settings prod-1 changes" },
 };
 
@@ -383,6 +384,32 @@ function generateFluxFleet(examples, work, out) {
   };
 }
 
+// An app, not a chart: shop-web from the Workshop plugin's apps, at the commit
+// data/workshop-apps/apps.yaml says was checked. The "after" is what ConfigHub
+// says the app needs, and the check of a platform that carries it.
+const APP_REPO = "https://github.com/confighub/cub-workshop";
+function generateAppShopWeb(work, out) {
+  const app = readYamlText(readFileSync(join(repoRoot, "data/workshop-apps/apps.yaml"), "utf8")).spec.apps.find((row) => row.id === "shop-web");
+  check(app?.checkedCommit && app.path, "data/workshop-apps/apps.yaml has no checked commit for shop-web");
+  const dir = join(work, "cub-workshop");
+  mkdirSync(dir);
+  run("git", ["init", "-q"], { cwd: dir });
+  run("git", ["fetch", "-q", "--depth", "1", `${APP_REPO}.git`, app.checkedCommit], { cwd: dir });
+  run("git", ["checkout", "-q", "FETCH_HEAD"], { cwd: dir });
+  mkdirSync(join(out, "before"), { recursive: true });
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  cpSync(join(dir, app.path), join(out, "before/shop-web.yaml"));
+  writeFileSync(join(out, "transcripts/app-check.txt"), transcript(["app", "check", "shop-web.yaml"], join(out, "before")));
+  const sandbox = join(work, "sandbox");
+  mkdirSync(sandbox);
+  writeFileSync(join(out, "transcripts/stack-sandbox.txt"), transcript(["stack", "sandbox", "shop-platform"], sandbox));
+  return {
+    sources: [{ what: "the app's files", repository: APP_REPO, commit: app.checkedCommit, path: app.path }],
+    commands: ["cub app check shop-web.yaml", "cub stack sandbox shop-platform"],
+    notes: ["cub stack sandbox reads shop-platform, a stack the Workshop plugin ships, which places shop-web on ingress-nginx, cert-manager, kube-prometheus-stack and RabbitMQ."],
+  };
+}
+
 function generateKustomizeHelm(examples, out) {
   copyYaml(join(examples, KUSTOMIZE_HELM_PATH), join(out, "before"));
   mkdirSync(join(out, "after"), { recursive: true });
@@ -424,6 +451,7 @@ function generate() {
       "argo-applicationset": (out) => generateAppSet(examples, work, out),
       "flux-expert-fleet": (out) => generateFluxFleet(examples, work, out),
       "kustomize-helm-chart": (out) => generateKustomizeHelm(examples, out),
+      "app-shop-web": (out) => generateAppShopWeb(work, out),
       ...Object.fromEntries(HELM_EXAMPLES.map((spec) => [spec.id, (out) => generateHelmListing(work, out, spec)])),
     };
     const only = process.argv.slice(3);
