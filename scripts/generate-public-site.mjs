@@ -83,7 +83,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
-const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.59";
+const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.60";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");

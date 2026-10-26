@@ -1,11 +1,12 @@
 {
   "id": "kustomize-apptique",
   "generatedBy": "scripts/generate-before-after.mjs",
-  "recordedOn": "2026-10-25",
+  "recordedOn": "2026-10-26",
   "tools": {
     "cub": "v0.9.0",
-    "workshopPlugin": "0.6.59",
-    "argoPlugin": "0.3.2",
+    "workshopPlugin": "0.6.60",
+    "argoPlugin": "0.3.3",
+    "fluxPlugin": "0.4.1",
     "helm": "v4.1.4+g05fa379",
     "kustomize": "v5.8.1",
     "fluxSchemaPlugin": "0.16.0"

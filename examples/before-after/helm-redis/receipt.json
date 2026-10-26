@@ -1,10 +1,10 @@
 {
   "id": "helm-redis",
   "generatedBy": "scripts/generate-before-after.mjs",
-  "recordedOn": "2026-10-25",
+  "recordedOn": "2026-10-26",
   "tools": {
     "cub": "v0.9.0",
-    "workshopPlugin": "0.6.59",
+    "workshopPlugin": "0.6.60",
     "argoPlugin": "0.3.3",
     "fluxPlugin": "0.4.1",
     "helm": "v4.1.4+g05fa379",
@@ -53,8 +53,8 @@
   },
   "files": {
     "after/values.yaml": "sha256:a1ad14d5153bd30d64488da0364f9141933189a5f9226346c963b91f38aab1e3",
-    "before/before-again.yaml": "sha256:66718e3d25857acb9d05a7dea20a0bf10df668884c723fa4c526c52a71885230",
-    "before/before.yaml": "sha256:9a03954b93aff26dec7350fbd0398e6dd7f6ecff2a96d36f50db78695ff0a41b",
+    "before/before-again.yaml": "sha256:c8616bbcf0bbc338e296f720dd445ec4442fa89cb302a30696fe32f29fd6b980",
+    "before/before.yaml": "sha256:202dc42d17d29d69b37d0ce33da31e959eafbf8a3164726b5062166c2d5cccb5",
     "before/template-excerpt.json": "sha256:c5a2a9e192c27677e882e3dbe30abb8550d34d61e79320b942820acb2c54cd7e",
     "confighub/object.png": "sha256:5a4c5ed139b64d7a247f37da3398d557b0ee4a6ac9a78d39e8147614d705997e",
     "transcripts/check-after.txt": "sha256:6e974142df7fc256e2ed4765937fe29ff86d752c99ea87f864f6c244805b0462",
