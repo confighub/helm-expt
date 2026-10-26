@@ -15,6 +15,7 @@
 // pages read these files and nothing else, so a page cannot show an output that
 // was not recorded here.
 
+import { fetchRepositoryURL } from "./lib/upstream-availability.mjs";
 import { execFileSync, spawnSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -234,7 +235,7 @@ function generateHelmListing(work, out, spec) {
   mkdirSync(join(dir, "chart"), { recursive: true });
   const url = lock.exactArtifact?.url?.startsWith("http") ? lock.exactArtifact.url : "";
   if (url) run("curl", ["-fsSL", "-o", join(dir, "chart", "chart.tgz"), url]);
-  else run("helm", ["pull", lock.chart, "--repo", lock.repositoryURL, "--version", String(lock.version), "-d", join(dir, "chart")]);
+  else run("helm", ["pull", lock.chart, "--repo", fetchRepositoryURL(ri.sourceLock, lock), "--version", String(lock.version), "-d", join(dir, "chart")]);
   const chart = filesUnder(join(dir, "chart"))[0];
   const chartSha = sha256(readFileSync(chart));
   if (lock.packageSHA256) check(chartSha === lock.packageSHA256, `${spec.listing}: the downloaded chart differs from ${ri.sourceLock}`);

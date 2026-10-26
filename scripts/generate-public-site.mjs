@@ -22,6 +22,7 @@ import { aiChaosGuide, AI_CHAOS_IMAGES, AI_CHAOS_SOURCE } from "./lib/ai-chaos-g
 import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY, SIMPLE_PAGES, simpleBeforeAfterPage } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
+import { upstreamObservation } from "./lib/upstream-availability.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
@@ -13793,8 +13794,13 @@ function flatteningSectionHtml(catalog, entry) {
 function upstreamSourceText(source, entry) {
   if (!source) return "";
   const version = escapeHtml(entry.version);
-  if (source.startsWith("oci://")) return `the Catalog fetched this chart from <code>${escapeHtml(source)}</code> at version ${version}. `;
-  return `the Catalog fetched chart <code>${escapeHtml(entry.chart.split("/").at(-1))}</code> from the Helm repository <code>${escapeHtml(source)}</code> at version ${version}. `;
+  const seen = upstreamObservation(entry.chart, entry.version);
+  const now = !seen ? ""
+    : seen.status === "moved"
+      ? `On ${escapeHtml(seen.observedOn)} that repository no longer answered, and the same bytes are at <code>${escapeHtml(seen.fetchFrom)}</code>; fetch from there. `
+      : `On ${escapeHtml(seen.observedOn)} that repository no longer served ${version}${seen.upstreamLatest ? `, only ${escapeHtml(seen.upstreamLatest)}` : ""}. ${escapeHtml(seen.catalogCopy)} `;
+  if (source.startsWith("oci://")) return `the Catalog fetched this chart from <code>${escapeHtml(source)}</code> at version ${version}. ${now}`;
+  return `the Catalog fetched chart <code>${escapeHtml(entry.chart.split("/").at(-1))}</code> from the Helm repository <code>${escapeHtml(source)}</code> at version ${version}. ${now}`;
 }
 
 function chartPageHtml(catalog, entry, coverageEntry) {
