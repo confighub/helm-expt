@@ -24,6 +24,7 @@ import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAf
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { upstreamObservation } from "./lib/upstream-availability.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
+import { eksInferencePage, EKS_INFERENCE_CHARTS, EKS_INFERENCE_CLOSURE, EKS_INFERENCE_MANIFEST, EKS_INFERENCE_PAGE_FILE, EKS_INFERENCE_PAGE_TITLE, EKS_INFERENCE_RUN_LOG } from "./lib/eks-inference-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
@@ -821,6 +822,7 @@ const SPLIT_PAGES = [
   { key: "publicQuestionsHtml", file: "public-questions.html", title: "What happens to a public question", description: "How a question sent in public becomes a checked answer, a named refusal, or a documented limit.", build: (catalog) => publicQuestionsHtml(catalog), doc: true, reference: true },
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
+  { key: "eksInferenceHtml", file: EKS_INFERENCE_PAGE_FILE, title: EKS_INFERENCE_PAGE_TITLE, description: "See the eight parts of a GPU inference platform on Amazon EKS, and check the whole platform on your laptop in one command with no AWS account or GPU.", build: () => eksInferenceHtml() },
   ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
   ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after"), workshopInstall: WORKSHOP_PLUGIN_INSTALL })) })),
 ];
@@ -2355,6 +2357,7 @@ function buildLlmsTxt() {
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Try an EKS GPU inference platform on your laptop](${SITE_BASE_URL}eks-inference.html): the eight parts of the eks-inference stack, where each is applied, and the command cub stack sandbox eks-inference, which checks the whole platform with no AWS account, cluster or GPU. The output shown is one dated run of 2026-10-27, which is a log and no receipt.
 - [Deploy one thing, and look before you do](${SITE_BASE_URL}deploy-one-thing.html): follow one Catalog entry, ${DEPLOY_ONE_ENTRY}, from its exact objects to a release on a local kind cluster with Argo CD. The commands are that entry's nextSteps, at ${SITE_BASE_URL}listings/${DEPLOY_ONE_ENTRY}.json. The end state shown is one dated run of 2026-10-08, which is a log and no receipt.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
@@ -2895,7 +2898,7 @@ function siteFooterNav(relPath) {
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
     + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How the model works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
-    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
+    + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("eks-inference.html", "Try an EKS GPU inference platform"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
     + group("Plugins", [a("plugins.html", "Every cub plugin"), a("bring-kubara-into-confighub.html", "Kubara platforms")])
     + group("Guides", [a("guides.html", "Every Guide"), a("d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator"), a("try.html", "Try it: Redis in ten minutes"), a("demo.html", "The ten-minute demo"), a("ai.html", "Use with your AI"), a("ask.html", "Check my config"), a("promote.html", "Promote my config")])
@@ -2927,7 +2930,7 @@ function siteSections() {
     ["did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?"], ["why-did-helm-ignore-my-values.html", "Why did Helm ignore my values?"],
   ] },
   { label: "Stacks", hub: "stack.html", pages: [
-    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["try-aicr.html", "Try NVIDIA AICR for GPUs"],
+    ["stack.html", "Every stack"], ["compose-a-stack.html", "Compose and check a stack"], ["eks-inference.html", "Try an EKS GPU inference platform"], ["try-aicr.html", "Try NVIDIA AICR for GPUs"],
     ["d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe"],
   ] },
   { label: "Apps", hub: "apps.html", pages: [
@@ -3059,6 +3062,7 @@ function sectionStartingQuestions(label) {
       ["compose-a-stack.html#stack-checks", "Will these components work together?"],
       ["put-an-app-on-a-platform.html", "How do I add my app to a platform?"],
       ["try-aicr.html", "What does my GPU workload need?"],
+      ["eks-inference.html", "How do I run GPU inference on EKS?"],
       ["bring-kubara-into-confighub.html", "Can I start from Kubara?"],
       ["confighub.html#import-and-deploy", "How do I deploy with Argo CD or Flux?"],
     ],
@@ -3983,6 +3987,7 @@ ${homeJourneyLinks()}
         <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
         <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
+        <a href="./eks-inference.html">Try an EKS GPU inference platform</a>
         <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
@@ -4035,7 +4040,7 @@ ${homeJourneyLinks()}
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># give a whole stack: an inference platform</span>
+<span class="cmt"># give a whole stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 => <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
 
@@ -4827,6 +4832,7 @@ function tryAicrHtml() {
   <h1>Try NVIDIA AICR for GPUs</h1>
   <p class="lead">NVIDIA AICR turns five choices into one recipe for a GPU cluster. The choices are the service, the accelerator, the operating system, the workload and the platform. The Catalog holds ${aicrRecipesAtV100} AICR recipes at v1.0.0, each kept as Argo CD Applications that you can read without a GPU.</p>
   <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
+  <p>Want a whole GPU inference platform on Amazon EKS rather than one recipe? <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a>.</p>
   <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
   <details><summary>What each path needs and proves</summary>
@@ -5737,7 +5743,7 @@ function deepDetailsCss() {
 function stackHtml() {
   const rows = sectionRows("stacks").map((row) => [
     `<a href="${escapeHtml(row.source)}">${escapeHtml(row.name)}</a><br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
-    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>.` : ""),
+    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./eks-inference.html">See its eight parts and check it on your laptop</a>.` : ""),
     `${row.parts.map((part) => escapeHtml(part)).join(", ")}. ${row.checked ? "Every part has a receipt." : "Not every part has a receipt."}`,
   ]);
   return `<!doctype html>
@@ -5753,6 +5759,7 @@ function stackHtml() {
     ${topNav(".")}
     <h1>Stacks</h1>
     <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
+    <p>The largest stack is a whole platform for GPU inference on Amazon EKS. <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a> shows its eight parts and checks it in one command.</p>
     <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. To build your own from Catalog entries, follow ${STACK_FROM_CATALOG_GUIDE_LINK}, which composes three NVIDIA GPU entries.</p>
     ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
@@ -5859,7 +5866,7 @@ function composeStackGuideHtml() {
       <h2 id="get-a-stack">Get a stack</h2>
       <p><strong>You want a stack &mdash; a set of configs checked for conflicts before they render. Here is how you get one.</strong></p>
       <h3 id="ready-made">1. Want a ready-made one?</h3>
-      <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
+      <p><strong>First time here?</strong> Install the <a href="./plugins.html#workshop">Workshop plugin</a>, then run <code>cub stack sandbox eks-inference</code> in a scratch directory. <a href="./eks-inference.html">The EKS GPU inference platform</a> shows what that stack holds, part by part. Despite the name, this renders and checks local configuration; it does not create an EKS cluster or request a GPU. Read the check result and missing prerequisites before considering delivery.</p>
       <p>Pick a shipped stack and check it in one command. <code>cub stack sandbox eks-inference</code> renders 130 objects from ${spellSmallNumber(bundleFacts.eksInferenceBundleCount)} certified bundles, each hash-verified against its receipt. ${spellSmallNumber(shippedStackCount, { capitalize: true })} ship, from a full inference platform to three services; see <a href="#shipped-stacks">the stacks that ship</a>.</p>
       <h3 id="compose-your-own">2. Composing your own?</h3>
       <p>Write a manifest that names catalog parts by digest, or let an assistant draft one from images you have already checked. Each part is a bundle pinned by digest with a receipt, or a file of rendered objects the stack owns. Then run <code>cub stack check &lt;file&gt;</code>, read what it names wrong, fix it, and run again until it passes. The check is the contract you build against; <a href="./d/docs/planning/stack-manifest-spec.html">read the manifest specification</a>.</p>
@@ -8199,6 +8206,27 @@ function deployOneThingHtml() {
     commandBlock,
     markdownLikeTable,
     agentNote,
+  }));
+}
+
+// The eks-inference stack, part by part. Its facts come from the stack's
+// closure table, its component manifest snapshot and the dated run log.
+function eksInferenceHtml() {
+  const stackRow = sectionRows("stacks").find((row) => row.id === "eks-inference");
+  check(Boolean(stackRow), "site/stacks.json has no eks-inference row");
+  const plugin = readYaml(join(repoRoot, "data/workshop-plugins/plugins.yaml")).spec.plugins.find((row) => row.id === "eks-inference");
+  check(Boolean(plugin), "data/workshop-plugins/plugins.yaml has no eks-inference plugin");
+  return splitGuideHtml(eksInferencePage({
+    closureRows: parseCsv(readFileSync(join(repoRoot, EKS_INFERENCE_CLOSURE), "utf8")),
+    manifest: readYaml(join(repoRoot, EKS_INFERENCE_MANIFEST)),
+    runLog: readFileSync(join(repoRoot, EKS_INFERENCE_RUN_LOG), "utf8"),
+    stackRow,
+    plugin,
+    workshopInstall: WORKSHOP_PLUGIN_INSTALL,
+    check,
+    escapeHtml,
+    commandBlock,
+    markdownLikeTable,
   }));
 }
 
@@ -12162,7 +12190,7 @@ function aicrCatalogRows() {
       </div>
       <div id="format-intro">
         <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> <a href="../config.html">Read more about Helm in the Catalog here</a>. Each chart was flattened once into plain Kubernetes objects, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through every step. <a href="index.html">Show every format</a>.</p>
-        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept in the Catalog as Argo CD Applications. <a href="index.html">Show every format</a>.</p>
+        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept in the Catalog as Argo CD Applications. For a whole GPU inference platform on Amazon EKS, <a href="../eks-inference.html">try the EKS GPU inference platform on your laptop</a>. <a href="index.html">Show every format</a>.</p>
       </div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
@@ -15447,7 +15475,8 @@ function chartOverviewLinkHtml(chart) {
 function chartGuideLinksHtml(chart) {
   const own = (CHART_GUIDES.get(chart) ?? []).map((guide) => `<a href="${escapeHtml(guide.href)}">${escapeHtml(guide.text)}</a>${escapeHtml(guide.after ?? "")}`);
   const stack = `<a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together`;
-  const sentences = [...own.map((link) => `${link}.`), `${stack}.`];
+  const platform = EKS_INFERENCE_CHARTS.includes(chart) ? [`Its eks-inference base is one part of <a href="../eks-inference.html">an EKS GPU inference platform</a> that you can check on your laptop.`] : [];
+  const sentences = [...own.map((link) => `${link}.`), ...platform, `${stack}.`];
   return `<p class="chart-guide-links"><strong>Guides.</strong> ${sentences.join(" ")}</p>`;
 }
 
