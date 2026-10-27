@@ -7,7 +7,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readYamlText, repoRoot } from "./proof-common.mjs";
-import { HELM_EXAMPLES } from "../generate-before-after.mjs";
+import { HELM_EXAMPLES, REALISTIC_APP_JOIN } from "../generate-before-after.mjs";
 
 const ROOT = "examples/before-after";
 const GITHUB = "https://github.com/confighub/helm-expt/tree/main";
@@ -110,6 +110,15 @@ export const BEFORE_AFTER_PAGES = [
     kicker: "App",
     title: "See what the shop-web app needs from a platform",
     description: "An app's own YAML, then what ConfigHub reads in it: the platform services it needs, and a check of a platform that carries them.",
+    card: null,
+  },
+  {
+    id: "app-realistic-app",
+    key: "beforeAfterAppRealisticAppHtml",
+    file: "before-after-app-realistic-app.html",
+    kicker: "App",
+    title: "See what a three-tier chat app needs before it runs",
+    description: "The three files of a frontend, a backend and a Postgres database, and what ConfigHub reads in them before anything runs.",
     card: null,
   },
 ];
@@ -1512,6 +1521,60 @@ function appShopWebPage(h) {
   };
 }
 
+function appRealisticPage(h) {
+  const { check, escapeHtml } = h;
+  const id = "app-realistic-app";
+  const rec = receipt(id);
+  const files = ["backend.yaml", "frontend.yaml", "postgres.yaml"];
+  const docs = files.flatMap((name) => objects(read(id, `before/${name}`)));
+  const appCheck = transcriptLines(read(id, "transcripts/app-check.txt"));
+  const configCheck = transcriptLines(read(id, "transcripts/config-check.txt"));
+  const needs = appCheck.filter((line) => /\[NEEDS\]/.test(line));
+  check(docs.length === 8 && appCheck.some((line) => /^\s+8 objects:/.test(line)), `${ROOT}/${id}/transcripts/app-check.txt no longer counts the app's 8 objects`);
+  check(needs.length === 1 && /an ingress controller/.test(needs[0]), `${ROOT}/${id}/transcripts/app-check.txt no longer names one need, an ingress controller`);
+  check(configCheck.some((line) => /namespaces that must already exist: confighubplaceholder/.test(line)), `${ROOT}/${id}/transcripts/config-check.txt no longer names the placeholder namespace`);
+  check(!configCheck.some((line) => /\[(FAIL|WARN)\]/.test(line)), `${ROOT}/${id}/transcripts/config-check.txt now fails or warns, and the page says every line passes`);
+  check(/postgres:\/\/admin:password@/.test(read(id, "before/backend.yaml")) && /POSTGRES_PASSWORD\n\s+value: "password"/.test(read(id, "before/postgres.yaml")), `${ROOT}/${id}/before no longer holds the password in plain text, and the page says it does`);
+  check(![...appCheck, ...configCheck].some((line) => /password|secret/i.test(line)), `${ROOT}/${id}: a check now mentions the password, and the page says neither does`);
+  const source = rec.sources[0];
+  return {
+    eyebrow: "Before and after",
+    title: BEFORE_AFTER_PAGES.find((page) => page.id === id).title,
+    lead: `The app is ${docs.length} objects in three files. One check names the platform service it needs, the other finds nothing wrong, and neither notices the password written in plain text. This page shows both, and what you still have to fix yourself.`,
+    opening: `    <p><strong>What you need.</strong> <code>cub</code> with the Workshop plugin. No account and no cluster.</p>\n`,
+    body: `    <section aria-labelledby="before">
+      <h2 id="before">1. The app's files</h2>
+      <p>The files are <a href="${source.repository}/tree/${source.commit}/${source.path}">${escapeHtml(source.path)} in confighub/examples</a>, which the realistic-app example builds on. The images come from Cubbychat, a small chat app.</p>
+${files.map((name) => `      <h3>${escapeHtml(name)}</h3>
+      <pre><code>${escapeHtml(read(id, `before/${name}`))}</code></pre>`).join("\n")}
+    </section>
+    <section aria-labelledby="needs">
+      <h2 id="needs">2. What the app needs</h2>
+      <p>Each check reads one file, so the first line joins the three with a <code>---</code> line between them. The check names what a platform must provide. It runs nothing.</p>
+      ${terminal(escapeHtml, { title: "what the app needs", first: [`${REALISTIC_APP_JOIN} ${files.join(" ")} > realistic-app.yaml`], cmd: "cub app check realistic-app.yaml", output: appCheck, mark: [/\[NEEDS\]/, /must already exist/] })}
+      <p>Both Ingresses name the nginx class, so the cluster must run an ingress controller. The files also name the namespace confighubplaceholder. It is a word ConfigHub's examples use for a value you set, and loading the app sets a real namespace for each variant.</p>
+    </section>
+    <section aria-labelledby="installs">
+      <h2 id="installs">3. What it installs</h2>
+      <p>The second check looks for the work a chart usually hides, and checks every object against its schema. This app has none of that work, and all ${docs.length} objects are valid.</p>
+      ${terminal(escapeHtml, { title: "what the app installs", cmd: "cub config check realistic-app.yaml", output: configCheck, mark: [/\[PASS\] schema validation/] })}
+    </section>
+    <section aria-labelledby="password">
+      <h2 id="password">4. What the checks do not catch</h2>
+      <p>The backend's <code>DATABASE_URL</code> and the database's <code>POSTGRES_PASSWORD</code> both hold the password in plain text. Neither check mentions it. Move the password into a Secret that the cluster supplies before you deliver the app.</p>
+    </section>
+    <section aria-labelledby="notes">
+      <h2 id="notes">5. Technical notes and disclaimers</h2>
+      <ul>
+        <li>Both checks ran on ${escapeHtml(rec.recordedOn)} with cub ${escapeHtml(rec.tools.cub)} and Workshop plugin ${escapeHtml(rec.tools.workshopPlugin)}. <a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.</li>
+        <li>Neither check contacts a cluster. A check that passes is not proof the app runs.</li>
+      </ul>
+    </section>
+`,
+    css: baCss(),
+  };
+}
+
 export function beforeAfterPage(id, helpers) {
   if (id === "helm-gpu-operator") return helmPage(helpers);
   if (id === "kustomize-apptique") return kustomizePage(helpers);
@@ -1521,6 +1584,7 @@ export function beforeAfterPage(id, helpers) {
   if (id === "argo-applicationset") return argoAppSetPage(helpers);
   if (id === "flux-expert-fleet") return fluxFleetPage(helpers);
   if (id === "app-shop-web") return appShopWebPage(helpers);
+  if (id === "app-realistic-app") return appRealisticPage(helpers);
   if (HELM_NAMES[id]) return helmListingPage(id, helpers);
   throw new Error(`no before-and-after page for ${id}`);
 }
