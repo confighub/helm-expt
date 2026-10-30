@@ -118,6 +118,7 @@ const DOC_AREA = {
   "docs/user/large-config-operations.md": "operate",
   "docs/user/live-run-log-2026-10-08.md": "operate",
   "docs/user/live-walk-entry-steps-2026-10-08.md": "operate",
+  "docs/user/eks-inference-sandbox-run-2026-10-27.md": "operate",
   "docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md": "operate",
   "docs/user/live-walk-change-review-2026-10-09.md": "operate",
   "docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md": "operate",
