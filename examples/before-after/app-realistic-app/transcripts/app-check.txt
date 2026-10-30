@@ -1,0 +1,16 @@
+
+App: realistic-app
+Rendering the workload (free, no infrastructure)
+
+Installs
+  8 objects: 2 Deployment, 3 Service, 2 Ingress, 1 StatefulSet
+  namespaces that must already exist: confighubplaceholder
+
+Dependencies (this app needs a platform to provide these)
+  [NEEDS] an ingress controller
+             Ingress backend-ingress (class nginx)
+             Ingress frontend-ingress (class nginx)
+
+  Install onto a platform that carries those services (for example a cub stack such
+  as web-platform), then your Argo CD or Flux reconciles it.
+

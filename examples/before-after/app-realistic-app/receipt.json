@@ -1,0 +1,37 @@
+{
+  "id": "app-realistic-app",
+  "generatedBy": "scripts/generate-before-after.mjs",
+  "recordedOn": "2026-10-27",
+  "tools": {
+    "cub": "v0.9.0",
+    "workshopPlugin": "0.6.61",
+    "argoPlugin": "0.4.1",
+    "fluxPlugin": "0.5.1",
+    "helm": "v4.1.4+g05fa379",
+    "kustomize": "v5.8.1",
+    "fluxSchemaPlugin": "0.16.0"
+  },
+  "sources": [
+    {
+      "what": "the app's three files",
+      "repository": "https://github.com/confighub/examples",
+      "commit": "7f1b8f2fc849bb6488bc2c58f1469172018fc9dd",
+      "path": "global-app-layer/baseconfig"
+    }
+  ],
+  "commands": [
+    "awk 'FNR == 1 && NR > 1 { print \"---\" } 1' backend.yaml frontend.yaml postgres.yaml > realistic-app.yaml",
+    "cub app check realistic-app.yaml",
+    "cub config check realistic-app.yaml"
+  ],
+  "notes": [
+    "realistic-app.yaml is the three files under before/ joined with a --- line between them, because each check reads one file."
+  ],
+  "files": {
+    "before/backend.yaml": "sha256:2004f717472daff7fbe652d5b912c6fee04588ef6e592078dd889c33f8b2a89d",
+    "before/frontend.yaml": "sha256:245b28d899e05b4ca09b1d6e7bd474131ad48ed8c71949b0518f00f760534833",
+    "before/postgres.yaml": "sha256:84ec61bc1bcb462b38d142e51a25b49b315010c407d9c27f928786dd928744be",
+    "transcripts/app-check.txt": "sha256:4fd9ec11d976992f1ad13c14330634c608a7698965e929cc407af7c71dfec016",
+    "transcripts/config-check.txt": "sha256:3d0bf4e8718d5ac1fb0a5a285b87b1b964d6e7884d9088660a6355a3cdfe3640"
+  }
+}
