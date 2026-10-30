@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- The ConfigHub plugin's page, copied here to be served. Changes are made to the plugin's page first, then copied. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="When an AI agent changes your configuration, the ConfigHub plugin writes down what it changed and why, and stops the next agent before it undoes it. With a hub, your agents propose and only the person you name approves.">
+<title>ConfigHub for AI agents</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f7f7f5; --fg:#1c1d1f; --muted:#5d6066; --line:#d9d9d4; --card:#ffffff;
+  --accent:#1f5f8b; --accent-fg:#ffffff; --ok:#1d6b3a; --ok-bg:#e6f3ea; --wait:#8a5a00; --wait-bg:#fbf1dc; --no:#9a2a2a; --no-bg:#f9e6e6;
+  --code-bg:#f0f0ec; --term-bg:#1b1d21; --term-fg:#e8e8e3; --term-dim:#9a9ea7; --term-ok:#7fd49a; --term-bad:#f0a0a0;
+  --w:68rem; --gutter:16px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#141518; --fg:#e8e8e3; --muted:#a2a6ae; --line:#2b2d33; --card:#1c1e23;
+  --accent:#7fb3dc; --accent-fg:#101216; --ok:#8fd9a8; --ok-bg:#163421; --wait:#f0c674; --wait-bg:#3a2d10; --no:#f0a0a0; --no-bg:#3d1c1c;
+  --code-bg:#23252b; --term-bg:#0f1013; --term-fg:#e8e8e3; --term-dim:#8d9199; --term-ok:#7fd49a; --term-bad:#f0a0a0;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#141518; --fg:#e8e8e3; --muted:#a2a6ae; --line:#2b2d33; --card:#1c1e23;
+  --accent:#7fb3dc; --accent-fg:#101216; --ok:#8fd9a8; --ok-bg:#163421; --wait:#f0c674; --wait-bg:#3a2d10; --no:#f0a0a0; --no-bg:#3d1c1c;
+  --code-bg:#23252b; --term-bg:#0f1013; --term-fg:#e8e8e3; --term-dim:#8d9199; --term-ok:#7fd49a; --term-bad:#f0a0a0;
+  color-scheme:dark;
+}
+html{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:var(--w);margin:0 auto;padding-block:0;padding-inline:var(--gutter)}
+h1,h2,h3{line-height:1.2;text-wrap:balance;margin:0 0 .5rem}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:600;letter-spacing:-.01em}
+h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:600;margin-top:0}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:.5rem 0 1rem;max-width:65ch}
+a{color:var(--accent)}
+code,pre,.term{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+code{background:var(--code-bg);padding:.1em .35em;border-radius:4px;font-size:.92em}
+pre{background:var(--code-bg);padding:.9rem 1rem;border-radius:8px;overflow-x:auto;font-size:.92rem;line-height:1.5;margin:.75rem 0}
+pre code{background:none;padding:0}
+.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500;margin:0 0 .6rem}
+section{padding-block:3.5rem 2.5rem;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0;padding-top:3rem}
+.lead{font-size:1.15rem;color:var(--fg)}
+.muted{color:var(--muted)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:start}
+@media (max-width:820px){.hero{grid-template-columns:1fr}}
+.buttons{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0}
+.btn{display:inline-block;padding:.6rem 1rem;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:500}
+.btn.primary{background:var(--accent);color:var(--accent-fg)}
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:1rem 1.1rem;font-size:.86rem;line-height:1.5;overflow-x:auto;white-space:pre;margin:.75rem 0;min-width:0}
+.term .dim{color:var(--term-dim)} .term .ok{color:var(--term-ok)} .term .bad{color:var(--term-bad)}
+.term-label{font-size:.78rem;color:var(--muted);margin:-.35rem 0 .9rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.two>*{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.25rem;min-width:0}
+.card h3{margin-top:0}
+.badge{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.03em;padding:.15em .55em;border-radius:999px;white-space:nowrap;vertical-align:middle}
+.badge.ok{color:var(--ok);background:var(--ok-bg)} .badge.wait{color:var(--wait);background:var(--wait-bg)} .badge.no{color:var(--no);background:var(--no-bg)}
+.tablewrap{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;vertical-align:top;padding:.6rem .7rem;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td code{white-space:nowrap}
+.stepper{display:grid;grid-template-columns:220px 1fr;gap:1.25rem;align-items:start}
+@media (max-width:820px){.stepper{grid-template-columns:1fr}}
+.steps{display:flex;flex-direction:column;gap:.4rem;margin:0;padding:0;list-style:none}
+.steps button{all:unset;cursor:pointer;display:block;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--line);background:var(--card);font:inherit;font-size:.95rem}
+.steps button[aria-selected="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.beat{min-width:0}
+.beat[hidden]{display:none}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media (max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid3{grid-template-columns:1fr}}
+.faq dt{font-weight:600;margin-top:1rem} .faq dd{margin:.25rem 0 0;max-width:65ch}
+.ladder{counter-reset:rung}
+.rung{display:grid;grid-template-columns:2.2rem 1fr auto;gap:.8rem;align-items:start;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.rung .n{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:.9rem;padding-top:.2rem}
+.rung .q{font-weight:600}
+.rung .how{font-size:.92rem;color:var(--muted);margin-top:.15rem;min-width:0;overflow-wrap:anywhere}
+.rung.hi{background:var(--ok-bg);border-radius:10px;padding-inline:.8rem;margin-inline:-.8rem}
+@media (max-width:560px){.rung{grid-template-columns:2.2rem 1fr}.rung .badge{grid-column:2}}
+footer{padding-block:2.5rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+.small{font-size:.86rem;color:var(--muted)}
+figure{margin:0}
+</style>
+
+<div class="wrap">
+
+<section>
+  <p class="eyebrow">ConfigHub for AI agents · the plugin and confighub mini</p>
+  <div class="hero">
+    <div>
+      <h1>Git shows 2 → 1. Your agent set 4 in between.</h1>
+      <p class="lead">When an AI agent changes your configuration, the ConfigHub plugin writes down what it changed and why, and stops the next agent before it undoes it. Add a hub, and your agents can propose a change to production but cannot approve it. Only the person you name can.</p>
+      <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+      <p class="small">Two commands. No account, no server. Nothing leaves your machine.</p>
+      <div class="buttons">
+        <a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin#try-it-in-five-minutes">Try the plugin in five minutes</a>
+        <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What we do not claim</a>
+      </div>
+    </div>
+    <div>
+      <div class="term"><span class="dim">$ git diff main -- k8s/api.yaml</span>
+<span class="bad">-  replicas: 2</span>
+<span class="ok">+  replicas: 1</span>
+
+<span class="dim">$ /confighub:why replicas</span>
+Deployment/api/spec.replicas, in k8s/api.yaml: 1 in the file now
+  26 October 17:33  2 → 4   session fd269e58
+      why: Friday flash sale quadruples api traffic
+  26 October 17:33  4 → 1   session ab59fca7
+      why: cluster is over budget</div>
+      <p class="term-label">From <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/runs/2026-10-26/replicas-end-to-end/README.md">a real run, 26 October 2026</a>. Two agent sessions, no commit between them; Git saw only the sum.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Agents undo each other's work, and nobody is told</h2>
+  <p>One agent scaled the api to 4 pods on the cluster for a sale. A later agent, asked only to deploy, applied a manifest that still said 2. Without the plugin, agents did this without a word in 144 of 190 runs on two models. With the plugin, in none of 190. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">The evidence, with every run.</a></p>
+  <div class="two">
+    <div class="card">
+      <h3>Without the plugin</h3>
+      <div class="term">Someone scaled it to 4 by hand without
+updating the file. … Go back to 2.
+I'd apply the file as it is, which also
+reverses the manual scale-up …</div>
+      <p class="term-label">The agent's own words, from <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/runs/2026-10-24/evaluate/README.md">a real session</a>.</p>
+    </div>
+    <div class="card">
+      <h3>With the plugin</h3>
+      <div class="term">Another session (in the wt-1 worktree) ran
+kubectl scale to 4 replicas for Friday's
+flash sale … Applying the whole file would
+have dropped it to 2. Instead I used
+kubectl set env …, which changes only the
+environment variable.</div>
+      <p class="term-label">Same task, same model. The plugin stopped the deploy once, before it ran, and said why the 4 was there.</p>
+    </div>
+  </div>
+  <p>The record keeps the reason with the value, across sessions, worktrees and folders, and across Claude Code, Codex, <code>kubectl</code> and <code>helm</code>. Git keeps what was committed; this keeps what happened. Each turn's model use is kept beside its changes, so you also know what a change cost.</p>
+</section>
+
+<section>
+  <h2>Your agents propose. Only the person you name approves.</h2>
+  <p>This is the part a careful team cannot build with Git and discipline, because the hub refuses, not the agent. It takes one more command and about five minutes: a hub of your own on your laptop, with the agent on a key of its own. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">How to set it up.</a></p>
+  <div class="stepper">
+    <ul class="steps" role="tablist" aria-label="The four beats of the gate">
+      <li><button role="tab" aria-selected="true" data-beat="1">1 · The change waits</button></li>
+      <li><button role="tab" aria-selected="false" data-beat="2">2 · The agent approves itself</button></li>
+      <li><button role="tab" aria-selected="false" data-beat="3">3 · A colleague not named approves</button></li>
+      <li><button role="tab" aria-selected="false" data-beat="4">4 · You approve; the next change waits</button></li>
+    </ul>
+    <div>
+      <div class="beat" data-beat="1">
+        <div class="term"><span class="dim">$ cub mini require-approval api --variant live --agent bot</span>
+api: a change reaches api-live only by a change order under
+workflows/api-live-approval, once approved by admin@local.confighub.dev.
+
+<span class="dim">The agent, with its own key, changes the base and asks:</span>
+<span class="dim">$ cub function set --space api-base --unit api set-replicas 4</span>
+<span class="dim">$ cub changeorder create --space api-base sale-4 --component api \
+    --change-workflow workflows/api-live-approval --description "Four replicas for the sale"</span>
+
+<span class="dim">$ cub mini promote api-live --change-order api-base/sale-4</span>
+cub mini: not promoted; the change order waits for:
+  requires approval: 1 Approval attestation(s) from eligible attesters;
+  api revision 3 has 0 of 1</div>
+        <p class="term-label">From <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/runs/2026-10-20/approval/README.md">a real run, 20 October 2026</a>. The change is proposed and recorded; production still runs 2.</p>
+      </div>
+      <div class="beat" data-beat="2" hidden>
+        <div class="term"><span class="dim">The agent tries to approve its own change:</span>
+<span class="dim">$ cub variant approve api-base --change-order api-base/sale-4 --note "looks fine"</span>
+<span class="bad">Failed to approve in api-base: permission denied</span></div>
+        <p class="term-label">Its key has no right to approve. No prompt changes that.</p>
+      </div>
+      <div class="beat" data-beat="3" hidden>
+        <div class="term"><span class="dim">A colleague who may approve, but is not the person named:</span>
+<span class="dim">$ cub variant approve api-base --change-order api-base/sale-4 --note "fine by me"</span>
+Recorded pass Approval attestation 6d7b922e… covering 1 revision(s)
+
+<span class="dim">$ cub mini promote api-live --change-order api-base/sale-4 --dry-run</span>
+cub mini: not promoted; the change order waits for:
+  api revision 3 has 0 of 1</div>
+        <p class="term-label">Recorded, and does not count. Only the named person's approval does.</p>
+      </div>
+      <div class="beat" data-beat="4" hidden>
+        <div class="term"><span class="dim">You approve, with why:</span>
+<span class="dim">$ cub variant approve api-base --change-order api-base/sale-4 --note "Checked: four is right for the sale"</span>
+<span class="ok">Recorded pass Approval attestation a86e52e9… in api-base, covering 1 revision(s)</span>
+Updating api-live
+api-live: updated.
+Done. Each Space kept its protected values.
+<span class="ok">live now: replicas: 4</span>
+
+<span class="dim">The agent changes it again, "Six, to be safe", and asks:</span>
+<span class="dim">$ cub mini promote api-live --change-order api-base/safe-6 --dry-run</span>
+cub mini: not promoted; the change order waits for:
+  requires approval: 1 Approval attestation(s) from eligible attesters;
+  api revision 4 has 0 of 1</div>
+        <p class="term-label">Your approval covers exactly the revision it was given. The next one waits for one of its own.</p>
+      </div>
+    </div>
+  </div>
+  <p>In <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/runs/2026-10-24/gate-auto/README.md">40 Claude Code sessions in auto mode</a>, told to put production on 4 replicas and left alone, no agent got past the gate and none read the owner's sign-in. The gate is a key the agent does not hold; it cannot be talked out of it.</p>
+</section>
+
+<section>
+  <h2>Where the approval holds</h2>
+  <p>The gate means something wherever the hub decides what reaches the thing that runs. Most people meet these in this order, and none of them needs a cluster.</p>
+  <div class="tablewrap"><table>
+    <tr><th>What runs</th><th>Who decides what reaches it</th><th>The gate</th><th></th></tr>
+    <tr><td>An app that reads its settings from its hub</td><td>the hub</td><td>the hub's</td><td><span class="badge ok">Available</span></td></tr>
+    <tr><td>A CI job or an agent's sandbox with a hub of its own</td><td>the hub; the result comes back as a pull request</td><td>the hub's, then the pull-request check</td><td><span class="badge ok">Available</span></td></tr>
+    <tr><td>A service on a VM, fed from the hub</td><td>the hub</td><td>the hub's</td><td><span class="badge ok">Available</span></td></tr>
+    <tr><td>A cloud service, fed from the hub</td><td>the hub</td><td>the hub's</td><td><span class="badge wait">Not yet</span></td></tr>
+    <tr><td>A Kubernetes cluster deploying from the hub over OCI</td><td>the hub</td><td>the hub's</td><td><span class="badge ok">Available</span></td></tr>
+    <tr><td>A Kubernetes cluster deploying from Git</td><td>Git</td><td>your branch rule, which must require the hub's check</td><td><span class="badge ok">Available</span></td></tr>
+  </table></div>
+  <p class="small">"Not yet" means we have not run it. We say so rather than imply it.</p>
+</section>
+
+<section>
+  <h2>One question at a time</h2>
+  <p>Each answer raises the next question. Each rung is one command, and each says whether it is available today.</p>
+  <div class="ladder">
+    <div class="rung"><div class="n">0</div><div><div class="q">What does this pull request change in configuration?</div><div class="how"><code>uses: confighubai/confighub-mini-plugin/review@v0</code> · every value from → to, why, and what merging would undo. No install, no account.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">1</div><div><div class="q">What did my agent just change?</div><div class="how"><code>/confighub:changes</code> · each request, each value from → to, what it ran on a cluster.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">2</div><div><div class="q">Why is this value set, and does the next agent know?</div><div class="how"><code>/confighub:why replicas</code> · both changes with their requests; the next agent names both and changes nothing.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">3</div><div><div class="q">Can my team ask why, from any checkout?</div><div class="how"><code>CUB_MINI_RECORD_IN_REPO=1</code> · a reason per value, in the commit and on the pull request.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">4</div><div><div class="q">What does this repository deploy, and where do environments differ?</div><div class="how"><code>/confighub:inventory</code> · each app and chart, what deploys it, what nothing deploys, the values that differ.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">5</div><div><div class="q">Will the vendor's next version undo my change?</div><div class="how"><code>/confighub:install-mini</code>, then <code>cub mini upload NEXT-VERSION</code> · what you would take and what you keep, before anything changes.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung hi"><div class="n">6</div><div><div class="q">Can nothing reach production until I have read it?</div><div class="how"><code>cub mini require-approval api --variant live --agent bot</code> · the change waits; the agent's own approval is refused; only the named person counts. Also on your organization's ConfigHub.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">7</div><div><div class="q">Will I hear when something waits for me, and nothing else?</div><div class="how">One line at the end of the agent's turn, which the agent is not given: the value from → to, the agent's reason, the command that approves it. One more if an agent proposes again what you refused. <code>cub mini waiting</code> lists what waits.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">8</div><div><div class="q">Can each agent have only what it needs, and can I take it away at once?</div><div class="how"><code>--agent NAME</code>, <code>cub mini revoke-agent NAME</code> · anything not granted is refused; a withdrawn agent is refused at its next request.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">9</div><div><div class="q">Can a colleague start from my setup and keep getting my fixes?</div><div class="how"><code>cub mini copy --to-oci REF</code> · a copy that keeps their changes and takes your next version.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">10</div><div><div class="q">Can my service on a VM take its settings from the hub?</div><div class="how"><code>cub mini pull-key vm api --variant live</code>, then on the VM <code>cub mini pull api --variant live --dir /etc/api --timer 30s</code> · the approved values written to the service's files, the service restarted only when one changed; agents with a hub key and no SSH key.</div></div><span class="badge ok">Available</span></div>
+    <div class="rung"><div class="n">11</div><div><div class="q">Can the team see and keep all of it?</div><div class="how"><code>cub mini connect --to-context ORG</code> · your organization's ConfigHub keeps the history; your changes reach it as offers a teammate takes.</div></div><span class="badge ok">Available</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>If your clusters deploy from Git today</h2>
+  <p>You do not have to move delivery off Git to get any of this. Each step is reversible, and you can stop at any of them.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Step</th><th>What changes</th><th>To go back</th></tr>
+    <tr><td>1. The plugin</td><td>The record in sessions; the review on pull requests. Git still delivers.</td><td>Uninstall.</td></tr>
+    <tr><td>2. A hub beside Git</td><td><code>cub mini copy --from-git</code> takes your rendered configuration in; the hub's approval appears on each pull request as a check your branch rule requires. Git still delivers.</td><td>Stop the hub. Git is untouched.</td></tr>
+    <tr><td>3. The hub as the source for one app</td><td>That app's Flux source or Argo CD Application points at the hub's OCI gateway. Git keeps everything else.</td><td><code>cub mini copy --to-dir</code> writes plain files and a <code>CHANGES.md</code>; commit, point back at Git, stop the hub.</td></tr>
+  </table></div>
+  <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/gitops-over-oci.md">Flux and Argo CD deploying from the hub</a>, step by step, with the way back.</p>
+</section>
+
+<section>
+  <h2>With the tools you already use</h2>
+  <p>"Ran with" means a recorded run exists. No logos, no quotes, until real people give them.</p>
+  <div class="grid3">
+    <div class="card"><h3>Flux and Argo CD</h3><p>Deploy what the hub approved, over OCI; an agent's change is set back by the next sync. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/gitops-over-oci.md">Ran with.</a></p></div>
+    <div class="card"><h3>Helm and Kustomize</h3><p>Your chart in a hub, your values kept through its next version; the review renders each overlay. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/your-own-chart.md">Ran with.</a></p></div>
+    <div class="card"><h3>Claude Code and Codex</h3><p>The same record from both; Codex runs the same hooks. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md">Ran with.</a></p></div>
+    <div class="card"><h3>CI and sandboxes</h3><p>A hub per job, thrown away; the result handed back as a pull request. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/ci-and-sandboxes.md">Ran with.</a></p></div>
+    <div class="card"><h3>Sigstore, SPIFFE, OpenTelemetry</h3><p>Each turn signed; an agent's own identity on a cluster; the trace under the session's id. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Ran with.</a></p></div>
+    <div class="card"><h3>Entire, Temporal, Sveltos, Kubara</h3><p>The session kept with its commit; a rollout that waits for a person; a fleet's profiles and a platform fed from a hub. Ran with; <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/entire.md">Entire's guide</a> is published, the others are to come.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Before you install</h2>
+  <dl class="faq">
+    <dt>I have branch protection and a hook that logs commands. Why this?</dt><dd>Branch protection approves an exact commit; it does not see a <code>kubectl scale</code>, and it cannot tell the next agent why a value is what it is. A hook logs what ran, not the request behind it or the value from → to across sessions, and it is advice: the agent is told, not stopped. A values file keeps your value through a chart's next version when the chart exposes it, without the reason, and without showing you first what else the new version changes. None of them gives you an agent on a key of its own that can propose and cannot approve, with the refusal made by the hub. That is the one thing to add a hub for.</dd>
+    <dt>Do I keep Git?</dt><dd>Yes. With the plugin alone, Git stays the source and nothing in delivery changes. With a hub, the hub is the source for whatever you point at it, one app at a time, and you can point it back.</dd>
+    <dt>What leaves my machine?</dt><dd>Nothing, unless you turn a setting on. The record never keeps a command's output, a copy of a file, or anything that looks like a credential.</dd>
+    <dt>Will it block a change I want?</dt><dd>The plugin stops a command once, before it would undo another session's change, and says why. Run it again and it goes ahead. The gate blocks only what you told it to: changes to the copy that runs, until you approve.</dd>
+    <dt>Does it change my prompts?</dt><dd>No. The agent is told about an earlier change only when it reads that file or is about to deploy over it.</dd>
+    <dt>How do I turn it off?</dt><dd><code>claude plugin uninstall confighub</code>. A hub is two processes you stop with <code>cub mini stop</code>; its data stays in a folder you can delete.</dd>
+    <dt>What has not been shown?</dt><dd>Nobody outside the project has run any of this yet. A cloud service fed from a hub has not run. Everything else on this page has a dated run behind it, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">what we do not claim</a> lists the rest.</dd>
+  </dl>
+</section>
+
+<section>
+  <h2>Free, and paid when the work is shared</h2>
+  <div class="grid3">
+    <div class="card"><h3>The ConfigHub plugin</h3><p>Free, MIT. The record, the next agent told first, the pull-request review. About 9 MB, no account.</p></div>
+    <div class="card"><h3>confighub mini</h3><p>Free. ConfigHub itself, small enough for a laptop, a CI job or a sandbox: your values kept through the next version; the gate; keys for each agent. As many hubs as you like.</p></div>
+    <div class="card"><h3>Your organization's ConfigHub</h3><p>Paid, when a colleague needs the work while your laptop is closed. Company sign-in, named approvers, history across every hub and cluster. The same commands, the same model; your work copies up with its reasons.</p></div>
+  </div>
+</section>
+
+</div>
+
+<footer><div class="wrap">
+  <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+  <p>The ConfigHub plugin 0.57.0 and confighub mini 0.9.0-mini.6, for macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin">The repository</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">The documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">The evidence</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What we do not claim</a> · <a href="https://docs.confighub.com">ConfigHub</a></p>
+  <p class="small">Every transcript on this page is pasted from <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/runs/README.md">a dated run</a>. Where something has not run, the page says "Not yet".</p>
+</div></footer>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('.steps button');
+  var beats=document.querySelectorAll('.beat');
+  tabs.forEach(function(b){b.addEventListener('click',function(){
+    var n=b.getAttribute('data-beat');
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t===b?'true':'false');});
+    beats.forEach(function(x){x.hidden=x.getAttribute('data-beat')!==n;});
+  });});
+})();
+</script>
+</body>
+</html>
