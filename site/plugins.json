@@ -104,8 +104,8 @@
       ],
       "repository": "confighub/installer",
       "release": {
-        "date": "2026-07-29",
-        "tag": "v0.1.0"
+        "date": "2026-10-30",
+        "tag": "v0.3.1"
       },
       "install": "cub plugin install confighub/installer",
       "next": {
@@ -177,8 +177,8 @@
       ],
       "repository": "confighub/cub-server",
       "release": {
-        "date": "2026-10-26",
-        "tag": "v0.2.10"
+        "date": "2026-10-29",
+        "tag": "v0.2.12"
       },
       "install": "cub plugin install confighub/cub-server",
       "next": {
