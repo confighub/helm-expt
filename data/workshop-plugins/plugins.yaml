@@ -53,7 +53,7 @@ spec:
       summary: Renders and installs configuration-as-data packages.
       repository: confighub/installer
       state: released
-      release: {tag: v0.1.0, date: "2026-07-29"}
+      release: {tag: v0.3.1, date: "2026-10-30"}
       install: cub plugin install confighub/installer
     - id: helm
       name: Helm
@@ -85,7 +85,7 @@ spec:
       summary: Installs a self-hosted ConfigHub server.
       repository: confighub/cub-server
       state: released
-      release: {tag: v0.2.10, date: "2026-10-26"}
+      release: {tag: v0.2.12, date: "2026-10-29"}
       install: cub plugin install confighub/cub-server
     - id: demo
       name: Demo
