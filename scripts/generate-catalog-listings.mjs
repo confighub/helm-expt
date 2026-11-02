@@ -24,7 +24,7 @@ import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./l
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
 import { entryPageWithoutChart } from "./lib/entry-page.mjs";
-import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
+import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -434,6 +434,11 @@ function buildListing(record, { catalogFile, siblings, sameSource = [], allRecor
   // The five steps are derived last, from the finished sections, and then
   // checked against those same sections before the listing is returned.
   const context = nextStepContext(record, sameSource);
+  // A Helm entry's own objects say whether it holds a resource whose CRD it lacks.
+  const objectsPath = listing.flattened?.retainedObjects?.path;
+  if (listing.identity?.format === "helm" && objectsPath && existsSync(join(repoRoot, objectsPath))) {
+    context.missingDefinitions = customResourcesWithoutDefinition(readFileSync(join(repoRoot, objectsPath), "utf8"));
+  }
   listing.nextSteps = buildNextSteps(listing, context);
   const claimErrors = nextStepClaimErrors(listing, context);
   check(claimErrors.length === 0, claimErrors[0]);
@@ -1258,6 +1263,8 @@ function runNextStepSelfTest(loaded) {
       JSON.stringify(["run-for-this-entry", "not-available", "not-available", "not-available", "not-available"]),
     "self-test: an unpublished entry with no sibling must offer only the first step",
   );
+  const sampleObjects = "apiVersion: apps/v1\nkind: Deployment\n---\napiVersion: apiextensions.k8s.io/v1\nkind: CustomResourceDefinition\nspec:\n  group: a.example\n  names:\n    kind: Carried\n---\napiVersion: a.example/v1\nkind: Carried\n---\napiVersion: b.example/v1\nkind: Missing\n";
+  check(JSON.stringify(customResourcesWithoutDefinition(sampleObjects)) === JSON.stringify(["Missing"]), "self-test: only a custom resource whose CRD is absent counts as missing");
   check(uploadPath(unpublished).kind === "none", "self-test: an unpublished entry has no public artifact to upload");
   check(
     unpublished.nextSteps.slice(1).every((step) => step.commands.length === 0 && step.unblock),
