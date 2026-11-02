@@ -15,238 +15,73 @@ into ConfigHub.**
   and flatten again.
 - **Customise** changes a copy for one place. If the objects are right and this
   place differs, change it in ConfigHub.
-- **Everything before the cluster can be repeated exactly.** The cluster is live.
+- **Everything before the cluster is recorded, so it is reproducible.** The cluster
+  is live.
 
-That is the whole model. The rest of this page is detail.
+To **flatten** is to run a tool once and keep the plain Kubernetes objects it makes.
+A **plan** lists the steps those objects cannot carry. **ConfigHub** is the service
+that stores your objects with a history of every change, and publishes them for
+Argo CD or Flux to deliver.
 
-## The three steps
+That is the whole model. The rest of this page follows configuration in the order
+it travels, starting with what the Catalog holds.
 
-| Step | What happens | Tool |
-| --- | --- | --- |
-| 1. Flatten | A source is turned into plain Kubernetes objects. | Helm for a chart. `cub installer` for an installer package. `aicr` for an AICR recipe. |
-| 2. Bundle | The objects go into one OCI bundle. If they need steps that objects cannot carry, the plan goes in with them. | The Catalog publishes the bundle. |
-| 3. Load | The bundle is loaded into ConfigHub. It becomes a base, and you make a variant of it for each environment. | `cub variant upload` |
+## What is in the Catalog
 
-Then you deploy a variant to a cluster.
+The Catalog is a list of configurations that have already been worked out. Each
+**entry** is one pinned choice, such as Karpenter 1.14.0 with its `eks-inference`
+preset. A **preset** is one named set of values for a chart version. An entry records
+what went in, what came out, and what has been checked.
 
-## Every stage, in one picture
+| An entry holds | Why |
+| --- | --- |
+| The recipe: the source, its version and the choices | So the same result can be produced again. |
+| The flattened objects, with a digest | So you can read what would be installed without running anything. |
+| A flattening verdict | So you know whether the objects alone are enough. |
+| A plan, if the entry needs one | So the steps objects cannot carry are written down. |
+| OCI references, where published | So you can pull it with no clone and no account. |
+| Receipts | So each claim names the run behind it, and what has not run is stated. |
 
-[![The model as six stages from left to right. Choose, flatten and the OCI bundle are install. Load and release are customise. Everything up to release is reproducible, and delivery and observation are live-dependent. Each row shows who does the work, what live values are read, what OCI holds, what happens to the plan and what an agent does.](../images/model/whole-model.svg)](../images/model/whole-model.svg)
+The Catalog holds no cluster, no Secrets and nothing of yours. It doesn't replace
+a generator. It runs each generator once and keeps the result, because the result
+is what you need to read, compare and deliver.
 
-Read it from left to right, and read each row as one question. Select the picture
-to open it at full size. The rest of this page explains the rows.
+### Every type of config ends up as objects
 
-## Two questions sort every change
+A **generator** is the tool that turns a type of config into Kubernetes objects.
+Some types have no generator, because they are already objects.
 
-### Install or customise?
+| Type of config | Generator | What you choose | What the Catalog keeps | Entries |
+| --- | --- | --- | --- | --- |
+| Helm chart | `helm template` | A version and values | Plain objects, for each preset | 345 |
+| NVIDIA AICR recipe | `aicr`, then `helm template` | Five criteria: service, accelerator, OS, intent and platform | Argo CD Applications. Most still name a chart that Argo CD renders later. | 138 |
+| Plain YAML | None | Which file | The objects as they are | 39 |
+| Timoni module | `timoni build` | A version and values | Plain objects | 2 |
+| Installer package | `cub installer` | A preset and inputs | Plain objects | 1 |
+| Configuration OCI | None | A digest | The objects as they are | 1 |
+| Kubara platform | Kubara | The platform's inputs | Argo CD bootstrap objects | 1 |
+| Sveltos ClusterProfile | None | Which profile | The profile as it is | 1 |
 
-Ask whether the objects are right. If they are wrong, change what produced them.
-If they are right and this place differs, change a variant.
-
-| | Install | Customise |
-| --- | --- | --- |
-| The question | Which objects, from which source? | The objects are right. How does this place differ? |
-| Kind of intent | Developer | Operator |
-| Examples | A new chart version, a component on or off, CRDs in or out, an AICR criterion | Replicas, an image, limits or environment variables for one environment |
-| What you change | The recipe: values, preset, inputs or criteria | A variant in ConfigHub |
-| Tool | Helm, `aicr` or `cub installer` | `cub function` on the variant |
-| Result | A new OCI bundle and a new base, which you promote to each variant | A new revision of that variant |
-
-If you are unsure and the field is a standard Kubernetes one, customise it. That
-needs no new render.
-
-### Reproducible or live-dependent?
-
-Ask whether you could get the same answer on a laptop, with no cluster and no
-account. If you could, it is reproducible.
-
-| | Reproducible | Live-dependent |
-| --- | --- | --- |
-| **Install** | The chart version, values, preset and AICR criteria. The same inputs give the same objects. | Cluster facts, the cluster name, the region, whether a CRD already exists. You read each one, then record it. |
-| **Customise** | Replicas for each environment, or a limit agreed in review. A named function runs on a stored revision. | Scaling after a load spike, or a fix during an incident. The decision depends on what is happening, and the result is still a recorded revision. |
-
-**A live value becomes reproducible once it is recorded.** Reading it depends on
-the moment, and re-using the recorded value does not. What can't be recorded in
-advance stays live, such as the health of a workload or whether a required Secret
-exists right now.
+Helm and AICR have the most entries because each is one choice among many. One
+chart version with three presets is three entries, and AICR has one entry for each
+combination of criteria the Catalog keeps. The installer package row counts the one
+entry listed under that format. Almost every Helm entry is also held in an installer
+package.
 
 ## Step 1. Flatten
 
-Before flattening, you choose a recipe. A source is what a provider publishes, such as a Helm chart, an installer
-package or an NVIDIA AICR recipe. A recipe pins one choice from it: the
-source, its version and one set of values.
+Before flattening, you choose a recipe. Flattening runs the source's own tool once
+and keeps the objects it produces. Nothing runs that tool again when you install.
 
-Flattening runs the source's own tool once and keeps the objects it produces.
-Nothing runs that tool again when you install.
-
-| Source | Flattened by |
-| --- | --- |
-| Helm chart | Helm |
-| Installer package | `cub installer` |
-| AICR recipe | `aicr` |
-| Plain YAML | Nothing. It is already objects. |
-
-## Step 2. Put it in an OCI bundle, with a plan if it needs one
-
-An OCI bundle is one artifact in a registry. It holds the flattened objects.
-
-Not all source configuration can be completely flattened. The configuration
-steps taken after flattening are called the plan. Examples are "apply the CRDs
-first" and "this Secret must exist". A bundle carries its plan. A bundle that
-needs no such step has no plan.
-
-You can pull, read, compare and install an OCI bundle with no account.
-
-## Step 3. Load it into ConfigHub
-
-```bash
-cub variant upload --component gpu-operator --variant base --namespace gpu-operator "$BUNDLE"
-```
-
-The bundle becomes a base, with one Unit for each object. A variant is a copy
-of the base with your changes for one environment. When a new bundle arrives,
-you load it over the base and promote the change to each variant.
-
-| You want to | Do this |
-| --- | --- |
-| Turn a component on or off | Flatten again with new values. It gives a new bundle, and a new base. |
-| Set replicas or limits for one environment | Make a variant of the base. |
-| Make production differ from staging | Make a variant of the base for each. |
-
-## After the three steps
-
-| Stage | What happens | Tool | Install or customise? |
-| --- | --- | --- | --- |
-| Customise | You make a variant of the base, and change it for one environment. | `cub variant create`, `cub function` | Customise |
-| Promote | A new base arrives, and you move it to each variant. Your edits stay. | `cub variant promote` | Install reaches customise |
-| Release | One approved revision is published to OCI by digest. | `cub release publish` | Neither |
-| Deliver | Argo CD or Flux pulls that digest and applies it. | Argo CD or Flux | Neither |
-| Observe | Someone reads what is running, and the next change starts. | `cub scout` | Neither |
-
-## Helm, AICR and cub installer
-
-**Helm and AICR generate objects. `cub installer` does not generate from
-templates.** It takes objects that were already generated, and lets you choose a
-preset and supply inputs.
+Three tools are easy to mix up, and they do different jobs.
 
 | | Helm | AICR | `cub installer` |
 | --- | --- | --- | --- |
-| Its job | Turn one chart and its values into objects. | Choose many charts and their values for a GPU platform. | Apply a preset, inputs and named functions to objects in a package, then load the result. |
-| You give it | A chart version and values | Five criteria | A package, a preset and any inputs |
-| It gives you | Plain objects | Argo CD Applications, most of which still name a chart | Files, a literal OCI artifact or a base in ConfigHub |
+| Its job | Turn one chart and its values into objects. | Choose many charts and their values for a GPU platform, and write one Helm chart that produces their Argo CD Applications. | Take objects Helm has already made, apply a preset and any inputs, then load the result. |
 | When it runs | Once, when the Catalog is built | Once, when the Catalog is built. Argo CD renders the named charts when it deploys. | On your machine, when you choose |
-| How it relates | Its output is what an installer package holds. | It uses Helm. It has no installer package. | It wraps Helm's output. It runs no Helm, and it is not used for AICR. |
+| How it relates | Its output is what an installer package holds. | It uses Helm. AICR entries have no installer package. | It starts where Helm finished, so it never runs Helm. AICR entries don't use it. |
 
-Plain YAML needs none of them, because it is already objects.
-
-### Two routes into ConfigHub for a Helm entry
-
-Every Helm entry is in OCI inside its chart's installer package. Where the
-flattening verdict permits, the entry also has a published OCI bundle.
-
-| Route | Commands | Use it when |
-| --- | --- | --- |
-| OCI bundle | `cub variant upload` | The entry has a bundle, and you have no inputs to supply. |
-| Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
-
-The OCI bundle is the default. An entry page's upload step prints it wherever one
-is published, and prints the installer package route otherwise. Both routes end
-in the same place, which is a base with variants. [One dated run](./live-walk-bundle-route-2026-11-02.md)
-shows the OCI bundle route from upload to the cluster.
-
-## What OCI does
-
-OCI is the transport. It is not a tool, and it is not proof of a deployment. It
-does three separate jobs, and each has its own digest.
-
-| Job | What it holds | Who makes it | What happens next |
-| --- | --- | --- | --- |
-| Source | A chart, an installer package or an AICR-generated chart | The provider or the Catalog | A tool still has to run. |
-| Literal | Flattened objects and their plan. An OCI bundle is this kind. | The Catalog, or `cub installer setup --output-oci` | You read, compare or load them, and no generator runs. |
-| Release | One approved ConfigHub revision | `cub release publish` | Argo CD or Flux applies that exact digest. |
-
-## What a plan does, and what GitOps does
-
-**A plan is a written list. It does not run itself.** No plan step in the Catalog
-is marked automatic. Each step names who carries it out, and the entry page lists
-them.
-
-| When | What happens to the plan | Who |
-| --- | --- | --- |
-| At flattening | It is written, and it goes into the OCI bundle. | The Catalog |
-| Once the variant and destination are known | It is settled, because a change or a target can alter it. | You or your pipeline |
-| At delivery | Each step is carried out. | A person, a pipeline or a GitOps tool, as the step says |
-
-One entry shows all of this. Karpenter 1.14.0 with its `eks-inference` base has
-18 objects and three plan steps.
-
-| Step | What it says | Who carries it out |
-| --- | --- | --- |
-| Before apply | One schedulable node must exist outside Karpenter. | An operator |
-| Before render | `AWS_REGION` must be set, because the controller stops without it. | An operator |
-| At apply | Apply the 5 CRDs first, wait until they are Established, then apply the rest. | The applier you choose |
-
-**GitOps delivers. It does not decide.** Argo CD or Flux pulls the release digest,
-applies it and reports the result. Each can express an ordering step, with sync
-waves or with dependent Kustomizations, but you have to set that up. The
-Catalog's records have not yet watched a GitOps tool carry out a plan step, so
-each entry page says what has run.
-
-For an AICR entry, Argo CD also renders the charts its Applications name. That
-render happens on the cluster, after flattening.
-
-## Where live values come from
-
-| Value | Example | Where it is read from | How it is kept |
-| --- | --- | --- | --- |
-| Destination input | Cluster name, region | You, for each destination | The objects hold `confighubplaceholder` until a variant sets the value. |
-| Fact | Node hardware, an existing CRD | The cluster, by a package's collector | Recorded once `cub installer` writes it to `facts.yaml`. |
-| Secret material | A password | The destination | Named by the plan. An entry whose render holds key material gets no OCI bundle. |
-| Live lookup | A chart that reads the cluster as it renders | The cluster, at render time | No OCI bundle is published, because the verdict is `unsafe-to-flatten`. |
-| Late render | The charts inside AICR's Applications | The chart source, when Argo CD deploys | Outside the flattened objects. The Catalog records a digest-bound render beside some of them. |
-
-## Developer intent, operator intent and the agent loop
-
-Developer intent is what you install, and operator intent is how you customise it.
-
-| Part of the loop | Who does it | Predictable? |
-| --- | --- | --- |
-| Decide what to try | An agent or a person | No |
-| Produce objects | Helm, `aicr` or `cub installer`. The agent supplies inputs, and it does not write objects. | Yes |
-| Edit a variant | A named function | The result is, once the decision is made |
-| Check | `cub` checks and ConfigHub gates | Yes |
-| Approve | A person or a policy | It depends on the policy |
-| Apply | Argo CD or Flux | Yes, for a release digest |
-| Observe | `cub scout` and other readers | No, it reads the live cluster |
-
-An agent's decision can be unpredictable, but what it writes can't be. It either
-changes the pinned inputs or applies a named function to a variant, and each
-result is versioned, gated and released by digest. The agent is the author of a
-change, not the authority for it.
-
-The two kinds of intent meet when a new render is loaded. `cub installer upload`
-merges the render three ways and writes only the paths the render changed, so
-operator edits survive.
-
-The loop isn't closed yet. Live fixes that flow back into desired state are
-still future work.
-
-## What can be traced back
-
-The Catalog keeps a record of what produced each set of objects, so the inputs
-are never lost. Tracing one rendered field back to the input that set it is a
-goal, and today it holds only in part.
-
-| Stage | Can you trace a field back? |
-| --- | --- |
-| `cub installer` input | Yes, where a function writes the input to a named field. Most packages declare no inputs. |
-| Helm values | Only for measured cases. A value can reach many fields, and a field can depend on many values. |
-| Variant edit | Yes. ConfigHub records each change as a revision. |
-
-Different inputs can also give the same objects, so a render can't be run
-backwards from its output alone. That is why the record is kept.
-
-## What the flattening verdict means
+### What the flattening verdict means
 
 Every entry records a flattening verdict. It answers one question: can this
 source be flattened once and delivered as plain objects?
@@ -279,6 +114,120 @@ step, who carries it out and whether the Catalog has run it. You, or your
 pipeline, carry out the steps when you deliver. Where an entry page has a test
 script, the script stops and names any step it cannot do for you.
 
+## Step 2. Put it in an OCI bundle, with a plan if it needs one
+
+An OCI bundle is one artifact in a registry. It holds the flattened objects. You
+can pull, read, compare and apply it with no account. Loading it into ConfigHub, in
+step 3, needs an account.
+
+Not all source configuration can be completely flattened. The configuration
+steps taken after flattening are called the plan. A bundle carries its plan, and a
+bundle that needs no such step has no plan.
+
+**A plan is a written list. It does not run itself.** Each step names who carries
+it out. Karpenter 1.14.0 with its `eks-inference` preset has three.
+
+| Step | What it says | Who carries it out |
+| --- | --- | --- |
+| Before apply | One schedulable node must exist outside Karpenter. | An operator |
+| Before render | `AWS_REGION` must be set, because the controller stops without it. | An operator |
+| At apply | Apply the 5 CRDs first, wait until they are Established, then apply the rest. | The applier you choose |
+
+### OCI does three separate jobs
+
+The OCI bundle is one of three kinds of OCI artifact in this model. Each has its own
+digest.
+
+| Job | What it holds | What happens next |
+| --- | --- | --- |
+| Source | A chart, an installer package or the Helm chart AICR writes | A tool still has to run. |
+| Literal | The objects themselves, with their plan. An OCI bundle is this kind. | You read, compare or load them, and no generator runs. |
+| Release | One approved ConfigHub revision | Argo CD or Flux applies that exact digest. |
+
+## Step 3. Load it into ConfigHub
+
+```bash
+cub variant upload --component gpu-operator --variant base --namespace gpu-operator "$BUNDLE"
+```
+
+The bundle becomes a **base**, and each object becomes one **Unit**. You then make a
+**variant**, a copy of the base for one environment. `cub` is ConfigHub's command-line
+tool. Almost every Helm entry can also come in through an installer package, and both
+ways end in the same place.
+
+| Way in | Commands | Use it when |
+| --- | --- | --- |
+| OCI bundle, the default | `cub variant upload` | The entry has a bundle. Any value a destination must supply is set later, in a variant. |
+| Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
+
+[One dated run](./live-walk-bundle-route-2026-11-02.md) shows the OCI bundle way in,
+from upload to the cluster.
+
+## Then customise it, and deliver it
+
+Ask whether the objects are right. If they are wrong, change what produced them.
+If they are right and this place differs, change a variant.
+
+| | Install | Customise |
+| --- | --- | --- |
+| Kind of intent | Developer | Operator |
+| Examples | A new chart version, a component on or off, CRDs in or out | Replicas, an image or limits for one environment |
+| What you change | The recipe | A variant in ConfigHub |
+| Result | A new OCI bundle and a new base, which you promote to each variant | A new revision of that variant |
+
+To customise, run a named function on the variant. Your edits stay when a new base is
+promoted. Nothing reaches the cluster until you publish a release.
+
+```bash
+cub function do --space my-app-prod --unit my-app --change-desc "Run three replicas" set-replicas 3
+cub release publish my-app-prod
+```
+
+**GitOps delivers. It does not decide.** Argo CD or Flux pulls the release digest,
+applies it and reports the result. Each can express an ordering step, with sync
+waves or dependent Kustomizations, but you have to set that up. No plan step is
+marked automatic, and the Catalog's records have not yet watched a GitOps tool carry
+one out, so each entry page says what has run.
+
+## What is reproducible, and what is live
+
+Ask whether you could get the same answer on a laptop, with no cluster and no
+account. If you could, it is reproducible.
+
+| | Reproducible | Live-dependent |
+| --- | --- | --- |
+| **Install** | The chart version, values, preset and AICR criteria | Cluster facts a package reads as it renders |
+| **Customise** | Replicas for each environment, a limit agreed in review | The region or cluster name for this destination, scaling after a load spike, a fix during an incident |
+
+**A live value becomes reproducible once it is recorded.** You record the region or
+the cluster name by setting it in a variant, and `cub installer` writes the cluster
+facts it reads to `facts.yaml`. A decision made during an incident depends on the
+moment, and the change it makes is still a recorded revision. Some things stay live,
+such as the health of a workload or whether a required Secret exists right now.
+
+AICR is the exception to a full record. Its Applications name each chart by version,
+and Argo CD renders those charts on the cluster, so the rendered objects are not
+fixed in advance.
+
+## Where an agent fits
+
+An agent's decision can be unpredictable, but what it writes can't be. It either
+changes the recipe or applies a named function such as `set-replicas` to a variant,
+and each result is
+versioned, gated and released by digest. It supplies inputs to a generator, and it
+does not write the objects. The agent is the author of a change, not the authority
+for it.
+
+The loop isn't closed yet. Live fixes that flow back into desired state are still
+future work.
+
+## Every stage, in one picture
+
+[![The model as six stages from left to right. Choose, flatten and the OCI bundle are install. Load and release are customise. Everything up to release is reproducible, and delivery and observation are live-dependent. Each row shows who does the work, what live values are read, what OCI holds, what happens to the plan and what an agent does.](../images/model/whole-model.svg)](../images/model/whole-model.svg)
+
+This is everything above on one page, for reference. Read it from left to right,
+and read each row as one question. Select the picture to open it at full size.
+
 ## Try it
 
 [Deploy the GPU Operator from the Catalog](./deploy-gpu-operator-from-catalog.md)
@@ -295,7 +244,7 @@ does all three steps, and then deploys and tests the result.
 
 ## Words
 
-This table is the one place these words are defined. Records and tools keep some
+This section is the one list of these words. Records and tools keep some
 older names, and the last column says where a word means something else.
 
 ### Inputs
@@ -304,7 +253,7 @@ older names, and the last column says where a word means something else.
 | --- | --- | --- |
 | Source | What a provider publishes, such as a chart or an AICR release. | |
 | Recipe | One pinned choice from a source: its version and one set of values or criteria. | An **AICR recipe** is the document `aicr recipe` resolves from the criteria. The `recipes/` directory holds the Catalog's records. |
-| Preset | One named set of choices inside an installer package. | `installer.yaml` and `cub installer setup --base` call a preset a base. |
+| Preset | One named set of values for a chart version, kept in its installer package. | `installer.yaml` and `cub installer setup --base` call a preset a base. |
 | Input | A named value `cub installer` asks for and writes to a field. | Helm values, which are chosen before the package is built. |
 | Fact | Something read from the destination and recorded before a render. | An input, which a person supplies. |
 | Placeholder | The value `confighubplaceholder`, which marks a value each destination must supply. | |
@@ -345,6 +294,7 @@ older names, and the last column says where a word means something else.
 
 ## Technical notes and disclaimers
 
+- Tracing one rendered field back to the input that set it is a goal, and it holds only in part. It holds where a `cub installer` function writes an input to a named field, for measured Helm cases, and for variant edits, which ConfigHub records as revisions.
 - UNOFFICIAL/EXPERIMENTAL.
 - The [reference page](./model-reference.md) holds the detail.
 - Not every entry has a published OCI bundle yet. Each entry page says whether its bundle is published.

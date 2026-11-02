@@ -129,6 +129,27 @@ for (const text of [
 ]) {
   requireText(documents.vocabulary, text, "model contract");
 }
+// The entry counts on the model page are read from the Catalog, so they can't drift.
+const entryCounts = new Map();
+for (const row of JSON.parse(read("site/configs.json")).rows ?? JSON.parse(read("site/configs.json"))) {
+  entryCounts.set(row.format, (entryCounts.get(row.format) ?? 0) + 1);
+}
+const entryRows = {
+  helm: "Helm chart",
+  aicr: "NVIDIA AICR recipe",
+  "kubernetes-yaml": "Plain YAML",
+  timoni: "Timoni module",
+  "cub-installer": "Installer package",
+  "configuration-oci": "Configuration OCI",
+  kubara: "Kubara platform",
+  sveltos: "Sveltos ClusterProfile",
+};
+for (const [format, count] of entryCounts) {
+  requireCondition(Boolean(entryRows[format]), `the model page has no row for the Catalog format ${format}`);
+  const row = documents.vocabulary.split("\n").find((line) => line.startsWith(`| ${entryRows[format]} |`)) ?? "";
+  requireCondition(row.trimEnd().endsWith(`| ${count} |`), `the model page's ${entryRows[format]} row must count ${count} entries`);
+}
+
 for (const text of ["Source variant", "source variant", "Three variant layers"]) {
   requireCondition(!documents.vocabulary.includes(text) && !documents.modelReference.includes(text), `the model pages must not say ${JSON.stringify(text)}`);
 }
