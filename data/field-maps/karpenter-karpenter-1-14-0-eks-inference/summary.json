@@ -1,0 +1,109 @@
+{
+  "chart": "karpenter/karpenter/1.14.0",
+  "base": "eks-inference",
+  "renderContext": {
+    "namespace": "kube-system",
+    "releaseName": "karpenter",
+    "kubeVersion": "1.31.0",
+    "flags": [
+      "--include-crds",
+      "--skip-tests",
+      "--no-hooks"
+    ]
+  },
+  "baseline": {
+    "objectCount": 18,
+    "committedObjectCount": 18,
+    "identitiesEqual": true,
+    "parsedObjectsEqual": true,
+    "renderedSha256": "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c",
+    "recordedDigest": "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c",
+    "digestEqual": true,
+    "byteIdentical": true,
+    "packageSha256": "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2",
+    "kubeVersion": "1.31.0",
+    "flags": [
+      "--include-crds",
+      "--skip-tests",
+      "--no-hooks"
+    ]
+  },
+  "leafPathCount": 88,
+  "leafKinds": {
+    "boolean": 15,
+    "list": 9,
+    "map": 13,
+    "null": 2,
+    "number": 9,
+    "string": 40
+  },
+  "valuesFromEffectiveValues": 11,
+  "effect": 88,
+  "noEffect": 0,
+  "renderFailed": 0,
+  "renders": {
+    "total": 161,
+    "firstPassIncludingBaseline": 94,
+    "secondPassContexts": 67
+  },
+  "effectAtFirstAttempt": 81,
+  "effectAtLaterAttemptSameContext": 0,
+  "valuesChangingExistingBaselineFields": 55,
+  "valuesOnlyAddingFieldsOrObjects": 33,
+  "effectOnlyAfterSecondPerturbation": 7,
+  "effectOnlyUnderCondition": 7,
+  "changedObjectSet": 6,
+  "valuesAddingObjects": 1,
+  "valuesRemovingObjects": 1,
+  "valuesRenamingObjects": 4,
+  "baselineObjects": {
+    "total": 18,
+    "crd": 5,
+    "reachedByAtLeastOneValue": 13
+  },
+  "baselineFields": {
+    "all": {
+      "fields": 1746,
+      "reachedByAtLeastOneValue": 99,
+      "reachedByFieldLevelChange": 91,
+      "reachedOnlyByObjectRemoval": 8,
+      "notReachedByAnyValue": 1647,
+      "reachedByMoreThanOneValue": 20
+    },
+    "excludingCrds": {
+      "fields": 384,
+      "reachedByAtLeastOneValue": 99,
+      "reachedByFieldLevelChange": 91,
+      "reachedOnlyByObjectRemoval": 8,
+      "notReachedByAnyValue": 285,
+      "reachedByMoreThanOneValue": 20
+    },
+    "crdsOnly": {
+      "fields": 1362,
+      "reachedByAtLeastOneValue": 0,
+      "reachedByFieldLevelChange": 0,
+      "reachedOnlyByObjectRemoval": 0,
+      "notReachedByAnyValue": 1362,
+      "reachedByMoreThanOneValue": 0
+    }
+  },
+  "templateReferencedPathsNotInDefaults": [
+    "affinity.podAffinity"
+  ],
+  "templateReferencedPathCount": 79,
+  "capabilityApiVersionsTestedByTemplates": [
+    "monitoring.coreos.com/v1"
+  ],
+  "offValuesUsedAsPairwiseContexts": 41,
+  "cubGenShape": {
+    "entries": 114,
+    "distinctDryPaths": 54,
+    "distinctWetPathsInCubGenNotation": 77,
+    "distinctWetFieldsWithObjectIdentity": 91,
+    "transformCounts": {
+      "helm-measured:embedded": 32,
+      "helm-measured:identity": 79,
+      "helm-measured:removed": 3
+    }
+  }
+}
