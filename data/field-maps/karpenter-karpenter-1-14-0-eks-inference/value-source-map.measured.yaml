@@ -1,0 +1,2336 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueSourceMap"
+metadata:
+  name: "karpenter-karpenter-1.14.0-eks-inference-measured"
+spec:
+  chart: "karpenter/karpenter"
+  version: "1.14.0"
+  measurement:
+    method: "one-value-at-a-time-rerender-diff"
+    note: "renderedFields lists baseline fields whose rendered value changed or disappeared when only this value was perturbed. fieldsAdded, objectsAdded, objectsRemoved and objectsRenamed are listed separately. rolloutImpact and immutableFieldRisk are not measured and are omitted."
+    helm:
+      flags:
+        - "--include-crds"
+        - "--skip-tests"
+        - "--no-hooks"
+      kubeVersion: "1.31.0"
+      namespace: "kube-system"
+      releaseName: "karpenter"
+  entries:
+    -
+      id: "additionalAnnotations"
+      valuePath: "additionalAnnotations"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "v1|ServiceAccount|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "additionalClusterRoleRules"
+      valuePath: "additionalClusterRoleRules"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "rules[15].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "additionalLabels"
+      valuePath: "additionalLabels"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "v1|ServiceAccount|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key"
+      valuePath: "affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key"
+      effectiveValue: "karpenter.sh/nodepool"
+      source: "chart-default"
+      perturbedValue: "karpenter.sh/nodepool-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key"
+          value: "karpenter.sh/nodepool"
+          perturbedTo: "karpenter.sh/nodepool-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator"
+      valuePath: "affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator"
+      effectiveValue: "DoesNotExist"
+      source: "chart-default"
+      perturbedValue: "DoesNotExist-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator"
+          value: "DoesNotExist"
+          perturbedTo: "DoesNotExist-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey"
+      valuePath: "affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey"
+      effectiveValue: "kubernetes.io/hostname"
+      source: "chart-default"
+      perturbedValue: "kubernetes.io/hostname-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey"
+          value: "kubernetes.io/hostname"
+          perturbedTo: "kubernetes.io/hostname-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.containerName"
+      valuePath: "controller.containerName"
+      effectiveValue: "controller"
+      source: "chart-default"
+      perturbedValue: "controller-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CPU_REQUESTS].valueFrom.resourceFieldRef.containerName"
+          value: "controller"
+          perturbedTo: "controller-fm"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[MEMORY_LIMIT].valueFrom.resourceFieldRef.containerName"
+          value: "controller"
+          perturbedTo: "controller-fm"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].name"
+          value: "controller"
+          perturbedTo: "controller-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.envFrom"
+      valuePath: "controller.envFrom"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].envFrom[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.env[0].name"
+      valuePath: "controller.env[0].name"
+      effectiveValue: "AWS_REGION"
+      source: "effective-values"
+      perturbedValue: "AWS_REGION-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[AWS_REGION].name"
+          value: "AWS_REGION"
+          perturbedTo: "AWS_REGION-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.env[0].value"
+      valuePath: "controller.env[0].value"
+      effectiveValue: "confighubplaceholder"
+      source: "effective-values"
+      perturbedValue: "confighubplaceholder-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[AWS_REGION].value"
+          value: "confighubplaceholder"
+          perturbedTo: "confighubplaceholder-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.extraVolumeMounts"
+      valuePath: "controller.extraVolumeMounts"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].volumeMounts[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.healthProbe.port"
+      valuePath: "controller.healthProbe.port"
+      effectiveValue: 8081
+      source: "chart-default"
+      perturbedValue: 8082
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[HEALTH_PROBE_PORT].value"
+          value: "8081"
+          perturbedTo: "8082"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].ports[http].containerPort"
+          value: "8081"
+          perturbedTo: "8082"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.image.digest"
+      valuePath: "controller.image.digest"
+      effectiveValue: "sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+      source: "chart-default"
+      perturbedValue: "sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].image"
+          value: "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+          perturbedTo: "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.image.repository"
+      valuePath: "controller.image.repository"
+      effectiveValue: "public.ecr.aws/karpenter/controller"
+      source: "chart-default"
+      perturbedValue: "public.ecr.aws/karpenter/controller-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].image"
+          value: "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+          perturbedTo: "public.ecr.aws/karpenter/controller-fm:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.image.tag"
+      valuePath: "controller.image.tag"
+      effectiveValue: "1.14.0"
+      source: "chart-default"
+      perturbedValue: "1.14.0-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].image"
+          value: "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+          perturbedTo: "public.ecr.aws/karpenter/controller:1.14.0-fm@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.metrics.port"
+      valuePath: "controller.metrics.port"
+      effectiveValue: 8080
+      source: "chart-default"
+      perturbedValue: 8081
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[METRICS_PORT].value"
+          value: "8080"
+          perturbedTo: "8081"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].ports[http-metrics].containerPort"
+          value: "8080"
+          perturbedTo: "8081"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "spec.ports[http-metrics].port"
+          value: "8080"
+          perturbedTo: "8081"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.resources.limits.memory"
+      valuePath: "controller.resources.limits.memory"
+      effectiveValue: "512Mi"
+      source: "effective-values"
+      perturbedValue: "512Mi-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].resources.limits.memory"
+          value: "512Mi"
+          perturbedTo: "512Mi-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.resources.requests.cpu"
+      valuePath: "controller.resources.requests.cpu"
+      effectiveValue: "200m"
+      source: "effective-values"
+      perturbedValue: "200m-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].resources.requests.cpu"
+          value: "200m"
+          perturbedTo: "200m-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.resources.requests.memory"
+      valuePath: "controller.resources.requests.memory"
+      effectiveValue: "512Mi"
+      source: "effective-values"
+      perturbedValue: "512Mi-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].resources.requests.memory"
+          value: "512Mi"
+          perturbedTo: "512Mi-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.securityContext.appArmorProfile"
+      valuePath: "controller.securityContext.appArmorProfile"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].securityContext.appArmorProfile.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.securityContext.seLinuxOptions"
+      valuePath: "controller.securityContext.seLinuxOptions"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].securityContext.seLinuxOptions.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.securityContext.seccompProfile"
+      valuePath: "controller.securityContext.seccompProfile"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].securityContext.seccompProfile.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.sidecarContainer"
+      valuePath: "controller.sidecarContainer"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "controller.sidecarVolumeMounts"
+      valuePath: "controller.sidecarVolumeMounts"
+      effectiveValue:
+        []
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "controller.sidecarContainer"
+            setTo:
+              -
+                name: "fm-probe"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[fm-probe].volumeMounts[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "dnsConfig"
+      valuePath: "dnsConfig"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.dnsConfig.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "dnsPolicy"
+      valuePath: "dnsPolicy"
+      effectiveValue: "ClusterFirst"
+      source: "chart-default"
+      perturbedValue: "ClusterFirst-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.dnsPolicy"
+          value: "ClusterFirst"
+          perturbedTo: "ClusterFirst-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "extraVolumes"
+      valuePath: "extraVolumes"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.volumes[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "fullnameOverride"
+      valuePath: "fullnameOverride"
+      effectiveValue: ""
+      source: "chart-default"
+      perturbedValue: "fm-probe"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[KARPENTER_SERVICE].value"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "roleRef.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "metadata.name"
+          value: "karpenter-core"
+          perturbedTo: "fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "roleRef.name"
+          value: "karpenter-core"
+          perturbedTo: "fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          field: "metadata.name"
+          value: "karpenter-admin"
+          perturbedTo: "fm-probe-admin"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "metadata.name"
+          value: "karpenter-core"
+          perturbedTo: "fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "roleRef.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "metadata.name"
+          value: "karpenter-dns"
+          perturbedTo: "fm-probe-dns"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "roleRef.name"
+          value: "karpenter-dns"
+          perturbedTo: "fm-probe-dns"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          field: "metadata.name"
+          value: "karpenter-dns"
+          perturbedTo: "fm-probe-dns"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        -
+          from: "apps/v1|Deployment|kube-system|karpenter"
+          to: "apps/v1|Deployment|kube-system|fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          to: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          to: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||fm-probe-core"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||fm-probe-admin"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||fm-probe-core"
+        -
+          from: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          to: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          to: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|fm-probe-dns"
+        -
+          from: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          to: "rbac.authorization.k8s.io/v1|Role|kube-system|fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          to: "rbac.authorization.k8s.io/v1|Role|kube-system|fm-probe-dns"
+        -
+          from: "v1|Service|kube-system|karpenter"
+          to: "v1|Service|kube-system|fm-probe"
+    -
+      id: "hostNetwork"
+      valuePath: "hostNetwork"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.hostNetwork"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "imagePullPolicy"
+      valuePath: "imagePullPolicy"
+      effectiveValue: "IfNotPresent"
+      source: "chart-default"
+      perturbedValue: "IfNotPresent-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].imagePullPolicy"
+          value: "IfNotPresent"
+          perturbedTo: "IfNotPresent-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "imagePullSecrets"
+      valuePath: "imagePullSecrets"
+      effectiveValue:
+        []
+      source: "chart-default"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.imagePullSecrets[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "initContainers"
+      valuePath: "initContainers"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.initContainers.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "logErrorOutputPaths[0]"
+      valuePath: "logErrorOutputPaths[0]"
+      effectiveValue: "stderr"
+      source: "chart-default"
+      perturbedValue: "stderr-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[LOG_ERROR_OUTPUT_PATHS].value"
+          value: "stderr"
+          perturbedTo: "stderr-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "logLevel"
+      valuePath: "logLevel"
+      effectiveValue: "info"
+      source: "effective-values"
+      perturbedValue: "info-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[LOG_LEVEL].value"
+          value: "info"
+          perturbedTo: "info-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "logOutputPaths[0]"
+      valuePath: "logOutputPaths[0]"
+      effectiveValue: "stdout"
+      source: "chart-default"
+      perturbedValue: "stdout-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[LOG_OUTPUT_PATHS].value"
+          value: "stdout"
+          perturbedTo: "stdout-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "nameOverride"
+      valuePath: "nameOverride"
+      effectiveValue: ""
+      source: "chart-default"
+      perturbedValue: "fm-probe"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.selector.matchLabels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].labelSelector.matchLabels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[KARPENTER_SERVICE].value"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.topologySpreadConstraints[0].labelSelector.matchLabels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "spec.selector.matchLabels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "roleRef.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "metadata.name"
+          value: "karpenter-core"
+          perturbedTo: "karpenter-fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "roleRef.name"
+          value: "karpenter-core"
+          perturbedTo: "karpenter-fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          field: "metadata.name"
+          value: "karpenter-admin"
+          perturbedTo: "karpenter-fm-probe-admin"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          field: "metadata.name"
+          value: "karpenter-core"
+          perturbedTo: "karpenter-fm-probe-core"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "roleRef.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "metadata.name"
+          value: "karpenter-dns"
+          perturbedTo: "karpenter-fm-probe-dns"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "roleRef.name"
+          value: "karpenter-dns"
+          perturbedTo: "karpenter-fm-probe-dns"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          field: "metadata.name"
+          value: "karpenter-dns"
+          perturbedTo: "karpenter-fm-probe-dns"
+        -
+          object: "v1|ServiceAccount|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.labels.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm-probe"
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "spec.selector.app.kubernetes.io/name"
+          value: "karpenter"
+          perturbedTo: "fm-probe"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        -
+          from: "apps/v1|Deployment|kube-system|karpenter"
+          to: "apps/v1|Deployment|kube-system|karpenter-fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          to: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          to: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-fm-probe-core"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-fm-probe-admin"
+        -
+          from: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+          to: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-fm-probe-core"
+        -
+          from: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          to: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          to: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-fm-probe-dns"
+        -
+          from: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+          to: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-fm-probe"
+        -
+          from: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+          to: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-fm-probe-dns"
+        -
+          from: "v1|Service|kube-system|karpenter"
+          to: "v1|Service|kube-system|karpenter-fm-probe"
+    -
+      id: "nodeSelector.kubernetes\\.io/os"
+      valuePath: "nodeSelector.kubernetes\\.io/os"
+      effectiveValue: "linux"
+      source: "chart-default"
+      perturbedValue: "linux-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.nodeSelector.kubernetes.io/os"
+          value: "linux"
+          perturbedTo: "linux-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "podAnnotations"
+      valuePath: "podAnnotations"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.metadata.annotations"
+          value: "null"
+          removed: true
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.metadata.annotations.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "podDisruptionBudget.maxUnavailable"
+      valuePath: "podDisruptionBudget.maxUnavailable"
+      effectiveValue: 1
+      source: "chart-default"
+      perturbedValue: 2
+      renderedFields:
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "spec.maxUnavailable"
+          value: "1"
+          perturbedTo: "2"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "podDisruptionBudget.name"
+      valuePath: "podDisruptionBudget.name"
+      effectiveValue: "karpenter"
+      source: "chart-default"
+      perturbedValue: "karpenter-fm"
+      renderedFields:
+        -
+          object: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        -
+          from: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+          to: "policy/v1|PodDisruptionBudget|kube-system|karpenter-fm"
+    -
+      id: "podLabels"
+      valuePath: "podLabels"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.metadata.labels.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "podSecurityContext.fsGroup"
+      valuePath: "podSecurityContext.fsGroup"
+      effectiveValue: 65532
+      source: "chart-default"
+      perturbedValue: 65533
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.securityContext.fsGroup"
+          value: "65532"
+          perturbedTo: "65533"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "podSecurityContext.seccompProfile.type"
+      valuePath: "podSecurityContext.seccompProfile.type"
+      effectiveValue: "RuntimeDefault"
+      source: "chart-default"
+      perturbedValue: "RuntimeDefault-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.securityContext.seccompProfile.type"
+          value: "RuntimeDefault"
+          perturbedTo: "RuntimeDefault-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "priorityClassName"
+      valuePath: "priorityClassName"
+      effectiveValue: "system-cluster-critical"
+      source: "chart-default"
+      perturbedValue: "system-cluster-critical-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.priorityClassName"
+          value: "system-cluster-critical"
+          perturbedTo: "system-cluster-critical-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "replicas"
+      valuePath: "replicas"
+      effectiveValue: 1
+      source: "effective-values"
+      perturbedValue: 2
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.replicas"
+          value: "1"
+          perturbedTo: "2"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "revisionHistoryLimit"
+      valuePath: "revisionHistoryLimit"
+      effectiveValue: 10
+      source: "chart-default"
+      perturbedValue: 11
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.revisionHistoryLimit"
+          value: "10"
+          perturbedTo: "11"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "schedulerName"
+      valuePath: "schedulerName"
+      effectiveValue: "default-scheduler"
+      source: "chart-default"
+      perturbedValue: "default-scheduler-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.schedulerName"
+          value: "default-scheduler"
+          perturbedTo: "default-scheduler-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "service.annotations"
+      valuePath: "service.annotations"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "v1|Service|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceAccount.annotations"
+      valuePath: "serviceAccount.annotations"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "v1|ServiceAccount|kube-system|karpenter"
+          field: "metadata.annotations.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceAccount.create"
+      valuePath: "serviceAccount.create"
+      effectiveValue: true
+      source: "effective-values"
+      perturbedValue: false
+      renderedFields:
+        []
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        - "v1|ServiceAccount|kube-system|karpenter"
+      objectsRenamed:
+        []
+    -
+      id: "serviceAccount.name"
+      valuePath: "serviceAccount.name"
+      effectiveValue: "karpenter"
+      source: "effective-values"
+      perturbedValue: "karpenter-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.serviceAccountName"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+          field: "subjects[karpenter].name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+        -
+          object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+          field: "subjects[karpenter].name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+          field: "subjects[karpenter].name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+        -
+          object: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+          field: "subjects[karpenter].name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+        -
+          object: "v1|ServiceAccount|kube-system|karpenter"
+          field: "metadata.name"
+          value: "karpenter"
+          perturbedTo: "karpenter-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        -
+          from: "v1|ServiceAccount|kube-system|karpenter"
+          to: "v1|ServiceAccount|kube-system|karpenter-fm"
+    -
+      id: "serviceMonitor.additionalLabels"
+      valuePath: "serviceMonitor.additionalLabels"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "serviceMonitor.enabled"
+            setTo: true
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+          field: "metadata.labels.fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceMonitor.enabled"
+      valuePath: "serviceMonitor.enabled"
+      effectiveValue: false
+      source: "chart-default"
+      conditionalOn:
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        []
+      objectsAdded:
+        - "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceMonitor.endpointConfig"
+      valuePath: "serviceMonitor.endpointConfig"
+      effectiveValue:
+        {}
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "serviceMonitor.enabled"
+            setTo: true
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue:
+        fm-probe: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+          field: "spec.endpoints[0].fm-probe"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceMonitor.metricRelabelings"
+      valuePath: "serviceMonitor.metricRelabelings"
+      effectiveValue:
+        []
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "serviceMonitor.enabled"
+            setTo: true
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+          field: "spec.endpoints[0].metricRelabelings[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceMonitor.relabelings"
+      valuePath: "serviceMonitor.relabelings"
+      effectiveValue:
+        []
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "serviceMonitor.enabled"
+            setTo: true
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue:
+        -
+          name: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+          field: "spec.endpoints[0].relabelings[fm-probe].name"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "serviceMonitor.sampleLimit"
+      valuePath: "serviceMonitor.sampleLimit"
+      effectiveValue: null
+      source: "chart-default"
+      conditionalOn:
+        values:
+          -
+            path: "serviceMonitor.enabled"
+            setTo: true
+        apiVersions:
+          - "monitoring.coreos.com/v1"
+      perturbedValue: 1
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "monitoring.coreos.com/v1|ServiceMonitor|kube-system|karpenter"
+          field: "spec.sampleLimit"
+          value: "1"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.amiRefreshInterval"
+      valuePath: "settings.amiRefreshInterval"
+      effectiveValue: "1m"
+      source: "chart-default"
+      perturbedValue: "1m-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[AMI_REFRESH_INTERVAL].value"
+          value: "1m"
+          perturbedTo: "1m-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.batchIdleDuration"
+      valuePath: "settings.batchIdleDuration"
+      effectiveValue: "1s"
+      source: "chart-default"
+      perturbedValue: "1s-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[BATCH_IDLE_DURATION].value"
+          value: "1s"
+          perturbedTo: "1s-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.batchMaxDuration"
+      valuePath: "settings.batchMaxDuration"
+      effectiveValue: "10s"
+      source: "chart-default"
+      perturbedValue: "10s-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[BATCH_MAX_DURATION].value"
+          value: "10s"
+          perturbedTo: "10s-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.clusterCABundle"
+      valuePath: "settings.clusterCABundle"
+      effectiveValue: ""
+      source: "chart-default"
+      perturbedValue: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CLUSTER_CA_BUNDLE].name"
+          value: "CLUSTER_CA_BUNDLE"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CLUSTER_CA_BUNDLE].value"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.clusterEndpoint"
+      valuePath: "settings.clusterEndpoint"
+      effectiveValue: ""
+      source: "chart-default"
+      perturbedValue: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CLUSTER_ENDPOINT].name"
+          value: "CLUSTER_ENDPOINT"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CLUSTER_ENDPOINT].value"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.clusterName"
+      valuePath: "settings.clusterName"
+      effectiveValue: "inference-demo"
+      source: "effective-values"
+      perturbedValue: "inference-demo-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[CLUSTER_NAME].value"
+          value: "inference-demo"
+          perturbedTo: "inference-demo-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.disableClusterStateObservability"
+      valuePath: "settings.disableClusterStateObservability"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[DISABLE_CLUSTER_STATE_OBSERVABILITY].name"
+          value: "DISABLE_CLUSTER_STATE_OBSERVABILITY"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[DISABLE_CLUSTER_STATE_OBSERVABILITY].value"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.disableDryRun"
+      valuePath: "settings.disableDryRun"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[DISABLE_DRY_RUN].name"
+          value: "DISABLE_DRY_RUN"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[DISABLE_DRY_RUN].value"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.eksControlPlane"
+      valuePath: "settings.eksControlPlane"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[EKS_CONTROL_PLANE].name"
+          value: "EKS_CONTROL_PLANE"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[EKS_CONTROL_PLANE].value"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.enableZonalShift"
+      valuePath: "settings.enableZonalShift"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[ENABLE_ZONAL_SHIFT].name"
+          value: "ENABLE_ZONAL_SHIFT"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[ENABLE_ZONAL_SHIFT].value"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.capacityBuffer"
+      valuePath: "settings.featureGates.capacityBuffer"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.nodeOverlay"
+      valuePath: "settings.featureGates.nodeOverlay"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBu..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.nodeRepair"
+      valuePath: "settings.featureGates.nodeRepair"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.reservedCapacity"
+      valuePath: "settings.featureGates.reservedCapacity"
+      effectiveValue: true
+      source: "chart-default"
+      perturbedValue: false
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,Capacity..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.spotToSpotConsolidation"
+      valuePath: "settings.featureGates.spotToSpotConsolidation"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.featureGates.staticCapacity"
+      valuePath: "settings.featureGates.staticCapacity"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[FEATURE_GATES].value"
+          value: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+          perturbedTo: "ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBu..."
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.ignoreDRARequests"
+      valuePath: "settings.ignoreDRARequests"
+      effectiveValue: true
+      source: "chart-default"
+      perturbedValue: false
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name"
+          value: "IGNORE_DRA_REQUESTS"
+          removed: true
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].value"
+          value: "true"
+          removed: true
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.interruptionQueue"
+      valuePath: "settings.interruptionQueue"
+      effectiveValue: ""
+      source: "effective-values"
+      perturbedValue: "fm-probe"
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[INTERRUPTION_QUEUE].name"
+          value: "INTERRUPTION_QUEUE"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[INTERRUPTION_QUEUE].value"
+          value: "fm-probe"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.isolatedVPC"
+      valuePath: "settings.isolatedVPC"
+      effectiveValue: false
+      source: "chart-default"
+      perturbedValue: true
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[ISOLATED_VPC].name"
+          value: "ISOLATED_VPC"
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[ISOLATED_VPC].value"
+          value: "true"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.minValuesPolicy"
+      valuePath: "settings.minValuesPolicy"
+      effectiveValue: "Strict"
+      source: "chart-default"
+      perturbedValue: "Strict-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[MIN_VALUES_POLICY].value"
+          value: "Strict"
+          perturbedTo: "Strict-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.preferencePolicy"
+      valuePath: "settings.preferencePolicy"
+      effectiveValue: "Respect"
+      source: "chart-default"
+      perturbedValue: "Respect-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[PREFERENCE_POLICY].value"
+          value: "Respect"
+          perturbedTo: "Respect-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.reservedENIs"
+      valuePath: "settings.reservedENIs"
+      effectiveValue: "0"
+      source: "chart-default"
+      perturbedValue: "0-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[RESERVED_ENIS].value"
+          value: "0"
+          perturbedTo: "0-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.subnetRefreshInterval"
+      valuePath: "settings.subnetRefreshInterval"
+      effectiveValue: "1m"
+      source: "chart-default"
+      perturbedValue: "1m-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[SUBNET_REFRESH_INTERVAL].value"
+          value: "1m"
+          perturbedTo: "1m-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "settings.vmMemoryOverheadPercent"
+      valuePath: "settings.vmMemoryOverheadPercent"
+      effectiveValue: 0.075
+      source: "chart-default"
+      perturbedValue: 1.075
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.containers[controller].env[VM_MEMORY_OVERHEAD_PERCENT].value"
+          value: "0.075"
+          perturbedTo: "1.075"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "strategy.rollingUpdate.maxUnavailable"
+      valuePath: "strategy.rollingUpdate.maxUnavailable"
+      effectiveValue: 1
+      source: "chart-default"
+      perturbedValue: 2
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.strategy.rollingUpdate.maxUnavailable"
+          value: "1"
+          perturbedTo: "2"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "terminationGracePeriodSeconds"
+      valuePath: "terminationGracePeriodSeconds"
+      effectiveValue: null
+      source: "chart-default"
+      perturbedValue: 1
+      renderedFields:
+        []
+      fieldsAdded:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.terminationGracePeriodSeconds"
+          value: "1"
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "tolerations[0].key"
+      valuePath: "tolerations[0].key"
+      effectiveValue: "CriticalAddonsOnly"
+      source: "chart-default"
+      perturbedValue: "CriticalAddonsOnly-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.tolerations[0].key"
+          value: "CriticalAddonsOnly"
+          perturbedTo: "CriticalAddonsOnly-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "tolerations[0].operator"
+      valuePath: "tolerations[0].operator"
+      effectiveValue: "Exists"
+      source: "chart-default"
+      perturbedValue: "Exists-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.tolerations[0].operator"
+          value: "Exists"
+          perturbedTo: "Exists-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "topologySpreadConstraints[0].maxSkew"
+      valuePath: "topologySpreadConstraints[0].maxSkew"
+      effectiveValue: 1
+      source: "chart-default"
+      perturbedValue: 2
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.topologySpreadConstraints[0].maxSkew"
+          value: "1"
+          perturbedTo: "2"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "topologySpreadConstraints[0].topologyKey"
+      valuePath: "topologySpreadConstraints[0].topologyKey"
+      effectiveValue: "topology.kubernetes.io/zone"
+      source: "chart-default"
+      perturbedValue: "topology.kubernetes.io/zone-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.topologySpreadConstraints[0].topologyKey"
+          value: "topology.kubernetes.io/zone"
+          perturbedTo: "topology.kubernetes.io/zone-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []
+    -
+      id: "topologySpreadConstraints[0].whenUnsatisfiable"
+      valuePath: "topologySpreadConstraints[0].whenUnsatisfiable"
+      effectiveValue: "DoNotSchedule"
+      source: "chart-default"
+      perturbedValue: "DoNotSchedule-fm"
+      renderedFields:
+        -
+          object: "apps/v1|Deployment|kube-system|karpenter"
+          field: "spec.template.spec.topologySpreadConstraints[0].whenUnsatisfiable"
+          value: "DoNotSchedule"
+          perturbedTo: "DoNotSchedule-fm"
+      fieldsAdded:
+        []
+      objectsAdded:
+        []
+      objectsRemoved:
+        []
+      objectsRenamed:
+        []

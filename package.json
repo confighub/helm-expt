@@ -211,6 +211,7 @@
     "catalog:images": "node scripts/generate-catalog-images.mjs --generate",
     "catalog:images:verify": "node scripts/generate-catalog-images.mjs --verify",
     "catalog:images:self-test": "node scripts/generate-catalog-images.mjs --self-test",
+    "field-map:measure": "node scripts/measure-value-field-map.mjs",
     "catalog:listings": "node scripts/generate-catalog-listings.mjs --generate",
     "catalog:listings:verify": "node scripts/generate-catalog-listings.mjs --verify",
     "catalog:listings:self-test": "node scripts/generate-catalog-listings.mjs --self-test",

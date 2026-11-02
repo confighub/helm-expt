@@ -1,0 +1,1028 @@
+[
+  {
+    "dry_path": "values.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key",
+    "wet_path": "Deployment/spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution/nodeSelectorTerms[0]/matchExpressions[0]/key",
+    "source_path": "<helm-default>:values.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator",
+    "wet_path": "Deployment/spec/template/spec/affinity/nodeAffinity/requiredDuringSchedulingIgnoredDuringExecution/nodeSelectorTerms[0]/matchExpressions[0]/operator",
+    "source_path": "<helm-default>:values.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey",
+    "wet_path": "Deployment/spec/template/spec/affinity/podAntiAffinity/requiredDuringSchedulingIgnoredDuringExecution[0]/topologyKey",
+    "source_path": "<helm-default>:values.affinity.podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution[0].topologyKey",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.containerName",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[CPU_REQUESTS]/valueFrom/resourceFieldRef/containerName",
+    "source_path": "<helm-default>:values.controller.containerName",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.containerName",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[MEMORY_LIMIT]/valueFrom/resourceFieldRef/containerName",
+    "source_path": "<helm-default>:values.controller.containerName",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.containerName",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/name",
+    "source_path": "<helm-default>:values.controller.containerName",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.env[0].name",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[AWS_REGION]/name",
+    "source_path": "effective-values-eks-inference.yaml:controller.env[0].name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.env[0].value",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[AWS_REGION]/value",
+    "source_path": "effective-values-eks-inference.yaml:controller.env[0].value",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.healthProbe.port",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[HEALTH_PROBE_PORT]/value",
+    "source_path": "<helm-default>:values.controller.healthProbe.port",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.healthProbe.port",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/ports[http]/containerPort",
+    "source_path": "<helm-default>:values.controller.healthProbe.port",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.image.digest",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/image",
+    "source_path": "<helm-default>:values.controller.image.digest",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.image.repository",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/image",
+    "source_path": "<helm-default>:values.controller.image.repository",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.image.tag",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/image",
+    "source_path": "<helm-default>:values.controller.image.tag",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.metrics.port",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[METRICS_PORT]/value",
+    "source_path": "<helm-default>:values.controller.metrics.port",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.metrics.port",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/ports[http-metrics]/containerPort",
+    "source_path": "<helm-default>:values.controller.metrics.port",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.metrics.port",
+    "wet_path": "Service/spec/ports[http-metrics]/port",
+    "source_path": "<helm-default>:values.controller.metrics.port",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|Service|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.resources.limits.memory",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/resources/limits/memory",
+    "source_path": "effective-values-eks-inference.yaml:controller.resources.limits.memory",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.resources.requests.cpu",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/resources/requests/cpu",
+    "source_path": "effective-values-eks-inference.yaml:controller.resources.requests.cpu",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.controller.resources.requests.memory",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/resources/requests/memory",
+    "source_path": "effective-values-eks-inference.yaml:controller.resources.requests.memory",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.dnsPolicy",
+    "wet_path": "Deployment/spec/template/spec/dnsPolicy",
+    "source_path": "<helm-default>:values.dnsPolicy",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "Deployment/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[KARPENTER_SERVICE]/value",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "RoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "RoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "RoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "RoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "Role/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "Role/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.fullnameOverride",
+    "wet_path": "Service/metadata/name",
+    "source_path": "<helm-default>:values.fullnameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|Service|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.imagePullPolicy",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/imagePullPolicy",
+    "source_path": "<helm-default>:values.imagePullPolicy",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.logErrorOutputPaths[0]",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[LOG_ERROR_OUTPUT_PATHS]/value",
+    "source_path": "<helm-default>:values.logErrorOutputPaths[0]",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.logLevel",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[LOG_LEVEL]/value",
+    "source_path": "effective-values-eks-inference.yaml:logLevel",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.logOutputPaths[0]",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[LOG_OUTPUT_PATHS]/value",
+    "source_path": "<helm-default>:values.logOutputPaths[0]",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/spec.template.metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/spec/selector/matchLabels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/spec/template/spec/affinity/podAntiAffinity/requiredDuringSchedulingIgnoredDuringExecution[0]/labelSelector/matchLabels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[KARPENTER_SERVICE]/value",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Deployment/spec/template/spec/topologySpreadConstraints[0]/labelSelector/matchLabels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "PodDisruptionBudget/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "PodDisruptionBudget/spec/selector/matchLabels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ClusterRole/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "RoleBinding/roleRef/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Role/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Role/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Role/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Role/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "ServiceAccount/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|ServiceAccount|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Service/metadata.labels.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|Service|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Service/metadata/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "v1|Service|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nameOverride",
+    "wet_path": "Service/spec.selector.app.kubernetes.io/name",
+    "source_path": "<helm-default>:values.nameOverride",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|Service|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.nodeSelector.kubernetes\\.io/os",
+    "wet_path": "Deployment/spec/template/spec/nodeSelector.kubernetes.io/os",
+    "source_path": "<helm-default>:values.nodeSelector.kubernetes\\.io/os",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.podAnnotations",
+    "wet_path": "Deployment/spec/template/metadata/annotations",
+    "source_path": "<helm-default>:values.podAnnotations",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:removed",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.podDisruptionBudget.maxUnavailable",
+    "wet_path": "PodDisruptionBudget/spec/maxUnavailable",
+    "source_path": "<helm-default>:values.podDisruptionBudget.maxUnavailable",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.podDisruptionBudget.name",
+    "wet_path": "PodDisruptionBudget/metadata/name",
+    "source_path": "<helm-default>:values.podDisruptionBudget.name",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "policy/v1|PodDisruptionBudget|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.podSecurityContext.fsGroup",
+    "wet_path": "Deployment/spec/template/spec/securityContext/fsGroup",
+    "source_path": "<helm-default>:values.podSecurityContext.fsGroup",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.podSecurityContext.seccompProfile.type",
+    "wet_path": "Deployment/spec/template/spec/securityContext/seccompProfile/type",
+    "source_path": "<helm-default>:values.podSecurityContext.seccompProfile.type",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.priorityClassName",
+    "wet_path": "Deployment/spec/template/spec/priorityClassName",
+    "source_path": "<helm-default>:values.priorityClassName",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.replicas",
+    "wet_path": "Deployment/spec/replicas",
+    "source_path": "effective-values-eks-inference.yaml:replicas",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.revisionHistoryLimit",
+    "wet_path": "Deployment/spec/revisionHistoryLimit",
+    "source_path": "<helm-default>:values.revisionHistoryLimit",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.schedulerName",
+    "wet_path": "Deployment/spec/template/spec/schedulerName",
+    "source_path": "<helm-default>:values.schedulerName",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "Deployment/spec/template/spec/serviceAccountName",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "ClusterRoleBinding/subjects[karpenter]/name",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "ClusterRoleBinding/subjects[karpenter]/name",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "RoleBinding/subjects[karpenter]/name",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "RoleBinding/subjects[karpenter]/name",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
+  },
+  {
+    "dry_path": "values.serviceAccount.name",
+    "wet_path": "ServiceAccount/metadata/name",
+    "source_path": "effective-values-eks-inference.yaml:serviceAccount.name",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "v1|ServiceAccount|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.amiRefreshInterval",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[AMI_REFRESH_INTERVAL]/value",
+    "source_path": "<helm-default>:values.settings.amiRefreshInterval",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.batchIdleDuration",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[BATCH_IDLE_DURATION]/value",
+    "source_path": "<helm-default>:values.settings.batchIdleDuration",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.batchMaxDuration",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[BATCH_MAX_DURATION]/value",
+    "source_path": "<helm-default>:values.settings.batchMaxDuration",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.clusterName",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[CLUSTER_NAME]/value",
+    "source_path": "effective-values-eks-inference.yaml:settings.clusterName",
+    "source_layer": "effective-values",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.capacityBuffer",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.capacityBuffer",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.nodeOverlay",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.nodeOverlay",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.nodeRepair",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.nodeRepair",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.reservedCapacity",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.reservedCapacity",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.spotToSpotConsolidation",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.spotToSpotConsolidation",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.featureGates.staticCapacity",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[FEATURE_GATES]/value",
+    "source_path": "<helm-default>:values.settings.featureGates.staticCapacity",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:embedded",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.ignoreDRARequests",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[IGNORE_DRA_REQUESTS]/name",
+    "source_path": "<helm-default>:values.settings.ignoreDRARequests",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:removed",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.ignoreDRARequests",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[IGNORE_DRA_REQUESTS]/value",
+    "source_path": "<helm-default>:values.settings.ignoreDRARequests",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:removed",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.minValuesPolicy",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[MIN_VALUES_POLICY]/value",
+    "source_path": "<helm-default>:values.settings.minValuesPolicy",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.preferencePolicy",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[PREFERENCE_POLICY]/value",
+    "source_path": "<helm-default>:values.settings.preferencePolicy",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.reservedENIs",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[RESERVED_ENIS]/value",
+    "source_path": "<helm-default>:values.settings.reservedENIs",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.subnetRefreshInterval",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[SUBNET_REFRESH_INTERVAL]/value",
+    "source_path": "<helm-default>:values.settings.subnetRefreshInterval",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.settings.vmMemoryOverheadPercent",
+    "wet_path": "Deployment/spec/template/spec/containers[controller]/env[VM_MEMORY_OVERHEAD_PERCENT]/value",
+    "source_path": "<helm-default>:values.settings.vmMemoryOverheadPercent",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.strategy.rollingUpdate.maxUnavailable",
+    "wet_path": "Deployment/spec/strategy/rollingUpdate/maxUnavailable",
+    "source_path": "<helm-default>:values.strategy.rollingUpdate.maxUnavailable",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.tolerations[0].key",
+    "wet_path": "Deployment/spec/template/spec/tolerations[0]/key",
+    "source_path": "<helm-default>:values.tolerations[0].key",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.tolerations[0].operator",
+    "wet_path": "Deployment/spec/template/spec/tolerations[0]/operator",
+    "source_path": "<helm-default>:values.tolerations[0].operator",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.topologySpreadConstraints[0].maxSkew",
+    "wet_path": "Deployment/spec/template/spec/topologySpreadConstraints[0]/maxSkew",
+    "source_path": "<helm-default>:values.topologySpreadConstraints[0].maxSkew",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.topologySpreadConstraints[0].topologyKey",
+    "wet_path": "Deployment/spec/template/spec/topologySpreadConstraints[0]/topologyKey",
+    "source_path": "<helm-default>:values.topologySpreadConstraints[0].topologyKey",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  },
+  {
+    "dry_path": "values.topologySpreadConstraints[0].whenUnsatisfiable",
+    "wet_path": "Deployment/spec/template/spec/topologySpreadConstraints[0]/whenUnsatisfiable",
+    "source_path": "<helm-default>:values.topologySpreadConstraints[0].whenUnsatisfiable",
+    "source_layer": "chart-default",
+    "transform": "helm-measured:identity",
+    "confidence": 1,
+    "object": "apps/v1|Deployment|kube-system|karpenter"
+  }
+]

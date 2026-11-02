@@ -1,0 +1,570 @@
+{
+  "valuesTested": 81,
+  "pairsTested": 3240,
+  "rendersForPairs": 3240,
+  "interactingPairs": 41,
+  "valuesInvolvedInAnInteraction": 30,
+  "jointRenderFailures": 0,
+  "interacting": [
+    {
+      "a": "additionalAnnotations",
+      "b": "serviceAccount.create",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "v1|ServiceAccount|kube-system|karpenter|metadata.annotations.fm-probe|added|fm-probe"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "additionalLabels",
+      "b": "serviceAccount.create",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "v1|ServiceAccount|kube-system|karpenter|metadata.labels.fm-probe|added|fm-probe"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "controller.containerName",
+      "b": "controller.sidecarContainer",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 3,
+      "extraInJoint": 150,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[CPU_REQUESTS].valueFrom.resourceFieldRef.containerName|changed|controller-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[MEMORY_LIMIT].valueFrom.resourceFieldRef.containerName|changed|controller-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].name|changed|controller-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller-fm].env[AMI_REFRESH_INTERVAL].name|added|AMI_REFRESH_INTERVAL",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller-fm].env[AMI_REFRESH_INTERVAL].value|added|1m",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller-fm].env[AWS_REGION].name|added|AWS_REGION"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "controller.env[0].value",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].value|changed|confighubplaceholder-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.clusterCABundle",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.clusterEndpoint",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.disableClusterStateObservability",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.disableDryRun",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.eksControlPlane",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.enableZonalShift",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.ignoreDRARequests",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.interruptionQueue",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.env[0].name",
+      "b": "settings.isolatedVPC",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 4,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|changed|AWS_REGION-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].name|added|AWS_REGION-fm",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION-fm].value|added|confighubplaceholder",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[AWS_REGION].name|removed|"
+      ]
+    },
+    {
+      "a": "controller.extraVolumeMounts",
+      "b": "controller.sidecarContainer",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 0,
+      "extraInJoint": 1,
+      "sampleMissing": [],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[fm-probe].volumeMounts[fm-probe].name|added|fm-probe"
+      ]
+    },
+    {
+      "a": "controller.image.digest",
+      "b": "controller.image.repository",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller-fm:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller-fm:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      ]
+    },
+    {
+      "a": "controller.image.digest",
+      "b": "controller.image.tag",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller:1.14.0-fm@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller:1.14.0-fm@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23-fm"
+      ]
+    },
+    {
+      "a": "controller.image.repository",
+      "b": "controller.image.tag",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller-fm:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller:1.14.0-fm@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].image|changed|public.ecr.aws/karpenter/controller-fm:1.14.0-fm@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+      ]
+    },
+    {
+      "a": "fullnameOverride",
+      "b": "nameOverride",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 27,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|metadata.name|changed|karpenter-fm-probe",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[KARPENTER_SERVICE].value|changed|karpenter-fm-probe",
+        "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core|metadata.name|changed|karpenter-fm-probe-core"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "nameOverride",
+      "b": "serviceAccount.create",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "v1|ServiceAccount|kube-system|karpenter|metadata.labels.app.kubernetes.io/name|changed|fm-probe"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "serviceAccount.annotations",
+      "b": "serviceAccount.create",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "v1|ServiceAccount|kube-system|karpenter|metadata.annotations.fm-probe|added|fm-probe"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "serviceAccount.create",
+      "b": "serviceAccount.name",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "v1|ServiceAccount|kube-system|karpenter|metadata.name|changed|karpenter-fm",
+        "~v1|ServiceAccount|kube-system|karpenter>v1|ServiceAccount|kube-system|karpenter-fm"
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.disableClusterStateObservability",
+      "b": "settings.ignoreDRARequests",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 4,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[DISABLE_CLUSTER_STATE_OBSERVABILITY].name|added|DISABLE_CLUSTER_STATE_OBSERVABILITY",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[DISABLE_CLUSTER_STATE_OBSERVABILITY].value|added|true",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|removed|"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|changed|DISABLE_CLUSTER_STATE_OBSERVABILITY"
+      ]
+    },
+    {
+      "a": "settings.disableDryRun",
+      "b": "settings.ignoreDRARequests",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 4,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[DISABLE_DRY_RUN].name|added|DISABLE_DRY_RUN",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[DISABLE_DRY_RUN].value|added|true",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|removed|"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|changed|DISABLE_DRY_RUN"
+      ]
+    },
+    {
+      "a": "settings.eksControlPlane",
+      "b": "settings.ignoreDRARequests",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 4,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[EKS_CONTROL_PLANE].name|added|EKS_CONTROL_PLANE",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[EKS_CONTROL_PLANE].value|added|true",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|removed|"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|changed|EKS_CONTROL_PLANE"
+      ]
+    },
+    {
+      "a": "settings.enableZonalShift",
+      "b": "settings.ignoreDRARequests",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 4,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[ENABLE_ZONAL_SHIFT].name|added|ENABLE_ZONAL_SHIFT",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[ENABLE_ZONAL_SHIFT].value|added|true",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|removed|"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|changed|ENABLE_ZONAL_SHIFT"
+      ]
+    },
+    {
+      "a": "settings.featureGates.capacityBuffer",
+      "b": "settings.featureGates.nodeOverlay",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.featureGates.capacityBuffer",
+      "b": "settings.featureGates.nodeRepair",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.featureGates.capacityBuffer",
+      "b": "settings.featureGates.reservedCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.featureGates.capacityBuffer",
+      "b": "settings.featureGates.spotToSpotConsolidation",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.featureGates.capacityBuffer",
+      "b": "settings.featureGates.staticCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 1,
+      "extraInJoint": 0,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ],
+      "sampleExtra": []
+    },
+    {
+      "a": "settings.featureGates.nodeOverlay",
+      "b": "settings.featureGates.nodeRepair",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=true,StaticCapacity=false,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeOverlay",
+      "b": "settings.featureGates.reservedCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,Capacity...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityB..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeOverlay",
+      "b": "settings.featureGates.spotToSpotConsolidation",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeOverlay",
+      "b": "settings.featureGates.staticCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=true,StaticCapacity=true,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeRepair",
+      "b": "settings.featureGates.reservedCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,Capacity...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeRepair",
+      "b": "settings.featureGates.spotToSpotConsolidation",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.nodeRepair",
+      "b": "settings.featureGates.staticCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=true,NodeOverlay=false,StaticCapacity=true,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.reservedCapacity",
+      "b": "settings.featureGates.spotToSpotConsolidation",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,Capacity...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityB..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.reservedCapacity",
+      "b": "settings.featureGates.staticCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,Capacity...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=false,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityB..."
+      ]
+    },
+    {
+      "a": "settings.featureGates.spotToSpotConsolidation",
+      "b": "settings.featureGates.staticCapacity",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 2,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=false,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBu...",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=false,CapacityBu..."
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[FEATURE_GATES].value|changed|ReservedCapacity=true,SpotToSpotConsolidation=true,NodeRepair=false,NodeOverlay=false,StaticCapacity=true,CapacityBuf..."
+      ]
+    },
+    {
+      "a": "settings.ignoreDRARequests",
+      "b": "settings.isolatedVPC",
+      "interaction": "differs-from-union",
+      "missingFromJoint": 4,
+      "extraInJoint": 1,
+      "sampleMissing": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|removed|",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].value|removed|",
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[ISOLATED_VPC].name|added|ISOLATED_VPC"
+      ],
+      "sampleExtra": [
+        "apps/v1|Deployment|kube-system|karpenter|spec.template.spec.containers[controller].env[IGNORE_DRA_REQUESTS].name|changed|ISOLATED_VPC"
+      ]
+    }
+  ]
+}
