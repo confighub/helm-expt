@@ -804,6 +804,12 @@ e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0  argo-cd-argo-c
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev argo-cd-argo-cd-9-5-15-default --target workshop/target --space-pattern &quot;template:argo-cd-argo-cd-9-5-15-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-9-5-15-default-dev</code></pre>
         </div>
@@ -816,6 +822,12 @@ e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0  argo-cd-argo-c
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote argo-cd-argo-cd-9-5-15-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-9-5-15-default-dev</code></pre>
@@ -886,6 +898,12 @@ e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0  argo-cd-argo-c
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev argo-cd-argo-cd-9-5-15-no-crds --target workshop/target --space-pattern &quot;template:argo-cd-argo-cd-9-5-15-no-crds-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-no-crds-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-no-crds-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-9-5-15-no-crds-dev</code></pre>
         </div>
@@ -898,6 +916,12 @@ e52ddef5e56e347a8959dd1e8591e116479bf8aa8682c83e3753fe7355a38cc0  argo-cd-argo-c
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote argo-cd-argo-cd-9-5-15-no-crds-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-no-crds-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-9-5-15-no-crds-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-9-5-15-no-crds-dev</code></pre>

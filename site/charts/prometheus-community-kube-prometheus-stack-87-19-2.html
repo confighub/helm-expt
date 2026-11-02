@@ -900,6 +900,12 @@ c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b  prometheus-com
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev prometheus-community-kube-prometheus-stack-87-19-2-minimal --target workshop/target --space-pattern &quot;template:prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev</code></pre>
         </div>
@@ -912,6 +918,12 @@ c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b  prometheus-com
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev</code></pre>

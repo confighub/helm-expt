@@ -697,6 +697,12 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default --target workshop/target --space-pattern &quot;template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev</code></pre>
         </div>
@@ -709,6 +715,12 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-default-dev</code></pre>
@@ -780,6 +792,12 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training --target workshop/target --space-pattern &quot;template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev</code></pre>
         </div>
@@ -792,6 +810,12 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training-dev</code></pre>
@@ -863,6 +887,12 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --target workshop/target --space-pattern &quot;template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev</code></pre>
         </div>
@@ -875,6 +905,12 @@ c5e25860c069d686900435af631514b948bec7a6fde59aabeadd78ccf737b779  dra-driver-nvi
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev</code></pre>

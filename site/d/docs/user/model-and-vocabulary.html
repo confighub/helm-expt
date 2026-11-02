@@ -620,7 +620,8 @@
 <p>To customise, run a named function on the variant. Your edits stay when a new base is promoted. Nothing reaches the cluster until you publish a release.</p>
 <pre><code>cub function do --space my-app-prod --unit my-app --change-desc &quot;Run three replicas&quot; set-replicas 3
 cub release publish my-app-prod</code></pre>
-<p><b>GitOps delivers. It does not decide.</b> Argo CD or Flux pulls the release digest, applies it and reports the result. Each can express an ordering step, with sync waves or dependent Kustomizations, but you have to set that up. No plan step is marked automatic, and the Catalog's records have not yet watched a GitOps tool carry one out, so each entry page says what has run.</p>
+<p><b>GitOps delivers. It does not decide.</b> Argo CD or Flux pulls the release digest, applies it and reports the result. A plan's documents stay out of the release, because Argo CD can't apply them, so an entry page prints the commands that remove them.</p>
+<p>No plan step is marked automatic, so each entry page says what has run. In <a href="live-walk-plan-step-2026-11-02.html">one dated run</a>, Argo CD carried out a CRD ordering step with no setup. Other steps, such as a job before an upgrade, still need someone to carry them out.</p>
 <h2 id="what-is-reproducible-and-what-is-live">What is reproducible, and what is live</h2>
 <p>Ask whether you could get the same answer on a laptop, with no cluster and no account. If you could, it is reproducible.</p>
 <table><thead><tr><th></th><th>Reproducible</th><th>Live-dependent</th></tr></thead><tbody><tr><td><b>Install</b></td><td>The chart version, values, preset and AICR criteria</td><td>Cluster facts a package reads as it renders</td></tr>

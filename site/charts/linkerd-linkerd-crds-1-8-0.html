@@ -789,6 +789,12 @@ af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b  linkerd-linker
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev linkerd-linkerd-crds-1-8-0-default --target workshop/target --space-pattern &quot;template:linkerd-linkerd-crds-1-8-0-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space linkerd-linkerd-crds-1-8-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space linkerd-linkerd-crds-1-8-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish linkerd-linkerd-crds-1-8-0-default-dev</code></pre>
         </div>
@@ -801,6 +807,12 @@ af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b  linkerd-linker
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote linkerd-linkerd-crds-1-8-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space linkerd-linkerd-crds-1-8-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space linkerd-linkerd-crds-1-8-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish linkerd-linkerd-crds-1-8-0-default-dev</code></pre>

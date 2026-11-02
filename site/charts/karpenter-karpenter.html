@@ -726,6 +726,12 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev karpenter-karpenter-1-14-0-default --target workshop/target --space-pattern &quot;template:karpenter-karpenter-1-14-0-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space karpenter-karpenter-1-14-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space karpenter-karpenter-1-14-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-default-dev</code></pre>
         </div>
@@ -738,6 +744,12 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote karpenter-karpenter-1-14-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space karpenter-karpenter-1-14-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space karpenter-karpenter-1-14-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-default-dev</code></pre>

@@ -795,6 +795,12 @@ cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47  argo-cd-argo-r
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev argo-cd-argo-rollouts-2-40-9-default --target workshop/target --space-pattern &quot;template:argo-cd-argo-rollouts-2-40-9-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-rollouts-2-40-9-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-rollouts-2-40-9-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-rollouts-2-40-9-default-dev</code></pre>
         </div>
@@ -807,6 +813,12 @@ cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47  argo-cd-argo-r
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote argo-cd-argo-rollouts-2-40-9-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-rollouts-2-40-9-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-rollouts-2-40-9-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish argo-cd-argo-rollouts-2-40-9-default-dev</code></pre>

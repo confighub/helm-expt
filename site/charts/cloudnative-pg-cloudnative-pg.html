@@ -744,6 +744,12 @@ b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1  cloudnative-pg
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev cloudnative-pg-cloudnative-pg-0-29-0-default --target workshop/target --space-pattern &quot;template:cloudnative-pg-cloudnative-pg-0-29-0-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space cloudnative-pg-cloudnative-pg-0-29-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space cloudnative-pg-cloudnative-pg-0-29-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish cloudnative-pg-cloudnative-pg-0-29-0-default-dev</code></pre>
         </div>
@@ -756,6 +762,12 @@ b11817a3879adca31331188e6ff8e77b031832c62ec22eceb86a565d827f6ea1  cloudnative-pg
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote cloudnative-pg-cloudnative-pg-0-29-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space cloudnative-pg-cloudnative-pg-0-29-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space cloudnative-pg-cloudnative-pg-0-29-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish cloudnative-pg-cloudnative-pg-0-29-0-default-dev</code></pre>

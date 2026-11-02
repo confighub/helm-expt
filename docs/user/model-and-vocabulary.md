@@ -185,10 +185,13 @@ cub release publish my-app-prod
 ```
 
 **GitOps delivers. It does not decide.** Argo CD or Flux pulls the release digest,
-applies it and reports the result. Each can express an ordering step, with sync
-waves or dependent Kustomizations, but you have to set that up. No plan step is
-marked automatic, and the Catalog's records have not yet watched a GitOps tool carry
-one out, so each entry page says what has run.
+applies it and reports the result. A plan's documents stay out of the release, because
+Argo CD can't apply them, so an entry page prints the commands that remove them.
+
+No plan step is marked automatic, so each entry page says what has run. In
+[one dated run](./live-walk-plan-step-2026-11-02.md), Argo CD carried out a CRD ordering
+step with no setup. Other steps, such as a job before an upgrade, still need someone to
+carry them out.
 
 ## What is reproducible, and what is live
 

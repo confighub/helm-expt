@@ -805,6 +805,12 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-default --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-default-dev</code></pre>
         </div>
@@ -817,6 +823,12 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-default-dev</code></pre>
@@ -887,6 +899,12 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-aicr-eks-training --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev</code></pre>
         </div>
@@ -899,6 +917,12 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-aicr-eks-training-dev</code></pre>
@@ -969,6 +993,12 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-driver-580-105-08 --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev</code></pre>
         </div>
@@ -981,6 +1011,12 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-driver-580-105-08-dev</code></pre>
@@ -1051,6 +1087,12 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-driver-580-126-20 --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev</code></pre>
         </div>
@@ -1063,6 +1105,12 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-driver-580-126-20-dev</code></pre>
@@ -1133,6 +1181,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-external-nfd --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-external-nfd-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-external-nfd-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-external-nfd-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-external-nfd-dev</code></pre>
         </div>
@@ -1145,6 +1199,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-external-nfd-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-external-nfd-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-external-nfd-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-external-nfd-dev</code></pre>
@@ -1215,6 +1275,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-preinstalled-driver --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev</code></pre>
         </div>
@@ -1227,6 +1293,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-preinstalled-driver-dev</code></pre>
@@ -1297,6 +1369,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --target workshop/target --space-pattern &quot;template:nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev</code></pre>
         </div>
@@ -1309,6 +1387,12 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit-dev</code></pre>

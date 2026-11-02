@@ -1291,6 +1291,18 @@
           "writes": true
         },
         {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
           "comment": "publish the Release that Argo CD or Flux pulls",
           "command": "cub release publish nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev",
           "needsAccount": true,
@@ -1322,6 +1334,18 @@
         {
           "comment": "promote once you have read the preview",
           "command": "cub variant promote nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-lora-meta-llama-3-2-1b-instruct-llm-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },

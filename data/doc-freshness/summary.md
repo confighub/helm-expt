@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-02 (commit `3f8d042cac`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-02 (commit `42a09d8b8f`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 494 |
+| Authored docs tracked | 495 |
 | Fresh (no linked source newer than the doc) | 73 |
 | **Review-due** | 89 |
-| No linked evidence sources (cannot auto-trigger) | 332 |
+| No linked evidence sources (cannot auto-trigger) | 333 |
 
 ## Review queue
 
@@ -435,6 +435,7 @@ into this freshness model.
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)
 - [docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md](../../docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md)
 - [docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.md](../../docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.md)
+- [docs/user/live-walk-plan-step-2026-11-02.md](../../docs/user/live-walk-plan-step-2026-11-02.md)
 - [docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md](../../docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md)
 - [docs/user/live-walk-test-plain-objects-2026-10-11.md](../../docs/user/live-walk-test-plain-objects-2026-10-11.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
