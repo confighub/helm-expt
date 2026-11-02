@@ -15,8 +15,8 @@ into ConfigHub.**
   and flatten again.
 - **Customise** changes a copy for one place. If the objects are right and this
   place differs, change it in ConfigHub.
-- **Everything before the cluster is recorded, so it can be repeated exactly.** The
-  cluster is live.
+- **Everything before the cluster is recorded, so it is reproducible.** The cluster
+  is live.
 
 To **flatten** is to run a tool once and keep the plain Kubernetes objects it makes.
 A **plan** lists the steps those objects cannot carry. **ConfigHub** is the service
@@ -157,7 +157,7 @@ ways end in the same place.
 
 | Way in | Commands | Use it when |
 | --- | --- | --- |
-| OCI bundle, the default | `cub variant upload` | The entry has a bundle, and you have no inputs to supply. |
+| OCI bundle, the default | `cub variant upload` | The entry has a bundle. Any value a destination must supply is set later, in a variant. |
 | Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
 
 [One dated run](./live-walk-bundle-route-2026-11-02.md) shows the OCI bundle way in,
@@ -196,8 +196,8 @@ account. If you could, it is reproducible.
 
 | | Reproducible | Live-dependent |
 | --- | --- | --- |
-| **Install** | The chart version, values, preset and AICR criteria | Cluster facts, the cluster name, the region |
-| **Customise** | Replicas for each environment, a limit agreed in review | Scaling after a load spike, a fix during an incident |
+| **Install** | The chart version, values, preset and AICR criteria | Cluster facts a package reads as it renders |
+| **Customise** | Replicas for each environment, a limit agreed in review | The region or cluster name for this destination, scaling after a load spike, a fix during an incident |
 
 **A live value becomes reproducible once it is recorded.** You record the region or
 the cluster name by setting it in a variant, and `cub installer` writes the cluster
@@ -244,7 +244,7 @@ does all three steps, and then deploys and tests the result.
 
 ## Words
 
-This table is the one place these words are defined. Records and tools keep some
+This section is the one list of these words. Records and tools keep some
 older names, and the last column says where a word means something else.
 
 ### Inputs

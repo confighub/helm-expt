@@ -552,7 +552,7 @@
 <h2 id="the-model-in-one-line">The model in one line</h2>
 <p><b>Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it into ConfigHub.</b></p>
 <p><img alt="Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live." src="../../../../docs/images/model/simple-model.svg"></p>
-<ul><li><b>Install</b> decides which objects exist. If they are wrong, change the source and flatten again.</li><li><b>Customise</b> changes a copy for one place. If the objects are right and this place differs, change it in ConfigHub.</li><li><b>Everything before the cluster is recorded, so it can be repeated exactly.</b> The cluster is live.</li></ul>
+<ul><li><b>Install</b> decides which objects exist. If they are wrong, change the source and flatten again.</li><li><b>Customise</b> changes a copy for one place. If the objects are right and this place differs, change it in ConfigHub.</li><li><b>Everything before the cluster is recorded, so it is reproducible.</b> The cluster is live.</li></ul>
 <p>To <b>flatten</b> is to run a tool once and keep the plain Kubernetes objects it makes. A <b>plan</b> lists the steps those objects cannot carry. <b>ConfigHub</b> is the service that stores your objects with a history of every change, and publishes them for Argo CD or Flux to deliver.</p>
 <p>That is the whole model. The rest of this page follows configuration in the order it travels, starting with what the Catalog holds.</p>
 <h2 id="what-is-in-the-catalog">What is in the Catalog</h2>
@@ -607,7 +607,7 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub variant upload --component gpu-operator --variant base --namespace gpu-operator &quot;$BUNDLE&quot;</code></pre>
 <p>The bundle becomes a <b>base</b>, and each object becomes one <b>Unit</b>. You then make a <b>variant</b>, a copy of the base for one environment. <code>cub</code> is ConfigHub's command-line tool. Almost every Helm entry can also come in through an installer package, and both ways end in the same place.</p>
-<table><thead><tr><th>Way in</th><th>Commands</th><th>Use it when</th></tr></thead><tbody><tr><td>OCI bundle, the default</td><td><code>cub variant upload</code></td><td>The entry has a bundle, and you have no inputs to supply.</td></tr>
+<table><thead><tr><th>Way in</th><th>Commands</th><th>Use it when</th></tr></thead><tbody><tr><td>OCI bundle, the default</td><td><code>cub variant upload</code></td><td>The entry has a bundle. Any value a destination must supply is set later, in a variant.</td></tr>
 <tr><td>Installer package</td><td><code>cub installer setup</code>, then <code>cub installer upload</code></td><td>The verdict forbids a bundle, or the package asks for inputs or cluster facts.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
 <p><a href="live-walk-bundle-route-2026-11-02.html">One dated run</a> shows the OCI bundle way in, from upload to the cluster.</p>
@@ -623,8 +623,8 @@ cub release publish my-app-prod</code></pre>
 <p><b>GitOps delivers. It does not decide.</b> Argo CD or Flux pulls the release digest, applies it and reports the result. Each can express an ordering step, with sync waves or dependent Kustomizations, but you have to set that up. No plan step is marked automatic, and the Catalog's records have not yet watched a GitOps tool carry one out, so each entry page says what has run.</p>
 <h2 id="what-is-reproducible-and-what-is-live">What is reproducible, and what is live</h2>
 <p>Ask whether you could get the same answer on a laptop, with no cluster and no account. If you could, it is reproducible.</p>
-<table><thead><tr><th></th><th>Reproducible</th><th>Live-dependent</th></tr></thead><tbody><tr><td><b>Install</b></td><td>The chart version, values, preset and AICR criteria</td><td>Cluster facts, the cluster name, the region</td></tr>
-<tr><td><b>Customise</b></td><td>Replicas for each environment, a limit agreed in review</td><td>Scaling after a load spike, a fix during an incident</td></tr></tbody></table>
+<table><thead><tr><th></th><th>Reproducible</th><th>Live-dependent</th></tr></thead><tbody><tr><td><b>Install</b></td><td>The chart version, values, preset and AICR criteria</td><td>Cluster facts a package reads as it renders</td></tr>
+<tr><td><b>Customise</b></td><td>Replicas for each environment, a limit agreed in review</td><td>The region or cluster name for this destination, scaling after a load spike, a fix during an incident</td></tr></tbody></table>
 <p><b>A live value becomes reproducible once it is recorded.</b> You record the region or the cluster name by setting it in a variant, and <code>cub installer</code> writes the cluster facts it reads to <code>facts.yaml</code>. A decision made during an incident depends on the moment, and the change it makes is still a recorded revision. Some things stay live, such as the health of a workload or whether a required Secret exists right now.</p>
 <p>AICR is the exception to a full record. Its Applications name each chart by version, and Argo CD renders those charts on the cluster, so the rendered objects are not fixed in advance.</p>
 <h2 id="where-an-agent-fits">Where an agent fits</h2>
@@ -641,7 +641,7 @@ cub release publish my-app-prod</code></pre>
 <tr><td><a href="../demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></td><td>The model on one NVIDIA AICR recipe.</td></tr>
 <tr><td><a href="what-we-refuse-to-claim.html">What we refuse to claim</a></td><td>The limits of what the Catalog says.</td></tr></tbody></table>
 <h2 id="words">Words</h2>
-<p>This table is the one place these words are defined. Records and tools keep some older names, and the last column says where a word means something else.</p>
+<p>This section is the one list of these words. Records and tools keep some older names, and the last column says where a word means something else.</p>
 <h3 id="inputs">Inputs</h3>
 <table><thead><tr><th>Word</th><th>Meaning</th><th>Don't confuse it with</th></tr></thead><tbody><tr><td>Source</td><td>What a provider publishes, such as a chart or an AICR release.</td><td></td></tr>
 <tr><td>Recipe</td><td>One pinned choice from a source: its version and one set of values or criteria.</td><td>An <b>AICR recipe</b> is the document <code>aicr recipe</code> resolves from the criteria. The <code>recipes/</code> directory holds the Catalog's records.</td></tr>
