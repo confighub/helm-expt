@@ -870,12 +870,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true,
           "writes": true
         }
@@ -898,12 +898,33 @@
           "writes": true
         },
         {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
           "comment": "publish the Release that Argo CD or Flux pulls",
           "command": "cub release publish prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev",
           "needsAccount": true,
           "writes": true
         }
       ],
+      "notes": [
+        "The target `workshop/target` comes from `cub cluster up --name workshop --no-k8sbot`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without `--no-k8sbot` failed while it installed argobot."
+      ],
+      "liveWalk": {
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
+      },
       "needs": [
         "kube-prometheus-stack-admission",
         "1.30.0",
@@ -929,8 +950,35 @@
           "command": "cub variant promote prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish prometheus-community-kube-prometheus-stack-87-19-2-minimal-dev",
+          "needsAccount": true,
+          "writes": true
         }
-      ]
+      ],
+      "notes": [
+        "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion."
+      ],
+      "liveWalk": {
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
+      }
     }
   ]
 }

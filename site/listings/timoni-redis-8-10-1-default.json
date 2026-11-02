@@ -636,12 +636,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+          "command": "cub variant upload --dry-run --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component redis --variant default --space timoni-redis-8-10-1-default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
+          "command": "cub variant upload --component redis --variant default --space timoni-redis-8-10-1-default --namespace redis --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65",
           "needsAccount": true,
           "writes": true
         }
@@ -662,6 +662,18 @@
         {
           "comment": "clone the base onto a Target as a dev variant",
           "command": "cub variant create dev timoni-redis-8-10-1-default --target workshop/target --space-pattern \"template:timoni-redis-8-10-1-default-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space timoni-redis-8-10-1-default-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space timoni-redis-8-10-1-default-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },
@@ -695,6 +707,24 @@
         {
           "comment": "promote once you have read the preview",
           "command": "cub variant promote timoni-redis-8-10-1-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space timoni-redis-8-10-1-default-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space timoni-redis-8-10-1-default-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish timoni-redis-8-10-1-default-dev",
           "needsAccount": true,
           "writes": true
         }

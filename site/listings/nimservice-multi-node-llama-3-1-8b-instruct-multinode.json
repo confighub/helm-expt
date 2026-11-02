@@ -1304,6 +1304,18 @@
           "writes": true
         },
         {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
           "comment": "publish the Release that Argo CD or Flux pulls",
           "command": "cub release publish nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev",
           "needsAccount": true,
@@ -1336,6 +1348,24 @@
         {
           "comment": "promote once you have read the preview",
           "command": "cub variant promote nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-multi-node-llama-3-1-8b-instruct-multinode-dev",
           "needsAccount": true,
           "writes": true
         }

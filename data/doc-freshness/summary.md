@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-10-27 (commit `34da55e339`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-02 (commit `42a09d8b8f`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 493 |
-| Fresh (no linked source newer than the doc) | 68 |
-| **Review-due** | 94 |
-| No linked evidence sources (cannot auto-trigger) | 331 |
+| Authored docs tracked | 495 |
+| Fresh (no linked source newer than the doc) | 73 |
+| **Review-due** | 89 |
+| No linked evidence sources (cannot auto-trigger) | 333 |
 
 ## Review queue
 
@@ -92,8 +92,6 @@ most recently changed triggers.
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-08-25 | 46 | `data/image-digest-workdown/summary.md (2026-10-09)` |
 | [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md) | demo | 2026-08-25 | 45 | `data/aicr-platform-evidence/summary.md (2026-10-09)`<br>`data/aicr-upstream-watch/summary.md (2026-10-09)`<br>`data/aicr-version-diff/summary.md (2026-10-09)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-08-26 | 45 | `data/app-readiness/summary.md (2026-10-09)`<br>`data/chart-use-guide/summary.md (2026-10-09)` |
-| [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-08-26 | 45 | `data/helm-render-intents/contract-gaps.csv (2026-10-09)`<br>`data/helm-render-intents/contract-gaps.md (2026-10-09)`<br>`data/helm-render-intents/contract.md (2026-10-09)` |
-| [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-08-26 | 45 | `data/installer-oci-packages/packages.csv (2026-10-09)`<br>`data/installer-oci-packages/packages.json (2026-10-09)`<br>`data/installer-oci-packages/summary.md (2026-10-09)` |
 | [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-08-26 | 45 | `data/master-catalog-matrix/summary.md (2026-10-09)` |
 | [docs/planning/demand-to-verbs.md](../../docs/planning/demand-to-verbs.md) | planning | 2026-08-29 | 44 | `tests/doctrine.md (2026-10-12)`<br>`scripts/lib/configuration-questions.mjs (2026-09-30)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 43 | `data/model-gap-workdown/summary.md (2026-07-29)`<br>`data/target-prerequisite-actions/summary.md (2026-07-29)`<br>`data/target-prerequisite-workdown/summary.md (2026-07-29)` |
@@ -110,7 +108,6 @@ most recently changed triggers.
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/demo/kubara/platform-evidence.md](../../docs/demo/kubara/platform-evidence.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-platform-matrix/summary.md (2026-10-26)` |
 | [docs/demo/kubara/single-platform.md](../../docs/demo/kubara/single-platform.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-release-acceptance/contract.yaml (2026-10-26)` |
-| [docs/reference/workshop-in-depth.md](../../docs/reference/workshop-in-depth.md) | reference | 2026-09-15 | 24 | `data/extension-slots/summary.md (2026-10-09)`<br>`data/runtime-gitops/summary.md (2026-10-09)`<br>`data/status-dashboard/summary.md (2026-10-09)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [README.md](../../README.md) | root | 2026-09-26 | 13 | `CATALOG.md (2026-10-09)` |
 | [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 12 | `data/certified-bundles/summary.md (2026-10-11)` |
@@ -120,7 +117,6 @@ most recently changed triggers.
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
-| [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md) | user | 2026-10-08 | 2 | `data/chart-use-guide/summary.md (2026-10-09)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 | [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) | user | 2026-10-08 | 2 | `data/master-catalog-matrix/summary.md (2026-10-09)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
@@ -128,7 +124,6 @@ most recently changed triggers.
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-10-08 | 1 | `data/variant-promotion/summary.md (2026-10-09)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
-| [docs/user/prometheus-high-fanout.md](../../docs/user/prometheus-high-fanout.md) | user | 2026-08-26 | 1 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
 
 ## Docs with no linked evidence sources
 
@@ -434,11 +429,13 @@ into this freshness model.
 - [docs/user/large-config-operations.md](../../docs/user/large-config-operations.md)
 - [docs/user/live-run-log-2026-10-08.md](../../docs/user/live-run-log-2026-10-08.md)
 - [docs/user/live-walk-aicr-kind-argocd-2026-10-11.md](../../docs/user/live-walk-aicr-kind-argocd-2026-10-11.md)
+- [docs/user/live-walk-bundle-route-2026-11-02.md](../../docs/user/live-walk-bundle-route-2026-11-02.md)
 - [docs/user/live-walk-change-review-2026-10-09.md](../../docs/user/live-walk-change-review-2026-10-09.md)
 - [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)
 - [docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md](../../docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md)
 - [docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.md](../../docs/user/live-walk-kai-scheduler-install-hooks-2026-10-11.md)
+- [docs/user/live-walk-plan-step-2026-11-02.md](../../docs/user/live-walk-plan-step-2026-11-02.md)
 - [docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md](../../docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md)
 - [docs/user/live-walk-test-plain-objects-2026-10-11.md](../../docs/user/live-walk-test-plain-objects-2026-10-11.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)

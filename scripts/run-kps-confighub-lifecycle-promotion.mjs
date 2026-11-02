@@ -1368,7 +1368,7 @@ function refreshApplication(clusterName, applicationName) {
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports", "--no-argobot"],
+    ["cluster", "up", "--name", name, "--no-ports", "--no-k8sbot"],
     {
       cwd: repoRoot,
       env: cubEnv(),

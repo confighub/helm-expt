@@ -537,14 +537,7 @@
           "comment": "check the bytes against the listing",
           "command": "shasum -a 256 dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.yaml",
           "expect": "8a6d869284830a33e801c4b782c12f193a497b7563d84acaf2c370c8be8a0183  dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.yaml"
-        },
-        {
-          "comment": "render this base from the signed package; step 3 uploads this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613 --base gpu-resources --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --non-interactive --namespace nvidia-dra-driver"
         }
-      ],
-      "notes": [
-        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit."
       ]
     },
     {
@@ -617,7 +610,7 @@
       "id": "upload",
       "label": "Upload it as a variant",
       "state": "not-run-for-this-entry",
-      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "summary": "The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.",
       "basis": [
         "source.ociRef",
         "oci.bundles[literal-config]",
@@ -632,28 +625,17 @@
           "needsAccount": true
         },
         {
-          "comment": "upload step 1's directory as a Space of Units, under names you choose",
-          "command": "cub installer upload --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --space <your-space> --component <your-component>",
-          "needsAccount": true,
-          "writes": true
+          "comment": "preview the upload of the published bundle; nothing is written",
+          "command": "cub variant upload --dry-run --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant gpu-resources --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --namespace nvidia-dra-driver --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:latest@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a",
+          "needsAccount": true
         },
         {
-          "comment": "list the Units the upload created",
-          "command": "cub unit list --space <your-space>",
-          "needsAccount": true
+          "comment": "upload the bundle as a base Space of Units",
+          "command": "cub variant upload --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant gpu-resources --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --namespace nvidia-dra-driver --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:latest@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a",
+          "needsAccount": true,
+          "writes": true
         }
-      ],
-      "notes": [
-        "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
-        "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
-        "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization."
-      ],
-      "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
-      }
+      ]
     },
     {
       "id": "deploy",
@@ -667,41 +649,37 @@
       "commands": [
         {
           "comment": "clone the base onto a Target as a dev variant",
-          "command": "cub variant create dev <your-space> --target workshop/target --space-pattern \"template:<your-space>-dev\"",
+          "command": "cub variant create dev dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources --target workshop/target --space-pattern \"template:dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev\"",
           "needsAccount": true,
           "writes": true
         },
         {
-          "comment": "publish the Release that the cluster's Argo CD pulls",
-          "command": "cub release publish <your-space>-dev",
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where \"Slug LIKE '%-bundleroute'\"",
           "needsAccount": true,
           "writes": true
         },
         {
-          "comment": "delete the installer record, which Argo CD cannot read",
-          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },
         {
-          "comment": "publish again without it",
-          "command": "cub release publish <your-space>-dev",
+          "comment": "publish the Release that Argo CD or Flux pulls",
+          "command": "cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev",
           "needsAccount": true,
           "writes": true
         }
       ],
       "notes": [
-        "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
-        "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
-        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
-        "The walk made its cluster with `cub cluster up --no-argobot`. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
-        "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune."
+        "The target `workshop/target` comes from `cub cluster up --name workshop --no-k8sbot`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without `--no-k8sbot` failed while it installed argobot."
       ],
       "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
       },
       "carries": [
         "computedomaincliques.resource.nvidia.com",
@@ -719,37 +697,42 @@
       "commands": [
         {
           "comment": "preview what the dev variant would take from the base",
-          "command": "cub variant promote <your-space>-dev --dry-run -o mutations",
+          "command": "cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --dry-run -o mutations",
           "needsAccount": true
         },
         {
           "comment": "promote once you have read the preview",
-          "command": "cub variant promote <your-space>-dev --change-desc \"Pull the reviewed base forward\"",
+          "command": "cub variant promote dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
         },
         {
-          "comment": "delete the installer record that the promotion adds back",
-          "command": "cub unit delete --space <your-space>-dev installer-record",
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },
         {
           "comment": "publish the Release that carries the change",
-          "command": "cub release publish <your-space>-dev",
+          "command": "cub release publish dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources-dev",
           "needsAccount": true,
           "writes": true
         }
       ],
       "notes": [
-        "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
-        "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record."
+        "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion."
       ],
       "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
       }
     }
   ]

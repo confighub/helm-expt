@@ -635,12 +635,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
           "needsAccount": true,
           "writes": true
         }
@@ -661,6 +661,18 @@
         {
           "comment": "clone the base onto a Target as a dev variant",
           "command": "cub variant create dev aicr-eks-h100-training-kubeflow-v0-14-0-argocd --target workshop/target --space-pattern \"template:aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },
@@ -691,6 +703,24 @@
         {
           "comment": "promote once you have read the preview",
           "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev",
           "needsAccount": true,
           "writes": true
         }
