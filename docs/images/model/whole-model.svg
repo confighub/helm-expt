@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1030 608" width="1030" height="608" font-family="Inter, ui-sans-serif, system-ui, sans-serif" role="img" aria-labelledby="t"><title id="t">The configuration model, stage by stage</title>
+<rect width="1030" height="608" fill="#ffffff"/>
+<rect x="148" y="12" width="142" height="30" rx="7" fill="#f3f0e9"/>
+<text x="219.0" y="31.0" fill="#221c15" font-size="10.5" font-weight="700" text-anchor="middle">BEFORE FLATTENING</text>
+<rect x="294" y="12" width="142" height="30" rx="7" fill="#221c15"/>
+<text x="365.0" y="31.0" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">FLATTEN</text>
+<rect x="440" y="12" width="580" height="30" rx="7" fill="#f3f0e9"/>
+<text x="730.0" y="31.0" fill="#221c15" font-size="10.5" font-weight="700" text-anchor="middle">AFTER FLATTENING</text>
+<rect x="148" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="219.0" y="75.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">1. Choose</text>
+<rect x="294" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="365.0" y="75.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">2. Flatten</text>
+<rect x="440" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="511.0" y="75.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">3. OCI bundle</text>
+<rect x="586" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="657.0" y="67.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">4. Load and</text>
+<text x="657.0" y="83.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">customise</text>
+<rect x="732" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="803.0" y="75.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">5. Release</text>
+<rect x="878" y="48" width="142" height="46" rx="7" fill="#ffffff" stroke="#d5cec2"/>
+<text x="949.0" y="67.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">6. Deliver and</text>
+<text x="949.0" y="83.0" fill="#221c15" font-size="13" font-weight="700" text-anchor="middle">observe</text>
+<text x="12" y="127.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">Who or what</text>
+<text x="12" y="143.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">does the work</text>
+<rect x="148" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="219.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">You or</text>
+<text x="219.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">an agent</text>
+<rect x="294" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="365.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Helm, aicr or</text>
+<text x="365.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">cub installer</text>
+<rect x="440" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="511.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">The Catalog</text>
+<text x="511.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">publishes it</text>
+<rect x="586" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="657.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">cub variant upload</text>
+<text x="657.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">cub function</text>
+<rect x="732" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="803.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">cub release</text>
+<text x="803.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">publish</text>
+<rect x="878" y="104" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="949.0" y="127.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Argo CD or Flux</text>
+<text x="949.0" y="143.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">pull and apply</text>
+<text x="12" y="185.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">Install or</text>
+<text x="12" y="201.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">customise?</text>
+<rect x="148" y="166" width="434" height="46" rx="7" fill="#e3edf7" stroke="#3b74ad"/>
+<text x="365.0" y="193.0" fill="#1f4d7a" font-size="12.5" font-weight="700" text-anchor="middle">INSTALL: which objects, from which source</text>
+<rect x="586" y="166" width="288" height="46" rx="7" fill="#fbe9df" stroke="#ba3d03"/>
+<text x="730.0" y="193.0" fill="#8f2f02" font-size="12.5" font-weight="700" text-anchor="middle">CUSTOMISE: how this place differs</text>
+<rect x="878" y="166" width="142" height="46" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="949.0" y="193.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Neither: it runs</text>
+<text x="12" y="239.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">Reproducible or</text>
+<text x="12" y="255.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">live-dependent?</text>
+<rect x="148" y="220" width="726" height="46" rx="7" fill="#e4f3ea" stroke="#1f8a4c"/>
+<text x="511.0" y="247.0" fill="#14613a" font-size="12.5" font-weight="700" text-anchor="middle">REPRODUCIBLE: same inputs and recorded edits give the same objects</text>
+<rect x="878" y="220" width="142" height="46" rx="7" fill="#f7ecd8" stroke="#b5761a"/>
+<text x="949.0" y="247.0" fill="#7c4f0d" font-size="12.5" font-weight="700" text-anchor="middle">LIVE-DEPENDENT</text>
+<text x="12" y="305.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">Live values</text>
+<text x="12" y="321.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">it reads</text>
+<rect x="148" y="274" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="219.0" y="313.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">None</text>
+<rect x="294" y="274" width="142" height="70" rx="7" fill="#f7ecd8" stroke="#b5761a"/>
+<text x="365.0" y="297.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">Cluster facts, if a</text>
+<text x="365.0" y="313.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">collector runs,</text>
+<text x="365.0" y="329.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">then recorded</text>
+<rect x="440" y="274" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="511.0" y="313.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">None</text>
+<rect x="586" y="274" width="142" height="70" rx="7" fill="#f7ecd8" stroke="#b5761a"/>
+<text x="657.0" y="297.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">Cluster name, region.</text>
+<text x="657.0" y="313.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">Each is recorded</text>
+<text x="657.0" y="329.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">in the variant</text>
+<rect x="732" y="274" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="803.0" y="313.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">None</text>
+<rect x="878" y="274" width="142" height="70" rx="7" fill="#f7ecd8" stroke="#b5761a"/>
+<text x="949.0" y="305.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">Secrets, CRDs, nodes,</text>
+<text x="949.0" y="321.0" fill="#7c4f0d" font-size="12.5" font-weight="400" text-anchor="middle">health, drift</text>
+<text x="12" y="383.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">What OCI holds</text>
+<rect x="148" y="352" width="142" height="54" rx="7" fill="#e3edf7" stroke="#3b74ad"/>
+<text x="219.0" y="375.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">Source OCI:</text>
+<text x="219.0" y="391.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">chart or package</text>
+<rect x="294" y="352" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="365.0" y="383.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Nothing</text>
+<rect x="440" y="352" width="142" height="54" rx="7" fill="#e3edf7" stroke="#3b74ad"/>
+<text x="511.0" y="375.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">Literal OCI:</text>
+<text x="511.0" y="391.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">objects and plan</text>
+<rect x="586" y="352" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="657.0" y="375.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Nothing</text>
+<text x="657.0" y="391.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">(ConfigHub holds it)</text>
+<rect x="732" y="352" width="142" height="54" rx="7" fill="#e3edf7" stroke="#3b74ad"/>
+<text x="803.0" y="375.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">Release OCI:</text>
+<text x="803.0" y="391.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">one revision</text>
+<rect x="878" y="352" width="142" height="54" rx="7" fill="#e3edf7" stroke="#3b74ad"/>
+<text x="949.0" y="375.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">Pulls the</text>
+<text x="949.0" y="391.0" fill="#1f4d7a" font-size="12.5" font-weight="400" text-anchor="middle">release digest</text>
+<text x="12" y="445.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">The plan</text>
+<rect x="148" y="414" width="142" height="54" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="219.0" y="445.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">None yet</text>
+<rect x="294" y="414" width="288" height="54" rx="7" fill="#fbe9df" stroke="#ba3d03"/>
+<text x="438.0" y="445.0" fill="#8f2f02" font-size="12.5" font-weight="400" text-anchor="middle">Written: the steps objects cannot carry</text>
+<rect x="586" y="414" width="288" height="54" rx="7" fill="#fbe9df" stroke="#ba3d03"/>
+<text x="730.0" y="445.0" fill="#8f2f02" font-size="12.5" font-weight="400" text-anchor="middle">Settled for this variant and destination</text>
+<rect x="878" y="414" width="142" height="54" rx="7" fill="#fbe9df" stroke="#ba3d03"/>
+<text x="949" y="429" fill="#8f2f02" font-size="12.5" font-weight="400" text-anchor="middle">Carried out by a</text>
+<text x="949" y="444" fill="#8f2f02" font-size="12.5" font-weight="400" text-anchor="middle">person, pipeline or</text>
+<text x="949" y="459" fill="#8f2f02" font-size="12.5" font-weight="400" text-anchor="middle">GitOps tool</text>
+<text x="12" y="507.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">What an agent</text>
+<text x="12" y="523.0" fill="#6e6659" font-size="12.5" font-weight="700" text-anchor="start">does</text>
+<rect x="148" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="219.0" y="507.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Proposes</text>
+<text x="219.0" y="523.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">the choices</text>
+<rect x="294" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="365.0" y="499.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Runs the tool.</text>
+<text x="365.0" y="515.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Never writes</text>
+<text x="365.0" y="531.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">the objects</text>
+<rect x="440" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="511.0" y="507.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Reads and</text>
+<text x="511.0" y="523.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">compares</text>
+<rect x="586" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="657.0" y="507.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Proposes edits</text>
+<text x="657.0" y="523.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">as named functions</text>
+<rect x="732" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="803.0" y="507.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Waits. A gate</text>
+<text x="803.0" y="523.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">or person decides</text>
+<rect x="878" y="476" width="142" height="70" rx="7" fill="#f3f0e9" stroke="#d5cec2"/>
+<text x="949.0" y="499.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">Observes, then</text>
+<text x="949.0" y="515.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">proposes the next</text>
+<text x="949.0" y="531.0" fill="#6e6659" font-size="12.5" font-weight="400" text-anchor="middle">change</text>
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#ba3d03"/></marker></defs>
+<path d="M949.0,550 V576 H657.0 V552" fill="none" stroke="#ba3d03" stroke-width="2" marker-end="url(#a)"/>
+<path d="M657.0,576 H219.0 V552" fill="none" stroke="#ba3d03" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<text x="803.0" y="592" fill="#8f2f02" font-size="12" font-weight="700" text-anchor="middle">the loop: a change to a variant</text>
+<text x="438.0" y="592" fill="#8f2f02" font-size="12" font-weight="700" text-anchor="middle">or, if the objects are wrong, new inputs</text>
+</svg>
