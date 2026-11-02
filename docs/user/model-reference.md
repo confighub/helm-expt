@@ -117,6 +117,8 @@ the process back to an earlier decision.
 
 ## The core words
 
+[The Words section of the model page](./model-and-vocabulary.md#words) is the one place the reader's words are defined. This table adds the words the records use.
+
 | Word | What it is | Where it lives |
 | --- | --- | --- |
 | **Source and intent** | Where the configuration came from and which choices produced or selected it. | A source-specific record, linked to the exact configuration. |

@@ -40,8 +40,8 @@ records the exact references, digests, and anonymous pulls.
 
 ## This entry in the model's five words
 
-The [model page](../../user/model-and-vocabulary.md) describes every entry as
-Pack, Recipe, Bundle, Variant, and Deployment.
+This table maps this entry onto five earlier words. The
+[model page](../../user/model-and-vocabulary.md#words) holds the current words.
 
 | Word | For the v1.0.0 training entry |
 | --- | --- |
