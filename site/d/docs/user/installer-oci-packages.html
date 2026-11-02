@@ -566,7 +566,7 @@
   --non-interactive \
   --namespace &lt;namespace&gt;</code></pre>
 <p>For example:</p>
-<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -575,7 +575,7 @@
 <p><code>cub installer setup</code> pulls the package into the work directory, writes the selected inputs under <code>out/spec</code>, and writes the rendered Kubernetes files under <code>out/manifests</code>. If the preset separates secret material, it also writes files under <code>out/secrets</code>. The optional <code>--output-oci</code> flag writes the exact non-secret rendered objects to a local OCI image layout or pushes them to an <code>oci://host/repository:tag</code> reference. The installer reads that artifact back and checks its object-set digest before returning.</p>
 <h2 id="check-the-package-before-rendering">Check The Package Before Rendering</h2>
 <p>Use the exact reference from the chart page or generated package index:</p>
-<pre><code>cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' --json</code></pre>
+<pre><code>cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' --json</code></pre>
 <p>The version tag tells you which retained version you selected. The manifest digest after <code>@</code> makes the reference immutable. <code>cub installer</code> refuses the pull if the registry cannot return that exact manifest. The inspect output also prints the manifest and layer digests recorded by the publication receipt.</p>
 <p>This establishes which package bytes you received. Each published package also has a Sigstore signature for the exact manifest digest. The chart page provides the complete <code>cosign verify</code> command and links to the signature receipt.</p>
 <p>The signature identifies the catalog publisher. It does not show that the configuration is suitable for your cluster. Use the same chart page for source, render, lifecycle, destination, and test evidence. See <a href="../reference/installer-package-signing.html">Verifying Catalog Package Signatures</a> for the trust boundary and maintainer procedure.</p>
@@ -589,7 +589,8 @@
 less ./redis-package/package/records/README.md</code></pre>
 <p>The package does not contain its own final manifest digest because that would create a circular hash. The publication receipt and package signature bind the finished package to its immutable digest after publication.</p>
 <p>The package does not replace Helm charts. The catalog starts from ordinary Helm charts, then publishes reviewed package artifacts so users can pull the ready presets directly once they have access to the package registry.</p>
-<p>The package should also make the install simpler. Most choices are fixed before publication: chart version, base shape, values profile, source lock, known CRD or hook decisions, and the evidence links. Only a small set of choices should be left for install time, such as namespace, target-specific facts, image overrides, or the name of an existing Secret. Those remaining choices should be documented and restricted instead of exposing the whole Helm values surface again.</p>
+<p>The package should also make the install simpler. Most choices are fixed before publication: chart version, base shape, values profile, source lock, known CRD or hook decisions, and the evidence links. Only a small set of choices should be left for install time, such as target-specific facts, image overrides, or the name of an existing Secret. Those remaining choices should be documented and restricted instead of exposing the whole Helm values surface again.</p>
+<p>Use the namespace the entry page prints. Each preset was rendered once for a recorded namespace, and most packages do not move their objects. On those packages a different <code>--namespace</code> adds an empty Namespace with that name and leaves every object where it was. To run the chart in another namespace, render it again from the source.</p>
 <p>This matters for fleets. A package release can be the thing a platform team signs off. ConfigHub can then record which package, preset, and allowed inputs a cluster, customer, or environment should run, and reconcile that desired record through the delivery system already in use.</p>
 <h2 id="three-oci-roles">Three OCI Roles</h2>
 <p>The catalog uses OCI for three different jobs:</p>
@@ -598,7 +599,7 @@ less ./redis-package/package/records/README.md</code></pre>
 <tr><td>ConfigHub release OCI</td><td>A reviewed ConfigHub Space release, published after the objects are stored and managed.</td><td>Argo CD, Flux, or another delivery path that consumes the managed result.</td></tr></tbody></table>
 <p>The input and output may both be OCI without being the same artifact. The installer package can offer several presets and the files needed to render them. A rendered OCI contains one chosen result. A ConfigHub release OCI contains the later managed revision after variants, review, approval, or promotion.</p>
 <p>To push the selected result directly:</p>
-<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+<pre><code>cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -618,7 +619,7 @@ less ./redis-package/package/records/README.md</code></pre>
 <pre><code>tmpd=$(mktemp -d); tmpc=$(mktemp -d)
 
 DOCKER_CONFIG=&quot;$tmpd&quot; CLOUDSDK_CONFIG=&quot;$tmpc&quot; GOOGLE_APPLICATION_CREDENTIALS= \
-  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
     --base reuse-existing-secret \
     --work-dir ./out \
     --non-interactive \

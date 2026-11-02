@@ -23,7 +23,7 @@ cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5
 For example:
 
 ```sh
-cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -44,7 +44,7 @@ checks its object-set digest before returning.
 Use the exact reference from the chart page or generated package index:
 
 ```sh
-cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' --json
+cub installer inspect 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' --json
 ```
 
 The version tag tells you which retained version you selected. The manifest
@@ -97,10 +97,15 @@ presets directly once they have access to the package registry.
 The package should also make the install simpler. Most choices are fixed before
 publication: chart version, base shape, values profile, source lock, known CRD
 or hook decisions, and the evidence links. Only a small set of choices should be
-left for install time, such as namespace, target-specific facts, image
-overrides, or the name of an existing Secret. Those remaining choices should be
-documented and restricted instead of exposing the whole Helm values surface
-again.
+left for install time, such as target-specific facts, image overrides, or the
+name of an existing Secret. Those remaining choices should be documented and
+restricted instead of exposing the whole Helm values surface again.
+
+Use the namespace the entry page prints. Each preset was rendered once for a
+recorded namespace, and most packages do not move their objects. On those
+packages a different `--namespace` adds an empty Namespace with that name and
+leaves every object where it was. To run the chart in another namespace, render
+it again from the source.
 
 This matters for fleets. A package release can be the thing a platform team
 signs off. ConfigHub can then record which package, preset, and allowed inputs a
@@ -125,7 +130,7 @@ revision after variants, review, approval, or promotion.
 To push the selected result directly:
 
 ```sh
-cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
@@ -181,7 +186,7 @@ Anonymous read was checked with empty local auth state:
 tmpd=$(mktemp -d); tmpc=$(mktemp -d)
 
 DOCKER_CONFIG="$tmpd" CLOUDSDK_CONFIG="$tmpc" GOOGLE_APPLICATION_CREDENTIALS= \
-  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33' \
+  cub installer setup --pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a' \
     --base reuse-existing-secret \
     --work-dir ./out \
     --non-interactive \
