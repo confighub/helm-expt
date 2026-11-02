@@ -619,7 +619,7 @@
       "id": "deploy",
       "label": "Deploy it",
       "state": "not-run-for-this-entry",
-      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "summary": "This entry won't deliver yet. It holds ServiceMonitor, and the CRD for that kind is not in this entry. Argo CD or Flux stops the whole sync until that CRD exists, so make sure of that first. No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
       "basis": [
         "oci.runtimes",
         "lifecycle.installTimeInputs"

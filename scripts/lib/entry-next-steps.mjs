@@ -147,6 +147,33 @@ export function installerPackageCommands(listing) {
   };
 }
 
+// API groups a cluster serves without any CRD.
+const BUILT_IN_API_GROUPS = new Set(["", "apps", "batch", "rbac.authorization.k8s.io", "policy", "networking.k8s.io", "autoscaling", "apiextensions.k8s.io", "admissionregistration.k8s.io", "storage.k8s.io", "scheduling.k8s.io", "coordination.k8s.io", "discovery.k8s.io", "node.k8s.io", "certificates.k8s.io", "apiregistration.k8s.io", "flowcontrol.apiserver.k8s.io", "events.k8s.io", "resource.k8s.io"]);
+
+// The custom resource kinds in a set of rendered objects whose CRD is not among
+// them. Argo CD and Flux stop the whole sync on such an object until the CRD exists.
+export function customResourcesWithoutDefinition(yamlText) {
+  const defined = new Set();
+  const used = [];
+  for (const doc of String(yamlText).split(/^---\s*$/m)) {
+    const field = (pattern) => doc.match(pattern)?.[1];
+    const apiVersion = field(/^apiVersion:\s*["']?([^"'\s]+)/m);
+    const kind = field(/^kind:\s*["']?([^"'\s]+)/m);
+    if (!apiVersion || !kind) continue;
+    if (kind === "CustomResourceDefinition") {
+      defined.add(`${field(/^  group:\s*["']?([^"'\s]+)/m)}/${field(/^    kind:\s*["']?([^"'\s]+)/m)}`);
+    } else {
+      used.push([apiVersion.includes("/") ? apiVersion.split("/")[0] : "", kind]);
+    }
+  }
+  return [...new Set(used.filter(([group, kind]) => !BUILT_IN_API_GROUPS.has(group) && !defined.has(`${group}/${kind}`)).map(([, kind]) => kind))].sort();
+}
+
+function missingDefinitionWarning(kinds) {
+  const named = kinds.length === 1 ? kinds[0] : `${kinds.slice(0, -1).join(", ")} and ${kinds.at(-1)}`;
+  return `This entry won't deliver yet. It holds ${named}, and ${kinds.length === 1 ? "the CRD for that kind is" : "the CRDs for those kinds are"} not in this entry. Argo CD or Flux stops the whole sync until ${kinds.length === 1 ? "that CRD exists" : "those CRDs exist"}, so make sure of that first.`;
+}
+
 // A bundle with a plan carries the plan's documents as Units, and Argo CD cannot
 // apply their kinds, so they stay out of a Release. A promotion adds them back.
 // A delete that matches nothing succeeds, so an older bundle without them is fine.
@@ -321,7 +348,7 @@ function noteList(...notes) {
 
 // related: every other maintained entry for the same source, as
 // { id, url, version, base, format, plan }. plan: this entry's own fetch plan.
-export function buildNextSteps(listing, { plan, related = [] }) {
+export function buildNextSteps(listing, { plan, related = [], missingDefinitions = [] }) {
   const id = listing.identity.id;
   const base = listing.identity.base;
   const version = listing.identity.version;
@@ -537,7 +564,8 @@ export function buildNextSteps(listing, { plan, related = [] }) {
             ...walkOf(BUNDLE_ROUTE_WALK),
           }
         : {};
-    return { summary: `${lead} ${runtimes}`.trim(), commands, ...deployNotes, ...common };
+    const warning = path.kind === "literal-bundle" && missingDefinitions.length > 0 ? `${missingDefinitionWarning(missingDefinitions)} ` : "";
+    return { summary: `${warning}${lead} ${runtimes}`.trim(), commands, ...deployNotes, ...common };
   }));
 
   // 5. Promote a change.

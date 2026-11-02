@@ -163,7 +163,8 @@ ways end in the same place.
 
 [One dated run](./live-walk-bundle-route-2026-11-02.md) shows the OCI bundle way in,
 from upload to the cluster. [A random sample of twelve entries](./live-walk-bundle-sample-2026-11-02.md)
-found seven delivered, one failed and four not tested.
+found seven delivered, one failed and four not tested. The failure held resources whose
+CRDs were not in the entry, so an entry like that now warns before its deploy commands.
 
 ## Then customise it, and deliver it
 
