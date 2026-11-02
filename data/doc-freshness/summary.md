@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-02 (commit `42a09d8b8f`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-02 (commit `88ff4383f0`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 495 |
+| Authored docs tracked | 496 |
 | Fresh (no linked source newer than the doc) | 73 |
 | **Review-due** | 89 |
-| No linked evidence sources (cannot auto-trigger) | 333 |
+| No linked evidence sources (cannot auto-trigger) | 334 |
 
 ## Review queue
 
@@ -430,6 +430,7 @@ into this freshness model.
 - [docs/user/live-run-log-2026-10-08.md](../../docs/user/live-run-log-2026-10-08.md)
 - [docs/user/live-walk-aicr-kind-argocd-2026-10-11.md](../../docs/user/live-walk-aicr-kind-argocd-2026-10-11.md)
 - [docs/user/live-walk-bundle-route-2026-11-02.md](../../docs/user/live-walk-bundle-route-2026-11-02.md)
+- [docs/user/live-walk-bundle-sample-2026-11-02.md](../../docs/user/live-walk-bundle-sample-2026-11-02.md)
 - [docs/user/live-walk-change-review-2026-10-09.md](../../docs/user/live-walk-change-review-2026-10-09.md)
 - [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)

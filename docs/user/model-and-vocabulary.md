@@ -162,7 +162,8 @@ ways end in the same place.
 | Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
 
 [One dated run](./live-walk-bundle-route-2026-11-02.md) shows the OCI bundle way in,
-from upload to the cluster.
+from upload to the cluster. [A random sample of twelve entries](./live-walk-bundle-sample-2026-11-02.md)
+found seven delivered, one failed and four not tested.
 
 ## Then customise it, and deliver it
 
