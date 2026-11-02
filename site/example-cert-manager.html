@@ -710,8 +710,8 @@
         <figure class="ex-card">
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-cert-manager-confighub.png" alt="ConfigHub showing the cert-manager controller Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the cert-manager controller Deployment, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 48 Units, one for each of the 47 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the cert-manager controller Deployment, at its image line. This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below.</p>
+          <p class="ex-note">ConfigHub holds this as 50 Units, one for each object and one README, with 2 more for the plan's documents.</p>
           
         </figure>
       </div>
@@ -737,17 +737,17 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the cert-manager package, writes its files, and saves them as a Space called <code>cert-manager-example</code> in your organization. The rest makes a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the cert-manager OCI bundle and saves its objects as a Space called <code>cert-manager-example</code> in your organization. The rest makes a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base crds-enabled --work-dir ./cert-manager-example --non-interactive --namespace cert-manager &amp;&amp; cub installer upload --work-dir ./cert-manager-example --space cert-manager-example &amp;&amp; cub component create cert-manager-example &amp;&amp; cub space update --patch cert-manager-example --component cert-manager-example
+<span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9
 
 <span class="term-prompt">$</span> cub variant create prod cert-manager-example --change-desc &quot;Clone the base as prod&quot;
 
 <span class="term-prompt">$</span> cub function set --space cert-manager-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
-<span class="term-prompt">$</span> cub function set --space cert-manager-example-prod --unit deployment-cert-manager-cert-manager --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+<span class="term-prompt">$</span> cub function set --space cert-manager-example-prod --unit cert-manager --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with no plugin.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the cert-manager package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
