@@ -710,8 +710,8 @@
         <figure class="ex-card">
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-gatekeeper-confighub.png" alt="ConfigHub showing the Gatekeeper controller-manager Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the Gatekeeper controller-manager Deployment, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 31 Units, one for each of the 30 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the Gatekeeper controller-manager Deployment, at its image line. This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below.</p>
+          <p class="ex-note">ConfigHub holds this as 34 Units, one for each object and one README, with 4 more for the plan's documents.</p>
           
         </figure>
       </div>
@@ -738,10 +738,10 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Gatekeeper package, writes its files, and saves them as a Space called <code>gatekeeper-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the audit Deployment. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Gatekeeper OCI bundle and saves its objects as a Space called <code>gatekeeper-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the audit Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir ./gatekeeper-example --non-interactive --namespace default &amp;&amp; cub installer upload --work-dir ./gatekeeper-example --space gatekeeper-example &amp;&amp; cub component create gatekeeper-example &amp;&amp; cub space update --patch gatekeeper-example --component gatekeeper-example
+<span class="term-prompt">$</span> cub variant upload --component gatekeeper-example --variant base --space gatekeeper-example --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930
 
 <span class="term-prompt">$</span> cub variant create dev gatekeeper-example --change-desc &quot;Clone the base as dev&quot;
 
@@ -751,8 +751,8 @@
 
 <span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
-<span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --unit deployment-default-gatekeeper-audit --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+<span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --unit gatekeeper-audit --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with no plugin.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the Gatekeeper package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>

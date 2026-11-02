@@ -4,7 +4,7 @@
 // examples/before-after/, and the builder checks the counts against the
 // recorded command output, so a page cannot show a result that was not run.
 
-import { installerPackageCommands } from "./entry-next-steps.mjs";
+import { installerPackageCommands, uploadPath } from "./entry-next-steps.mjs";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readYamlText, repoRoot } from "./proof-common.mjs";
@@ -1259,6 +1259,8 @@ function helmRows(id, f, check, shot) {
   return rows;
 }
 function helmUnits(f, check) {
+  const load = BUNDLE_LOADS[f.rec.id];
+  if (load) return `ConfigHub holds this as ${load.units} Units, one for each object and one README${load.planDocs ? `, with ${load.planDocs} more for the plan's documents` : ""}.`;
   const n = f.rec.installer?.manifests;
   check(n, `${ROOT}/${f.rec.id}: the receipt has no installer manifest count; record it with --generate`);
   return `ConfigHub holds this as ${n + 1} Units, one for each of the ${n} objects the installer writes and one installer record.`;
@@ -1282,6 +1284,19 @@ const HELM_VARIANTS = {
 };
 // The rest were loaded the same way: label each variant, and give prod three
 // replicas of its main workload. cert-manager has only prod, for the Link quota.
+// The examples whose entry has a published OCI bundle load it directly, which is
+// the default route. The Unit names and counts are from a dry run of each upload
+// with cub v0.9.0 on 2026-11-02: a bundle's Unit takes the resource's bare name,
+// and the count includes the README, any added Namespace and any plan documents.
+const BUNDLE_LOADS = {
+  "helm-metrics-server": { workload: "metrics-server", units: 10, planDocs: 0 },
+  "helm-gatekeeper": { workload: "gatekeeper-audit", units: 34, planDocs: 4 },
+  "helm-external-secrets": { workload: "external-secrets", units: 47, planDocs: 2 },
+  "helm-gpu-operator": { workload: "gpu-operator", units: 29, planDocs: 3 },
+  "helm-cert-manager": { workload: "cert-manager", units: 50, planDocs: 2 },
+  "helm-argo-cd": { workload: "argo-cd-argocd-server", units: 58, planDocs: 3 },
+};
+
 const PLAIN_VARIANTS = {
   "helm-postgresql": { workload: "statefulset-postgresql-postgresql", what: "its StatefulSet" },
   "helm-ingress-nginx": { workload: "deployment-ingress-nginx-ingress-nginx-controller", what: "the controller" },
@@ -1300,7 +1315,7 @@ for (const [id, spec] of Object.entries(PLAIN_VARIANTS)) {
     rows: [
       ...variants.map((variant) => `cub variant create ${variant} ${space} --change-desc "Clone the base as ${variant}"`),
       ...variants.map((variant) => `cub function set --space ${space}-${variant} --change-desc "Label every object environment ${variant}" set-label environment ${variant}`),
-      `cub function set --space ${space}-prod --unit ${spec.workload} --change-desc "Run three replicas in prod" set-replicas 3`,
+      `cub function set --space ${space}-prod --unit ${BUNDLE_LOADS[id]?.workload ?? spec.workload} --change-desc "Run three replicas in prod" set-replicas 3`,
     ],
     note: `The rest makes ${variants.length === 2 ? "a dev and a prod variant" : "a prod variant"} of it, and prod runs three replicas of ${spec.what}.`,
     graphNote: `Prod's panel lists what prod changes from the base, here its label and three replicas of ${spec.what}.`,
@@ -1376,21 +1391,28 @@ function simplePage(id, h) {
     const { setup } = packageRoute(f.listing);
     check(setup, `site/listings/${f.rec.listing}.json has no cub installer setup command`);
     const setupHere = setup.command.replace(/--work-dir \S+/, `--work-dir ./${page.space}`);
+    // An entry with a published OCI bundle loads it. The rest use the installer package.
+    const route = uploadPath(f.listing);
+    check(Boolean(BUNDLE_LOADS[id]) === (route.kind === "literal-bundle"), `${ROOT}/${id}: BUNDLE_LOADS and the entry's upload path disagree`);
+    const bundleLoad = route.kind === "literal-bundle"
+      ? `cub variant upload --component ${page.space} --variant base --space ${page.space}${route.namespace ? ` --namespace ${route.namespace}${/^(default|kube-.*)$/.test(route.namespace) ? "" : " --create-namespace"}` : ""} ${route.reference}`
+      : "";
     body = simpleLayout(h, {
       id, shot, beforeLabel: "Before: the Helm chart",
       beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
       beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
-      afterNote: `The same image line in ConfigHub, as a plain value. ${caption}`,
+      afterNote: `The same image line in ConfigHub, as a plain value. ${caption}${bundleLoad ? " This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below." : ""}`,
       sentences: simpleHelmSentences(f),
       units: helmUnits(f, check), rows: helmRows(id, f, check, shot),
       rowsHeading: "What Helm does that you never see, and what happens here instead", rowsColumns: ["What Helm does", "What happens here instead"],
       words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
-      loadRows: ["cub auth login", `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
+      loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
       graphNote: HELM_VARIANTS[id]?.graphNote ?? "",
-      loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} package, writes its files, and saves them as a Space called <code>${escapeHtml(page.space)}</code> in your organization.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
+      loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package, writes its files,"} and saves ${bundleLoad ? "its objects" : "them"} as a Space called <code>${escapeHtml(page.space)}</code> in your organization.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
       laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
       laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
-      needs: "its installer plugin and kustomize",
+      needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
+      laptopNeeds: "its installer plugin and kustomize",
     });
   } else {
     for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);

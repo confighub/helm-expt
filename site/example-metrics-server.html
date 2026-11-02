@@ -710,8 +710,8 @@
         <figure class="ex-card">
           <figcaption>After: in ConfigHub</figcaption>
           <img src="./before-after/helm-metrics-server-confighub.png" alt="ConfigHub showing the metrics-server Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the metrics-server Deployment, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 11 Units, one for each of the 10 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the metrics-server Deployment, at its image line. This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below.</p>
+          <p class="ex-note">ConfigHub holds this as 10 Units, one for each object and one README.</p>
           
         </figure>
       </div>
@@ -735,10 +735,10 @@
       <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server package, writes its files, and saves them as a Space called <code>metrics-server-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server OCI bundle and saves its objects as a Space called <code>metrics-server-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base default --work-dir ./metrics-server-example --non-interactive --namespace kube-system &amp;&amp; cub installer upload --work-dir ./metrics-server-example --space metrics-server-example &amp;&amp; cub component create metrics-server-example &amp;&amp; cub space update --patch metrics-server-example --component metrics-server-example
+<span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c
 
 <span class="term-prompt">$</span> cub variant create dev metrics-server-example --change-desc &quot;Clone the base as dev&quot;
 
@@ -748,8 +748,8 @@
 
 <span class="term-prompt">$</span> cub function set --space metrics-server-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
-<span class="term-prompt">$</span> cub function set --space metrics-server-example-prod --unit deployment-kube-system-metrics-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+<span class="term-prompt">$</span> cub function set --space metrics-server-example-prod --unit metrics-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with no plugin.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the metrics-server package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
