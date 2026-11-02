@@ -642,6 +642,7 @@
     <aside class="agent-note" aria-label="Give this to your agent"><span class="agent-note-label">Give this to your agent</span><span class="prompt-text">“Compare my GPU nodes with the AICR recipe for &lt;workload&gt;, and tell me which configuration fits and why.”</span><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></aside>
   <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
   <p>Want a whole GPU inference platform on Amazon EKS rather than one recipe? <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a>.</p>
+  <p>In <a href="./d/docs/user/model-and-vocabulary.html">the model</a>, AICR sits above Helm. It chooses many charts and their values, and the Catalog keeps the Argo CD Applications it produces. Argo CD renders the named charts on the cluster. AICR entries have no installer package.</p>
   <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
   <details><summary>What each path needs and proves</summary>

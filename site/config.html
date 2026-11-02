@@ -656,11 +656,11 @@
 <header class="hero human-hero">
   
   <h1>A simple model for all your config, templates and recipes</h1>
-  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
-  <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> states the model in three steps. This page shows it for one real entry.</p>
+  <p class="lead"><strong>Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it into ConfigHub.</strong></p>
+  <p>Helm charts, Timoni modules, AICR and Kubara recipes, OCI and plain YAML all take this path. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it, and this page shows it on one real entry.</p>
   <div class="hero-actions">
     <a class="button primary" href="./ask.html">Check a configuration</a>
-    <a class="button secondary" href="#lifecycle">See the five stages</a>
+    <a class="button secondary" href="#lifecycle">Follow one real entry</a>
     <a class="button secondary" href="./charts/index.html">Find one in the Catalog</a>
   </div>
   <div class="terminal-card" aria-label="Check a configuration before you apply it"><div class="terminal-title">try it</div><pre class="terminal-body"><code><span class="term-comment"># what do I have, and what will it produce?</span>
@@ -669,25 +669,15 @@
 <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <section aria-labelledby="what-a-configuration-is">
-    <h3 id="what-a-configuration-is">What is a configuration?</h3>
-    <div class="doors two">
-      <div class="door">
-        <h3>Read one exact set of objects</h3>
-        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and check it before anything runs.</p>
-      </div>
-      <div class="door">
-        <h3>Ask four questions</h3>
-        <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
-      </div>
-      <div class="door">
-        <h3>Bring any format</h3>
-        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
-      </div>
-      <div class="door">
-        <h3>Know which page does what</h3>
-        <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
-      </div>
-    </div>
+    <h2 id="what-a-configuration-is">The model on one line</h2>
+    <p><img src="../docs/images/model/simple-model.svg" alt="Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live." style="max-width:100%;height:auto"></p>
+    <ul>
+      <li><strong>Install</strong> decides which objects exist. If they are wrong, change the source and flatten again.</li>
+      <li><strong>Customise</strong> changes a copy for one place. If the objects are right and this place differs, change it in ConfigHub.</li>
+      <li><strong>Everything before the cluster is recorded, so it is reproducible.</strong> The cluster is live.</li>
+    </ul>
+    <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+    <p>The <a href="./charts/index.html">Catalog</a> holds configurations already worked out. <a href="./d/docs/user/model-and-vocabulary.html#what-is-in-the-catalog">What is in the Catalog</a> says what each entry holds and why. <a href="./confighub.html">ConfigHub</a> is where a base is customised, released and promoted.</p>
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
@@ -750,7 +740,9 @@
     </ul>
       </div>
     </details>
-    <h3 id="four-questions">Four questions, asked in order</h3>
+    <details class="deep" id="four-questions">
+      <summary>Four questions, asked in order</summary>
+      <div class="deep-body">
     <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
     <div class="card"><table>
         <thead><tr><th>Question</th><th>What answers it</th><th>Needs a Catalog match?</th><th>Needs destination access?</th><th>Needs it deployed?</th></tr></thead>
@@ -764,6 +756,8 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     <p>A Catalog entry can shorten any investigation, but it is never a prerequisite for inspecting or processing your own configuration. If the required destination or deployment does not exist, the check is <strong>blocked</strong> or <strong>not run</strong>. That is not a failed configuration, a failed workload, or a failed conformance result.</p>
+      </div>
+    </details>
     <h3 id="verb-strip">The command at each stage</h3>
     <p>Each stage is a real command. The first are free and need no account; upload and release need a ConfigHub organization.</p>
     <div class="card"><table>
@@ -933,7 +927,7 @@ bash ./try.sh</code></pre>
     </ul>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">What happens after the verdict</h3>
-    <p>An entry whose verdict allows plain objects follows the five stages in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
+    <p>An entry whose verdict allows plain objects follows the model in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
     <p>An <code>unsafe-to-flatten</code> entry has its installer package and no bundle.</p>
     <p>A published bundle shows that the objects were rendered and packaged as recorded. It does not show that they run.</p>
     <details class="deep">
@@ -1041,7 +1035,7 @@ bash ./try.sh</code></pre>
 </main>
 <footer><p>Config is the model. The <a href="./charts/index.html">Catalog</a> is the store of tested configurations, <a href="./stack.html">stacks</a> compose them, and <a href="./confighub.html">ConfigHub</a> governs, releases, and promotes a reviewed base.</p></footer>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#entry-contains">4. What each catalog entry contains</a></li><li><a href="#read-results">5. Read each result correctly</a></li><li><a href="#base-variants">6. Why the catalog offers several configurations</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./variants.html">Variants &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#what-a-configuration-is">The model on one line</a></li><li><a href="#lifecycle">1. Follow one configuration from source to running</a></li><li><a href="#formats">2. See what each format becomes</a></li><li><a href="#flatten">3. See whether a configuration can be flattened</a></li><li><a href="#entry-contains">4. What each catalog entry contains</a></li><li><a href="#read-results">5. Read each result correctly</a></li><li><a href="#base-variants">6. Why the catalog offers several configurations</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./variants.html">Variants &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./eks-inference.html">Try an EKS GPU inference platform</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>

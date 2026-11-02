@@ -4834,6 +4834,7 @@ function tryAicrHtml() {
   <p class="lead">NVIDIA AICR turns five choices into one recipe for a GPU cluster. The choices are the service, the accelerator, the operating system, the workload and the platform. The Catalog holds ${aicrRecipesAtV100} AICR recipes at v1.0.0, each kept as Argo CD Applications that you can read without a GPU.</p>
   <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
   <p>Want a whole GPU inference platform on Amazon EKS rather than one recipe? <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a>.</p>
+  <p>In <a href="./d/docs/user/model-and-vocabulary.html">the model</a>, AICR sits above Helm. It chooses many charts and their values, and the Catalog keeps the Argo CD Applications it produces. Argo CD renders the named charts on the cluster. AICR entries have no installer package.</p>
   <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
   <details><summary>What each path needs and proves</summary>
@@ -5002,11 +5003,11 @@ function configHtml(catalog) {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>A simple model for all your config, templates and recipes</h1>
-  <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
-  <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> states the model in three steps. This page shows it for one real entry.</p>
+  <p class="lead"><strong>Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it into ConfigHub.</strong></p>
+  <p>Helm charts, Timoni modules, AICR and Kubara recipes, OCI and plain YAML all take this path. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it, and this page shows it on one real entry.</p>
   <div class="hero-actions">
     <a class="button primary" href="./ask.html">Check a configuration</a>
-    <a class="button secondary" href="#lifecycle">See the five stages</a>
+    <a class="button secondary" href="#lifecycle">Follow one real entry</a>
     <a class="button secondary" href="./charts/index.html">Find one in the Catalog</a>
   </div>
   ${commandBlock([
@@ -5015,25 +5016,15 @@ function configHtml(catalog) {
 </header>
 <main>
   <section aria-labelledby="what-a-configuration-is">
-    <h3 id="what-a-configuration-is">What is a configuration?</h3>
-    <div class="doors two">
-      <div class="door">
-        <h3>Read one exact set of objects</h3>
-        <p>A configuration is one exact set of Kubernetes objects, the record of how they were produced, and the lifecycle work around them. You read, diff, and check it before anything runs.</p>
-      </div>
-      <div class="door">
-        <h3>Ask four questions</h3>
-        <p>Four questions place any configuration: <strong>what do I have</strong>, <strong>what will it produce</strong>, <strong>can this destination accept it</strong>, and <strong>did it work</strong>. The first two need no cluster and no account.</p>
-      </div>
-      <div class="door">
-        <h3>Bring any format</h3>
-        <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
-      </div>
-      <div class="door">
-        <h3>Know which page does what</h3>
-        <p>The <a href="./charts/index.html">Catalog</a> is the store of tested configurations and the case for trusting them. This page is what a configuration is and what you can do with one. <a href="./confighub.html">ConfigHub</a> is where a reviewed base is governed, released, and promoted.</p>
-      </div>
-    </div>
+    <h2 id="what-a-configuration-is">The model on one line</h2>
+    <p><img src="../docs/images/model/simple-model.svg" alt="Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live." style="max-width:100%;height:auto"></p>
+    <ul>
+      <li><strong>Install</strong> decides which objects exist. If they are wrong, change the source and flatten again.</li>
+      <li><strong>Customise</strong> changes a copy for one place. If the objects are right and this place differs, change it in ConfigHub.</li>
+      <li><strong>Everything before the cluster is recorded, so it is reproducible.</strong> The cluster is live.</li>
+    </ul>
+    <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>
+    <p>The <a href="./charts/index.html">Catalog</a> holds configurations already worked out. <a href="./d/docs/user/model-and-vocabulary.html#what-is-in-the-catalog">What is in the Catalog</a> says what each entry holds and why. <a href="./confighub.html">ConfigHub</a> is where a base is customised, released and promoted.</p>
   </section>
   <section aria-labelledby="lifecycle">
     <h2 id="lifecycle">1. Follow one configuration from source to running</h2>
@@ -5091,7 +5082,9 @@ function configHtml(catalog) {
     </ul>
       </div>
     </details>
-    <h3 id="four-questions">Four questions, asked in order</h3>
+    <details class="deep" id="four-questions">
+      <summary>Four questions, asked in order</summary>
+      <div class="deep-body">
     <p>The same four questions apply to Helm, AICR, Timoni, Kubara, installer packages, OCI, YAML, and retained ConfigHub revisions.</p>
     ${markdownLikeTable([
       ["Question", "What answers it", "Needs a Catalog match?", "Needs destination access?", "Needs it deployed?"],
@@ -5101,6 +5094,8 @@ function configHtml(catalog) {
       ["Did it work?", "Check the delivered revision, controller result, resource health, runtime behavior, drift, and rollback result the claim requires.", "No", "Yes", "Yes"],
     ])}
     <p>A Catalog entry can shorten any investigation, but it is never a prerequisite for inspecting or processing your own configuration. If the required destination or deployment does not exist, the check is <strong>blocked</strong> or <strong>not run</strong>. That is not a failed configuration, a failed workload, or a failed conformance result.</p>
+      </div>
+    </details>
     <h3 id="verb-strip">The command at each stage</h3>
     <p>Each stage is a real command. The first are free and need no account; upload and release need a ConfigHub organization.</p>
     ${markdownLikeTable([
@@ -5256,7 +5251,7 @@ bash ./try.sh</code></pre>
     </ul>
     <p>A base's verdict is one chart at a time. A stack's flattened release is a second judgement on top. It holds only when every part's verdict permits flattening, so one <code>unsafe-to-flatten</code> part keeps that part render-late even inside an otherwise flattened stack.</p>
     <h3 id="pipeline">What happens after the verdict</h3>
-    <p>An entry whose verdict allows plain objects follows the five stages in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
+    <p>An entry whose verdict allows plain objects follows the model in <a href="#lifecycle">section 1</a>. Its objects are rendered once and kept. Where a bundle is published, you upload it to ConfigHub as it is.</p>
     <p>An <code>unsafe-to-flatten</code> entry has its installer package and no bundle.</p>
     <p>A published bundle shows that the objects were rendered and packaged as recorded. It does not show that they run.</p>
     <details class="deep">
@@ -5300,6 +5295,7 @@ function howItWorksHtml() {
   <p class="eyebrow">Operate</p>
   <h1>Release, promote, gate, and roll back a reviewed configuration</h1>
   <p class="lead">These are ConfigHub's own operations, the ones you run once a configuration is reviewed.</p>
+  <p>In <a href="./d/docs/user/model-and-vocabulary.html">the model</a>, this is everything after install. You customise a variant, publish a release, and Argo CD or Flux delivers that exact digest.</p>
   <div class="hero-actions">
     <a class="button primary" href="#run-it-operate">Try it now</a>
     <a class="button secondary" href="./how-confighub-works.html">How ConfigHub works</a>
@@ -5415,6 +5411,7 @@ function configHubHtml(catalog) {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Upload a reviewed configuration into ConfigHub, then release and promote</h1>
+  <p>In <a href="./d/docs/user/model-and-vocabulary.html">the model</a>, this page is step 3 and everything after it. Loading gives you a base, a variant is where you customise, and a release is what reaches the cluster.</p>
   <p class="boundary-chip">Needs a ConfigHub account</p>
   <p class="lead">Uploading a reviewed configuration into ConfigHub is the step that needs an account. From there you release it so a cluster pulls it, and promote it across environments, with the source, checks, approvals, and history kept beside it.</p>
   <p>Use the Catalog or Check my config before you sign up. Continue here when your team needs the same answer tomorrow, in another environment, or after the next change.</p>
@@ -6229,7 +6226,7 @@ function allReferencesHtml(catalog) {
     ["What is not ready yet", "The honest register of what remains planned or partly tested.", "./known-gaps.html"],
     ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./ask.html#faq"],
     ["See what is not ready yet", "Current limitations, their effect, and the safest action available now.", "./known-gaps.html"],
-    ["Model and taxonomy", "The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
+    ["Model and taxonomy", "The one-line model, what the Catalog holds, and the one list of words.", "../docs/user/model-and-vocabulary.md"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
     ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
     ["App to live, end to end", "A plain app into ConfigHub, staging and prod variants, OCI to Argo delivery, and a staged rollout: the whole chain, run live.", "../docs/user/app-to-live-walkthrough.md"],
@@ -9976,6 +9973,7 @@ function ociHtml(catalog) {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Package and deliver it as OCI, and see what is signed</h1>
+  <p><a href="./d/docs/user/model-and-vocabulary.html#oci-does-three-separate-jobs">The model</a> gives OCI three jobs: source, literal and release. Every shape on this page does one of them, or is a record about one.</p>
   <p class="lead">A published result in this catalog leaves as an OCI artifact, and OCI covers several different shapes with different producers, consumers, and signatures. This page names each shape, shows which layout each consumer needs, and says which shapes carry a signature today.</p>
   <p>This page defines the OCI shapes and digests once. <a href="./config.html">Config</a> explains the lifecycle they carry. <a href="./variants.html">Variants</a> explains the base and derived variants a bundle becomes. <a href="./stack.html">Stacks and fleets</a> keeps the two stack OCI forms and links back here.</p>
 </header>

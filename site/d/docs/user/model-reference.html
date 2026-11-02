@@ -556,6 +556,10 @@
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
     <article class="doc-body">
 
+<p>This page uses the names the Catalog's records use, and they differ from the model page in three places.</p>
+<table><thead><tr><th>The records say</th><th>The model page says</th></tr></thead><tbody><tr><td>Route, route intent, resolved route</td><td>Plan step</td></tr>
+<tr><td>Base variant, in a package</td><td>Preset</td></tr>
+<tr><td>Base variant, after upload</td><td>Base</td></tr></tbody></table>
 <h2 id="start-with-the-question">Start with the question</h2>
 <p>The same four questions apply to Helm, cub installer packages, AICR, Kubara, OCI, YAML, and retained ConfigHub revisions:</p>
 <table><thead><tr><th>Question</th><th>What answers it</th><th>Needs a Catalog match?</th><th>Needs destination access?</th><th>Needs the selected configuration deployed?</th></tr></thead><tbody><tr><td><b>What do I have?</b></td><td>Inspect the source, exact files, OCI, or a snapshot of an existing system.</td><td>No</td><td>Usually no. A live snapshot needs read access to the system it measures.</td><td>No</td></tr>
