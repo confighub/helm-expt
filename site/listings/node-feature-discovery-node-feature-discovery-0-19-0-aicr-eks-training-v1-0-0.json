@@ -683,6 +683,15 @@
           "writes": true
         }
       ],
+      "notes": [
+        "The target `workshop/target` comes from `cub cluster up --name workshop --no-k8sbot`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without `--no-k8sbot` failed while it installed argobot."
+      ],
+      "liveWalk": {
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
+      },
       "carries": [
         "nodefeaturegroups.nfd.k8s-sigs.io",
         "nodefeaturerules.nfd.k8s-sigs.io",
@@ -709,8 +718,23 @@
           "command": "cub variant promote node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0-dev",
+          "needsAccount": true,
+          "writes": true
         }
-      ]
+      ],
+      "notes": [
+        "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion."
+      ],
+      "liveWalk": {
+        "date": "2026-11-02",
+        "path": "docs/user/live-walk-bundle-route-2026-11-02.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md",
+        "versions": "cub v0.9.0, workshop plugin 0.6.61"
+      }
     }
   ]
 }

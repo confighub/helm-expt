@@ -16233,7 +16233,7 @@ function entryStepHtml(step, index, listing, siteHref) {
   }
   const links = [];
   if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
-  if (step.liveWalk) links.push(`<a href="${escapeHtml(entryWalkHref(siteHref))}">Read the log of the live walk on ${escapeHtml(step.liveWalk.date)}</a>`);
+  if (step.liveWalk) links.push(`<a href="${escapeHtml(`${siteHref}/d/${step.liveWalk.path.replace(/\.md$/, ".html")}`)}">Read the log of the live walk on ${escapeHtml(step.liveWalk.date)}</a>`);
   if (step.receiptUrl) links.push(`<a href="${escapeHtml(step.receiptUrl)}">Read the receipt</a>`);
   else if (["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].includes(step.state) && step.id !== "get-objects") {
     links.push(`<a href="${escapeHtml(listing.generatedFrom.record.url)}">Read the record that states this</a>`);

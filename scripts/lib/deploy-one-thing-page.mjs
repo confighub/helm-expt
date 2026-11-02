@@ -22,7 +22,7 @@ const WALK_CLUSTER = "cwwalk-1008-kind";
 
 // A command from the walk log, written with the listing's names.
 const WALK_COMMANDS = {
-  clusterUp: `cub cluster up --name ${CLUSTER} --no-argobot`,
+  clusterUp: `cub cluster up --name ${CLUSTER} --no-k8sbot`,
   applications: "kubectl -n argocd get applications.argoproj.io",
   workload: "kubectl -n nginx get deployment,service,pods,networkpolicy,pdb",
   removeApplication: `cub unit delete --space ${CLUSTER}-argo-apps ${SPACE}-dev`,
@@ -98,7 +98,9 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
   const section = walkLog.slice(walkLog.indexOf("## Entry A."), walkLog.indexOf("## Entry B."));
   check(section.length > 0, `${DEPLOY_ONE_WALK_PATH} has no Entry A section`);
   for (const [name, command] of Object.entries(WALK_COMMANDS)) {
-    check(walkLog.includes(`$ ${asWalked(command)}`), `${DEPLOY_ONE_WALK_PATH} does not hold the command the Guide prints as ${name}: ${asWalked(command)}`);
+    // The walk ran on cub v0.8.7, and cub v0.9.0 renamed this flag.
+    const walked = asWalked(command).replace("--no-k8sbot", "--no-argobot");
+    check(walkLog.includes(`$ ${walked}`), `${DEPLOY_ONE_WALK_PATH} does not hold the command the Guide prints as ${name}: ${walked}`);
   }
   for (const line of Object.values(WALK_OUTPUT).flat()) {
     check(section.includes(`\n${line}\n`), `${DEPLOY_ONE_WALK_PATH} does not hold the output line the Guide quotes: ${line}`);
@@ -205,7 +207,7 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
       <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
       <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>${CLUSTER}/target</code>.</p>
       ${commandBlock([{ comment: "create the cluster, its Argo CD and its Target", cmd: WALK_COMMANDS.clusterUp }])}
-      <p>The walk ran this command with a cluster name of its own and with <code>--no-argobot</code>. Without that flag the command also installs argobot, and the walk did not observe that path.</p>
+      <p>The walk ran this command with a cluster name of its own and with <code>--no-argobot</code>, which cub v0.9.0 renamed <code>--no-k8sbot</code>. Without that flag the command also installs argobot. In a <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md">run on 2026-11-02</a> that install failed.</p>
       <p>The command changes your machine and your organization. It creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
       <p>It also prints the Argo CD admin password to the terminal.</p>
       <h3 id="release">Release it to that cluster</h3>

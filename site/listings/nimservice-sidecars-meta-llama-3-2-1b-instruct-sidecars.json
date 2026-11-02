@@ -1320,6 +1320,12 @@
           "command": "cub variant promote nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-sidecars-meta-llama-3-2-1b-instruct-sidecars-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

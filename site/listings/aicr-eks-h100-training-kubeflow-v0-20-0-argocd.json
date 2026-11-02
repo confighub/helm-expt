@@ -938,6 +938,12 @@
           "command": "cub variant promote aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ],
       "receipt": "examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml",

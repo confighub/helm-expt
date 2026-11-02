@@ -737,7 +737,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. A <a href="../d/docs/user/live-run-log-2026-10-08.html">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.</p>
       <div data-entry-steps="prometheus-community-prometheus-blackbox-exporter-11-18-0-default">
         <details class="entry-inputs" data-entry-inputs="prometheus-community-prometheus-blackbox-exporter-11-18-0-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -787,7 +787,8 @@ f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2  prometheus-com
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>The target <code>workshop/target</code> comes from <code>cub cluster up --name workshop --no-k8sbot</code>, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without <code>--no-k8sbot</code> failed while it installed argobot.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev prometheus-community-prometheus-blackbox-exporter-11-18-0-default --target workshop/target --space-pattern &quot;template:prometheus-community-prometheus-blackbox-exporter-11-18-0-default-dev&quot;
 
@@ -796,12 +797,16 @@ f9a8cddd436d84f31bcb4903756d6a1e149e7f4197d33d18013e33b077195aa2  prometheus-com
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.</p>
+          <p>No promotion is recorded for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-blackbox-exporter-11-18-0-default-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-blackbox-exporter-11-18-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-blackbox-exporter-11-18-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish prometheus-community-prometheus-blackbox-exporter-11-18-0-default-dev</code></pre>
         </div>
       </div>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/prometheus-community-prometheus-blackbox-exporter-11-18-0-default.json">prometheus-community-prometheus-blackbox-exporter-11-18-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>

@@ -745,7 +745,10 @@ npm run aicr-provenance-v100:verify</code></pre>
 <span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v1-0-0-argocd-dev</code></pre>
         </div>
       </div>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json">aicr-eks-h100-training-kubeflow-v1-0-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>

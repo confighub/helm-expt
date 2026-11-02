@@ -151,7 +151,8 @@ flattening verdict permits, the entry also has a published OCI bundle.
 
 The OCI bundle is the default. An entry page's upload step prints it wherever one
 is published, and prints the installer package route otherwise. Both routes end
-in the same place, which is a base with variants.
+in the same place, which is a base with variants. [One dated run](./live-walk-bundle-route-2026-11-02.md)
+shows the OCI bundle route from upload to the cluster.
 
 ## What OCI does
 
