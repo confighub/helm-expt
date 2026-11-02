@@ -3134,7 +3134,7 @@ function siteSidebarHtml(relPath, section, html = "") {
   const aiLinks = list([["ai.html#install-skill", "Set up my AI agent"], ["ask.html", "Check my charts and values"]]);
   const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["how-it-works.html", "Promotions and Pipelines"]]);
   // The same two Deep Dives the home page lists, on every page's left column.
-  const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
+  const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["d/docs/user/model-and-vocabulary.html#words", "What our words mean"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
   if (relPath === "guides.html" || isGuidePage(relPath)) {
     const local = relPath === "guides.html"
       ? [["guides.html#guides-journeys", "Try a demo"], ["guides.html#guides-your-tools", "Start with your tools"], ["guides.html#guides-start-here", "Browse by topic"]]
@@ -3991,6 +3991,7 @@ ${homeJourneyLinks()}
         <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
+        <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
         <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <a href="./ai.html#install-skill">Set up my AI agent</a>
@@ -5002,7 +5003,7 @@ function configHtml(catalog) {
   ${topNav(".")}
   <h1>A simple model for all your config, templates and recipes</h1>
   <p class="lead">Helm charts, Timoni modules, AICR and Kubara recipes, OCI, and plain YAML all reach the same shape through the same five stages.</p>
-  <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> states the model in three steps on one short page. This page shows it for one real entry.</p>
+  <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> states the model in three steps. This page shows it for one real entry.</p>
   <div class="hero-actions">
     <a class="button primary" href="./ask.html">Check a configuration</a>
     <a class="button secondary" href="#lifecycle">See the five stages</a>
@@ -7963,7 +7964,7 @@ function docsHtml(catalog) {
     <section aria-labelledby="read-first">
       <h2 id="read-first">Read first</h2>
       <ul>
-        <li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>. Three steps on one short page.</li>
+        <li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>. Three steps, and the words the Catalog uses.</li>
         <li><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>. One Helm chart from the Catalog, in five steps.</li>
         <li><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>. What AICR is, and every AICR page.</li>
         <li><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a>. The Catalog, the Guides and the tools.</li>

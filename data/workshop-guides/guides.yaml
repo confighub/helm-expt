@@ -62,7 +62,7 @@ spec:
     group: deep-dives
     title: How the model works
     summary: Flatten it, put it in an OCI bundle with a plan if it needs one, and load it into
-      ConfigHub. Three steps on one short page, the same for every format.
+      ConfigHub. Three steps, the same for every format, and the words the Catalog uses.
     page: d/docs/user/model-and-vocabulary.html
   - id: ai-chaos-in-production
     group: deep-dives
