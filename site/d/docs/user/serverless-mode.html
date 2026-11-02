@@ -583,7 +583,7 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \
   --base http-clusterip \
   --work-dir ./nginx \
   --non-interactive \
@@ -599,7 +599,7 @@ kubectl -n nginx rollout status deployment/nginx</code></pre>
 <h2 id="write-the-reviewed-files-to-a-registry">Write the reviewed files to a registry</h2>
 <p>If Argo CD or Flux already owns delivery, give <code>--output-oci</code> a registry reference instead of a local path:</p>
 <pre><code>cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 \
   --base http-clusterip \
   --work-dir ./nginx \
   --non-interactive \
