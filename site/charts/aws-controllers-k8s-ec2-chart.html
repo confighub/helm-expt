@@ -725,6 +725,12 @@ f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59  aws-controller
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev aws-controllers-k8s-ec2-chart-1-18-4-default --target workshop/target --space-pattern &quot;template:aws-controllers-k8s-ec2-chart-1-18-4-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aws-controllers-k8s-ec2-chart-1-18-4-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aws-controllers-k8s-ec2-chart-1-18-4-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish aws-controllers-k8s-ec2-chart-1-18-4-default-dev</code></pre>
         </div>
@@ -737,6 +743,12 @@ f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59  aws-controller
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote aws-controllers-k8s-ec2-chart-1-18-4-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aws-controllers-k8s-ec2-chart-1-18-4-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aws-controllers-k8s-ec2-chart-1-18-4-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish aws-controllers-k8s-ec2-chart-1-18-4-default-dev</code></pre>

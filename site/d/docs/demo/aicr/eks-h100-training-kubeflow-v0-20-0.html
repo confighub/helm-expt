@@ -722,6 +722,12 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev aicr-eks-h100-training-kubeflow-v0-20-0-argocd --target workshop/target --space-pattern &quot;template:aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev</code></pre>
         </div>
@@ -733,6 +739,12 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev</code></pre>

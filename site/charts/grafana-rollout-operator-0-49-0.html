@@ -795,6 +795,12 @@ dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763  grafana-rollou
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev grafana-rollout-operator-0-49-0-default --target workshop/target --space-pattern &quot;template:grafana-rollout-operator-0-49-0-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish grafana-rollout-operator-0-49-0-default-dev</code></pre>
         </div>
@@ -807,6 +813,12 @@ dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763  grafana-rollou
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote grafana-rollout-operator-0-49-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish grafana-rollout-operator-0-49-0-default-dev</code></pre>
@@ -871,6 +883,12 @@ ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403  grafana-rollou
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev grafana-rollout-operator-0-49-0-no-crds --target workshop/target --space-pattern &quot;template:grafana-rollout-operator-0-49-0-no-crds-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-no-crds-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-no-crds-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish grafana-rollout-operator-0-49-0-no-crds-dev</code></pre>
         </div>
@@ -883,6 +901,12 @@ ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403  grafana-rollou
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote grafana-rollout-operator-0-49-0-no-crds-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-no-crds-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-rollout-operator-0-49-0-no-crds-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish grafana-rollout-operator-0-49-0-no-crds-dev</code></pre>
