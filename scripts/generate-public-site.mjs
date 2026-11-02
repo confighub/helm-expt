@@ -5019,8 +5019,8 @@ function configHtml(catalog) {
     <h2 id="what-a-configuration-is">The model on one line</h2>
     <p><img src="../docs/images/model/simple-model.svg" alt="Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live." style="max-width:100%;height:auto"></p>
     <ul>
-      <li><strong>Install</strong> decides which objects exist. If they are wrong, change the source and flatten again.</li>
-      <li><strong>Customise</strong> changes a copy for one place. If the objects are right and this place differs, change it in ConfigHub.</li>
+      <li><strong>Install is developer intent.</strong> It decides which objects exist, and it is pinned and reproducible. If the objects are wrong, change the source and flatten again.</li>
+      <li><strong>Customise is operator intent.</strong> It changes a copy for one place, and it can respond to live operations. If the objects are right and this place differs, change it in ConfigHub, where each change is recorded.</li>
       <li><strong>Everything before the cluster is recorded, so it is reproducible.</strong> The cluster is live.</li>
     </ul>
     <p><strong>Start from what you have:</strong> <a href="./ask.html">Helm</a> · <a href="#formats">OCI</a> · <a href="./deploy-with-flux-or-argo.html">Flux, Argo CD, or kubectl</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a> · <a href="./try-aicr.html">AICR</a> · <a href="#formats">plain YAML</a> · <a href="#formats">Timoni and the rest</a>. Each becomes the same reviewed base.</p>

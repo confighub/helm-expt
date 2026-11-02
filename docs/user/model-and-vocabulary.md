@@ -11,10 +11,11 @@ into ConfigHub.**
 
 ![Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live.](../images/model/simple-model.svg)
 
-- **Install** decides which objects exist. If they are wrong, change the source
-  and flatten again.
-- **Customise** changes a copy for one place. If the objects are right and this
-  place differs, change it in ConfigHub.
+- **Install is developer intent.** It decides which objects exist, and it is pinned
+  and reproducible. If the objects are wrong, change the source and flatten again.
+- **Customise is operator intent.** It changes a copy for one place, and it can respond
+  to live operations. If the objects are right and this place differs, change it in
+  ConfigHub, where each change is recorded.
 - **Everything before the cluster is recorded, so it is reproducible.** The cluster
   is live.
 
@@ -209,7 +210,15 @@ AICR is the exception to a full record. Its Applications name each chart by vers
 and Argo CD renders those charts on the cluster, so the rendered objects are not
 fixed in advance.
 
-## Where an agent fits
+## Developer intent, operator intent and the agent loop
+
+Developer intent is the pinned inputs that produce a base. The same inputs always give
+the same objects. Operator intent is the changes made to a variant, often because of
+what is happening live, so you can't predict them in advance. Each one is still
+recorded.
+
+The two kinds of intent join when a new render is loaded. It merges three ways and
+writes only what the render changed, so operator edits survive.
 
 An agent's decision can be unpredictable, but what it writes can't be. It either
 changes the recipe or applies a named function such as `set-replicas` to a variant,
