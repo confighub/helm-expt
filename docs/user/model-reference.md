@@ -5,6 +5,15 @@ flatten it, put it in an OCI bundle with a plan if it needs one, and load it
 into ConfigHub. Read that page first. This page holds the full definitions,
 the record layers and the digest roles.
 
+This page uses the names the Catalog's records use, and they differ from the model
+page in three places.
+
+| The records say | The model page says |
+| --- | --- |
+| Route, route intent, resolved route | Plan step |
+| Base variant, in a package | Preset |
+| Base variant, after upload | Base |
+
 ## Start with the question
 
 The same four questions apply to Helm, cub installer packages, AICR, Kubara,
