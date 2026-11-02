@@ -888,10 +888,10 @@ c0a62fce6407f18a6cbadb712a2b2570f51522f55bddc9ecaffcf30c5192ed2b  prometheus-com
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1
+<span class="term-prompt">$</span> cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>

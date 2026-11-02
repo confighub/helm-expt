@@ -4,6 +4,7 @@
 // examples/before-after/, and the builder checks the counts against the
 // recorded command output, so a page cannot show a result that was not run.
 
+import { installerPackageCommands } from "./entry-next-steps.mjs";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readYamlText, repoRoot } from "./proof-common.mjs";
@@ -26,6 +27,14 @@ const HELM_NAMES = {
   "helm-metrics-server": "metrics-server",
   "helm-gatekeeper": "Gatekeeper",
 };
+
+// The route these pages recorded and pictured. An entry page's own upload step
+// prints the OCI bundle where one is published.
+function packageRoute(listing) {
+  const route = installerPackageCommands(listing);
+  if (!route) return { setup: null, upload: [] };
+  return { setup: { command: route.setup }, upload: [{ command: "cub auth login" }, { command: route.upload }, { command: route.list }] };
+}
 
 export const BEFORE_AFTER_PAGES = [
   {
@@ -211,8 +220,7 @@ function helmPage(h) {
 
   const bundleRef = rec.sources.find((source) => source.reference).reference;
   const step = (stepId) => listing.nextSteps.find((entry) => entry.id === stepId);
-  const setup = step("get-objects").commands.find((command) => command.command.startsWith("cub installer setup"));
-  const upload = step("upload").commands;
+  const { setup, upload } = packageRoute(listing);
   check(setup && upload.length === 3, `site/listings/${GPU_ENTRY}.json changed its setup or upload commands`);
   const shared = before.length - hooks.length;
 
@@ -274,7 +282,7 @@ function helmPage(h) {
         { comment: "load the objects as a Space of Units, under names you choose", cmd: upload[1].command },
         { comment: "list what was loaded", cmd: upload[2].command },
       ])}
-      <p>These are the commands on the entry page. The screenshot below shows one run of them. The Catalog's own record for this entry still holds no upload.</p>
+      <p>These commands use the installer package route. The screenshot below shows one run of them, and the entry page prints the OCI bundle route. The Catalog's own record for this entry still holds no upload.</p>
       ${liveScreenshot("helm-gpu-operator", escapeHtml)}
     </details>
     <section aria-labelledby="notes">
@@ -643,8 +651,7 @@ function helmListingPage(id, h) {
   const getObjects = (listing.nextSteps ?? []).find((step) => step.id === "get-objects");
   check(getObjects?.commands?.[0]?.command?.startsWith("curl -fsSL -o "), `site/listings/${rec.listing}.json has no curl command for its objects`);
   const fetchAfter = getObjects.commands[0].command.replace(/-o \S+/, "-o after.yaml");
-  const setup = getObjects.commands.find((command) => command.command.startsWith("cub installer setup"));
-  const upload = (listing.nextSteps ?? []).find((step) => step.id === "upload")?.commands ?? [];
+  const { setup, upload } = packageRoute(listing);
   const entryPage = `./charts/${listing.identity.page.split("/").pop()}`;
   const tableRows = [
     ["", "Before, helm template", `After, the ${base} base`],
@@ -1366,7 +1373,7 @@ function simplePage(id, h) {
     const f = helmFacts(id);
     const excerpt = JSON.parse(read(id, "before/template-excerpt.json"));
     check(excerpt.lines.some((line) => /^\s+image:/.test(line)), `${ROOT}/${id}: the excerpt has no image line, and the ConfigHub picture shows one`);
-    const setup = (f.listing.nextSteps ?? []).find((step) => step.id === "get-objects")?.commands.find((command) => command.command.startsWith("cub installer setup"));
+    const { setup } = packageRoute(f.listing);
     check(setup, `site/listings/${f.rec.listing}.json has no cub installer setup command`);
     const setupHere = setup.command.replace(/--work-dir \S+/, `--work-dir ./${page.space}`);
     body = simpleLayout(h, {

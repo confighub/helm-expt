@@ -737,7 +737,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. This page covers 3 entries, so open the one you want. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.</p>
+      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. This page covers 3 entries, so open the one you want. A <a href="../d/docs/user/live-run-log-2026-10-08.html">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.</p>
       <details class="entry-steps-base" data-entry-steps="prometheus-community-prometheus-adapter-5-3-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 5.3.0</summary>
         <details class="entry-inputs" data-entry-inputs="prometheus-community-prometheus-adapter-5-3-0-default" open>
@@ -758,16 +758,12 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 11 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-prometheus-adapter-5-3-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># check the bytes against the listing</span>
 <span class="term-prompt">$</span> shasum -a 256 prometheus-community-prometheus-adapter-5-3-0-default.yaml
-50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a  prometheus-community-prometheus-adapter-5-3-0-default.yaml
-
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d --base default --work-dir ./prometheus-community-prometheus-adapter-5-3-0-default --non-interactive --namespace default</code></pre>
+50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a  prometheus-community-prometheus-adapter-5-3-0-default.yaml</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -780,55 +776,33 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml">Read the record that states this</a>.</p>
-          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
-          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
-<span class="term-prompt">$</span> cub installer upload --work-dir ./prometheus-community-prometheus-adapter-5-3-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;
+<span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
+<span class="term-prompt">$</span> cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant default --space prometheus-community-prometheus-adapter-5-3-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default:latest@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711
 
-<span class="term-comment"># list the Units the upload created</span>
-<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
+<span class="term-comment"># upload the bundle as a base Space of Units</span>
+<span class="term-prompt">$</span> cub variant upload --component prometheus-community-prometheus-adapter --variant default --space prometheus-community-prometheus-adapter-5-3-0-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default:latest@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
-          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
-          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
-          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
-          <p>The walk made its cluster with <code>cub cluster up --no-argobot</code>. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
-          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev prometheus-community-prometheus-adapter-5-3-0-default --target workshop/target --space-pattern &quot;template:prometheus-community-prometheus-adapter-5-3-0-default-dev&quot;
 
-<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
+<span class="term-prompt">$</span> cub release publish prometheus-community-prometheus-adapter-5-3-0-default-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
-          <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml">Read the record that states this</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
-          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
+        <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
+          <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
+          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-default.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-default-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish the Release that carries the change</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
         </div>
       </details>
       <details class="entry-steps-base" data-entry-steps="prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability">
@@ -851,16 +825,12 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 11 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># check the bytes against the listing</span>
 <span class="term-prompt">$</span> shasum -a 256 prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml
-b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23  prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml
-
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d --base apiservice-v1-capability --work-dir ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --non-interactive --namespace default</code></pre>
+b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23  prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -873,55 +843,33 @@ b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23  prometheus-com
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml">Read the record that states this</a>.</p>
-          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
-          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
-<span class="term-prompt">$</span> cub installer upload --work-dir ./prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --space &lt;your-space&gt; --component &lt;your-component&gt;
+<span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
+<span class="term-prompt">$</span> cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest@sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80
 
-<span class="term-comment"># list the Units the upload created</span>
-<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
+<span class="term-comment"># upload the bundle as a base Space of Units</span>
+<span class="term-prompt">$</span> cub variant upload --component prometheus-community-prometheus-adapter --variant apiservice-v1-capability --space prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability:latest@sha256:14bc193dfa5eda5abf620a59c7f742c016c20d9cd99511a6245a5aebae992b80</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
-          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
-          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
-          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
-          <p>The walk made its cluster with <code>cub cluster up --no-argobot</code>. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
-          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability --target workshop/target --space-pattern &quot;template:prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-dev&quot;
 
-<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
+<span class="term-prompt">$</span> cub release publish prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
-          <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml">Read the record that states this</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
-          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
+        <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
+          <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
+          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish the Release that carries the change</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
         </div>
       </details>
       <details class="entry-steps-base" data-entry-steps="prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly">
@@ -944,16 +892,12 @@ b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23  prometheus-com
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 11 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># check the bytes against the listing</span>
 <span class="term-prompt">$</span> shasum -a 256 prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml
-50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a  prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml
-
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0@sha256:75c59e28e1813899bb3be664effb72a52b7e61b066998854e9cce718e045020d --base cluster-metrics-readonly --work-dir ./prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --non-interactive --namespace default</code></pre>
+50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a  prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -966,55 +910,33 @@ b1cfc0aa1c663e05e1c184d9cbc6e806feffb9456755ff81233058f05a795c23  prometheus-com
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml">Read the record that states this</a>.</p>
-          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
-          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
-<span class="term-prompt">$</span> cub installer upload --work-dir ./prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --space &lt;your-space&gt; --component &lt;your-component&gt;
+<span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
+<span class="term-prompt">$</span> cub variant upload --dry-run --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:latest@sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210
 
-<span class="term-comment"># list the Units the upload created</span>
-<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
+<span class="term-comment"># upload the bundle as a base Space of Units</span>
+<span class="term-prompt">$</span> cub variant upload --component prometheus-community-prometheus-adapter --variant cluster-metrics-readonly --space prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:latest@sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
-          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
-          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
-          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
-          <p>The walk made its cluster with <code>cub cluster up --no-argobot</code>. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
-          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly --target workshop/target --space-pattern &quot;template:prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-dev&quot;
 
-<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
+<span class="term-prompt">$</span> cub release publish prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-dev</code></pre>
         </div>
-        <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
-          <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml">Read the record that states this</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
-          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
+        <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
+          <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
+          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.yaml">Read the record that states this</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish the Release that carries the change</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
+<span class="term-prompt">$</span> cub variant promote prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
         </div>
       </details>
       <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/prometheus-community-prometheus-adapter-5-3-0-default.json">prometheus-community-prometheus-adapter-5-3-0-default.json</a>, <a href="../listings/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.json">prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability.json</a>, <a href="../listings/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.json">prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>

@@ -104,22 +104,39 @@ function slug(value) {
     .replace(/^-+|-+$/g, "");
 }
 
-// Which public artifact a reader can upload from. An installer package counts
-// only when the listing pins it by digest, and a literal bundle only when the
-// listing records it as published at a public reference. Anything else is not
-// a public artifact, so the entry has no upload command.
+// Which public artifact a reader can upload from. A published OCI bundle comes
+// first, because it needs no render on the reader's machine and leaves no
+// installer record to remove. An installer package counts only when the listing
+// pins it by digest, and a literal bundle only when the listing records it as
+// published at a public reference. Anything else is not a public artifact, so
+// the entry has no upload command.
 export function uploadPath(listing) {
   const format = listing.source?.format ?? "";
   const ociRef = listing.source?.ociRef ?? "";
   const namespace = fixedInput(listing, "namespace");
-  if (format === "helm" && /@sha256:[0-9a-f]{64}$/.test(ociRef) && /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/.test(namespace)) {
-    return { kind: "installer-package", reference: ociRef, namespace };
-  }
+  const validNamespace = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/.test(namespace);
   const literal = bundle(listing, "literal-config");
   if (literal.state === "published" && literal.referenceState === "published" && String(literal.reference).startsWith("oci://")) {
-    return { kind: "literal-bundle", reference: literal.reference };
+    return { kind: "literal-bundle", reference: literal.reference, ...(validNamespace ? { namespace } : {}) };
+  }
+  if (format === "helm" && /@sha256:[0-9a-f]{64}$/.test(ociRef) && validNamespace) {
+    return { kind: "installer-package", reference: ociRef, namespace };
   }
   return { kind: "none" };
+}
+
+// The installer package route for a Helm entry, whichever route its upload step
+// prints. A page that recorded a run of this route shows these commands.
+export function installerPackageCommands(listing) {
+  const ociRef = listing.source?.ociRef ?? "";
+  const namespace = fixedInput(listing, "namespace");
+  if (listing.source?.format !== "helm" || !/@sha256:[0-9a-f]{64}$/.test(ociRef) || !namespace) return null;
+  const { id, base } = listing.identity;
+  return {
+    setup: `cub installer setup --pull ${ociRef} --base ${base} --work-dir ./${id} --non-interactive --namespace ${namespace}`,
+    upload: `cub installer upload --work-dir ./${id} --space ${SPACE_PLACEHOLDER} --component ${COMPONENT_PLACEHOLDER}`,
+    list: `cub unit list --space ${SPACE_PLACEHOLDER}`,
+  };
 }
 
 // True when the listing records a passed delivery and the deploy step shows
@@ -395,7 +412,10 @@ export function buildNextSteps(listing, { plan, related = [] }) {
         { comment: "list the Units the upload created", command: `cub unit list --space ${SPACE_PLACEHOLDER}`, needsAccount: true },
       );
     } else if (path.kind === "literal-bundle") {
-      const args = `--component ${slug(name)} --variant ${base} --space ${id} ${path.reference}`;
+      // A rendered chart carries no Namespace object. The installer adds one, so this
+      // route asks for one too, except for a namespace every cluster already has.
+      const createNamespace = path.namespace && !/^(default|kube-.*)$/.test(path.namespace) ? " --create-namespace" : "";
+      const args = `--component ${slug(name)} --variant ${base} --space ${id}${path.namespace ? ` --namespace ${path.namespace}${createNamespace}` : ""} ${path.reference}`;
       commands.push(
         { comment: "sign in; steps 3 to 5 write to your ConfigHub organization", command: "cub auth login", needsAccount: true },
         { comment: "preview the upload of the published bundle; nothing is written", command: `cub variant upload --dry-run ${args}`, needsAccount: true },

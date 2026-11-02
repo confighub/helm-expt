@@ -870,12 +870,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --dry-run --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "command": "cub variant upload --component prometheus-community-kube-prometheus-stack --variant minimal --space prometheus-community-kube-prometheus-stack-87-19-2-minimal --namespace monitoring --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:latest@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
           "needsAccount": true,
           "writes": true
         }

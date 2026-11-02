@@ -9,6 +9,18 @@ in the model.
 **Flatten it. Put it in an OCI bundle, with a plan if it needs one. Load it
 into ConfigHub.**
 
+![Source, flatten, OCI bundle, ConfigHub, cluster, from left to right. The first three are install, ConfigHub is customise, and the cluster is where it runs. Everything before the cluster is reproducible, and the cluster is live.](../images/model/simple-model.svg)
+
+- **Install** decides which objects exist. If they are wrong, change the source
+  and flatten again.
+- **Customise** changes a copy for one place. If the objects are right and this
+  place differs, change it in ConfigHub.
+- **Everything before the cluster can be repeated exactly.** The cluster is live.
+
+That is the whole model. The rest of this page is detail.
+
+## The three steps
+
 | Step | What happens | Tool |
 | --- | --- | --- |
 | 1. Flatten | A source is turned into plain Kubernetes objects. | Helm for a chart. `cub installer` for an installer package. `aicr` for an AICR recipe. |
@@ -17,7 +29,7 @@ into ConfigHub.**
 
 Then you deploy a variant to a cluster.
 
-## The whole model in one picture
+## Every stage, in one picture
 
 [![The model as six stages from left to right. Choose, flatten and the OCI bundle are install. Load and release are customise. Everything up to release is reproducible, and delivery and observation are live-dependent. Each row shows who does the work, what live values are read, what OCI holds, what happens to the plan and what an agent does.](../images/model/whole-model.svg)](../images/model/whole-model.svg)
 
@@ -137,8 +149,9 @@ flattening verdict permits, the entry also has a published OCI bundle.
 | OCI bundle | `cub variant upload` | The entry has a bundle, and you have no inputs to supply. |
 | Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
 
-Both routes end in the same place, which is a base with variants. An entry page's
-upload step prints the installer package route for a Helm entry.
+The OCI bundle is the default. An entry page's upload step prints it wherever one
+is published, and prints the installer package route otherwise. Both routes end
+in the same place, which is a base with variants.
 
 ## What OCI does
 
@@ -148,7 +161,7 @@ does three separate jobs, and each has its own digest.
 | Job | What it holds | Who makes it | What happens next |
 | --- | --- | --- | --- |
 | Source | A chart, an installer package or an AICR-generated chart | The provider or the Catalog | A tool still has to run. |
-| Literal | Flattened objects and their plan. An OCI bundle is this kind. | The Catalog, or `cub installer --output-oci` | You read, compare or load them, and no generator runs. |
+| Literal | Flattened objects and their plan. An OCI bundle is this kind. | The Catalog, or `cub installer setup --output-oci` | You read, compare or load them, and no generator runs. |
 | Release | One approved ConfigHub revision | `cub release publish` | Argo CD or Flux applies that exact digest. |
 
 ## What a plan does, and what GitOps does
@@ -290,7 +303,7 @@ older names, and the last column says where a word means something else.
 | --- | --- | --- |
 | Source | What a provider publishes, such as a chart or an AICR release. | |
 | Recipe | One pinned choice from a source: its version and one set of values or criteria. | An **AICR recipe** is the document `aicr recipe` resolves from the criteria. The `recipes/` directory holds the Catalog's records. |
-| Preset | One named set of choices inside an installer package. | `installer.yaml` and `cub installer --base` call a preset a base. |
+| Preset | One named set of choices inside an installer package. | `installer.yaml` and `cub installer setup --base` call a preset a base. |
 | Input | A named value `cub installer` asks for and writes to a field. | Helm values, which are chosen before the package is built. |
 | Fact | Something read from the destination and recorded before a render. | An input, which a person supplies. |
 | Placeholder | The value `confighubplaceholder`, which marks a value each destination must supply. | |

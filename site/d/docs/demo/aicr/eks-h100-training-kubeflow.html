@@ -735,10 +735,10 @@ fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801  aicr-eks-h100-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+<span class="term-prompt">$</span> cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="partly-run-for-this-entry">
           <h3>4. Deploy it <span class="status warn">Partly run for this entry</span></h3>

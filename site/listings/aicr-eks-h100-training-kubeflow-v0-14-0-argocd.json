@@ -635,12 +635,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+          "command": "cub variant upload --dry-run --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+          "command": "cub variant upload --component eks-h100-training-kubeflow --variant argocd --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
           "needsAccount": true,
           "writes": true
         }
