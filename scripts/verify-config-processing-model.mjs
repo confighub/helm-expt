@@ -136,7 +136,7 @@ for (const row of JSON.parse(read("site/configs.json")).rows ?? JSON.parse(read(
 }
 const entryRows = {
   helm: "Helm chart",
-  aicr: "AICR recipe",
+  aicr: "NVIDIA AICR recipe",
   "kubernetes-yaml": "Plain YAML",
   timoni: "Timoni module",
   "cub-installer": "Installer package",
