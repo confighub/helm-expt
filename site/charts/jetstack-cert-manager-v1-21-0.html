@@ -696,6 +696,12 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev jetstack-cert-manager-v1-21-0-default --target workshop/target --space-pattern &quot;template:jetstack-cert-manager-v1-21-0-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish jetstack-cert-manager-v1-21-0-default-dev</code></pre>
         </div>
@@ -708,6 +714,12 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote jetstack-cert-manager-v1-21-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish jetstack-cert-manager-v1-21-0-default-dev</code></pre>
@@ -776,6 +788,12 @@ ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967  jetstack-cert-
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev jetstack-cert-manager-v1-21-0-crds-enabled --target workshop/target --space-pattern &quot;template:jetstack-cert-manager-v1-21-0-crds-enabled-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-crds-enabled-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-crds-enabled-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish jetstack-cert-manager-v1-21-0-crds-enabled-dev</code></pre>
         </div>
@@ -788,6 +806,12 @@ ce9f3596a16fd6af0ef68f3c292349bd4174cff361bdc2e1318901396d8f6967  jetstack-cert-
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote jetstack-cert-manager-v1-21-0-crds-enabled-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-crds-enabled-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space jetstack-cert-manager-v1-21-0-crds-enabled-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish jetstack-cert-manager-v1-21-0-crds-enabled-dev</code></pre>

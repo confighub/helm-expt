@@ -697,6 +697,12 @@ a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46  kai-scheduler-
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev kai-scheduler-kai-scheduler-v0-14-1-default --target workshop/target --space-pattern &quot;template:kai-scheduler-kai-scheduler-v0-14-1-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish kai-scheduler-kai-scheduler-v0-14-1-default-dev</code></pre>
         </div>
@@ -709,6 +715,12 @@ a0cf177775ec0bf2532012da868de07c070a4fb6d6f792a9518089c5b0bc7b46  kai-scheduler-
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote kai-scheduler-kai-scheduler-v0-14-1-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish kai-scheduler-kai-scheduler-v0-14-1-default-dev</code></pre>
@@ -780,6 +792,12 @@ f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5  kai-scheduler-
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training --target workshop/target --space-pattern &quot;template:kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev</code></pre>
         </div>
@@ -792,6 +810,12 @@ f5b5383ffa1072925cd6d639d4aa69cbdefa1b34ba4eaf75b33a698fd210a9c5  kai-scheduler-
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training-dev</code></pre>

@@ -147,6 +147,19 @@ export function installerPackageCommands(listing) {
   };
 }
 
+// A bundle with a plan carries the plan's documents as Units, and Argo CD cannot
+// apply their kinds, so they stay out of a Release. A promotion adds them back.
+// A delete that matches nothing succeeds, so an older bundle without them is fine.
+function planDocumentRemoval(listing, path, space) {
+  if (path.kind !== "literal-bundle" || listing.flattened?.verdict !== "flatten-with-routes") return [];
+  return ["bundleroute", "bundletargetrequirements"].map((suffix) => ({
+    comment: "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+    command: `cub unit delete --space ${space}-dev --where "Slug LIKE '%-${suffix}'"`,
+    needsAccount: true,
+    writes: true,
+  }));
+}
+
 // True when the listing records a passed delivery and the deploy step shows
 // commands for the entry. The recorded delivery proofs ran other commands than
 // the ones shown, so the step may not read as run for the commands it shows.
@@ -467,8 +480,10 @@ export function buildNextSteps(listing, { plan, related = [] }) {
     const { needs, carries } = splitInstallInputs(listing);
     const installer = path.kind === "installer-package";
     const spaceArg = installer ? SPACE_PLACEHOLDER : id;
+    const planRemoval = planDocumentRemoval(listing, path, spaceArg);
     const commands = path.kind === "none" ? [] : [
       { comment: "clone the base onto a Target as a dev variant", command: `cub variant create dev ${spaceArg} --target ${NEXT_STEPS_TARGET} --space-pattern "template:${spaceArg}-dev"`, needsAccount: true, writes: true },
+      ...planRemoval,
       { comment: installer ? "publish the Release that the cluster's Argo CD pulls" : "publish the Release that Argo CD or Flux pulls", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
       ...(installer ? [
         { comment: "delete the installer record, which Argo CD cannot read", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
@@ -535,7 +550,7 @@ export function buildNextSteps(listing, { plan, related = [] }) {
       { comment: "promote once you have read the preview", command: `cub variant promote ${spaceArg}-dev --change-desc "Pull the reviewed base forward"`, needsAccount: true, writes: true },
       ...(installer ? [
         { comment: "delete the installer record that the promotion adds back", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
-      ] : []),
+      ] : planDocumentRemoval(listing, path, spaceArg)),
       // A promotion changes the Space and publishes nothing, on either route.
       { comment: "publish the Release that carries the change", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
     ];

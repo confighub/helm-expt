@@ -553,6 +553,18 @@
           "writes": true
         },
         {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space minio-operator-operator-7-1-1-default-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space minio-operator-operator-7-1-1-default-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
           "comment": "publish the Release that Argo CD or Flux pulls",
           "command": "cub release publish minio-operator-operator-7-1-1-default-dev",
           "needsAccount": true,
@@ -587,6 +599,18 @@
         {
           "comment": "promote once you have read the preview",
           "command": "cub variant promote minio-operator-operator-7-1-1-default-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space minio-operator-operator-7-1-1-default-dev --where \"Slug LIKE '%-bundleroute'\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "keep the plan's documents out of the Release, because Argo CD cannot apply them",
+          "command": "cub unit delete --space minio-operator-operator-7-1-1-default-dev --where \"Slug LIKE '%-bundletargetrequirements'\"",
           "needsAccount": true,
           "writes": true
         },

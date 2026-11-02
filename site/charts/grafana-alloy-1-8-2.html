@@ -694,6 +694,12 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev grafana-alloy-1-8-2-default --target workshop/target --space-pattern &quot;template:grafana-alloy-1-8-2-default-dev&quot;
 
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-alloy-1-8-2-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
+
+<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
+<span class="term-prompt">$</span> cub unit delete --space grafana-alloy-1-8-2-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+
 <span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
 <span class="term-prompt">$</span> cub release publish grafana-alloy-1-8-2-default-dev</code></pre>
         </div>
