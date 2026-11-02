@@ -1344,6 +1344,12 @@
           "command": "cub variant promote nimservice-standard-meta-llama-3-2-1b-instruct-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-standard-meta-llama-3-2-1b-instruct-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

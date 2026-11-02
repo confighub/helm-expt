@@ -1344,6 +1344,12 @@
           "command": "cub variant promote nimservice-knative-meta-llama-3-2-1b-instruct-llm-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-knative-meta-llama-3-2-1b-instruct-llm-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

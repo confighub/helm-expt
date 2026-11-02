@@ -1365,6 +1365,12 @@
           "command": "cub variant promote nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

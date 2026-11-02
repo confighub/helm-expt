@@ -1321,19 +1321,21 @@
       ]
     },
     "cluster up": {
-      "source": "cub v0.8.7",
+      "source": "cub v0.9.0",
       "style": "cobra",
       "subcommands": [],
       "flags": [
-        "--argobot-oci",
         "--context",
+        "--controller",
+        "--controller-version",
         "--debug",
         "--help",
         "--mount",
         "--name",
-        "--no-argobot",
+        "--no-k8sbot",
         "--no-placeholder-gate",
         "--no-ports",
+        "--prune",
         "--space"
       ]
     },

@@ -549,6 +549,12 @@
           "command": "cub variant promote configuration-oci-nginx-replicas-4-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish configuration-oci-nginx-replicas-4-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

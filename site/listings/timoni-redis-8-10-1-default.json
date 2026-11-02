@@ -697,6 +697,12 @@
           "command": "cub variant promote timoni-redis-8-10-1-default-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish timoni-redis-8-10-1-default-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

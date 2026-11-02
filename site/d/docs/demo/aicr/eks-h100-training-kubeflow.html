@@ -756,7 +756,10 @@ fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801  aicr-eks-h100-
 <span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev --change-desc &quot;Pull the reviewed base forward&quot;
+
+<span class="term-comment"># publish the Release that carries the change</span>
+<span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v0-14-0-argocd-dev</code></pre>
         </div>
       </details>
       <details class="entry-steps-base" data-entry-steps="aicr-eks-h100-training-kubeflow-v0-14-0-base">

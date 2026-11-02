@@ -1316,6 +1316,12 @@
           "command": "cub variant promote nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-retriever-llama-nemotron-embed-vl-1b-v2-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }

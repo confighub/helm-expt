@@ -1344,6 +1344,12 @@
           "command": "cub variant promote nimservice-grpcroutes-riva-tts-dev --change-desc \"Pull the reviewed base forward\"",
           "needsAccount": true,
           "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish nimservice-grpcroutes-riva-tts-dev",
+          "needsAccount": true,
+          "writes": true
         }
       ]
     }
