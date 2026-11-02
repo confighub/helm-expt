@@ -120,6 +120,7 @@ const DOC_AREA = {
   "docs/user/live-walk-entry-steps-2026-10-08.md": "operate",
   "docs/user/live-walk-bundle-route-2026-11-02.md": "operate",
   "docs/user/live-walk-plan-step-2026-11-02.md": "operate",
+  "docs/user/live-walk-bundle-sample-2026-11-02.md": "operate",
   "docs/user/eks-inference-sandbox-run-2026-10-27.md": "operate",
   "docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md": "operate",
   "docs/user/live-walk-change-review-2026-10-09.md": "operate",
