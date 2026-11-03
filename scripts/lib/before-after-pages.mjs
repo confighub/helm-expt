@@ -1255,8 +1255,7 @@ function helmRows(id, f, check, shot) {
   const steps = f.plan.filter((step) => step.type !== "target-fact" && !["crd-ordering", "lifecycle", "prune-protection"].includes(step.id));
   if (steps.length) rows.push({
     does: "Decides at install time when each of its hidden steps runs, in an order you cannot see.",
-    instead: `The plan lists ${steps.length === 1 ? "the step" : `the ${steps.length} steps`} in order, so whoever deploys it can follow ${steps.length === 1 ? "it" : "them"}.`,
-    show: { title: "The plan's steps", items: steps.map((step) => step.detail) },
+    instead: `The plan lists ${steps.length === 1 ? "the step" : `the ${steps.length} steps`} in order, so whoever deploys it can follow ${steps.length === 1 ? "it" : "them"}. The details page lists them.`,
   });
   if (!rows.length) rows.push({ does: `Nothing out of sight. The chart makes ${f.after.length} objects and runs no hooks.`, instead: `All ${f.after.length} are in ConfigHub as they are.` });
   return rows;
