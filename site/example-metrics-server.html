@@ -718,7 +718,7 @@
       </div>
       <figure class="ex-card ex-graph">
         <figcaption>Each environment is a copy of one shared base</figcaption>
-        <img src="./before-after/helm-metrics-server-graph.png" alt="ConfigHub showing the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment">
+        <img src="./before-after/helm-metrics-server-graph.png" alt="ConfigHub showing the metrics-server base with its dev and prod copies, and the label and three replicas prod sets on its Deployment">
         <p class="ex-note">The settings every environment shares are stored once, as the base. Dev only adds a label. Prod also runs three replicas of metrics-server instead of one.</p>
       </figure>
 
@@ -743,7 +743,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the metrics-server OCI bundle in your organization, in a Space called <code>metrics-server-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a README. The rest makes a dev and a prod copy of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the metrics-server OCI bundle in your organization, in a folder called <code>metrics-server-example</code>. Each object is stored on its own, with a README. The rest makes a dev and a prod copy of it, and prod runs three replicas of its Deployment. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c

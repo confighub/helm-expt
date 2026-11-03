@@ -720,7 +720,7 @@ patches:
         </figure>
         <figure class="ex-card">
           <figcaption>After: the same thing in ConfigHub</figcaption>
-          <img src="./before-after/flux-expert-fleet-confighub.png" alt="ConfigHub showing the apps layer's base with a variant for each cluster, and the settings prod-1 changes">
+          <img src="./before-after/flux-expert-fleet-confighub.png" alt="ConfigHub showing the apps folder's base with a copy for each cluster, and the settings prod-1 changes">
           <p class="ex-note">The apps folder, stored once as a base with a copy for each cluster. The panel on the right is everything prod-1 does differently.</p>
           <table class="ex-versions"><thead><tr><th>Cluster</th><th>nginx version</th></tr></thead><tbody><tr><td>dev-1</td><td><code>1.27.3-alpine</code></td></tr><tr><td>staging-1</td><td><code>1.27.2-alpine</code></td></tr><tr><td>prod-1</td><td><code>1.26.3-alpine</code></td></tr></tbody></table>
           <p class="ex-note">This is what the repository says each cluster should run. Nothing here reads a live cluster.</p>
@@ -749,7 +749,7 @@ patches:
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each cluster's copy keeps everything Flux applies there from that folder together, in one place. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd

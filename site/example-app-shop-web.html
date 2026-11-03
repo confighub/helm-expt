@@ -721,7 +721,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
         </figure>
         <figure class="ex-card">
           <figcaption>After: the same app in ConfigHub</figcaption>
-          <img src="./before-after/app-shop-web-confighub.png" alt="ConfigHub showing the shop-web base with its dev and prod variants, and the label and five replicas prod sets">
+          <img src="./before-after/app-shop-web-confighub.png" alt="ConfigHub showing the shop-web base with its dev and prod copies, and the label and five replicas prod sets">
           <p class="ex-note">The shared settings, stored once as a base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.</p>
           
         </figure>
@@ -751,7 +751,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each copy holds 6 objects, the app's 5 and its namespace. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub app upload shop-web --run

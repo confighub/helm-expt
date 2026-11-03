@@ -718,7 +718,7 @@
       </div>
       <figure class="ex-card ex-graph">
         <figcaption>Each environment is a copy of one shared base</figcaption>
-        <img src="./before-after/helm-cert-manager-graph.png" alt="ConfigHub showing the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller">
+        <img src="./before-after/helm-cert-manager-graph.png" alt="ConfigHub showing the cert-manager base with a prod copy, and the label and three replicas prod sets on the controller">
         <p class="ex-note">The settings every environment shares are stored once, as the base. Prod changes two things. It adds a label, and it runs three replicas of the controller instead of one.</p>
       </figure>
 
@@ -738,13 +738,13 @@
       <table class="ex-table">
         <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
-          <tr><td>Adds 6 new kinds of Kubernetes object, such as Certificate, Issuer, ClusterIssuer.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected. They are also marked to stay if the rest is deleted, because deleting a CRD deletes every object of that kind.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-cert-manager-crds.png" alt="ConfigHub showing the 6 cert-manager CRDs as Units in the base"><p class="ex-note">The 6 new kinds</p><ul><li><code>Challenge</code></li><li><code>Order</code></li><li><code>CertificateRequest</code></li><li><code>Certificate</code></li><li><code>ClusterIssuer</code></li><li><code>Issuer</code></li></ul></details></td></tr>
+          <tr><td>Adds 6 new kinds of Kubernetes object, such as Certificate, Issuer, ClusterIssuer.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected. They are also marked to stay if the rest is deleted, because deleting a CRD deletes every object of that kind.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-cert-manager-crds.png" alt="ConfigHub showing the 6 cert-manager CRDs as objects in the base"><p class="ex-note">The 6 new kinds</p><ul><li><code>Challenge</code></li><li><code>Order</code></li><li><code>CertificateRequest</code></li><li><code>Certificate</code></li><li><code>ClusterIssuer</code></li><li><code>Issuer</code></li></ul></details></td></tr>
           <tr><td>Runs a Job after installing that waits until the cert-manager API answers.</td><td>It is left out. It only waits and checks, so nothing you need goes with it.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount cert-manager-startupapicheck: after installing</code></li><li><code>Role cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>RoleBinding cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>Job cert-manager-startupapicheck: after installing</code></li></ul></details></td></tr>
         </tbody>
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the cert-manager OCI bundle in your organization, in a Space called <code>cert-manager-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a README and 2 documents that hold the plan. The rest makes a prod copy of it, and prod runs three replicas of the controller. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the cert-manager OCI bundle in your organization, in a folder called <code>cert-manager-example</code>. Each object is stored on its own, with a README and 2 documents that hold the plan. The rest makes a prod copy of it, and prod runs three replicas of the controller. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9

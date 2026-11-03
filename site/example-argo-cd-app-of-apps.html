@@ -721,7 +721,7 @@ spec:
         </figure>
         <figure class="ex-card">
           <figcaption>After: the same thing in ConfigHub</figcaption>
-          <img src="./before-after/argo-app-of-apps-confighub.png" alt="ConfigHub showing the apptique-prod base with its in-cluster variant, and the prod Deployment's settings">
+          <img src="./before-after/argo-app-of-apps-confighub.png" alt="ConfigHub showing the apptique-prod base with its in-cluster copy, and the prod Deployment's settings">
           <p class="ex-note">What prod's Application deploys, as a base with a copy for its cluster. The panel on the right shows the prod Deployment's settings.</p>
           
         </figure>
@@ -749,7 +749,7 @@ spec:
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy is stored as one Unit, holding everything its Application deploys. It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy keeps everything its Application deploys together, in one place. It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd

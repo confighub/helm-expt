@@ -718,7 +718,7 @@
       </div>
       <figure class="ex-card ex-graph">
         <figcaption>Each environment is a copy of one shared base</figcaption>
-        <img src="./before-after/helm-redis-graph.png" alt="ConfigHub showing the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master">
+        <img src="./before-after/helm-redis-graph.png" alt="ConfigHub showing the Redis base with its dev and prod copies, and the label, requests and limits prod sets on the Redis master">
         <p class="ex-note">The settings every environment shares are stored once, as the base. Dev runs one read replica instead of three. Prod gives the Redis master its own requests and limits.</p>
       </figure>
 
@@ -743,7 +743,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Redis package in your organization, in a Space called <code>redis-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a record of the install. The rest makes a dev and a prod copy of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Redis package in your organization, in a folder called <code>redis-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example

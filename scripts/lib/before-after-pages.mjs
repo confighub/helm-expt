@@ -1032,7 +1032,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
     laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", laptopNeeds: "kustomize and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
-    units: "Each copy stores its 4 objects separately, as Units.",
+    units: "Each copy stores its 4 objects separately.",
     rows: [{ does: "Prod is the base plus an overlay of patches, labels and a namespace, so you work out prod's objects in your head.", instead: "Each environment's copy holds its finished objects, and prod's panel lists only what prod changes." }, { does: "Nothing else. There are no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
   },
   {
@@ -1053,7 +1053,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
     laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", laptopNeeds: "kustomize, helm and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
-    units: "Each copy stores its 2 objects separately, as Units.",
+    units: "Each copy stores its 2 objects separately.",
     rows: [{ does: "Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.", instead: "Helm runs once, and what it makes becomes the base, with a copy for each environment." }, { does: "Nothing else. The chart has no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
   },
   {
@@ -1067,7 +1067,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
     laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    units: "Each copy is stored as one Unit, holding everything its Application deploys.",
+    units: "Each copy keeps everything its Application deploys together, in one place.",
     rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git. Only handover.sh, a separate step you choose to run, points each Application at ConfigHub instead." }],
   },
   {
@@ -1081,7 +1081,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
     laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    units: "Each copy is stored as one Unit, holding everything its Application deploys.",
+    units: "Each copy keeps everything its Application deploys together, in one place.",
     rows: [{ does: "An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.", instead: "The template is filled in here, one Application per environment, each a copy of one base." }, { does: "The ApplicationSet was applied by hand.", instead: "It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one." }],
   },
   {
@@ -1095,7 +1095,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder.",
+    units: "Each cluster's copy keeps everything Flux applies there from that folder together, in one place.",
     rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the plan lists it." }],
   },
   {
@@ -1109,7 +1109,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder.",
+    units: "Each cluster's copy keeps everything Flux applies there from that folder together, in one place.",
     rows: [{ does: "Image automation writes new tags into the dev overlay.", instead: "It keeps doing so, and the plan names it, so you know dev's version can change without a review." }, { does: "A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.", instead: "The plan says to pin one exact version, so what runs changes only when a release says so." }],
   },
 ];
@@ -1137,8 +1137,8 @@ const APP_SIMPLE = [
     laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], needs: "the Workshop plugin",
     laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
     safety: "It touches no cluster.",
-    loadNote: "Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace.",
-    units: "Each variant holds 6 Units in ConfigHub: the app's 5 objects and its namespace.",
+    loadNote: "Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each copy holds 6 objects, the app's 5 and its namespace.",
+    units: "Each copy holds 6 objects in ConfigHub, the app's 5 and its namespace.",
     rows: [
       { does: "The Ingress expects an nginx ingress controller, and nothing in the files says so. Without one, nobody can reach the shop.", instead: "You're told it needs an ingress controller before you deploy, and the platform check finds one in shop-platform." },
       { does: "The Certificate needs cert-manager, and an issuer called letsencrypt that none of these files creates. Without cert-manager it is rejected, and without the issuer no certificate is ever made.", instead: "You're told it needs cert-manager, and warned that the letsencrypt issuer must already be on the cluster." },
@@ -1235,7 +1235,7 @@ function helmRows(id, f, check, shot) {
     rows.push({
       does: `Adds ${crds.length} new kind${crds.length === 1 ? "" : "s"} of Kubernetes object, such as ${named.join(", ")}.${f.crdsOnlyAfter ? ` A plain helm template leaves ${f.crdsOnlyAfter === crds.length ? "them" : `${f.crdsOnlyAfter} of them`} out.` : ""}`,
       instead: `They are in ConfigHub with everything else${ordered ? ", and they go in first, so the objects that use them are not rejected" : ""}.${ids.has("prune-protection") ? " They are also marked to stay if the rest is deleted, because deleting a CRD deletes every object of that kind." : ""}`,
-      show: { title: `The ${crds.length} new kinds`, ...listOf(kinds), ...(shot?.crds ? { image: `./before-after/${id}-crds.png`, alt: `ConfigHub showing ${shot.crds.shows}` } : {}) },
+      show: { title: `The ${crds.length} new kinds`, ...listOf(kinds), ...(shot?.crds ? { image: `./before-after/${id}-crds.png`, alt: `ConfigHub showing ${plainWords(shot.crds.shows)}` } : {}) },
     });
   }
   if (f.hooks.length) {
@@ -1443,6 +1443,17 @@ const HELM_HUMAN = {
 // One sentence on every example page, under its opening, for a reader who has
 // never heard of ConfigHub. It also says what a plan is, before the page uses
 // the word.
+// The first-time pages say object, folder and copy. ConfigHub's own words
+// (Unit, Space, variant) stay on the details pages and in the commands, and
+// one sentence beside the commands says which cub word means which.
+const PRODUCT_WORDS = /\b(Units?|Spaces?|[Vv]ariants?)\b/;
+const plainWords = (text) => text.replace(/\bvariants\b/g, "copies").replace(/\bvariant\b/g, "copy").replace(/\bUnits\b/g, "objects").replace(/\bUnit\b/g, "object").replace(/\bapps layer\b/g, "apps folder");
+function cubWordsNote(rows) {
+  const words = [[/--space |cub space /, "a folder a <code>space</code>"], [/--unit /, "an object a <code>unit</code>"], [/cub variant |--variant /, "a copy a <code>variant</code>"]]
+    .filter(([pattern]) => rows.some((row) => pattern.test(row))).map(([, said]) => said);
+  if (!words.length) return "";
+  return ` In its commands, cub calls ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
+}
 const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.";
 
 // Every reader in the newcomer trials asked why they would not just keep the
@@ -1475,14 +1486,14 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterL
         </figure>
         <figure class="ex-card">
           <figcaption>${escapeHtml(afterLabel)}</figcaption>
-          <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
+          <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${plainWords(shot.shows)}`)}">
           <p class="ex-note">${escapeHtml(afterNote)}</p>
           ${afterExtra}
         </figure>
       </div>
 ${shot.graph ? `      <figure class="ex-card ex-graph">
         <figcaption>${escapeHtml(graphCaption)}</figcaption>
-        <img src="./before-after/${id}-graph.png" alt="${escapeHtml(`ConfigHub showing ${shot.graph.shows}`)}">
+        <img src="./before-after/${id}-graph.png" alt="${escapeHtml(`ConfigHub showing ${plainWords(shot.graph.shows)}`)}">
         <p class="ex-note">${escapeHtml(graphNote)}</p>
       </figure>
 ` : ""}
@@ -1503,7 +1514,7 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">${loadNote}</p>
+          <p class="installer-command-note">${loadNote}${cubWordsNote(loadRows)}</p>
           ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
           <p class="ex-note">You need a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool${needs === "no plugin" ? "" : `, with ${escapeHtml(needs)}`}.</p>
         </details>
@@ -1527,8 +1538,8 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
   const load = BUNDLE_LOADS[id];
   h.check(load || f.rec.installer?.manifests, `${ROOT}/${id}: the receipt has no installer manifest count; record it with --generate`);
   const makes = load
-    ? `Each object is stored on its own, as a Unit, with a README${load.planDocs ? ` and ${load.planDocs} documents that hold the plan` : ""}.`
-    : "Each object is stored on its own, as a Unit, with a record of the install.";
+    ? `Each object is stored on its own, with a README${load.planDocs ? ` and ${load.planDocs} documents that hold the plan` : ""}.`
+    : "Each object is stored on its own, with a record of the install.";
   const dates = shot.graph && shot.graph.takenOn !== shot.takenOn ? `, the image line on ${shot.takenOn} and prod on ${shot.graph.takenOn}` : ` on ${shot.takenOn}`;
   return {
     id, shot, beforeLabel: "Before: what you edit today",
@@ -1542,7 +1553,7 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     rows: helmRows(id, f, h.check, shot),
     rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
     loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
-    loadNote: `Run the first line to sign in, then paste the rest. It saves the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package"} in your organization, in a Space called <code>${escapeHtml(page.space)}</code>. A Space is ConfigHub's word for a folder. ${makes}${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
+    loadNote: `Run the first line to sign in, then paste the rest. It saves the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package"} in your organization, in a folder called <code>${escapeHtml(page.space)}</code>. ${makes}${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
     laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
     laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
     needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
@@ -1594,6 +1605,8 @@ function simplePage(id, h) {
       needs: page.needs, laptopNeeds: page.laptopNeeds,
     });
   }
+  const prose = `${page.lead ?? HELM_HUMAN[id].lead} ${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
+  check(!PRODUCT_WORDS.test(prose), `${ROOT}/${id}: the first-time page says "${prose.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
