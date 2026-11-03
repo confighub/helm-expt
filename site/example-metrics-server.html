@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>metrics-server, before and after</h1>
-    <p class="lead">A Helm chart you can't read becomes objects you can.</p>
+    <p class="lead">You install metrics-server so kubectl top and autoscaling know how busy your pods are. It's a small chart, and what Helm makes from it is exactly what you see here.</p>
 
   </header>
   <main>
@@ -688,7 +688,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
         <figure class="ex-card">
-          <figcaption>Before: the Helm chart</figcaption>
+          <figcaption>Before: what you edit today</figcaption>
           <pre class="ex-code"><code>      containers:
         - name: metrics-server
           <span class="ex-tpl">{{- with .Values.securityContext }}</span>
@@ -705,37 +705,38 @@
           <span class="ex-tpl">{{- if .Values.metrics.enabled }}</span>
             - --authorization-always-allow-paths=/metrics
           <span class="ex-tpl">{{- end }}</span></code></pre>
-          <p class="ex-note">16 lines of templates/deployment.yaml, around its image line. The chart has many files like this.</p>
+          <p class="ex-note">Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/helm-metrics-server-confighub.png" alt="ConfigHub showing the metrics-server Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the metrics-server Deployment, at its image line. This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below.</p>
-          <p class="ex-note">ConfigHub holds this as 10 Units, one for each object and one README.</p>
+          <p class="ex-note">The image is written out as a plain value you can read and change, and so is every other field.</p>
           
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
         <img src="./before-after/helm-metrics-server-graph.png" alt="ConfigHub showing the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment">
-        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of its Deployment. Taken in the helm-catalog organization on 2026-10-26, showing the metrics-server base with its dev and prod variants, and the label and three replicas prod sets on its Deployment.</p>
+        <p class="ex-note">Dev only adds a label. Prod also runs three copies of metrics-server instead of one.</p>
       </figure>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
-        <li>Every object is written out, so you can review it before anything runs.</li>
+        <li>You can read all 9 objects before anything reaches a cluster.</li>
+        <li>Nothing is hidden. The chart runs no setup steps, so ConfigHub holds it as it is.</li>
+        <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
       </ul>
-      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
-        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
           <tr><td>Nothing out of sight. The chart makes 9 objects and runs no hooks.</td><td>All 9 are in ConfigHub as they are.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server OCI bundle and saves its objects as a Space called <code>metrics-server-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the metrics-server OCI bundle into a Space called <code>metrics-server-example</code>, as 10 Units, one for each object plus a README. The rest makes a dev and a prod variant of it, and prod runs three replicas of its Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c
@@ -758,6 +759,7 @@
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-metrics-server.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26. They came from a load through the installer package, so their Unit names differ from a load with the commands above.</p>
     </section>
   </main>
 </div>

@@ -1014,9 +1014,11 @@ const HELM_SIMPLE = [
 const GITOPS_SIMPLE = [
   {
     id: "kustomize-apptique", file: "example-kustomize-dev-and-prod.html", name: "Kustomize dev and prod", kicker: "Kustomize overlays",
-    lead: "A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.",
+    lead: "You keep one copy of your app and patch it for dev and prod with Kustomize. To know what prod really runs, you build it on your laptop or work it out in your head.",
     before: "before/prod/kustomization.yaml", beforeLabel: "Before: the prod overlay",
-    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Dev and prod stay linked to one base, so a change to the base can reach both.", "Every object is written out, with nothing left to work out from patches."],
+    beforeNote: "Prod's overlay. It only says what to change, so you combine it with the base to know what prod runs.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently.",
+    sentences: ["You can read exactly what prod runs, every object written out, without building anything.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Dev and prod stay linked to one base, so a fix to the base can reach both."],
     facts: [["after/prod.yaml", /replicas: 3/]],
     dir: "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique",
     load: ["kustomize build base > base.yaml",
@@ -1035,9 +1037,11 @@ const GITOPS_SIMPLE = [
   },
   {
     id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
-    lead: "A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.",
+    lead: "Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.",
     before: "before/base/kustomization.yaml", beforeLabel: "Before: Kustomize inflating a chart",
-    sentences: ["Prod's changes from the base are listed in one place: namespace, label, 3 replicas and a 1Gi memory limit.", "Each object lands in the namespace you can see, not the one Argo CD happens to use.", "No one has to run Helm inside Kustomize to know what an environment runs."],
+    beforeNote: "The base inflates a Helm chart, so what it makes only exists after a build.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "One base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.",
+    sentences: ["You can read what each environment runs without running Helm or Kustomize.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and a 1Gi memory limit.", "Each object lands in the namespace you can see, not whichever one Argo CD happens to use."],
     facts: [["after/prod.yaml", /replicas: 3/], ["after/prod.yaml", /memory: 1Gi/]],
     dir: "gitops/argo/expert-app-of-apps/apps/checkout-cache",
     load: ["kustomize build --enable-helm base > base.yaml",
@@ -1054,9 +1058,11 @@ const GITOPS_SIMPLE = [
   },
   {
     id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
-    lead: "Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.",
+    lead: "You run Argo CD with one root app that makes all the others, each pointing at a folder in Git. To see what a cluster runs, you follow the chain from app to app to folder.",
     before: "before/apps/apptique-prod.yaml", beforeLabel: "Before: an Argo CD Application",
-    sentences: ["Each app becomes a base and a variant for the cluster it runs on, released and ready.", "You can read what prod runs in ConfigHub, here 3 replicas of the frontend.", "Argo CD keeps syncing Git until you choose to hand over."],
+    beforeNote: "One of the Applications. It points at a folder, so what it deploys is written somewhere else.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "What prod's Application deploys, as a base with a copy for its cluster. The panel on the right shows the prod Deployment's settings.",
+    sentences: ["You can read what each app deploys in one place, without following links through Git.", "Each app becomes a base with a copy for the cluster it runs on, here with 3 replicas of the frontend in prod.", "Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs."],
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
@@ -1066,9 +1072,11 @@ const GITOPS_SIMPLE = [
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
-    lead: "An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.",
+    lead: "You use an ApplicationSet to stamp out one Argo CD app per environment from a template. The apps only exist once the cluster has made them, so you can't read them first.",
     before: "before/bootstrap/applicationset.yaml", beforeLabel: "Before: a template with placeholders",
-    sentences: ["The two Applications the template would make are written out as variants of one base.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Nothing is generated on the cluster before you have read it."],
+    beforeNote: "The template, with placeholders the cluster fills in.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The two apps the template would make, as copies of one base. The panel on the right is everything prod does differently.",
+    sentences: ["You can read the apps the template would make before the cluster makes them.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs."],
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
@@ -1078,9 +1086,11 @@ const GITOPS_SIMPLE = [
   },
   {
     id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
-    lead: "Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.",
+    lead: "You run Flux, and each cluster follows a folder of patches in Git. To know what prod runs, you combine the folders in your head.",
     before: "before/clusters/prod/apps.yaml", beforeLabel: "Before: a Flux Kustomization",
-    sentences: ["Each layer becomes a base and a variant for each cluster.", "Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.", "Flux keeps reconciling Git until you choose to hand over."],
+    beforeNote: "Prod's Flux Kustomization. It points at an overlay, so what prod runs is in other files.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps layer as one base, with a dev and a prod copy. The panel on the right is everything prod does differently.",
+    sentences: ["You can read what each cluster runs, layer by layer, without combining folders.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Flux keeps following Git until you choose to hand over, so trying this changes nothing that runs."],
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
@@ -1090,9 +1100,11 @@ const GITOPS_SIMPLE = [
   },
   {
     id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
-    lead: "Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version Git says each cluster runs.",
+    lead: "You run a fleet of clusters with Flux, and new versions move from dev to staging to prod. When someone asks which version runs where, the answer is spread across many overlays.",
     before: "before/apps/prod/kustomization.yaml", beforeLabel: "Before: one of many overlays",
-    sentences: ["Each layer is one base, with a variant for each cluster that runs it.", "Prod-1's changes are listed in one place, here nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
+    beforeNote: "Each cluster's version is set in a file like this, spread across the repository.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps layer as one base, with a copy for each cluster. The panel on the right is everything prod-1 does differently.",
+    sentences: ["You can see in one table which version Git says each cluster runs.", "Prod-1's differences sit in one panel. Here they are nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
@@ -1111,11 +1123,9 @@ const APP_SIMPLE = [
     before: "before/shop-web.yaml", beforeLabel: "Before: the app as its team wrote it",
     beforeNote: "The app's five objects. Nothing here says what the cluster must already run.",
     afterLabel: "After: the same app in ConfigHub", afterNote: "One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.",
-    checksHeading: "What changes for you",
     sentences: ["You find out what the cluster must already run before you deploy, not after the shop stops answering.", "You can test the app against a platform, and you're warned about the one thing it can't check.", "Dev and prod are copies of one base, and prod's changes are written down in one place."],
-    rowsHeading: "What you would find out the hard way, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
+    rowsHeading: "What you would find out the hard way, and what you get instead",
     words: "ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.",
-    credits: true,
     facts: [["transcripts/app-check.txt", /\[NEEDS\] an ingress controller/], ["transcripts/app-check.txt", /\[NEEDS\] cert-manager/], ["transcripts/app-check.txt", /\[NEEDS\] a Prometheus operator/], ["transcripts/stack-sandbox.txt", /app needs met: shop-web/], ["transcripts/stack-sandbox.txt", /ClusterIssuer\/letsencrypt/]],
     load: [
       "cub app upload shop-web --run",
@@ -1140,7 +1150,7 @@ const APP_SIMPLE = [
 ];
 
 export const SIMPLE_PAGES = [
-  ...HELM_SIMPLE.map(([id, short, name]) => ({ id, file: `example-${short}.html`, name, space: `${short}-example`, kicker: "Helm chart", lead: "A Helm chart you can't read becomes objects you can." })),
+  ...HELM_SIMPLE.map(([id, short, name]) => ({ id, file: `example-${short}.html`, name, space: `${short}-example`, kicker: "Helm chart" })),
   ...GITOPS_SIMPLE,
   ...APP_SIMPLE,
 ];
@@ -1149,20 +1159,9 @@ function highlightTemplate(escapeHtml, line) {
   return escapeHtml(line).replace(/\{\{.*?\}\}/g, (match) => `<span class="ex-tpl">${match}</span>`);
 }
 
-function simpleHelmSentences(f) {
-  const point = helmPoint(f);
-  const sentences = ["The template's image line becomes one plain value you can read, and so does every other field."];
-  if (point.kind === "random") sentences.push("Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.");
-  if (f.changed.some((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).some((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right))))) {
-    sentences.push("The image is pinned to exact bytes, so it can't change under you.");
-  }
-  if (f.hooks.length) {
-    sentences.push(hooksPlanned(f)
-      ? `The ${f.hooks.length} setup objects Helm runs out of sight become steps you can read.`
-      : `The ${f.hooks.length} setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.`);
-  }
-  if (sentences.length < 3) sentences.push("Every object is written out, so you can review it before anything runs.");
-  return sentences.slice(0, 3);
+// The base pins an image the chart leaves at :latest.
+function pinsImage(f) {
+  return f.changed.some((doc) => fieldDifferences([doc], [f.afterByKey.get(f.key(doc))]).some((row) => /\.image$/.test(row.path) && /:latest$/.test(String(row.left)) && /@sha256:/.test(String(row.right))));
 }
 
 // The table on each simple page: what the source does that a reader never
@@ -1263,14 +1262,6 @@ function helmRows(id, f, check, shot) {
   if (!rows.length) rows.push({ does: `Nothing out of sight. The chart makes ${f.after.length} objects and runs no hooks.`, instead: `All ${f.after.length} are in ConfigHub as they are.` });
   return rows;
 }
-function helmUnits(f, check) {
-  const load = BUNDLE_LOADS[f.rec.id];
-  if (load) return `ConfigHub holds this as ${load.units} Units, one for each object and one README${load.planDocs ? `, with ${load.planDocs} more for the plan's documents` : ""}.`;
-  const n = f.rec.installer?.manifests;
-  check(n, `${ROOT}/${f.rec.id}: the receipt has no installer manifest count; record it with --generate`);
-  return `ConfigHub holds this as ${n + 1} Units, one for each of the ${n} objects the installer writes and one installer record.`;
-}
-
 // Helm examples loaded with dev and prod variants, so ConfigHub shows a base
 // and its variants. These are the commands that made the graph screenshot.
 const HELM_VARIANTS = {
@@ -1330,28 +1321,128 @@ for (const [id, spec] of Object.entries(PLAIN_VARIANTS)) {
 // The words a first-time reader sees on a Helm page: why people install the
 // chart, and what changes for them. Each claim names the recorded fact it
 // rests on, and the build stops when that fact no longer holds.
-const workloadReplicas = (f, name) => f.after.find((doc) => doc.kind === "Deployment" && doc.metadata.name === name)?.spec?.replicas;
+const replicasOf = (f, name, n) => [f.after.find((doc) => ["Deployment", "StatefulSet"].includes(doc.kind) && doc.metadata.name === name)?.spec?.replicas === n, `the base no longer runs ${n} of ${name}`];
+const variantDoes = (id, pattern) => [HELM_VARIANTS[id].rows.some((row) => pattern.test(row)), `the load commands no longer run ${pattern}`];
+const reasons = (id) => [HELM_VARIANTS[id].rows.every((row) => /--change-desc /.test(row)), "a load command no longer records a reason for its change"];
+const holds = (f, n) => [f.after.length === n, `the base no longer holds ${n} objects`];
+const kinds = (f, kind, n) => [f.after.filter((doc) => doc.kind === kind).length === n, `the base no longer holds ${n} of kind ${kind}`];
+const planHas = (f, ...steps) => [steps.every((step) => f.plan.some((row) => row.id === step)), `the plan no longer has ${steps.join(", ")}`];
+const prodThree = (what) => `Dev only adds a label. Prod also runs three copies of ${what} instead of one.`;
+const recorded = "Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.";
 const HELM_HUMAN = {
+  "helm-redis": {
+    lead: "You run Redis as a fast cache or queue beside your app. Its Helm chart makes up a new password every time it runs, so two installs with the same settings never match.",
+    sentences: [
+      "Your password stays put. You create it once, and Redis reads it from a Secret you own.",
+      "The image is pinned to exact bytes, so it can't change under you.",
+      "You can read all 13 objects before anything reaches a cluster.",
+    ],
+    graphNote: "Dev runs one read replica instead of three. Prod gives the Redis master its own requests and limits.",
+    facts: (f) => [[f.rerendered.length > 0, "two renders no longer differ"], [pinsImage(f), "the image is no longer pinned to a digest"], holds(f, 13), replicasOf(f, "redis-replicas", 3),
+      variantDoes("helm-redis", /redis-replicas.*set-replicas 1/), variantDoes("helm-redis", /redis-master.*set-container-resources/), reasons("helm-redis")],
+  },
+  "helm-postgresql": {
+    lead: "You run PostgreSQL to keep your app's data. Its Helm chart makes up a new administrator password every time it runs, so a reinstall can leave the password out of step with the database.",
+    sentences: [
+      "Your password stays put. You create it once, and PostgreSQL reads it from a Secret you own.",
+      "You can read all 6 objects before anything reaches a cluster, down to the image the database runs.",
+      recorded,
+    ],
+    graphNote: prodThree("the database"),
+    facts: (f) => [[f.rerendered.length > 0, "two renders no longer differ"], holds(f, 6), replicasOf(f, "postgresql", 1), variantDoes("helm-postgresql", /set-replicas 3/), reasons("helm-postgresql")],
+  },
+  "helm-ingress-nginx": {
+    lead: "You install ingress-nginx so traffic from outside the cluster reaches your services. While it installs, its chart runs two hidden Jobs to make a certificate, and you never see them.",
+    sentences: [
+      "Nothing runs out of sight. The certificate those Jobs made is named as something the cluster must have before delivery.",
+      "You can read all 11 objects before anything reaches a cluster, down to the image the controller runs.",
+      recorded,
+    ],
+    graphNote: prodThree("the controller"),
+    facts: (f) => [[f.hooks.filter((doc) => doc.kind === "Job").length === 2, "the chart no longer runs two hook Jobs"], planHas(f, "ingress-nginx/ingress-nginx-admission"), holds(f, 11),
+      replicasOf(f, "ingress-nginx-controller", 1), variantDoes("helm-ingress-nginx", /set-replicas 3/), reasons("helm-ingress-nginx")],
+  },
+  "helm-kube-prometheus-stack": {
+    lead: "You install kube-prometheus-stack to get Prometheus, Grafana and alerting in one go. It makes 125 objects, runs setup Jobs and adds ten new kinds of object, and you see none of it until Helm has run.",
+    sentences: [
+      "You can read all 125 objects before anything reaches a cluster, including its 35 alerting rules.",
+      "The setup Jobs become written steps, run in the order the plan gives, so nothing happens out of sight.",
+      "The ten new kinds go in before the objects that use them, so nothing is rejected on the way in.",
+    ],
+    graphNote: prodThree("the operator"),
+    facts: (f) => [holds(f, 125), kinds(f, "PrometheusRule", 35), kinds(f, "CustomResourceDefinition", 10), [hooksPlanned(f), "the plan no longer names the setup Jobs"],
+      planHas(f, "preflight-or-presync-crd-apply", "preserve-ordering"), replicasOf(f, "kube-prometheus-stack-operator", 1), variantDoes("helm-kube-prometheus-stack", /set-replicas 3/)],
+  },
   "helm-cert-manager": {
     lead: "You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.",
     sentences: [
       "You can read every object before anything reaches a cluster, down to the image each one runs.",
-      "Every change is recorded with the reason you gave, so how prod differs never lives only in someone's head.",
+      recorded,
       "The six definitions your certificates depend on go in first, and they are marked to stay if cert-manager is removed.",
     ],
     graphNote: "Prod changes two things from the base. It adds a label, and it runs three copies of the controller instead of one.",
-    facts: (f) => [
-      [workloadReplicas(f, "cert-manager") === 1, "the base no longer runs one copy of the controller"],
-      [HELM_VARIANTS["helm-cert-manager"].rows.some((row) => /set-replicas 3/.test(row)), "prod no longer runs three copies of the controller"],
-      [HELM_VARIANTS["helm-cert-manager"].rows.every((row) => /--change-desc /.test(row)), "a load command no longer records a reason for its change"],
-      [f.after.filter((doc) => doc.kind === "CustomResourceDefinition").length === 6, "the chart no longer defines six CRDs"],
-      [["crd-ordering", "prune-protection"].every((step) => f.plan.some((row) => row.id === step)), "the plan no longer orders and keeps the CRDs"],
+    facts: (f) => [replicasOf(f, "cert-manager", 1), variantDoes("helm-cert-manager", /set-replicas 3/), reasons("helm-cert-manager"),
+      kinds(f, "CustomResourceDefinition", 6), planHas(f, "crd-ordering", "prune-protection")],
+  },
+  "helm-argo-cd": {
+    lead: "You install Argo CD so your clusters follow what's in Git. Before it installs, its chart runs a hidden Job to make a password for Argo CD's own Redis.",
+    sentences: [
+      "Nothing runs out of sight. The Redis password is a Secret you create once, and it is named before delivery.",
+      "The three definitions behind Application and the rest go in first, and they are marked to stay if Argo CD is removed.",
+      recorded,
     ],
+    graphNote: prodThree("the server"),
+    facts: (f) => [planHas(f, "argocd/argocd-redis", "crd-ordering", "prune-protection"), kinds(f, "CustomResourceDefinition", 3),
+      replicasOf(f, "argo-cd-argocd-server", 1), variantDoes("helm-argo-cd", /set-replicas 3/), reasons("helm-argo-cd")],
+  },
+  "helm-external-secrets": {
+    lead: "You install External Secrets so your apps read passwords from a vault instead of from Git. Its chart adds 25 new kinds of object, and one of its Secrets ships empty for the cluster to fill in.",
+    sentences: [
+      "You can read all 44 objects before anything reaches a cluster, and see which one stays empty until the cluster fills it.",
+      "The 25 new kinds go in before the objects that use them, so nothing is rejected on the way in.",
+      recorded,
+    ],
+    graphNote: prodThree("the controller"),
+    facts: (f) => [holds(f, 44), kinds(f, "CustomResourceDefinition", 25), planHas(f, "external-secrets/external-secrets-webhook", "crd-ordering"),
+      replicasOf(f, "external-secrets", 1), variantDoes("helm-external-secrets", /set-replicas 3/), reasons("helm-external-secrets")],
+  },
+  "helm-metrics-server": {
+    lead: "You install metrics-server so kubectl top and autoscaling know how busy your pods are. It's a small chart, and what Helm makes from it is exactly what you see here.",
+    sentences: [
+      "You can read all 9 objects before anything reaches a cluster.",
+      "Nothing is hidden. The chart runs no setup steps, so ConfigHub holds it as it is.",
+      recorded,
+    ],
+    graphNote: prodThree("metrics-server"),
+    facts: (f) => [holds(f, 9), [f.before.length === 9 && !f.hooks.length && !f.plan.length, "the chart now runs setup steps or has a plan"],
+      replicasOf(f, "metrics-server", 1), variantDoes("helm-metrics-server", /set-replicas 3/), reasons("helm-metrics-server")],
+  },
+  "helm-gatekeeper": {
+    lead: "You install Gatekeeper to stop objects that break your rules from reaching the cluster. Its chart runs hidden Jobs before and after installing, and adds 17 new kinds of object.",
+    sentences: [
+      "Every step Helm would hide is written down, so you know what happens and in what order.",
+      "You can read all 30 objects before anything reaches a cluster, down to the image each one runs.",
+      recorded,
+    ],
+    graphNote: prodThree("the audit"),
+    facts: (f) => [holds(f, 30), kinds(f, "CustomResourceDefinition", 17), planHas(f, "crd-ordering", "lifecycle"),
+      replicasOf(f, "gatekeeper-audit", 1), variantDoes("helm-gatekeeper", /gatekeeper-audit.*set-replicas 3/), reasons("helm-gatekeeper")],
+  },
+  "helm-gpu-operator": {
+    lead: "You install the NVIDIA GPU Operator so pods can use your GPUs without anyone setting up each node by hand. Its chart runs a hidden Job before each upgrade and another after you uninstall.",
+    sentences: [
+      "Those Jobs become written steps. On an upgrade the new definitions go in first, and after deleting, the plan says to clean up the node labels.",
+      "You can read all 24 objects before anything reaches a cluster, down to the image each one runs.",
+      recorded,
+    ],
+    graphNote: prodThree("the operator"),
+    facts: (f) => [holds(f, 24), planHas(f, "lifecycle-action-pre-upgrade", "lifecycle-action-post-delete"),
+      replicasOf(f, "gpu-operator", 1), variantDoes("helm-gpu-operator", /set-replicas 3/), reasons("helm-gpu-operator")],
   },
 };
 
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel = "After: in ConfigHub", afterNote, afterExtra = "", graphCaption = "In ConfigHub: one base, and a variant for each environment", graphNote = "", units, rows, rowsHeading, rowsColumns, checksHeading, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1366,16 +1457,17 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterL
           <figcaption>${escapeHtml(afterLabel)}</figcaption>
           <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
           <p class="ex-note">${escapeHtml(afterNote)}</p>
-${units ? `          <p class="ex-note">${escapeHtml(units)}</p>\n` : ""}          ${afterExtra}
+          ${afterExtra}
         </figure>
       </div>
 ${shot.graph ? `      <figure class="ex-card ex-graph">
         <figcaption>${escapeHtml(graphCaption)}</figcaption>
         <img src="./before-after/${id}-graph.png" alt="${escapeHtml(`ConfigHub showing ${shot.graph.shows}`)}">
-        <p class="ex-note">${escapeHtml(credits ? graphNote : `${graphNote} Taken in the ${shot.organization} organization on ${shot.graph.takenOn}, showing ${shot.graph.shows}.`.trim())}</p>
+        <p class="ex-note">${escapeHtml(graphNote)}</p>
       </figure>
 ` : ""}
-${checksHeading ? `      <h3 class="ex-went-h">${escapeHtml(checksHeading)}</h3>\n` : ""}      <ul class="ex-checks">
+      <h3 class="ex-went-h">What changes for you</h3>
+      <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
       </ul>
       <h3 class="ex-went-h">${escapeHtml(rowsHeading)}</h3>
@@ -1399,7 +1491,8 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
-${credits ? `      <p class="ex-note ex-credits">${escapeHtml(credits)}</p>\n` : ""}    </section>
+      <p class="ex-note ex-credits">${escapeHtml(credits)}</p>
+    </section>
 `;
 }
 
@@ -1409,6 +1502,7 @@ ${credits ? `      <p class="ex-note ex-credits">${escapeHtml(credits)}</p>\n` :
 function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }) {
   const { escapeHtml } = h;
   const load = BUNDLE_LOADS[id];
+  h.check(load || f.rec.installer?.manifests, `${ROOT}/${id}: the receipt has no installer manifest count; record it with --generate`);
   const makes = load
     ? `${load.units} Units, one for each object plus a README${load.planDocs ? ` and ${load.planDocs} that hold the plan` : ""}`
     : `${f.rec.installer.manifests + 1} Units, one for each object plus a record of the install`;
@@ -1421,7 +1515,6 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     afterNote: "The image is written out as a plain value you can read and change, and so is every other field.",
     graphCaption: "Prod is a copy of the base that lists its own changes",
     graphNote: human.graphNote,
-    checksHeading: "What changes for you",
     sentences: human.sentences,
     rows: helmRows(id, f, h.check, shot),
     rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
@@ -1442,7 +1535,6 @@ function simplePage(id, h) {
   const rec = receipt(id);
   const shot = rec.confighub;
   check(shot, `${ROOT}/${id} has no ConfigHub screenshot, and its simple page shows one`);
-  const caption = `Taken in the ${shot.organization} organization on ${shot.takenOn}, showing ${shot.shows}.`;
   let body;
   if (page.kicker === "Helm chart") {
     const f = helmFacts(id);
@@ -1458,39 +1550,24 @@ function simplePage(id, h) {
       ? `cub variant upload --component ${page.space} --variant base --space ${page.space}${route.namespace ? ` --namespace ${route.namespace}${/^(default|kube-.*)$/.test(route.namespace) ? "" : " --create-namespace"}` : ""} ${route.reference}`
       : "";
     const human = HELM_HUMAN[id];
-    if (human) for (const [holds, what] of human.facts(f)) check(holds, `${ROOT}/${id}: ${what}, and HELM_HUMAN says it does`);
-    body = simpleLayout(h, human ? humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }) : {
-      id, shot, beforeLabel: "Before: the Helm chart",
-      beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
-      beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
-      afterNote: `The same image line in ConfigHub, as a plain value. ${caption}${bundleLoad ? " This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below." : ""}`,
-      sentences: simpleHelmSentences(f),
-      units: helmUnits(f, check), rows: helmRows(id, f, check, shot),
-      rowsHeading: "What Helm does that you never see, and what happens here instead", rowsColumns: ["What Helm does", "What happens here instead"],
-      words: "ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.",
-      loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
-      graphNote: HELM_VARIANTS[id]?.graphNote ?? "",
-      loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package, writes its files,"} and saves ${bundleLoad ? "its objects" : "them"} as a Space called <code>${escapeHtml(page.space)}</code> in your organization.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
-      laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
-      laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
-      needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
-      laptopNeeds: "its installer plugin and kustomize",
-    });
+    check(human, `${ROOT}/${id}: HELM_HUMAN has no words for this chart's page`);
+    for (const [holds, what] of human.facts(f)) check(holds, `${ROOT}/${id}: ${what}, and HELM_HUMAN says it does`);
+    body = simpleLayout(h, humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }));
   } else {
     for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);
     const lines = read(id, page.before).replace(/\n+$/, "").split("\n");
     body = simpleLayout(h, {
       id, shot, wide: true, beforeLabel: page.beforeLabel,
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
-      beforeNote: page.beforeNote ?? `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
-      afterLabel: page.afterLabel, afterNote: page.credits ? page.afterNote : caption,
-      checksHeading: page.checksHeading, credits: page.credits && `About the picture. It was taken in the ${shot.organization} organization on ${shot.takenOn}.`,
-      sentences: page.sentences, units: page.credits ? "" : page.units, rows: page.rows,
-      rowsHeading: page.rowsHeading ?? "What you work out today, and what happens here instead", rowsColumns: page.rowsColumns ?? ["Today", "Here instead"],
-      words: page.words ?? "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
+      beforeNote: page.beforeNote,
+      afterLabel: page.afterLabel, afterNote: page.afterNote,
+      credits: `About the picture. It was taken in the ${shot.organization} organization on ${shot.takenOn}.`,
+      sentences: page.sentences, rows: page.rows,
+      rowsHeading: page.rowsHeading ?? "What you work out by hand today, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
+      words: page.words ?? "ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.",
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
-      loadNote: `${page.loadNote ?? "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization."} ${escapeHtml(page.safety)}`,
+      loadNote: `${page.loadNote ?? `Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.units)}`} ${escapeHtml(page.safety)}`,
       laptopRows: [...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.laptop],
       laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
@@ -1499,7 +1576,7 @@ function simplePage(id, h) {
   return {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
-    lead: HELM_HUMAN[id]?.lead ?? page.lead,
+    lead: page.lead ?? HELM_HUMAN[id].lead,
     opening: "",
     body,
     css: `
@@ -1620,9 +1697,7 @@ export function beforeAfterPage(id, helpers) {
 // The gallery at the top of the Apps page. Each card opens a simple page.
 export function beforeAfterGalleryHtml(escapeHtml) {
   const cardText = (page) => {
-    if (page.kicker !== "Helm chart") return page.lead;
-    const f = helmFacts(page.id);
-    return `The ${page.name} chart makes ${f.before.length} objects. ${simpleHelmSentences(f)[1]}`;
+    return page.lead ?? HELM_HUMAN[page.id].lead;
   };
   const groups = [["helm", "Helm charts"], ["kustomize", "Kustomize"], ["argo", "Argo CD"], ["flux", "Flux"], ["app", "Apps"]];
   const firstOf = new Map(groups.map(([prefix]) => [SIMPLE_PAGES.find((page) => page.id.startsWith(`${prefix}-`))?.id, prefix]));

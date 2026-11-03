@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>An Argo CD app of apps, before and after</h1>
-    <p class="lead">Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.</p>
+    <p class="lead">You run Argo CD with one root app that makes all the others, each pointing at a folder in Git. To see what a cluster runs, you follow the chain from app to app to folder.</p>
 
   </header>
   <main>
@@ -715,34 +715,34 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true</code></pre>
-          <p class="ex-note">apps/apptique-prod.yaml. You read files like this to work out what each environment runs.</p>
+          <p class="ex-note">One of the Applications. It points at a folder, so what it deploys is written somewhere else.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/argo-app-of-apps-confighub.png" alt="ConfigHub showing the apptique-prod base with its in-cluster variant, and the prod Deployment's settings">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the apptique-prod base with its in-cluster variant, and the prod Deployment's settings.</p>
-          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its Application deploys.</p>
+          <p class="ex-note">What prod's Application deploys, as a base with a copy for its cluster. The panel on the right shows the prod Deployment's settings.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>Each app becomes a base and a variant for the cluster it runs on, released and ready.</li>
-        <li>You can read what prod runs in ConfigHub, here 3 replicas of the frontend.</li>
-        <li>Argo CD keeps syncing Git until you choose to hand over.</li>
+        <li>You can read what each app deploys in one place, without following links through Git.</li>
+        <li>Each app becomes a base with a copy for the cluster it runs on, here with 3 replicas of the frontend in prod.</li>
+        <li>Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>A root Application makes other Applications, and each one points at a folder in Git.</td><td>The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a variant for its cluster.</td></tr>
           <tr><td>Argo CD syncs whatever is in Git.</td><td>Argo CD keeps syncing Git until you run handover.sh, which points each Application at ConfigHub's releases.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant is one Unit in ConfigHub, holding everything its Application deploys. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -765,6 +765,7 @@ spec:
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-argo-app-of-apps.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
     </section>
   </main>
 </div>

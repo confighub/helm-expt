@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>ingress-nginx, before and after</h1>
-    <p class="lead">A Helm chart you can't read becomes objects you can.</p>
+    <p class="lead">You install ingress-nginx so traffic from outside the cluster reaches your services. While it installs, its chart runs two hidden Jobs to make a certificate, and you never see them.</p>
 
   </header>
   <main>
@@ -688,7 +688,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
         <figure class="ex-card">
-          <figcaption>Before: the Helm chart</figcaption>
+          <figcaption>Before: what you edit today</figcaption>
           <pre class="ex-code"><code>    <span class="ex-tpl">{{- if .Values.controller.shareProcessNamespace }}</span>
       shareProcessNamespace: <span class="ex-tpl">{{ .Values.controller.shareProcessNamespace }}</span>
     <span class="ex-tpl">{{- end }}</span>
@@ -705,38 +705,38 @@
           securityContext: <span class="ex-tpl">{{ include &quot;ingress-nginx.controller.containerSecurityContext&quot; . | nindent 12 }}</span>
           env:
             - name: POD_NAME</code></pre>
-          <p class="ex-note">16 lines of templates/controller-deployment.yaml, around its image line. The chart has many files like this.</p>
+          <p class="ex-note">Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/helm-ingress-nginx-confighub.png" alt="ConfigHub showing the ingress-nginx controller Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the ingress-nginx controller Deployment, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 13 Units, one for each of the 12 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The image is written out as a plain value you can read and change, and so is every other field.</p>
           
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
         <img src="./before-after/helm-ingress-nginx-graph.png" alt="ConfigHub showing the ingress-nginx base with its dev and prod variants, and the label and three replicas prod sets on the controller">
-        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the controller. Taken in the helm-catalog organization on 2026-10-26, showing the ingress-nginx base with its dev and prod variants, and the label and three replicas prod sets on the controller.</p>
+        <p class="ex-note">Dev only adds a label. Prod also runs three copies of the controller instead of one.</p>
       </figure>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
-        <li>The 7 setup objects Helm runs out of sight become steps you can read.</li>
-        <li>Every object is written out, so you can review it before anything runs.</li>
+        <li>Nothing runs out of sight. The certificate those Jobs made is named as something the cluster must have before delivery.</li>
+        <li>You can read all 11 objects before anything reaches a cluster, down to the image the controller runs.</li>
+        <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
       </ul>
-      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
-        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
           <tr><td>Runs two short-lived Jobs while installing. The first makes a TLS certificate for the admission webhook, and the second hands that certificate to the webhook.</td><td>Nothing runs out of sight. The certificate, the Secret ingress-nginx/ingress-nginx-admission, must exist before delivery.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount ingress-nginx-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRole ingress-nginx-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRoleBinding ingress-nginx-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Role ingress-nginx-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>RoleBinding ingress-nginx-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Job ingress-nginx-admission-create: before installing, before upgrading</code></li><li><code>Job ingress-nginx-admission-patch: after installing, after upgrading</code></li></ul></details></td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the ingress-nginx package, writes its files, and saves them as a Space called <code>ingress-nginx-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the ingress-nginx package into a Space called <code>ingress-nginx-example</code>, as 13 Units, one for each object plus a record of the install. The rest makes a dev and a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --work-dir ./ingress-nginx-example --non-interactive --namespace ingress-nginx &amp;&amp; cub installer upload --work-dir ./ingress-nginx-example --space ingress-nginx-example &amp;&amp; cub component create ingress-nginx-example &amp;&amp; cub space update --patch ingress-nginx-example --component ingress-nginx-example
@@ -759,6 +759,7 @@
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-ingress-nginx.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26.</p>
     </section>
   </main>
 </div>

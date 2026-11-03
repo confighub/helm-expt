@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>Redis, before and after</h1>
-    <p class="lead">A Helm chart you can't read becomes objects you can.</p>
+    <p class="lead">You run Redis as a fast cache or queue beside your app. Its Helm chart makes up a new password every time it runs, so two installs with the same settings never match.</p>
 
   </header>
   <main>
@@ -688,7 +688,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
         <figure class="ex-card">
-          <figcaption>Before: the Helm chart</figcaption>
+          <figcaption>Before: what you edit today</figcaption>
           <pre class="ex-code"><code>      dnsConfig: <span class="ex-tpl">{{- include &quot;common.tplvalues.render&quot; (dict &quot;value&quot; .Values.replica.dnsConfig &quot;context&quot; $) | nindent 8 }}</span>
       <span class="ex-tpl">{{- end }}</span>
       enableServiceLinks: <span class="ex-tpl">{{ .Values.replica.enableServiceLinks }}</span>
@@ -705,38 +705,38 @@
           <span class="ex-tpl">{{- if .Values.replica.containerSecurityContext.enabled }}</span>
           securityContext: <span class="ex-tpl">{{- include &quot;common.compatibility.renderSecurityContext&quot; (dict &quot;secContext&quot; .Values.replica.containerSecurityContext &quot;context&quot; $) | nindent 12 }}</span>
           <span class="ex-tpl">{{- end }}</span></code></pre>
-          <p class="ex-note">16 lines of templates/replicas/application.yaml, around its image line. The chart has many files like this.</p>
+          <p class="ex-note">Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/helm-redis-confighub.png" alt="ConfigHub showing the redis-replicas StatefulSet, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the redis-replicas StatefulSet, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 15 Units, one for each of the 14 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The image is written out as a plain value you can read and change, and so is every other field.</p>
           
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
         <img src="./before-after/helm-redis-graph.png" alt="ConfigHub showing the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master">
-        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and the master's requests and limits. Taken in the helm-catalog organization on 2026-10-26, showing the Redis base with its dev and prod variants, and the label, requests and limits prod sets on the Redis master.</p>
+        <p class="ex-note">Dev runs one read replica instead of three. Prod gives the Redis master its own requests and limits.</p>
       </figure>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
-        <li>Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</li>
+        <li>Your password stays put. You create it once, and Redis reads it from a Secret you own.</li>
         <li>The image is pinned to exact bytes, so it can't change under you.</li>
+        <li>You can read all 13 objects before anything reaches a cluster.</li>
       </ul>
-      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
-        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
           <tr><td>Makes up a new Redis password every time it renders, so no two renders match.</td><td>You create the Secret redis/redis-existing-secret once, and the chart reads the password from it.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Redis package, writes its files, and saves them as a Space called <code>redis-example</code> in your organization. The rest makes a dev and a prod variant of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Redis package into a Space called <code>redis-example</code>, as 15 Units, one for each object plus a record of the install. The rest makes a dev and a prod variant of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example
@@ -761,6 +761,7 @@
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-redis.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26.</p>
     </section>
   </main>
 </div>

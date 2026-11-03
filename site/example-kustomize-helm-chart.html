@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>A Helm chart inside Kustomize, before and after</h1>
-    <p class="lead">A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.</p>
+    <p class="lead">Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.</p>
 
   </header>
   <main>
@@ -709,34 +709,34 @@ helmCharts:
 labels:
   - pairs:
       app.kubernetes.io/part-of: storefront</code></pre>
-          <p class="ex-note">base/kustomization.yaml. You read files like this to work out what each environment runs.</p>
+          <p class="ex-note">The base inflates a Helm chart, so what it makes only exists after a build.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/kustomize-helm-chart-confighub.png" alt="ConfigHub showing the base with its dev, staging and prod variants, and the settings prod changes">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the base with its dev, staging and prod variants, and the settings prod changes.</p>
-          <p class="ex-note">Each variant holds 2 Units in ConfigHub, one per object.</p>
+          <p class="ex-note">One base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and a 1Gi memory limit.</li>
-        <li>Each object lands in the namespace you can see, not the one Argo CD happens to use.</li>
-        <li>No one has to run Helm inside Kustomize to know what an environment runs.</li>
+        <li>You can read what each environment runs without running Helm or Kustomize.</li>
+        <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and a 1Gi memory limit.</li>
+        <li>Each object lands in the namespace you can see, not whichever one Argo CD happens to use.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.</td><td>Helm runs once, and what it renders becomes the base, with a variant for each environment.</td></tr>
           <tr><td>Nothing else. The chart has no CRDs and no Helm hooks.</td><td>Nothing else to move.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant holds 2 Units in ConfigHub, one per object. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -771,6 +771,7 @@ labels:
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-kustomize-helm-chart.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
     </section>
   </main>
 </div>

@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>A Flux fleet, before and after</h1>
-    <p class="lead">Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.</p>
+    <p class="lead">You run Flux, and each cluster follows a folder of patches in Git. To know what prod runs, you combine the folders in your head.</p>
 
   </header>
   <main>
@@ -709,34 +709,34 @@ spec:
       kind: Deployment
       name: frontend
       namespace: apptique-prod</code></pre>
-          <p class="ex-note">clusters/prod/apps.yaml. You read files like this to work out what each environment runs.</p>
+          <p class="ex-note">Prod's Flux Kustomization. It points at an overlay, so what prod runs is in other files.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/flux-beginner-confighub.png" alt="ConfigHub showing the apps layer's base with its dev and prod variants, and the settings prod changes">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the apps layer's base with its dev and prod variants, and the settings prod changes.</p>
-          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.</p>
+          <p class="ex-note">The apps layer as one base, with a dev and a prod copy. The panel on the right is everything prod does differently.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>Each layer becomes a base and a variant for each cluster.</li>
-        <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
-        <li>Flux keeps reconciling Git until you choose to hand over.</li>
+        <li>You can read what each cluster runs, layer by layer, without combining folders.</li>
+        <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.</li>
+        <li>Flux keeps following Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>Each cluster's Kustomization points at an overlay in Git, and Flux applies it.</td><td>Each layer is a base in ConfigHub with a variant for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.</td></tr>
           <tr><td>flux bootstrap owns flux-system.</td><td>It stays outside ConfigHub, and the plan lists it.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster. It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -759,6 +759,7 @@ spec:
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-flux-beginner.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
     </section>
   </main>
 </div>

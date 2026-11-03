@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>An Argo CD ApplicationSet, before and after</h1>
-    <p class="lead">An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.</p>
+    <p class="lead">You use an ApplicationSet to stamp out one Argo CD app per environment from a template. The apps only exist once the cluster has made them, so you can't read them first.</p>
 
   </header>
   <main>
@@ -715,34 +715,34 @@ spec:
         targetRevision: main
         path: '{{path}}'
       destination:</code></pre>
-          <p class="ex-note">bootstrap/applicationset.yaml, its first 26 of 34 lines. You read files like this to work out what each environment runs.</p>
+          <p class="ex-note">The template, with placeholders the cluster fills in.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/argo-applicationset-confighub.png" alt="ConfigHub showing the base with the two variants the ApplicationSet generates, and the settings prod changes">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the base with the two variants the ApplicationSet generates, and the settings prod changes.</p>
-          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its Application deploys.</p>
+          <p class="ex-note">The two apps the template would make, as copies of one base. The panel on the right is everything prod does differently.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The two Applications the template would make are written out as variants of one base.</li>
-        <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
-        <li>Nothing is generated on the cluster before you have read it.</li>
+        <li>You can read the apps the template would make before the cluster makes them.</li>
+        <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.</li>
+        <li>Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.</td><td>The template is filled in here, one Application per environment, each a variant of one base.</td></tr>
           <tr><td>The ApplicationSet was applied by hand.</td><td>It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant is one Unit in ConfigHub, holding everything its Application deploys. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -765,6 +765,7 @@ spec:
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-argo-applicationset.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
     </section>
   </main>
 </div>
