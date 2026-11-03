@@ -687,6 +687,14 @@
 
   </header>
   <main>
+    <section aria-labelledby="why-not-git" class="ex">
+      <h2 id="why-not-git" class="ex-went-h">Why not just commit helm template output to Git?</h2>
+      <ul class="ex-why">
+        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
+        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
+        <li><strong>A tested starting point.</strong> These cert-manager objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.</li>
+      </ul>
+    </section>
     <section aria-labelledby="pictures" class="ex">
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
@@ -730,12 +738,6 @@
         <li>The six definitions your certificates depend on go in first, and they are marked to stay if cert-manager is removed.</li>
       </ul>
       <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to put the six CRDs in first, and never to let Argo CD or Flux delete them when they prune, because deleting a CRD deletes every object of that kind. Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.</p>
-      <h3 class="ex-went-h">Why not just commit helm template output to Git?</h3>
-      <ul class="ex-why">
-        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
-        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
-        <li><strong>A tested starting point.</strong> These cert-manager objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.</li>
-      </ul>
       <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
         <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>

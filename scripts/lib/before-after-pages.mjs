@@ -1482,8 +1482,8 @@ function cubWordsNote(rows) {
 const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.";
 
 // Every reader in the newcomer trials asked why they would not just keep the
-// rendered YAML in Git. These are the three answers, after what changes for
-// them. A Helm page's objects come from the Catalog; the other pages start
+// rendered YAML in Git, and asked it as soon as the opening named Git. These
+// are the three answers, first on the page. A Helm page's objects come from the Catalog; the other pages start
 // from the reader's own repository.
 function whyNotGit(name) {
   return {
@@ -1501,7 +1501,13 @@ function whyNotGit(name) {
 function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", whyNot, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
-  return `    <section aria-labelledby="pictures" class="ex">
+  return `    <section aria-labelledby="why-not-git" class="ex">
+      <h2 id="why-not-git" class="ex-went-h">${escapeHtml(whyNot.heading)}</h2>
+      <ul class="ex-why">
+        ${whyNot.items.map(([lead, rest]) => `<li><strong>${escapeHtml(lead)}</strong> ${escapeHtml(rest)}</li>`).join("\n        ")}
+      </ul>
+    </section>
+    <section aria-labelledby="pictures" class="ex">
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair${wide ? " ex-wide" : ""}">
         <figure class="ex-card">
@@ -1527,10 +1533,6 @@ ${shot.graph ? `      <figure class="ex-card ex-graph">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
       </ul>
       ${planHtml}
-      <h3 class="ex-went-h">${escapeHtml(whyNot.heading)}</h3>
-      <ul class="ex-why">
-        ${whyNot.items.map(([lead, rest]) => `<li><strong>${escapeHtml(lead)}</strong> ${escapeHtml(rest)}</li>`).join("\n        ")}
-      </ul>
       <h3 class="ex-went-h">${escapeHtml(rowsHeading)}</h3>
       <table class="ex-table">
         <thead><tr><th>${escapeHtml(rowsColumns[0])}</th><th>${escapeHtml(rowsColumns[1])}</th></tr></thead>
@@ -1640,6 +1642,7 @@ function simplePage(id, h) {
   // A Helm page names the plan first in the paragraph that says what it is.
   const plainText = `${WHAT_CONFIGHUB} ${prose}`;
   check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
+  check(body.indexOf('id="why-not-git"') !== -1 && body.indexOf('id="why-not-git"') < body.indexOf('id="pictures"'), `${ROOT}/${id}: the page must answer "why not Git" before the pictures`);
   check(!PRODUCT_WORDS.test(prose), `${ROOT}/${id}: the first-time page says "${prose.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
     eyebrow: "Before and after",
