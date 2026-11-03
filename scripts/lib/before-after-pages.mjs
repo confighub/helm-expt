@@ -1445,7 +1445,24 @@ const HELM_HUMAN = {
 // the word.
 const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.";
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
+// Every reader in the newcomer trials asked why they would not just keep the
+// rendered YAML in Git. These are the three answers, after what changes for
+// them. A Helm page's objects come from the Catalog; the other pages start
+// from the reader's own repository.
+function whyNotGit(name) {
+  return {
+    heading: name ? "Why not just commit helm template output to Git?" : "Why not just keep the finished YAML in Git?",
+    items: [
+      ["History and review.", "ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval."],
+      ["One base, many environments.", "Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes."],
+      ["A tested starting point.", name
+        ? `These ${name} objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.`
+        : "The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at."],
+    ],
+  };
+}
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, whyNot, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1472,6 +1489,10 @@ ${shot.graph ? `      <figure class="ex-card ex-graph">
       <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
+      </ul>
+      <h3 class="ex-went-h">${escapeHtml(whyNot.heading)}</h3>
+      <ul class="ex-why">
+        ${whyNot.items.map(([lead, rest]) => `<li><strong>${escapeHtml(lead)}</strong> ${escapeHtml(rest)}</li>`).join("\n        ")}
       </ul>
       <h3 class="ex-went-h">${escapeHtml(rowsHeading)}</h3>
       <table class="ex-table">
@@ -1517,7 +1538,7 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     afterNote: "The image is written out as a plain value you can read and change, and so is every other field.",
     graphCaption: "Each environment is a copy of one shared base",
     graphNote: `The settings every environment shares are stored once, as the base. ${human.graphNote}`,
-    sentences: human.sentences,
+    sentences: human.sentences, whyNot: whyNotGit(page.name),
     rows: helmRows(id, f, h.check, shot),
     rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
     loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
@@ -1563,7 +1584,7 @@ function simplePage(id, h) {
       beforeNote: page.beforeNote,
       afterLabel: page.afterLabel, afterNote: page.afterNote,
       credits: `About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on ${shot.takenOn}.`,
-      sentences: page.sentences, rows: page.rows,
+      sentences: page.sentences, whyNot: whyNotGit(), rows: page.rows,
       rowsHeading: page.rowsHeading ?? "What you work out by hand today, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
@@ -1605,6 +1626,8 @@ function simplePage(id, h) {
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
+    .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
     .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
     .ex-table th { width: 50%; }

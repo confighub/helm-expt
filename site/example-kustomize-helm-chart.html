@@ -469,6 +469,8 @@
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
+    .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
     .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
     .ex-table th { width: 50%; }
@@ -724,6 +726,12 @@ labels:
         <li>You can read what each environment runs without running Helm or Kustomize.</li>
         <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and a 1Gi memory limit.</li>
         <li>Each object lands in the namespace you can see, not whichever one Argo CD happens to use.</li>
+      </ul>
+      <h3 class="ex-went-h">Why not just keep the finished YAML in Git?</h3>
+      <ul class="ex-why">
+        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
+        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
+        <li><strong>A tested starting point.</strong> The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at.</li>
       </ul>
       <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
