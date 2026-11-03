@@ -469,6 +469,7 @@
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
     .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
     .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -733,6 +734,7 @@ spec:
         <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.</li>
         <li>Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
+      
       <h3 class="ex-went-h">Why not just keep the finished YAML in Git?</h3>
       <ul class="ex-why">
         <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
@@ -744,7 +746,7 @@ spec:
         <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.</td><td>The template is filled in here, one Application per environment, each a copy of one base.</td></tr>
-          <tr><td>The ApplicationSet was applied by hand.</td><td>It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one.</td></tr>
+          <tr><td>The ApplicationSet was applied by hand.</td><td>It stays in the cluster. The report from cub argo plan says handover must patch it or repoint its Applications one by one.</td></tr>
         </tbody>
       </table>
       <div class="ex-actions">

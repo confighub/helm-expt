@@ -469,6 +469,7 @@
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
     .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
     .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -727,6 +728,7 @@ spec:
         <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.</li>
         <li>Flux keeps following Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
+      
       <h3 class="ex-went-h">Why not just keep the finished YAML in Git?</h3>
       <ul class="ex-why">
         <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
@@ -738,7 +740,7 @@ spec:
         <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
           <tr><td>Each cluster's Kustomization points at an overlay in Git, and Flux applies it.</td><td>Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git.</td></tr>
-          <tr><td>flux bootstrap owns flux-system.</td><td>It stays outside ConfigHub, and the plan lists it.</td></tr>
+          <tr><td>flux bootstrap owns flux-system.</td><td>It stays outside ConfigHub, and the report from cub flux plan lists it.</td></tr>
         </tbody>
       </table>
       <div class="ex-actions">

@@ -469,6 +469,7 @@
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
     .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
     .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -733,6 +734,7 @@ patches:
         <li>Prod-1's differences sit in one panel. Here they are nginx 1.26.3 and 4 replicas.</li>
         <li>Dev, staging and prod are stages in that order, so a version moves from one to the next.</li>
       </ul>
+      
       <h3 class="ex-went-h">Why not just keep the finished YAML in Git?</h3>
       <ul class="ex-why">
         <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
@@ -743,8 +745,8 @@ patches:
       <table class="ex-table">
         <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
-          <tr><td>Image automation writes new tags into the dev overlay.</td><td>It keeps doing so, and the plan names it, so you know dev's version can change without a review.</td></tr>
-          <tr><td>A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.</td><td>The plan says to pin one exact version, so what runs changes only when a release says so.</td></tr>
+          <tr><td>Image automation writes new tags into the dev overlay.</td><td>It keeps doing so, and the report from cub flux plan names it, so you know dev's version can change without a review.</td></tr>
+          <tr><td>A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.</td><td>The report from cub flux plan says to pin one exact version, so what runs changes only when a release says so.</td></tr>
         </tbody>
       </table>
       <div class="ex-actions">

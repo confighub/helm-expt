@@ -469,6 +469,7 @@
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
     .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
     .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -728,6 +729,7 @@
         <li>Nothing is hidden. The chart runs no setup steps, so ConfigHub holds it as it is.</li>
         <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
       </ul>
+      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. metrics-server needs none, because plain YAML carries everything its chart does.</p>
       <h3 class="ex-went-h">Why not just commit helm template output to Git?</h3>
       <ul class="ex-why">
         <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
