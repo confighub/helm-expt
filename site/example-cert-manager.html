@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>cert-manager, before and after</h1>
-    <p class="lead">A Helm chart you can't read becomes objects you can.</p>
+    <p class="lead">You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.</p>
 
   </header>
   <main>
@@ -688,7 +688,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
         <figure class="ex-card">
-          <figcaption>Before: the Helm chart</figcaption>
+          <figcaption>Before: what you edit today</figcaption>
           <pre class="ex-code"><code>        <span class="ex-tpl">{{ with .Values.volumes }}</span>
         <span class="ex-tpl">{{- toYaml . | nindent 8 }}</span>
         <span class="ex-tpl">{{- end }}</span>
@@ -705,39 +705,39 @@
           <span class="ex-tpl">{{- if .Values.config }}</span>
           - --config=/var/cert-manager/config/config.yaml
           <span class="ex-tpl">{{- end }}</span></code></pre>
-          <p class="ex-note">16 lines of templates/deployment.yaml, around its image line. The chart has many files like this.</p>
+          <p class="ex-note">Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/helm-cert-manager-confighub.png" alt="ConfigHub showing the cert-manager controller Deployment, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the cert-manager controller Deployment, at its image line. This picture came from a load through the installer package, so the Unit names on it differ from a load with the commands below.</p>
-          <p class="ex-note">ConfigHub holds this as 50 Units, one for each object and one README, with 2 more for the plan's documents.</p>
+          <p class="ex-note">The image is written out as a plain value you can read and change, and so is every other field.</p>
           
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
         <img src="./before-after/helm-cert-manager-graph.png" alt="ConfigHub showing the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller">
-        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the controller. Taken in the helm-catalog organization on 2026-10-26, showing the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller.</p>
+        <p class="ex-note">Prod changes two things from the base. It adds a label, and it runs three copies of the controller instead of one.</p>
       </figure>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
-        <li>The 4 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</li>
-        <li>Every object is written out, so you can review it before anything runs.</li>
+        <li>You can read every object before anything reaches a cluster, down to the image each one runs.</li>
+        <li>Every change is recorded with the reason you gave, so how prod differs never lives only in someone's head.</li>
+        <li>The six definitions your certificates depend on go in first, and they are marked to stay if cert-manager is removed.</li>
       </ul>
-      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
-        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
           <tr><td>Adds 6 new kinds of Kubernetes object, such as Certificate, Issuer, ClusterIssuer.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected. They are also marked to stay if the rest is deleted, because deleting a CRD deletes every object of that kind.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-cert-manager-crds.png" alt="ConfigHub showing the 6 cert-manager CRDs as Units in the base"><p class="ex-note">The 6 new kinds</p><ul><li><code>Challenge</code></li><li><code>Order</code></li><li><code>CertificateRequest</code></li><li><code>Certificate</code></li><li><code>ClusterIssuer</code></li><li><code>Issuer</code></li></ul></details></td></tr>
-          <tr><td>Runs a Job after installing that waits until the cert-manager API answers.</td><td>It is left out, and nothing runs it. It only checks, and makes nothing the rest needs.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount cert-manager-startupapicheck: after installing</code></li><li><code>Role cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>RoleBinding cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>Job cert-manager-startupapicheck: after installing</code></li></ul></details></td></tr>
+          <tr><td>Runs a Job after installing that waits until the cert-manager API answers.</td><td>It is left out. It only waits and checks, so nothing you need goes with it.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount cert-manager-startupapicheck: after installing</code></li><li><code>Role cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>RoleBinding cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>Job cert-manager-startupapicheck: after installing</code></li></ul></details></td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the cert-manager OCI bundle and saves its objects as a Space called <code>cert-manager-example</code> in your organization. The rest makes a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the cert-manager OCI bundle into a Space called <code>cert-manager-example</code>, as 50 Units, one for each object plus a README and 2 that hold the plan. The rest makes a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9
@@ -756,6 +756,7 @@
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-cert-manager.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26. They came from a load through the installer package, so their Unit names differ from a load with the commands above.</p>
     </section>
   </main>
 </div>

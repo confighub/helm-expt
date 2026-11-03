@@ -680,7 +680,7 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>The shop-web app, before and after</h1>
-    <p class="lead">An app's YAML never says what the cluster must already run. ConfigHub lists what the app needs, and checks it against a platform.</p>
+    <p class="lead">Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.</p>
 
   </header>
   <main>
@@ -688,7 +688,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair ex-wide">
         <figure class="ex-card">
-          <figcaption>Before: the app's YAML</figcaption>
+          <figcaption>Before: the app as its team wrote it</figcaption>
           <pre class="ex-code"><code>apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -715,36 +715,36 @@ spec:
   ports: [{ port: 80, targetPort: 8080 }]
 ---
 apiVersion: networking.k8s.io/v1</code></pre>
-          <p class="ex-note">The app's five objects, as its team wrote them.</p>
+          <p class="ex-note">The app's five objects. Nothing here says what the cluster must already run.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same app in ConfigHub</figcaption>
           <img src="./before-after/app-shop-web-confighub.png" alt="ConfigHub showing the shop-web base with its dev and prod variants, and the label and five replicas prod sets">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-26, showing the shop-web base with its dev and prod variants, and the label and five replicas prod sets.</p>
-          <p class="ex-note">Each variant holds 6 Units in ConfigHub: the app's 5 objects and its namespace.</p>
+          <p class="ex-note">One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>ConfigHub lists what the app needs from a platform: an ingress controller, cert-manager and a Prometheus operator.</li>
-        <li>The platform check confirms shop-platform provides all three, and warns about the one thing it cannot see, the letsencrypt ClusterIssuer.</li>
-        <li>Dev and prod are variants of one base, and prod's changes are listed in one place.</li>
+        <li>You find out what the cluster must already run before you deploy, not after the shop stops answering.</li>
+        <li>You can test the app against a platform, and you're warned about the one thing it can't check.</li>
+        <li>Dev and prod are copies of one base, and prod's changes are written down in one place.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      <h3 class="ex-went-h">What you would find out the hard way, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
-          <tr><td>The Ingress names the nginx class, and nothing in the files says the cluster must run an ingress controller.</td><td>cub app check lists an ingress controller as a need, and the platform check confirms shop-platform carries one.</td></tr>
-          <tr><td>The Certificate needs cert-manager, and a ClusterIssuer called letsencrypt that none of these files creates.</td><td>cub app check lists cert-manager, and the platform check warns that ClusterIssuer/letsencrypt must already exist on the cluster.</td></tr>
-          <tr><td>The ServiceMonitor only works if the Prometheus operator's CRDs are installed.</td><td>cub app check lists a Prometheus operator, and the platform check finds kube-prometheus-stack in shop-platform.</td></tr>
-          <tr><td>The namespace shop must already exist.</td><td>Both checks name it, before anything is applied.</td></tr>
+          <tr><td>The Ingress expects an nginx ingress controller, and nothing in the files says so. Without one, nobody can reach the shop.</td><td>You're told it needs an ingress controller before you deploy, and the platform check finds one in shop-platform.</td></tr>
+          <tr><td>The Certificate needs cert-manager, and an issuer called letsencrypt that none of these files creates. Without cert-manager it is rejected, and without the issuer no certificate is ever made.</td><td>You're told it needs cert-manager, and warned that the letsencrypt issuer must already be on the cluster.</td></tr>
+          <tr><td>The ServiceMonitor is rejected unless a Prometheus operator is installed.</td><td>You're told it needs a Prometheus operator, and the platform check finds kube-prometheus-stack in shop-platform.</td></tr>
+          <tr><td>The namespace shop must already exist.</td><td>Both checks name it before anything is applied.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
+      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod variant of it. It touches no cluster.</p>
+          <p class="installer-command-note">Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub app upload shop-web --run
@@ -769,6 +769,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-app-shop-web.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-26.</p>
     </section>
   </main>
 </div>

@@ -1107,10 +1107,15 @@ const GITOPS_SIMPLE = [
 const APP_SIMPLE = [
   {
     id: "app-shop-web", file: "example-app-shop-web.html", name: "The shop-web app", kicker: "App", noClone: true,
-    lead: "An app's YAML never says what the cluster must already run. ConfigHub lists what the app needs, and checks it against a platform.",
-    before: "before/shop-web.yaml", beforeLabel: "Before: the app's YAML",
-    beforeNote: "The app's five objects, as its team wrote them.",
-    sentences: ["ConfigHub lists what the app needs from a platform: an ingress controller, cert-manager and a Prometheus operator.", "The platform check confirms shop-platform provides all three, and warns about the one thing it cannot see, the letsencrypt ClusterIssuer.", "Dev and prod are variants of one base, and prod's changes are listed in one place."],
+    lead: "Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.",
+    before: "before/shop-web.yaml", beforeLabel: "Before: the app as its team wrote it",
+    beforeNote: "The app's five objects. Nothing here says what the cluster must already run.",
+    afterLabel: "After: the same app in ConfigHub", afterNote: "One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.",
+    checksHeading: "What changes for you",
+    sentences: ["You find out what the cluster must already run before you deploy, not after the shop stops answering.", "You can test the app against a platform, and you're warned about the one thing it can't check.", "Dev and prod are copies of one base, and prod's changes are written down in one place."],
+    rowsHeading: "What you would find out the hard way, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
+    words: "ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.",
+    credits: true,
     facts: [["transcripts/app-check.txt", /\[NEEDS\] an ingress controller/], ["transcripts/app-check.txt", /\[NEEDS\] cert-manager/], ["transcripts/app-check.txt", /\[NEEDS\] a Prometheus operator/], ["transcripts/stack-sandbox.txt", /app needs met: shop-web/], ["transcripts/stack-sandbox.txt", /ClusterIssuer\/letsencrypt/]],
     load: [
       "cub app upload shop-web --run",
@@ -1123,13 +1128,13 @@ const APP_SIMPLE = [
     laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], needs: "the Workshop plugin",
     laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
     safety: "It touches no cluster.",
-    loadNote: "Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod variant of it.",
+    loadNote: "Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace.",
     units: "Each variant holds 6 Units in ConfigHub: the app's 5 objects and its namespace.",
     rows: [
-      { does: "The Ingress names the nginx class, and nothing in the files says the cluster must run an ingress controller.", instead: "cub app check lists an ingress controller as a need, and the platform check confirms shop-platform carries one." },
-      { does: "The Certificate needs cert-manager, and a ClusterIssuer called letsencrypt that none of these files creates.", instead: "cub app check lists cert-manager, and the platform check warns that ClusterIssuer/letsencrypt must already exist on the cluster." },
-      { does: "The ServiceMonitor only works if the Prometheus operator's CRDs are installed.", instead: "cub app check lists a Prometheus operator, and the platform check finds kube-prometheus-stack in shop-platform." },
-      { does: "The namespace shop must already exist.", instead: "Both checks name it, before anything is applied." },
+      { does: "The Ingress expects an nginx ingress controller, and nothing in the files says so. Without one, nobody can reach the shop.", instead: "You're told it needs an ingress controller before you deploy, and the platform check finds one in shop-platform." },
+      { does: "The Certificate needs cert-manager, and an issuer called letsencrypt that none of these files creates. Without cert-manager it is rejected, and without the issuer no certificate is ever made.", instead: "You're told it needs cert-manager, and warned that the letsencrypt issuer must already be on the cluster." },
+      { does: "The ServiceMonitor is rejected unless a Prometheus operator is installed.", instead: "You're told it needs a Prometheus operator, and the platform check finds kube-prometheus-stack in shop-platform." },
+      { does: "The namespace shop must already exist.", instead: "Both checks name it before anything is applied." },
     ],
   },
 ];
@@ -1180,7 +1185,7 @@ const HOOK_STORIES = {
   "helm-cert-manager": {
     jobs: ["cert-manager-startupapicheck"], covers: [],
     does: "Runs a Job after installing that waits until the cert-manager API answers.",
-    instead: "It is left out, and nothing runs it. It only checks, and makes nothing the rest needs.",
+    instead: "It is left out. It only waits and checks, so nothing you need goes with it.",
   },
   "helm-argo-cd": {
     jobs: ["argo-cd-argocd-redis-secret-init"], covers: ["argocd/argocd-redis"],
@@ -1322,8 +1327,31 @@ for (const [id, spec] of Object.entries(PLAIN_VARIANTS)) {
   };
 }
 
+// The words a first-time reader sees on a Helm page: why people install the
+// chart, and what changes for them. Each claim names the recorded fact it
+// rests on, and the build stops when that fact no longer holds.
+const workloadReplicas = (f, name) => f.after.find((doc) => doc.kind === "Deployment" && doc.metadata.name === name)?.spec?.replicas;
+const HELM_HUMAN = {
+  "helm-cert-manager": {
+    lead: "You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.",
+    sentences: [
+      "You can read every object before anything reaches a cluster, down to the image each one runs.",
+      "Every change is recorded with the reason you gave, so how prod differs never lives only in someone's head.",
+      "The six definitions your certificates depend on go in first, and they are marked to stay if cert-manager is removed.",
+    ],
+    graphNote: "Prod changes two things from the base. It adds a label, and it runs three copies of the controller instead of one.",
+    facts: (f) => [
+      [workloadReplicas(f, "cert-manager") === 1, "the base no longer runs one copy of the controller"],
+      [HELM_VARIANTS["helm-cert-manager"].rows.some((row) => /set-replicas 3/.test(row)), "prod no longer runs three copies of the controller"],
+      [HELM_VARIANTS["helm-cert-manager"].rows.every((row) => /--change-desc /.test(row)), "a load command no longer records a reason for its change"],
+      [f.after.filter((doc) => doc.kind === "CustomResourceDefinition").length === 6, "the chart no longer defines six CRDs"],
+      [["crd-ordering", "prune-protection"].every((step) => f.plan.some((row) => row.id === step)), "the plan no longer orders and keeps the CRDs"],
+    ],
+  },
+};
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterNote, afterExtra = "", graphNote = "", units, rows, rowsHeading, rowsColumns, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, wide }) {
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel = "After: in ConfigHub", afterNote, afterExtra = "", graphCaption = "In ConfigHub: one base, and a variant for each environment", graphNote = "", units, rows, rowsHeading, rowsColumns, checksHeading, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1335,20 +1363,19 @@ function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterN
           <p class="ex-note">${escapeHtml(beforeNote)}</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>${escapeHtml(afterLabel)}</figcaption>
           <img src="./before-after/${id}-confighub.png" alt="${escapeHtml(`ConfigHub showing ${shot.shows}`)}">
           <p class="ex-note">${escapeHtml(afterNote)}</p>
-          <p class="ex-note">${escapeHtml(units)}</p>
-          ${afterExtra}
+${units ? `          <p class="ex-note">${escapeHtml(units)}</p>\n` : ""}          ${afterExtra}
         </figure>
       </div>
 ${shot.graph ? `      <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
+        <figcaption>${escapeHtml(graphCaption)}</figcaption>
         <img src="./before-after/${id}-graph.png" alt="${escapeHtml(`ConfigHub showing ${shot.graph.shows}`)}">
-        <p class="ex-note">${escapeHtml(`${graphNote} Taken in the ${shot.organization} organization on ${shot.graph.takenOn}, showing ${shot.graph.shows}.`.trim())}</p>
+        <p class="ex-note">${escapeHtml(credits ? graphNote : `${graphNote} Taken in the ${shot.organization} organization on ${shot.graph.takenOn}, showing ${shot.graph.shows}.`.trim())}</p>
       </figure>
 ` : ""}
-      <ul class="ex-checks">
+${checksHeading ? `      <h3 class="ex-went-h">${escapeHtml(checksHeading)}</h3>\n` : ""}      <ul class="ex-checks">
         ${sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("\n        ")}
       </ul>
       <h3 class="ex-went-h">${escapeHtml(rowsHeading)}</h3>
@@ -1372,8 +1399,41 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
-    </section>
+${credits ? `      <p class="ex-note ex-credits">${escapeHtml(credits)}</p>\n` : ""}    </section>
 `;
+}
+
+// A Helm page in the reader's words. The pictures say what to look at, what
+// loading makes is said beside the commands, and where the pictures came
+// from goes to the foot of the page.
+function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }) {
+  const { escapeHtml } = h;
+  const load = BUNDLE_LOADS[id];
+  const makes = load
+    ? `${load.units} Units, one for each object plus a README${load.planDocs ? ` and ${load.planDocs} that hold the plan` : ""}`
+    : `${f.rec.installer.manifests + 1} Units, one for each object plus a record of the install`;
+  const dates = shot.graph && shot.graph.takenOn !== shot.takenOn ? `, the image line on ${shot.takenOn} and prod on ${shot.graph.takenOn}` : ` on ${shot.takenOn}`;
+  return {
+    id, shot, beforeLabel: "Before: what you edit today",
+    beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
+    beforeNote: `Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.`,
+    afterLabel: "After: the same thing in ConfigHub",
+    afterNote: "The image is written out as a plain value you can read and change, and so is every other field.",
+    graphCaption: "Prod is a copy of the base that lists its own changes",
+    graphNote: human.graphNote,
+    checksHeading: "What changes for you",
+    sentences: human.sentences,
+    rows: helmRows(id, f, h.check, shot),
+    rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
+    words: "ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.",
+    loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
+    loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package"} into a Space called <code>${escapeHtml(page.space)}</code>, as ${makes}.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
+    laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
+    laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
+    needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
+    laptopNeeds: "its installer plugin and kustomize",
+    credits: `About the pictures. They were taken in the ${shot.organization} organization${dates}.${bundleLoad ? " They came from a load through the installer package, so their Unit names differ from a load with the commands above." : ""}`,
+  };
 }
 
 function simplePage(id, h) {
@@ -1397,7 +1457,9 @@ function simplePage(id, h) {
     const bundleLoad = route.kind === "literal-bundle"
       ? `cub variant upload --component ${page.space} --variant base --space ${page.space}${route.namespace ? ` --namespace ${route.namespace}${/^(default|kube-.*)$/.test(route.namespace) ? "" : " --create-namespace"}` : ""} ${route.reference}`
       : "";
-    body = simpleLayout(h, {
+    const human = HELM_HUMAN[id];
+    if (human) for (const [holds, what] of human.facts(f)) check(holds, `${ROOT}/${id}: ${what}, and HELM_HUMAN says it does`);
+    body = simpleLayout(h, human ? humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }) : {
       id, shot, beforeLabel: "Before: the Helm chart",
       beforeHtml: excerpt.lines.map((line) => highlightTemplate(escapeHtml, line)).join("\n"),
       beforeNote: `16 lines of ${excerpt.file.replace(/^[^/]+\//, "")}, around its image line. The chart has many files like this.`,
@@ -1421,10 +1483,11 @@ function simplePage(id, h) {
       id, shot, wide: true, beforeLabel: page.beforeLabel,
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
       beforeNote: page.beforeNote ?? `${page.before.replace(/^before\//, "")}${lines.length > 26 ? `, its first 26 of ${lines.length} lines` : ""}. You read files like this to work out what each environment runs.`,
-      afterNote: caption,
-      sentences: page.sentences, units: page.units, rows: page.rows,
-      rowsHeading: "What you work out today, and what happens here instead", rowsColumns: ["Today", "Here instead"],
-      words: "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
+      afterLabel: page.afterLabel, afterNote: page.credits ? page.afterNote : caption,
+      checksHeading: page.checksHeading, credits: page.credits && `About the picture. It was taken in the ${shot.organization} organization on ${shot.takenOn}.`,
+      sentences: page.sentences, units: page.credits ? "" : page.units, rows: page.rows,
+      rowsHeading: page.rowsHeading ?? "What you work out today, and what happens here instead", rowsColumns: page.rowsColumns ?? ["Today", "Here instead"],
+      words: page.words ?? "ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.",
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
       loadNote: `${page.loadNote ?? "Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization."} ${escapeHtml(page.safety)}`,
@@ -1436,7 +1499,7 @@ function simplePage(id, h) {
   return {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
-    lead: page.lead,
+    lead: HELM_HUMAN[id]?.lead ?? page.lead,
     opening: "",
     body,
     css: `
