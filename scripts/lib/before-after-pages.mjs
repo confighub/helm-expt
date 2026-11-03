@@ -1460,9 +1460,6 @@ const HELM_HUMAN = {
 };
 
 
-// One sentence on every example page, under its opening, for a reader who has
-// never heard of ConfigHub. It also says what a plan is, before the page uses
-// the word.
 // The first-time pages say object, folder and copy. ConfigHub's own words
 // (Unit, Space, variant) stay on the details pages and in the commands, and
 // one sentence beside the commands says which cub word means which.
@@ -1479,7 +1476,10 @@ function cubWordsNote(rows) {
   if (!words.length) return "";
   return ` In its commands, cub calls ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
 }
-const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.";
+// What ConfigHub is, under every example page's opening, for a reader who has
+// never heard of it. It leaves the plan to the Helm page's own paragraph,
+// which says what this chart's plan holds and who follows it.
+const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.";
 
 // Every reader in the newcomer trials asked why they would not just keep the
 // rendered YAML in Git. These are the three answers, after what changes for
@@ -1637,6 +1637,9 @@ function simplePage(id, h) {
     });
   }
   const prose = `${page.lead ?? HELM_HUMAN[id].lead} ${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
+  // A Helm page names the plan first in the paragraph that says what it is.
+  const plainText = `${WHAT_CONFIGHUB} ${prose}`;
+  check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
   check(!PRODUCT_WORDS.test(prose), `${ROOT}/${id}: the first-time page says "${prose.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
     eyebrow: "Before and after",
