@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>An Argo CD app of apps, before and after</h1>
     <p class="lead">You run Argo CD with one root app that makes all the others, each pointing at a folder in Git. To see what a cluster runs, you follow the chain from app to app to folder.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -735,14 +735,13 @@ spec:
       <table class="ex-table">
         <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
-          <tr><td>A root Application makes other Applications, and each one points at a folder in Git.</td><td>The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a variant for its cluster.</td></tr>
-          <tr><td>Argo CD syncs whatever is in Git.</td><td>Argo CD keeps syncing Git until you run handover.sh, which points each Application at ConfigHub's releases.</td></tr>
+          <tr><td>A root Application makes other Applications, and each one points at a folder in Git.</td><td>The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster.</td></tr>
+          <tr><td>Argo CD syncs whatever is in Git.</td><td>Argo CD keeps syncing Git. Only handover.sh, a separate step you choose to run, points each Application at ConfigHub instead.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant is one Unit in ConfigHub, holding everything its Application deploys. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy is stored as one Unit, holding everything its Application deploys. It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -752,7 +751,7 @@ spec:
 <span class="term-prompt">$</span> cub argo apply . --out onboard
 
 <span class="term-prompt">$</span> bash onboard/apply.sh</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the argo plugin and kustomize.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the argo plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs. In your own Argo CD repository, run the last line from its root.</p>
@@ -761,11 +760,11 @@ spec:
 <span class="term-prompt">$</span> cd examples/gitops/argo/beginner-app-of-apps
 
 <span class="term-prompt">$</span> cub argo plan .</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with the argo plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the argo plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-argo-app-of-apps.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-25.</p>
     </section>
   </main>
 </div>

@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>cert-manager, before and after</h1>
     <p class="lead">You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -715,9 +715,9 @@
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
+        <figcaption>Each environment is a copy of one shared base</figcaption>
         <img src="./before-after/helm-cert-manager-graph.png" alt="ConfigHub showing the cert-manager base with a prod variant, and the label and three replicas prod sets on the controller">
-        <p class="ex-note">Prod changes two things from the base. It adds a label, and it runs three copies of the controller instead of one.</p>
+        <p class="ex-note">The settings every environment shares are stored once, as the base. Prod changes two things. It adds a label, and it runs three replicas of the controller instead of one.</p>
       </figure>
 
       <h3 class="ex-went-h">What changes for you</h3>
@@ -734,10 +734,9 @@
           <tr><td>Runs a Job after installing that waits until the cert-manager API answers.</td><td>It is left out. It only waits and checks, so nothing you need goes with it.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount cert-manager-startupapicheck: after installing</code></li><li><code>Role cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>RoleBinding cert-manager-startupapicheck:create-cert: after installing</code></li><li><code>Job cert-manager-startupapicheck: after installing</code></li></ul></details></td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the cert-manager OCI bundle into a Space called <code>cert-manager-example</code>, as 50 Units, one for each object plus a README and 2 that hold the plan. The rest makes a prod variant of it, and prod runs three replicas of the controller. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the cert-manager OCI bundle in your organization, in a Space called <code>cert-manager-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a README and 2 documents that hold the plan. The rest makes a prod copy of it, and prod runs three replicas of the controller. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component cert-manager-example --variant base --space cert-manager-example --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-1-crds-enabled:latest@sha256:7e656f058b59e2024e4d6ffa37804a771bbbe8e6dab1a56ca4b69992f903b2d9
@@ -747,16 +746,16 @@
 <span class="term-prompt">$</span> cub function set --space cert-manager-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space cert-manager-example-prod --unit cert-manager --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with no plugin.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the cert-manager package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.1@sha256:830d0dfee2531c05cb48f3328abd1858b97bacf050208e583ab2dd2214d2cba5 --base crds-enabled --work-dir ./cert-manager-example --non-interactive --namespace cert-manager &amp;&amp; ls ./cert-manager-example/out/manifests</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-cert-manager.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26. They came from a load through the installer package, so their Unit names differ from a load with the commands above.</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples, the image line on 2026-10-25 and prod on 2026-10-26. They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make.</p>
     </section>
   </main>
 </div>

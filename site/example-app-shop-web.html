@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>The shop-web app, before and after</h1>
     <p class="lead">Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -720,7 +720,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
         <figure class="ex-card">
           <figcaption>After: the same app in ConfigHub</figcaption>
           <img src="./before-after/app-shop-web-confighub.png" alt="ConfigHub showing the shop-web base with its dev and prod variants, and the label and five replicas prod sets">
-          <p class="ex-note">One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.</p>
+          <p class="ex-note">The shared settings, stored once as a base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.</p>
           
         </figure>
       </div>
@@ -741,10 +741,9 @@ apiVersion: networking.k8s.io/v1</code></pre>
           <tr><td>The namespace shop must already exist.</td><td>Both checks name it before anything is applied.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub app upload shop-web --run
@@ -758,18 +757,18 @@ apiVersion: networking.k8s.io/v1</code></pre>
 <span class="term-prompt">$</span> cub function set --space shop-web-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space shop-web-prod --unit shop-web --change-desc &quot;Run five replicas in prod&quot; set-replicas 5</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the Workshop plugin.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the Workshop plugin.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub app check shop-web
 
 <span class="term-prompt">$</span> cub stack sandbox shop-platform</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-app-shop-web.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-26.</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-26.</p>
     </section>
   </main>
 </div>

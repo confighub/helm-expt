@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>PostgreSQL, before and after</h1>
     <p class="lead">You run PostgreSQL to keep your app's data. Its Helm chart makes up a new administrator password every time it runs, so a reinstall can leave the password out of step with the database.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -715,9 +715,9 @@
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
+        <figcaption>Each environment is a copy of one shared base</figcaption>
         <img src="./before-after/helm-postgresql-graph.png" alt="ConfigHub showing the PostgreSQL base with its dev and prod variants, and the label and three replicas prod sets on its StatefulSet">
-        <p class="ex-note">Dev only adds a label. Prod also runs three copies of the database instead of one.</p>
+        <p class="ex-note">The settings every environment shares are stored once, as the base. Dev only adds a label. Prod also runs three replicas of the database instead of one.</p>
       </figure>
 
       <h3 class="ex-went-h">What changes for you</h3>
@@ -733,10 +733,9 @@
           <tr><td>Makes up a new administrator password every time it renders, so no two renders match.</td><td>You create the Secret postgresql/postgresql-auth once, and the chart reads the password from it.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the PostgreSQL package into a Space called <code>postgresql-example</code>, as 8 Units, one for each object plus a record of the install. The rest makes a dev and a prod variant of it, and prod runs three replicas of its StatefulSet. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the PostgreSQL package in your organization, in a Space called <code>postgresql-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a record of the install. The rest makes a dev and a prod copy of it, and prod runs three replicas of its StatefulSet. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; cub installer upload --work-dir ./postgresql-example --space postgresql-example &amp;&amp; cub component create postgresql-example &amp;&amp; cub space update --patch postgresql-example --component postgresql-example
@@ -750,16 +749,16 @@
 <span class="term-prompt">$</span> cub function set --space postgresql-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space postgresql-example-prod --unit statefulset-postgresql-postgresql --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the PostgreSQL package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; ls ./postgresql-example/out/manifests</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-postgresql.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26.</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples, the image line on 2026-10-25 and prod on 2026-10-26.</p>
     </section>
   </main>
 </div>

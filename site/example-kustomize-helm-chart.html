@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>A Helm chart inside Kustomize, before and after</h1>
     <p class="lead">Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -714,7 +714,7 @@ labels:
         <figure class="ex-card">
           <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/kustomize-helm-chart-confighub.png" alt="ConfigHub showing the base with its dev, staging and prod variants, and the settings prod changes">
-          <p class="ex-note">One base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.</p>
+          <p class="ex-note">The shared settings, stored once as a base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.</p>
           
         </figure>
       </div>
@@ -729,14 +729,13 @@ labels:
       <table class="ex-table">
         <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
-          <tr><td>Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.</td><td>Helm runs once, and what it renders becomes the base, with a variant for each environment.</td></tr>
+          <tr><td>Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.</td><td>Helm runs once, and what it makes becomes the base, with a copy for each environment.</td></tr>
           <tr><td>Nothing else. The chart has no CRDs and no Helm hooks.</td><td>Nothing else to move.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant holds 2 Units in ConfigHub, one per object. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy stores its 2 objects separately, as Units. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -756,7 +755,7 @@ labels:
 <span class="term-prompt">$</span> cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc &quot;Run three replicas in prod&quot; set-replicas 3
 
 <span class="term-prompt">$</span> cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc &quot;Give prod a 1Gi memory limit&quot; -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = &quot;1Gi&quot;'</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with kustomize and helm.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with kustomize and helm.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This writes out every object prod runs and checks what it installs.</p>
@@ -767,11 +766,11 @@ labels:
 <span class="term-prompt">$</span> kustomize build --enable-helm overlays/prod &gt; prod.yaml
 
 <span class="term-prompt">$</span> cub config check prod.yaml</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with kustomize, helm and the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with kustomize, helm and the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-kustomize-helm-chart.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-25.</p>
     </section>
   </main>
 </div>

@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>Argo CD, before and after</h1>
     <p class="lead">You install Argo CD so your clusters follow what's in Git. Before it installs, its chart runs a hidden Job to make a password for Argo CD's own Redis.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -715,9 +715,9 @@
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>Prod is a copy of the base that lists its own changes</figcaption>
+        <figcaption>Each environment is a copy of one shared base</figcaption>
         <img src="./before-after/helm-argo-cd-graph.png" alt="ConfigHub showing the Argo CD base with its dev and prod variants, and the label and three replicas prod sets on the server">
-        <p class="ex-note">Dev only adds a label. Prod also runs three copies of the server instead of one.</p>
+        <p class="ex-note">The settings every environment shares are stored once, as the base. Dev only adds a label. Prod also runs three replicas of the server instead of one.</p>
       </figure>
 
       <h3 class="ex-went-h">What changes for you</h3>
@@ -734,10 +734,9 @@
           <tr><td>Runs a Job before installing that makes a password Secret for Argo CD's own Redis.</td><td>Nothing runs out of sight. The Secret argocd/argocd-redis must exist before delivery.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>Role argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>RoleBinding argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li><li><code>Job argo-cd-argocd-redis-secret-init: before installing, before upgrading</code></li></ul></details></td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the Argo CD OCI bundle into a Space called <code>argo-cd-example</code>, as 58 Units, one for each object plus a README and 3 that hold the plan. The rest makes a dev and a prod variant of it, and prod runs three replicas of the server. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Argo CD OCI bundle in your organization, in a Space called <code>argo-cd-example</code>. A Space is ConfigHub's word for a folder. Each object is stored on its own, as a Unit, with a README and 3 documents that hold the plan. The rest makes a dev and a prod copy of it, and prod runs three replicas of the server. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component argo-cd-example --variant base --space argo-cd-example --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a
@@ -751,16 +750,16 @@
 <span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --unit argo-cd-argocd-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with no plugin.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the Argo CD package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24 --base default --work-dir ./argo-cd-example --non-interactive --namespace argocd &amp;&amp; ls ./argo-cd-example/out/manifests</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-argo-cd.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the pictures. They were taken in the helm-catalog organization, the image line on 2026-10-25 and prod on 2026-10-26. They came from a load through the installer package, so their Unit names differ from a load with the commands above.</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples, the image line on 2026-10-25 and prod on 2026-10-26. They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make.</p>
     </section>
   </main>
 </div>

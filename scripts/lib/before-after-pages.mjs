@@ -1017,7 +1017,7 @@ const GITOPS_SIMPLE = [
     lead: "You keep one copy of your app and patch it for dev and prod with Kustomize. To know what prod really runs, you build it on your laptop or work it out in your head.",
     before: "before/prod/kustomization.yaml", beforeLabel: "Before: the prod overlay",
     beforeNote: "Prod's overlay. It only says what to change, so you combine it with the base to know what prod runs.",
-    afterLabel: "After: the same thing in ConfigHub", afterNote: "One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The shared settings, stored once as a base, with a dev and a prod copy of it. The panel on the right is everything prod does differently.",
     sentences: ["You can read exactly what prod runs, every object written out, without building anything.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Dev and prod stay linked to one base, so a fix to the base can reach both."],
     facts: [["after/prod.yaml", /replicas: 3/]],
     dir: "gitops/argo/intermediate-ci-to-gitops/gitops-repo/environments/apptique",
@@ -1032,15 +1032,15 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
     laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", laptopNeeds: "kustomize and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
-    units: "Each variant holds 4 Units in ConfigHub, one per object.",
-    rows: [{ does: "Prod is the base plus an overlay of patches, labels and a namespace, so you work out prod's objects in your head.", instead: "Each variant holds its finished objects, and prod's panel lists only what prod changes." }, { does: "Nothing else. There are no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
+    units: "Each copy stores its 4 objects separately, as Units.",
+    rows: [{ does: "Prod is the base plus an overlay of patches, labels and a namespace, so you work out prod's objects in your head.", instead: "Each environment's copy holds its finished objects, and prod's panel lists only what prod changes." }, { does: "Nothing else. There are no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
   },
   {
     id: "kustomize-helm-chart", file: "example-kustomize-helm-chart.html", name: "A Helm chart inside Kustomize", kicker: "Kustomize with a Helm chart",
     lead: "Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.",
     before: "before/base/kustomization.yaml", beforeLabel: "Before: Kustomize inflating a chart",
     beforeNote: "The base inflates a Helm chart, so what it makes only exists after a build.",
-    afterLabel: "After: the same thing in ConfigHub", afterNote: "One base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The shared settings, stored once as a base, with a dev, a staging and a prod copy. The panel on the right is everything prod does differently.",
     sentences: ["You can read what each environment runs without running Helm or Kustomize.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and a 1Gi memory limit.", "Each object lands in the namespace you can see, not whichever one Argo CD happens to use."],
     facts: [["after/prod.yaml", /replicas: 3/], ["after/prod.yaml", /memory: 1Gi/]],
     dir: "gitops/argo/expert-app-of-apps/apps/checkout-cache",
@@ -1053,8 +1053,8 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
     laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", laptopNeeds: "kustomize, helm and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
-    units: "Each variant holds 2 Units in ConfigHub, one per object.",
-    rows: [{ does: "Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.", instead: "Helm runs once, and what it renders becomes the base, with a variant for each environment." }, { does: "Nothing else. The chart has no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
+    units: "Each copy stores its 2 objects separately, as Units.",
+    rows: [{ does: "Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.", instead: "Helm runs once, and what it makes becomes the base, with a copy for each environment." }, { does: "Nothing else. The chart has no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
   },
   {
     id: "argo-app-of-apps", file: "example-argo-cd-app-of-apps.html", name: "An Argo CD app of apps", kicker: "Argo CD app of apps",
@@ -1066,9 +1066,9 @@ const GITOPS_SIMPLE = [
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    units: "Each variant is one Unit in ConfigHub, holding everything its Application deploys.",
-    rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a variant for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git until you run handover.sh, which points each Application at ConfigHub's releases." }],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    units: "Each copy is stored as one Unit, holding everything its Application deploys.",
+    rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git. Only handover.sh, a separate step you choose to run, points each Application at ConfigHub instead." }],
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
@@ -1080,36 +1080,36 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    units: "Each variant is one Unit in ConfigHub, holding everything its Application deploys.",
-    rows: [{ does: "An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.", instead: "The template is filled in here, one Application per environment, each a variant of one base." }, { does: "The ApplicationSet was applied by hand.", instead: "It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one." }],
+    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    units: "Each copy is stored as one Unit, holding everything its Application deploys.",
+    rows: [{ does: "An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.", instead: "The template is filled in here, one Application per environment, each a copy of one base." }, { does: "The ApplicationSet was applied by hand.", instead: "It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one." }],
   },
   {
     id: "flux-beginner", file: "example-flux-fleet.html", name: "A Flux fleet", kicker: "Flux fleet",
     lead: "You run Flux, and each cluster follows a folder of patches in Git. To know what prod runs, you combine the folders in your head.",
     before: "before/clusters/prod/apps.yaml", beforeLabel: "Before: a Flux Kustomization",
     beforeNote: "Prod's Flux Kustomization. It points at an overlay, so what prod runs is in other files.",
-    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps layer as one base, with a dev and a prod copy. The panel on the right is everything prod does differently.",
-    sentences: ["You can read what each cluster runs, layer by layer, without combining folders.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Flux keeps following Git until you choose to hand over, so trying this changes nothing that runs."],
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps folder, stored once as a base with a dev and a prod copy. The panel on the right is everything prod does differently.",
+    sentences: ["You can read what each cluster runs, folder by folder, without combining them in your head.", "Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.", "Flux keeps following Git until you choose to hand over, so trying this changes nothing that runs."],
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.",
-    rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each layer is a base in ConfigHub with a variant for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the plan lists it." }],
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    units: "Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder.",
+    rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the plan lists it." }],
   },
   {
     id: "flux-expert-fleet", file: "example-flux-which-version-where.html", name: "Which version runs where", kicker: "Flux fleet",
     lead: "You run a fleet of clusters with Flux, and new versions move from dev to staging to prod. When someone asks which version runs where, the answer is spread across many overlays.",
     before: "before/apps/prod/kustomization.yaml", beforeLabel: "Before: one of many overlays",
     beforeNote: "Each cluster's version is set in a file like this, spread across the repository.",
-    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps layer as one base, with a copy for each cluster. The panel on the right is everything prod-1 does differently.",
+    afterLabel: "After: the same thing in ConfigHub", afterNote: "The apps folder, stored once as a base with a copy for each cluster. The panel on the right is everything prod-1 does differently.",
     sentences: ["You can see in one table which version Git says each cluster runs.", "Prod-1's differences sit in one panel. Here they are nginx 1.26.3 and 4 replicas.", "Dev, staging and prod are stages in that order, so a version moves from one to the next."],
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster.",
+    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    units: "Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder.",
     rows: [{ does: "Image automation writes new tags into the dev overlay.", instead: "It keeps doing so, and the plan names it, so you know dev's version can change without a review." }, { does: "A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.", instead: "The plan says to pin one exact version, so what runs changes only when a release says so." }],
   },
 ];
@@ -1122,10 +1122,9 @@ const APP_SIMPLE = [
     lead: "Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.",
     before: "before/shop-web.yaml", beforeLabel: "Before: the app as its team wrote it",
     beforeNote: "The app's five objects. Nothing here says what the cluster must already run.",
-    afterLabel: "After: the same app in ConfigHub", afterNote: "One base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.",
+    afterLabel: "After: the same app in ConfigHub", afterNote: "The shared settings, stored once as a base, with a dev and a prod copy of it. The panel on the right is everything prod does differently, a label and five replicas.",
     sentences: ["You find out what the cluster must already run before you deploy, not after the shop stops answering.", "You can test the app against a platform, and you're warned about the one thing it can't check.", "Dev and prod are copies of one base, and prod's changes are written down in one place."],
     rowsHeading: "What you would find out the hard way, and what you get instead",
-    words: "ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.",
     facts: [["transcripts/app-check.txt", /\[NEEDS\] an ingress controller/], ["transcripts/app-check.txt", /\[NEEDS\] cert-manager/], ["transcripts/app-check.txt", /\[NEEDS\] a Prometheus operator/], ["transcripts/stack-sandbox.txt", /app needs met: shop-web/], ["transcripts/stack-sandbox.txt", /ClusterIssuer\/letsencrypt/]],
     load: [
       "cub app upload shop-web --run",
@@ -1138,7 +1137,7 @@ const APP_SIMPLE = [
     laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], needs: "the Workshop plugin",
     laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
     safety: "It touches no cluster.",
-    loadNote: "Sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace.",
+    loadNote: "Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each holds 6 Units, the app's 5 objects and its namespace.",
     units: "Each variant holds 6 Units in ConfigHub: the app's 5 objects and its namespace.",
     rows: [
       { does: "The Ingress expects an nginx ingress controller, and nothing in the files says so. Without one, nobody can reach the shop.", instead: "You're told it needs an ingress controller before you deploy, and the platform check finds one in shop-platform." },
@@ -1194,7 +1193,7 @@ const HOOK_STORIES = {
   "helm-gatekeeper": {
     jobs: ["gatekeeper-update-crds-hook", "gatekeeper-update-namespace-label"], covers: [],
     does: "Runs a Job before installing or upgrading that applies its CRDs, and one after installing that labels its own namespace so Gatekeeper does not police itself.",
-    instead: "Nothing runs out of sight. The CRDs are in ConfigHub and go in first, and a recorded install without the Jobs checked each step that followed.",
+    instead: "Nothing runs out of sight. The new kinds go in first, and a test install without the Jobs showed their work still gets done.",
   },
   "helm-gpu-operator": {
     jobs: ["gpu-operator-upgrade-crd", "gpu-operator-node-feature-discovery-prune"], covers: [],
@@ -1256,7 +1255,7 @@ function helmRows(id, f, check, shot) {
   const steps = f.plan.filter((step) => step.type !== "target-fact" && !["crd-ordering", "lifecycle", "prune-protection"].includes(step.id));
   if (steps.length) rows.push({
     does: "Decides at install time when each of its hidden steps runs, in an order you cannot see.",
-    instead: `The plan writes down ${steps.length} step${steps.length === 1 ? "" : "s"}, in order, for whoever delivers.`,
+    instead: `The plan lists ${steps.length === 1 ? "the step" : `the ${steps.length} steps`} in order, so whoever deploys it can follow ${steps.length === 1 ? "it" : "them"}.`,
     show: { title: "The plan's steps", items: steps.map((step) => step.detail) },
   });
   if (!rows.length) rows.push({ does: `Nothing out of sight. The chart makes ${f.after.length} objects and runs no hooks.`, instead: `All ${f.after.length} are in ConfigHub as they are.` });
@@ -1274,7 +1273,7 @@ const HELM_VARIANTS = {
       "cub function set --space redis-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
       "cub function set --space redis-example-prod --unit statefulset-redis-redis-master --change-desc \"Give the prod master its own requests and limits\" set-container-resources redis all 500m 512Mi 2",
     ],
-    note: "The rest makes a dev and a prod variant of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits.",
+    note: "The rest makes a dev and a prod copy of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits.",
     graphNote: "Prod's panel lists what prod changes from the base, here its label and the master's requests and limits.",
   },
 };
@@ -1313,7 +1312,7 @@ for (const [id, spec] of Object.entries(PLAIN_VARIANTS)) {
       ...variants.map((variant) => `cub function set --space ${space}-${variant} --change-desc "Label every object environment ${variant}" set-label environment ${variant}`),
       `cub function set --space ${space}-prod --unit ${BUNDLE_LOADS[id]?.workload ?? spec.workload} --change-desc "Run three replicas in prod" set-replicas 3`,
     ],
-    note: `The rest makes ${variants.length === 2 ? "a dev and a prod variant" : "a prod variant"} of it, and prod runs three replicas of ${spec.what}.`,
+    note: `The rest makes ${variants.length === 2 ? "a dev and a prod copy" : "a prod copy"} of it, and prod runs three replicas of ${spec.what}.`,
     graphNote: `Prod's panel lists what prod changes from the base, here its label and three replicas of ${spec.what}.`,
   };
 }
@@ -1327,7 +1326,7 @@ const reasons = (id) => [HELM_VARIANTS[id].rows.every((row) => /--change-desc /.
 const holds = (f, n) => [f.after.length === n, `the base no longer holds ${n} objects`];
 const kinds = (f, kind, n) => [f.after.filter((doc) => doc.kind === kind).length === n, `the base no longer holds ${n} of kind ${kind}`];
 const planHas = (f, ...steps) => [steps.every((step) => f.plan.some((row) => row.id === step)), `the plan no longer has ${steps.join(", ")}`];
-const prodThree = (what) => `Dev only adds a label. Prod also runs three copies of ${what} instead of one.`;
+const prodThree = (what) => `Dev only adds a label. Prod also runs three replicas of ${what} instead of one.`;
 const recorded = "Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.";
 const HELM_HUMAN = {
   "helm-redis": {
@@ -1380,7 +1379,7 @@ const HELM_HUMAN = {
       recorded,
       "The six definitions your certificates depend on go in first, and they are marked to stay if cert-manager is removed.",
     ],
-    graphNote: "Prod changes two things from the base. It adds a label, and it runs three copies of the controller instead of one.",
+    graphNote: "Prod changes two things. It adds a label, and it runs three replicas of the controller instead of one.",
     facts: (f) => [replicasOf(f, "cert-manager", 1), variantDoes("helm-cert-manager", /set-replicas 3/), reasons("helm-cert-manager"),
       kinds(f, "CustomResourceDefinition", 6), planHas(f, "crd-ordering", "prune-protection")],
   },
@@ -1442,7 +1441,12 @@ const HELM_HUMAN = {
 };
 
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, words, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
+// One sentence on every example page, under its opening, for a reader who has
+// never heard of ConfigHub. It also says what a plan is, before the page uses
+// the word.
+const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.";
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="pictures" class="ex">
@@ -1477,17 +1481,16 @@ ${shot.graph ? `      <figure class="ex-card ex-graph">
 ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeHtml(row.instead)}${row.show ? `<details class="ex-show"><summary>Show me</summary>${row.show.image ? `<img src="${row.show.image}" alt="${escapeHtml(row.show.alt ?? row.show.title)}">` : ""}<p class="ex-note">${escapeHtml(row.show.title)}</p><ul>${row.show.items.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("")}</ul></details>` : ""}</td></tr>`).join("\n")}
         </tbody>
       </table>
-      <p class="ex-words">${escapeHtml(words)}</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
           <p class="installer-command-note">${loadNote}</p>
           ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with ${escapeHtml(needs)}.</p>
+          <p class="ex-note">You need a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool${needs === "no plugin" ? "" : `, with ${escapeHtml(needs)}`}.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">${laptopNote}</p>
           ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with ${escapeHtml(laptopNeeds)}.${/Workshop plugin/.test(laptopNeeds) ? ` Install the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.` : ""}</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with ${escapeHtml(laptopNeeds)}.${/Workshop plugin/.test(laptopNeeds) ? ` Install the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.` : ""}</p>
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
@@ -1504,8 +1507,8 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
   const load = BUNDLE_LOADS[id];
   h.check(load || f.rec.installer?.manifests, `${ROOT}/${id}: the receipt has no installer manifest count; record it with --generate`);
   const makes = load
-    ? `${load.units} Units, one for each object plus a README${load.planDocs ? ` and ${load.planDocs} that hold the plan` : ""}`
-    : `${f.rec.installer.manifests + 1} Units, one for each object plus a record of the install`;
+    ? `Each object is stored on its own, as a Unit, with a README${load.planDocs ? ` and ${load.planDocs} documents that hold the plan` : ""}.`
+    : "Each object is stored on its own, as a Unit, with a record of the install.";
   const dates = shot.graph && shot.graph.takenOn !== shot.takenOn ? `, the image line on ${shot.takenOn} and prod on ${shot.graph.takenOn}` : ` on ${shot.takenOn}`;
   return {
     id, shot, beforeLabel: "Before: what you edit today",
@@ -1513,19 +1516,18 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     beforeNote: `Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.`,
     afterLabel: "After: the same thing in ConfigHub",
     afterNote: "The image is written out as a plain value you can read and change, and so is every other field.",
-    graphCaption: "Prod is a copy of the base that lists its own changes",
-    graphNote: human.graphNote,
+    graphCaption: "Each environment is a copy of one shared base",
+    graphNote: `The settings every environment shares are stored once, as the base. ${human.graphNote}`,
     sentences: human.sentences,
     rows: helmRows(id, f, h.check, shot),
     rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
-    words: "ConfigHub keeps your configuration as plain objects and records every change. Loading puts this chart in a Space, which is a folder in your ConfigHub organization.",
     loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
-    loadNote: `Sign in with the first line, then paste the rest. It fetches the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package"} into a Space called <code>${escapeHtml(page.space)}</code>, as ${makes}.${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
+    loadNote: `Run the first line to sign in, then paste the rest. It saves the ${escapeHtml(page.name)} ${bundleLoad ? "OCI bundle" : "package"} in your organization, in a Space called <code>${escapeHtml(page.space)}</code>. A Space is ConfigHub's word for a folder. ${makes}${HELM_VARIANTS[id] ? ` ${escapeHtml(HELM_VARIANTS[id].note)}` : ""} It touches no cluster.`,
     laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
     laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
     needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
     laptopNeeds: "its installer plugin and kustomize",
-    credits: `About the pictures. They were taken in the ${shot.organization} organization${dates}.${bundleLoad ? " They came from a load through the installer package, so their Unit names differ from a load with the commands above." : ""}`,
+    credits: `About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples${dates}.${bundleLoad ? " They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make." : ""}`,
   };
 }
 
@@ -1561,13 +1563,12 @@ function simplePage(id, h) {
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
       beforeNote: page.beforeNote,
       afterLabel: page.afterLabel, afterNote: page.afterNote,
-      credits: `About the picture. It was taken in the ${shot.organization} organization on ${shot.takenOn}.`,
+      credits: `About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on ${shot.takenOn}.`,
       sentences: page.sentences, rows: page.rows,
       rowsHeading: page.rowsHeading ?? "What you work out by hand today, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
-      words: page.words ?? "ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.",
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
-      loadNote: `${page.loadNote ?? `Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.units)}`} ${escapeHtml(page.safety)}`,
+      loadNote: `${page.loadNote ?? `Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.units)}`} ${escapeHtml(page.safety)}`,
       laptopRows: [...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.laptop],
       laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
@@ -1577,7 +1578,7 @@ function simplePage(id, h) {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
     lead: page.lead ?? HELM_HUMAN[id].lead,
-    opening: "",
+    opening: `    <p class="ex-what">${escapeHtml(WHAT_CONFIGHUB)}</p>\n`,
     body,
     css: `
     .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -1603,7 +1604,6 @@ function simplePage(id, h) {
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }

@@ -467,7 +467,6 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
@@ -681,6 +680,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>Which version runs where, before and after</h1>
     <p class="lead">You run a fleet of clusters with Flux, and new versions move from dev to staging to prod. When someone asks which version runs where, the answer is spread across many overlays.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today. A step that can't be written as YAML, such as run this Job first, goes in a short plan beside it.</p>
 
   </header>
   <main>
@@ -719,7 +719,7 @@ patches:
         <figure class="ex-card">
           <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/flux-expert-fleet-confighub.png" alt="ConfigHub showing the apps layer's base with a variant for each cluster, and the settings prod-1 changes">
-          <p class="ex-note">The apps layer as one base, with a copy for each cluster. The panel on the right is everything prod-1 does differently.</p>
+          <p class="ex-note">The apps folder, stored once as a base with a copy for each cluster. The panel on the right is everything prod-1 does differently.</p>
           <table class="ex-versions"><thead><tr><th>Cluster</th><th>nginx version</th></tr></thead><tbody><tr><td>dev-1</td><td><code>1.27.3-alpine</code></td></tr><tr><td>staging-1</td><td><code>1.27.2-alpine</code></td></tr><tr><td>prod-1</td><td><code>1.26.3-alpine</code></td></tr></tbody></table>
           <p class="ex-note">This is what the repository says each cluster should run. Nothing here reads a live cluster.</p>
         </figure>
@@ -739,10 +739,9 @@ patches:
           <tr><td>A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.</td><td>The plan says to pin one exact version, so what runs changes only when a release says so.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps your configuration as plain objects and records every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each variant is one Unit in ConfigHub, holding everything its layer applies on that cluster. It touches no cluster, and Flux keeps reconciling Git until you run handover.sh, the step that moves each cluster onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each cluster's copy is stored as one Unit, holding everything Flux applies there from that folder. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -752,7 +751,7 @@ patches:
 <span class="term-prompt">$</span> cub flux apply . --require Healthy --prefix fleet --out onboard
 
 <span class="term-prompt">$</span> CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the flux plugin and kustomize.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs. In your own Flux repository, run the last line from its root.</p>
@@ -761,11 +760,11 @@ patches:
 <span class="term-prompt">$</span> cd examples/gitops/flux/expert-fleet
 
 <span class="term-prompt">$</span> cub flux plan . --require Healthy</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with the flux plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-flux-expert-fleet.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the picture. It was taken in the helm-catalog organization on 2026-10-25.</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-25.</p>
     </section>
   </main>
 </div>
