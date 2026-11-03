@@ -636,7 +636,7 @@
   <header class="hero human-hero">
     
     <h1>Apps</h1>
-    <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
+    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
@@ -650,87 +650,87 @@
         <article class="door" id="ba-helm">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-redis.html">Redis, before and after</a></h3>
-          <p>The Redis chart makes 14 objects. Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+          <p>You run Redis as a fast cache or queue beside your app. Its Helm chart makes up a new password every time it runs, so two installs with the same settings never match.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-postgresql.html">PostgreSQL, before and after</a></h3>
-          <p>The PostgreSQL chart makes 7 objects. Your password stays put. The Helm chart makes a new one every time it runs, and here you create it once.</p>
+          <p>You run PostgreSQL to keep your app's data. Its Helm chart makes up a new administrator password every time it runs, so a reinstall can leave the password out of step with the database.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-ingress-nginx.html">ingress-nginx, before and after</a></h3>
-          <p>The ingress-nginx chart makes 18 objects. The 7 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>You install ingress-nginx so traffic from outside the cluster reaches your services. While it installs, its chart runs two hidden Jobs to make a certificate, and you never see them.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-cert-manager.html">cert-manager, before and after</a></h3>
-          <p>The cert-manager chart makes 50 objects. The 4 setup objects Helm runs out of sight are left out, so nothing runs that you didn't see.</p>
+          <p>You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-kube-prometheus-stack.html">kube-prometheus-stack, before and after</a></h3>
-          <p>The kube-prometheus-stack chart makes 122 objects. The 7 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>You install kube-prometheus-stack to get Prometheus, Grafana and alerting in one go. It makes 125 objects, runs setup Jobs and adds ten new kinds of object, and you see none of it until Helm has run.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-argo-cd.html">Argo CD, before and after</a></h3>
-          <p>The Argo CD chart makes 59 objects. The 4 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>You install Argo CD so your clusters follow what's in Git. Before it installs, its chart runs a hidden Job to make a password for Argo CD's own Redis.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-external-secrets.html">External Secrets, before and after</a></h3>
-          <p>The External Secrets chart makes 44 objects. Every object is written out, so you can review it before anything runs.</p>
+          <p>You install External Secrets so your apps read passwords from a vault instead of from Git. Its chart adds 25 new kinds of object, and one of its Secrets ships empty for the cluster to fill in.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-metrics-server.html">metrics-server, before and after</a></h3>
-          <p>The metrics-server chart makes 9 objects. Every object is written out, so you can review it before anything runs.</p>
+          <p>You install metrics-server so kubectl top and autoscaling know how busy your pods are. It's a small chart, and what Helm makes from it is exactly what you see here.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-gatekeeper.html">Gatekeeper, before and after</a></h3>
-          <p>The Gatekeeper chart makes 21 objects. The 8 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>You install Gatekeeper to stop objects that break your rules from reaching the cluster. Its chart runs hidden Jobs before and after installing, and adds 17 new kinds of object.</p>
         </article>
         <article class="door">
           <span class="kicker">Helm chart</span>
           <h3><a href="./example-gpu-operator.html">NVIDIA GPU Operator, before and after</a></h3>
-          <p>The NVIDIA GPU Operator chart makes 27 objects. The 8 setup objects Helm runs out of sight become steps you can read.</p>
+          <p>You install the NVIDIA GPU Operator so pods can use your GPUs without anyone setting up each node by hand. Its chart runs a hidden Job before each upgrade and another after you uninstall.</p>
         </article>
         <article class="door" id="ba-kustomize">
           <span class="kicker">Kustomize overlays</span>
           <h3><a href="./example-kustomize-dev-and-prod.html">Kustomize dev and prod, before and after</a></h3>
-          <p>A base and two overlays become one base with dev and prod variants, and prod's changes are listed in one place.</p>
+          <p>You keep one copy of your app and patch it for dev and prod with Kustomize. To know what prod really runs, you build it on your laptop or work it out in your head.</p>
         </article>
         <article class="door">
           <span class="kicker">Kustomize with a Helm chart</span>
           <h3><a href="./example-kustomize-helm-chart.html">A Helm chart inside Kustomize, before and after</a></h3>
-          <p>A Helm chart inflated by Kustomize becomes one base with a variant per environment, and prod's changes are listed in one place.</p>
+          <p>Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.</p>
         </article>
         <article class="door" id="ba-argo">
           <span class="kicker">Argo CD app of apps</span>
           <h3><a href="./example-argo-cd-app-of-apps.html">An Argo CD app of apps, before and after</a></h3>
-          <p>Your Argo CD apps are held in ConfigHub as a base and a variant for each cluster, while Argo CD keeps syncing Git.</p>
+          <p>You run Argo CD with one root app that makes all the others, each pointing at a folder in Git. To see what a cluster runs, you follow the chain from app to app to folder.</p>
         </article>
         <article class="door">
           <span class="kicker">Argo CD ApplicationSet</span>
           <h3><a href="./example-argo-cd-applicationset.html">An Argo CD ApplicationSet, before and after</a></h3>
-          <p>An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.</p>
+          <p>You use an ApplicationSet to stamp out one Argo CD app per environment from a template. The apps only exist once the cluster has made them, so you can't read them first.</p>
         </article>
         <article class="door" id="ba-flux">
           <span class="kicker">Flux fleet</span>
           <h3><a href="./example-flux-fleet.html">A Flux fleet, before and after</a></h3>
-          <p>Your Flux layers are held in ConfigHub as a base and a variant for each cluster, while Flux keeps reconciling Git.</p>
+          <p>You run Flux, and each cluster follows a folder of patches in Git. To know what prod runs, you combine the folders in your head.</p>
         </article>
         <article class="door">
           <span class="kicker">Flux fleet</span>
           <h3><a href="./example-flux-which-version-where.html">Which version runs where, before and after</a></h3>
-          <p>Three clusters and four layers become one base per layer with a variant for each cluster, so you can see which version Git says each cluster runs.</p>
+          <p>You run a fleet of clusters with Flux, and new versions move from dev to staging to prod. When someone asks which version runs where, the answer is spread across many overlays.</p>
         </article>
         <article class="door" id="ba-app">
           <span class="kicker">App</span>
           <h3><a href="./example-app-shop-web.html">The shop-web app, before and after</a></h3>
-          <p>An app's YAML never says what the cluster must already run. ConfigHub lists what the app needs, and checks it against a platform.</p>
+          <p>Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.</p>
         </article>
       </div>
       <style>.ba-gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } @media (max-width: 1100px) { .ba-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } } @media (max-width: 700px) { .ba-gallery { grid-template-columns: 1fr; } }</style>

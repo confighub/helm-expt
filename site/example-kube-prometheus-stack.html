@@ -467,9 +467,11 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
+    .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
+    .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
     .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
     .ex-table th { width: 50%; }
@@ -680,7 +682,8 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>kube-prometheus-stack, before and after</h1>
-    <p class="lead">A Helm chart you can't read becomes objects you can.</p>
+    <p class="lead">You install kube-prometheus-stack to get Prometheus, Grafana and alerting in one go. It makes 125 objects, runs setup Jobs and adds ten new kinds of object, and you see none of it until Helm has run.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.</p>
 
   </header>
   <main>
@@ -688,7 +691,7 @@
       <h2 id="pictures" class="ex-hidden">Before and after</h2>
       <div class="ex-pair">
         <figure class="ex-card">
-          <figcaption>Before: the Helm chart</figcaption>
+          <figcaption>Before: what you edit today</figcaption>
           <pre class="ex-code"><code><span class="ex-tpl">{{ toYaml .Values.prometheus.prometheusSpec.apiserverConfig | indent 4}}</span>
 <span class="ex-tpl">{{- end }}</span>
 <span class="ex-tpl">{{- if .Values.prometheus.prometheusSpec.image }}</span>
@@ -705,40 +708,46 @@
 <span class="ex-tpl">{{- end -}}</span>
 <span class="ex-tpl">{{- if .Values.prometheus.prometheusSpec.externalLabels }}</span>
   externalLabels:</code></pre>
-          <p class="ex-note">16 lines of templates/prometheus/prometheus.yaml, around its image line. The chart has many files like this.</p>
+          <p class="ex-note">Part of one of the chart's templates. Your settings go in through the highlighted {{ }} parts, and you only see the result after Helm runs.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
           <img src="./before-after/helm-kube-prometheus-stack-confighub.png" alt="ConfigHub showing the Prometheus object, at its image line">
-          <p class="ex-note">The same image line in ConfigHub, as a plain value. Taken in the helm-catalog organization on 2026-10-25, showing the Prometheus object, at its image line.</p>
-          <p class="ex-note">ConfigHub holds this as 125 Units, one for each of the 124 objects the installer writes and one installer record.</p>
+          <p class="ex-note">The image is written out as a plain value you can read and change, and so is every other field.</p>
           
         </figure>
       </div>
       <figure class="ex-card ex-graph">
-        <figcaption>In ConfigHub: one base, and a variant for each environment</figcaption>
-        <img src="./before-after/helm-kube-prometheus-stack-graph.png" alt="ConfigHub showing the kube-prometheus-stack base with its dev and prod variants, and the label and three replicas prod sets on the operator">
-        <p class="ex-note">Prod's panel lists what prod changes from the base, here its label and three replicas of the operator. Taken in the helm-catalog organization on 2026-10-26, showing the kube-prometheus-stack base with its dev and prod variants, and the label and three replicas prod sets on the operator.</p>
+        <figcaption>Each environment is a copy of one shared base</figcaption>
+        <img src="./before-after/helm-kube-prometheus-stack-graph.png" alt="ConfigHub showing the kube-prometheus-stack base with its dev and prod copies, and the label and three replicas prod sets on the operator">
+        <p class="ex-note">The settings every environment shares are stored once, as the base. Dev only adds a label. Prod also runs three replicas of the operator instead of one.</p>
       </figure>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The template's image line becomes one plain value you can read, and so does every other field.</li>
-        <li>The 7 setup objects Helm runs out of sight become steps you can read.</li>
-        <li>Every object is written out, so you can review it before anything runs.</li>
+        <li>You can read all 125 objects before anything reaches a cluster, including its 35 alerting rules.</li>
+        <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
+        <li>The ten new kinds go in before the objects that use them, so nothing is rejected on the way in.</li>
       </ul>
-      <h3 class="ex-went-h">What Helm does that you never see, and what happens here instead</h3>
+      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to put the ten new kinds in first, then run the chart's two setup Jobs in order to make and wire in the webhook certificate, and then remove the Jobs. Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.</p>
+      <h3 class="ex-went-h">Why not just commit helm template output to Git?</h3>
+      <ul class="ex-why">
+        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
+        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
+        <li><strong>A tested starting point.</strong> These kube-prometheus-stack objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.</li>
+      </ul>
+      <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
-        <thead><tr><th>What Helm does</th><th>What happens here instead</th></tr></thead>
+        <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
         <tbody>
-          <tr><td>Adds 10 new kinds of Kubernetes object, such as Prometheus, ServiceMonitor, PrometheusRule. A plain helm template leaves them out.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-kube-prometheus-stack-crds.png" alt="ConfigHub showing the 10 Prometheus Operator CRDs as Units in the base"><p class="ex-note">The 10 new kinds</p><ul><li><code>AlertmanagerConfig</code></li><li><code>Alertmanager</code></li><li><code>PodMonitor</code></li><li><code>Probe</code></li><li><code>PrometheusAgent</code></li><li><code>Prometheus</code></li><li><code>PrometheusRule</code></li><li><code>ScrapeConfig</code></li><li><code>ServiceMonitor</code></li><li><code>ThanosRuler</code></li></ul></details></td></tr>
-          <tr><td>Runs two short-lived Jobs while installing. The first makes a TLS certificate for the admission webhook, and the second hands that certificate to the webhook.</td><td>Nothing runs out of sight. The plan says to run the same two Jobs, in that order, and then remove them.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRole kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Role kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>RoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Job kube-prometheus-stack-admission-create: before installing, before upgrading</code></li><li><code>Job kube-prometheus-stack-admission-patch: after installing, after upgrading</code></li></ul></details></td></tr>
-          <tr><td>Decides at install time when each of its hidden steps runs, in an order you cannot see.</td><td>The plan writes down 8 steps, in order, for whoever delivers.<details class="ex-show"><summary>Show me</summary><p class="ex-note">The plan's steps</p><ul><li><code>The package applies the locked CRDs before the chart objects that use them.</code></li><li><code>The run removes both completed Jobs and their temporary RBAC objects.</code></li><li><code>The package runs the chart's webhook patch Job after the webhook objects exist.</code></li><li><code>The package runs the chart's certificate creation Job before applying the admission webhooks.</code></li><li><code>The direct package route upgraded the default preset from 85.3.3 to 86.1.0, established the updated CRDs, retained the admission Secret, reran the webhook step, checked six workloads, and removed the temporary Jobs.</code></li><li><code>The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.</code></li><li><code>The certificate Job creates the required admission Secret with ca, cert, and key.</code></li><li><code>The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.</code></li></ul></details></td></tr>
+          <tr><td>Adds 10 new kinds of Kubernetes object, such as Prometheus, ServiceMonitor, PrometheusRule. A plain helm template leaves them out.</td><td>They are in ConfigHub with everything else, and they go in first, so the objects that use them are not rejected.<details class="ex-show"><summary>Show me</summary><img src="./before-after/helm-kube-prometheus-stack-crds.png" alt="ConfigHub showing the 10 Prometheus Operator CRDs as objects in the base"><p class="ex-note">The 10 new kinds</p><ul><li><code>AlertmanagerConfig</code></li><li><code>Alertmanager</code></li><li><code>PodMonitor</code></li><li><code>Probe</code></li><li><code>PrometheusAgent</code></li><li><code>Prometheus</code></li><li><code>PrometheusRule</code></li><li><code>ScrapeConfig</code></li><li><code>ServiceMonitor</code></li><li><code>ThanosRuler</code></li></ul></details></td></tr>
+          <tr><td>Runs two short-lived Jobs while installing. The first makes a TLS certificate for the admission webhook, and the second hands that certificate to the webhook.</td><td>Nothing runs out of sight. Both Jobs become steps in the plan above.<details class="ex-show"><summary>Show me</summary><p class="ex-note">What Helm runs, and when</p><ul><li><code>ServiceAccount kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRole kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>ClusterRoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Role kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>RoleBinding kube-prometheus-stack-admission: before installing, before upgrading, after installing, after upgrading</code></li><li><code>Job kube-prometheus-stack-admission-create: before installing, before upgrading</code></li><li><code>Job kube-prometheus-stack-admission-patch: after installing, after upgrading</code></li></ul></details></td></tr>
+          <tr><td>Decides at install time when each of its hidden steps runs, in an order you cannot see.</td><td>The plan writes them down in order, so whoever deploys can follow them. The details page lists them.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. Loading puts this chart's objects in a Space, a folder in your ConfigHub organization.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in with the first line, then paste the rest. It fetches the kube-prometheus-stack package, writes its files, and saves them as a Space called <code>kube-prometheus-stack-example</code> in your organization. The rest makes a dev and a prod variant of it, and prod runs three replicas of the operator. It touches no cluster.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the kube-prometheus-stack package in your organization, in a folder called <code>kube-prometheus-stack-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it, and prod runs three replicas of the operator. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a --base default --work-dir ./kube-prometheus-stack-example --non-interactive --namespace monitoring &amp;&amp; cub installer upload --work-dir ./kube-prometheus-stack-example --space kube-prometheus-stack-example &amp;&amp; cub component create kube-prometheus-stack-example &amp;&amp; cub space update --patch kube-prometheus-stack-example --component kube-prometheus-stack-example
@@ -752,15 +761,16 @@
 <span class="term-prompt">$</span> cub function set --space kube-prometheus-stack-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space kube-prometheus-stack-example-prod --unit deployment-monitoring-kube-prometheus-stack-operator --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the kube-prometheus-stack package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a --base default --work-dir ./kube-prometheus-stack-example --non-interactive --namespace monitoring &amp;&amp; ls ./kube-prometheus-stack-example/out/manifests</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with its installer plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-kube-prometheus-stack.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples, the image line on 2026-10-25 and prod on 2026-10-26.</p>
     </section>
   </main>
 </div>

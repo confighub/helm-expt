@@ -5756,7 +5756,7 @@ function stackHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Stacks</h1>
-    <p class="lead">A stack is a set of charts and YAML named in one manifest and checked for conflicts before it renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
+    <p class="lead">Your cluster needs several things at once, such as ingress, certificates and monitoring, and they have to fit together. A stack names them in one file and checks they don't conflict before anything renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
     <p>The largest stack is a whole platform for GPU inference on Amazon EKS. <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a> shows its eight parts and checks it in one command.</p>
     <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. To build your own from Catalog entries, follow ${STACK_FROM_CATALOG_GUIDE_LINK}, which composes three NVIDIA GPU entries.</p>
     ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
@@ -7650,7 +7650,7 @@ function pluginsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Plugins</h1>
-    <p class="lead">Every public cub plugin, marked by its state. Released plugins have an install command; source builds link to their instructions.</p>
+    <p class="lead">Plugins add commands to cub for the tools you already run, such as Argo CD, Flux, Helm, Kubara and Sveltos. Every public cub plugin is here, marked by its state, with the line that installs it.</p>
     ${agentNote(`Read the same rows as data at <a href="./plugins.json">plugins.json</a>.`)}
   </header>
   <main>
@@ -7951,7 +7951,7 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="lead">Find explanations and references by topic. For step-by-step work, choose a Guide; for a specific Catalog entry, open its documentation.</p>
+    <p class="lead">Read how the Catalog and ConfigHub work, in plain words. To get something done, a Guide is quicker, and each Catalog entry has its own page.</p>
   </header>
   <main>
 
@@ -10339,7 +10339,7 @@ function appsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps</h1>
-    <p class="lead">See what working on your app looks like with ConfigHub. Start with a local example, compare a useful change, then decide what to keep.</p>
+    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
     <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
     ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}

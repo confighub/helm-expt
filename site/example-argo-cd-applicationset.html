@@ -467,9 +467,11 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-more { margin-top: 20px; color: var(--muted); }
-    .ex-words { margin: 0 0 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
+    .ex-plan { margin: 0 0 20px; }
+    .ex-why { margin: 0 0 20px; padding-left: 1.2em; }
+    .ex-why li { margin: 6px 0; }
     .ex-table { width: 100%; border-collapse: collapse; margin: 0 0 20px; font-size: .95rem; }
     .ex-table th, .ex-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
     .ex-table th { width: 50%; }
@@ -680,7 +682,8 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>An Argo CD ApplicationSet, before and after</h1>
-    <p class="lead">An ApplicationSet's template becomes the Applications it would make, each a variant of one base, with prod's changes listed in one place.</p>
+    <p class="lead">You use an ApplicationSet to stamp out one Argo CD app per environment from a template. The apps only exist once the cluster has made them, so you can't read them first.</p>
+    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.</p>
 
   </header>
   <main>
@@ -715,34 +718,40 @@ spec:
         targetRevision: main
         path: '{{path}}'
       destination:</code></pre>
-          <p class="ex-note">bootstrap/applicationset.yaml, its first 26 of 34 lines. You read files like this to work out what each environment runs.</p>
+          <p class="ex-note">The template, with placeholders the cluster fills in.</p>
         </figure>
         <figure class="ex-card">
-          <figcaption>After: in ConfigHub</figcaption>
-          <img src="./before-after/argo-applicationset-confighub.png" alt="ConfigHub showing the base with the two variants the ApplicationSet generates, and the settings prod changes">
-          <p class="ex-note">Taken in the helm-catalog organization on 2026-10-25, showing the base with the two variants the ApplicationSet generates, and the settings prod changes.</p>
-          <p class="ex-note">Each variant is one Unit in ConfigHub, holding everything its Application deploys.</p>
+          <figcaption>After: the same thing in ConfigHub</figcaption>
+          <img src="./before-after/argo-applicationset-confighub.png" alt="ConfigHub showing the base with the two copies the ApplicationSet generates, and the settings prod changes">
+          <p class="ex-note">The two apps the template would make, as copies of one base. The panel on the right is everything prod does differently.</p>
           
         </figure>
       </div>
 
+      <h3 class="ex-went-h">What changes for you</h3>
       <ul class="ex-checks">
-        <li>The two Applications the template would make are written out as variants of one base.</li>
-        <li>Prod's changes from the base are listed in one place: namespace, label, 3 replicas and its resources.</li>
-        <li>Nothing is generated on the cluster before you have read it.</li>
+        <li>You can read the apps the template would make before the cluster makes them.</li>
+        <li>Prod's differences sit in one panel. Here they are its namespace, a label, three replicas and its resources.</li>
+        <li>Argo CD keeps syncing Git until you choose to hand over, so trying this changes nothing that runs.</li>
       </ul>
-      <h3 class="ex-went-h">What you work out today, and what happens here instead</h3>
+      
+      <h3 class="ex-went-h">Why not just keep the finished YAML in Git?</h3>
+      <ul class="ex-why">
+        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
+        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
+        <li><strong>A tested starting point.</strong> The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at.</li>
+      </ul>
+      <h3 class="ex-went-h">What you work out by hand today, and what you get instead</h3>
       <table class="ex-table">
-        <thead><tr><th>Today</th><th>Here instead</th></tr></thead>
+        <thead><tr><th>Today</th><th>With ConfigHub</th></tr></thead>
         <tbody>
-          <tr><td>An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.</td><td>The template is filled in here, one Application per environment, each a variant of one base.</td></tr>
-          <tr><td>The ApplicationSet was applied by hand.</td><td>It stays in the cluster. The plan says handover must patch it or repoint its Applications one by one.</td></tr>
+          <tr><td>An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.</td><td>The template is filled in here, one Application per environment, each a copy of one base.</td></tr>
+          <tr><td>The ApplicationSet was applied by hand.</td><td>It stays in the cluster. The report from cub argo plan says handover must patch it or repoint its Applications one by one.</td></tr>
         </tbody>
       </table>
-      <p class="ex-words">ConfigHub keeps configuration as plain objects, with a history of every change. A base holds what every environment shares, and a variant is one environment's copy that stays linked to its base and lists what it changes.</p>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. It touches no cluster, and Argo CD keeps syncing Git until you run handover.sh, the step that moves each Application onto ConfigHub's releases.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy keeps everything its Application deploys together, in one place. It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -752,7 +761,7 @@ spec:
 <span class="term-prompt">$</span> cub argo apply . --prefix appset --out onboard
 
 <span class="term-prompt">$</span> bash onboard/apply.sh</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the argo plugin and kustomize.</p>
+          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the argo plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs. In your own Argo CD repository, run the last line from its root.</p>
@@ -761,10 +770,11 @@ spec:
 <span class="term-prompt">$</span> cd examples/gitops/argo/beginner-applicationset
 
 <span class="term-prompt">$</span> cub argo plan .</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a> with the argo plugin and kustomize.</p>
+          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the argo plugin and kustomize.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-argo-applicationset.html">Show me the details</a> (for experienced users)</p>
+      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-25.</p>
     </section>
   </main>
 </div>
