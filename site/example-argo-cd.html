@@ -683,7 +683,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>Argo CD, before and after</h1>
     <p class="lead">You install Argo CD so your clusters follow what's in Git. Before it installs, its chart runs a hidden Job to make a password for Argo CD's own Redis.</p>
-    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is where you read it first. It keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.</p>
+    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead.</p>
 
   </header>
   <main>

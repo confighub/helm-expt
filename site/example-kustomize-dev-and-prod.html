@@ -683,7 +683,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>Kustomize dev and prod, before and after</h1>
     <p class="lead">You keep one copy of your app and patch it for dev and prod with Kustomize. To know what prod really runs, you build it on your laptop or work it out in your head.</p>
-    <p class="ex-what">Kustomize works out what each environment runs only when someone builds it, so nobody can read or review it first. ConfigHub is where you read it first. It keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.</p>
+    <p class="ex-what">Kustomize works out what each environment runs only when someone builds it, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead.</p>
 
   </header>
   <main>

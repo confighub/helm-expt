@@ -1493,7 +1493,7 @@ const READ_FIRST = {
 function whatConfigHub(kicker) {
   if (!READ_FIRST[kicker]) return "";
   const [problem, payoff] = READ_FIRST[kicker];
-  return `${problem} ConfigHub is where you ${payoff}. It keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.`;
+  return `${problem} ConfigHub is a service where you ${payoff}. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead.`;
 }
 
 // Every reader in the newcomer trials asked why they would not just keep the
