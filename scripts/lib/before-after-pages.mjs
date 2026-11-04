@@ -1493,7 +1493,7 @@ const READ_FIRST = {
 function whatConfigHub(kicker) {
   if (!READ_FIRST[kicker]) return "";
   const [problem, payoff] = READ_FIRST[kicker];
-  return `${problem} ConfigHub is a service where you ${payoff}. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead.`;
+  return `${problem} ConfigHub is a service where you ${payoff}. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.`;
 }
 
 // Every reader in the newcomer trials asked why they would not just keep the
