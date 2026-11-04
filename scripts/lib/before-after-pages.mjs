@@ -1477,9 +1477,24 @@ function cubWordsNote(rows) {
   return ` In its commands, cub calls ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
 }
 // What ConfigHub is, under every example page's opening, for a reader who has
-// never heard of it. It leaves the plan to the Helm page's own paragraph,
-// which says what this chart's plan holds and who follows it.
-const WHAT_CONFIGHUB = "ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.";
+// never heard of it. Newcomer readers could not tell why they would care, so
+// it starts from the problem this kind of page solves. It leaves the plan to
+// the Helm page's own paragraph, which says what this chart's plan holds and
+// who follows it.
+const READ_FIRST = {
+  "Helm chart": ["Helm works out what to apply only when it runs, so nobody can read or review it first.", "read it first"],
+  "Kustomize overlays": ["Kustomize works out what each environment runs only when someone builds it, so nobody can read or review it first.", "read it first"],
+  "Kustomize with a Helm chart": ["Kustomize and Helm work out what each environment runs only when someone builds it, so nobody can read or review it first.", "read it first"],
+  "Argo CD app of apps": ["Argo CD works out what each cluster runs only when it syncs, so nobody can read or review it first.", "read it first"],
+  "Argo CD ApplicationSet": ["Argo CD works out what each cluster runs only when it syncs, so nobody can read or review it first.", "read it first"],
+  "Flux fleet": ["Flux works out what each cluster runs only when it applies the overlays, so nobody can read or review it first.", "read it first"],
+  App: ["An app's files don't say what a cluster must already have, so you find out only when a move fails.", "check it first"],
+};
+function whatConfigHub(kicker) {
+  if (!READ_FIRST[kicker]) return "";
+  const [problem, payoff] = READ_FIRST[kicker];
+  return `${problem} ConfigHub is where you ${payoff}. It keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.`;
+}
 
 // Every reader in the newcomer trials asked why they would not just keep the
 // rendered YAML in Git, and asked it as soon as the opening named Git. These
@@ -1640,15 +1655,17 @@ function simplePage(id, h) {
   }
   const prose = `${page.lead ?? HELM_HUMAN[id].lead} ${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
   // A Helm page names the plan first in the paragraph that says what it is.
-  const plainText = `${WHAT_CONFIGHUB} ${prose}`;
+  const opening = whatConfigHub(page.kicker);
+  check(opening, `${ROOT}/${id}: READ_FIRST has no opening for a ${page.kicker} page`);
+  const plainText = `${opening} ${prose}`;
   check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
   check(body.indexOf('id="why-not-git"') !== -1 && body.indexOf('id="why-not-git"') < body.indexOf('id="pictures"'), `${ROOT}/${id}: the page must answer "why not Git" before the pictures`);
-  check(!PRODUCT_WORDS.test(prose), `${ROOT}/${id}: the first-time page says "${prose.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
+  check(!PRODUCT_WORDS.test(plainText), `${ROOT}/${id}: the first-time page says "${plainText.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
     lead: page.lead ?? HELM_HUMAN[id].lead,
-    opening: `    <p class="ex-what">${escapeHtml(WHAT_CONFIGHUB)}</p>\n`,
+    opening: `    <p class="ex-what">${escapeHtml(opening)}</p>\n`,
     body,
     css: `
     .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
