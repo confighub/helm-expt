@@ -1,0 +1,20 @@
+
+Config: realistic-app
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  8 objects: 2 Deployment, 2 Ingress, 3 Service, 1 StatefulSet
+  namespaces that must already exist: confighubplaceholder
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [PASS] admission webhooks needing a certificate: 0
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 8 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.
+
