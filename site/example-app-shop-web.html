@@ -683,7 +683,7 @@
     <p class="eyebrow">Before and after</p>
     <h1>The shop-web app, before and after</h1>
     <p class="lead">Your team wrote shop-web, and it runs on their cluster. Move it to another cluster and parts of it are rejected or can't be reached, because three of its objects need things the files never mention.</p>
-    <p class="ex-what">ConfigHub is a service that keeps your Kubernetes configuration as the YAML that actually gets applied, with every change and the reason for it. Argo CD or Flux deploy from it, the way they deploy from Git today.</p>
+    <p class="ex-what">An app's files don't say what a cluster must already have, so you find out only when a move fails. ConfigHub is a service where you check it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
