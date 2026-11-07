@@ -123,6 +123,14 @@ Deployment/api/spec.replicas, in k8s/api.yaml: 1 in the file now
 </section>
 
 <section>
+  <h2>Ask for the app, and get its platform with it</h2>
+  <p>Your agent makes the platform; the hub keeps it. Ask for an app with a staging and a production setup, and the agent writes the app, starts a hub on your machine, and leaves a base, a staging copy that takes changes at once, and a live copy that waits for you.</p>
+  <pre><code>vibe code me a baseline app using ConfigHub: a small web service
+with a health endpoint, and a staging and a production setup</code></pre>
+  <p>75 seconds, in 16 of 16 measured sessions. A second app "like the first" starts from it. <a href="https://github.com/confighubai/confighub-mini-plugin#or-ask-for-the-app">How to ask.</a></p>
+</section>
+
+<section>
   <h2>Agents undo each other's work, and nobody is told</h2>
   <p>One agent scaled the api to 4 pods on the cluster for a sale. A later agent, asked only to deploy, applied a manifest that still said 2. Without the plugin, agents did this without a word in 144 of 190 runs on two models. With the plugin, in none of 190. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">The evidence, with every run.</a></p>
   <div class="two">
