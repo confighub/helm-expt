@@ -1183,7 +1183,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>The adoption audit lists places where cub is harder than Helm today. They include defaults, one-value changes, direct upgrades, CRD ordering, uninstall, and rollback. Use Helm when one of these gaps blocks a reliable cub path.</p>
-        <p class="faq-links"><a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a> · <a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/docs/planning/helm-vs-cub-adoption-audit.md">Adoption audit</a> · <a href="d/docs/user/helm-to-cub-migration.html">Helm to cub migration</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">
@@ -1314,7 +1314,7 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
           <span class="faq-status">watch</span>
         </div>
         <p>cub's managed delivery uses server-side apply. If someone edits the same field by hand, Kubernetes can block cub instead of silently overwriting the change. That can be safer, but the CLI must explain it and offer a clear reconcile or force path.</p>
-        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/ssa-conflict-gap/summary.md">SSA conflict gap</a> · <a href="d/docs/planning/helm-vs-cub-adoption-audit.html">Adoption audit</a></p>
+        <p class="faq-links"><a href="https://github.com/confighub/helm-expt/blob/main/data/ssa-conflict-gap/summary.md">SSA conflict gap</a> · <a href="https://github.com/confighub/helm-expt/blob/main/docs/planning/helm-vs-cub-adoption-audit.md">Adoption audit</a></p>
       </article>
         </div>
       </details>
