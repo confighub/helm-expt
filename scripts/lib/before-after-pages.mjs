@@ -1095,7 +1095,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each cluster's copy keeps everything Flux applies there from that folder together, in one place.",
+    units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the report from cub flux plan lists it." }],
   },
   {
@@ -1109,7 +1109,7 @@ const GITOPS_SIMPLE = [
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
     laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    units: "Each cluster's copy keeps everything Flux applies there from that folder together, in one place.",
+    units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Image automation writes new tags into the dev overlay.", instead: "It keeps doing so, and the report from cub flux plan names it, so you know dev's version can change without a review." }, { does: "A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.", instead: "The report from cub flux plan says to pin one exact version, so what runs changes only when a release says so." }],
   },
 ];
@@ -1491,13 +1491,14 @@ const READ_FIRST = {
   "Flux fleet": ["Flux builds each cluster's overlays when it reconciles, so what you review in Git is patches, not what a cluster runs.", () => WORKED_OUT],
   App: ["An app's files don't say what a cluster must already have, so you find out only when a move fails.", () => "This page shows one example app checked against a cluster's needs before the move."],
 };
-// Two paragraphs: what this page offers, then what ConfigHub is and how a
-// deploy tool reads from it. Readers asked both before anything else.
-const WHAT_CONFIGHUB = "ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.";
+// What the page offers ends the page's first paragraph, because readers
+// judged the page there. The next paragraph says what you review today,
+// what ConfigHub is and how a deploy tool reads from it.
+const WHAT_CONFIGHUB = "ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, is a public set of examples for that service. Its Catalog holds charts it has already rendered and tested, with the evidence on GitHub.";
 function whatConfigHub(kicker, name) {
-  if (!READ_FIRST[kicker]) return [];
+  if (!READ_FIRST[kicker]) return { shows: "", opening: "" };
   const [problem, shows] = READ_FIRST[kicker];
-  return [`${problem} ${shows(name)}`, WHAT_CONFIGHUB];
+  return { shows: shows(name), opening: `${problem} ${WHAT_CONFIGHUB}` };
 }
 
 // Every reader in the newcomer trials asked why they would not just keep the
@@ -1509,7 +1510,7 @@ function whyNotGit(name) {
     heading: name ? "Why not just commit helm template output to Git?" : "Why not just keep the finished YAML in Git?",
     items: [
       ["History and review.", "ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval."],
-      ["One base, many environments.", "Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes."],
+      ["One base, many environments.", "Each environment is a copy of one base. Fix the base once, pass the fix on to each copy when you choose, and each copy keeps its own changes."],
       ["A tested starting point.", name
         ? `These ${name} objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.`
         : "The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at."],
@@ -1657,20 +1658,20 @@ function simplePage(id, h) {
       needs: page.needs, laptopNeeds: page.laptopNeeds,
     });
   }
-  const prose = `${page.lead ?? HELM_HUMAN[id].lead} ${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
+  const prose = `${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
   // A Helm page names the plan first in the paragraph that says what it is.
-  const openingParts = whatConfigHub(page.kicker, page.name);
-  const opening = openingParts.join(" ");
+  const { shows, opening } = whatConfigHub(page.kicker, page.name);
+  const lead = `${page.lead ?? HELM_HUMAN[id].lead} ${shows}`;
   check(opening, `${ROOT}/${id}: READ_FIRST has no opening for a ${page.kicker} page`);
-  const plainText = `${opening} ${prose}`;
+  const plainText = `${lead} ${opening} ${prose}`;
   check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
   check(body.indexOf('id="why-not-git"') !== -1 && body.indexOf('id="why-not-git"') < body.indexOf('id="pictures"'), `${ROOT}/${id}: the page must answer "why not Git" before the pictures`);
   check(!PRODUCT_WORDS.test(plainText), `${ROOT}/${id}: the first-time page says "${plainText.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
-    lead: page.lead ?? HELM_HUMAN[id].lead,
-    opening: openingParts.map((part) => `    <p class="ex-what">${escapeHtml(part)}</p>\n`).join(""),
+    lead,
+    opening: `    <p class="ex-what">${escapeHtml(opening)}</p>\n`,
     body,
     css: `
     .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
