@@ -680,6 +680,11 @@ const GITHUB_ONLY_DOC_PREFIXES = ["docs/planning/"];
 function isGithubOnlyDoc(repoPath) {
   return GITHUB_ONLY_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix));
 }
+// A dated run log is proof for one Guide, which links to it. It is a site
+// page, and it stays out of the Docs index, which is a reading list.
+function isDatedRunLog(repoPath) {
+  return /^docs\/user\/[^/]*\d{4}-\d{2}-\d{2}\.md$/.test(repoPath);
+}
 function isUserFacingDoc(repoPath) {
   return USER_FACING_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix)) && !isGithubOnlyDoc(repoPath);
 }
@@ -3093,7 +3098,7 @@ function sectionStartingQuestions(label) {
     ],
     Apps: [
       ["apps.html#before-and-after", "What does my config look like before and after?"],
-      ["testing.html", "What does a complete example app look like?"],
+      ["example-app-shop-web.html", "What does a complete example app look like?"],
       ["journey-what-my-app-needs.html", "What does my app need to run?"],
       ["put-an-app-on-a-platform.html", "How do I put my app on a platform?"],
       ["journey-installs-never-starts.html", "Why does my app install but never start?"],
@@ -6192,7 +6197,7 @@ function allReferencesHtml(catalog) {
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Check or promote your own config", `<a href="./ask.html">Check my config</a>`, "Compare exact objects in your browser, carry Catalog lifecycle facts into the review, then continue to a source-aware promotion plan."],
     ["Use your AI agent", `<a href="./ai.html">AI agents</a>`, "Install the ConfigHub Workshop skill, choose one task, and keep source records, exact objects, lifecycle work, checks, and limits visible."],
-    ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
+    ["Choose a starting configuration", `<a href="./testing.html">Find a starting configuration</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Manage cluster add-ons with Kubara", `<a href="./bring-kubara-into-confighub.html">Kubara with ConfigHub</a>`, "Choose your add-ons with Kubara, see them offline in about 15 minutes, then promote and approve each change in ConfigHub. Kubara keeps composing and Argo CD keeps reconciling."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Operate</a>`, "Release a reviewed configuration by digest, promote it, gate it on approval, and roll it back."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
@@ -6351,7 +6356,7 @@ function allReferencesHtml(catalog) {
 
     <section aria-labelledby="example-materials">
       <h3 id="example-materials">Where example materials live</h3>
-      <p>The <a href="./testing.html">Examples page</a> explains what to run. Use this table when you need the source, stored record, or published package behind an example.</p>
+      <p><a href="./testing.html">Find a starting configuration</a> explains what to run. Use this table when you need the source, stored record, or published package behind an example.</p>
       ${markdownLikeTable([
         ["Place", "What belongs there"],
         ["This website", "Short explanations, worked examples, chart pages, and links to current proof."],
@@ -7793,7 +7798,7 @@ ${sections}
       <h4 id="learn-by-doing">Learn by doing</h4>
       <p>Three guides, shortest first. Each one runs real commands against real packages, so you finish with output you can check.</p>
       <p>The object digest, the OCI manifest digest, and the release digest are three different records. <a href="./oci.html#digests">See the digest glossary</a>.</p>
-      <p><a href="./try.html">Run the short example</a>: pull one public package, render it locally, and read the exact Kubernetes objects it produces, all on your machine. <a href="./testing.html">Work through an example like yours</a>: start from your own Helm values, an AICR recipe, an OCI package, or Kubernetes YAML. <a href="./redis-walkthrough.html">Follow one package end to end</a>: take a single Redis configuration through pulling, verifying, changing, and upgrading it.</p>
+      <p><a href="./try.html">Run the short example</a>: pull one public package, render it locally, and read the exact Kubernetes objects it produces, all on your machine. <a href="./testing.html">Find a starting configuration</a>: start from your own Helm values, an AICR recipe, an OCI package, or Kubernetes YAML. <a href="./redis-walkthrough.html">Follow one package end to end</a>: take a single Redis configuration through pulling, verifying, changing, and upgrading it.</p>
       <h4 id="four-answers">First choose the answer you need</h4>
       <p>The same questions apply to every input format, from a Helm chart to plain Kubernetes YAML. Choose the question you need before choosing a command.</p>
       ${markdownLikeTable([
@@ -7811,7 +7816,7 @@ ${sections}
       <h4><a href="./charts/index.html">Which public configuration should I use?</a></h4>
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h4><a href="./testing.html">How do I bring my own input?</a></h4>
-      <p>Worked Examples covers your own Helm values, an AICR recipe, or plain Kubernetes YAML.</p>
+      <p>Find a starting configuration covers your own Helm values, an AICR recipe, or plain Kubernetes YAML.</p>
       <h4><a href="./d/docs/user/choosing-commands.html">How do I choose the right command?</a></h4>
       <p>See what <code>cub helm template</code>, <code>cub helm install</code>, <code>cub installer</code>, and the ConfigHub upload and variant commands each prove.</p>
       <h4><a href="./d/docs/user/helm-to-cub-migration.html">I know Helm. How do these commands map to it?</a></h4>
@@ -7903,7 +7908,7 @@ function allDocsIndexHtml({ catalogEntries = false } = {}) {
       if (perEntry !== catalogEntries) continue;
       const source = readFileSync(full, "utf8");
       const title = (source.match(/^#\s+(.+?)\s*$/m)?.[1] ?? name.replace(/\.md$/, "")).trim();
-      if (isGithubOnlyDoc(repoPath)) continue;
+      if (isGithubOnlyDoc(repoPath) || isDatedRunLog(repoPath)) continue;
       const entry = { title, href: `./${renderedDocRelPath(repoPath)}` };
       if (isContributorDoc(repoPath)) {
         const category = repoPath.split("/")[1];
@@ -11194,7 +11199,7 @@ function examplesHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Worked Examples · ConfigHub Workshop</title>
+  <title>Find a starting configuration · ConfigHub Workshop</title>
   <style>${siteCss()}
     #examples-content table { white-space: normal; }
     #examples-content th, #examples-content td { min-width: 0; }
@@ -12532,7 +12537,7 @@ function catalogMovedSections(catalog) {
       <h2 id="take-it">5. Take an entry into a stack or into ConfigHub</h2>
       <p>Open the chart page and follow its first command. Inspect the generated objects and required setup before you decide where they should run.</p>
       <p>Choosing several components for a platform? <a href="./bring-kubara-into-confighub.html"><strong>Build a small Kubara platform</strong></a> from tested Catalog entries, or <a href="./stack.html">compose a stack from certified parts</a>. Upload a published entry into <a href="./confighub.html">ConfigHub</a> to release, promote, and govern it, or <a href="./deploy-with-flux-or-argo.html">deploy it directly with the reconciler you already run</a>.</p>
-      <p><a href="./ask.html">Is my configuration right?</a> · <a href="./try.html">Try it: Redis in ten minutes</a> · <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./ai.html">Use with your AI</a> · <a href="./testing.html">Worked examples</a></p>
+      <p><a href="./ask.html">Is my configuration right?</a> · <a href="./try.html">Try it: Redis in ten minutes</a> · <a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a> · <a href="./ai.html">Use with your AI</a> · <a href="./testing.html">Find a starting configuration</a></p>
     </section>
 `,
   };
