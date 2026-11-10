@@ -1749,10 +1749,10 @@ function simplePage(id, h) {
     .ex-actions details.ex-button > summary::-webkit-details-marker { display: none; }
     .ex-actions details.ex-button > summary::marker { content: ""; }
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
-    .ex-actions details.ex-button[open] { flex-basis: 100%; }
+    .ex-actions details.ex-button[open] { flex-basis: 100%; min-width: 0; max-width: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-out-h { margin: 14px 0 6px; }
-    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
+    .ex-code.ex-out { max-height: 24rem; max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
