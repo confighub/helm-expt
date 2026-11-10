@@ -2348,36 +2348,26 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
-- [Deep Dives](${SITE_BASE_URL}guides.html#guides-deep-dives): longer staged journeys; existing Guides remain in their topic groups.
 - [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
 - [Use ConfigHub Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): exact chart versions, aliases, package digests, declared coverage, canonical pages, and evidence URLs.
-- [Change feed schema](${SITE_BASE_URL}changes.schema.json): the versioned JSON Schema for changes.json.
 - [Component Catalog](${SITE_BASE_URL}charts/): 112 components, all 139 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
 - [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
-- [Try an EKS GPU inference platform on your laptop](${SITE_BASE_URL}eks-inference.html): the eight parts of the eks-inference stack, where each is applied, and the command cub stack sandbox eks-inference, which checks the whole platform with no AWS account, cluster or GPU. The output shown is one dated run of 2026-10-27, which is a log and no receipt.
-- [Deploy one thing, and look before you do](${SITE_BASE_URL}deploy-one-thing.html): follow one Catalog entry, ${DEPLOY_ONE_ENTRY}, from its exact objects to a release on a local kind cluster with Argo CD. The commands are that entry's nextSteps, at ${SITE_BASE_URL}listings/${DEPLOY_ONE_ENTRY}.json. The end state shown is one dated run of 2026-10-08, which is a log and no receipt.
+- [Try an EKS GPU inference platform on your laptop](${SITE_BASE_URL}eks-inference.html): the eight parts of the eks-inference stack, where each is applied, and the command cub stack sandbox eks-inference, which checks the whole platform with no AWS account, cluster or GPU.
+- [Deploy one thing, and look before you do](${SITE_BASE_URL}deploy-one-thing.html): follow one Catalog entry, ${DEPLOY_ONE_ENTRY}, from its exact objects to a release on a local kind cluster with Argo CD. The commands are that entry's nextSteps, at ${SITE_BASE_URL}listings/${DEPLOY_ONE_ENTRY}.json.
 - [Try AICR](${SITE_BASE_URL}try-aicr.html): anonymously pull one retained AICR configuration, verify the seven-file CPU-starter selection, and write a local OCI without a cluster or GPU.
 - [Timoni Redis source entry](${SITE_BASE_URL}d/examples/timoni/redis-8-10-1/README.html): one immutable module, its typed options, seven exact objects, master-first lifecycle work, and current test limits.
-- [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record.
-- [Run shared local checks](${SITE_BASE_URL}ask.html#check-command): after a source tool has written Kubernetes YAML, install the released plugin and run \`cub check --format json --output cub-check.json ./rendered\`. It is local and advisory; it does not upload, apply, or prove target behavior.
+- [Check my config](${SITE_BASE_URL}ask.html): investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment; compare exact objects; and retain a review record. Run shared local checks like this. After a source tool has written Kubernetes YAML, install the released plugin and run \`cub check --format json --output cub-check.json ./rendered\`. It is local and advisory; it does not upload, apply, or prove target behavior.
 - [Promote my config](${SITE_BASE_URL}promote.html): compare current and proposed Kubernetes objects in the browser, retain their hashes, and see which tests remain before staging or production.
-- [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
-- [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
-- [CI report schema](${SITE_BASE_URL}workshop-ci-report.schema.json): the bounded Markdown/JSON report derived from WorkshopResult for local CI, pull-request comments, and AI tools.
-- [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
-- [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
 - [Completed NGINX decision chain](${GITHUB_BLOB_BASE_URL}data/config-review-decision-chain/summary.md): six accepted fixes, one narrow exception, a retained ConfigHub decision Unit, development-to-staging promotion, and two Argo CD test results.
 - [Base variant records](${SITE_BASE_URL}base-variant-records.json): source-neutral Catalog records joining each maintained base to its exact source, objects, OCI package, prerequisites, lifecycle routes, policy, and evidence status.
 - [Catalog listing index](${SITE_BASE_URL}listings/index.json): every maintained entry with its listing URL, format, version, base, object count, exact digest, and flattening verdict.
 - [Chart files](${SITE_BASE_URL}charts/nvidia-gpu-operator.json): one file for each Helm chart at charts/{chart-slug}.json, with its versions newest first, each base's listing, object file and SHA-256, one stored summary line for each version step, and the commands that compute any other diff. Schema: ${SITE_BASE_URL}chart.schema.json.
-- [Stack manifest schema](${SITE_BASE_URL}stack-manifest.schema.json): the existing Stack YAML contract used by \`cub stack check\`, with one explicit source per component, optional receipt discovery, planes and ordering.
 - [Compose and check a stack](${SITE_BASE_URL}d/docs/reference/stack-manifest-contract.html): select parts, write a manifest, check it, and render locally. Roles are discovery hints, not readiness; an operator is not a running database.
-- [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
 - [One catalog listing](${SITE_BASE_URL}listings/bitnami-redis-25-5-3-default.json): the uniform listing for one entry, showing identity, source, flattened objects, OCI, variants, routing, lifecycle, assessment, and evidence in one file.
 - [Why did Helm ignore my values?](${SITE_BASE_URL}why-did-helm-ignore-my-values.html): compare the render with and without each supplied values key. \`cub config values <chart> --values my-values.yaml\` does this for every key in one run, locally and with no account. Add \`--repo <url>\` for a chart in a Helm repository, and \`--out values-report.json --render-out candidate.yaml\` to keep the report and the rendered objects for the next change; the [Values Guide](${SITE_BASE_URL}d/docs/user/workshop-values-guide.html#check-your-own-chart) walks it on your own chart.
 - [Did this chart version change?](${SITE_BASE_URL}did-this-chart-version-change.html): compare current package bytes with retained digests.
@@ -2394,19 +2384,28 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
-- [Is my configuration right?](${SITE_BASE_URL}ask.html): the check flow, the FAQ, and the public question intake.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
-- [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
 - [Release, promote and roll back](${SITE_BASE_URL}how-it-works.html): the Guide to ConfigHub's four verbs, release by digest, promote, gate on an approval, and roll back. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) explains where they fit.
 - [The five journeys](${SITE_BASE_URL}guides.html#guides-journeys): each starts from a problem a person brings to their agent, such as values that did nothing or fixes an assistant undid. Their rows lead guides.json.
 - [Docs](${SITE_BASE_URL}docs.html): explanations by topic, including AI, GitOps and deployment, with general references under All technical references.
 - [Catalog docs](${SITE_BASE_URL}catalog-docs.html): the complete per-entry demonstration and corpus documentation index.
-- [All technical references](${SITE_BASE_URL}docs.html#all-references): the complete guide and evidence index, on Docs.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Catalog](${SITE_BASE_URL}charts/index.html): every tested component and version, with its image, receipt, and the commands to check and verify it.
 - [Kubara with ConfigHub](${SITE_BASE_URL}bring-kubara-into-confighub.html): manage your clusters' add-ons with Kubara, and approve every change to them in ConfigHub with cub kubara. Kubara calls the set a platform. Plan and render offline first, then apply, hand over, check and hand back, with each step's undo, the known limits and the live evidence.
-- [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): the earlier path, before cub kubara: choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
+
+## Schemas
+
+Open one of these only when you read or write that record.
+
+- [Change feed schema](${SITE_BASE_URL}changes.schema.json): the versioned JSON Schema for changes.json.
+- [Configuration review schema](${SITE_BASE_URL}review.schema.json): the versioned record linking a question, source, object hashes, comparison, checks, limits, and recommendation.
+- [Complete workshop result schema](${SITE_BASE_URL}workshop-result.schema.json): one browser-local bundle containing the exact files, their hashes, completed checks, omitted checks, and local or managed next steps.
+- [CI report schema](${SITE_BASE_URL}workshop-ci-report.schema.json): the bounded Markdown/JSON report derived from WorkshopResult for local CI, pull-request comments, and AI tools.
+- [Promotion review schema](${SITE_BASE_URL}promotion-review.schema.json): the record linking current and proposed objects, source-aware field changes, lifecycle work, exact target results, and checks that have not run.
+- [Configuration decision schema](${SITE_BASE_URL}configuration-decision.schema.json): the source-neutral record for accepted fixes, rejected findings, scoped exceptions, managed validation, approvals, promotion, delivery, and authority boundaries.
+- [Stack manifest schema](${SITE_BASE_URL}stack-manifest.schema.json): the existing Stack YAML contract used by \`cub stack check\`, with one explicit source per component, optional receipt discovery, planes and ordering.
+- [Catalog listing schema](${SITE_BASE_URL}listing.schema.json): the versioned schema every per-listing file follows, whatever format the configuration came from.
 
 ## Machine contract
 
@@ -3141,7 +3140,7 @@ function siteSidebarHtml(relPath, section, html = "") {
   const aiLinks = list([["ai.html#install-skill", "Set up my AI agent"], ["ask.html", "Check my charts and values"]]);
   const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["how-it-works.html", "Promotions and Pipelines"]]);
   // The same two Deep Dives the home page lists, on every page's left column.
-  const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["d/docs/user/model-and-vocabulary.html#words", "What our words mean"], ["ai-chaos-in-production.html", "Can AI fix my fleet?"]])}`;
+  const deepDives = `<p class="cw-nav-title"><strong><a href="${base}/guides.html#guides-deep-dives">Deep Dives</a></strong></p>${list([["d/docs/user/model-and-vocabulary.html", "How the model works"], ["d/docs/user/model-and-vocabulary.html#words", "What our words mean"], ["ai-chaos-in-production.html", "Can AI fix my Sveltos fleet?"]])}`;
   if (relPath === "guides.html" || isGuidePage(relPath)) {
     const local = relPath === "guides.html"
       ? [["guides.html#guides-journeys", "Try a demo"], ["guides.html#guides-your-tools", "Start with your tools"], ["guides.html#guides-start-here", "Browse by topic"]]
@@ -4003,7 +4002,7 @@ ${homeJourneyLinks()}
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
         <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
-        <a href="./ai-chaos-in-production.html">Can AI fix my fleet?</a>
+        <a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <a href="./ai.html#install-skill">Set up my AI agent</a>
         <a href="./ask.html">Check my charts and values</a>
