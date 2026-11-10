@@ -25,6 +25,7 @@ import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onbo
 import { upstreamObservation } from "./lib/upstream-availability.mjs";
 import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { eksInferencePage, EKS_INFERENCE_CHARTS, EKS_INFERENCE_CLOSURE, EKS_INFERENCE_MANIFEST, EKS_INFERENCE_PAGE_FILE, EKS_INFERENCE_PAGE_TITLE, EKS_INFERENCE_RUN_LOG } from "./lib/eks-inference-page.mjs";
+import { nvkePage, NVKE_PAGE_FILE, NVKE_PAGE_TITLE } from "./lib/nvke-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
 import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
@@ -835,6 +836,7 @@ const SPLIT_PAGES = [
   { key: "chooseToolGuideHtml", file: "choose-a-tool.html", title: "Choose a tool and start", description: "Pick the tool for what you want to do now, and the path for a chart the Catalog does not have.", build: () => chooseToolGuideHtml() },
   { key: "deployOneThingHtml", file: "deploy-one-thing.html", title: "Deploy one thing, and look before you do", description: "Pick one Catalog entry, read the exact objects it installs, then save it in ConfigHub and release it to a local cluster.", build: () => deployOneThingHtml() },
   { key: "eksInferenceHtml", file: EKS_INFERENCE_PAGE_FILE, title: EKS_INFERENCE_PAGE_TITLE, description: "See the eight parts of a GPU inference platform on Amazon EKS, and check the whole platform on your laptop in one command with no AWS account or GPU.", build: () => eksInferenceHtml() },
+  { key: "nvkeHtml", file: NVKE_PAGE_FILE, title: NVKE_PAGE_TITLE, description: "See what ConfigHub does for the GPU add-ons on two NVKE clusters, from one lab run with no GPUs, and what that run did not show.", build: () => splitGuideHtml(nvkePage({ escapeHtml, markdownLikeTable, technicalNoteHtml })) },
   ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
   ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after"), workshopInstall: WORKSHOP_PLUGIN_INSTALL })) })),
 ];
@@ -2393,6 +2395,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Flux examples](${SITE_BASE_URL}example-flux-fleet.html): a two-cluster fleet, and [a three-cluster fleet that answers which version runs where](${SITE_BASE_URL}example-flux-which-version-where.html), each with the recorded report from \`cub flux plan . --require Healthy\`. To bring your own, read [Bring your Flux fleet into ConfigHub](${SITE_BASE_URL}bring-flux-into-confighub.html).
 - [Sveltos examples](${SITE_BASE_URL}ai-chaos-in-production.html): agents cause and repair three outages on a Sveltos fleet, with approvals recorded in ConfigHub. The published post is [No human in the loop?](https://confighub.com/blog/no-human-in-the-loop-agents-manage-a-sveltos-fleet-in-confighub-178205600338). To bring your own, read [Bring your Sveltos fleet into ConfigHub](${SITE_BASE_URL}bring-sveltos-into-confighub.html).
 - [GPU fleet example](https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md): NVIDIA's GPU operator on a Sveltos fleet, one ConfigHub variant per cluster. It enables the operator on one more cluster, survives a mislabel, and upgrades the operator and driver on staging before prod. It lives in the Sveltos repository on GitHub.
+- [NVKE example](${SITE_BASE_URL}nvke.html): what ConfigHub does for the GPU add-ons on two NVKE clusters, from one lab run of 2 November 2026 with no GPUs. Eight tests passed, and the page lists what the run did not show. The run's scripts and record are not public yet.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
@@ -4022,6 +4025,7 @@ ${homeJourneyLinks()}
         <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
         <a href="./eks-inference.html">Try an EKS GPU inference platform</a>
+        <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>
         <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
         <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
         <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
@@ -4868,7 +4872,7 @@ function tryAicrHtml() {
   <h1>Try NVIDIA AICR for GPUs</h1>
   <p class="lead">NVIDIA AICR turns five choices into one recipe for a GPU cluster. The choices are the service, the accelerator, the operating system, the workload and the platform. The Catalog holds ${aicrRecipesAtV100} AICR recipes at v1.0.0, each kept as Argo CD Applications that you can read without a GPU.</p>
   <p><a href="./charts/index.html?format=ai-platform">Find your recipe in the Catalog</a> · <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">Read one AICR v1.0.0 recipe</a></p>
-  <p>Want a whole GPU inference platform on Amazon EKS rather than one recipe? <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a>.</p>
+  <p>Want a whole GPU inference platform on Amazon EKS rather than one recipe? <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a>. Running NVKE? <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>.</p>
   <p>In <a href="./d/docs/user/model-and-vocabulary.html">the model</a>, AICR sits above Helm. It chooses many charts and their values, and the Catalog keeps the Argo CD Applications it produces. Argo CD renders the named charts on the cluster. AICR entries have no installer package.</p>
   <p class="boundary-chip">Two things to try on this page</p>
   <p><a href="#retained-config-path">No GPU? Inspect a configuration locally</a> · <a href="#aicr-node-state">Already have GPU nodes? Compare them</a></p>
