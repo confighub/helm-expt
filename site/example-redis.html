@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>Redis, before and after</h1>
     <p class="lead">You run Redis as a fast cache or queue beside your app. Its Helm chart makes up a new password every time it runs, so two installs with the same settings never match.</p>
-    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. This page shows Redis after rendering, as plain YAML you can read before anything is applied.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -737,7 +738,7 @@
         <li>The image is pinned to exact bytes, so it can't change under you.</li>
         <li>You can read all 13 objects before anything reaches a cluster.</li>
       </ul>
-      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to create the Secret redis/redis-existing-secret, which holds the password, before you deploy. Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.</p>
+      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to create the Secret redis/redis-existing-secret, which holds the password, before you deploy. Helm ran these steps out of sight. Now they are a checklist you can read, and whoever deploys carries it out, by hand or with their deploy tool's own settings. Nothing runs it for you.</p>
       <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
         <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
@@ -747,7 +748,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Redis package in your organization, in a folder called <code>redis-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Redis package in your organization, in a folder called <code>redis-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it. Dev runs one read replica, and prod gives the Redis master its own requests and limits. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./redis-example --non-interactive --namespace redis &amp;&amp; cub installer upload --work-dir ./redis-example --space redis-example &amp;&amp; cub component create redis-example &amp;&amp; cub space update --patch redis-example --component redis-example

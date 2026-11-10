@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>A Helm chart inside Kustomize, before and after</h1>
     <p class="lead">Your team pulls a Helm chart in through Kustomize and runs it in dev, staging and prod. Nobody can say what an environment runs without running Helm inside Kustomize first.</p>
-    <p class="ex-what">Kustomize and Helm work out what each environment runs only when someone builds it, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Kustomize runs Helm inside its build when it deploys, so what you review in Git is patches and values, not what an environment runs. This page shows one example worked out ahead of time, as plain YAML you can read first.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -747,7 +748,7 @@ labels:
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy stores its 2 objects separately. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy stores its 2 objects separately. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd

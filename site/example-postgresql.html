@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>PostgreSQL, before and after</h1>
     <p class="lead">You run PostgreSQL to keep your app's data. Its Helm chart makes up a new administrator password every time it runs, so a reinstall can leave the password out of step with the database.</p>
-    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. This page shows PostgreSQL after rendering, as plain YAML you can read before anything is applied.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -737,7 +738,7 @@
         <li>You can read all 6 objects before anything reaches a cluster, down to the image the database runs.</li>
         <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
       </ul>
-      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to create the Secret postgresql/postgresql-auth, which holds the administrator password, before you deploy. Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.</p>
+      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to create the Secret postgresql/postgresql-auth, which holds the administrator password, before you deploy. Helm ran these steps out of sight. Now they are a checklist you can read, and whoever deploys carries it out, by hand or with their deploy tool's own settings. Nothing runs it for you.</p>
       <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
         <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
@@ -747,7 +748,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the PostgreSQL package in your organization, in a folder called <code>postgresql-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it, and prod runs three replicas of its StatefulSet. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the PostgreSQL package in your organization, in a folder called <code>postgresql-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it, and prod runs three replicas of its StatefulSet. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; cub installer upload --work-dir ./postgresql-example --space postgresql-example &amp;&amp; cub component create postgresql-example &amp;&amp; cub space update --patch postgresql-example --component postgresql-example

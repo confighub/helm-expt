@@ -1466,34 +1466,38 @@ const HELM_HUMAN = {
 // A first-time reader meets "the plan" on a Helm page, so the page says what
 // it is, what this chart's plan says, and who carries it out.
 const PLAN_IS = "The plan is what Helm did for you that plain YAML can't do on its own.";
-const PLAN_WHO = "Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.";
+const PLAN_WHO = "Helm ran these steps out of sight. Now they are a checklist you can read, and whoever deploys carries it out, by hand or with their deploy tool's own settings. Nothing runs it for you.";
 const planParagraph = (name, plan) => `<p class="ex-plan"><strong>What the plan is.</strong> ${PLAN_IS} ${plan ? `${plan} ${PLAN_WHO}` : `${name} needs none, because plain YAML carries everything its chart does.`}</p>`;
 const PRODUCT_WORDS = /\b(Units?|Spaces?|[Vv]ariants?)\b/;
 const plainWords = (text) => text.replace(/\bvariants\b/g, "copies").replace(/\bvariant\b/g, "copy").replace(/\bUnits\b/g, "objects").replace(/\bUnit\b/g, "object").replace(/\bapps layer\b/g, "apps folder");
 function cubWordsNote(rows) {
-  const words = [[/--space |cub space /, "a folder a <code>space</code>"], [/--unit /, "an object a <code>unit</code>"], [/cub variant |--variant /, "a copy a <code>variant</code>"]]
+  const words = [[/--space |cub space /, "a <code>space</code> is a folder"], [/--unit /, "a <code>unit</code> is an object"], [/cub variant |--variant /, "a <code>variant</code> is a copy"]]
     .filter(([pattern]) => rows.some((row) => pattern.test(row))).map(([, said]) => said);
   if (!words.length) return "";
-  return ` In its commands, cub calls ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
+  return ` The commands use cub's own words. Here ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
 }
 // What ConfigHub is, under every example page's opening, for a reader who has
 // never heard of it. Newcomer readers could not tell why they would care, so
 // it starts from the problem this kind of page solves. It leaves the plan to
 // the Helm page's own paragraph, which says what this chart's plan holds and
 // who follows it.
+const WORKED_OUT = "This page shows one example worked out ahead of time, as plain YAML you can read first.";
 const READ_FIRST = {
-  "Helm chart": ["Helm works out what to apply only when it runs, so nobody can read or review it first.", "read it first"],
-  "Kustomize overlays": ["Kustomize works out what each environment runs only when someone builds it, so nobody can read or review it first.", "read it first"],
-  "Kustomize with a Helm chart": ["Kustomize and Helm work out what each environment runs only when someone builds it, so nobody can read or review it first.", "read it first"],
-  "Argo CD app of apps": ["Argo CD works out what each cluster runs only when it syncs, so nobody can read or review it first.", "read it first"],
-  "Argo CD ApplicationSet": ["Argo CD works out what each cluster runs only when it syncs, so nobody can read or review it first.", "read it first"],
-  "Flux fleet": ["Flux works out what each cluster runs only when it applies the overlays, so nobody can read or review it first.", "read it first"],
-  App: ["An app's files don't say what a cluster must already have, so you find out only when a move fails.", "check it first"],
+  "Helm chart": ["Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied.", (name) => `This page shows ${name} after rendering, as plain YAML you can read before anything is applied.`],
+  "Kustomize overlays": ["Kustomize builds each environment from its patches when it deploys, so what you review in Git is patches, not what an environment runs.", () => WORKED_OUT],
+  "Kustomize with a Helm chart": ["Kustomize runs Helm inside its build when it deploys, so what you review in Git is patches and values, not what an environment runs.", () => WORKED_OUT],
+  "Argo CD app of apps": ["Argo CD follows a chain of apps and folders when it syncs, so what you review in Git is the chain, not what a cluster runs.", () => WORKED_OUT],
+  "Argo CD ApplicationSet": ["Argo CD makes an ApplicationSet's apps when it syncs, so what you review in Git is a template, not the apps a cluster gets.", () => WORKED_OUT],
+  "Flux fleet": ["Flux builds each cluster's overlays when it reconciles, so what you review in Git is patches, not what a cluster runs.", () => WORKED_OUT],
+  App: ["An app's files don't say what a cluster must already have, so you find out only when a move fails.", () => "This page shows one example app checked against a cluster's needs before the move."],
 };
-function whatConfigHub(kicker) {
-  if (!READ_FIRST[kicker]) return "";
-  const [problem, payoff] = READ_FIRST[kicker];
-  return `${problem} ConfigHub is a service where you ${payoff}. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.`;
+// Two paragraphs: what this page offers, then what ConfigHub is and how a
+// deploy tool reads from it. Readers asked both before anything else.
+const WHAT_CONFIGHUB = "ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.";
+function whatConfigHub(kicker, name) {
+  if (!READ_FIRST[kicker]) return [];
+  const [problem, shows] = READ_FIRST[kicker];
+  return [`${problem} ${shows(name)}`, WHAT_CONFIGHUB];
 }
 
 // Every reader in the newcomer trials asked why they would not just keep the
@@ -1655,7 +1659,8 @@ function simplePage(id, h) {
   }
   const prose = `${page.lead ?? HELM_HUMAN[id].lead} ${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
   // A Helm page names the plan first in the paragraph that says what it is.
-  const opening = whatConfigHub(page.kicker);
+  const openingParts = whatConfigHub(page.kicker, page.name);
+  const opening = openingParts.join(" ");
   check(opening, `${ROOT}/${id}: READ_FIRST has no opening for a ${page.kicker} page`);
   const plainText = `${opening} ${prose}`;
   check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
@@ -1665,7 +1670,7 @@ function simplePage(id, h) {
     eyebrow: "Before and after",
     title: `${page.name}, before and after`,
     lead: page.lead ?? HELM_HUMAN[id].lead,
-    opening: `    <p class="ex-what">${escapeHtml(opening)}</p>\n`,
+    opening: openingParts.map((part) => `    <p class="ex-what">${escapeHtml(part)}</p>\n`).join(""),
     body,
     css: `
     .ex-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
