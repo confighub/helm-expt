@@ -205,7 +205,7 @@ const checks = [
   },
   {
     file: "site/proof.html",
-    terms: ["remains <a href=\"./d/docs/planning/composition-certification.html\">proposed</a>"],
+    terms: ["remains <a href=\"https://github.com/confighub/helm-expt/blob/main/docs/planning/composition-certification.md\">proposed</a>"],
   },
   {
     file: "site/how-it-works.html",

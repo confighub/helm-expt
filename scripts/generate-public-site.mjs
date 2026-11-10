@@ -673,8 +673,15 @@ const CHART_GUIDES = new Map([
 // in the repository and every link to it points at the file on GitHub instead
 // of rendering as a site page.
 const USER_FACING_DOC_PREFIXES = ["docs/", "examples/"];
+// Planning notes (briefs, backlogs, worklogs) are for contributors. They stay
+// on GitHub and are not site pages, so a reader or an agent looking for how
+// something works does not land on a plan.
+const GITHUB_ONLY_DOC_PREFIXES = ["docs/planning/"];
+function isGithubOnlyDoc(repoPath) {
+  return GITHUB_ONLY_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix));
+}
 function isUserFacingDoc(repoPath) {
-  return USER_FACING_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix));
+  return USER_FACING_DOC_PREFIXES.some((prefix) => repoPath.startsWith(prefix)) && !isGithubOnlyDoc(repoPath);
 }
 const CHART_ALIASES = {
   "minio-operator/operator": ["minio/operator"],
@@ -2312,7 +2319,7 @@ function buildSitemapXml(chartPages, docPages = []) {
     urls.add(canonicalUrl(relPath));
   }
   for (const page of chartPages) urls.add(canonicalUrl(`charts/${page.fileName}`));
-  for (const page of docPages) urls.add(canonicalUrl(page.relPath));
+  for (const page of docPages) if (!page.forwards) urls.add(canonicalUrl(page.relPath));
   const body = [...urls].sort().map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
@@ -2854,14 +2861,16 @@ function buildDocPages(catalog, site) {
     for (const name of readdirSync(join(repoRoot, dir)).sort()) {
       const rel = `${dir}/${name}`;
       if (statSync(join(repoRoot, rel)).isDirectory()) seedDocs(rel);
-      else if (name.endsWith(".md")) rendered.add(rel);
+      else if (name.endsWith(".md")) (isGithubOnlyDoc(rel) ? githubOnly : rendered).add(rel);
     }
   };
+  const githubOnly = new Set();
   seedDocs("docs");
   // Close the set over doc-to-doc markdown links, so the site chrome never
   // drops away along a link chain between rendered documents. Links into the
   // backend (data/, recipes/, ...) are not followed: those stay on GitHub.
-  let frontier = [...rendered];
+  // A planning note is not a page, but a page it links to still is, so those links are followed too.
+  let frontier = [...rendered, ...githubOnly];
   while (frontier.length) {
     const next = [];
     for (const repoPath of frontier) {
@@ -2879,6 +2888,16 @@ function buildDocPages(catalog, site) {
     path: join(siteRoot, renderedDocRelPath(repoPath)),
     html: docPageHtml(catalog, repoPath, readFileSync(join(repoRoot, repoPath), "utf8"), rendered),
   }));
+  // The old address of each planning note keeps working: it forwards to the file on GitHub.
+  for (const repoPath of [...githubOnly].sort()) {
+    const target = `${GITHUB_BLOB_BASE_URL}${repoPath}`;
+    pages.push({
+      repoPath, forwards: true,
+      relPath: renderedDocRelPath(repoPath),
+      path: join(siteRoot, renderedDocRelPath(repoPath)),
+      html: `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="robots" content="noindex">\n  <meta http-equiv="refresh" content="0; url=${target}">\n  <title>Moved to GitHub · ConfigHub Workshop</title>\n</head>\n<body>\n  <p>This planning note is kept on GitHub. <a href="${target}">Continue</a>.</p>\n</body>\n</html>\n`,
+    });
+  }
   return { pages, rendered, missing: targets.filter((target) => !rendered.has(target)) };
 }
 
@@ -3361,7 +3380,7 @@ function finalizeSite(site, catalog) {
   }));
   finalized.docPages = docs.pages.map((page) => ({
     ...page,
-    html: finalizePage(page.html, page.relPath, docs.rendered),
+    html: page.forwards ? page.html : finalizePage(page.html, page.relPath, docs.rendered),
   }));
   finalized.missingMdTargets = docs.missing;
   return finalized;
@@ -7870,8 +7889,8 @@ ${sections}
 // contributors" group instead of taking a nav area, since they are not
 // material a site visitor is choosing between.
 function allDocsIndexHtml({ catalogEntries = false } = {}) {
-  const contributorLabels = { agent: "Agent notes", skills: "Skill playbooks", planning: "Planning notes" };
-  const contributorOrder = ["agent", "skills", "planning"];
+  const contributorLabels = { agent: "Agent notes", skills: "Skill playbooks" };
+  const contributorOrder = ["agent", "skills"];
   const areaItems = new Map(AREAS.map((area) => [area, []]));
   const contributorItems = new Map(contributorOrder.map((key) => [key, []]));
   const walk = (dir, prefix) => {
@@ -7884,6 +7903,7 @@ function allDocsIndexHtml({ catalogEntries = false } = {}) {
       if (perEntry !== catalogEntries) continue;
       const source = readFileSync(full, "utf8");
       const title = (source.match(/^#\s+(.+?)\s*$/m)?.[1] ?? name.replace(/\.md$/, "")).trim();
+      if (isGithubOnlyDoc(repoPath)) continue;
       const entry = { title, href: `./${renderedDocRelPath(repoPath)}` };
       if (isContributorDoc(repoPath)) {
         const category = repoPath.split("/")[1];
@@ -7905,8 +7925,9 @@ function allDocsIndexHtml({ catalogEntries = false } = {}) {
   const contributorCount = [...contributorItems.values()].reduce((sum, items) => sum + items.length, 0);
   const contributorSection = contributorBlocks.length
     ? `\n      <details class="docs-contributors" data-doc-area="contributors">
-        <summary><strong>For contributors</strong>: agent notes, skill playbooks, and planning notes <span class="docs-count">${contributorCount}</span></summary>
+        <summary><strong>For contributors</strong>: agent notes and skill playbooks <span class="docs-count">${contributorCount}</span></summary>
         ${contributorBlocks.join("\n        ")}
+        <p>Planning notes are kept <a href="https://github.com/confighub/helm-expt/tree/main/docs/planning">on GitHub</a>.</p>
       </details>`
     : "";
   return `${areaBlocks.join("\n      ")}${contributorSection}`;

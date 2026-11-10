@@ -556,7 +556,7 @@
     <article class="doc-body">
 
 <h2 id="what-is-retained">What is retained</h2>
-<p>The <a href="../demo/aicr/kserve-nim-inference.html">NIM on KServe entry</a> retains the KServe subtree of NVIDIA/nim-deploy at an exact commit: the serving runtimes and the model-by-GPU shapes, with a digest index over every file. The deployment scaffolding is Apache-2.0; the <a href="../planning/nim-ngc-license-read.html">license read</a> verified that against the actual terms before anything was built.</p>
+<p>The <a href="../demo/aicr/kserve-nim-inference.html">NIM on KServe entry</a> retains the KServe subtree of NVIDIA/nim-deploy at an exact commit: the serving runtimes and the model-by-GPU shapes, with a digest index over every file. The deployment scaffolding is Apache-2.0; the <a href="https://github.com/confighub/helm-expt/blob/main/docs/planning/nim-ngc-license-read.md">license read</a> verified that against the actual terms before anything was built.</p>
 <h2 id="one-shape-you-can-read-instead-of-a-count">One shape you can read, instead of a count</h2>
 <p><code>examples/aicr/kserve-nim-inference/upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml</code> is a complete <code>InferenceService</code>: one <code>nvidia.com/gpu</code>, the named runtime <code>nvidia-nim-llama-3.1-8b-instruct-1.1.0</code>, and model storage on <code>pvc://nvidia-nim-pvc/</code>. Every other shape in the directory has the same anatomy at different sizes, up to <code>llama3-70b-instruct_4xh100</code>.</p>
 <h2 id="the-licensing-boundary">The licensing boundary</h2>
