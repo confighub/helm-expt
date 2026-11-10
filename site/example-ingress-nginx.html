@@ -466,6 +466,8 @@
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-out-h { margin: 14px 0 6px; }
+    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
@@ -767,6 +769,46 @@
           <p class="installer-command-note">No account needed. This fetches the ingress-nginx package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --work-dir ./ingress-nginx-example --non-interactive --namespace ingress-nginx &amp;&amp; ls ./ingress-nginx-example/out/manifests</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
+          <p class="ex-out-h"><strong>What the check finds.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. Compare the lines under Lifecycle work. What helm template writes has 7 Helm hooks. What the Catalog keeps has no hooks.</p>
+          <p class="ex-note">The Workshop ran <code>cub config check</code> on what <code>helm template</code> writes for this chart, and it printed this.</p>
+          <pre class="ex-code ex-out"><code>Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  18 objects: 2 ClusterRole, 2 ClusterRoleBinding, 1 ConfigMap, 1 Deployment, 1 IngressClass, 2 Job, 2 Role, 2 RoleBinding, 2 Service, 2 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: ingress-nginx
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [NOTE] Helm hooks: 7
+  [NOTE] setup Jobs: 2
+  [NOTE] admission webhooks needing a certificate: 1
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 18 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
+          <p class="ex-note">It ran the same check on the objects the Catalog keeps, and it printed this.</p>
+          <pre class="ex-code ex-out"><code>Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  11 objects: 1 ClusterRole, 1 ClusterRoleBinding, 1 ConfigMap, 1 Deployment, 1 IngressClass, 1 Role, 1 RoleBinding, 2 Service, 1 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: ingress-nginx
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [NOTE] admission webhooks needing a certificate: 1
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 11 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-ingress-nginx">The recorded files and their receipt</a> hold every input and output. <a href="./before-after-helm-ingress-nginx.html">The details page</a> has the commands that made both.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-ingress-nginx.html">Show me the details</a> (for experienced users)</p>

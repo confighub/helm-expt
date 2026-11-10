@@ -1030,7 +1030,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --change-desc \"Label every object environment prod\" set-label environment prod",
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
-    laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", laptopNeeds: "kustomize and the Workshop plugin",
+    laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", output: [["check-prod.txt", "cub config check prod.yaml"]], laptopNeeds: "kustomize and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
     units: "Each copy stores its 4 objects separately.",
     rows: [{ does: "Prod is the base plus an overlay of patches, labels and a namespace, so you work out prod's objects in your head.", instead: "Each environment's copy holds its finished objects, and prod's panel lists only what prod changes." }, { does: "Nothing else. There are no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
@@ -1051,7 +1051,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-staging --unit checkout-cache --change-desc \"Run two replicas in staging\" set-replicas 2",
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
-    laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", laptopNeeds: "kustomize, helm and the Workshop plugin",
+    laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", output: [["check-prod.txt", "cub config check prod.yaml"]], laptopNeeds: "kustomize, helm and the Workshop plugin",
     laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
     units: "Each copy stores its 2 objects separately.",
     rows: [{ does: "Kustomize runs Helm every time it builds, so you cannot see what the chart makes without building it.", instead: "Helm runs once, and what it makes becomes the base, with a copy for each environment." }, { does: "Nothing else. The chart has no CRDs and no Helm hooks.", instead: "Nothing else to move." }],
@@ -1066,7 +1066,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
     units: "Each copy keeps everything its Application deploys together, in one place.",
     rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git. Only handover.sh, a separate step you choose to run, points each Application at ConfigHub instead." }],
   },
@@ -1080,7 +1080,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
     units: "Each copy keeps everything its Application deploys together, in one place.",
     rows: [{ does: "An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.", instead: "The template is filled in here, one Application per environment, each a copy of one base." }, { does: "The ApplicationSet was applied by hand.", instead: "It stays in the cluster. The report from cub argo plan says handover must patch it or repoint its Applications one by one." }],
   },
@@ -1094,7 +1094,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy"]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
     units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the report from cub flux plan lists it." }],
   },
@@ -1108,7 +1108,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy"]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
     units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Image automation writes new tags into the dev overlay.", instead: "It keeps doing so, and the report from cub flux plan names it, so you know dev's version can change without a review." }, { does: "A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.", instead: "The report from cub flux plan says to pin one exact version, so what runs changes only when a release says so." }],
   },
@@ -1134,7 +1134,7 @@ const APP_SIMPLE = [
       "cub function set --space shop-web-prod --change-desc \"Label every object environment prod\" set-label environment prod",
       "cub function set --space shop-web-prod --unit shop-web --change-desc \"Run five replicas in prod\" set-replicas 5",
     ],
-    laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], needs: "the Workshop plugin",
+    laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], output: [["app-check.txt", "cub app check shop-web.yaml", "<code>cub app check</code> printed this for shop-web."], ["stack-sandbox.txt", "cub stack sandbox shop-platform"]], needs: "the Workshop plugin",
     laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
     safety: "It touches no cluster.",
     loadNote: "Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each copy holds 6 objects, the app's 5 and its namespace.",
@@ -1518,7 +1518,48 @@ function whyNotGit(name) {
   };
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", whyNot, loadRows, loadNote, laptopRows, laptopNote, needs, laptopNeeds = needs, credits, wide }) {
+// What the commands print, read from the transcripts the receipt pins, so a
+// reader sees the tool's own output before installing anything. Readers asked
+// for the output shown, not described. Each block names a command the receipt
+// records, and the build fails when the receipt no longer holds it.
+function recordedOutput({ check, escapeHtml }, id, rec, { intro, look = "", blocks, after = "" }) {
+  const shown = blocks.map(({ said, file, command }) => {
+    check(rec.files[`transcripts/${file}`], `${ROOT}/${id}/receipt.json does not pin transcripts/${file}, and the page shows it`);
+    check(rec.commands.includes(command), `${ROOT}/${id}/receipt.json no longer records "${command}", and the page says it printed transcripts/${file}`);
+    const lines = transcriptLines(read(id, `transcripts/${file}`));
+    return { said, lines };
+  });
+  const text = shown.flatMap(({ lines }) => lines).join("\n");
+  const words = [[/\bvariants?\b/, "a <code>variant</code> is a copy"], [/\bTarget\b/, "a <code>Target</code> is a cluster"], [/\bSpaces?\b/, "a <code>Space</code> is a folder"], [/\bUnits?\b/, "a <code>Unit</code> is an object"]]
+    .filter(([pattern]) => pattern.test(text)).map(([, said]) => said);
+  const wordsNote = words.length ? ` The output uses cub's own words. Here ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.` : "";
+  return `<p class="ex-out-h"><strong>${escapeHtml(intro)}</strong> This is the recorded output from ${escapeHtml(rec.recordedOn)}, made with cub ${escapeHtml(rec.tools.cub)}, so you can read it before you install anything.${look ? ` ${escapeHtml(look)}` : ""}${wordsNote}</p>
+${shown.map(({ said, lines }) => `          <p class="ex-note">${said}</p>
+          <pre class="ex-code ex-out"><code>${lines.map((line) => escapeHtml(line)).join("\n")}</code></pre>`).join("\n")}
+          <p class="ex-note"><a href="${GITHUB}/${ROOT}/${id}">The recorded files and their receipt</a> hold every input and output.${after}</p>`;
+}
+
+// Which lines of the two checks a Helm page's reader should compare, counted
+// from the transcripts so the sentence can't drift from the output under it.
+function whereToLook({ check }, id) {
+  const count = (file, label) => {
+    const line = transcriptLines(read(id, `transcripts/${file}`)).find((row) => row.includes(`${label}: `));
+    check(line, `${ROOT}/${id}/transcripts/${file} has no "${label}" line, and the page says what it reports`);
+    return Number(line.split(`${label}: `)[1].match(/^\d+/)[0]);
+  };
+  const hooks = count("check-before.txt", "Helm hooks");
+  const [crdsBefore, crdsAfter] = [count("check-before.txt", "CRDs"), count("check-after.txt", "CRDs")];
+  check(count("check-after.txt", "Helm hooks") === 0 && crdsAfter >= crdsBefore, `${ROOT}/${id}: the Catalog's objects carry hooks or fewer CRDs than helm template writes, and the page says otherwise`);
+  if (!hooks && crdsAfter === crdsBefore) {
+    check(count("check-before.txt", "setup Jobs") === 0, `${ROOT}/${id}: helm template writes a setup Job, and the page says it writes none`);
+    return "Both results show no Helm hooks and no setup Jobs.";
+  }
+  const before = [hooks ? `${hooks} Helm hooks` : "", crdsAfter > crdsBefore ? `${crdsBefore ? `${crdsBefore} of the ${crdsAfter}` : `none of the ${crdsAfter}`} CRDs` : ""].filter(Boolean).join(" and ");
+  const after = [hooks ? "no hooks" : "", crdsAfter > crdsBefore ? `all ${crdsAfter} CRDs` : ""].filter(Boolean).join(" and ");
+  return `Compare the lines under Lifecycle work. What helm template writes has ${before}. What the Catalog keeps has ${after}.`;
+}
+
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", whyNot, loadRows, loadNote, laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   return `    <section aria-labelledby="why-not-git" class="ex">
@@ -1570,6 +1611,7 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
           <p class="installer-command-note">${laptopNote}</p>
           ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with ${escapeHtml(laptopNeeds)}.${/Workshop plugin/.test(laptopNeeds) ? ` Install the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.` : ""}</p>
+          ${output}
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
@@ -1583,6 +1625,7 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
 // from goes to the foot of the page.
 function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, setupHere }) {
   const { escapeHtml } = h;
+  const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   const load = BUNDLE_LOADS[id];
   h.check(load || f.rec.installer?.manifests, `${ROOT}/${id}: the receipt has no installer manifest count; record it with --generate`);
   const makes = load
@@ -1606,6 +1649,14 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
     needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
     laptopNeeds: "its installer plugin and kustomize",
+    output: recordedOutput(h, id, f.rec, {
+      intro: "What the check finds.", look: whereToLook(h, id),
+      blocks: [
+        { said: "The Workshop ran <code>cub config check</code> on what <code>helm template</code> writes for this chart, and it printed this.", file: "check-before.txt", command: "cub config check before.yaml" },
+        { said: "It ran the same check on the objects the Catalog keeps, and it printed this.", file: "check-after.txt", command: "cub config check after.yaml" },
+      ],
+      after: ` <a href="./${details}">The details page</a> has the commands that made both.`,
+    }),
     credits: `About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples${dates}.${bundleLoad ? " They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make." : ""}`,
   };
 }
@@ -1656,6 +1707,10 @@ function simplePage(id, h) {
       laptopRows: [...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.laptop],
       laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
+      output: recordedOutput(h, id, rec, {
+        intro: "What it prints.",
+        blocks: page.output.map(([file, command, said]) => ({ file, command, said: said ?? `<code>${escapeHtml(command)}</code> printed this.` })),
+      }),
     });
   }
   const prose = `${body}`.replace(/<pre[\s\S]*?<\/pre>|<code>[\s\S]*?<\/code>|href="[^"]*"|src="[^"]*"/g, " ").replace(/<[^>]+>/g, " ");
@@ -1696,6 +1751,8 @@ function simplePage(id, h) {
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-out-h { margin: 14px 0 6px; }
+    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }

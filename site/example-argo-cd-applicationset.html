@@ -466,6 +466,8 @@
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-out-h { margin: 14px 0 6px; }
+    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
@@ -773,6 +775,34 @@ spec:
 
 <span class="term-prompt">$</span> cub argo plan .</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the argo plugin and kustomize.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. The output uses cub's own words. Here a <code>variant</code> is a copy and a <code>Target</code> is a cluster.</p>
+          <p class="ex-note"><code>cub argo plan .</code> printed this.</p>
+          <pre class="ex-code ex-out"><code>Argo CD estate: 1 cluster, Argo CD's own (in-cluster), 1 components, 2 variants
+Read 9 objects
+
+One stage, fleet (pass --stage-label and --stages to roll out in waves)
+
+apptique  (ApplicationSet, project default, wave 0)
+  selects  2 directories under gitops/argo/beginner-applicationset/apps/apptique/overlays/*
+  base     argo-apptique-base  reaches no cluster: its destination is empty
+  each variant differs from the base in metadata.labels.app.kubernetes.io/instance, metadata.labels.environment, metadata.name, spec.destination.namespace, spec.source.path
+  stage fleet
+    dev         variant argo-apptique-dev  -&gt;  Target argo-targets/in-cluster
+                Application apptique-dev, namespace apptique-dev
+                gitops/argo/beginner-applicationset/apps/apptique/overlays/dev
+    prod        variant argo-apptique-prod  -&gt;  Target argo-targets/in-cluster
+                Application apptique-prod, namespace apptique-prod
+                gitops/argo/beginner-applicationset/apps/apptique/overlays/prod
+
+Handover, when this estate is live (apply will write it as handover.sh; plan runs nothing)
+  1. check Argo CD is v3.1 or newer, which is where an oci:// source is read natively; an older one cannot do this at all
+  2. ApplicationSet apptique is applied by hand, so its template cannot be repointed under review. Either patch the template in the cluster, or delete it with 'kubectl delete --cascade=orphan' and repoint apptique-dev, apptique-prod one by one. Orphaning is the fallback here, not the plan
+  3. never delete every Application apptique generates: resources-finalizer.argocd.argoproj.io deletes everything it deployed. Every step above is a patch for exactly this reason
+
+Next
+  cub argo apply . --out ./argo-onboarding
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/argo-applicationset">The recorded files and their receipt</a> hold every input and output.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-argo-applicationset.html">Show me the details</a> (for experienced users)</p>

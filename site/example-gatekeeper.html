@@ -466,6 +466,8 @@
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-out-h { margin: 14px 0 6px; }
+    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
@@ -769,6 +771,46 @@
           <p class="installer-command-note">No account needed. This fetches the Gatekeeper package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a></p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir ./gatekeeper-example --non-interactive --namespace default &amp;&amp; ls ./gatekeeper-example/out/manifests</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
+          <p class="ex-out-h"><strong>What the check finds.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. Compare the lines under Lifecycle work. What helm template writes has 8 Helm hooks and none of the 17 CRDs. What the Catalog keeps has no hooks and all 17 CRDs.</p>
+          <p class="ex-note">The Workshop ran <code>cub config check</code> on what <code>helm template</code> writes for this chart, and it printed this.</p>
+          <pre class="ex-code ex-out"><code>Config: before
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  21 objects: 3 ClusterRole, 3 ClusterRoleBinding, 2 Deployment, 2 Job, 1 MutatingWebhookConfiguration, 1 PodDisruptionBudget, 1 ResourceQuota, 1 Role, 1 RoleBinding, 1 Secret, 1 Service, 3 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: default
+
+Lifecycle work
+  [PASS] CRDs: 0
+  [NOTE] Helm hooks: 8
+  [NOTE] setup Jobs: 2
+  [NOTE] admission webhooks needing a certificate: 2
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 21 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
+          <p class="ex-note">It ran the same check on the objects the Catalog keeps, and it printed this.</p>
+          <pre class="ex-code ex-out"><code>Config: after
+Inspecting local Kubernetes objects (static, no infrastructure)
+
+Installs
+  30 objects: 1 ClusterRole, 1 ClusterRoleBinding, 17 CustomResourceDefinition, 2 Deployment, 1 MutatingWebhookConfiguration, 1 PodDisruptionBudget, 1 ResourceQuota, 1 Role, 1 RoleBinding, 1 Secret, 1 Service, 1 ServiceAccount, 1 ValidatingWebhookConfiguration
+  namespaces that must already exist: default
+
+Lifecycle work
+  [NOTE] CRDs: 17 (apply and establish before any custom resource)
+  [PASS] Helm hooks: 0
+  [PASS] setup Jobs: 0
+  [NOTE] admission webhooks needing a certificate: 2
+  [PASS] images tagged latest or not tagged: 0
+
+Schema
+  [PASS] schema validation: 30 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
+
+  Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-gatekeeper">The recorded files and their receipt</a> hold every input and output. <a href="./before-after-helm-gatekeeper.html">The details page</a> has the commands that made both.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-gatekeeper.html">Show me the details</a> (for experienced users)</p>
