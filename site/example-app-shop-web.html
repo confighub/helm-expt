@@ -466,6 +466,8 @@
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
     .ex-actions details.ex-button[open] { flex-basis: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ex-out-h { margin: 14px 0 6px; }
+    .ex-code.ex-out { max-height: 24rem; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
@@ -777,6 +779,51 @@ apiVersion: networking.k8s.io/v1</code></pre>
 
 <span class="term-prompt">$</span> cub stack sandbox shop-platform</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. The output uses cub's own words. Here a <code>Space</code> is a folder.</p>
+          <p class="ex-note"><code>cub app check</code> printed this for shop-web.</p>
+          <pre class="ex-code ex-out"><code>App: shop-web
+Rendering the workload (free, no infrastructure)
+
+Installs
+  5 objects: 1 Deployment, 1 Service, 1 Ingress, 1 Certificate, 1 ServiceMonitor
+  namespaces that must already exist: shop
+
+Dependencies (this app needs a platform to provide these)
+  [NEEDS] an ingress controller
+             Ingress shop-web (class nginx)
+  [NEEDS] cert-manager
+             Certificate shop-web-tls
+  [NEEDS] a Prometheus operator (kube-prometheus-stack)
+             ServiceMonitor shop-web
+
+  Install onto a platform that carries those services. cub stack sandbox shop-platform
+  checks one that already places shop-web; then your Argo CD or Flux reconciles it.</code></pre>
+          <p class="ex-note"><code>cub stack sandbox shop-platform</code> printed this.</p>
+          <pre class="ex-code ex-out"><code>Stack: shop-platform  -  A web platform with monitoring and a message queue, with the shop app running on it: ingress, certificates, the Prometheus stack, RabbitMQ, and shop-web.
+Resolving 5 components: cert-manager, ingress-nginx, kube-prometheus-stack, rabbitmq, shop-web
+
+Check
+  [PASS] no resource conflicts across components (192 objects)
+  [PASS] CRD ordering: 10 CRDs are delivered before the 51 custom resources that need them
+  [PASS] served API versions: 51 custom resource(s) match their bundled CRD; target availability is not checked
+  [WARN] 1 custom resource(s) rely on CRDs this stack does not deliver, which must already exist: cert-manager.io (1)
+  [PASS] app needs met: shop-web needs an ingress controller, cert-manager, a Prometheus operator (kube-prometheus-stack), all carried by this stack
+  [WARN] 5 admission webhook(s) need a caBundle - cert-manager is in the stack and can issue it
+  [WARN] namespaces: 0 created, 6 must already exist (cert-manager, ingress-nginx, kube-system, monitoring, rabbitmq, shop)
+  [WARN] target prerequisite unknown: ClusterIssuer/letsencrypt; Include ClusterIssuer/letsencrypt in the stack, or verify it exists on the selected target before delivery.
+  [PASS] schema validation: 192 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
+  =&gt; CHECKED
+
+Sandbox render  (free, no infrastructure)
+  192 objects total
+      cert-manager: 42  [mgmt]
+      ingress-nginx: 11  [mgmt]
+      kube-prometheus-stack: 124  [mgmt]
+      rabbitmq: 10  [workload]
+      shop-web: 5  [workload]  [authored]
+
+  Ready. `cub stack upload shop-platform --run` uploads the base Spaces and links the declared bindings in ConfigHub.</code></pre>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/app-shop-web">The recorded files and their receipt</a> hold every input and output.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-app-shop-web.html">Show me the details</a> (for experienced users)</p>
