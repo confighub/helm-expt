@@ -682,9 +682,8 @@
 
     <p class="eyebrow">Before and after</p>
     <h1>cert-manager, before and after</h1>
-    <p class="lead">You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.</p>
-    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. This page shows cert-manager after rendering, as plain YAML you can read before anything is applied.</p>
-    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="lead">You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run. This page shows cert-manager after rendering, as plain YAML you can read before anything is applied.</p>
+    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, is a public set of examples for that service. Its Catalog holds charts it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -692,7 +691,7 @@
       <h2 id="why-not-git" class="ex-went-h">Why not just commit helm template output to Git?</h2>
       <ul class="ex-why">
         <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
-        <li><strong>One base, many environments.</strong> Fix the base once and you can pass the fix on to every environment's copy, while each copy keeps its own changes.</li>
+        <li><strong>One base, many environments.</strong> Each environment is a copy of one base. Fix the base once, pass the fix on to each copy when you choose, and each copy keeps its own changes.</li>
         <li><strong>A tested starting point.</strong> These cert-manager objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.</li>
       </ul>
     </section>
