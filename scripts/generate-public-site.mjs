@@ -2340,6 +2340,8 @@ function buildLlmsTxt() {
 
 > A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
+ConfigHub is a hosted service that stores finished Kubernetes YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. This site, the ConfigHub Workshop, is a public set of examples for that service. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) says where release, promote, approve and roll back fit, and the [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) takes one component from its first upload to production.
+
 - [Configs](${SITE_BASE_URL}configs.json): the Configs section, one row per Catalog entry with its format, version, base, object count, flattening verdict and listing URL. Schema: ${SITE_BASE_URL}configs.schema.json.
 - [Stacks](${SITE_BASE_URL}stacks.json): the Stacks section, one row per shipped stack with its parts, whether each part was checked, and the cub stack check command to try it. Schema: ${SITE_BASE_URL}stacks.schema.json.
 - [Apps](${SITE_BASE_URL}apps.json): the Apps section, one row per worked example app with its delivery, its default-branch address and the commit it was last checked at. Schema: ${SITE_BASE_URL}apps.schema.json.
@@ -2384,6 +2386,11 @@ function buildLlmsTxt() {
 - [Make a stack from Catalog entries](${SITE_BASE_URL}d/docs/user/workshop-stack-from-catalog-guide.html): compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one local stack with \`cub stack compose\`, check them together with \`cub stack check\`, and swap one entry. Nothing is applied or uploaded.
 - [Review one change before it ships](${SITE_BASE_URL}d/docs/user/workshop-review-a-change-guide.html): take one image tag change to a small app with a dev and a prod environment. Part 1 lists the objects it affects in each environment with \`kustomize build\` and \`cub config diff\`, with no account. Parts 2 and 3 need an account. They propose the change in ConfigHub, show the gate refusing it, approve it, release it and read the record. One account wrote and approved the change in the recorded run.
 - [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
+- [Examples, before and after](${SITE_BASE_URL}apps.html#before-and-after): 17 worked examples, each with the input a team has today, the same thing in ConfigHub, the commands, and the output those commands printed. They cover ten Helm charts, two Kustomize setups, two Argo CD setups, two Flux fleets and one app.
+- [Argo CD examples](${SITE_BASE_URL}example-argo-cd-app-of-apps.html): an app of apps, and [an ApplicationSet](${SITE_BASE_URL}example-argo-cd-applicationset.html), each with the recorded report from \`cub argo plan .\`. To bring your own, read [Bring your Argo CD apps into ConfigHub](${SITE_BASE_URL}bring-argo-into-confighub.html).
+- [Flux examples](${SITE_BASE_URL}example-flux-fleet.html): a two-cluster fleet, and [a three-cluster fleet that answers which version runs where](${SITE_BASE_URL}example-flux-which-version-where.html), each with the recorded report from \`cub flux plan . --require Healthy\`. To bring your own, read [Bring your Flux fleet into ConfigHub](${SITE_BASE_URL}bring-flux-into-confighub.html).
+- [Sveltos examples](${SITE_BASE_URL}ai-chaos-in-production.html): agents cause and repair three outages on a Sveltos fleet, with approvals recorded in ConfigHub. The published post is [No human in the loop?](https://confighub.com/blog/no-human-in-the-loop-agents-manage-a-sveltos-fleet-in-confighub-178205600338). To bring your own, read [Bring your Sveltos fleet into ConfigHub](${SITE_BASE_URL}bring-sveltos-into-confighub.html).
+- [GPU fleet example](https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md): NVIDIA's GPU operator on a Sveltos fleet, one ConfigHub variant per cluster. It enables the operator on one more cluster, survives a mislabel, and upgrades the operator and driver on staging before prod. It lives in the Sveltos repository on GitHub.
 - [Deploy with Flux or Argo CD](${SITE_BASE_URL}deploy-with-flux-or-argo.html): render any catalog chart to a controller-native OCI with one command and no account.
 - [Why do development and production differ?](${SITE_BASE_URL}why-do-dev-and-prod-differ.html): use related configurations and promotion history instead of copied values files.
 - [Does the cluster match the approved configuration?](${SITE_BASE_URL}does-cluster-match-approved-config.html): compare desired and live objects within the field coverage named by the receipt.
@@ -3985,6 +3992,10 @@ function configTestCentreHome(catalog) {
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
         <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
+        <a href="./example-argo-cd-app-of-apps.html">See an Argo CD example</a>
+        <a href="./example-flux-fleet.html">See a Flux fleet example</a>
+        <a href="./ai-chaos-in-production.html">See agents run a Sveltos fleet</a>
+        <a href="https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md">See a GPU fleet with Sveltos</a>
         <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
         <a href="./eks-inference.html">Try an EKS GPU inference platform</a>
@@ -4006,6 +4017,7 @@ ${homeJourneyLinks()}
         <a href="./stack.html">How do I run a pre-tested stack?</a>
         <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
         <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
+        <a href="./bring-sveltos-into-confighub.html">How do I bring in my Sveltos fleet?</a>
         <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
@@ -4845,6 +4857,11 @@ function tryAicrHtml() {
 </header>
 <main>
     <p class="notice"><a href="./d/docs/user/workshop-match-guide.html">Compare a GPU workload with supplied Node facts</a> with direct cub commands or an assistant, including saved results and a failure case.</p>
+  <section aria-labelledby="aicr-how">
+    <h2 id="aicr-how">How AICR works, and what ConfigHub adds</h2>
+    <p>You tell AICR five things about a GPU cluster, and it writes a recipe. The recipe is a set of Argo CD Applications, and each one names a chart and its values. Argo CD renders those charts on the cluster.</p>
+    <p>ConfigHub keeps a recipe's Applications as data, so you can read and compare them before a GPU is involved. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One v1.0.0 recipe</a> is published as OCI and stored in ConfigHub. <a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v0-20-0.html">One v0.20.0 recipe</a> is promoted through development, staging and production. <a href="./d/docs/user/live-walk-aicr-kind-argocd-2026-10-11.html">One recipe ran under Argo CD</a> on a throwaway cluster, and its log says what happened. <a href="./d/docs/demo/aicr/refusal-corpus.html">What the AICR entries refuse</a> lists what the Catalog will not claim.</p>
+  </section>
   <section aria-labelledby="aicr-pages">
     <h2 id="aicr-pages">Every AICR page</h2>
     ${markdownLikeTable([
