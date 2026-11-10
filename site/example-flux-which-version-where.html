@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>Which version runs where, before and after</h1>
     <p class="lead">You run a fleet of clusters with Flux, and new versions move from dev to staging to prod. When someone asks which version runs where, the answer is spread across many overlays.</p>
-    <p class="ex-what">Flux works out what each cluster runs only when it applies the overlays, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Flux builds each cluster's overlays when it reconciles, so what you review in Git is patches, not what a cluster runs. This page shows one example worked out ahead of time, as plain YAML you can read first.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>

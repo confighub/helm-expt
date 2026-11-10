@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>metrics-server, before and after</h1>
     <p class="lead">You install metrics-server so kubectl top and autoscaling know how busy your pods are. It's a small chart, and what Helm makes from it is exactly what you see here.</p>
-    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. This page shows metrics-server after rendering, as plain YAML you can read before anything is applied.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -747,7 +748,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the metrics-server OCI bundle in your organization, in a folder called <code>metrics-server-example</code>. Each object is stored on its own, with a README. The rest makes a dev and a prod copy of it, and prod runs three replicas of its Deployment. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the metrics-server OCI bundle in your organization, in a folder called <code>metrics-server-example</code>. Each object is stored on its own, with a README. The rest makes a dev and a prod copy of it, and prod runs three replicas of its Deployment. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c

@@ -683,7 +683,8 @@
     <p class="eyebrow">Before and after</p>
     <h1>NVIDIA GPU Operator, before and after</h1>
     <p class="lead">You install the NVIDIA GPU Operator so pods can use your GPUs without anyone setting up each node by hand. Its chart runs a hidden Job before each upgrade and another after you uninstall.</p>
-    <p class="ex-what">Helm works out what to apply only when it runs, so nobody can read or review it first. ConfigHub is a service where you read it first. It stores the finished YAML in place of the Git folder that Argo CD or Flux read today, with every change and the reason for it, so they deploy from it instead. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Helm renders its templates when it installs, so what you review in Git is templates and values, not what gets applied. This page shows NVIDIA GPU Operator after rendering, as plain YAML you can read before anything is applied.</p>
+    <p class="ex-what">ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub as an OCI artifact, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, keeps a Catalog of charts and examples it has already rendered and tested, with the evidence on GitHub.</p>
 
   </header>
   <main>
@@ -737,7 +738,7 @@
         <li>You can read all 24 objects before anything reaches a cluster, down to the image each one runs.</li>
         <li>Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.</li>
       </ul>
-      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to apply the new CRDs before an upgrade, and after you delete the operator, to run the Job that removes its labels from your nodes. Nothing runs the plan for you. Whoever deploys follows it, by hand or by setting their deploy tool up to do the same.</p>
+      <p class="ex-plan"><strong>What the plan is.</strong> The plan is what Helm did for you that plain YAML can't do on its own. Here it says to apply the new CRDs before an upgrade, and after you delete the operator, to run the Job that removes its labels from your nodes. Helm ran these steps out of sight. Now they are a checklist you can read, and whoever deploys carries it out, by hand or with their deploy tool's own settings. Nothing runs it for you.</p>
       <h3 class="ex-went-h">What Helm does without showing you</h3>
       <table class="ex-table">
         <thead><tr><th>What Helm does</th><th>What you get instead</th></tr></thead>
@@ -749,7 +750,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the NVIDIA GPU Operator OCI bundle in your organization, in a folder called <code>gpu-operator-example</code>. Each object is stored on its own, with a README, and the plan comes with them as 3 short documents. The rest makes a dev and a prod copy of it, and prod runs three replicas of the operator. It touches no cluster. In its commands, cub calls a folder a <code>space</code>, an object a <code>unit</code> and a copy a <code>variant</code>.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the NVIDIA GPU Operator OCI bundle in your organization, in a folder called <code>gpu-operator-example</code>. Each object is stored on its own, with a README, and the plan comes with them as 3 short documents. The rest makes a dev and a prod copy of it, and prod runs three replicas of the operator. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component gpu-operator-example --variant base --space gpu-operator-example --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-3-3-default:r001@sha256:408cfa607e699388f62c1859f3f0daeecc99b8110f8cee076f06855be2d8ea1e
