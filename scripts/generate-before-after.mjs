@@ -88,6 +88,10 @@ const FLUX_PATH = "gitops/flux/beginner";
 const APPSET_PATH = "gitops/argo/beginner-applicationset";
 const FLUX_FLEET_PATH = "gitops/flux/expert-fleet";
 const KUSTOMIZE_HELM_PATH = "gitops/argo/expert-app-of-apps/apps/checkout-cache";
+const REALISTIC_APP_PATH = "global-app-layer/baseconfig";
+const REALISTIC_APP_FILES = ["backend.yaml", "frontend.yaml", "postgres.yaml"];
+// Joins files with a --- line between them, as the site's laptop command does.
+export const REALISTIC_APP_JOIN = "awk 'FNR == 1 && NR > 1 { print \"---\" } 1'";
 
 const sha = (bytes) => `sha256:${sha256(bytes)}`;
 const run = (command, args, options = {}) => execFileSync(command, args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024, ...options });
@@ -410,6 +414,25 @@ function generateAppShopWeb(work, out) {
   };
 }
 
+// A second app: the three-tier chat app behind realistic-app in
+// confighub/examples, whose three files are plain objects, not a chart. The
+// checks read them joined into one file, the way cub app check takes an app.
+function generateAppRealistic(examples, work, out) {
+  mkdirSync(join(out, "before"), { recursive: true });
+  mkdirSync(join(out, "transcripts"), { recursive: true });
+  for (const name of REALISTIC_APP_FILES) cpSync(join(examples, REALISTIC_APP_PATH, name), join(out, "before", name));
+  const joined = join(work, "realistic-app");
+  mkdirSync(joined);
+  writeFileSync(join(joined, "realistic-app.yaml"), REALISTIC_APP_FILES.map((name) => readFileSync(join(out, "before", name), "utf8").replace(/\n*$/, "\n")).join("---\n"));
+  writeFileSync(join(out, "transcripts/app-check.txt"), transcript(["app", "check", "realistic-app.yaml"], joined));
+  writeFileSync(join(out, "transcripts/config-check.txt"), transcript(["config", "check", "realistic-app.yaml"], joined));
+  return {
+    sources: [{ what: "the app's three files", repository: EXAMPLES_REPO, commit: EXAMPLES_COMMIT, path: REALISTIC_APP_PATH }],
+    commands: [`${REALISTIC_APP_JOIN} ${REALISTIC_APP_FILES.join(" ")} > realistic-app.yaml`, "cub app check realistic-app.yaml", "cub config check realistic-app.yaml"],
+    notes: ["realistic-app.yaml is the three files under before/ joined with a --- line between them, because each check reads one file."],
+  };
+}
+
 function generateKustomizeHelm(examples, out) {
   copyYaml(join(examples, KUSTOMIZE_HELM_PATH), join(out, "before"));
   mkdirSync(join(out, "after"), { recursive: true });
@@ -452,6 +475,7 @@ function generate() {
       "flux-expert-fleet": (out) => generateFluxFleet(examples, work, out),
       "kustomize-helm-chart": (out) => generateKustomizeHelm(examples, out),
       "app-shop-web": (out) => generateAppShopWeb(work, out),
+      "app-realistic-app": (out) => generateAppRealistic(examples, work, out),
       ...Object.fromEntries(HELM_EXAMPLES.map((spec) => [spec.id, (out) => generateHelmListing(work, out, spec)])),
     };
     const only = process.argv.slice(3);
