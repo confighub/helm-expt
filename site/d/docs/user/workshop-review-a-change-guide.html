@@ -644,7 +644,7 @@ cub function set --space $APP-prod --unit frontend --change-desc &quot;Give prod
 <h3 id="set-a-gate-that-asks-for-an-approval-before-prod">Set a gate that asks for an approval before prod</h3>
 <p>A gate takes two commands. The first makes a workflow with a dev stage and a prod stage, where entry into prod needs one approval. The second tells the Component that every change must go through that workflow.</p>
 <pre><code>cub changeworkflow create --space $APP-base $WORKFLOW --stage dev --stage prod --attestation-prerequisite approved --attestation-prerequisite-count approved=1 --attestation-prerequisite-allow-authors approved=true --attestation-prerequisite-description approved=&quot;One approval of the change as it stands in dev&quot; --stage-prerequisites prod=approved
-cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --change-workflow-required</code></pre>
+cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --require-change-workflow</code></pre>
 <p>A separate approver is the default. Leave out <code>--attestation-prerequisite-allow-authors approved=true</code> when a second person will approve. Without that flag the server requires an approver who did not write the change. The run had one account, so it needed the flag. The run first tried without it. The server recorded the author's approval and did not count it, and it went on refusing the promotion with these words.</p>
 <pre><code>requires approved: 1 Approval attestation(s) from eligible attesters who did not write the change</code></pre>
 <p>The run did not see the default rule accept a second person, because it had no second person.</p>
