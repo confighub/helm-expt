@@ -204,8 +204,8 @@ claude plugin install confighub@confighub</code></pre>
 
 <section id="starters">
   <h2>Starters</h2>
-  <p>Give every new app your team's defaults: retries, worker limits, logging, timeouts. You write them once in a small YAML file, with a note on why each one is set. It's the same idea as Spring Boot starters, but it works for any kind of app.</p>
-  <p>confighub mini comes with starters for a small web service and for a Kustomize repository that Argo CD or Flux deploys. Starters for apps on Vercel and apps that read AWS Parameter Store are in preview. You can also write your own. Here is one a team might write for its queue workers:</p>
+  <p>Give every new app your team's defaults: retries, worker limits, logging, timeouts. You write them once in a small YAML file, with a note on why each one is set. It's the same idea as <a href="https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters">Spring Boot starters</a>, but it works for any kind of app.</p>
+  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#connect-a-small-web-service">a small web service</a> and for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/gitops-app.md">a Kustomize repository that Argo CD or Flux deploys</a>. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#connect-an-app-on-vercel-one-command-and-one-approval">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#a-new-provider-an-add-on-and-a-starter">apps that read AWS Parameter Store</a> are in preview. You can also <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>. Here is one a team might write for its queue workers:</p>
   <pre><code>starter: queue-worker
 version: 1
 about: A queue worker whose processes supervisord runs, with its settings in .env.
