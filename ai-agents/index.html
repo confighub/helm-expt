@@ -188,7 +188,7 @@ claude plugin install confighub@confighub</code></pre>
   <p>Then, in an empty folder, ask Claude Code:</p>
   <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
   <p class="muted">Works on macOS and Linux. To remove it, run <code>cub mini uninstall --delete-data</code>. Your app's files are never touched.</p>
-  <p><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Step-by-step guide</a></p>
+  <p><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Step-by-step walkthroughs</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">What happens, and why</a></p>
 </section>
 
 <section>
@@ -203,35 +203,49 @@ claude plugin install confighub@confighub</code></pre>
 </section>
 
 <section id="starters">
-  <h2>Starters</h2>
-  <p>Give every new app your team's defaults: retries, worker limits, logging, timeouts. You write them once in a small YAML file, with a note on why each one is set. It's the same idea as <a href="https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters">Spring Boot starters</a>, but it works for any kind of app.</p>
-  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#connect-a-small-web-service">a small web service</a> and for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/gitops-app.md">a Kustomize repository that Argo CD or Flux deploys</a>. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#connect-an-app-on-vercel-one-command-and-one-approval">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#a-new-provider-an-add-on-and-a-starter">apps that read AWS Parameter Store</a> are in preview. You can also <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>. Here is one a team might write for its queue workers:</p>
-  <pre><code>starter: queue-worker
+  <h2>An example: a small web shop</h2>
+  <p>A team runs a web shop made of two services, a storefront and an orders service. Nadia builds them with an agent. Ravi looks after production. One hub keeps the settings of both, with a staging copy and a production copy of each.</p>
+  <ol class="walk">
+    <li><span class="num">1</span><div class="body">
+      <h3>The team writes its defaults once</h3>
+      <p>A <strong>starter</strong> is a small YAML file with the settings every service of one kind starts with, each with a note on why. It is the same idea as <a href="https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters">Spring Boot starters</a>, for any kind of app. The shop's starter adds two settings to the ones every small web service gets:</p>
+      <pre><code>starter: shop-service
 version: 1
-about: A queue worker whose processes supervisord runs, with its settings in .env.
-looks_for:
-  files: [supervisord.conf, .env]
-owns: [WORKER_]
+after: [web]
 defaults:
-  - key: WORKER_CONCURRENCY
-    value: &quot;4&quot;
-    reason: Four jobs at once, so that one slow job does not hold up the queue and the worker stays within one CPU.
-  - key: WORKER_MAX_ATTEMPTS
-    value: &quot;3&quot;
-    reason: A failed job is tried three times before it is set aside for a person, which covers a brief outage.
-  - key: WORKER_VISIBILITY_TIMEOUT_SECONDS
-    value: &quot;300&quot;
-    reason: A job a worker took and did not finish goes back to the queue after five minutes, so a crash loses no job.
-wires:
-  approval: live</code></pre>
-  <p class="small"><code>looks_for</code>: how to spot this kind of app. <code>owns</code>: the settings it may set. <code>approval: live</code>: production changes need your yes.</p>
+  - key: SHOP_CACHE_SECONDS
+    value: &quot;60&quot;
+    reason: Pages are cached for a minute, so a change to a price is seen within a minute.
+  - key: SHOP_TIMEOUT_SECONDS
+    value: &quot;10&quot;
+    reason: A request stops after ten seconds, so a slow payment provider cannot hold every worker.</code></pre>
+      <p>Ravi keeps the starter in the hub. A new version counts only once he approves it.</p>
+    </div></li>
+    <li><span class="num">2</span><div class="body">
+      <h3>Nadia connects the storefront with one command</h3>
+      <p><code>cub mini adopt storefront</code> gives the storefront the team's settings, each with its reason. Her own values stay: she set a 30-second cache for production during sales, and the starter leaves it alone. Nothing reaches production until she approves it.</p>
+    </div></li>
+    <li><span class="num">3</span><div class="body">
+      <h3>An agent's change to production waits</h3>
+      <p>Her agent turns on debug logging. Staging gets it at once. Production waits, and she says no, with the reason the next agent is told.</p>
+    </div></li>
+    <li><span class="num">4</span><div class="body">
+      <h3>Ravi fixes production once, for every service</h3>
+      <p>He sets a request size limit and a rate limit on the storefront's production copy, each with his reason. Then he adds both to the starter as version 2, and approves it.</p>
+    </div></li>
+    <li><span class="num">5</span><div class="body">
+      <h3>The next service starts with the fixes</h3>
+      <p>The orders service connects with version 2 and gets Ravi's limits, with his reasons. Nobody types them again. The storefront takes version 2 too, and keeps its own values. Its production copy changes only with an approval.</p>
+    </div></li>
+  </ol>
+  <p class="small">Both services run on Vercel. The Vercel starter is in preview: it runs against a local stand-in, not a real Vercel account yet. The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs the same loop on your laptop, with every command.</p>
   <ul class="plain">
-    <li><strong>Your values win.</strong> Set <code>WORKER_CONCURRENCY=8</code> and you keep 8.</li>
-    <li><strong>It only runs once,</strong> when the app is set up. After that the values are yours.</li>
+    <li><strong>Your values win.</strong> A value you set is never replaced by a starter.</li>
+    <li><strong>It writes once,</strong> when the app is connected or takes a new version. After that the values are yours.</li>
     <li><strong>Fix a default once</strong> and every new app gets the fix.</li>
     <li><strong>No code.</strong> One command checks a starter before anyone uses it.</li>
   </ul>
-  <p class="small">Starters are off by default; one setting turns them on. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how to turn them on, use the ones that come with confighub mini, and write your own.</p>
+  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">a small web service</a> and for a Kustomize repository that <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a> deploys. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">apps that read AWS Parameter Store</a> are in preview. Starters are off until one setting turns them on. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how to turn them on, keep them in your hub, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>.</p>
 </section>
 
 <section>
@@ -268,7 +282,7 @@ wires:
 </div>
 
 <footer><div class="wrap">
-  <p>ConfigHub plugin 0.83.1 and confighub mini 0.10.7-mini.24, for macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">Documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/issues">Report a problem</a></p>
+  <p>ConfigHub plugin 0.84.0 and confighub mini 0.11.1-mini.1, for macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">Documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/issues">Report a problem</a></p>
 </div></footer>
 </body>
 </html>
