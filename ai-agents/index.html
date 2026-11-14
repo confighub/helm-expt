@@ -109,23 +109,40 @@ ul.tight li{margin:.25rem 0}
 
 <div class="wrap">
 
-<section>
+<section id="install">
   <p class="eyebrow">ConfigHub for coding agents</p>
-  <h1>Ship faster with coding agents. You decide what reaches production.</h1>
-  <p class="lead">ConfigHub is a small server, called a hub, that holds your app's settings. Your agents can change the staging settings whenever they like, but nothing changes in production until you say yes. And every change comes with a note on why it was made.</p>
-  <p>You can run the hub on your laptop, or share one with your team. The easiest way in is the ConfigHub plugin for Claude Code: ask for an app "using ConfigHub" and it sets up a hub for you. It works with Codex too.</p>
-  <div class="two" style="margin-top:1.2rem">
-    <div>
-      <a class="btn primary" href="#install">Install the plugin</a>
-      <p class="muted" style="margin-top:.5rem">Runs on your laptop. No account, no Docker.</p>
+  <h1>Your coding agent changes staging. You approve production.</h1>
+  <p class="lead">ConfigHub is a small server, called a hub, that keeps a staging copy and a production copy of your app's settings. Each change shows who made it and why.</p>
+  <div class="grid3" style="margin-top:1.2rem">
+    <div class="card"><h3>Staging moves fast</h3><p>Your agents change the staging settings whenever they like.</p></div>
+    <div class="card"><h3>Production waits for you</h3><p>A change to production takes effect only after a person approves it.</p></div>
+    <div class="card"><h3>Every change has a reason</h3><p>The next agent is told what was changed, and why, before it undoes it.</p></div>
+  </div>
+  <h2 style="margin-top:2rem">Install the plugin</h2>
+  <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+  <p>Then, in an empty folder, ask Claude Code:</p>
+  <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
+  <p class="muted">The plugin starts the hub on your laptop. It is free, needs no account and no Docker, and works on macOS and Linux. The hub on your laptop is called confighub mini. To remove it, run <code>cub mini uninstall --delete-data</code>. Your app's files are never touched.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Step-by-step walkthroughs</a> <a class="btn" href="#where">Use a shared hub with your team</a></p>
+</section>
+<section>
+  <h2>Three ways to start</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>A new app</h3>
+      <p>You want an app with a staging and a production setup. Ask for it "using ConfigHub", and the agent writes the app and sets up the hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
     </div>
-    <div>
-      <a class="btn" href="#where">Use a shared hub with your team</a>
-      <p class="muted" style="margin-top:.5rem">We host it, or you run it on your own servers.</p>
+    <div class="card">
+      <h3>An app you already have</h3>
+      <p>Your settings live in <code>.env.staging</code> and <code>.env.production</code>, Terraform var files, or a Kustomize repository that Argo CD or Flux deploys. Ask the agent to "attach ConfigHub to this app". It won't touch your files. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you have</a></p>
+    </div>
+    <div class="card">
+      <h3>Software that comes with ConfigHub</h3>
+      <p>A vendor ships an app with a hub built in. You change it to suit you, and keep your changes when the next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
     </div>
   </div>
 </section>
-
 <section id="where">
   <h2>Where your hub runs</h2>
   <div class="grid3">
@@ -163,35 +180,6 @@ ul.tight li{margin:.25rem 0}
 </section>
 
 <section>
-  <h2>How it works</h2>
-  <div class="grid3">
-    <div class="card">
-      <h3>1. Install the plugin</h3>
-      <p>From the first session it keeps track of what your agents change and why. You don't need a hub yet.</p>
-    </div>
-    <div class="card">
-      <h3>2. Ask for an app</h3>
-      <p>Say "using ConfigHub" in your request. The agent writes the app and starts a hub on your laptop, with staging and production settings.</p>
-    </div>
-    <div class="card">
-      <h3>3. Approve what goes live</h3>
-      <p>Agents change staging. Anything for production waits until you approve it.</p>
-    </div>
-  </div>
-  <p>Already have an app? If its settings live in <code>.env.staging</code> and <code>.env.production</code>, Terraform var files, or a Kustomize repo that Argo CD or Flux deploys, just ask the agent to "attach ConfigHub to this app". It won't touch your files. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Use it with an app you have</a></p>
-</section>
-
-<section id="install">
-  <h2>Get started</h2>
-  <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
-claude plugin install confighub@confighub</code></pre>
-  <p>Then, in an empty folder, ask Claude Code:</p>
-  <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
-  <p class="muted">Works on macOS and Linux. To remove it, run <code>cub mini uninstall --delete-data</code>. Your app's files are never touched.</p>
-  <p><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Step-by-step walkthroughs</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">What happens, and why</a></p>
-</section>
-
-<section>
   <h2>Everyday commands</h2>
   <ul class="plain">
     <li><code>/confighub:why LOG_LEVEL</code> in Claude Code shows every change to a setting, and what was asked for each time.</li>
@@ -226,14 +214,10 @@ defaults:
       <p><code>cub mini adopt storefront</code> gives the storefront the team's settings, each with its reason. Her own values stay: she set a 30-second cache for production during sales, and the starter leaves it alone. Nothing reaches production until she approves it.</p>
     </div></li>
     <li><span class="num">3</span><div class="body">
-      <h3>An agent's change to production waits</h3>
-      <p>Her agent turns on debug logging. Staging gets it at once. Production waits, and she says no, with the reason the next agent is told.</p>
-    </div></li>
-    <li><span class="num">4</span><div class="body">
       <h3>Ravi fixes production once, for every service</h3>
       <p>He sets a request size limit and a rate limit on the storefront's production copy, each with his reason. Then he adds both to the starter as version 2, and approves it.</p>
     </div></li>
-    <li><span class="num">5</span><div class="body">
+    <li><span class="num">4</span><div class="body">
       <h3>The next service starts with the fixes</h3>
       <p>The orders service connects with version 2 and gets Ravi's limits, with his reasons. Nobody types them again. The storefront takes version 2 too, and keeps its own values. Its production copy changes only with an approval.</p>
     </div></li>
@@ -241,11 +225,10 @@ defaults:
   <p class="small">Both services run on Vercel. Here a local stand-in answers as Vercel would, so you need no Vercel account. The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs the same loop on your laptop, with every command.</p>
   <ul class="plain">
     <li><strong>Your values win.</strong> A value you set is never replaced by a starter.</li>
-    <li><strong>It writes once,</strong> when the app is connected or takes a new version. After that the values are yours.</li>
     <li><strong>Fix a default once</strong> and every new app gets the fix.</li>
     <li><strong>No code.</strong> One command checks a starter before anyone uses it.</li>
   </ul>
-  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">a small web service</a> and for a Kustomize repository that <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a> deploys. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">apps that read AWS Parameter Store</a> can deliver to a real Vercel project or AWS account you sign in to, or to a stand-in with no account. Delivery to a real Vercel Hobby project has run on the published package; delivery to a real AWS account has been run with a pre-release build of the add-on, not yet with the packaged one. Starters for Temporal workers and Unikraft apps use a stand-in unless you ask for the real service. A starter for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">experiments in a Daytona sandbox</a> can be tried on your computer first. Starters are off until one setting turns them on. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how to turn them on, keep them in your hub, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>.</p>
+  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">a small web service</a> and for a Kustomize repository that <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a> deploys. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">apps that read AWS Parameter Store</a> can deliver to a real Vercel project or AWS account you sign in to, or to a stand-in with no account. Delivery to a real Vercel Hobby project has run on the published package; delivery to a real AWS account has been run with a pre-release build of the add-on, not yet with the packaged one. Starters for Temporal workers and Unikraft apps use a stand-in unless you ask for the real service. A starter for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">experiments in a Daytona sandbox</a> can be tried on your computer first. Starters are off until you turn them on. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how, and how to <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>.</p>
 </section>
 
 <section>
