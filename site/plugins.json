@@ -104,8 +104,8 @@
       ],
       "repository": "confighub/installer",
       "release": {
-        "date": "2026-07-29",
-        "tag": "v0.1.0"
+        "date": "2026-11-03",
+        "tag": "v0.3.4"
       },
       "install": "cub plugin install confighub/installer",
       "next": {
@@ -140,8 +140,8 @@
       ],
       "repository": "confighub/cub-scout",
       "release": {
-        "date": "2026-10-26",
-        "tag": "v2.14.2"
+        "date": "2026-11-13",
+        "tag": "v2.15.1"
       },
       "install": "cub plugin install confighub/cub-scout",
       "next": {
@@ -177,8 +177,8 @@
       ],
       "repository": "confighub/cub-server",
       "release": {
-        "date": "2026-10-26",
-        "tag": "v0.2.10"
+        "date": "2026-11-13",
+        "tag": "v0.4.0"
       },
       "install": "cub plugin install confighub/cub-server",
       "next": {
@@ -195,8 +195,8 @@
       ],
       "repository": "confighub/cub-demo",
       "release": {
-        "date": "2026-10-07",
-        "tag": "v0.2.4"
+        "date": "2026-11-05",
+        "tag": "v0.3.0"
       },
       "install": "cub plugin install confighub/cub-demo",
       "next": {
