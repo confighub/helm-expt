@@ -577,7 +577,7 @@ cub plugin install confighub/cub-workshop@v0.6.61
 cub config check ./acme-web.yaml</code></pre>
 <p>The check reads four Kubernetes objects. It does not write ConfigHub data or touch a cluster. The retained <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">plain-YAML import receipt</a> records this four-object import boundary, but explicitly does not claim a live deployment.</p>
 <h2 id="2-create-one-local-cluster-and-target">2. Create one local cluster and target</h2>
-<pre><code>cub cluster up --name demo
+<pre><code>cub cluster up demo
 source ~/.confighub/clusters/demo.env
 cub target get demo/target</code></pre>
 <p><code>cub cluster up</code> creates a kind cluster, installs Argo CD and the live-status helper, and creates two ConfigHub Spaces: <code>demo</code> for the target and worker, and <code>demo-argo-apps</code> for the root Application and its children. The target used by deployments is <code>demo/target</code>.</p>
@@ -619,7 +619,7 @@ kubectl get deployment,service,pods -n acme-web</code></pre>
 <ul><li>To change the Base and promote the reviewed result, follow <a href="variants-after-upload.html">variants after upload</a> and the <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a>.</li><li>To bring an existing Argo CD app or app-of-apps estate, use <a href="https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a>. It begins read-only and preserves Argo CD as the delivery controller.</li><li>To check an application together with platform dependencies, continue to <a href="https://confighub.github.io/helm-expt/site/put-an-app-on-a-platform.html">Put an app on a platform</a>.</li></ul>
 <h2 id="teardown">Teardown</h2>
 <p>Only remove the resources created by this walkthrough:</p>
-<pre><code>cub cluster down --name demo
+<pre><code>cub cluster down demo
 cub space delete acme-web-dev --recursive
 cub space delete acme-web-base --recursive</code></pre>
 <p>If deletion is refused, read the named dependency or gate instead of forcing a broad cleanup.</p>

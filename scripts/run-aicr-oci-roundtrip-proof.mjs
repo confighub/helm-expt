@@ -376,7 +376,7 @@ function startRegistry(name) {
 function clusterUp(context, name) {
   const result = tryCommand(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports"],
+    ["cluster", "up", name, "--no-ports"],
     { env: cubEnvironment(context), timeout: 900_000 },
   );
   check(
@@ -388,7 +388,7 @@ function clusterUp(context, name) {
 function clusterDown(context, name) {
   const result = tryCommand(
     "cub",
-    ["cluster", "down", "--name", name, "--force"],
+    ["cluster", "down", name, "--force"],
     { env: cubEnvironment(context), timeout: 600_000 },
   );
   if (!result.ok && clusterPresent(name)) {

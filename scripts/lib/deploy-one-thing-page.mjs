@@ -19,17 +19,19 @@ const CLUSTER = "workshop";
 // The names the walk used where this page prints a placeholder.
 const WALK_SPACE = `cwwalk-1008-${DEPLOY_ONE_ENTRY}`;
 const WALK_CLUSTER = "cwwalk-1008-kind";
+// The flag the walk's cub v0.8.7 took the cluster name with.
+const WALK_NAME_FLAG = "--name";
 
 // A command from the walk log, written with the listing's names.
 const WALK_COMMANDS = {
-  clusterUp: `cub cluster up --name ${CLUSTER} --no-k8sbot`,
+  clusterUp: `cub cluster up ${CLUSTER} --no-k8sbot`,
   applications: "kubectl -n argocd get applications.argoproj.io",
   workload: "kubectl -n nginx get deployment,service,pods,networkpolicy,pdb",
   removeApplication: `cub unit delete --space ${CLUSTER}-argo-apps ${SPACE}-dev`,
   publishApps: `cub release publish ${CLUSTER}-argo-apps`,
   deleteDev: `cub space delete --recursive ${SPACE}-dev`,
   deleteBase: `cub space delete --recursive ${SPACE}`,
-  clusterDown: `cub cluster down --name ${CLUSTER} --delete-config`,
+  clusterDown: `cub cluster down ${CLUSTER} --delete-config`,
 };
 
 // Output the walk log holds, line for line.
@@ -81,6 +83,8 @@ const OBJECT_KINDS = [
 function asWalked(command) {
   return command
     .replaceAll(`${CLUSTER}-argo-apps`, `${WALK_CLUSTER}-argo-apps`)
+    // The walk's cub took the cluster name as a flag; cub now takes it as an argument.
+    .replace(/^cub cluster (up|down) /, (_, verb) => `cub cluster ${verb} ${WALK_NAME_FLAG} `)
     .replaceAll(`--name ${CLUSTER}`, `--name ${WALK_CLUSTER}`)
     .replaceAll(SPACE, WALK_SPACE);
 }
@@ -207,7 +211,7 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
       <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
       <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>${CLUSTER}/target</code>.</p>
       ${commandBlock([{ comment: "create the cluster, its Argo CD and its Target", cmd: WALK_COMMANDS.clusterUp }])}
-      <p>The walk ran this command with a cluster name of its own and with <code>--no-argobot</code>, which cub v0.9.0 renamed <code>--no-k8sbot</code>. Without that flag the command also installs argobot. In a <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md">run on 2026-11-02</a> that install failed.</p>
+      <p>The walk ran this command with a cluster name of its own, given with <code>--name</code> as its cub then required, and with <code>--no-argobot</code>, which cub v0.9.0 renamed <code>--no-k8sbot</code>. Without that flag the command also installs argobot. In a <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md">run on 2026-11-02</a> that install failed.</p>
       <p>The command changes your machine and your organization. It creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
       <p>It also prints the Argo CD admin password to the terminal.</p>
       <h3 id="release">Release it to that cluster</h3>

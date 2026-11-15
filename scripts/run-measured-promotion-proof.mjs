@@ -660,7 +660,7 @@ function waitForArgo(cluster, application, digest) {
 }
 
 function clusterUp(context, name) {
-  const result = tryCommand("cub", ["cluster", "up", "--name", name, "--no-ports", "--context", context], { timeout: 900_000 });
+  const result = tryCommand("cub", ["cluster", "up", name, "--no-ports", "--context", context], { timeout: 900_000 });
   check(result.ok, `cub cluster up failed: ${result.error}`);
   check(clusterPresent(name), `kind cluster ${name} is missing`);
   check(spacePresent(context, name), `cluster Space ${name} is missing`);
@@ -668,7 +668,7 @@ function clusterUp(context, name) {
 }
 
 function clusterDown(context, name) {
-  const result = tryCommand("cub", ["cluster", "down", "--name", name, "--delete-config", "--force", "--context", context], { timeout: 600_000 });
+  const result = tryCommand("cub", ["cluster", "down", name, "--delete-config", "--force", "--context", context], { timeout: 600_000 });
   if (!result.ok && clusterPresent(name)) tryCommand("kind", ["delete", "cluster", "--name", name], { timeout: 180_000 });
   for (const space of [`${name}-argo-apps`, `argobot-${name}`, `${name}-cluster`, name]) deleteSpace(context, space);
 }

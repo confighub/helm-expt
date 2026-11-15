@@ -68,7 +68,7 @@ export const NEXT_STEP_STATES = new Map([
   ["not-available", "Not available yet"],
 ]);
 
-// The Target the deploy commands name. `cub cluster up --name workshop` makes
+// The Target the deploy commands name. `cub cluster up workshop` makes
 // exactly this one, which is what the site's own deploy walkthrough uses.
 export const NEXT_STEPS_TARGET = "workshop/target";
 
@@ -560,7 +560,7 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
         }
       : commands.length > 0 && path.kind === "literal-bundle" && listing.source?.format === "helm"
         ? {
-            ...noteList(`The target \`${NEXT_STEPS_TARGET}\` comes from \`cub cluster up --name workshop --no-k8sbot\`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without \`--no-k8sbot\` failed while it installed argobot.`),
+            ...noteList(`The target \`${NEXT_STEPS_TARGET}\` comes from \`cub cluster up workshop --no-k8sbot\`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without \`--no-k8sbot\` failed while it installed argobot.`),
             ...walkOf(BUNDLE_ROUTE_WALK),
           }
         : {};

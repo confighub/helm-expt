@@ -3,7 +3,7 @@
 //
 // Phases, one per invocation, so every mutation stays a deliberate step:
 //
-//   --up        cub cluster up --name simgpu (kind + Argo CD + argobot + the
+//   --up        cub cluster up simgpu (kind + Argo CD + argobot + the
 //               cluster and argo-apps Spaces, with the placeholder gate on)
 //   --deliver   upload the inference-workloads base by pinned digest, create
 //               the target-bound variant, publish the release
@@ -37,7 +37,7 @@ const DIGEST_ROW = readFileSync(join(repoRoot, "data", "certified-bundles", "rec
 const BUNDLE_REF = `oci://${DIGEST_ROW[10].replace(/:latest$/, "")}@${DIGEST_ROW[6]}`;
 
 if (mode === "--up") {
-  console.log(cub("cluster", "up", "--name", "simgpu"));
+  console.log(cub("cluster", "up", "simgpu"));
   process.exit(0);
 }
 if (mode === "--deliver") {

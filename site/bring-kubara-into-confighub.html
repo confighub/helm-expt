@@ -771,7 +771,7 @@
 
 <span class="term-prompt">$</span> cub variant promote metrics-server-demo-dev --dry-run</code></pre>
         <p>If a remote step fails, inspect the records already created before retrying. Preserve existing resources; use the linked runbook for scoped cleanup.</p>
-        <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
+        <pre><code>cub cluster up demo --space demo-cluster</code></pre>
         <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. It needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
         </div>
       </details>

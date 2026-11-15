@@ -1809,7 +1809,7 @@ function waitForApplication({
 function clusterUp(context, name) {
   const result = cubTry(
     context,
-    ["cluster", "up", "--name", name, "--no-ports"],
+    ["cluster", "up", name, "--no-ports"],
     { timeout: 900_000 },
   );
   check(
@@ -1821,7 +1821,7 @@ function clusterUp(context, name) {
 function clusterDown(context, name) {
   const result = cubTry(
     context,
-    ["cluster", "down", "--name", name, "--force"],
+    ["cluster", "down", name, "--force"],
     { timeout: 600_000 },
   );
   if (!result.ok && clusterPresent(name)) {

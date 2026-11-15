@@ -646,7 +646,7 @@ function runController({
   };
   let up = false;
   try {
-    commandVisible("cub", ["cluster", "up", "--name", clusterName], {
+    commandVisible("cub", ["cluster", "up", clusterName], {
       timeout: 900_000,
     });
     up = existsSync(kubeconfig);
@@ -689,7 +689,7 @@ function runController({
     result.error = sanitizeError(error);
   } finally {
     if (up || cubClusterPresent(clusterName)) {
-      tryCommand("cub", ["cluster", "down", "--name", clusterName, "--force"], {
+      tryCommand("cub", ["cluster", "down", clusterName, "--force"], {
         timeout: 600_000,
       });
     }

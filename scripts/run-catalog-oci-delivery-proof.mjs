@@ -884,7 +884,6 @@ function runProof() {
     const up = tsh("cub", [
       "cluster",
       "up",
-      "--name",
       rig,
       "--space",
       clusterSpace,
@@ -924,7 +923,6 @@ function runProof() {
       const down = tsh("cub", [
         "cluster",
         "down",
-        "--name",
         rig,
         "--force",
       ], { timeout: 360_000 });
