@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="ConfigHub is a plugin for Claude Code. Your coding agent can change your app's staging settings freely; a change to its production settings needs your approval.">
+<meta name="description" content="See what your coding agent changed and why. Add a local ConfigHub hub to review production settings before delivery.">
 <title>ConfigHub for AI agents</title>
 </head>
 <body>
@@ -111,20 +111,21 @@ ul.tight li{margin:.25rem 0}
 
 <section id="install">
   <p class="eyebrow">ConfigHub for coding agents</p>
-  <h1>Your coding agent changes staging. You approve production.</h1>
-  <p class="lead">ConfigHub is a small server, called a hub, that keeps a staging copy and a production copy of your app's settings. Each change shows who made it and why.</p>
+  <h1>See what your coding agent changed and why.</h1>
+  <p class="lead">The ConfigHub plugin keeps a record of your agent’s settings changes. Add a local hub when you want your agent to change staging and leave production decisions to you.</p>
   <div class="grid3" style="margin-top:1.2rem">
-    <div class="card"><h3>Staging moves fast</h3><p>Your agents change the staging settings whenever they like.</p></div>
-    <div class="card"><h3>Production waits for you</h3><p>A change to production takes effect only after a person approves it.</p></div>
-    <div class="card"><h3>Every change has a reason</h3><p>The next agent is told what was changed, and why, before it undoes it.</p></div>
+    <div class="card"><h3>Start with the record</h3><p>See the settings your agent changed and the reason it gave. No hub needed.</p></div>
+    <div class="card"><h3>Keep staging separate</h3><p>A local hub gives staging and production their own settings.</p></div>
+    <div class="card"><h3>Approve what ships</h3><p>Connect your delivery path so production takes the settings you approved.</p></div>
   </div>
   <h2 style="margin-top:2rem">Install the plugin</h2>
   <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
-  <p>Then, in an empty folder, ask Claude Code:</p>
+  <p>In a project, ask Claude Code to change a setting. Then run <code>/confighub:why SETTING</code> in the same session to see the recorded change and reason.</p>
+  <p>Want to try the hub? In an empty Git repository, ask Claude Code:</p>
   <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
-  <p class="muted">The plugin starts the hub on your laptop. It is free, needs no account and no Docker, and works on macOS and Linux. The hub on your laptop is called confighub mini. To remove it, run <code>cub mini uninstall --delete-data</code>. Your app's files are never touched.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Step-by-step walkthroughs</a> <a class="btn" href="#where">Use a shared hub with your team</a></p>
+  <p class="muted">The free local hub runs on macOS and Linux without a ConfigHub account, Docker or Kubernetes. Connecting an existing app reads its settings files without rewriting them.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Choose a walkthrough</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md">Set up Codex</a></p>
 </section>
 <section>
   <h2>Three ways to start</h2>
@@ -183,7 +184,7 @@ claude plugin install confighub@confighub</code></pre>
   <h2>Everyday commands</h2>
   <ul class="plain">
     <li><code>/confighub:why LOG_LEVEL</code> in Claude Code shows every change to a setting, and what was asked for each time.</li>
-    <li><code>cub mini waiting</code> shows what's waiting for you. <code>cub mini approve</code> or <code>cub mini refuse</code> decides it.</li>
+    <li><code>cub mini waiting</code> shows what's waiting for you. Use the exact order name it shows when you run <code>cub mini approve BASE/ORDER</code> or <code>cub mini refuse BASE/ORDER</code>.</li>
     <li>To roll back, ask the agent to put the old value back, then approve it.</li>
     <li>When a Helm chart you use has a new version, you can upgrade and keep your own values.</li>
   </ul>
@@ -192,7 +193,7 @@ claude plugin install confighub@confighub</code></pre>
 
 <section id="starters">
   <h2>An example: a small web shop</h2>
-  <p>A team runs a web shop made of two services, a storefront and an orders service. Nadia builds them with an agent. Ravi looks after production. One hub keeps the settings of both, with a staging copy and a production copy of each.</p>
+  <p>A team runs a web shop made of two services, a storefront and an orders service. A developer builds them with an agent. The production owner hardens the setup. One hub keeps the settings of both, with a staging copy and a production copy of each.</p>
   <ol class="walk">
     <li><span class="num">1</span><div class="body">
       <h3>The team writes its defaults once</h3>
@@ -207,28 +208,30 @@ defaults:
   - key: SHOP_TIMEOUT_SECONDS
     value: &quot;10&quot;
     reason: A request stops after ten seconds, so a slow payment provider cannot hold every worker.</code></pre>
-      <p>Ravi keeps the starter in the hub. A new version counts only once he approves it.</p>
+      <p>The owner keeps the starter in the hub. A new version counts only once he approves it.</p>
     </div></li>
     <li><span class="num">2</span><div class="body">
-      <h3>Nadia connects the storefront with one command</h3>
+      <h3>The developer connects the storefront with one command</h3>
       <p><code>cub mini adopt storefront</code> gives the storefront the team's settings, each with its reason. Her own values stay: she set a 30-second cache for production during sales, and the starter leaves it alone. Nothing reaches production until she approves it.</p>
     </div></li>
     <li><span class="num">3</span><div class="body">
-      <h3>Ravi fixes production once, for every service</h3>
-      <p>He sets a request size limit and a rate limit on the storefront's production copy, each with his reason. Then he adds both to the starter as version 2, and approves it.</p>
+      <h3>A fix becomes the default for the next app</h3>
+      <p>The owner sets a request size limit and a rate limit on the storefront's production copy, each with his reason. Then the owner adds both to the starter as version 2, and approves it.</p>
     </div></li>
     <li><span class="num">4</span><div class="body">
       <h3>The next service starts with the fixes</h3>
-      <p>The orders service connects with version 2 and gets Ravi's limits, with his reasons. Nobody types them again. The storefront takes version 2 too, and keeps its own values. Its production copy changes only with an approval.</p>
+      <p>The orders service connects with version 2 and gets the limits, with their reasons. Nobody types them again. The storefront takes version 2 too, and keeps its own values. Its production copy changes only with an approval.</p>
     </div></li>
   </ol>
-  <p class="small">Both services run on Vercel. Here a local stand-in answers as Vercel would, so you need no Vercel account. The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs the same loop on your laptop, with every command.</p>
+  <p class="small">Try the settings and upgrade loop without a provider account. The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs it on your laptop and checks the settings and reasons in the hub. For a running deployment, see the Vercel walkthrough below.</p>
   <ul class="plain">
     <li><strong>Your values win.</strong> A value you set is never replaced by a starter.</li>
     <li><strong>Fix a default once</strong> and every new app gets the fix.</li>
     <li><strong>No code.</strong> One command checks a starter before anyone uses it.</li>
   </ul>
-  <p>confighub mini comes with starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">a small web service</a> and for a Kustomize repository that <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a> deploys. Starters for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">apps on Vercel</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">apps that read AWS Parameter Store</a> can deliver to a real Vercel project or AWS account you sign in to, or to a stand-in with no account. Delivery to a real Vercel Hobby project has run on the published package; delivery to a real AWS account has been run with a pre-release build of the add-on, not yet with the packaged one. Starters for Temporal workers and Unikraft apps use a stand-in unless you ask for the real service. A starter for <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">experiments in a Daytona sandbox</a> can be tried on your computer first. Starters are off until you turn them on. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how, and how to <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#what-a-starter-is">write your own</a>.</p>
+  <p>Start with the walkthrough for your app: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a>, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a>. Use starters by opting in or by connecting to a hub with an approved starter catalog. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how to use them and write your own.</p>
+  <p>Vercel and AWS Parameter Store have no-account stand-ins. Delivery to a live Vercel Hobby project ran on a published package. The shared-hub AWS run read back the approved value in Parameter Store using the released CLI and a separately built adapter. The Daytona walkthrough starts with an experiment you can try on your computer.</p>
+  <p>Then try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-cub-mini.md">the cub mini tour</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-13-first-hour.md">your first hour</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">approve from Slack</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-21-ana-sized.md">size a service from real use</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md">Git, the hub and what is running</a>, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">one base for ten apps</a>. The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">walkthrough index</a> has more tools and user stories.</p>
 </section>
 
 <section>
@@ -248,16 +251,16 @@ defaults:
       <p>Take away one agent's access, or shut the hub down. The agent is cut off at its next request. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#stopping-an-agent">Stopping agents</a></p>
     </div>
     <div>
-      <h3>A record nobody can quietly edit</h3>
-      <p>Every change is signed when it's recorded. One command tells you if anything was edited, added or deleted later. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a></p>
+      <h3>Signed records</h3>
+      <p>You can verify whether signed entries were altered. Detecting some deletions requires a copy kept elsewhere. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a></p>
     </div>
     <div>
       <h3>Agents asking each other</h3>
-      <p>When one agent asks another for a change, the hub records who asked, so you always know where a change came from. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#one-agent-asks-another-for-a-change">Requests between agents</a></p>
+      <p>On the same hub, <code>cub mini</code> can check and record a request from one agent to another. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#one-agent-asks-another-for-a-change">Requests between agents</a></p>
     </div>
     <div>
       <h3>What it cost</h3>
-      <p>Every change shows how many tokens the agent spent making it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">Model use</a></p>
+      <p>See token counts for supported sessions in which the client reports usage. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">Model use</a></p>
     </div>
   </div>
 </section>
@@ -265,7 +268,7 @@ defaults:
 </div>
 
 <footer><div class="wrap">
-  <p>ConfigHub plugin 0.90.0 and confighub mini 0.11.1-mini.7, for macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">Documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/issues">Report a problem</a></p>
+  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">Documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/issues">Report a problem</a></p>
 </div></footer>
 </body>
 </html>
