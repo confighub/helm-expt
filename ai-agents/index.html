@@ -118,14 +118,14 @@ ul.tight li{margin:.25rem 0}
   <p class="eyebrow">ConfigHub for apps made with AI</p>
   <h1>Your agent makes your apps. Durable config makes the platform.</h1>
   <p class="lead">Ask a coding agent for an app and it writes the app, with a staging and a production setup. ConfigHub keeps that setup as durable config: every setting with its reason, kept through the next session, the next version and the next app. Kept that way, the setup of your apps is your platform.</p>
-  <h2 style="margin-top:2rem">Install the plugin</h2>
+  <h2 style="margin-top:2rem">Install the Claude plugin</h2>
   <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
-  <p>The plugin works alone, with no hub. Ask Claude Code to change a setting, then run <code>/confighub:why SETTING</code> to see the recorded change and the reason for it.</p>
+  <p>The Claude plugin works alone, with no hub. Ask Claude Code to change a setting, then run <code>/confighub:why SETTING</code> to see the recorded change and the reason for it.</p>
   <p>Want staging and production too? In an empty Git repository, ask Claude Code:</p>
   <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
   <p class="muted">The free local hub runs on macOS and Linux without a ConfigHub account, Docker or Kubernetes. Connecting an app you already have reads its settings files without rewriting them. If you are an AI agent, start with <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Choose a walkthrough</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md">Set up Codex</a></p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Choose a walkthrough</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md">Set up Codex instead of Claude</a></p>
 </section>
 
 <section id="why">
@@ -181,26 +181,27 @@ defaults:
 </section>
 
 <section id="start">
-  <h2>Start from your app</h2>
+  <h2>Three ways to start</h2>
   <div class="grid3">
     <div class="card">
-      <h3>A new app</h3>
-      <p>Ask for it "using ConfigHub". The agent writes the app and sets up the hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
+      <h3>Make a new app</h3>
+      <p>Ask your agent to build it "using ConfigHub". It writes the app and gives it a staging and a production setup. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
     </div>
     <div class="card">
-      <h3>An app you already have</h3>
-      <p>Ask the agent to "attach ConfigHub to this app". It reads your settings files and won't touch them. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
+      <h3>Attach an app you already have</h3>
+      <p>Ask your agent to "attach ConfigHub to this app". Your staging and production values stay as they are, and your files are not changed. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
     </div>
     <div class="card">
-      <h3>Software that comes with ConfigHub</h3>
-      <p>A vendor ships an app with a hub built in. You keep your changes when the next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
+      <h3>Use a starter</h3>
+      <p>A starter is a ready setup for one kind of app or service, such as a project on Vercel or a repository that Argo CD deploys. It gives your app sensible settings, each with its reason, and connects staging, production and delivery for you. <a href="#works-with">Starters for the tools you use</a></p>
     </div>
   </div>
+  <p class="small">Some software comes with a hub inside. You change it to suit you, and keep your changes when its next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
 </section>
 
 <section id="works-with">
-  <h2>Works with the tools and services you use</h2>
-  <p>A starter wires an app into ConfigHub for you. It looks for what the app already uses, such as a Vercel project or a repository that Argo CD deploys. Then it sets up the staging and production copies, puts production behind your approval, and connects delivery. It leaves alone anything you set yourself. Connect the app, then review the first production delivery when your starter opens an order. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
+  <h2>Starters autowire your app to the tools you use</h2>
+  <p>Use a "starter" to autowire an app into ConfigHub. A starter looks for what the app already uses, such as a Vercel project or a repository that Argo CD deploys. Then it sets up the staging and production copies, puts production behind your approval, and connects delivery. It leaves alone anything you set yourself. Connect the app, then review the first production delivery when your starter opens an order. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
   <div class="grid4">
     <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web</a></h3><p>A web service that reads its settings from env files.</p></div>
     <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h3><p>A project on Vercel that takes the settings you approved.</p></div>
@@ -217,7 +218,7 @@ defaults:
 </section>
 
 <section id="compare">
-  <h2>Platforms were built before the apps. Agents build the app first.</h2>
+  <h2>Agents + Durable Config = app platform without the pain</h2>
   <p>Platform engineering builds a platform and fits apps to it. Durable config starts with the app and keeps what the agent set up for it, so the platform grows out of the apps.</p>
   <div class="tablewrap"><table>
     <thead><tr><th></th><th>Platform engineering as we know it</th><th>Durable config</th></tr></thead>
@@ -246,10 +247,10 @@ defaults:
     </div></li>
     <li><span class="num">3</span><div class="body">
       <h3>The reason travels with the value <span class="badge ok">For agents</span></h3>
-      <p>An agent can't ask the platform team why a limit is set as it is. Without the reason it "fixes" the value, and the next agent fixes it back. With the record, the next agent can see why a value was chosen before changing it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">What the plugin records</a></p>
+      <p>An agent can't ask the platform team why a limit is set as it is. Without the reason it "fixes" the value, and the next agent fixes it back. With the record, the next agent can see why a value was chosen before changing it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">What the Claude plugin records</a></p>
     </div></li>
     <li><span class="num">4</span><div class="body">
-      <h3>Guardrails that hold against agents <span class="badge ok">For agents</span></h3>
+      <h3>Auto-staging and agentic guardrails <span class="badge ok">For agents</span></h3>
       <p>Give agents a way to test changes and give the owner a separate decision about production:</p>
       <ul class="tight">
         <li>a key of their own</li>
@@ -266,7 +267,8 @@ defaults:
 </section>
 
 <section id="daily">
-  <h2>Day to day, and when agents do real work</h2>
+  <h2>Upgrade to get more advanced operations and features</h2>
+  <p>Start with the Claude plugin alone. Add a hub, on your laptop or shared with your team, and you get these.</p>
   <div class="two">
     <div>
       <h3>Everyday commands</h3>
@@ -295,10 +297,22 @@ defaults:
   <p>A local hub runs on your own machine, free and with no account. A shared hub, on confighub.com or on your own servers, gives your team, your agents and your CI jobs one place, with the same commands. The same record then answers what security and compliance ask: who changed what, why, and who approved it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Moving to a shared hub</a> · <a href="https://docs.confighub.com">ConfigHub's documentation</a></p>
 </section>
 
+<section id="open">
+  <h2>Open, and yours to extend</h2>
+  <ul class="plain">
+    <li><strong>The Claude plugin is MIT-licensed.</strong> Read it, fork it and change it. <a href="https://github.com/confighubai/confighub-mini-plugin">The plugin on GitHub</a></li>
+    <li><strong>A starter is a plain YAML file.</strong> Write one for your stack, or ask your agent to, and share it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a starter</a></li>
+    <li><strong>The UI and the SDKs are open source,</strong> under the MIT license, so you can build your own tools on a hub. <a href="https://github.com/confighub/ui">The UI</a> · <a href="https://github.com/confighub/sdk">The SDK</a> · <a href="https://github.com/confighub/js-sdk">The JavaScript SDK</a></li>
+    <li><strong>Contributions are welcome.</strong> Fix a guide, share an example or propose a starter. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
+  </ul>
+  <p>The local hub is the full ConfigHub server, as one download for macOS and Linux. It is free and needs no account.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Click here to download a full ConfigHub binary</a></p>
+</section>
+
 </div>
 
 <footer><div class="wrap">
-  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Walkthroughs</a></p>
+  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Claude plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Walkthroughs</a></p>
 </div></footer>
 </body>
 </html>
