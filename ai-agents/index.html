@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="See what your coding agent changed and why. Add a local ConfigHub hub to review production settings before delivery.">
-<title>ConfigHub for AI agents</title>
+<meta name="description" content="Keep the setup your coding agent builds, with staging to try changes and owner approval before production.">
+<title>ConfigHub Durable Config</title>
 </head>
 <body>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -30,7 +31,7 @@
 }
 html{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;margin:0}
-.wrap{max-width:var(--w);margin:0 auto;padding-block:0;padding-inline:var(--gutter)}
+.wrap{max-width:var(--w);margin:0 auto;padding-block:0;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
 h1,h2,h3{line-height:1.2;text-wrap:balance;margin:0 0 .5rem}
 h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:600;letter-spacing:-.01em}
 h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:600;margin-top:0}
@@ -97,178 +98,207 @@ td code{white-space:nowrap}
 footer{padding-block:2.5rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
 .small{font-size:.86rem;color:var(--muted)}
 figure{margin:0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 0}
-@media (max-width:640px){.stats{grid-template-columns:1fr}}
-.stat{border-top:2px solid var(--accent);padding-top:.6rem}
-.stat .big{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat .what{color:var(--muted);font-size:.95rem;margin-top:.3rem}
 ul.tight{margin:.4rem 0 0;padding-left:1.1rem}
 ul.tight li{margin:.25rem 0}
 .cta{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0 .4rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media (max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.grid4{grid-template-columns:1fr}}
+.grid4 .card h3{font-size:1.02rem}
+.grid4 .card p{margin:.3rem 0 0;font-size:.95rem}
+.survives{margin:1rem 0 0}
+.survives .rung{grid-template-columns:11rem 1fr}
+@media (max-width:560px){.survives .rung{grid-template-columns:1fr;gap:.2rem}}
+.walk h3 .badge{margin-left:.4rem}
 </style>
 
 <div class="wrap">
 
 <section id="install">
-  <p class="eyebrow">ConfigHub for coding agents</p>
-  <h1>See what your coding agent changed and why.</h1>
-  <p class="lead">The ConfigHub plugin keeps a record of your agent’s settings changes. Add a local hub when you want your agent to change staging and leave production decisions to you.</p>
-  <div class="grid3" style="margin-top:1.2rem">
-    <div class="card"><h3>Start with the record</h3><p>See the settings your agent changed and the reason it gave. No hub needed.</p></div>
-    <div class="card"><h3>Keep staging separate</h3><p>A local hub gives staging and production their own settings.</p></div>
-    <div class="card"><h3>Approve what ships</h3><p>Connect your delivery path so production takes the settings you approved.</p></div>
-  </div>
+  <p class="eyebrow">ConfigHub for apps made with AI</p>
+  <h1>Your agent makes your apps. Durable config makes the platform.</h1>
+  <p class="lead">Ask a coding agent for an app and it writes the app, with a staging and a production setup. ConfigHub keeps that setup as durable config: every setting with its reason, kept through the next session, the next version and the next app. Kept that way, the setup of your apps is your platform.</p>
   <h2 style="margin-top:2rem">Install the plugin</h2>
   <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
-  <p>In a project, ask Claude Code to change a setting. Then run <code>/confighub:why SETTING</code> in the same session to see the recorded change and reason.</p>
-  <p>Want to try the hub? In an empty Git repository, ask Claude Code:</p>
+  <p>The plugin works alone, with no hub. Ask Claude Code to change a setting, then run <code>/confighub:why SETTING</code> to see the recorded change and the reason for it.</p>
+  <p>Want staging and production too? In an empty Git repository, ask Claude Code:</p>
   <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
-  <p class="muted">The free local hub runs on macOS and Linux without a ConfigHub account, Docker or Kubernetes. Connecting an existing app reads its settings files without rewriting them.</p>
+  <p class="muted">The free local hub runs on macOS and Linux without a ConfigHub account, Docker or Kubernetes. Connecting an app you already have reads its settings files without rewriting them. If you are an AI agent, start with <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
   <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Choose a walkthrough</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md">Set up Codex</a></p>
 </section>
-<section>
-  <h2>Three ways to start</h2>
+
+<section id="why">
+  <h2>Why this, and why now</h2>
+  <ol class="walk">
+    <li><span class="num">1</span><div class="body">
+      <h3>People make and run apps by asking agents</h3>
+      <p>An agent changes settings many times a day, across staging, production and every customer's copy. That is faster than anyone reads a diff.</p>
+    </div></li>
+    <li><span class="num">2</span><div class="body">
+      <h3>So the platform has to come from somewhere else</h3>
+      <p>Staging, production, promotion, rollback and limits used to come from a platform team or a hosting service. An agent can now write all of that in the same request as the app. But it lands in scattered files, the next session overwrites it, and every new app starts from nothing.</p>
+    </div></li>
+    <li><span class="num">3</span><div class="body">
+      <h3>ConfigHub keeps the setup, its changes and their context</h3>
+      <p>It keeps the setup itself, wherever the app runs, with every change to it and the context for each change: what was asked, and why. That is what durable means. What you and your agents decided is still there for:</p>
+      <ul class="tight">
+        <li><strong>the next session</strong>, which starts from what was set and why</li>
+        <li><strong>the next agent</strong>, which is told before it undoes a value</li>
+        <li><strong>the next version</strong>, which keeps your own values</li>
+        <li><strong>the next environment</strong>, which takes exactly what you approved</li>
+        <li><strong>the next app</strong>, which starts from the first</li>
+      </ul>
+    </div></li>
+  </ol>
+</section>
+
+<section id="example">
+  <h2>An example: two apps from one setup</h2>
+  <p>A developer builds a web shop with an agent. The next app is a cart service, which can start from the setup the shop already uses.</p>
+  <ol class="walk">
+    <li><span class="num">1</span><div class="body">
+      <h3>The first app gets a setup</h3>
+      <p><code>cub mini adopt shop</code> gives the shop a staging and a production copy, using the web starter for settings the developer has left open:</p>
+      <pre><code>starter: web
+version: 1
+# Some fields omitted.
+defaults:
+  - key: REPLICAS
+    value: &quot;2&quot;
+    reason: Two instances, so that one can restart without the service going down.</code></pre>
+    </div></li>
+    <li><span class="num">2</span><div class="body">
+      <h3>A fix to the first app becomes part of the setup</h3>
+      <p>A teammate proposes a new starter version that uses warning-level logs and keeps three instances running. They give a reason for each setting. The owner reviews and approves the starter version.</p>
+    </div></li>
+    <li><span class="num">3</span><div class="body">
+      <h3>The second app starts with the fix, and the first keeps its own values</h3>
+      <p>The cart service starts with the new defaults. The shop takes the same update while keeping its own production log level. Production changes still go through their own approval.</p>
+    </div></li>
+  </ol>
+  <p class="small">The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs this on your laptop and checks the settings and reasons in the hub.</p>
+</section>
+
+<section id="start">
+  <h2>Start from your app</h2>
   <div class="grid3">
     <div class="card">
       <h3>A new app</h3>
-      <p>You want an app with a staging and a production setup. Ask for it "using ConfigHub", and the agent writes the app and sets up the hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
+      <p>Ask for it "using ConfigHub". The agent writes the app and sets up the hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
     </div>
     <div class="card">
       <h3>An app you already have</h3>
-      <p>Your settings live in <code>.env.staging</code> and <code>.env.production</code>, Terraform var files, or a Kustomize repository that Argo CD or Flux deploys. Ask the agent to "attach ConfigHub to this app". It won't touch your files. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you have</a></p>
+      <p>Ask the agent to "attach ConfigHub to this app". It reads your settings files and won't touch them. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
     </div>
     <div class="card">
       <h3>Software that comes with ConfigHub</h3>
-      <p>A vendor ships an app with a hub built in. You change it to suit you, and keep your changes when the next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
+      <p>A vendor ships an app with a hub built in. You keep your changes when the next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
     </div>
   </div>
 </section>
-<section id="where">
-  <h2>Where your hub runs</h2>
-  <div class="grid3">
-    <div class="card">
-      <h3>Your laptop</h3>
-      <p>This is confighub mini: the full ConfigHub, small enough to run on one machine. It's free, there's no account, and the plugin installs it for you. You're the one who approves changes.</p>
-    </div>
-    <div class="card">
-      <h3>Hosted ConfigHub</h3>
-      <p>We run it for you. Your whole team, your agents and your CI jobs share one hub, and you choose who gets to approve changes to production.</p>
-    </div>
-    <div class="card">
-      <h3>Enterprise edition</h3>
-      <p>The same thing, running on your own servers, for as many people and teams as you have.</p>
-    </div>
+
+<section id="works-with">
+  <h2>Works with the tools and services you use</h2>
+  <p>A starter wires an app into ConfigHub for you. It looks for what the app already uses, such as a Vercel project or a repository that Argo CD deploys. Then it sets up the staging and production copies, puts production behind your approval, and connects delivery. It leaves alone anything you set yourself. Connect the app, then review the first production delivery when your starter opens an order. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
+  <div class="grid4">
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web</a></h3><p>A web service that reads its settings from env files.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h3><p>A project on Vercel that takes the settings you approved.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md#nextjs-on-vercel">Next.js on Vercel</a></h3><p>A linked Next.js app with separate Preview and production settings.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h3><p>An app that reads its settings from AWS.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h3><p>A Kustomize repository that Argo CD deploys.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h3><p>A Kustomize repository that Flux deploys.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h3><p>An agent that works in a sandbox and proposes from it.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h3><p>A worker whose rollout to production waits for you.</p></div>
+    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h3><p>A service on Unikraft Cloud, with rollout and rollback.</p></div>
   </div>
-  <p>The commands are the same everywhere. When your team is ready to share, you copy your apps from your laptop to the shared hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Moving to a shared hub</a> · <a href="https://docs.confighub.com">ConfigHub's documentation</a></p>
+  <p>Around the app, ConfigHub hands each job to the tool made for it: Git and GitHub, Vault, Sigstore, SPIFFE, OpenTelemetry, Entire, MCP servers, sandboxes and containers, and Codex. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">What you get with each</a></p>
+  <p>No starter for your stack? It is one YAML file, and your agent can write it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a starter</a></p>
 </section>
 
-<section>
-  <h2>Your agent shouldn't be able to change production by itself</h2>
-  <div class="card">
-    <p style="margin-top:0">Your app is slow, so you ask your agent to "turn on debug logging so we can see what's going on."</p>
-    <p><strong>Without ConfigHub.</strong> Say staging and production both read the same <code>.env</code> file. The agent changes the log level there and tells you it's done. Neither of you realizes production reads that file too. Production starts logging every request in full, customers' email addresses included, and you find out weeks later.</p>
-    <p><strong>With ConfigHub.</strong> Staging and production get their settings from the hub, and the agent has its own key that can't approve anything for production. The agent makes the same edit. This time:</p>
-    <ol class="plain" style="padding-left:1.2rem;margin:.5rem 0">
-      <li>Staging gets debug logging right away, so you can start digging.</li>
-      <li>Production stays as it is. The agent tells you there's a production change waiting for you.</li>
-      <li>You run <code>cub mini waiting</code> (<code>cub</code> is ConfigHub's command-line tool) and see <code>LOG_LEVEL=info → LOG_LEVEL=debug</code>.</li>
-      <li>You say no, with a reason: "Debug logs leak customer emails." Production keeps its normal logging.</li>
-      <li>The next agent that tries the same change is told you already said no, and why.</li>
-    </ol>
-  </div>
-  <p class="small">This covers what your app reads from the hub. If your agent also has your cloud or cluster credentials, it can still go around it. See <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
+<section id="compare">
+  <h2>Platforms were built before the apps. Agents build the app first.</h2>
+  <p>Platform engineering builds a platform and fits apps to it. Durable config starts with the app and keeps what the agent set up for it, so the platform grows out of the apps.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>Platform engineering as we know it</th><th>Durable config</th></tr></thead>
+    <tbody>
+      <tr><td><strong>What comes first</strong></td><td>The platform, built by a team ahead of the apps</td><td>The app. Its setup becomes the base for the next one</td></tr>
+      <tr><td><strong>How an app gets its setup</strong></td><td>A template, copied once when the app is created</td><td>A starter the app stays linked to</td></tr>
+      <tr><td><strong>Where the knowledge lives</strong></td><td>Docs, tickets and the platform team's heads</td><td>With each value, as its reason</td></tr>
+      <tr><td><strong>Who it is built for</strong></td><td>People: portals, forms and golden-path guides</td><td>Agents and people</td></tr>
+      <tr><td><strong>How a change spreads</strong></td><td>One pull request in each repository</td><td>One change, read across every app</td></tr>
+      <tr><td><strong>What it takes to start</strong></td><td>A team and months</td><td>One yes at install</td></tr>
+    </tbody>
+  </table></div>
+  <p>ConfigHub doesn't run your app. Your cluster, hosting service or VM still does, and Argo CD and Flux still deliver to your clusters. It replaces the templates, the portal and the scattered settings files above them.</p>
 </section>
 
-<section>
-  <h2>Everyday commands</h2>
-  <ul class="plain">
-    <li><code>/confighub:why LOG_LEVEL</code> in Claude Code shows every change to a setting, and what was asked for each time.</li>
-    <li><code>cub mini waiting</code> shows what's waiting for you. Use the exact order name it shows when you run <code>cub mini approve BASE/ORDER</code> or <code>cub mini refuse BASE/ORDER</code>.</li>
-    <li>To roll back, ask the agent to put the old value back, then approve it.</li>
-    <li>When a Helm chart you use has a new version, you can upgrade and keep your own values.</li>
-  </ul>
-  <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approvals</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">What the plugin records</a></p>
-</section>
-
-<section id="starters">
-  <h2>An example: a small web shop</h2>
-  <p>A team runs a web shop made of two services, a storefront and an orders service. A developer builds them with an agent. The production owner hardens the setup. One hub keeps the settings of both, with a staging copy and a production copy of each.</p>
+<section id="five">
+  <h2>Five ways it is better</h2>
   <ol class="walk">
     <li><span class="num">1</span><div class="body">
-      <h3>The team writes its defaults once</h3>
-      <p>A <strong>starter</strong> is a small YAML file with the settings every service of one kind starts with, each with a note on why. It is the same idea as <a href="https://docs.spring.io/spring-boot/reference/using/build-systems.html#using.build-systems.starters">Spring Boot starters</a>, for any kind of app. The shop's starter adds two settings to the ones every small web service gets:</p>
-      <pre><code>starter: shop-service
-version: 1
-after: [web]
-defaults:
-  - key: SHOP_CACHE_SECONDS
-    value: &quot;60&quot;
-    reason: Pages are cached for a minute, so a change to a price is seen within a minute.
-  - key: SHOP_TIMEOUT_SECONDS
-    value: &quot;10&quot;
-    reason: A request stops after ten seconds, so a slow payment provider cannot hold every worker.</code></pre>
-      <p>The owner keeps the starter in the hub. A new version counts only once he approves it.</p>
+      <h3>Nothing to build first</h3>
+      <p>Start with an app. Its staging and production setup can become the starting point for the next app.</p>
     </div></li>
     <li><span class="num">2</span><div class="body">
-      <h3>The developer connects the storefront with one command</h3>
-      <p><code>cub mini adopt storefront</code> gives the storefront the team's settings, each with its reason. Her own values stay: she set a 30-second cache for production during sales, and the starter leaves it alone. Nothing reaches production until she approves it.</p>
+      <h3>Templates that keep working after day one</h3>
+      <p>A scaffolded app is a copy made once, so the template's next version never reaches it. Here a starter's next version reaches every app made from it, and each app keeps its own values and reasons. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">Starters</a></p>
     </div></li>
     <li><span class="num">3</span><div class="body">
-      <h3>A fix becomes the default for the next app</h3>
-      <p>The owner sets a request size limit and a rate limit on the storefront's production copy, each with his reason. Then the owner adds both to the starter as version 2, and approves it.</p>
+      <h3>The reason travels with the value <span class="badge ok">For agents</span></h3>
+      <p>An agent can't ask the platform team why a limit is set as it is. Without the reason it "fixes" the value, and the next agent fixes it back. With the record, the next agent can see why a value was chosen before changing it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">What the plugin records</a></p>
     </div></li>
     <li><span class="num">4</span><div class="body">
-      <h3>The next service starts with the fixes</h3>
-      <p>The orders service connects with version 2 and gets the limits, with their reasons. Nobody types them again. The storefront takes version 2 too, and keeps its own values. Its production copy changes only with an approval.</p>
+      <h3>Guardrails that hold against agents <span class="badge ok">For agents</span></h3>
+      <p>Give agents a way to test changes and give the owner a separate decision about production:</p>
+      <ul class="tight">
+        <li>a key of their own</li>
+        <li>a staging copy they can change at once</li>
+        <li>a line they cannot cross</li>
+      </ul>
+      <p>The hub refuses an agent's own approval, and it is small enough to sit in every sandbox. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md">Agent keys</a></p>
+    </div></li>
+    <li><span class="num">5</span><div class="body">
+      <h3>Configuration you can query and build on</h3>
+      <p>Platform stacks are a template language for each tool: Helm for clusters, Terraform for cloud, env files for hosting services. A change across the fleet is many pull requests. As data, "which version runs where" is one question, and one change is read across all apps, wherever they run. Tools are built on data, not on templates.</p>
     </div></li>
   </ol>
-  <p class="small">Try the settings and upgrade loop without a provider account. The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs it on your laptop and checks the settings and reasons in the hub. For a running deployment, see the Vercel walkthrough below.</p>
-  <ul class="plain">
-    <li><strong>Your values win.</strong> A value you set is never replaced by a starter.</li>
-    <li><strong>Fix a default once</strong> and every new app gets the fix.</li>
-    <li><strong>No code.</strong> One command checks a starter before anyone uses it.</li>
-  </ul>
-  <p>Start with the walkthrough for your app: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a>, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a>. Use starters by opting in or by connecting to a hub with an approved starter catalog. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">The guide to starters</a> shows how to use them and write your own.</p>
-  <p>Vercel and AWS Parameter Store have no-account stand-ins. Delivery to a live Vercel Hobby project ran on a published package. The published package also delivered an approved revision from a shared hub to AWS Parameter Store. A read-only check in AWS confirmed the new value. The Daytona walkthrough starts with an experiment you can try on your computer.</p>
-  <p>Then try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-cub-mini.md">the cub mini tour</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-13-first-hour.md">your first hour</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">approve from Slack</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-21-ana-sized.md">size a service from real use</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md">Git, the hub and what is running</a>, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">one base for ten apps</a>. The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">walkthrough index</a> has more tools and user stories.</p>
 </section>
 
-<section>
-  <h2>When agents do real work</h2>
-  <p>Once agents run for hours, or several of them share an app, you'll want more control. A hub gives you:</p>
+<section id="daily">
+  <h2>Day to day, and when agents do real work</h2>
   <div class="two">
     <div>
-      <h3>A key for each agent</h3>
-      <p>Every agent gets its own key and only the rights it needs. It can suggest a production change, but it can't approve one. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#who-acted-give-the-agent-a-key-of-its-own">Agent keys</a></p>
+      <h3>Everyday commands</h3>
+      <ul class="tight">
+        <li><code>/confighub:why LOG_LEVEL</code> shows every change to a setting, and what was asked each time.</li>
+        <li><code>cub mini waiting</code> shows what waits for you. Approve or refuse it by the name it shows.</li>
+        <li>To roll back, ask the agent to put the old value back, then approve it.</li>
+      </ul>
     </div>
     <div>
-      <h3>Approval of the exact change</h3>
-      <p>You approve one specific change. Anything that comes after it needs its own approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approvals</a></p>
-    </div>
-    <div>
-      <h3>A way to stop them</h3>
-      <p>Take away one agent's access, or shut the hub down. The agent is cut off at its next request. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#stopping-an-agent">Stopping agents</a></p>
-    </div>
-    <div>
-      <h3>Signed records</h3>
-      <p>You can verify whether signed entries were altered. Detecting some deletions requires a copy kept elsewhere. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a></p>
-    </div>
-    <div>
-      <h3>Agents asking each other</h3>
-      <p>On the same hub, <code>cub mini</code> can check and record a request from one agent to another. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#one-agent-asks-another-for-a-change">Requests between agents</a></p>
-    </div>
-    <div>
-      <h3>What it cost</h3>
-      <p>See token counts for supported sessions in which the client reports usage. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">Model use</a></p>
+      <h3>Control over your agents</h3>
+      <ul class="tight">
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#who-acted-give-the-agent-a-key-of-its-own">A key for each agent</a>, with only the rights it needs.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approval of the exact change</a>, and nothing after it.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#stopping-an-agent">A way to stop them</a> at their next request.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a> you can verify.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">What it cost</a>, in tokens, for supported sessions.</li>
+      </ul>
     </div>
   </div>
+  <p class="small">This covers what your app reads from the hub. An agent that also holds your cloud or cluster credentials can still go around it. See <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
+</section>
+
+<section id="where">
+  <h2>From your laptop to your team</h2>
+  <p>A local hub runs on your own machine, free and with no account. A shared hub, on confighub.com or on your own servers, gives your team, your agents and your CI jobs one place, with the same commands. The same record then answers what security and compliance ask: who changed what, why, and who approved it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Moving to a shared hub</a> · <a href="https://docs.confighub.com">ConfigHub's documentation</a></p>
 </section>
 
 </div>
 
 <footer><div class="wrap">
-  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md">Documentation</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/issues">Report a problem</a></p>
+  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Walkthroughs</a></p>
 </div></footer>
 </body>
 </html>
