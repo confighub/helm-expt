@@ -6,6 +6,8 @@
   <title>Check my config &middot; ConfigHub Workshop</title>
   <meta name="description" content="Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/ask.html">
+  <link rel="sitemap" type="application/xml" href="https://confighub.github.io/helm-expt/site/sitemap.xml">
+  <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/site/llms.txt" title="ConfigHub Workshop LLM index">
   <meta property="og:title" content="Check my config &amp;middot; ConfigHub Workshop">
   <meta property="og:description" content="Investigate a new chart, values set, AICR recipe, OCI package, Kubernetes object set, or existing deployment, then retain the reviewed result.">
   <meta property="og:type" content="website">
@@ -706,7 +708,7 @@
         td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.1k tokens and the core <code>SKILL.md</code> is about 5.2k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.3k tokens and the core <code>SKILL.md</code> is about 5.2k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
     <h3 id="ask-token-optimal">The token-optimal path</h3>
     <ol>
       <li>Render, compare, search, and hash locally first. Those deterministic steps use no model tokens.</li>
