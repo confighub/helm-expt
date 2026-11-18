@@ -462,7 +462,7 @@
     .ex-checks li::before { content: "\2713"; position: absolute; left: 0; color: #2f7a3a; font-weight: 700; }
     .ex-actions { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
     .ex-actions details.ex-button { border: 0; padding: 0; margin: 0; background: none; }
-    .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); }
+    .ex-actions .ex-link-button, .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); text-decoration: none; }
     .ex-actions details.ex-button > summary::-webkit-details-marker { display: none; }
     .ex-actions details.ex-button > summary::marker { content: ""; }
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
@@ -687,21 +687,21 @@
     <p class="eyebrow">Before and after</p>
     <h1>A Flux fleet, before and after</h1>
     <p class="lead">You run Flux, and each cluster follows a folder of patches in Git. To know what prod runs, you combine the folders in your head. This page shows one example worked out ahead of time, as plain YAML you can read first.</p>
-    <p class="ex-what">Flux builds each cluster's overlays when it reconciles, so what you review in Git is patches, not what a cluster runs. ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, is a public set of examples for that service. Its Catalog holds charts it has already rendered and tested, with the evidence on GitHub.</p>
+    <p class="ex-what">Flux builds each cluster's overlays when it reconciles, so what you review in Git is patches, not what a cluster runs. You can read the rendered YAML on GitHub in your browser or check files locally with ConfigHub's open-source CLI (cub), for free and without an account. When a team wants shared change history, environment promotion, and release approvals, hosted ConfigHub stores your shared base YAML and one linked copy per environment. ConfigHub publishes each approved environment as a standard OCI bundle that Argo CD or Flux pulls, while your application code stays in Git. Every bundle exports plain Kubernetes YAML, so you can leave at any time without lock-in.</p>
 
   </header>
   <main>
     <figure class="ex-card ex-graph">
       <figcaption>How a change reaches your cluster</figcaption>
-      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart in this Catalog), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
+      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart on this site), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
       <p class="ex-note">ConfigHub publishes OCI releases and holds no credentials to your cluster.</p>
     </figure>
     <section aria-labelledby="why-not-git" class="ex">
       <h2 id="why-not-git" class="ex-went-h">Why not just keep the finished YAML in Git?</h2>
       <ul class="ex-why">
-        <li><strong>History and review.</strong> ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval.</li>
-        <li><strong>One base, many environments.</strong> Each environment is a copy of one base. Fix the base once, pass the fix on to each copy when you choose, and each copy keeps its own changes.</li>
-        <li><strong>A tested starting point.</strong> The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at.</li>
+        <li><strong>Release gates beyond branch diffs.</strong> A Git pull request diffs templates or duplicate files in a branch, whereas ConfigHub gates the exact rendered objects and publishes a pinned OCI release only after approval.</li>
+        <li><strong>Linked environment copies instead of folder sprawl.</strong> Committing rendered YAML per cluster duplicates thousands of lines in Git, whereas ConfigHub links dev, staging, and prod to one base while keeping each environment's overrides.</li>
+        <li><strong>Free local inspection and plain YAML out.</strong> You can <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-beginner/after">browse the rendered environment YAML on GitHub</a> in your browser or run local checks without an account. Outputs stay standard Kubernetes YAML and OCI with no lock-in, and <a href="https://confighub.com/?utm_source=helm-expt&amp;amp;utm_medium=site&amp;amp;utm_campaign=before-after">confighub.com</a> lists hosted team tiers.</li>
       </ul>
     </section>
     <section aria-labelledby="pictures" class="ex">
@@ -755,30 +755,16 @@ spec:
         </tbody>
       </table>
       <div class="ex-actions">
-        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates two base folders (<code>flux-infrastructure-base</code> and <code>flux-apps-base</code>), four cluster copies across dev and prod, and cluster records in <code>flux-targets</code>. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
-
-<span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
-
-<span class="term-prompt">$</span> cd examples/gitops/flux/beginner
-
-<span class="term-prompt">$</span> cub flux apply . --require Healthy --out onboard
-
-<span class="term-prompt">$</span> CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh</code></pre>
-          <p class="ex-note">To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.</p>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> bash onboard/cleanup.sh</code></pre>
-          <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
-        </details>
+        <a class="ex-link-button" href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-beginner/after">Browse the rendered environment YAML on GitHub (no install)</a>
         <details class="ex-button"><summary>Try it on your laptop</summary>
-          <p class="installer-command-note">No account needed. This fetches the example and shows what each environment runs. In your own Flux repository, run the last line from its root.</p>
+          <p class="installer-command-note">Runs locally without an account. To inspect the rendered YAML with zero install, <a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-beginner/after">browse the rendered environment YAML on GitHub</a>. To run the check locally instead, paste the commands below. In your own Flux repository, run the last line from its root.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
 
 <span class="term-prompt">$</span> cd examples/gitops/flux/beginner
 
 <span class="term-prompt">$</span> cub flux plan . --require Healthy</code></pre>
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
-          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. In the CLI output, <code>variant</code> means a copy and <code>Target</code> means a cluster.</p>
+          <p class="ex-note">To run this command locally, install ConfigHub's open-source CLI (<a href="./try.html#install-cub">cub</a>) with the flux plugin and kustomize.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything.</p>
           <p class="ex-note"><code>cub flux plan . --require Healthy</code> printed this.</p>
           <pre class="ex-code ex-out"><code>Flux fleet: 2 clusters, 2 layers, 4 variants
 Read 16 objects
@@ -838,9 +824,24 @@ Next
   That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
           <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-beginner">Every input and output file from that run</a> is on GitHub.</p>
         </details>
+        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
+          <p class="installer-command-note">If you want to explore the fleet UI in hosted ConfigHub, sign in and run these commands to upload the rendered dev and prod copies into your workspace. This touches no live cluster, and Flux keeps syncing from Git unless you later choose to switch a cluster's Flux source to ConfigHub OCI.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
+
+<span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
+
+<span class="term-prompt">$</span> cd examples/gitops/flux/beginner
+
+<span class="term-prompt">$</span> cub flux apply . --require Healthy --out onboard
+
+<span class="term-prompt">$</span> CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh</code></pre>
+          <p class="ex-note">To remove everything <code>onboard/apply.sh</code> created in your workspace, run the generated cleanup script.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> bash onboard/cleanup.sh</code></pre>
+          <p class="ex-note">Loading into hosted ConfigHub needs a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a> with the flux plugin and kustomize. Exported bundles stay plain Kubernetes YAML and OCI, and <a href="https://confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">confighub.com</a> lists hosted team tiers.</p>
+        </details>
       </div>
       <p class="ex-more"><a href="./before-after-flux-beginner.html">Show me the details</a> (for experienced users)</p>
-      <p class="ex-note ex-credits">About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on 2026-10-25.</p>
+      <p class="ex-note ex-credits">About the picture. Captured in the Workshop's example ConfigHub organization on 2026-10-25.</p>
     </section>
   </main>
 </div>
