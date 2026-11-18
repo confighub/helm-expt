@@ -14,7 +14,7 @@ config becomes shared state that a team promotes or governs.
 [ConfigHub Workshop website](https://confighub.github.io/helm-expt/site/):
 [try Redis in ten minutes](https://confighub.github.io/helm-expt/site/try.html),
 browse the [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html),
-or [check your own config](https://confighub.github.io/helm-expt/site/ask.html).
+or [check your own config](https://confighub.github.io/helm-expt/site/ask.html). Working on an app with Claude Code or Codex? [Three things to try first](https://confighub.github.io/helm-expt/ai-agents/first-look.html) shows what to ask and what your agent can do.
 
 **If you are an AI agent**, start at
 [llms.txt](https://confighub.github.io/helm-expt/site/llms.txt), which indexes the

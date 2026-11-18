@@ -39,9 +39,9 @@
     <a href="./">ConfigHub for your first app</a>
     <h1>Three things to try first</h1>
     <p class="lead">Can your next session explain a setting? Can you try a change while production keeps working? Can your next app use the fix without inheriting everything else?</p>
-    <p>Start with the question you have today. Each example links to the steps and tells you what to look for.</p>
+    <p>Pick the job you want to try. Start with one setting if you already have an app. Start with a preview if you want to see a change before shipping it.</p>
     <div class="actions"><a class="primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></div>
-    <p>Using Codex for the first time? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Install the hooks and reopen your app</a>. An agent can do the setup and propose changes; the owner reviews and decides each approval.</p>
+    <p>Using Codex for the first time? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Install the hooks and reopen your app</a>. You choose the folder and review the permissions. Your agent can then work in that folder. You decide what reaches production.</p>
   </header>
 
   <section class="story" id="remember">
@@ -49,7 +49,8 @@
     <h2>Find out why the cache is on</h2>
     <div class="story-body"><div>
       <p><strong>Why it matters.</strong> A settings file tells tomorrow’s agent that caching is on. The plugin can also show the request that turned it on, even if nobody committed the edit.</p>
-      <p><strong>Try it.</strong> Open the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">five-minute guide for Claude Code or Codex</a>. It gives you a throwaway Git folder with <code>CACHE=off</code>. In a fresh session ask: “Turn the cache on in <code>.env</code> for next week’s sale. Don’t commit.” Reopen the folder in another session and ask “Why is the cache on?”</p>
+      <p><strong>You</strong> set up the plugin and sample Git folder in the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">five-minute guide</a>. Ask “Turn the cache on for next week’s sale. Don’t commit.” Open a fresh session in the same folder and ask “Why is the cache on?”</p>
+      <p><strong>Your agent</strong> changes <code>CACHE</code> in the first session. In the second it reads the record and explains the change.</p>
     </div><aside class="result"><strong>What to look for</strong><p>The change from <code>off</code> to <code>on</code> and the request about the sale. No hub or ConfigHub account needed.</p><p>You can also inspect the record yourself. In Claude Code, type <code>/confighub:why CACHE</code>. In Codex, use <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#read-the-record">the record command</a>.</p></aside></div>
     <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Compare with and without the plugin</a> in a test where a deploy would undo an earlier change. You can also <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#explaining-a-rendered-setting">see which alternatives the agent considered</a> when it chose two replicas.</p>
   </section>
@@ -59,18 +60,20 @@
     <h2>See a change before you ship it</h2>
     <div class="story-body"><div>
       <p><strong>Why it matters.</strong> A preview gives your agent somewhere to experiment. You can judge the result from the running app, and decide later what production gets.</p>
-      <p><strong>Try it.</strong> After <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">setting up Codex</a> on macOS, ask for a small greeting app using ConfigHub in an empty Git folder. Follow the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">preview steps</a> in a fresh session. Ask: “Try a warmer greeting in preview and show me what it serves over HTTP.”</p>
+      <p><strong>You</strong> open a local Node app and ask your agent to attach it. In Codex, open the app session using the command setup prints. Ask “Try a warmer greeting in preview.” Open the address you get back. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Try the preview in your app</a>.</p>
+      <p><strong>Your agent</strong> changes the preview setting, starts the app and checks what it serves. Reopen the app session and ask “What’s my preview showing?” Your agent looks up the running preview.</p>
     </div><aside class="result"><strong>What the running apps returned</strong><p>Preview: <samp>Welcome to the neighborhood!</samp><br>Staging and production: <samp>Hello, world!</samp></p><p>These were local processes on one Mac. A stored setting alone doesn’t show that an app has loaded it.</p></aside></div>
-    <p><strong>Then try a second app.</strong> Make the greeting the shared default. In the recorded run, staging took it first; production waited for approval. A catalog built from the greeter’s setup in another folder inherited the greeting without setting it again and needed its own production approval. The test used a scripted owner; in your app, review the exact order yourself.</p>
+    <p>Want to keep the greeting? Ask your agent to make it the shared default. You review the production change. In the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">second-app example</a>, a catalog in another folder inherited the greeting and had its own production approval.</p>
     <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build an app with Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Attach an existing app instead</a></p>
   </section>
 
   <section class="story" id="starter">
     <p class="tag">03 · A starter for more than one app</p>
-    <h2>Share the logging fix, not the shop’s database limit</h2>
+    <h2>Give the next app the logging fix</h2>
     <div class="story-body"><div>
-      <p><strong>Why it matters.</strong> The shop needs 20 database connections. Other apps don’t. But none of them should log request bodies. A starter holds shared defaults and the reasons for them. Approving a new version lets you improve existing apps as well as new ones.</p>
-      <p><strong>Try it.</strong> Open <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Story 25: harden the shop</a>. Set up the shop and its two roles in steps 1–3, then give your agent the hardening request from the quick start. Review the shop change and the starter change separately. Start the cart from the approved starter, then upgrade the shop.</p>
+      <p><strong>Why it matters.</strong> The shop needs 20 database connections. Other apps don’t. They should all use the safer logging default. A starter holds shared defaults and the reasons for them. Approving a new version lets you improve existing apps as well as new ones.</p>
+      <p><strong>You</strong> follow steps 1–3 in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a> to set up the owner and agent roles. Give your agent the hardening request. Review the shop rollout and the shared starter separately. You can leave either pending.</p>
+      <p><strong>Your agent</strong> proposes the shop changes and a new starter version. After your decisions, it starts the cart from the approved starter and checks which settings the shop kept.</p>
     </div><aside class="result"><strong>What to check in the hub</strong><p>The cart gets the new logging and replica defaults. The shared starter does not acquire the shop’s pool size. The shop keeps its production log-level override.</p><p>This story checks stored settings. For a running-service comparison, see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md#testing">two apps on Fly</a>.</p></aside></div>
   </section>
 
@@ -85,13 +88,15 @@
     <h2 id="two-things-to-try-next">Two things to try next</h2>
     <article>
       <h3>Restart a Temporal worker halfway through a rollout</h3>
-      <p>What happens to a retry limit if the worker restarts while a change is waiting for approval? Run the restart rehearsal in the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Temporal worker guide</a>. It uses a local Temporal service, Go, Python 3 and a test owner.</p>
-      <p><strong>Look for:</strong> the worker keeps the old policy while it waits. After approval, a new probe stops after one attempt. Delivery refuses a policy edited after approval.</p>
+      <p><strong>You</strong> choose the disposable <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Temporal worker rehearsal</a> and ask “Show me what happens if the worker restarts while a retry change is waiting.” It needs Go, Python 3 and the Temporal CLI.</p>
+      <p><strong>Your agent</strong> runs the packaged rehearsal and shows you the probe results. The rehearsal supplies its own test approval. In your own rollout, you approve the production change.</p>
+      <p><strong>Look for</strong> the old retry limit after restart, one attempt after approval, and a refusal if the policy differs from what was approved.</p>
     </article>
     <article>
       <h3>Find out why a running cluster disagrees with Git</h3>
-      <p>Suppose someone changes a live service during an incident. Which change should you keep? In <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Git, the hub and what’s running</a>, play the example on a disposable local Kubernetes cluster with Argo CD. The quick start lists the tools and gives you a request to paste into your agent.</p>
-      <p><strong>Look for:</strong> three replica counts side by side. Git says two, the hub says three and records a reason, and the cluster has four. Find the extra environment variable that exists only on the cluster. At the end, Git takes over delivery again.</p>
+      <p><strong>You</strong> choose the disposable local cluster in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Git, the hub and what’s running</a>. Give the quick-start request to your agent. Decide when you’re finished inspecting the cluster and want it removed.</p>
+      <p><strong>Your agent</strong> runs the example, compares the three replica counts, finds the extra environment variable and shows you the return to Git.</p>
+      <p><strong>Look for</strong> two replicas in Git, three in the hub with a reason, and four on the cluster. The extra variable appears only on the cluster.</p>
     </article>
   </section>
 </main>
