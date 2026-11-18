@@ -125,7 +125,7 @@ ul.tight li{margin:.25rem 0}
   <div class="hero"><div>
   <p class="lead">Ask your agent for a preview. See what the app actually serves while production stays as it is. When you like the change, you can keep it for this app and the next one.</p>
   <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></p>
-  <p class="small">For the five-minute try, turn on the cache for next week’s sale. Ask a fresh session why it’s on. No hub or account needed. For the preview, run a separate copy of your app on your computer using settings from the local hub.</p>
+  <p class="small">Already working in an app? Turn on the cache for next week’s sale. Ask a fresh session why it’s on. No hub or account needed. Building an app? Try a new greeting in a local preview while the original keeps running.</p>
   <details><summary>Install the plugin in Claude Code</summary>
     <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
@@ -133,7 +133,7 @@ claude plugin install confighub@confighub</code></pre>
   </details>
   <details><summary>Set up Codex</summary>
     <p>With Git and the Codex CLI installed, paste this in Terminal:</p>
-    <pre><code>git clone --depth 1 --branch v0.99.0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
+    <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
   "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
     <p>In the Codex CLI, open <code>/hooks</code>, review and approve the ConfigHub hooks, then start a fresh session in your app’s folder. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup and removal</a>.</p>
   </details>
