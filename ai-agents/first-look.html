@@ -1,105 +1,372 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-client="claude">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Try three ConfigHub stories in the order you need them: remember a decision, preview a change, and give the next app a better starting point.">
+  <meta name="description" content="Try ConfigHub in three self-contained steps: remember why an agent changed a setting, test a change in a running local preview, and reuse your setup in a second app.">
   <title>Three things to try first · ConfigHub</title>
   <style>
-    :root { color-scheme: light dark; --paper:#faf9f4; --ink:#182a27; --muted:#435854; --line:#c9d2c6; --panel:#edf3eb; --accent:#18594a; --action:#fff; font: 100%/1.6 system-ui,sans-serif; }
-    @media (prefers-color-scheme:dark) { :root { --paper:#121d1a; --ink:#eff6ea; --muted:#bdcdc0; --line:#42554b; --panel:#20362d; --accent:#a5e2c7; --action:#10281e; } }
+    :root {
+      color-scheme: light dark;
+      --paper:#faf9f4; --ink:#182a27; --muted:#435854; --line:#c9d2c6;
+      --panel:#edf3eb; --card:#ffffff; --accent:#18594a; --action:#ffffff;
+      --term-bg:#16221f; --term-ink:#e9f2ee; --term-muted:#9ab0a8; --term-ok:#88dfb0; --term-wait:#f2ca78;
+      font: 100%/1.58 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme:dark) {
+      :root {
+        --paper:#121d1a; --ink:#eff6ea; --muted:#b5c7ba; --line:#354840;
+        --panel:#1d3129; --card:#172621; --accent:#9de0c3; --action:#0f241c;
+        --term-bg:#0c1412; --term-ink:#e9f2ee; --term-muted:#8fa69d; --term-ok:#88dfb0; --term-wait:#f2ca78;
+      }
+    }
     * { box-sizing:border-box; }
     body { background:var(--paper); color:var(--ink); margin:0; }
-    main,footer { width:min(100% - 2.5rem,62rem); margin:auto; }
-    header { padding:2rem 0 1.8rem; }
+    main, footer { width:min(100% - 2.2rem, 64rem); margin:auto; }
+    header { padding:1.8rem 0 1.4rem; }
     a { color:var(--accent); text-underline-offset:.16em; }
-    a:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
-    h1,h2,h3 { line-height:1.2; text-wrap:balance; }
-    h1 { font-size:clamp(2.3rem,6vw,4rem); margin:1.1rem 0 .5rem; letter-spacing:-.045em; }
-    h2 { font-size:clamp(1.45rem,3.4vw,2.1rem); margin:.35rem 0 .75rem; letter-spacing:-.028em; }
-    h3 { font-size:1.13rem; margin:.25rem 0; }
-    p { margin:.45rem 0 .9rem; max-width:68ch; }
-    .lead { font-size:1.2rem; }
-    .actions { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem 1.1rem; margin:1rem 0 .5rem; }
-    .primary { background:var(--accent); color:var(--action); padding:.55rem .9rem; border-radius:.35rem; text-decoration:none; font-weight:650; }
-    .story, .more { border-top:1px solid var(--line); padding:1.5rem 0; }
-    .tag { color:var(--muted); font-size:.83rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin:0; }
-    .story-body { display:grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap:1.2rem 2rem; align-items:start; }
-    .result { padding:.8rem 1rem; background:var(--panel); border-left:3px solid var(--accent); border-radius:0 .35rem .35rem 0; }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+    h1, h2, h3 { line-height:1.2; text-wrap:balance; }
+    h1 { font-size:clamp(2.1rem, 5vw, 3.3rem); margin:.75rem 0 .5rem; letter-spacing:-.035em; }
+    h2 { font-size:clamp(1.35rem, 3vw, 1.85rem); margin:.25rem 0 .6rem; letter-spacing:-.02em; }
+    h3 { font-size:1.06rem; margin:.15rem 0 .35rem; }
+    p { margin:.4rem 0 .8rem; max-width:68ch; }
+    .eyebrow { font-size:.88rem; font-weight:600; text-decoration:none; display:inline-block; }
+    .lead { font-size:1.15rem; max-width:62ch; }
+    .arch-grid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; margin:1.1rem 0 1.25rem; }
+    .arch-card { background:var(--card); border:1px solid var(--line); border-radius:.5rem; padding:.85rem 1rem; font-size:.94rem; }
+    .arch-card strong { display:block; margin-bottom:.2rem; font-size:.98rem; }
+    .arch-card p { margin:0; color:var(--muted); }
+    .setup-box { background:var(--panel); border:1px solid var(--line); border-radius:.6rem; padding:1rem 1.15rem; margin:1rem 0 .6rem; }
+    .setup-head { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem 1rem; margin-bottom:.65rem; }
+    .setup-title { font-weight:700; font-size:.98rem; margin:0; }
+    .tabs { display:inline-flex; background:var(--paper); border:1px solid var(--line); border-radius:.45rem; padding:.18rem; gap:.2rem; }
+    .tabs button {
+      border:0; background:transparent; color:var(--muted); font:inherit; font-size:.88rem;
+      font-weight:650; padding:.32rem .75rem; border-radius:.32rem; cursor:pointer;
+    }
+    .tabs button[aria-pressed="true"] { background:var(--accent); color:var(--action); }
+    html[data-client="claude"] .only-codex { display:none; }
+    html[data-client="codex"] .only-claude { display:none; }
+    .jumps { display:flex; flex-wrap:wrap; gap:.45rem .9rem; font-size:.92rem; margin:.85rem 0 0; padding:0; list-style:none; }
+    .jumps a { font-weight:600; text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:.1rem; }
+    .jumps a:hover { border-color:var(--accent); }
+    .story, .more { border-top:1px solid var(--line); padding:1.6rem 0; }
+    .tag { color:var(--muted); font-size:.8rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin:0; }
+    .story-body { display:grid; grid-template-columns:minmax(0, 1.28fr) minmax(0, .95fr); gap:1.25rem 2rem; align-items:start; margin-top:.6rem; }
+    .steps { list-style:none; padding:0; margin:.5rem 0 0; display:flex; flex-direction:column; gap:.85rem; counter-reset:step; }
+    .steps > li { position:relative; padding-left:2rem; }
+    .steps > li::before {
+      counter-increment:step; content:counter(step);
+      position:absolute; left:0; top:.1rem; width:1.45rem; height:1.45rem;
+      border-radius:50%; background:var(--panel); border:1px solid var(--line);
+      font-size:.8rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+    }
+    .steps p { margin:.15rem 0 .4rem; font-size:.96rem; }
+    .snip { position:relative; background:var(--term-bg); color:var(--term-ink); border-radius:.45rem; padding:.65rem 4.2rem .65rem .8rem; margin:.35rem 0; overflow-x:auto; }
+    .snip pre { margin:0; font: .86rem/1.48 ui-monospace, SFMono-Regular, Menlo, monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .snip .prompt-label { display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--term-muted); margin-bottom:.2rem; font-family:system-ui, sans-serif; font-weight:650; }
+    .copy-btn {
+      position:absolute; top:.48rem; right:.48rem; background:rgba(255,255,255,.12); color:var(--term-ink);
+      border:1px solid rgba(255,255,255,.2); border-radius:.3rem; padding:.2rem .52rem;
+      font:600 .76rem/1.2 system-ui, sans-serif; cursor:pointer;
+    }
+    .copy-btn:hover { background:rgba(255,255,255,.22); }
+    code, samp { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.91em; overflow-wrap:anywhere; }
+    p code, li code, td code { background:var(--panel); padding:.1em .32em; border-radius:.25rem; }
+    .result { background:var(--card); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:.5rem; padding:.9rem 1.05rem; font-size:.94rem; }
+    .result-title { font-weight:700; font-size:.88rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 .55rem; }
+    .out { background:var(--term-bg); color:var(--term-ink); border-radius:.4rem; padding:.65rem .8rem; font:.83rem/1.48 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x:auto; margin:.45rem 0 .65rem; white-space:pre-wrap; }
+    .out .ok { color:var(--term-ok); }
+    .out .wait { color:var(--term-wait); }
+    .out .dim { color:var(--term-muted); }
     .result p:last-child { margin-bottom:0; }
-    code,samp { font-size:.97em; overflow-wrap:anywhere; }
-    .more article { margin-top:1.25rem; }
-    footer { padding:1.25rem 0 2.5rem; border-top:1px solid var(--line); }
-    @media(max-width:42rem) { .story-body { grid-template-columns:1fr; gap:0; } }
+    .story-foot { font-size:.9rem; color:var(--muted); margin:.9rem 0 0; }
+    .stage-table { width:100%; border-collapse:collapse; margin:.75rem 0; font-size:.94rem; }
+    .stage-table th, .stage-table td { text-align:left; vertical-align:top; padding:.6rem .7rem; border-bottom:1px solid var(--line); }
+    .stage-table th { font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+    .ops-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:1rem; margin-top:.85rem; }
+    .ops-card { background:var(--card); border:1px solid var(--line); border-radius:.5rem; padding:.9rem 1rem; font-size:.93rem; }
+    .ops-card h3 { margin-top:0; }
+    .ops-card p:last-child { margin-bottom:0; }
+    .small { font-size:.88rem; color:var(--muted); }
+    footer { padding:1.25rem 0 2.5rem; border-top:1px solid var(--line); font-size:.92rem; color:var(--muted); }
+    @media (max-width:48rem) {
+      .arch-grid, .story-body, .ops-grid { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
 <main>
   <header>
-    <a href="./">ConfigHub for your first app</a>
+    <a class="eyebrow" href="./">← ConfigHub product overview</a>
     <h1>Three things to try first</h1>
-    <p class="lead">Can your next session explain a setting? Can you try a change while production keeps working? Can your next app use the fix without inheriting everything else?</p>
-    <p>Pick the job you want to try. Start with one setting if you already have an app. Start with a preview if you want to see a change before shipping it.</p>
-    <div class="actions"><a class="primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></div>
-    <p>Using Codex for the first time? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Install the hooks and reopen your app</a>. You choose the folder and review the permissions. Your agent can then work in that folder. You decide what reaches production.</p>
+    <p class="lead">Give Claude Code and Codex memory across sessions, a running local preview for config changes, and shared defaults your next app can inherit—while keeping production behind your approval.</p>
+
+    <div class="arch-grid" aria-label="What runs on your computer">
+      <div class="arch-card">
+        <strong>1. The plugin (<code>confighub</code>) · Story 01</strong>
+        <p>Lightweight session hooks for Claude Code or Codex. Records config edits and their reasons in <code>~/.confighub</code> on your machine. No background server and no account.</p>
+      </div>
+      <div class="arch-card">
+        <strong>2. The local hub (<code>cub mini</code>, optional) · Stories 02 &amp; 03</strong>
+        <p>Starts the ConfigHub server and a local PostgreSQL on <code>127.0.0.1</code> only (no Docker, no account). Adds isolated previews, staging vs. production copies, and scoped agent keys.</p>
+      </div>
+    </div>
+
+    <div class="setup-box" id="setup">
+      <div class="setup-head">
+        <p class="setup-title">Install the plugin</p>
+        <div class="tabs" role="group" aria-label="Choose your coding agent">
+          <button type="button" data-set-client="claude" aria-pressed="true">Claude Code</button>
+          <button type="button" data-set-client="codex" aria-pressed="false">Codex CLI</button>
+        </div>
+      </div>
+
+      <div class="only-claude">
+        <div class="snip">
+          <span class="prompt-label">Terminal</span>
+          <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+        </div>
+        <p class="small" style="margin:.35rem 0 0">Open a fresh <code>claude</code> session after installing so the hooks load.</p>
+      </div>
+
+      <div class="only-codex">
+        <div class="snip">
+          <span class="prompt-label">Terminal</span>
+          <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
+  "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
+        </div>
+        <p class="small" style="margin:.35rem 0 0">In Codex CLI, run <code>/hooks</code>, approve the ConfigHub hooks once, then open a fresh <code>codex</code> session. (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Setup &amp; removal details</a>)</p>
+      </div>
+    </div>
+
+    <ul class="jumps">
+      <li><a href="#remember">Remember one setting in five minutes</a></li>
+      <li><a href="#preview">Run a preview of my app</a></li>
+      <li><a href="#starter">Reuse a setting in a second app</a></li>
+      <li><a href="#operations">Two things to try next</a></li>
+    </ul>
   </header>
 
   <section class="story" id="remember">
-    <p class="tag">01 · Plugin only</p>
-    <h2>Find out why the cache is on</h2>
-    <div class="story-body"><div>
-      <p><strong>Why it matters.</strong> A settings file tells tomorrow’s agent that caching is on. The plugin can also show the request that turned it on, even if nobody committed the edit.</p>
-      <p><strong>You</strong> set up the plugin and sample Git folder in the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">five-minute guide</a>. Ask “Turn the cache on for next week’s sale. Don’t commit.” Open a fresh session in the same folder and ask “Why is the cache on?”</p>
-      <p><strong>Your agent</strong> changes <code>CACHE</code> in the first session. In the second it reads the record and explains the change.</p>
-    </div><aside class="result"><strong>What to look for</strong><p>The change from <code>off</code> to <code>on</code> and the request about the sale. No hub or ConfigHub account needed.</p><p>You can also inspect the record yourself. In Claude Code, type <code>/confighub:why CACHE</code>. In Codex, use <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#read-the-record">the record command</a>.</p></aside></div>
-    <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Compare with and without the plugin</a> in a test where a deploy would undo an earlier change. You can also <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#explaining-a-rendered-setting">see which alternatives the agent considered</a> when it chose two replicas.</p>
+    <p class="tag">01 · Plugin only · No server or account</p>
+    <h2>Remember why a setting changed across sessions</h2>
+    <p><strong>You</strong> ask for a change, then open a fresh session in the same folder. <strong>Your agent</strong> makes the edit and later explains it from the local record.</p>
+
+    <div class="story-body">
+      <ol class="steps">
+        <li>
+          <p><strong>Create a throwaway Git folder</strong> with one setting and start <code class="only-claude">claude</code><code class="only-codex">codex</code>:</p>
+          <div class="snip">
+            <span class="prompt-label">Terminal</span>
+            <pre><code>mkdir try-confighub &amp;&amp; cd try-confighub &amp;&amp; git init -q &amp;&amp;
+  printf 'CACHE=off\n' &gt; .env &amp;&amp; git add -f .env</code></pre>
+          </div>
+        </li>
+        <li>
+          <p><strong>Ask in Session 1</strong> (and allow the edit):</p>
+          <div class="snip">
+            <span class="prompt-label">Ask your agent</span>
+            <pre><code>Turn the cache on in .env for next week's sale. Don't commit.</code></pre>
+          </div>
+        </li>
+        <li>
+          <p><strong>Open a fresh session</strong> in the same folder and ask:</p>
+          <div class="snip">
+            <span class="prompt-label">Ask in a fresh session</span>
+            <pre><code>Why is the cache on?</code></pre>
+          </div>
+          <p class="small only-claude">You can also inspect the record directly in Claude Code with <code>/confighub:why CACHE</code>.</p>
+          <p class="small only-codex">You can also inspect the record in Terminal with <code>~/.codex/confighub/bin/confighub mini changes</code>.</p>
+        </li>
+      </ol>
+
+      <aside class="result">
+        <p class="result-title">What you should see</p>
+        <div class="out"><span class="dim">.env · recorded by ConfigHub plugin</span>
+CACHE: <span class="ok">off → on</span>
+asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
+        <p>Look for both the previous value (<code>off</code>) and next week’s sale. The second session can recover both before you commit anything.</p>
+        <p class="small">Clean up anytime by deleting <code>try-confighub</code>.</p>
+      </aside>
+    </div>
+    <p class="story-foot">More detail: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute plugin guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Measured runs with and without the plugin</a></p>
   </section>
 
   <section class="story" id="preview">
-    <p class="tag">02 · Your first app on a local hub</p>
-    <h2>See a change before you ship it</h2>
-    <div class="story-body"><div>
-      <p><strong>Why it matters.</strong> A preview gives your agent somewhere to experiment. You can judge the result from the running app, and decide later what production gets.</p>
-      <p><strong>You</strong> open a local Node app and ask your agent to attach it. In Codex, open the app session using the command setup prints. Ask “Try a warmer greeting in preview.” Open the address you get back. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Try the preview in your app</a>.</p>
-      <p><strong>Your agent</strong> changes the preview setting, starts the app and checks what it serves. Reopen the app session and ask “What’s my preview showing?” Your agent looks up the running preview.</p>
-    </div><aside class="result"><strong>What the running apps returned</strong><p>Preview: <samp>Welcome to the neighborhood!</samp><br>Staging and production: <samp>Hello, world!</samp></p><p>These were local processes on one Mac. A stored setting alone doesn’t show that an app has loaded it.</p></aside></div>
-    <p>Want to keep the greeting? Ask your agent to make it the shared default. You review the production change. In the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">second-app example</a>, a catalog in another folder inherited the greeting and had its own production approval.</p>
-    <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build an app with Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Attach an existing app instead</a></p>
+    <p class="tag">02 · Local hub · Safe experimentation</p>
+    <h2>Try a change in a running preview before shipping it</h2>
+    <p><strong>You</strong> choose an app and open the address your agent gives you. <strong>Your agent</strong> changes the preview setting, checks what the app serves and leaves it running.</p>
+
+    <div class="story-body">
+      <ol class="steps">
+        <li>
+          <p><strong>Create a small app (or attach a local Node app):</strong> in a new Git folder (<code>mkdir greeter &amp;&amp; cd greeter &amp;&amp; git init -q</code>), ask:</p>
+          <div class="snip">
+            <span class="prompt-label">Ask your agent</span>
+            <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
+          </div>
+          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Open it and ask: <code>Attach ConfigHub to this app so I can try a preview.</code> First use downloads and starts the local hub automatically.</p>
+        </li>
+        <li>
+          <p class="only-claude"><strong>Reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
+          <p class="only-codex"><strong>Open the app’s scoped session</strong> using the <code>run-codex</code> command printed at the end of Step 1, then ask:</p>
+          <div class="snip">
+            <span class="prompt-label">Ask your agent</span>
+            <pre><code>Try a warmer greeting in preview.</code></pre>
+          </div>
+        </li>
+        <li>
+          <p><strong>Open the local URL</strong> your agent returns. Even if you close and reopen the session later, you can ask:</p>
+          <div class="snip">
+            <span class="prompt-label">Ask in a later session</span>
+            <pre><code>Is my preview still running? What does it serve?</code></pre>
+          </div>
+          <p class="small">Reopen the same app session to find the preview again. Ask your agent to stop it when you’re finished.</p>
+        </li>
+      </ol>
+
+      <aside class="result">
+        <p class="result-title">From the recorded greeter run</p>
+        <div class="out">Preview URL:    <span class="ok">Welcome to the neighborhood!</span>
+Staging copy:   <span class="dim">Hello, world!</span>
+Production:     <span class="wait">Hello, world!</span></div>
+        <p>Your wording may differ. Read the preview URL to check the greeting. The preview leaves the app files and both hub copies as they were.</p>
+        <p class="small">The agent’s scoped key can change staging and propose for production, but the hub refuses if the agent tries to approve its own change.</p>
+      </aside>
+    </div>
+    <p class="story-foot">Step-by-step guides: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Attach an existing app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Preview &amp; second app in Codex</a></p>
   </section>
 
   <section class="story" id="starter">
-    <p class="tag">03 · A starter for more than one app</p>
-    <h2>Give the next app the logging fix</h2>
-    <div class="story-body"><div>
-      <p><strong>Why it matters.</strong> The shop needs 20 database connections. Other apps don’t. They should all use the safer logging default. A starter holds shared defaults and the reasons for them. Approving a new version lets you improve existing apps as well as new ones.</p>
-      <p><strong>You</strong> follow steps 1–3 in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a> to set up the owner and agent roles. Give your agent the hardening request. Review the shop rollout and the shared starter separately. You can leave either pending.</p>
-      <p><strong>Your agent</strong> proposes the shop changes and a new starter version. After your decisions, it starts the cart from the approved starter and checks which settings the shop kept.</p>
-    </div><aside class="result"><strong>What to check in the hub</strong><p>The cart gets the new logging and replica defaults. The shared starter does not acquire the shop’s pool size. The shop keeps its production log-level override.</p><p>This story checks stored settings. For a running-service comparison, see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md#testing">two apps on Fly</a>.</p></aside></div>
+    <p class="tag">03 · Multi-app inheritance · Keep per-app overrides</p>
+    <h2>Give a second app the greeting you just tried</h2>
+    <p><strong>You</strong> choose the greeting to share and open a new Git folder. <strong>Your agent</strong> runs both apps with their staging settings and checks that the second app inherited the greeting.</p>
+
+    <div class="story-body">
+      <ol class="steps">
+        <li>
+          <p>In the greeter session from the preview exercise, ask:</p>
+          <div class="snip"><span class="prompt-label">Ask your agent</span>
+            <pre><code>Make the preview greeting our shared default for welcoming visitors. Put it in staging and show me what the greeter serves there.</code></pre>
+          </div>
+        </li>
+        <li>
+          <p>In Terminal, start from the folder that <em>contains</em> the greeter repository. Create a sibling folder:</p>
+          <div class="snip"><span class="prompt-label">Terminal</span>
+            <pre><code>mkdir catalog &amp;&amp; cd catalog &amp;&amp; git init -q</code></pre>
+          </div>
+          <p class="only-claude">Open a new <code>claude</code> session here.</p>
+          <p class="only-codex">Open a new <code>codex</code> session here using your ordinary login. The greeter’s launcher is scoped to the first app.</p>
+        </li>
+        <li>
+          <p>Use the first app’s name in your request. Reopen with the catalog’s own launcher if setup asks you to.</p>
+          <div class="snip"><span class="prompt-label">Ask your agent</span>
+            <pre><code>Build a small catalog service using greeter’s ConfigHub setup. Let it inherit the greeting. Run catalog with its staging settings and show me the response.</code></pre>
+          </div>
+        </li>
+      </ol>
+      <aside class="result">
+        <p class="result-title">What to check</p>
+        <p>Both staging apps should serve the greeting you chose. Ask your agent to show where catalog gets it. In the recorded run, catalog served <strong>Welcome to the neighborhood!</strong> with no greeting in its own settings file.</p>
+        <p>Catalog has its own production approval. You can finish the exercise with that order still waiting.</p>
+      </aside>
+    </div>
+    <p class="story-foot"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md#a-second-app-from-the-first">Second app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Second app in Codex</a>. To share a logging fix across a team while keeping the shop’s own settings, try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a>.</p>
   </section>
 
   <section class="more" id="same-hub">
-    <h2>What does mini add to ConfigHub?</h2>
-    <p>The plugin captures the edit and request in the coding session. The local hub is ConfigHub on your machine; <code>cub mini</code> arranges its usual variants, permissions and change orders for a common job. To see what it saves you setting up by hand, compare <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md">mini and plain cub, command by command</a>.</p>
-    <p>In an Argo CD setup comparison, agents using plain cub often switched delivery before the approval gate was in place. Agents using mini more often got the order right. That’s a difference in setup; the test didn’t show an unapproved change reaching production. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#setting-up-argo-cd-with-mini-or-plain-cub">Read the eleven-check comparison</a>.</p>
-    <p>When a colleague or CI needs the same settings, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">move to a shared hub</a>. Follow <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">Story 24: one base for ten apps</a> to see how one shared update can preserve each app’s own values. In <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">the Slack approval example</a>, a message saying “the owner approved” still leaves the order pending for its named owner.</p>
+    <h2>Start small, add control only when you need it</h2>
+    <p>Every stage uses the same ConfigHub model, so you never throw away earlier history when moving from solo coding to a team.</p>
+    <table class="stage-table">
+      <thead>
+        <tr><th>Stage</th><th>What runs</th><th>What it solves</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Plugin alone</strong></td>
+          <td>Hook in Claude Code or Codex (no daemon)</td>
+          <td>Remembers supported edits and CLI changes with their reasons. A fresh session can explain what happened.</td>
+        </tr>
+        <tr>
+          <td><strong>Local hub (<code>cub mini</code>)</strong></td>
+          <td>ConfigHub + Postgres on <code>127.0.0.1</code></td>
+          <td>Sets up <code>base</code>, <code>staging</code>, and <code>live</code> copies, scoped agent keys, and change orders in single commands (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md"><code>cub mini</code> vs. plain <code>cub</code></a>).</td>
+        </tr>
+        <tr>
+          <td><strong>Shared hub</strong></td>
+          <td><code>confighub.com</code> or self-hosted server</td>
+          <td>Teammates and CI share one record, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">approve changes as named owners</a>, and manage <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">one base across ten services</a> (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">moving to a shared hub</a>).</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="more" id="operations">
     <h2 id="two-things-to-try-next">Two things to try next</h2>
-    <article>
-      <h3>Restart a Temporal worker halfway through a rollout</h3>
-      <p><strong>You</strong> choose the disposable <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Temporal worker rehearsal</a> and ask “Show me what happens if the worker restarts while a retry change is waiting.” It needs Go, Python 3 and the Temporal CLI.</p>
-      <p><strong>Your agent</strong> runs the packaged rehearsal and shows you the probe results. The rehearsal supplies its own test approval. In your own rollout, you approve the production change.</p>
-      <p><strong>Look for</strong> the old retry limit after restart, one attempt after approval, and a refusal if the policy differs from what was approved.</p>
-    </article>
-    <article>
-      <h3>Find out why a running cluster disagrees with Git</h3>
-      <p><strong>You</strong> choose the disposable local cluster in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Git, the hub and what’s running</a>. Give the quick-start request to your agent. Decide when you’re finished inspecting the cluster and want it removed.</p>
-      <p><strong>Your agent</strong> runs the example, compares the three replica counts, finds the extra environment variable and shows you the return to Git.</p>
-      <p><strong>Look for</strong> two replicas in Git, three in the hub with a reason, and four on the cluster. The extra variable appears only on the cluster.</p>
-    </article>
+    <div class="ops-grid">
+      <article class="ops-card">
+        <h3>Restart a Temporal worker during a rollout</h3>
+        <p><strong>You</strong> choose the local rehearsal and ask what happens if the worker restarts while a change is waiting. You’ll need the mini package, Go, Python 3 and the Temporal CLI.</p>
+        <p><strong>Your agent</strong> runs the rehearsal and shows the retry limit before and after restart. Look for the old limit while approval is pending, one attempt after approval and a refusal if the policy differs. The rehearsal supplies its test approval. In your own rollout, you approve.</p>
+        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Run the Temporal worker rehearsal</a></p>
+      </article>
+      <article class="ops-card">
+        <h3>Find out why the cluster disagrees with Git</h3>
+        <p><strong>You</strong> choose a disposable local cluster and decide when to remove it. The guide lists the tools, including Docker, kind, kubectl and cub-scout.</p>
+        <p><strong>Your agent</strong> compares Git, the hub and the running cluster, then shows delivery returning to Git. Look for two replicas in Git, three in the hub with a reason, and four on the cluster with an extra environment variable.</p>
+        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Compare Git, the hub and the cluster</a></p>
+      </article>
+    </div>
+    <p class="story-foot">Hosting a web app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a>.</p>
   </section>
 </main>
-<footer><a href="./">Product overview</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What the plugin can and can’t do</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">For agents following these stories</a></footer>
+
+<footer>
+  <a href="./">Product overview</a> ·
+  <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub repository</a> ·
+  <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What we do and don’t claim</a> ·
+  <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">Instructions for AI agents</a>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var buttons = document.querySelectorAll("[data-set-client]");
+    function setClient(client) {
+      if (client !== "claude" && client !== "codex") return;
+      root.setAttribute("data-client", client);
+      buttons.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-set-client") === client ? "true" : "false");
+      });
+      try { localStorage.setItem("confighub-client", client); } catch (e) {}
+    }
+    try {
+      var saved = (location.hash === "#codex" && "codex") || localStorage.getItem("confighub-client");
+      if (saved) setClient(saved);
+    } catch (e) {}
+    buttons.forEach(function (b) {
+      b.addEventListener("click", function () { setClient(b.getAttribute("data-set-client")); });
+    });
+
+    document.querySelectorAll(".snip").forEach(function (box) {
+      var code = box.querySelector("code");
+      if (!code || !navigator.clipboard) return;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "copy-btn";
+      btn.textContent = "Copy";
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(code.textContent).then(function () {
+          btn.textContent = "Copied";
+          setTimeout(function () { btn.textContent = "Copy"; }, 1400);
+        });
+      });
+      box.appendChild(btn);
+    });
+  })();
+</script>
 </body>
 </html>
