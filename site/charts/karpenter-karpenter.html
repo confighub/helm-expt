@@ -591,30 +591,32 @@
   <header>
     
     <h1>Find, compare and use karpenter/karpenter</h1>
-    <p class="lead">The Catalog holds one version of the Helm chart karpenter/karpenter, with 3 bases. That version is 1.14.0.</p>
-    <p data-chart-what>The Catalog files this chart under Cluster operations. Its listings do not yet describe what it does, so read the objects before you rely on the name.</p>
-    <p data-chart-run-state>The Catalog rendered all 3 bases and retains the exact objects of each. The listings record no upload as a variant, deployment or promoted change for any base.</p>
+    <p class="lead">The Catalog holds one version of the Helm chart karpenter/karpenter, with 3 bases. That version is 1.14.0. Each base is a pre-rendered Helm values preset saved as plain Kubernetes YAML so you can audit upgrades before deploying.</p>
+    <p data-chart-what>Filed under Cluster operations. Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.</p>
+    <p data-chart-run-state>The Catalog pre-rendered all 3 presets to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account. Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
     <p class="chart-guide-links"><strong>Guides.</strong> Its eks-inference base is one part of <a href="../eks-inference.html">an EKS GPU inference platform</a> that you can check on your laptop. <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> <code>karpenter/karpenter</code> 1.14.0, as 18 Kubernetes objects in its <code>default</code> preset.</p>
-      <p><strong>Install it.</strong> <a href="#use-in-confighub">The five steps below</a> give the commands.</p>
+      <p><strong>What it is.</strong> <code>karpenter/karpenter</code> 1.14.0, pre-rendered as 18 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
+      <p><strong>Needs first.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. Plan below lists 2 more.</p>
+      <p><strong>Install it.</strong> <a href="#use-in-confighub">Five steps below</a>.</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d</code></p>
-      <p><strong>Needs first.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. The value settings.clusterName must be set before render. EKS cluster name; required with no chart default, the deployment template refuses to render without it. The plan below lists 1 more.</p>
-      <p><strong>How it works.</strong> <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>, and <a href="../config.html">Helm in the Catalog</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
     </section>
     <section aria-labelledby="versions">
-      <h2 id="versions">Pick a version and a base</h2>
-      <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
+      <h2 id="versions">Pick a version and a preset</h2>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub with no install.</p>
+      <p>Plain-YAML GitOps status shows whether rendered manifests apply directly with kubectl, Argo CD, or Flux, or require ordered CRD and Secret setup first.</p>
       <article class="chart-version" data-chart-version="1.14.0">
         <h3 id="version-1-14-0">1.14.0 <span class="status good">newest</span></h3>
-        <p>3 bases. The installer package is published and signed. <a href="./karpenter-karpenter-1-14-0.html">Open the page for 1.14.0</a>.</p>
+        <p>3 rendered presets. The installer package is published and signed. <a href="./karpenter-karpenter-1-14-0.html">Open version detail page for 1.14.0</a>.</p>
         <div class="card"><table>
-        <thead><tr><th>Base</th><th>Objects</th><th>Flattening verdict</th><th>Published as OCI</th><th>Flag</th><th>Open</th></tr></thead>
-        <tbody><tr><td>default <span class="status">default</span></td><td>18</td><td><a href="../config.html#verdict-flatten-with-routes" title="Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.">flatten-with-routes</a>, plan recorded</td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml">exact objects</a> · <a href="../listings/karpenter-karpenter-1-14-0-default.json">listing</a></td></tr><tr><td>eks-inference</td><td>18</td><td><a href="../config.html#verdict-flatten-with-routes" title="Kept as exact Kubernetes objects, with a plan of named steps such as a CRD order, a hook or a Secret you supply.">flatten-with-routes</a>, plan recorded</td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml">exact objects</a> · <a href="../listings/karpenter-karpenter-1-14-0-eks-inference.json">listing</a></td></tr><tr><td>crds-managed</td><td>13</td><td><a href="../config.html#verdict-safe-to-flatten" title="Kept as exact Kubernetes objects. Nothing else has to travel with them.">safe-to-flatten</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml">exact objects</a> · <a href="../listings/karpenter-karpenter-1-14-0-crds-managed.json">listing</a></td></tr></tbody>
+        <thead><tr><th>Preset (base)</th><th>K8s objects</th><th>Plain-YAML GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
+        <tbody><tr><td>default <span class="status">default</span></td><td>18</td><td><a href="../config.html#verdict-flatten-with-routes">YAML + ordered CRD/Secret setup</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/effective-values.yaml">Values</a> · <a href="../listings/karpenter-karpenter-1-14-0-default.json">JSON</a></td></tr><tr><td>eks-inference</td><td>18</td><td><a href="../config.html#verdict-flatten-with-routes">YAML + ordered CRD/Secret setup</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/effective-values-eks-inference.yaml">Values</a> · <a href="../listings/karpenter-karpenter-1-14-0-eks-inference.json">JSON</a></td></tr><tr><td>crds-managed</td><td>13</td><td><a href="../config.html#verdict-safe-to-flatten">Applies directly as plain YAML</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/karpenter/karpenter/1.14.0/effective-values-crds-managed.yaml">Values</a> · <a href="../listings/karpenter-karpenter-1-14-0-crds-managed.json">JSON</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -669,21 +671,21 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 1.14.0, the newest version, on its default base.</p>
+      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 1.14.0, the newest version, on its default base.</p>
       <div data-entry-steps="karpenter-karpenter-1-14-0-default">
         <details class="entry-inputs" data-entry-inputs="karpenter-karpenter-1-14-0-default" open>
         <summary>What is fixed, and what you supply</summary>
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>karpenter/karpenter</code></li><li><code>version</code> is <code>1.14.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/karpenter/karpenter/1.14.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>kube-system</code></li><li><code>releaseName</code> is <code>karpenter</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.31.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li>replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes <em>Declared. Not checked on any destination.</em></li><li>EKS cluster name; required with no chart default, the deployment template refuses to render without it <em>Declared. Not checked on any destination.</em></li></ul>
+        <ul class="entry-inputs-list"><li><code>requiredTopology-1</code>: replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes <em>Declared. Not checked on any destination.</em></li><li><code>requiredValues-1</code>: EKS cluster name; required with no chart default, the deployment template refuses to render without it <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
         <span id="plan"></span><details class="entry-inputs" id="plan-karpenter-karpenter-1-14-0-default" data-entry-plan="karpenter-karpenter-1-14-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
         <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The value settings.clusterName must be set before render. EKS cluster name; required with no chart default, the deployment template refuses to render without it. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>When you deliver.</strong> Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. The listing gives the rest. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> The value settings.clusterName must be set before render. EKS cluster name; required with no chart default, the deployment template refuses to render without it. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>When you deliver.</strong> Apply the 5 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
         
         <p><strong>Test the install steps yourself.</strong> <a href="../sh/karpenter-karpenter-1-14-0/default/try.sh">This script</a> carries them out with <code>kubectl</code> on a cluster you choose, with no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
@@ -709,6 +711,9 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff karpenter-karpenter-1-14-0-default.yaml karpenter-karpenter-1-14-0-crds-managed.yaml --summary</code></pre>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
           <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
@@ -739,7 +744,7 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote karpenter-karpenter-1-14-0-default-dev --dry-run -o mutations
@@ -756,8 +761,9 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-default-dev</code></pre>
         </div>
+      </details>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/karpenter-karpenter-1-14-0-default.json">karpenter-karpenter-1-14-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/karpenter-karpenter-1-14-0-default.json">karpenter-karpenter-1-14-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
     <section aria-labelledby="other-bases" class="chart-other-bases">
       <h2 id="other-bases">Use another version or base</h2>
@@ -772,7 +778,7 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>This page as data is <a href="./karpenter-karpenter.json">karpenter-karpenter.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
+      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> This page as data is <a href="./karpenter-karpenter.json">karpenter-karpenter.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>
@@ -799,7 +805,7 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
   openLinkedPlan();
 })();</script>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a preset</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>

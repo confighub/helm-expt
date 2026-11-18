@@ -580,9 +580,10 @@
     <p class="generated"><b>Generated at:</b> 2026-10-06T13:45:42.258Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> Kubara platform <code>kubara-local-platform</code> v0.12.0, as 77 Kubernetes objects.</p>
-      <p><strong>Install it.</strong> <a href="#use-in-confighub">The five steps below</a> give the commands.</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/examples/kubara/local-platform/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
+      <p><strong>Needs first.</strong> Apply the CRDs first and wait for Established before applying Argo CD custom resources. Plan below lists 3 more.</p>
+      <p><strong>Install it.</strong> <a href="#use-in-confighub">Five steps below</a>.</p>
       
-      <p><strong>Needs first.</strong> Apply the CRDs first and wait for Established before applying Argo CD custom resources. Apply the hook RBAC and Job, wait for the Job to complete, record the result, then continue. The plan below lists 2 more.</p>
     </section>
     <article class="doc-body">
 <p>Kubara turns one platform description into the Helm charts and cluster-specific values that Argo CD uses to run a Kubernetes platform. This example uses Kubara v0.12.0's local evaluation profile. It enables Argo CD, cert-manager, External Secrets, a small portal, Prometheus, Metrics Server, and Traefik for one test cluster.</p>
@@ -619,8 +620,8 @@ node scripts/sync-kubara-org-shape.mjs --self-test</code></pre>
     </article>
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account.</p>
+      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p></p>
       <div data-entry-steps="kubara-local-platform-v0-12-0-base">
         <details class="entry-inputs" data-entry-inputs="kubara-local-platform-v0-12-0-base" open>
         <summary>What is fixed, and what you supply</summary>
@@ -654,6 +655,9 @@ fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541  kubara-local-p
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
           <p>The Catalog holds no other version or base of this entry's source in the same format. A second entry for local-platform in this format would give this step a sibling.</p>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-available">
           <h3>3. Upload it as a variant <span class="status none">Not available yet</span></h3>
           <p>This entry is not published, so there is no public artifact to upload. The listing records its literal configuration bundle as held only as a local layout. Publishing the rendered objects as that bundle, with a receipt, would make this step available.</p>
@@ -666,8 +670,9 @@ fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541  kubara-local-p
           <h3>5. Promote a change <span class="status none">Not available yet</span></h3>
           <p>This step needs an upload command from step 3, and this entry has none. A published artifact for this entry, with a receipt, would make this step available.</p>
         </div>
+      </details>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/kubara-local-platform-v0-12-0-base.json">kubara-local-platform-v0-12-0-base.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../../../../listings/kubara-local-platform-v0-12-0-base.json">kubara-local-platform-v0-12-0-base.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>

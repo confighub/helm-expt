@@ -586,10 +586,11 @@
   </header>
   <main>
     <section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> <code>fairwinds-stable/vpa</code> 4.11.0, as 28 Kubernetes objects in its <code>default</code> preset. The Catalog holds 2 presets of this version.</p>
-      <p><strong>Install it.</strong> Use its installer package with <code>cub installer</code>. <a href="#use-in-confighub">The five steps below</a> give the commands.</p>
+      <p><strong>What it is.</strong> <code>fairwinds-stable/vpa</code> 4.11.0, pre-rendered as 28 Kubernetes objects in its <code>default</code> preset. (2 presets available.)</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
+      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
-      <p><strong>How it works.</strong> <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>, and <a href="../config.html">Helm in the Catalog</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
@@ -629,7 +630,7 @@
     <p>Inspecting a source, producing objects, checking a destination, and checking a live result are different jobs. A Catalog match is useful for comparison but is not required. A missing destination or deployment is shown as not run or blocked, not as a failed configuration.</p>
     <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th><th>What it needs</th><th>Status</th></tr></thead>
-        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Available to inspect<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Checked: passed<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.</td><td>Destination access: yes<br>Selected configuration deployed: no</td><td>Not run<br><span class="small">no run recorded</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes<br>Selected configuration deployed: yes</td><td>Not run<br><span class="small">no run recorded</span></td></tr></tbody>
+        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no <br>Selected configuration deployed: no</td><td>Available to inspect <br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no <br>Selected configuration deployed: no</td><td>Checked: passed <br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.</td><td>Destination access: yes <br>Selected configuration deployed: no</td><td>Not run <br><span class="small">no run recorded</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes <br>Selected configuration deployed: yes</td><td>Not run <br><span class="small">no run recorded</span></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -725,8 +726,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. This page covers 2 entries, so open the one you want. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.</p>
+      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 presets below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="fairwinds-stable-vpa-4-11-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 4.11.0</summary>
         <details class="entry-inputs" data-entry-inputs="fairwinds-stable-vpa-4-11-0-default" open>
@@ -734,7 +735,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>fairwinds-stable/vpa</code></li><li><code>version</code> is <code>4.11.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/fairwinds-stable/vpa/4.11.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>vpa</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li>VPA admission controller webhook TLS material normally created by Helm hook lifecycle <em>Declared. Not checked on any destination.</em></li></ul>
+        <ul class="entry-inputs-list"><li><code>vpa-tls-secret</code>: VPA admission controller webhook TLS material normally created by Helm hook lifecycle <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
         <span id="plan"></span><details class="entry-inputs" id="plan-fairwinds-stable-vpa-4-11-0-default" data-entry-plan="fairwinds-stable-vpa-4-11-0-default" open>
@@ -768,6 +769,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff fairwinds-stable-vpa-4-11-0-default.yaml fairwinds-stable-vpa-4-11-0-no-crds.yaml --summary</code></pre>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml">Read the record that states this</a>.</p>
@@ -805,7 +809,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -821,6 +825,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
+      </details>
       <details class="entry-steps-base" data-entry-steps="fairwinds-stable-vpa-4-11-0-no-crds">
         <summary>Helm chart, base <strong>no-crds</strong>, version 4.11.0</summary>
         <details class="entry-inputs" data-entry-inputs="fairwinds-stable-vpa-4-11-0-no-crds" open>
@@ -828,7 +833,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>fairwinds-stable/vpa</code></li><li><code>version</code> is <code>4.11.0</code></li><li><code>base</code> is <code>no-crds</code></li><li><code>valuesProfile</code> is <code>recipes/fairwinds-stable/vpa/4.11.0/effective-values-no-crds.yaml</code></li><li><code>namespace</code> is <code>default</code></li><li><code>releaseName</code> is <code>vpa</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li>VPA CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>VPA CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li>VPA admission controller webhook TLS material normally created by Helm hook lifecycle <em>Declared. Not checked on any destination.</em></li></ul>
+        <ul class="entry-inputs-list"><li><code>verticalpodautoscalercheckpoints.autoscaling.k8s.io</code>: VPA CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li><code>verticalpodautoscalers.autoscaling.k8s.io</code>: VPA CRD managed outside this no-crds base <em>Declared. Not checked on any destination.</em></li><li><code>vpa-tls-secret</code>: VPA admission controller webhook TLS material normally created by Helm hook lifecycle <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
         <details class="entry-inputs" id="plan-fairwinds-stable-vpa-4-11-0-no-crds" data-entry-plan="fairwinds-stable-vpa-4-11-0-no-crds">
@@ -862,6 +867,9 @@ bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187  fairwinds-stab
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff fairwinds-stable-vpa-4-11-0-no-crds.yaml fairwinds-stable-vpa-4-11-0-default.yaml --summary</code></pre>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml">Read the record that states this</a>.</p>
@@ -899,7 +907,7 @@ bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187  fairwinds-stab
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/fairwinds-stable-vpa-4-11-0-no-crds.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -915,7 +923,8 @@ bf99b3e1df92e9ba5da5ab284c98749da9618c5c55358dff3021639057119187  fairwinds-stab
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/fairwinds-stable-vpa-4-11-0-default.json">fairwinds-stable-vpa-4-11-0-default.json</a>, <a href="../listings/fairwinds-stable-vpa-4-11-0-no-crds.json">fairwinds-stable-vpa-4-11-0-no-crds.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      </details>
+      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/fairwinds-stable-vpa-4-11-0-default.json">fairwinds-stable-vpa-4-11-0-default.json</a>, <a href="../listings/fairwinds-stable-vpa-4-11-0-no-crds.json">fairwinds-stable-vpa-4-11-0-no-crds.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="after-render">

@@ -582,15 +582,16 @@
     <p><a class="button primary" href="../ask.html?question_code=install-shape&amp;chart=metrics-server%2Fmetrics-server&amp;version=3.13.0">Check this chart and version</a> <a class="button secondary" href="#run-this">Try the package</a> <a class="button secondary" href="../promote.html?chart=metrics-server%2Fmetrics-server&amp;current=3.13.0&amp;base=default">Plan an upgrade or promotion</a></p>
     <p>Already reviewed the result? <a href="../confighub.html">Keep it in ConfigHub</a> when you need history, variants, approvals, or delivery.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
-    <p class="chart-page-link"><a href="./metrics-server-metrics-server.html">See every version of metrics-server/metrics-server and what changes between them</a>.</p><p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
+    <p class="chart-page-link"><a href="./metrics-server-metrics-server.html">See every version of metrics-server/metrics-server and what changes between them</a>.</p><p class="chart-guide-links"><strong>Guides.</strong> <a href="../example-metrics-server.html">Open the worked metrics-server YAML walkthrough</a> to inspect APIService registration and kubelet TLS flags. <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> <code>metrics-server/metrics-server</code> 3.13.0, as 9 Kubernetes objects in its <code>default</code> preset. The Catalog holds 2 presets of this version.</p>
-      <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/metrics-server-metrics-server-3-13-0/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
+      <p><strong>What it is.</strong> <code>metrics-server/metrics-server</code> 3.13.0, pre-rendered as 9 Kubernetes objects in its <code>default</code> preset. (2 presets available.)</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-metrics-server.html">Worked walkthrough</a>.</p>
+      <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
+      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/metrics-server-metrics-server-3-13-0/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-0-default:latest@sha256:ef3990a76c1098375a9f3944d83da3e8a3a360ed5b5b7f063625138f58a2725a</code></p>
-      <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
-      <p><strong>How it works.</strong> <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>, and <a href="../config.html">Helm in the Catalog</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
@@ -630,7 +631,7 @@
     <p>Inspecting a source, producing objects, checking a destination, and checking a live result are different jobs. A Catalog match is useful for comparison but is not required. A missing destination or deployment is shown as not run or blocked, not as a failed configuration.</p>
     <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th><th>What it needs</th><th>Status</th></tr></thead>
-        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Available to inspect<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no<br>Selected configuration deployed: no</td><td>Checked: passed<br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.</td><td>Destination access: yes<br>Selected configuration deployed: no</td><td>Not run<br><span class="small">no run recorded</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes<br>Selected configuration deployed: yes</td><td>Not run<br><span class="small">no run recorded</span></td></tr></tbody>
+        <tbody><tr><td><strong>What do I have?</strong></td><td>Inspect the helm source, choices, locks, and any existing output before selecting a destination.</td><td>Destination access: no <br>Selected configuration deployed: no</td><td>Available to inspect <br><span class="small">evidence recorded</span></td></tr><tr><td><strong>What will it produce?</strong></td><td>Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.</td><td>Destination access: no <br>Selected configuration deployed: no</td><td>Checked: passed <br><span class="small">evidence recorded</span></td></tr><tr><td><strong>Can this destination accept it?</strong></td><td>The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.</td><td>Destination access: yes <br>Selected configuration deployed: no</td><td>Not run <br><span class="small">no run recorded</span></td></tr><tr><td><strong>Did it work?</strong></td><td>No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.</td><td>Destination access: yes <br>Selected configuration deployed: yes</td><td>Not run <br><span class="small">no run recorded</span></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -738,8 +739,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. This page covers 2 entries, so open the one you want. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.</p>
+      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 presets below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="metrics-server-metrics-server-3-13-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 3.13.0</summary>
         <details class="entry-inputs" data-entry-inputs="metrics-server-metrics-server-3-13-0-default" open>
@@ -782,6 +783,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-comment"># list what changes from 3.13.0 to 3.13.1</span>
 <span class="term-prompt">$</span> cub config diff metrics-server-metrics-server-3-13-0-default.yaml metrics-server-metrics-server-3-13-1-default.yaml --summary</code></pre>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-default.yaml">Read the record that states this</a>.</p>
@@ -806,7 +810,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-default.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote metrics-server-metrics-server-3-13-0-default-dev --dry-run -o mutations
@@ -818,6 +822,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> cub release publish metrics-server-metrics-server-3-13-0-default-dev</code></pre>
         </div>
       </details>
+      </details>
       <details class="entry-steps-base" data-entry-steps="metrics-server-metrics-server-3-13-0-external-tls-ca">
         <summary>Helm chart, base <strong>external-tls-ca</strong>, version 3.13.0</summary>
         <details class="entry-inputs" data-entry-inputs="metrics-server-metrics-server-3-13-0-external-tls-ca" open>
@@ -825,7 +830,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>chart</code> is <code>metrics-server/metrics-server</code></li><li><code>version</code> is <code>3.13.0</code></li><li><code>base</code> is <code>external-tls-ca</code></li><li><code>valuesProfile</code> is <code>recipes/metrics-server/metrics-server/3.13.0/effective-values-external-tls-ca.yaml</code></li><li><code>namespace</code> is <code>kube-system</code></li><li><code>releaseName</code> is <code>metrics-server</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li>metrics-server serving certificate <em>Declared. Not checked on any destination.</em></li><li>APIService CA bundle that validates kube-system/metrics-server-tls <em>Declared. Not checked on any destination.</em></li></ul>
+        <ul class="entry-inputs-list"><li><code>metrics-server-tls</code>: metrics-server serving certificate <em>Declared. Not checked on any destination.</em></li><li><code>requiredValues-1</code>: APIService CA bundle that validates kube-system/metrics-server-tls <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
         <details class="entry-inputs" id="plan-metrics-server-metrics-server-3-13-0-external-tls-ca" data-entry-plan="metrics-server-metrics-server-3-13-0-external-tls-ca">
@@ -865,6 +870,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-comment"># list what changes from 3.13.0 to 3.13.1</span>
 <span class="term-prompt">$</span> cub config diff metrics-server-metrics-server-3-13-0-external-tls-ca.yaml metrics-server-metrics-server-3-13-1-external-tls-ca.yaml --summary</code></pre>
         </div>
+        <details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml">Read the record that states this</a>.</p>
@@ -902,7 +910,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -918,7 +926,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/metrics-server-metrics-server-3-13-0-default.json">metrics-server-metrics-server-3-13-0-default.json</a>, <a href="../listings/metrics-server-metrics-server-3-13-0-external-tls-ca.json">metrics-server-metrics-server-3-13-0-external-tls-ca.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      </details>
+      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/metrics-server-metrics-server-3-13-0-default.json">metrics-server-metrics-server-3-13-0-default.json</a>, <a href="../listings/metrics-server-metrics-server-3-13-0-external-tls-ca.json">metrics-server-metrics-server-3-13-0-external-tls-ca.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="after-render">

@@ -664,7 +664,19 @@ const STACK_FROM_CATALOG_GUIDE_LINK = '<a href="./d/docs/user/workshop-stack-fro
 // Every chart page links the stack Guide, because any published entry can go
 // into a stack.
 const CHART_GUIDES = new Map([
-  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone. It says which changed fields can restart pods on GPU nodes, and how a version step moves through dev and QA" }]],
+  ["argo-cd/argo-cd", [{ href: "../example-argo-cd.html", text: "Open the worked Argo CD YAML walkthrough", after: " to inspect all 55 rendered objects, 3 CRDs, and the Redis password Secret generator before installing" }]],
+  ["bitnami/postgresql", [{ href: "../example-postgresql.html", text: "Open the worked PostgreSQL YAML walkthrough", after: " to inspect StatefulSet storage, Credentials Secrets, and static checks" }]],
+  ["bitnami/redis", [{ href: "../example-redis.html", text: "Open the worked Redis YAML walkthrough", after: " to see why default Secrets regenerate on reinstall and how reuse-existing-secret fixes it" }]],
+  ["external-secrets/external-secrets", [{ href: "../example-external-secrets.html", text: "Open the worked External Secrets YAML walkthrough", after: " to inspect its webhook certificates and CRD ordering requirements" }]],
+  ["gatekeeper/gatekeeper", [{ href: "../example-gatekeeper.html", text: "Open the worked Gatekeeper YAML walkthrough", after: " to inspect all 26 rendered objects, validating webhooks, and CRD pre-steps" }]],
+  ["ingress-nginx/ingress-nginx", [{ href: "../example-ingress-nginx.html", text: "Open the worked ingress-nginx YAML walkthrough", after: " to inspect admission webhook Jobs and ClusterIP vs LoadBalancer presets" }]],
+  ["jetstack/cert-manager", [{ href: "../example-cert-manager.html", text: "Open the worked cert-manager YAML walkthrough", after: " to inspect all 40 rendered objects, startupcheck hook Jobs, and 6 CRDs" }]],
+  ["metrics-server/metrics-server", [{ href: "../example-metrics-server.html", text: "Open the worked metrics-server YAML walkthrough", after: " to inspect APIService registration and kubelet TLS flags" }]],
+  ["nvidia/gpu-operator", [
+    { href: "../example-gpu-operator.html", text: "Open the worked GPU Operator YAML walkthrough", after: " to inspect rendered DaemonSets, node-feature-discovery CRDs, and hooks" },
+    { href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone" },
+  ]],
+  ["prometheus-community/kube-prometheus-stack", [{ href: "../example-kube-prometheus-stack.html", text: "Open the worked kube-prometheus-stack YAML walkthrough", after: " to inspect Prometheus Operator CRDs, admission hooks, and Grafana Secrets" }]],
 ]);
 
 // The website renders only user-facing documentation: the guides and reference
@@ -13595,7 +13607,7 @@ function assessmentStateText(stage) {
     blocked: "evidence blocked",
     "not-applicable": "no evidence required",
   }[stage.evidenceState] ?? sentenceCase(stage.evidenceState);
-  return `${result}<br><span class="small">${escapeHtml(evidence)}</span>`;
+  return `${result} <br><span class="small">${escapeHtml(evidence)}</span>`;
 }
 
 function assessmentQuestionsHtml(record) {
@@ -13611,7 +13623,7 @@ function assessmentQuestionsHtml(record) {
     [
       `Destination access: ${stage.destinationAccessRequired ? "yes" : "no"}`,
       `Selected configuration deployed: ${stage.deploymentRequired ? "yes" : "no"}`,
-    ].join("<br>"),
+    ].join(" <br>"),
     assessmentStateText(stage),
   ]);
   return `<section aria-labelledby="assessment-questions">
@@ -15242,22 +15254,17 @@ function chartPageCss() {
 function chartRunStateSentences(model) {
   const listings = model.versions.flatMap((version) => version.bases).map((base) => base.listing).filter(Boolean);
   const total = listings.length;
-  const basesWord = (count) => `${count} ${count === 1 ? "base" : "bases"}`;
+  const basesWord = (count) => `${count} ${count === 1 ? "preset" : "presets"}`;
   const count = (stepId, state) => listings.filter((listing) => (listing.nextSteps ?? []).some((step) => step.id === stepId && step.state === state)).length;
-  const list = (items, joiner = "and") => (items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} ${joiner} ${items.at(-1)}`);
   const rendered = count("get-objects", "run-for-this-entry");
+  const deployed = count("deploy", "run-for-this-entry");
   const sentences = [rendered === total
-    ? `The Catalog rendered ${total === 1 ? "its one base" : `all ${total} bases`} and retains the exact objects of each.`
-    : `The Catalog rendered ${rendered} of ${basesWord(total)} and retains their exact objects.`];
-  const steps = [...CHART_STEP_NOUNS.keys()];
-  const ran = steps.filter((id) => count(id, "run-for-this-entry") > 0);
-  const untouched = steps.filter((id) => ["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].every((state) => count(id, state) === 0));
-  const bare = (id) => CHART_STEP_NOUNS.get(id).replace(/^an? /, "");
-  if (ran.length) sentences.push(`The listings record ${list(ran.map((id) => `${CHART_STEP_NOUNS.get(id)} for ${basesWord(count(id, "run-for-this-entry"))}`))}.`);
-  if (untouched.length) sentences.push(`${ran.length ? "They record" : "The listings record"} no ${list(untouched.map(bare), "or")} for any base.`);
-  for (const [state, words] of [["partly-run-for-this-entry", "partly recorded"], ["blocked-for-this-entry", "blocked"]]) {
-    const hit = steps.filter((id) => count(id, state) > 0);
-    if (hit.length) sentences.push(`${list(hit.map((id) => `${CHART_STEP_NOUNS.get(id)} is ${words} for ${basesWord(count(id, state))}`))}.`.replace(/^a/, "A"));
+    ? `The Catalog pre-rendered ${total === 1 ? "its preset" : `all ${total} presets`} to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account.`
+    : `The Catalog pre-rendered ${rendered} of ${basesWord(total)} to plain Kubernetes YAML with recorded SHA-256 digests.`];
+  if (deployed > 0) {
+    sentences.push(`A live cluster apply passed for ${basesWord(deployed)}, while cluster-specific CRDs and Secrets still require verification on your target cluster.`);
+  } else {
+    sentences.push("Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.");
   }
   return sentences;
 }
@@ -15268,14 +15275,14 @@ function chartWhatItIsSentences(model) {
   const category = catalogComponentCategory(model.chart);
   const newest = model.versions[0];
   const listing = (newest.bases.find((base) => base.isDefault) ?? newest.bases[0])?.listing;
-  const sentences = [`The Catalog files this chart under ${escapeHtml(category.label)}.`];
+  const sentences = [`Filed under ${escapeHtml(category.label)}.`];
   const roles = listing?.discovery?.roles ?? [];
   if (listing?.discovery?.status === "classified" && roles.length && listing.discovery.rationale) {
     const role = roles.map((entry) => `${entry.role} ${entry.componentType}`).join(" and ");
     sentences.push(`Its newest listing records the role ${escapeHtml(role)}.`);
     sentences.push(`<span data-chart-rationale>${escapeHtml(listing.discovery.rationale)}</span>`);
   } else {
-    sentences.push("Its listings do not yet describe what it does, so read the objects before you rely on the name.");
+    sentences.push("Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.");
   }
   return sentences;
 }
@@ -15319,6 +15326,21 @@ function chartDefaultPair(model) {
   return null;
 }
 
+function chartPlainYamlStatusHtml(facts, siteHref) {
+  const verdict = String(facts.verdict || "");
+  const href = `${siteHref}config.html#verdict-${escapeHtml(verdict)}`;
+  if (verdict === "safe-to-flatten" || verdict === "born-flattened") {
+    return `<a href="${href}">Applies directly as plain YAML</a>`;
+  }
+  if (verdict === "flatten-with-routes") {
+    return `<a href="${href}">YAML + ordered CRD/Secret setup</a>${facts.planRecorded ? " (steps below)" : ""}`;
+  }
+  if (verdict === "unsafe-to-flatten") {
+    return `<a href="${href}">Requires Helm at install time</a>`;
+  }
+  return listingVerdictHtml(facts, siteHref);
+}
+
 function chartVersionsSectionHtml(model) {
   const articles = model.versions.map((version, index) => {
     const row = version.row;
@@ -15329,24 +15351,30 @@ function chartVersionsSectionHtml(model) {
     const rows = version.bases.map((base) => {
       if (!base.facts) return [escapeHtml(base.base), "", "No listing yet", "", "", ""];
       const facts = base.facts;
+      const valuesEntry = (base.listing?.source?.fixedAtBuildTime ?? []).find((item) => String(item).startsWith("valuesProfile="));
+      const valuesPath = valuesEntry ? String(valuesEntry).slice("valuesProfile=".length) : "";
+      const valuesLink = valuesPath && existsSync(join(repoRoot, valuesPath))
+        ? ` · <a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(valuesPath)}">Values</a>`
+        : "";
       return [
         `${escapeHtml(base.base)}${base.isDefault ? ` <span class="status">default</span>` : ""}`,
         String(facts.objectCount),
-        listingVerdictHtml(facts, "../"),
+        chartPlainYamlStatusHtml(facts, "../"),
         escapeHtml(listingPublishedText(facts)),
         facts.flagged ? `<span class="status warn" title="${escapeHtml(facts.flagQuestion)}">watch</span>` : "None",
-        `<a href="${escapeHtml(facts.objectsUrl)}">exact objects</a> · <a href="../listings/${escapeHtml(facts.id)}.json">listing</a>`,
+        `<a href="${escapeHtml(facts.objectsUrl)}">Read YAML</a>${valuesLink} · <a href="../listings/${escapeHtml(facts.id)}.json">JSON</a>`,
       ];
     });
     return `<article class="chart-version" data-chart-version="${escapeHtml(version.version)}">
         <h3 id="version-${escapeHtml(chartPageSlug(version.version))}">${escapeHtml(version.version)}${index === 0 ? ` <span class="status good">newest</span>` : ""}</h3>
-        <p>${version.bases.length === 1 ? "One base" : `${version.bases.length} bases`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open the page for ${escapeHtml(version.version)}</a>.</p>
-        ${markdownLikeTable([["Base", "Objects", "Flattening verdict", "Published as OCI", "Flag", "Open"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
+        <p>${version.bases.length === 1 ? "One rendered preset" : `${version.bases.length} rendered presets`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open version detail page for ${escapeHtml(version.version)}</a>.</p>
+        ${markdownLikeTable([["Preset (base)", "K8s objects", "Plain-YAML GitOps status", "OCI bundle", "Review flag", "Inspect"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
       </article>`;
   }).join("\n      ");
   return `<section aria-labelledby="versions">
-      <h2 id="versions">Pick a version and a base</h2>
-      <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
+      <h2 id="versions">Pick a version and a preset</h2>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub with no install.</p>
+      <p>Plain-YAML GitOps status shows whether rendered manifests apply directly with kubectl, Argo CD, or Flux, or require ordered CRD and Secret setup first.</p>
       ${articles}
     </section>`;
 }
@@ -15450,7 +15478,7 @@ function chartOverviewPageHtml(model, liveExample) {
   <header>
     ${topNav("..")}
     <h1>Find, compare and use ${escapeHtml(model.chart)}</h1>
-    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`}</p>
+    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`} Each base is a pre-rendered Helm values preset saved as plain Kubernetes YAML so you can audit upgrades before deploying.</p>
     <p data-chart-what>${chartWhatItIsSentences(model).join(" ")}</p>
     <p data-chart-run-state>${chartRunStateSentences(model).map(escapeHtml).join(" ")}</p>
     ${entryStepsTopLinkHtml()}
@@ -15470,7 +15498,7 @@ function chartOverviewPageHtml(model, liveExample) {
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      ${agentNote(`This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`)}
+      ${agentNote(` This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`, "Machine-readable JSON (for scripts and automation):")}
     </section>
   </main>
   <footer>Generated from the Catalog listings of ${escapeHtml(model.chart)}. Do not edit by hand.</footer>
@@ -16303,7 +16331,7 @@ function entryStepHtml(step, index, listing, siteHref) {
     if (step.alsoRecorded) sentences.push(escapeHtml(step.alsoRecorded));
   }
   if (step.id === "promote" && commands.length) {
-    sentences.push("Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.");
+    sentences.push("Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space.");
   }
   const links = [];
   if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
@@ -16340,7 +16368,14 @@ function entryStepsListingHtml(listing, siteHref) {
     ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
         `
     : "";
-  return `${flag}${entryInputsHtml(listing)}${entryPlanHtml(listing, siteHref)}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
+  const localStepsHtml = steps.slice(0, 2).map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ");
+  const serverStepsHtml = `<details class="entry-inputs" data-optional-server-steps>
+        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
+        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
+        ${steps.slice(2).map((step, offset) => entryStepHtml(step, offset + 2, listing, siteHref)).join("\n        ")}
+      </details>`;
+  return `${flag}${entryInputsHtml(listing)}${entryPlanHtml(listing, siteHref)}${localStepsHtml}
+        ${serverStepsHtml}`;
 }
 
 // What the listing records as fixed when the entry was built, beside what the
@@ -16404,7 +16439,13 @@ function entryInputsHtml(listing) {
     .join("");
   const shown = supplied.slice(0, INSTALL_INPUT_LIMIT);
   const suppliedRows = shown
-    .map((input) => `<li>${escapeHtml(shortInputDetail(input.detail || input.name || ""))} <em>${escapeHtml(INSTALL_INPUT_STATUS.get(input.status))}</em></li>`)
+    .map((input) => {
+      const detail = shortInputDetail(input.detail || input.name || "");
+      const prefix = input.name && input.detail && !String(input.detail).toLowerCase().includes(String(input.name).toLowerCase())
+        ? `<code>${escapeHtml(input.name)}</code>: `
+        : "";
+      return `<li>${prefix}${escapeHtml(detail)} <em>${escapeHtml(INSTALL_INPUT_STATUS.get(input.status))}</em></li>`;
+    })
     .join("");
   const more = supplied.length > shown.length
     ? `<p>The listing records ${supplied.length} of these. This list shows the first ${shown.length}.</p>`
@@ -16438,6 +16479,15 @@ function planStepBrief(step) {
   return `${brief}${rest}`;
 }
 
+function readerPlanStepBrief(step) {
+  const all = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+  const trimmed = all
+    .filter((sentence, index) => !(index === 0 && /^Without\b/.test(sentence)))
+    .filter((sentence) => !/^The installer package includes [^.]*prerequisites\/target-facts\//.test(sentence));
+  const chosen = (trimmed.length ? trimmed : all).slice(0, 2).join(" ");
+  return shortInputDetail(chosen).replace(/\s*The listing gives the rest\.$/, "");
+}
+
 // The first thing on an entry page: what the entry is, the one command that
 // installs it, and what it needs first. It reads the first listing of the
 // page, which is the default preset.
@@ -16446,22 +16496,30 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   if (!listing) return "";
   // An entry with a page that walks through it links that page from the box.
   const walkthroughs = new Map([
-    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator from the Catalog"]],
+    ["argo-cd/argo-cd", ["example-argo-cd.html", "Worked walkthrough"]],
+    ["bitnami/postgresql", ["example-postgresql.html", "Worked walkthrough"]],
+    ["bitnami/redis", ["example-redis.html", "Worked walkthrough"]],
+    ["external-secrets/external-secrets", ["example-external-secrets.html", "Worked walkthrough"]],
+    ["gatekeeper/gatekeeper", ["example-gatekeeper.html", "Worked walkthrough"]],
+    ["ingress-nginx/ingress-nginx", ["example-ingress-nginx.html", "Worked walkthrough"]],
+    ["jetstack/cert-manager", ["example-cert-manager.html", "Worked walkthrough"]],
+    ["metrics-server/metrics-server", ["example-metrics-server.html", "Worked walkthrough"]],
+    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy GPU Operator guide"]],
+    ["prometheus-community/kube-prometheus-stack", ["example-kube-prometheus-stack.html", "Worked walkthrough"]],
   ]);
   const walkthrough = siteHref ? walkthroughs.get(listing.identity.name) : null;
-  const walkthroughHtml = walkthrough
-    ? `
-      <p><strong>Step by step.</strong> <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>.</p>`
+  const walkthroughInline = walkthrough
+    ? ` · <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>`
     : "";
   const { name, version, base, format, formatLabel } = listing.identity;
   // Where the model and this entry's format are explained.
   const formatDoor = new Map([
-    ["helm", ["config.html", "Helm in the Catalog"]],
-    ["aicr", ["try-aicr.html", "NVIDIA AICR in the Catalog"]],
+    ["helm", ["config.html", "Helm checks"]],
+    ["aicr", ["try-aicr.html", "AICR recipes"]],
   ]).get(format);
   const doorsHtml = siteHref
     ? `
-      <p><strong>How it works.</strong> <a href="${siteHref}/d/docs/user/model-and-vocabulary.html">How the model works</a>${formatDoor ? `, and <a href="${siteHref}/${formatDoor[0]}">${formatDoor[1]}</a>` : ""}.</p>`
+      <p><strong>Docs.</strong> <a href="${siteHref}/d/docs/user/model-and-vocabulary.html">Model</a>${formatDoor ? ` · <a href="${siteHref}/${formatDoor[0]}">${formatDoor[1]}</a>` : ""}${walkthrough && !listing.flattened?.retainedObjects?.url ? ` · <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>` : ""}.</p>`
     : "";
   const presets = listings.filter((item) => item.identity.format === format).length;
   const count = Number(listing.flattened?.objectCount ?? 0);
@@ -16471,18 +16529,26 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   // A long version, such as a digest, is left out of the sentence.
   const versionText = /^v?\d/.test(String(version ?? "")) && String(version).length <= 24 ? ` ${escapeHtml(version)}` : "";
   const what = format === "helm"
-    ? `<code>${escapeHtml(name)}</code>${versionText}, as ${objects} in its <code>${escapeHtml(base)}</code> preset.${presets > 1 ? ` The Catalog holds ${presets} presets of this version.` : ""}`
+    ? `<code>${escapeHtml(name)}</code>${versionText}, pre-rendered as ${objects} in its <code>${escapeHtml(base)}</code> preset.${presets > 1 ? ` (${presets} presets available.)` : ""}`
     : `${escapeHtml(formatLabel ?? format)} <code>${escapeHtml(name)}</code>${versionText}, as ${objects}.`;
+  const objectsUrl = listing.flattened?.retainedObjects?.url ?? listing.flattened?.objectsUrl ?? "";
+  const readYamlHtml = objectsUrl
+    ? `
+      <p><strong>Inspect YAML.</strong> <a href="${escapeHtml(objectsUrl)}">Read rendered YAML on GitHub</a> (zero install)${walkthroughInline}.</p>`
+    : "";
   const eligibility = retainedObjectsScriptEligibility(listing);
-  const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">The five steps below</a> give the commands.`;
-  const install = eligibility.eligible
-    ? `<code>curl -fsSL -o try-objects.sh ${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME} &amp;&amp; bash try-objects.sh</code>`
-    : isAicr
-      ? `Apply its Applications on a cluster that runs Argo CD. ${steps}`
-      : ({
-        "needs-sveltos": `Apply it on a Sveltos management cluster. ${steps}`,
-        "verdict": format === "helm" ? `Use its installer package with <code>cub installer</code>. ${steps}` : steps,
-      })[eligibility.reason] ?? steps;
+  const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">Five steps below</a>.`;
+  const scriptUrl = eligibility.eligible ? `${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}` : "";
+  const install = eligibility.eligible && objectsUrl
+    ? `Download YAML and dry-run locally: <code>curl -fsSLO ${escapeHtml(objectsUrl)} &amp;&amp; kubectl apply --dry-run=client -f ${escapeHtml(objectsUrl.split("/").pop())}</code> (<a href="${escapeHtml(scriptUrl)}">cluster test script</a>)`
+    : eligibility.eligible
+      ? `<a href="${escapeHtml(scriptUrl)}">Inspect script</a>, then test in a throwaway cluster: <code>curl -fsSL -o try-objects.sh ${scriptUrl}</code>`
+      : isAicr
+        ? `Apply its Applications on an Argo CD cluster. ${steps}`
+        : ({
+          "needs-sveltos": `Apply on a Sveltos management cluster. ${steps}`,
+          "verdict": format === "helm" ? `Pull locally with <code>cub installer</code>. ${steps}` : steps,
+        })[eligibility.reason] ?? steps;
   const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
   const bundle = published
     ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
@@ -16505,13 +16571,13 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   const needs = eligibility.reason === "needs-sveltos"
     ? "A Sveltos management cluster, and the clusters it selects."
     : firstSteps.length === 0
-      ? (eligibility.eligible ? "Nothing. The script applies any CRDs first." : "")
-      : `${firstSteps.slice(0, 2).map((step) => escapeHtml(asSentence(planStepBrief(step)))).join(" ")}${firstSteps.length > 2 ? ` The plan below lists ${firstSteps.length - 2} more.` : ""}`;
+      ? (eligibility.eligible ? "Nothing. Standard Kubernetes objects apply directly." : "")
+      : `${escapeHtml(asSentence(readerPlanStepBrief(firstSteps[0])))}${firstSteps.length > 1 ? ` Plan below lists ${firstSteps.length - 1} more.` : ""}`;
   return `<section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> ${what}</p>
+      <p><strong>What it is.</strong> ${what}</p>${readYamlHtml}${needs ? `
+      <p><strong>Needs first.</strong> ${needs}</p>` : ""}
       <p><strong>Install it.</strong> ${install}</p>
-      ${bundle}${needs ? `
-      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}${doorsHtml}
+      ${bundle}${doorsHtml}
     </section>`;
 }
 
@@ -16557,7 +16623,7 @@ function entryPlanHtml(listing, siteHref) {
     // The record's "selected applier" means whichever tool applies the objects.
     const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
     const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
-    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(planStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
+    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(readerPlanStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`
@@ -16710,17 +16776,16 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
     .join(", ");
   return `<section class="entry-steps" aria-labelledby="${ENTRY_STEPS_ANCHOR}">
       <h2 id="${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
+      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
       <p>${[
-        "Steps 1 and 2 need no account.",
-        usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
-        compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
-        listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
-        walked ? `A <a href="${entryWalkHref(siteHref)}">live walk on ${escapeHtml(ENTRY_STEPS_WALK.date)}</a> ran steps 3 to 5 for ${ENTRY_STEPS_WALK.entries.map((entry) => `<code>${escapeHtml(entry)}</code>`).join(" and ")}. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.` : usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
+        usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
+        compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
+        listings.length > 1 ? `Expand any of the ${listings.length} presets below.` : "",
+        walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}
-      ${agentNote(`These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`)}
+      ${agentNote(` These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`, "Machine-readable JSON (for scripts and automation):")}
     </section>`;
 }
 
