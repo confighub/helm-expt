@@ -751,7 +751,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Gatekeeper OCI bundle in your organization, in a folder called <code>gatekeeper-example</code>. Each object is stored on its own, with a README, and the plan comes with them as 4 short documents. The rest makes a dev and a prod copy of it, and prod runs three replicas of the audit Deployment. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>gatekeeper-example</code> and two copies, <code>gatekeeper-example-dev</code> and <code>gatekeeper-example-prod</code>. That base folder holds 34 items, including all 30 Kubernetes objects, a README and 4 plan documents. Prod runs three replicas of the audit Deployment. It touches no cluster. In the CLI flags below, <code>--space</code> names a folder, <code>--unit</code> names an object and <code>variant</code> names a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component gatekeeper-example --variant base --space gatekeeper-example --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-3-22-2-default:latest@sha256:8876d3568b8eb7cfde23096ce287b20b52ae36cfba3acc3cba48cec66421c930
@@ -765,6 +765,14 @@
 <span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space gatekeeper-example-prod --unit gatekeeper-audit --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">To remove everything loading created in your organization, delete the copies first, then the base folder and component.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub space delete --recursive gatekeeper-example-prod
+
+<span class="term-prompt">$</span> cub space delete --recursive gatekeeper-example-dev
+
+<span class="term-prompt">$</span> cub space delete --recursive gatekeeper-example
+
+<span class="term-prompt">$</span> cub component delete gatekeeper-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -810,7 +818,7 @@ Schema
   [PASS] schema validation: 30 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0); 1 quantity written as a number, which the API server accepts
 
   Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-gatekeeper">The recorded files and their receipt</a> hold every input and output. <a href="./before-after-helm-gatekeeper.html">The details page</a> has the commands that made both.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-gatekeeper">Every input and output file from that run</a> is on GitHub. <a href="./before-after-helm-gatekeeper.html">The details page</a> has the commands that made both.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-gatekeeper.html">Show me the details</a> (for experienced users)</p>

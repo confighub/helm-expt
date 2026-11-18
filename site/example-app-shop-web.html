@@ -757,7 +757,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the app as a base in your organization, and makes a dev and a prod copy of it. Each copy holds 6 objects, the app's 5 and its namespace. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>shop-web-base</code> and two copies, <code>shop-web-dev</code> and <code>shop-web-prod</code>, with 6 objects in each. It touches no cluster. In the CLI flags below, <code>--space</code> names a folder, <code>--unit</code> names an object and <code>variant</code> names a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub app upload shop-web --run
@@ -771,6 +771,14 @@ apiVersion: networking.k8s.io/v1</code></pre>
 <span class="term-prompt">$</span> cub function set --space shop-web-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space shop-web-prod --unit shop-web --change-desc &quot;Run five replicas in prod&quot; set-replicas 5</code></pre>
+          <p class="ex-note">To remove everything loading created in your organization, delete the copies first, then the base folder and component.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub space delete --recursive shop-web-prod
+
+<span class="term-prompt">$</span> cub space delete --recursive shop-web-dev
+
+<span class="term-prompt">$</span> cub space delete --recursive shop-web-base
+
+<span class="term-prompt">$</span> cub component delete shop-web</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the Workshop plugin.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -779,7 +787,7 @@ apiVersion: networking.k8s.io/v1</code></pre>
 
 <span class="term-prompt">$</span> cub stack sandbox shop-platform</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the Workshop plugin. Install the Workshop plugin with <code>cub plugin install confighub/cub-workshop@v0.6.61</code>.</p>
-          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. The output uses cub's own words. Here a <code>Space</code> is a folder.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. In the CLI output, <code>Space</code> means a folder.</p>
           <p class="ex-note"><code>cub app check</code> printed this for shop-web.</p>
           <pre class="ex-code ex-out"><code>App: shop-web
 Rendering the workload (free, no infrastructure)
@@ -823,7 +831,7 @@ Sandbox render  (free, no infrastructure)
       shop-web: 5  [workload]  [authored]
 
   Ready. `cub stack upload shop-platform --run` uploads the base Spaces and links the declared bindings in ConfigHub.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/app-shop-web">The recorded files and their receipt</a> hold every input and output.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/app-shop-web">Every input and output file from that run</a> is on GitHub.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-app-shop-web.html">Show me the details</a> (for experienced users)</p>

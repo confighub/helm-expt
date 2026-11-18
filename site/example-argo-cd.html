@@ -750,7 +750,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the Argo CD OCI bundle in your organization, in a folder called <code>argo-cd-example</code>. Each object is stored on its own, with a README, and the plan comes with them as 3 short documents. The rest makes a dev and a prod copy of it, and prod runs three replicas of the server. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>argo-cd-example</code> and two copies, <code>argo-cd-example-dev</code> and <code>argo-cd-example-prod</code>. That base folder holds 58 items, including all 55 Kubernetes objects, a README and 3 plan documents. Prod runs three replicas of the server. It touches no cluster. In the CLI flags below, <code>--space</code> names a folder, <code>--unit</code> names an object and <code>variant</code> names a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub variant upload --component argo-cd-example --variant base --space argo-cd-example --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a
@@ -764,6 +764,14 @@
 <span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space argo-cd-example-prod --unit argo-cd-argocd-server --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">To remove everything loading created in your organization, delete the copies first, then the base folder and component.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub space delete --recursive argo-cd-example-prod
+
+<span class="term-prompt">$</span> cub space delete --recursive argo-cd-example-dev
+
+<span class="term-prompt">$</span> cub space delete --recursive argo-cd-example
+
+<span class="term-prompt">$</span> cub component delete argo-cd-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -809,7 +817,7 @@ Schema
   [PASS] schema validation: 55 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
 
   Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-argo-cd">The recorded files and their receipt</a> hold every input and output. <a href="./before-after-helm-argo-cd.html">The details page</a> has the commands that made both.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-argo-cd">Every input and output file from that run</a> is on GitHub. <a href="./before-after-helm-argo-cd.html">The details page</a> has the commands that made both.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-argo-cd.html">Show me the details</a> (for experienced users)</p>

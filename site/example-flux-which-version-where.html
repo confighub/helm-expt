@@ -755,7 +755,7 @@ patches:
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates four base folders, ten cluster copies across <code>dev-1</code>, <code>staging-1</code> and <code>prod-1</code>, and cluster records in <code>fleet-targets</code>. It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -765,6 +765,8 @@ patches:
 <span class="term-prompt">$</span> cub flux apply . --require Healthy --prefix fleet --out onboard
 
 <span class="term-prompt">$</span> CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh</code></pre>
+          <p class="ex-note">To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> bash onboard/cleanup.sh</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -775,7 +777,7 @@ patches:
 
 <span class="term-prompt">$</span> cub flux plan . --require Healthy</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
-          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. The output uses cub's own words. Here a <code>variant</code> is a copy and a <code>Target</code> is a cluster.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. In the CLI output, <code>variant</code> means a copy and <code>Target</code> means a cluster.</p>
           <p class="ex-note"><code>cub flux plan . --require Healthy</code> printed this.</p>
           <pre class="ex-code ex-out"><code>Flux fleet: 3 clusters, 4 layers, 10 variants
 Read 46 objects
@@ -902,7 +904,7 @@ Handover (apply will write it as handover.sh; plan runs nothing)
 Next
   cub flux apply . --require Healthy --out ./flux-onboarding
   That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-expert-fleet">The recorded files and their receipt</a> hold every input and output.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-expert-fleet">Every input and output file from that run</a> is on GitHub.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-flux-expert-fleet.html">Show me the details</a> (for experienced users)</p>

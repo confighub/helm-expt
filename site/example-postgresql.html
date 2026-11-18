@@ -749,7 +749,7 @@
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It saves the PostgreSQL package in your organization, in a folder called <code>postgresql-example</code>. Each object is stored on its own, with a record of the install. The rest makes a dev and a prod copy of it, and prod runs three replicas of its StatefulSet. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>postgresql-example</code> and two copies, <code>postgresql-example-dev</code> and <code>postgresql-example-prod</code>. That base folder holds all 6 Kubernetes objects and a record of the install. Prod runs three replicas of its StatefulSet. It touches no cluster. In the CLI flags below, <code>--space</code> names a folder, <code>--unit</code> names an object and <code>variant</code> names a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0@sha256:cf2cfeae128c4ede5cfa9ac65bdf241b557d59a1badacdd107e044caadb0d353 --base existing-secret --work-dir ./postgresql-example --non-interactive --namespace postgresql &amp;&amp; cub installer upload --work-dir ./postgresql-example --space postgresql-example &amp;&amp; cub component create postgresql-example &amp;&amp; cub space update --patch postgresql-example --component postgresql-example
@@ -763,6 +763,14 @@
 <span class="term-prompt">$</span> cub function set --space postgresql-example-prod --change-desc &quot;Label every object environment prod&quot; set-label environment prod
 
 <span class="term-prompt">$</span> cub function set --space postgresql-example-prod --unit statefulset-postgresql-postgresql --change-desc &quot;Run three replicas in prod&quot; set-replicas 3</code></pre>
+          <p class="ex-note">To remove everything loading created in your organization, delete the copies first, then the base folder and component.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub space delete --recursive postgresql-example-prod
+
+<span class="term-prompt">$</span> cub space delete --recursive postgresql-example-dev
+
+<span class="term-prompt">$</span> cub space delete --recursive postgresql-example
+
+<span class="term-prompt">$</span> cub component delete postgresql-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with its installer plugin and kustomize.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -808,7 +816,7 @@ Schema
   [PASS] schema validation: 6 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
 
   Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-postgresql">The recorded files and their receipt</a> hold every input and output. <a href="./before-after-helm-postgresql.html">The details page</a> has the commands that made both.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/helm-postgresql">Every input and output file from that run</a> is on GitHub. <a href="./before-after-helm-postgresql.html">The details page</a> has the commands that made both.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-helm-postgresql.html">Show me the details</a> (for experienced users)</p>
