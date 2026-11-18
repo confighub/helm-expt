@@ -756,7 +756,7 @@ labels:
       </table>
       <div class="ex-actions">
         <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. Each copy stores its 2 objects separately. It touches no cluster. The commands use cub's own words. Here a <code>space</code> is a folder, a <code>unit</code> is an object and a <code>variant</code> is a copy.</p>
+          <p class="installer-command-note">Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>checkout-cache-example-base</code> and three copies for dev, staging and prod, with 2 objects in each. It touches no cluster. In the CLI flags below, <code>--space</code> names a folder, <code>--unit</code> names an object and <code>variant</code> names a copy.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
 <span class="term-prompt">$</span> git clone https://github.com/confighub/examples.git &amp;&amp; git -C examples checkout 7f1b8f2fc849bb6488bc2c58f1469172018fc9dd
@@ -776,6 +776,10 @@ labels:
 <span class="term-prompt">$</span> cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc &quot;Run three replicas in prod&quot; set-replicas 3
 
 <span class="term-prompt">$</span> cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc &quot;Give prod a 1Gi memory limit&quot; -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = &quot;1Gi&quot;'</code></pre>
+          <p class="ex-note">To remove everything loading created in your organization, delete the copies first, then the base folder and component.</p>
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> for env in prod staging dev base; do cub space delete --recursive checkout-cache-example-$env; done
+
+<span class="term-prompt">$</span> cub component delete checkout-cache-example</code></pre>
           <p class="ex-note">You need a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=before-after">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with kustomize and helm.</p>
         </details>
         <details class="ex-button"><summary>Try it on your laptop</summary>
@@ -808,7 +812,7 @@ Schema
   [PASS] schema validation: 2 object(s) valid against the default and ecosystem catalogs (flux-schema/0.16.0)
 
   Free look before you install. Compose it into a cub stack, or run it as a cub app.</code></pre>
-          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/kustomize-helm-chart">The recorded files and their receipt</a> hold every input and output.</p>
+          <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/kustomize-helm-chart">Every input and output file from that run</a> is on GitHub.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./before-after-kustomize-helm-chart.html">Show me the details</a> (for experienced users)</p>
