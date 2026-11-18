@@ -738,6 +738,8 @@ For existing Argo CD, Flux, Kubara or Sveltos setups, read the matching plugin r
 const sitemapPath = join(siteRoot, "sitemap.xml");
 const robotsPath = join(siteRoot, "robots.txt");
 const llmsPath = join(siteRoot, "llms.txt");
+const rootRobotsPath = join(repoRoot, "robots.txt");
+const rootLlmsPath = join(repoRoot, "llms.txt");
 const agentSkillSourceRoot = join(repoRoot, "skills", "config-workshop");
 const agentSkillPublishedRoot = join(siteRoot, ".well-known", "agent-skills", "config-workshop");
 const agentSkillIndexPath = join(siteRoot, ".well-known", "agent-skills", "index.json");
@@ -1118,6 +1120,8 @@ if (mode === "--generate") {
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
   write(llmsPath, site.llmsTxt);
+  write(rootRobotsPath, site.robotsTxt);
+  write(rootLlmsPath, site.llmsTxt);
   for (const relative of agentSkillFiles) {
     write(
       join(agentSkillPublishedRoot, relative),
@@ -1311,6 +1315,10 @@ if (mode === "--generate") {
   check(readFileSync(robotsPath, "utf8") === site.robotsTxt, "site/robots.txt is stale");
   check(existsSync(llmsPath), "site/llms.txt is missing; run npm run site:generate");
   check(readFileSync(llmsPath, "utf8") === site.llmsTxt, "site/llms.txt is stale");
+  check(existsSync(rootRobotsPath), "robots.txt is missing; run npm run site:generate");
+  check(readFileSync(rootRobotsPath, "utf8") === site.robotsTxt, "robots.txt is stale");
+  check(existsSync(rootLlmsPath), "llms.txt is missing; run npm run site:generate");
+  check(readFileSync(rootLlmsPath, "utf8") === site.llmsTxt, "llms.txt is stale");
   for (const relative of agentSkillFiles) {
     const source = join(agentSkillSourceRoot, relative);
     const published = join(agentSkillPublishedRoot, relative);
@@ -2310,6 +2318,8 @@ function injectHeadMeta(html, relPath) {
   const meta = [
     `<meta name="description" content="${escapeHtml(description)}">`,
     `<link rel="canonical" href="${escapeHtml(canonical)}">`,
+    `<link rel="sitemap" type="application/xml" href="${escapeHtml(`${SITE_BASE_URL}sitemap.xml`)}">`,
+    `<link rel="alternate" type="text/plain" href="${escapeHtml(`${SITE_BASE_URL}llms.txt`)}" title="ConfigHub Workshop LLM index">`,
     `<meta property="og:title" content="${escapeHtml(title)}">`,
     `<meta property="og:description" content="${escapeHtml(description)}">`,
     `<meta property="og:type" content="website">`,
@@ -2388,6 +2398,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Did your Bitnami chart stop pulling?](${SITE_BASE_URL}did-your-bitnami-chart-stop-pulling.html): find a tested, verified successor for a Bitnami chart that no longer pulls anonymously.
 - [See what a gpu-operator upgrade changes](${SITE_BASE_URL}d/docs/user/workshop-gpu-operator-upgrade-guide.html): render two versions of NVIDIA's public gpu-operator chart with \`helm template\` and compare them with \`cub config diff\`, for a version upgrade, a patch upgrade and a driver version change. The Catalog holds this chart, and [its chart page](${SITE_BASE_URL}charts/nvidia-gpu-operator.html) compares the retained versions.
 - [Make a stack from Catalog entries](${SITE_BASE_URL}d/docs/user/workshop-stack-from-catalog-guide.html): compose NVIDIA's gpu-operator, nvsentinel and cluster-readiness-engine entries into one local stack with \`cub stack compose\`, check them together with \`cub stack check\`, and swap one entry. Nothing is applied or uploaded.
+- [Your first app to live](${SITE_BASE_URL}d/docs/user/app-to-live-walkthrough.html): put a new app's plain Kubernetes YAML into ConfigHub on day 1 as a base, derive a dev variant, publish an immutable release, and deliver it through Argo CD. For day-2 updates, approvals and promotions, read [Review one change before it ships](${SITE_BASE_URL}d/docs/user/workshop-review-a-change-guide.html) and [Change a config safely](${SITE_BASE_URL}change-a-config-safely.html).
 - [Review one change before it ships](${SITE_BASE_URL}d/docs/user/workshop-review-a-change-guide.html): take one image tag change to a small app with a dev and a prod environment. Part 1 lists the objects it affects in each environment with \`kustomize build\` and \`cub config diff\`, with no account. Parts 2 and 3 need an account. They propose the change in ConfigHub, show the gate refusing it, approve it, release it and read the record. One account wrote and approved the change in the recorded run.
 - [Harden Argo CD before production](${SITE_BASE_URL}d/docs/user/workshop-argocd-hardening-guide.html): turn security advice into a checked values variant of the Catalog's argo-cd base with \`cub config values\`, compare it with \`cub config diff\`, and keep it as a variant with a staging and production path.
 - [Examples, before and after](${SITE_BASE_URL}apps.html#before-and-after): 17 worked examples, each with the input a team has today, the same thing in ConfigHub, the commands, and the output those commands printed. They cover ten Helm charts, two Kustomize setups, two Argo CD setups, two Flux fleets and one app.
@@ -4048,6 +4059,7 @@ ${homeJourneyLinks()}
         <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
         <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
         <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
+        <a href="./d/docs/user/app-to-live-walkthrough.html">How do I put my first app into ConfigHub?</a>
         <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
         <a href="./guides.html">Which Guide solves my problem?</a>
         <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>

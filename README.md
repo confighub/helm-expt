@@ -46,6 +46,19 @@ the section that matches the work in front of you.
 | [Docs](https://confighub.github.io/helm-expt/site/docs.html) | Find the instructions for the step you are doing. |
 | [ConfigHub Server](https://confighub.github.io/helm-expt/site/confighub.html) | Upload a reviewed configuration into ConfigHub, then make variants, approve changes, promote releases, and manage rollouts. |
 
+## Worked Examples By Tool
+
+Each worked example pairs the files a team maintains today with the ConfigHub view, the runnable commands, and the recorded output.
+
+| Topic | Entry points on the Workshop site |
+| --- | --- |
+| Argo CD | [Bring your Argo CD apps into ConfigHub](https://confighub.github.io/helm-expt/site/bring-argo-into-confighub.html), [App of apps](https://confighub.github.io/helm-expt/site/example-argo-cd-app-of-apps.html), and [ApplicationSet](https://confighub.github.io/helm-expt/site/example-argo-cd-applicationset.html) |
+| Flux | [Bring your Flux fleet into ConfigHub](https://confighub.github.io/helm-expt/site/bring-flux-into-confighub.html), [Two-cluster fleet](https://confighub.github.io/helm-expt/site/example-flux-fleet.html), and [Which version runs where](https://confighub.github.io/helm-expt/site/example-flux-which-version-where.html) |
+| Sveltos | [Bring your Sveltos fleet into ConfigHub](https://confighub.github.io/helm-expt/site/bring-sveltos-into-confighub.html) and [AI fleet repair and prevention](https://confighub.github.io/helm-expt/site/ai-chaos-in-production.html) |
+| NVIDIA AICR and GPU Operator | [Try NVIDIA AICR](https://confighub.github.io/helm-expt/site/try-aicr.html), [EKS GPU inference stack](https://confighub.github.io/helm-expt/site/eks-inference.html), and [NVIDIA GPU Operator](https://confighub.github.io/helm-expt/site/example-gpu-operator.html) |
+| NVKE | [NVKE two-cluster GPU add-on lab record](https://confighub.github.io/helm-expt/site/nvke.html) |
+| App config (day 1 and day 2) | [Your first app to live](https://confighub.github.io/helm-expt/site/d/docs/user/app-to-live-walkthrough.html) for day-1 plain-YAML upload and Argo CD delivery, and [Review one change before it ships](https://confighub.github.io/helm-expt/site/d/docs/user/workshop-review-a-change-guide.html) for day-2 edits, approvals, and promotion |
+
 ## What This Project Does
 
 For Helm, the catalog keeps the original chart and records the values and render
