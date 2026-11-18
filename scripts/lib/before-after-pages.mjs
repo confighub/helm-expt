@@ -183,13 +183,16 @@ function liveIntro() {
 // The screenshot the example's receipt records, copied into the site next to
 // the page. Its caption says where and when it was taken and what it shows.
 export function beforeAfterAssets() {
-  return BEFORE_AFTER_PAGES.flatMap((page) => {
-    const shot = receipt(page.id).confighub;
-    if (!shot) return [];
-    return [{ site: `before-after/${page.id}-confighub.png`, from: join(ROOT, page.id, shot.file) },
-      ...(shot.graph ? [{ site: `before-after/${page.id}-graph.png`, from: join(ROOT, page.id, shot.graph.file) }] : []),
-      ...(shot.crds ? [{ site: `before-after/${page.id}-crds.png`, from: join(ROOT, page.id, shot.crds.file) }] : [])];
-  });
+  return [
+    { site: "before-after/confighub-pipeline.svg", from: "docs/images/model/confighub-pipeline.svg" },
+    ...BEFORE_AFTER_PAGES.flatMap((page) => {
+      const shot = receipt(page.id).confighub;
+      if (!shot) return [];
+      return [{ site: `before-after/${page.id}-confighub.png`, from: join(ROOT, page.id, shot.file) },
+        ...(shot.graph ? [{ site: `before-after/${page.id}-graph.png`, from: join(ROOT, page.id, shot.graph.file) }] : []),
+        ...(shot.crds ? [{ site: `before-after/${page.id}-crds.png`, from: join(ROOT, page.id, shot.crds.file) }] : [])];
+    }),
+  ];
 }
 
 function liveScreenshot(id, escapeHtml) {
@@ -1571,7 +1574,12 @@ function whereToLook({ check }, id) {
 function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", whyNot, loadRows, loadNote, laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
   const { escapeHtml, commandBlock, signupUrl } = h;
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
-  return `    <section aria-labelledby="why-not-git" class="ex">
+  return `    <figure class="ex-card ex-graph">
+      <figcaption>How a change reaches your cluster</figcaption>
+      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart in this Catalog), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
+      <p class="ex-note">ConfigHub publishes OCI releases and holds no credentials to your cluster.</p>
+    </figure>
+    <section aria-labelledby="why-not-git" class="ex">
       <h2 id="why-not-git" class="ex-went-h">${escapeHtml(whyNot.heading)}</h2>
       <ul class="ex-why">
         ${whyNot.items.map(([lead, rest]) => `<li><strong>${escapeHtml(lead)}</strong> ${escapeHtml(rest)}</li>`).join("\n        ")}

@@ -691,6 +691,11 @@
 
   </header>
   <main>
+    <figure class="ex-card ex-graph">
+      <figcaption>How a change reaches your cluster</figcaption>
+      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart in this Catalog), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
+      <p class="ex-note">ConfigHub publishes OCI releases and holds no credentials to your cluster.</p>
+    </figure>
     <section aria-labelledby="why-not-git" class="ex">
       <h2 id="why-not-git" class="ex-went-h">Why not just keep the finished YAML in Git?</h2>
       <ul class="ex-why">
