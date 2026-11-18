@@ -11765,6 +11765,22 @@ function verifyRetainedCatalogConfigurations(row) {
   );
 }
 
+function catalogIndexWorkedExample(chart) {
+  switch (chart) {
+    case "argo-cd/argo-cd": return "../example-argo-cd.html";
+    case "bitnami/postgresql": return "../example-postgresql.html";
+    case "bitnami/redis": return "../example-redis.html";
+    case "external-secrets/external-secrets": return "../example-external-secrets.html";
+    case "gatekeeper/gatekeeper": return "../example-gatekeeper.html";
+    case "ingress-nginx/ingress-nginx": return "../example-ingress-nginx.html";
+    case "jetstack/cert-manager": return "../example-cert-manager.html";
+    case "metrics-server/metrics-server": return "../example-metrics-server.html";
+    case "nvidia/gpu-operator": return "../example-gpu-operator.html";
+    case "prometheus-community/kube-prometheus-stack": return "../example-kube-prometheus-stack.html";
+    default: return "";
+  }
+}
+
 function retainedCatalogVersionCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
   check(rows.length > 0, `${entry.chart}: retained installer package inventory is empty`);
@@ -11785,11 +11801,16 @@ function retainedCatalogVersionCell(catalog, entry) {
       String(row.bases ?? "").split(";"),
       row.default_base,
     );
-    const listingLink = listingPath
-      ? ` <a data-catalog-listing="${escapeHtml(identity)}" href="../../${escapeHtml(listingPath)}" rel="noopener" style="font-size:.8rem">record</a>`
+    const listingId = listingPath ? listingPath.replace(/^site\/listings\/|\.json$/g, "") : "";
+    const objectsHref = listingId ? (listingFacts(listingId)?.objectsUrl ?? "") : "";
+    const yamlLink = objectsHref
+      ? ` · <a href="${escapeHtml(objectsHref)}" rel="noopener" style="font-size:.8rem">YAML</a>`
       : "";
-    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a> <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">receipt</a>${listingLink}</span>`;
-  }).join("<br>");
+    const listingLink = listingPath
+      ? ` · <a data-catalog-listing="${escapeHtml(identity)}" href="../../${escapeHtml(listingPath)}" rel="noopener" style="font-size:.8rem">JSON</a>`
+      : "";
+    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a>${yamlLink} · <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">OCI digest</a>${listingLink}</span>`;
+  }).join(" <br>");
 }
 
 // The configuration names are the most useful strings on the row and used to be
@@ -11811,13 +11832,13 @@ function retainedCatalogConfigurationsCell(catalog, entry) {
     // Each retained version opens its own page's options.
     const page = chartOptionsHref(catalog, row);
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
-    const label = configurations.length === 1 ? "configuration" : "configurations";
+    const label = configurations.length === 1 ? "preset" : "presets";
     const identity = `${row.chart}@${row.version}`;
     const links = configurations
       .map((name) => `<a href="${page}">${escapeHtml(name)}</a>`)
       .join(", ");
-    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
-  }).join("<br>");
+    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links} <br><span style="color:var(--muted);font-size:.85rem">${configurations.length} rendered ${label}</span></span>`;
+  }).join(" <br>");
 }
 
 // Whether a configuration survives being shipped as plain rendered YAML is the
@@ -11847,11 +11868,22 @@ function flatteningVerdictCell(catalog, entry) {
   );
   const decided = String(row?.decided_lanes || "").trim();
   if (!decided) return `<span data-flattening="undecided" style="color:var(--muted)">No verdict yet. Undecided is not the same as safe.</span>`;
+  const plainVerdictLabels = {
+    "born-flattened": "Plain Kubernetes YAML",
+    "safe-to-flatten": "Applies directly as YAML",
+    "flatten-with-routes": "YAML + ordered CRD/Secret setup",
+    "unsafe-to-flatten": "Requires Helm at install time",
+  };
   const parts = decided.split(";").map((part) => part.trim()).filter(Boolean);
   const lines = parts.map((part) => {
     const [base, verdict] = part.split(":").map((piece) => (piece || "").trim());
-    return `${escapeHtml(base)}: <strong>${verdictLinkHtml(verdict, "../")}</strong>`;
-  }).join("<br>");
+    const plain = plainVerdictLabels[verdict];
+    const gloss = VERDICT_GLOSS[verdict];
+    const link = plain && gloss
+      ? `<a href="../config.html#verdict-${escapeHtml(verdict)}" title="${escapeHtml(`${gloss} (${verdict})`)}">${escapeHtml(plain)}</a>`
+      : verdictLinkHtml(verdict, "../");
+    return `${escapeHtml(base)}: <strong>${link}</strong>`;
+  }).join(" <br>");
   return `<span data-flattening="decided">${lines}</span>`;
 }
 
@@ -11889,15 +11921,17 @@ function installerPackageSignatureHtml({ status, command, receipt, bundle }) {
 function firstPathCell(catalog, entry, row) {
   const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
   const page = chartOptionsHref(catalog, entry);
-  let note = "Open the chart page for the command and option cards.";
-  if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
-  else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
+  let note = "Open chart page for rendered YAML and checks.";
+  if (row?.row_kind === "candidate") note = "Candidate preset; inspect base first.";
+  else if (row?.row_kind === "derived") note = "Derived environment preset; start from base.";
   else if (row?.row_kind === "base") {
     note = entry.proof_surface === "top20-catalog-supported"
-      ? "Recommended configuration to try first."
-      : "Available configuration. Read the chart page before use.";
+      ? "Recommended preset with local cluster proof."
+      : "Pre-rendered preset; open chart page for YAML.";
   }
-  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
+  const workedHref = catalogIndexWorkedExample(entry.chart);
+  const workedLink = workedHref ? ` <br><a href="${escapeHtml(workedHref)}" style="font-size:.85rem">Worked YAML walkthrough</a>` : "";
+  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a> <br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>${workedLink}`;
 }
 
 function catalogReadiness(entry, row) {
@@ -11905,14 +11939,14 @@ function catalogReadiness(entry, row) {
     return {
       id: "package-published-review-before-use",
       label: "Package published; review before use",
-      detail: "This exact package is published. Its runtime checks are not complete.",
+      detail: "Published OCI bundle and rendered YAML; live cluster apply not run here.",
     };
   }
   if (row?.row_kind === "candidate") {
     return {
       id: "not-ready-yet",
       label: "Not ready yet",
-      detail: "This is a planned configuration, not a runnable package.",
+      detail: "Planned preset, not yet packaged.",
     };
   }
   // The Bitnami fetch receipt outranks the lanes here: a chart whose default
@@ -11923,68 +11957,66 @@ function catalogReadiness(entry, row) {
       id: "review-before-use",
       label: "Review before use",
       detail: movedImage.legacy
-        ? "Its default image no longer pulls, and the Catalog bases pin a bitnamilegacy copy instead."
-        : "Its default image no longer pulls. Read the chart page before use.",
+        ? "Upstream default image moved; Catalog presets pin a working bitnamilegacy digest."
+        : "Upstream default image no longer pulls; check image overrides on chart page.",
     };
   }
   if (entry.proof_surface === "top20-catalog-supported") {
     return {
       id: "ready-to-try",
       label: "Ready to try",
-      detail: "This is one of the strongest public starting points.",
+      detail: "Rendered YAML, static checks, and local cluster apply verified.",
     };
   }
   if (entry.proof_surface === "next80-proof-grade") {
     return {
       id: "review-before-use",
       label: "Review before use",
-      detail: "Checks exist, but this chart still needs chart-specific review.",
+      detail: "Rendered YAML and static checks verified; check CRDs, hooks, and Secrets for your cluster.",
     };
   }
   return {
     id: "not-ready-yet",
     label: "Not ready yet",
-    detail: "Open the chart page to see what remains.",
+    detail: "Open chart page to see remaining checks.",
   };
 }
 
 function catalogUseCell(entry, row) {
   const readiness = catalogReadiness(entry, row);
-  return `<strong>${escapeHtml(readiness.label)}</strong><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(readiness.detail)}</span>`;
+  return `<strong>${escapeHtml(readiness.label)}</strong> <br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(readiness.detail)}</span>`;
 }
 
 function featurePlain(feature) {
   const labels = {
-    capabilities: "Kubernetes API capabilities",
-    "cluster-rbac": "cluster RBAC",
-    crds: "CRDs",
-    "generated-facts": "generated facts",
-    hook: "hooks",
-    hooks: "hooks",
-    lookup: "Helm lookup",
-    "stateful-storage": "stateful storage",
-    tpl: "tpl templates",
-    webhooks: "webhooks",
+    capabilities: "Checks cluster API versions",
+    "cluster-rbac": "ClusterRole / cluster RBAC",
+    crds: "Includes CRDs",
+    "generated-facts": "Generates Secrets/certs on render",
+    hook: "Helm lifecycle hooks",
+    hooks: "Helm lifecycle hooks",
+    lookup: "Helm lookup() live cluster query",
+    "stateful-storage": "PersistentVolumeClaims",
+    tpl: "Dynamic tpl values",
+    webhooks: "Admission webhooks",
   };
   return labels[feature] ?? humanizeReasonToken(feature);
 }
 
-function watchFirstCell(entry, rows, row) {
+function watchFirstCell(entry, rows, row, signals = {}) {
   if (entry.proof_surface === "retained-publication-only") {
-    return "Publication is verified; target prerequisites and runtime behavior still require review.";
+    return "Signed OCI bundle published; verify cluster prerequisites before applying.";
   }
   const notes = [];
   const features = splitSemicolonList(entry.source_features).map(featurePlain).slice(0, 4);
-  const hasHookSignal = rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
-  const hasCrdSignal = rows.some((candidate) => /crd/i.test(candidate.quirk_features || "") || /crd/i.test(candidate.next_action || ""));
-  if (features.length) notes.push(features.join(", "));
-  if (hasHookSignal && !features.some((feature) => /hook/i.test(feature))) notes.push("hooks or lifecycle actions");
-  if (hasCrdSignal && !features.some((feature) => /CRD/.test(feature))) notes.push("CRDs");
-  const rawReason = cleanPageActionText(row?.hard_gap || row?.active_proof_reason || "");
-  const reason = humanizeReasonList(rawReason);
-  if (reason && !isCatalogOverviewNoise(reason)) notes.push(reason);
-  if (!notes.length) return "No special caveat shown in the catalog row.";
-  return escapeHtml(notes.slice(0, 3).join("; "));
+  const hasHookSignal = Boolean(signals.hasHooks) || rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
+  const hasCrdSignal = Boolean(signals.hasCrds) || rows.some((candidate) => /crd/i.test(candidate.quirk_features || "") || /crd/i.test(candidate.next_action || ""));
+  if (features.length) notes.push(...features);
+  if (hasHookSignal && !notes.some((feature) => /hook/i.test(feature))) notes.push("Helm lifecycle hooks");
+  if (hasCrdSignal && !notes.some((feature) => /CRD/i.test(feature))) notes.push("Includes CRDs");
+  if (!notes.length && signals.hasOrderedSetup) return "Requires ordered Secret or prerequisite setup before applying YAML.";
+  if (!notes.length) return "Standard Kubernetes objects; no Helm hooks or CRDs flagged.";
+  return escapeHtml([...new Set(notes)].slice(0, 4).join(" · "));
 }
 
 function isCatalogOverviewNoise(value) {
@@ -12021,7 +12053,7 @@ function chartIndexHtml(catalog) {
   const aicrEntryCount = aicrCatalogEntries().length;
   const catalogFormats = [
     ["Helm chart", "helm-chart", catalog.catalogComponents.length],
-    ["AICR platform", "ai-platform", aicrEntryCount],
+    ["NVIDIA GPU recipe (AICR)", "ai-platform", aicrEntryCount],
     ["Timoni module", "timoni", 1],
     ["Configuration OCI", "configuration-oci", 1],
     ["Kubernetes YAML", "kubernetes-yaml", 1 + (nimServiceVariantCount > 0 ? 1 : 0)],
@@ -12061,24 +12093,25 @@ function chartIndexHtml(catalog) {
         /hook/i.test(entry.not_yet_enabled || "") ||
         matrixRows.some((row) => Number(row.hook_count || 0) > 0 || String(row.lifecycle_route_contract || "n/a") !== "n/a");
       const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants) || matrixRows.some((row) => /crd/i.test(row.quirk_features || ""));
+      const hasOrderedSetup = /flatten-with-routes/.test(flatteningVerdictSearchText(catalog, entry));
       const evidenceSurface = entry.proof_surface === "retained-publication-only" ? "publication-only" : "readiness-evidence";
       const succession = catalog.chartSuccessions?.get(entry.chart);
       const successorRole = catalog.chartSuccessorOf?.get(entry.chart);
       let successionNote = "";
       if (succession?.successors?.length) {
         const links = succession.successors.map((successor) => `<a href="${componentPageHref(catalog, successor.chart)}">${escapeHtml(successor.chart)}</a>`).join(" · ");
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successors recorded: ${links}</span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successors recorded: ${links}</span>`;
       } else if (succession?.planned?.length) {
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor picked, not yet a catalog entry</span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successor picked, not yet a catalog entry</span>`;
       } else if (successorRole) {
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
       }
       return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-readiness="${escapeHtml(readiness.id)}" data-category="${escapeHtml(category.id)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
-        <td><a data-chart-page-link="${escapeHtml(entry.chart)}" href="./${chartOverviewFileName(entry.chart)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
+        <td><a data-chart-page-link="${escapeHtml(entry.chart)}" href="./${chartOverviewFileName(entry.chart)}">${escapeHtml(entry.chart)}</a> <br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(catalog, entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
-        <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
+        <td>${watchFirstCell(entry, matrixRows, firstRow, { hasHooks, hasCrds, hasOrderedSetup })}</td>
         <td>${flatteningVerdictCell(catalog, entry)}</td>
         <td>${retainedCatalogConfigurationsCell(catalog, entry)}</td>
       </tr>`;
@@ -12247,29 +12280,29 @@ function aicrCatalogRows() {
       </tr>`,
   ].join("\n");
   const catalogSearchBlock = `<div class="card">
-        <label for="chart-filter"><strong>Search the catalog</strong></label>
-        <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <label for="chart-filter"><strong>Search ${catalog.catalogComponents.length} Helm charts and Kubernetes configurations</strong></label>
+        <input id="chart-filter" type="search" placeholder="Search chart or keyword, e.g. cert-manager, argo-cd, ingress-nginx, redis, prometheus..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option>${catalogFormats.map(([label, kind, n]) => `<option value="${kind}">${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
-          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
-          <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
-          <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
-          <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
-          <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
+          <label>Format <br><select id="format-filter"><option value="">All formats</option>${catalogFormats.filter(([kindLabel]) => kindLabel === "Helm chart").concat(catalogFormats.filter(([kindLabel]) => kindLabel !== "Helm chart")).map(([label, kind, n]) => `<option value="${kind}"> · ${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
+          <label>Readiness <br><select id="level-filter"><option value="">All</option><option value="ready-to-try"> · Ready to try</option><option value="review-before-use"> · Review before use</option><option value="package-published-review-before-use"> · Package published; review before use</option><option value="not-ready-yet"> · Not ready yet</option></select></label>
+          <label>Workload category <br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}"> · ${escapeHtml(category.label)}</option>`).join("")}</select></label>
+          <label>First configuration (preset) <br><select id="status-filter"><option value="">All</option><option value="start-here"> · Verified local apply</option><option value="render-only"> · Pre-rendered YAML</option><option value="see chart page"> · See chart page</option></select></label>
+          <label>Hooks <br><select id="hook-filter"><option value="">All</option><option value="yes"> · Uses Helm hooks</option><option value="no"> · No Helm hooks</option></select></label>
+          <label>CRDs <br><select id="crd-filter"><option value="">All</option><option value="yes"> · Includes CRDs</option><option value="no"> · No CRDs</option></select></label>
         </div>
-        <p>Each row gives a flattening verdict, such as <code>flatten-with-routes</code>. <a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">What the flattening verdict means</a> explains each one and what you do with it.</p>
-        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
+        <p style="margin:12px 0 6px"><strong>Plain-YAML GitOps compatibility (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
+        <ul style="margin:0 0 10px; padding-left:20px">
+          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): apply straight into Argo CD, Flux, or <code>kubectl apply</code> with no hook or CRD ordering traps.</li>
+          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): pre-rendered YAML is ready, and the chart page lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
+          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): chart templates call live cluster <code>lookup()</code> or dynamic hooks; keep Helm in the loop or pick another preset.</li>
+        </ul>
+        <p style="font-size:.92rem; color:var(--muted)"><strong>Verification depth:</strong> <strong>Ready to try</strong> = pre-rendered YAML + static checks + recorded local kind cluster apply. <strong>Review before use</strong> = pre-rendered YAML + static checks recorded (verify CRDs, hooks, and Secrets for your cluster). <strong>Package published; review before use</strong> = signed OCI bundle published without live cluster runs.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
-        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
-        <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
-      <div id="format-intro">
-        <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> <a href="../config.html">Read more about Helm in the Catalog here</a>. Each chart was flattened once into plain Kubernetes objects, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through every step. <a href="index.html">Show every format</a>.</p>
-        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept in the Catalog as Argo CD Applications. For a whole GPU inference platform on Amazon EKS, <a href="../eks-inference.html">try the EKS GPU inference platform on your laptop</a>. <a href="index.html">Show every format</a>.</p>
-      </div>
+      <div id="format-intro"></div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
+        <thead><tr><th>Helm chart / entry</th><th>Versions, YAML &amp; OCI</th><th>Recommended preset</th><th>Verification depth</th><th>Detected K8s traits</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
 ${nonHelmCatalogRowsHtml}
@@ -12384,51 +12417,49 @@ ${nonHelmCatalogRowsHtml}
   <header>
     ${topNav("..")}
     <h1>Configs</h1>
-  <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every published entry is an image of the exact objects, checked, with a receipt. An entry that is not published says so.</p>
-    <p class="format-doors"><strong>Find out more and learn how each format works:</strong> <a href="../config.html">Helm</a>, <a href="../try-aicr.html">NVIDIA AICR</a>, <a href="../try.html">cub installer</a>, <a href="../bring-kubara-into-confighub.html">Kubara</a>, <a href="../bring-sveltos-into-confighub.html">Sveltos</a>, <a href="../oci.html">OCI</a>, and <a href="../formats.html">every other format</a>. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> is the same for all of them. <a href="../apps.html#before-and-after">See a Helm chart, Kustomize overlays, an Argo CD app and a Flux fleet before and after</a>.</p>
-     ${commandBlock([
-       { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
-       { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
-       { comment: "prove the bytes match the receipt", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
-     ], { title: "run it", label: "Run it: check and verify a catalog image" })}
-     <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
-
-     <p><strong>You want a configuration, at a version.</strong> Every entry follows one model, and <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> explains it in three steps. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
-     <div class="support-panel" aria-label="Formats and patterns we support">
-       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring one of these formats as config-as-data, or compose and deliver it with these patterns.</p>
-       <p class="support-group">Bring any format</p>
-       <div class="support-chips">
-         <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
-         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
-         <a href="index.html?format=timoni">Timoni <b>1</b></a>
-         <a href="../bring-kubara-into-confighub.html">Kubara</a>
-         <a href="../config.html#formats">Sveltos fleets</a>
-         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
-         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>${1 + (nimServiceVariantCount > 0 ? 1 : 0)}</b></a>
-       </div>
-       <p class="support-group">Compose and deliver</p>
-       <div class="support-chips">
-         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
-         <a href="../stack.html">Stacks &amp; fleets</a>
-         <a href="../oci.html">OCI shapes</a>
-       </div>
-       <p><a href="../formats.html"><strong>Browse every non-Helm entry, grouped by format, with a link to each listing record</strong></a></p>
-     </div>
+    <p class="boundary-chip">Browse in your browser · Local checks run on your laptop</p>
+    <p class="lead">Inspect pre-rendered Kubernetes YAML manifests, pinned container digests, and recorded static checks for ${catalog.catalogComponents.length} Helm charts before you install, with no account or cluster. Unlike a chart index that stops at raw Go templates, each entry shows the exact Deployments, CRDs, RBAC rules, Secrets, and Helm hook Jobs it produces.</p>
+    <p><strong>Popular charts with worked YAML walkthroughs:</strong> <a href="./jetstack-cert-manager.html">cert-manager</a> · <a href="./argo-cd-argo-cd.html">argo-cd</a> · <a href="./ingress-nginx-ingress-nginx.html">ingress-nginx</a> · <a href="./prometheus-community-kube-prometheus-stack.html">kube-prometheus-stack</a> · <a href="./external-secrets-external-secrets.html">external-secrets</a> · <a href="./gatekeeper-gatekeeper.html">gatekeeper</a> · <a href="./bitnami-redis.html">redis</a> · <a href="./bitnami-postgresql.html">postgresql</a></p>
   </header>
   <main>
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} entry is one row with ${nimServiceVariantCount} model variants, and ${nimServicePublishedClause()}.` : ""} Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
-      ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
-      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
 
-
-
-
+    <section aria-labelledby="more-formats">
+      <h2 id="more-formats">Other formats, local CLI checks, and missing charts</h2>
+      <p>Chart not listed here? Render any chart locally with no account using <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>, then <a href="../ask.html">check the rendered YAML in your browser</a>.</p>
+      <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry. See <a href="../proof.html#trust">how each check is verified</a> and <a href="../apps.html#before-and-after">before-and-after YAML examples</a>.</p>
+      <div class="support-panel" aria-label="Formats and patterns we support">
+        <p class="support-lead"><strong>Filter by format or delivery pattern.</strong> Alongside ${catalog.catalogComponents.length} Helm charts, this table holds ${aicrEntryCount} AICR entries for NVIDIA GPU clusters, a Timoni module, a literal configuration OCI, and plain Kubernetes YAML entries.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} row covers ${nimServiceVariantCount} NVIDIA inference manifests (${nimServicePublishedClause()}).` : ""}</p>
+        <p class="support-group">Filter by format</p>
+        <div class="support-chips">
+          <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
+          <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
+          <a href="index.html?format=timoni">Timoni <b>1</b></a>
+          <a href="../bring-kubara-into-confighub.html">Kubara</a>
+          <a href="../config.html#formats">Sveltos fleets</a>
+          <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+          <a href="index.html?format=kubernetes-yaml">Plain YAML <b>${1 + (nimServiceVariantCount > 0 ? 1 : 0)}</b></a>
+        </div>
+        <p class="support-group">Compose and deliver</p>
+        <div class="support-chips">
+          <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="../stack.html">Stacks &amp; fleets</a>
+          <a href="../oci.html">OCI shapes</a>
+          <a href="../formats.html">All non-Helm records</a>
+        </div>
+      </div>
+      ${commandBlock([
+        { comment: "inspect rendered objects and static warnings locally", cmd: "cub config check redis" },
+        { comment: "package reviewed YAML as an OCI bundle", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
+        { comment: "verify bundle digest against its recorded check", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
+      ], { title: "optional local CLI (github.com/confighub/cub-workshop)", label: "Run local CLI checks with cub-workshop" })}
+      <p>Operating NVIDIA GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> compare live node state without needing a matching Catalog entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before changing settings. <a href="../try-aicr.html">Open the AICR GPU guide</a> · <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>.</p>
+      ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
+    </section>
 
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
