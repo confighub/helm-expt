@@ -4840,7 +4840,8 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
     <p>Local files work with kubectl alone. Keep them, test them, apply them with kubectl, or commit them to Git.</p>
-    <p><strong>Next:</strong> <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
+    <p>Want to try a different replica count in staging? <a href="./redis-walkthrough.html#local-to-shared">Take this Redis selection into a local hub</a>. Keep the package you already picked and the reason for the change.</p>
+    <p>Ready to deploy the rendered files instead? You can <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
     <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>. <a href="./how-it-works.html">Learn how releases, promotion and rollback fit together</a>.</p>
   </section>
@@ -5702,6 +5703,16 @@ grep -R "kind: Secret" ./redis/out/manifests
     --non-interactive --namespace redis \\
     --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
   <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
+
+  <h2 id="local-to-shared">Take this Redis selection into a local hub</h2>
+  <p>Keep your render directory. Take its 14 Kubernetes objects into mini as a Kustomize base. Attach <code>out/spec/selection.yaml</code> and the installer package digest to the hub configuration so someone else can recover exactly which package and base you picked. Keep the password for <code>redis-existing-secret</code> in the target namespace.</p>
+  <p>On 18 November 2026 we changed one staging setting from three read replicas to two. The field kept our reason, “Keep two read replicas in staging to test failover without paying for a third.” Local production stayed at three.</p>
+  <p>We used the copy command in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md">ConfigHub mini</a> (version 0.11.1-mini.17) to export the three copies and restore them on the shared hub. All 14 objects arrived in each copy. The pinned package, the original selection (including <code>reuse-existing-secret</code>) and the staging reason survived. Staging held two replicas at revision 4.</p>
+  <p>While the production order waited for approval, the shared hub still supplied three replicas at revision 2. Kubernetes showed one ready primary and three ready replicas. Redis answered <code>PONG</code> and reported three connected replicas.</p>
+  <p>The owner approved the change. We pulled production revision 3 from the shared hub and verified the file’s digest against that revision. The cluster diff showed just the replica count changing. We applied the file with <code>kubectl</code>. The same primary and two surviving replicas were ready. Redis answered <code>PONG</code> and counted two connected replicas. A second cluster diff was empty.</p>
+  <p>On your own cluster, the <code>READY</code> column shows how many pods are ready for each StatefulSet.</p>
+  <pre><code>kubectl --context YOUR_TEST_CLUSTER -n redis get statefulset redis-master redis-replicas</code></pre>
+  <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md#redis-from-the-workshop">Follow the handoff and see what was verified</a>.</p>
 
   <h2>What we checked</h2>
   <p>The Redis steps above are backed by separate receipts. A render check does not stand in for a Kubernetes run, an OCI delivery, or an upgrade test.</p>
