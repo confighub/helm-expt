@@ -1133,7 +1133,7 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy"]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy", "<code>cub flux plan . --require Healthy</code> reads the repository only and printed 125 lines. Below are the fleet summary and the <code>in flight</code> version line across environments.", true]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
     loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates four base folders, ten cluster copies across <code>dev-1</code>, <code>staging-1</code> and <code>prod-1</code>, and cluster records in <code>fleet-targets</code>.",
     undoRows: ["bash onboard/cleanup.sh"],
     undoNote: "To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.",
@@ -1551,19 +1551,31 @@ function whyNotGit(name) {
 // reader sees the tool's own output before installing anything. Readers asked
 // for the output shown, not described. Each block names a command the receipt
 // records, and the build fails when the receipt no longer holds it.
+function fluxReportExcerpt(check, id, lines) {
+  const appsHeading = lines.find((line) => /^apps\s+\(/.test(line));
+  const inFlight = lines.find((line) => /^\s+in flight\s+/.test(line));
+  check(appsHeading && inFlight, `${ROOT}/${id}/transcripts/flux-plan.txt no longer has the apps heading and in-flight line`);
+  return [...lines.slice(0, 5), "", appsHeading, inFlight];
+}
+
 function recordedOutput({ check, escapeHtml }, id, rec, { intro, look = "", blocks, after = "" }) {
-  const shown = blocks.map(({ said, file, command }) => {
+  const shown = blocks.map(({ said, file, command, foldFull = false }) => {
     check(rec.files[`transcripts/${file}`], `${ROOT}/${id}/receipt.json does not pin transcripts/${file}, and the page shows it`);
     check(rec.commands.includes(command), `${ROOT}/${id}/receipt.json no longer records "${command}", and the page says it printed transcripts/${file}`);
     const lines = transcriptLines(read(id, `transcripts/${file}`));
-    return { said, lines };
+    const excerpt = foldFull ? fluxReportExcerpt(check, id, lines) : null;
+    return { said, lines, excerpt };
   });
-  const text = shown.flatMap(({ lines }) => lines).join("\n");
+  const text = shown.flatMap(({ lines, excerpt }) => excerpt ?? lines).join("\n");
   const words = [[/\bvariants?\b/, "<code>variant</code> means a copy"], [/\bTarget\b/, "<code>Target</code> means a cluster"], [/\bSpaces?\b/, "<code>Space</code> means a folder"], [/\bUnits?\b/, "<code>Unit</code> means an object"]]
     .filter(([pattern]) => pattern.test(text)).map(([, said]) => said);
   const wordsNote = words.length ? ` In the CLI output, ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.` : "";
   return `<p class="ex-out-h"><strong>${escapeHtml(intro)}</strong> This is the recorded output from ${escapeHtml(rec.recordedOn)}, made with cub ${escapeHtml(rec.tools.cub)}, so you can read it before you install anything.${look ? ` ${escapeHtml(look)}` : ""}${wordsNote}</p>
-${shown.map(({ said, lines }) => `          <p class="ex-note">${said}</p>
+${shown.map(({ said, lines, excerpt }) => excerpt
+    ? `          <p class="ex-note">${said}</p>
+          <pre class="ex-code ex-out"><code>${excerpt.map((line) => escapeHtml(line)).join("\n")}</code></pre>
+          <details class="ex-show"><summary>Show the whole report</summary><pre class="ex-code ex-report"><code>${lines.map((line) => escapeHtml(line)).join("\n")}</code></pre></details>`
+    : `          <p class="ex-note">${said}</p>
           <pre class="ex-code ex-out"><code>${lines.map((line) => escapeHtml(line)).join("\n")}</code></pre>`).join("\n")}
           <p class="ex-note"><a href="${GITHUB}/${ROOT}/${id}">Every input and output file from that run</a> is on GitHub.${after}</p>`;
 }
@@ -1753,7 +1765,7 @@ function simplePage(id, h) {
       needs: page.needs, laptopNeeds: page.laptopNeeds,
       output: recordedOutput(h, id, rec, {
         intro: "What it prints.",
-        blocks: page.output.map(([file, command, said]) => ({ file, command, said: said ?? `<code>${escapeHtml(command)}</code> printed this.` })),
+        blocks: page.output.map(([file, command, said, foldFull]) => ({ file, command, said: said ?? `<code>${escapeHtml(command)}</code> printed this.`, foldFull })),
       }),
     });
   }
@@ -1796,7 +1808,7 @@ function simplePage(id, h) {
     .ex-actions details.ex-button[open] { flex-basis: 100%; min-width: 0; max-width: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-out-h { margin: 14px 0 6px; }
-    .ex-code.ex-out { max-height: 24rem; max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
+    .ex-code.ex-out, .ex-code.ex-report { max-height: 24rem; max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }

@@ -469,7 +469,7 @@
     .ex-actions details.ex-button[open] { flex-basis: 100%; min-width: 0; max-width: 100%; }
     .ex-actions .terminal-body, .ex-actions .terminal-body code { white-space: pre-wrap; overflow-wrap: anywhere; }
     .ex-out-h { margin: 14px 0 6px; }
-    .ex-code.ex-out { max-height: 24rem; max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
+    .ex-code.ex-out, .ex-code.ex-report { max-height: 24rem; max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; overflow-wrap: normal; margin: 4px 0 10px; }
     .ex-more { margin-top: 20px; color: var(--muted); }
     .ex-graph { margin: 0 0 20px; }
     .ex-went-h { font-size: 1rem; margin: 0 0 6px; }
@@ -784,9 +784,17 @@ patches:
 
 <span class="term-prompt">$</span> cub flux plan . --require Healthy</code></pre>
           <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with the flux plugin and kustomize.</p>
-          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. In the CLI output, <code>variant</code> means a copy and <code>Target</code> means a cluster.</p>
-          <p class="ex-note"><code>cub flux plan . --require Healthy</code> printed this.</p>
+          <p class="ex-out-h"><strong>What it prints.</strong> This is the recorded output from 2026-10-26, made with cub v0.9.0, so you can read it before you install anything. In the CLI output, <code>variant</code> means a copy.</p>
+          <p class="ex-note"><code>cub flux plan . --require Healthy</code> reads the repository only and printed 125 lines. Below are the fleet summary and the <code>in flight</code> version line across environments.</p>
           <pre class="ex-code ex-out"><code>Flux fleet: 3 clusters, 4 layers, 10 variants
+Read 46 objects
+
+Clusters, one stage each, in order: dev-1 (clusters/dev), staging-1 (clusters/staging), prod-1 (clusters/prod)
+Reconcile order (dependsOn): infrastructure -&gt; apps, tenants -&gt; image-automation
+
+apps  (after infrastructure)
+  in flight  nginx: 1.27.3-alpine on dev-1; 1.27.2-alpine on staging-1; 1.26.3-alpine on prod-1</code></pre>
+          <details class="ex-show"><summary>Show the whole report</summary><pre class="ex-code ex-report"><code>Flux fleet: 3 clusters, 4 layers, 10 variants
 Read 46 objects
 
 Clusters, one stage each, in order: dev-1 (clusters/dev), staging-1 (clusters/staging), prod-1 (clusters/prod)
@@ -910,7 +918,7 @@ Handover (apply will write it as handover.sh; plan runs nothing)
 
 Next
   cub flux apply . --require Healthy --out ./flux-onboarding
-  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre>
+  That writes apply.sh, handover.sh and cleanup.sh. It runs nothing.</code></pre></details>
           <p class="ex-note"><a href="https://github.com/confighub/helm-expt/tree/main/examples/before-after/flux-expert-fleet">Every input and output file from that run</a> is on GitHub.</p>
         </details>
       </div>
