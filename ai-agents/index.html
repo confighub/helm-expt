@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Keep the setup your coding agent builds, with staging to try changes and owner approval before production.">
-<title>ConfigHub: try a change in your first app before you ship it</title>
+<title>ConfigHub: keep what your coding agent changes, and gate production</title>
 </head>
 <body>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -29,321 +29,415 @@
   --code-bg:#23252b; --term-bg:#0f1013; --term-fg:#e8e8e3; --term-dim:#8d9199; --term-ok:#7fd49a; --term-bad:#f0a0a0;
   color-scheme:dark;
 }
+*,*::before,*::after{box-sizing:border-box}
 html{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;margin:0}
 .wrap{max-width:var(--w);margin:0 auto;padding-block:0;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
 h1,h2,h3{line-height:1.2;text-wrap:balance;margin:0 0 .5rem}
-h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:600;letter-spacing:-.01em}
-h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:600;margin-top:0}
-h3{font-size:1.15rem;font-weight:600}
+h1{font-size:clamp(1.95rem,4.4vw,2.85rem);font-weight:600;letter-spacing:-.015em}
+h2{font-size:clamp(1.45rem,3vw,1.95rem);font-weight:600;margin-top:0}
+h3{font-size:1.1rem;font-weight:600}
 p{margin:.5rem 0 1rem;max-width:65ch}
-a{color:var(--accent)}
+a{color:var(--accent);text-underline-offset:.16em}
 code,pre,.term{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
-code{background:var(--code-bg);padding:.1em .35em;border-radius:4px;font-size:.92em}
-pre{background:var(--code-bg);padding:.9rem 1rem;border-radius:8px;overflow-x:auto;font-size:.92rem;line-height:1.5;margin:.75rem 0}
-pre code{background:none;padding:0}
-.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:500;margin:0 0 .6rem}
-section{padding-block:3.5rem 2.5rem;border-top:1px solid var(--line)}
-section:first-of-type{border-top:0;padding-top:3rem}
-.lead{font-size:1.15rem;color:var(--fg)}
+code{background:var(--code-bg);padding:.1em .35em;border-radius:4px;font-size:.9em}
+pre{background:var(--code-bg);padding:.85rem 1rem;border-radius:8px;overflow-x:auto;font-size:.86rem;line-height:1.5;margin:.65rem 0}
+pre code{background:none;padding:0;font-size:inherit}
+.topbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem;padding:1.1rem 0 .2rem}
+.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin:0}
+.topnav{display:flex;flex-wrap:wrap;gap:1rem;font-size:.9rem}
+.topnav a{text-decoration:none;font-weight:500}
+.topnav a:hover{text-decoration:underline}
+section{padding-block:2.8rem 2.3rem;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0;padding-top:1.4rem}
+.lead{font-size:1.13rem;color:var(--fg);max-width:62ch}
 .muted{color:var(--muted)}
-.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:start}
+.small{font-size:.86rem;color:var(--muted)}
+.hero{display:grid;grid-template-columns:1.08fr 1fr;gap:2rem;align-items:start;margin-top:1.2rem}
 .hero>*{min-width:0}
-@media (max-width:820px){.hero{grid-template-columns:1fr}}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
 .buttons{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 0}
-.btn{display:inline-block;padding:.6rem 1rem;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:500}
+.btn{display:inline-block;padding:.58rem 1rem;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:500;font-size:.95rem}
 .btn.primary{background:var(--accent);color:var(--accent-fg)}
-.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:1rem 1.1rem;font-size:.86rem;line-height:1.5;overflow-x:auto;white-space:pre;margin:.75rem 0;min-width:0}
+.install-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.15rem;margin-top:.8rem}
+.tabs{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--code-bg);margin-bottom:.65rem}
+.tabs button{all:unset;cursor:pointer;padding:.38rem .85rem;font-size:.86rem;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
+.client-pane[hidden]{display:none}
+.snip{position:relative;margin:.45rem 0}
+.snip pre{margin:0;padding-right:4.6rem}
+.copy-btn{position:absolute;top:.45rem;right:.45rem;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:.22rem .58rem;font-family:inherit;font-size:.76rem;font-weight:500;cursor:pointer}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+.demo-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.15rem;min-width:0}
+.demo-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .75rem;padding:0;list-style:none}
+.demo-tabs button{all:unset;cursor:pointer;padding:.36rem .7rem;border-radius:7px;border:1px solid var(--line);background:var(--bg);font-size:.82rem;font-weight:600;color:var(--muted)}
+.demo-tabs button[aria-selected="true"]{border-color:var(--accent);background:var(--card);color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
+.beat[hidden]{display:none}
+.term{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:.9rem 1rem;font-size:.82rem;line-height:1.5;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;margin:.5rem 0 .65rem;min-width:0}
 .term .dim{color:var(--term-dim)} .term .ok{color:var(--term-ok)} .term .bad{color:var(--term-bad)}
-.term.wrap{white-space:pre-wrap;overflow-wrap:anywhere}
-.term-label{font-size:.78rem;color:var(--muted);margin:-.35rem 0 .9rem}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start}
+.preview-dl{background:var(--term-bg);color:var(--term-fg);border-radius:10px;padding:.95rem 1.05rem;margin:.5rem 0 .65rem;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.84rem}
+.preview-dl dt{color:var(--term-dim);margin-top:.55rem;font-size:.78rem}
+.preview-dl dt:first-child{margin-top:0}
+.preview-dl dd{margin:.12rem 0 0;font-weight:500}
+.preview-dl dd.ok{color:var(--term-ok)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start}
 @media (max-width:820px){.two{grid-template-columns:1fr}}
 .two>*{min-width:0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.25rem;min-width:0}
-.card h3{margin-top:0}
-.badge{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.03em;padding:.15em .55em;border-radius:999px;white-space:nowrap;vertical-align:middle}
-.badge.ok{color:var(--ok);background:var(--ok-bg)} .badge.wait{color:var(--wait);background:var(--wait-bg)} .badge.no{color:var(--no);background:var(--no-bg)}
-.tablewrap{overflow-x:auto;margin:1rem 0}
-table{border-collapse:collapse;width:100%;font-size:.95rem}
-th,td{text-align:left;vertical-align:top;padding:.6rem .7rem;border-bottom:1px solid var(--line)}
-th{font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-td code{white-space:nowrap}
-.stepper{display:grid;grid-template-columns:220px 1fr;gap:1.25rem;align-items:start}
-@media (max-width:820px){.stepper{grid-template-columns:1fr}}
-.steps{display:flex;flex-direction:column;gap:.4rem;margin:0;padding:0;list-style:none}
-.steps button{all:unset;cursor:pointer;display:block;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--line);background:var(--card);font:inherit;font-size:.95rem}
-.steps button[aria-selected="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
-.beat{min-width:0}
-.beat[hidden]{display:none}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
-@media (max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.grid3{grid-template-columns:1fr}}
-.way .n{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:.85rem;margin:0 0 .3rem}
-.way p{margin:.4rem 0 .6rem}
-.say{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9rem;background:var(--code-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.6rem .8rem;margin:.6rem 0;overflow-wrap:anywhere}
-.walk{list-style:none;margin:1.5rem 0 0;padding:0;display:flex;flex-direction:column;gap:2rem}
-.walk>li{display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem;align-items:start}
-.walk .num{font-family:"IBM Plex Mono",monospace;font-weight:500;width:2.1rem;height:2.1rem;border-radius:50%;border:1px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.95rem}
-.walk .body{min-width:0}
-.walk h3{margin:.25rem 0 .4rem}
-.plain li{margin:.45rem 0;max-width:65ch}
-.faq dt{font-weight:600;margin-top:1rem} .faq dd{margin:.25rem 0 0;max-width:65ch}
-.ladder{counter-reset:rung}
-.rung{display:grid;grid-template-columns:2.2rem 1fr auto;gap:.8rem;align-items:start;padding:.9rem 0;border-bottom:1px solid var(--line)}
-.rung .n{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:.9rem;padding-top:.2rem}
-.rung .q{font-weight:600}
-.rung .how{font-size:.92rem;color:var(--muted);margin-top:.15rem;min-width:0;overflow-wrap:anywhere}
-.rung.hi{background:var(--ok-bg);border-radius:10px;padding-inline:.8rem;margin-inline:-.8rem}
-@media (max-width:560px){.rung{grid-template-columns:2.2rem 1fr}.rung .badge{grid-column:2}}
-footer{padding-block:2.5rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
-.small{font-size:.86rem;color:var(--muted)}
-figure{margin:0}
-ul.tight{margin:.4rem 0 0;padding-left:1.1rem}
-ul.tight li{margin:.25rem 0}
-.cta{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0 .4rem}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:stretch}
+@media (max-width:900px){.grid3{grid-template-columns:1fr}}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
 @media (max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:420px){.grid4{grid-template-columns:1fr}}
-.grid4 .card h3{font-size:1.02rem}
-.grid4 .card p{margin:.3rem 0 0;font-size:.95rem}
-.survives{margin:1rem 0 0}
-.survives .rung{grid-template-columns:11rem 1fr}
-@media (max-width:560px){.survives .rung{grid-template-columns:1fr;gap:.2rem}}
-.walk h3 .badge{margin-left:.4rem}
-.preview h2{font-size:1.25rem}
-.preview dl{margin:0}
-.preview dt{color:var(--muted);margin-top:.7rem}
-.preview dd{margin:.1rem 0;font-weight:600}
+@media (max-width:520px){.grid4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.05rem 1.2rem;min-width:0}
+.card h3{margin-top:0}
+.card p:last-child{margin-bottom:0}
+.badge{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.02em;padding:.14em .55em;border-radius:999px;white-space:nowrap;vertical-align:middle}
+.badge.ok{color:var(--ok);background:var(--ok-bg)} .badge.wait{color:var(--wait);background:var(--wait-bg)} .badge.no{color:var(--no);background:var(--no-bg)}
+.say{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.84rem;background:var(--code-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.55rem .75rem;margin:.55rem 0;overflow-wrap:anywhere;position:relative;padding-right:4.4rem}
+.walk{list-style:none;margin:1.25rem 0 0;padding:0;display:flex;flex-direction:column;gap:1.5rem}
+.walk>li{display:grid;grid-template-columns:2.3rem 1fr;gap:.9rem;align-items:start}
+.walk .num{font-family:"IBM Plex Mono",monospace;font-weight:600;width:2.05rem;height:2.05rem;border-radius:50%;border:1px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.walk .body{min-width:0}
+.walk h3{margin:.15rem 0 .35rem}
+.tablewrap{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:.6rem .75rem;border-bottom:1px solid var(--line)}
+th{font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.stack-group{margin-top:1.3rem}
+.stack-group h3{font-size:.86rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 .55rem}
+.grid4 .card{padding:.9rem 1rem}
+.grid4 .card h4{margin:0 0 .25rem;font-size:1rem}
+.grid4 .card p{margin:.3rem 0 0;font-size:.9rem;color:var(--muted)}
+ul.tight{margin:.4rem 0 0;padding-left:1.15rem}
+ul.tight li{margin:.32rem 0}
+.callout{background:var(--card);border-left:3px solid var(--accent);border:1px solid var(--line);border-left-width:4px;border-left-color:var(--accent);border-radius:8px;padding:.85rem 1.1rem;margin:1rem 0 0;font-size:.95rem}
+footer{padding-block:2.2rem 2.8rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
 </style>
 
 <div class="wrap">
 
+<header class="topbar">
+  <p class="eyebrow">ConfigHub · Durable config for coding agents</p>
+  <nav class="topnav" aria-label="Page navigation">
+    <a href="first-look.html">Three guided examples →</a>
+    <a href="#how-it-runs">What runs where</a>
+    <a href="#works-with">Starters</a>
+    <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a>
+  </nav>
+</header>
+
 <section id="install">
-  <p class="eyebrow">ConfigHub · Durable config for apps</p>
-  <h1>Build your first app with Claude or Codex. Try a change before you ship it.</h1>
-  <div class="hero"><div>
-  <p class="lead">Ask your agent for a preview. See what the app actually serves while production stays as it is. When you like the change, you can keep it for this app and the next one.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></p>
-  <p><a href="first-look.html"><strong>Three things to try first</strong></a> sets out your part and your agent’s part in each example.</p>
-  <p class="small"><strong>You</strong> install the plugin, open your app and ask for a change. <strong>Your agent</strong> records the reason or runs the preview and gives you its address. You decide when a production change goes ahead.</p>
-  <details><summary>Install the plugin in Claude Code</summary>
-    <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+  <h1>Keep what your coding agent changes—and hold production behind your approval.</h1>
+  <p class="lead">Record why every setting changed across Claude Code and Codex sessions, try changes in an isolated preview or staging copy, and carry the setup to your next app.</p>
+
+  <div class="hero">
+    <div>
+      <div class="install-card">
+        <div class="tabs" role="tablist" aria-label="Choose your coding agent">
+          <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
+          <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
+        </div>
+
+        <div class="client-pane" data-client-pane="claude">
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy>Copy</button>
+            <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
-    <p>Open a fresh Claude Code session in the same project after installing.</p>
-  </details>
-  <details><summary>Set up Codex</summary>
-    <p>With Git and the Codex CLI installed, paste this in Terminal:</p>
-    <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
+          </div>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code session in your project folder after installing.</p>
+        </div>
+
+        <div class="client-pane" data-client-pane="codex" hidden>
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy>Copy</button>
+            <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
   "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
-    <p>In the Codex CLI, open <code>/hooks</code>, review and approve the ConfigHub hooks, then start a fresh session in your app’s folder. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup and removal</a>.</p>
-  </details>
-  </div><div class="card preview" id="preview">
-    <h2>“Try a warmer greeting in preview.”</h2>
-    <dl><dt>Preview served</dt><dd><samp>Welcome to the neighborhood!</samp></dd>
-        <dt>Staging and production still served</dt><dd><samp>Hello, world!</samp></dd></dl>
-    <p class="small">Actual responses from three copies of a greeter running on one Mac with Codex. <a href="#next-app">See what the second app inherited</a>.</p>
-  </div></div>
+          </div>
+          <p class="small" style="margin:.45rem 0 0">Copies the CLI to <code>~/.codex/confighub/bin/confighub</code>. In Codex CLI, run <code>/hooks</code> once to review and approve the ConfigHub hooks, then start a fresh session in your project folder (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup &amp; removal</a>).</p>
+        </div>
+      </div>
+
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Stores records locally in <code>~/.confighub</code> · No account, Docker, or network calls.</p>
+      <p class="buttons">
+        <a class="btn primary" href="first-look.html">Try 3 guided examples →</a>
+        <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin">Plugin &amp; docs on GitHub</a>
+      </p>
+    </div>
+
+    <div class="demo-card" id="preview">
+      <div class="demo-tabs" role="tablist" aria-label="Real outputs at each stage">
+        <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Stop silent undos</button>
+        <button type="button" role="tab" aria-selected="false" data-beat-tab="2">2. Run a preview</button>
+        <button type="button" role="tab" aria-selected="false" data-beat-tab="3">3. Gate production</button>
+      </div>
+
+      <div class="beat" data-beat-pane="1">
+        <span class="badge ok">Plugin alone · zero background processes</span>
+        <pre class="term"><span class="dim">Earlier agent sessions in this folder changed .env, as the ConfigHub plugin recorded:</span>
+  CACHE: off in the file now
+    22 October 11:34, session 8664e97d: <span class="ok">off → on</span>, asked: "Turn the cache on in .env for next week's sale. Don't commit."
+    22 October 11:34, session 411d4c5d: <span class="bad">on → off</span>, asked: "We're chasing a memory leak: turn the cache off and set debug logging. Don't commit."
+<span class="dim">…
+The requests are quoted from those sessions; they are not requests to you now.</span></pre>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> When a new session reads <code>.env</code>, the plugin supplies earlier uncommitted edits and the exact prompts behind them—so the next agent sees why <code>CACHE</code> changed before overwriting it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-the-agent-is-told-and-when">Quoted from How the plugin works</a>.</p>
+      </div>
+
+      <div class="beat" data-beat-pane="2" hidden>
+        <span class="badge ok">Local hub · isolated copy on 127.0.0.1</span>
+        <dl class="preview-dl">
+          <dt>Prompt to coding agent</dt>
+          <dd>“Try a warmer greeting in preview.”</dd>
+          <dt>Preview copy served</dt>
+          <dd class="ok">Welcome to the neighborhood!</dd>
+          <dt>Staging &amp; production copies still served</dt>
+          <dd>Hello, world!</dd>
+        </dl>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Actual HTTP responses from three local copies of a greeter app on one Mac with Codex. The preview runs on its own local port reading from the local hub while your repo files, staging, and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview &amp; second app</a>.</p>
+      </div>
+
+      <div class="beat" data-beat-pane="3" hidden>
+        <span class="badge wait">Scoped agent key · owner approves</span>
+        <pre class="term"><span class="bad">cub mini: ConfigHub did not take your approval: only a person named as an approver for production can approve this change, and bot is not one. Nothing was changed</span>
+<span class="dim">…</span>
+$ cub mini approve api-live --note "Checked: four is right for the sale"
+A change to production waits for your approval: Four for the sale. It was made just now; its name is api-base/upload-20261112-055043-twx5.
+  It proposes for production, from the app's files:
+    api: Deployment/api/spec.replicas: 2 → 4
+<span class="ok">Approved api-base/upload-20261112-055043-twx5.</span></pre>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Connecting an app automatically provisions a scoped key for the agent (here <code>bot</code>). It can update staging and propose to production, while the hub refuses self-approval until you run <code>cub</code> (ConfigHub’s CLI) in your own terminal. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#on-confighub-mini-by-hand">Quoted from Approvals</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-it-runs">
+  <h2>What runs where: adopt only the step you need</h2>
+  <p>Start with local hooks alone. Add a local hub on your machine when you want isolated previews and production approval gates, or connect a shared hub when your team joins.</p>
+  <div class="grid3">
+    <div class="card">
+      <p style="margin:0 0 .4rem"><span class="badge ok">Step 1 · No server</span></p>
+      <h3>The ConfigHub plugin</h3>
+      <p>A ~9 MB local binary invoked by Claude Code and Codex CLI hooks. Records edits to <code>.env</code>, Kubernetes, Helm, Terraform, and cloud CLIs in <code>~/.confighub/agent-changes</code>, strips secret values, and warns later sessions before they undo earlier work.</p>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 .4rem"><span class="badge ok">Step 2 · Local on 127.0.0.1</span></p>
+      <h3>Local hub + <code>cub</code></h3>
+      <p>An optional 52 to 77 MB download running the ConfigHub server and bundled PostgreSQL as ordinary user processes in <code>~/.confighub/servers</code>—no Docker, cluster, or account. Includes <code>cub</code>, ConfigHub’s CLI, for previews, staging vs. production copies, and approvals.</p>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 .4rem"><span class="badge wait">Step 3 · Team &amp; hosts</span></p>
+      <h3>Delivery &amp; shared hub</h3>
+      <p>Deliver approved production settings to Vercel, Fly, or AWS Parameter Store—or let Argo CD and Flux reconcile approved revisions—and move to an organization’s shared hub (on confighub.com or your own servers) with the exact same <code>cub</code> commands.</p>
+    </div>
+  </div>
 </section>
 
 <section id="start">
   <h2>Where are you starting?</h2>
   <div class="grid3">
     <div class="card">
-      <h3>From scratch</h3>
-      <p>In an empty Git folder, ask: “Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.” The local hub keeps separate staging and production settings.</p>
-      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build your first app</a>
-    </div>
-    <div class="card">
+      <p style="margin:0 0 .35rem"><span class="badge ok">2 min · Plugin only</span></p>
       <h3>Halfway through building</h3>
-      <p>Install the plugin and reopen the same project. Ask: “Turn the cache on in <code>.env</code> for Friday’s sale.” Tomorrow, ask Claude why the cache is on. It can find the edit and your request, even if you never committed it.</p>
-      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Try it on one setting</a>
+      <p>In any project with a <code>.env</code> file, ask your agent:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Turn the cache on in .env for Friday's sale. Don't commit.</code></div>
+      <p class="small">Open a fresh session and ask <em>“Why is the cache on?”</em>—it recovers the edit and reason even without a Git commit. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute guide</a></p>
     </div>
     <div class="card">
+      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
       <h3>Already running an app</h3>
-      <p>Ask: “Attach ConfigHub to this app. I want to try a change in staging.” It reads your existing settings files without rewriting them or switching your deployment. Connect delivery when you’re ready.</p>
-      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Attach an existing app</a>
+      <p>Read existing <code>.env</code>, Terraform, or Kustomize files without rewriting them:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Attach ConfigHub to this app so I can try a change in preview.</code></div>
+      <p class="small">Test changes on a separate local preview URL while your repo files and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Attach an existing app</a></p>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
+      <h3>Starting a new app</h3>
+      <p>In an empty Git folder, give staging and production separate settings from minute one:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Build a small web app using ConfigHub with staging and production settings.</code></div>
+      <p class="small">Staging updates right away; production waits for your <code>cub mini approve</code>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build a new app</a></p>
     </div>
   </div>
 </section>
 
-<section id="next-app">
-  <h2>What the second app inherited</h2>
-  <p>In the greeter, we made the preview greeting the shared default. Staging served it right away. Production still served <samp>Hello, world!</samp> until approval, then served <samp>Welcome to the neighborhood!</samp> too.</p>
-  <p>In a new folder, a fresh session built a catalog from the greeter’s setup. The catalog served <samp>Welcome to the neighborhood!</samp> in staging without a greeting in its own settings file. It still needed its own approval before its production copy served that greeting.</p>
-  <p class="small">These were requests to running apps on one Mac, with a scripted owner handling approvals. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview and second app in Codex</a>.</p>
-
-</section>
-
-<section id="why">
-  <h2>Why this, and why now</h2>
-  <ol class="walk">
-    <li><span class="num">1</span><div class="body">
-      <h3>People make and run apps by asking agents</h3>
-      <p>An agent changes settings many times a day, across staging, production and every customer's copy. That is faster than anyone reads a diff.</p>
-    </div></li>
-    <li><span class="num">2</span><div class="body">
-      <h3>So the platform has to come from somewhere else</h3>
-      <p>Staging, production, promotion, rollback and limits used to come from a platform team or a hosting service. An agent can now write all of that in the same request as the app. But it lands in scattered files, the next session overwrites it, and every new app starts from nothing.</p>
-    </div></li>
-    <li><span class="num">3</span><div class="body">
-      <h3>ConfigHub keeps the setup, its changes and their context</h3>
-      <p>It keeps the setup itself, wherever the app runs, with every change to it and the context for each change: what was asked, and why. That is what durable means. What you and your agents decided is still there for:</p>
-      <ul class="tight">
-        <li><strong>the next session</strong>, which starts from what was set and why</li>
-        <li><strong>the next agent</strong>, which is told before it undoes a value</li>
-        <li><strong>the next version</strong>, which keeps your own values</li>
-        <li><strong>the next environment</strong>, which takes exactly what you approved</li>
-        <li><strong>the next app</strong>, which starts from the first</li>
-      </ul>
-    </div></li>
-  </ol>
-</section>
-
 <section id="example">
-  <h2>An example: two apps from one setup</h2>
-  <p>A developer builds a web shop with an agent. The next app is a cart service, which can start from the setup the shop already uses.</p>
+  <h2>How one app’s setup becomes durable config for the next</h2>
+  <p>A <strong>starter</strong> is a small YAML file of default settings and their reasons. Unlike a scaffolded repository template that goes stale the day you copy it, apps stay linked to their starter—so shared operational fixes carry forward while per-app overrides stay untouched.</p>
   <ol class="walk">
     <li><span class="num">1</span><div class="body">
-      <h3>The first app gets a setup</h3>
-      <p><code>cub mini adopt shop</code> gives the shop a staging and a production copy, using the web starter for settings the developer has left open:</p>
+      <h3>Connect your first app (<code>shop</code>)</h3>
+      <p><code>cub mini adopt shop</code> creates <code>shop-staging</code> and <code>shop-live</code> (production) in the hub, filling in unset defaults from the <code>web</code> starter while keeping every value you already set in <code>.env.production</code>:</p>
       <pre><code>starter: web
 version: 1
 # Some fields omitted.
 defaults:
   - key: REPLICAS
-    value: &quot;2&quot;
+    value: "2"
     reason: Two instances, so that one can restart without the service going down.</code></pre>
+      <p class="small"><strong>What this file means:</strong> Every default setting carries a plain-English <code>reason</code> alongside its value so future agents and teammates know why it exists before changing it.</p>
     </div></li>
     <li><span class="num">2</span><div class="body">
-      <h3>A fix to the first app becomes part of the setup</h3>
-      <p>A teammate proposes a new starter version that uses warning-level logs and keeps three instances running. They give a reason for each setting. The owner reviews and approves the starter version.</p>
+      <h3>Turn a hardening fix into starter version 2</h3>
+      <p>A teammate proposes warning-level logs and three instances with explicit reasons. The owner reviews and approves starter version 2 in the hub.</p>
     </div></li>
     <li><span class="num">3</span><div class="body">
-      <h3>The second app starts with the fix, and the first keeps its own values</h3>
-      <p>The cart service starts with the new defaults. The shop takes the same update while keeping its own production log level. Production changes still go through their own approval.</p>
+      <h3>The next app (<code>cart</code>) inherits the fix—and <code>shop</code> keeps its overrides</h3>
+      <p>When you build <code>cart</code>, it starts with version 2’s hardened defaults automatically. Upgrading <code>shop</code> applies the shared replica fix without overwriting <code>shop</code>’s custom production log level, and production still waits for owner approval.</p>
     </div></li>
   </ol>
-  <p class="small">The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs this on your laptop and checks the settings and reasons in the hub.</p>
+  <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>.</p>
 </section>
 
-
-<section id="works-with">
-  <h2>Give your app a starting setup</h2>
-  <p>A starter recognizes the tools your app uses and fills in settings you haven’t set. It makes staging and production copies in ConfigHub. Some starters also connect delivery, so your app can use the settings you approve. The guide for each one shows what it sets up. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
-  <div class="grid4">
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web</a></h3><p>A web service that reads its settings from env files.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h3><p>A project on Vercel that takes the settings you approved.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h3><p>A linked Next.js app with production delivery behind approval.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h3><p>Start two Rails apps from one setup and send approved settings to a Fly Machine.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h3><p>An app that reads its settings from AWS.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h3><p>A Kustomize repository that Argo CD deploys.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h3><p>A Kustomize repository that Flux deploys.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h3><p>An agent that works in a sandbox and proposes from it.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h3><p>A worker whose rollout to production waits for you.</p></div>
-    <div class="card"><h3><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h3><p>A service on Unikraft Cloud, with rollout and rollback.</p></div>
-  </div>
-  <p>Around the app, ConfigHub hands each job to the tool made for it: Git and GitHub, Vault, Sigstore, SPIFFE, OpenTelemetry, Entire, MCP servers, sandboxes and containers, and Codex. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">What you get with each</a></p>
-  <p>No starter for your stack? It is one YAML file, and your agent can write it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a starter</a></p>
-</section>
-
-<section id="compare">
-  <h2>Agents + Durable Config = app platform without the pain</h2>
-  <p>Platform engineering builds a platform and fits apps to it. Durable config starts with the app and keeps what the agent set up for it, so the platform grows out of the apps.</p>
+<section id="why">
+  <h2>Why Git, <code>.env</code> files, and static templates aren’t enough</h2>
+  <p>Coding agents change settings across local files, cloud CLIs, staging, and production faster than anyone reads a diff. Durable config keeps the setup, its environment boundaries, and the reason behind every value.</p>
   <div class="tablewrap"><table>
-    <thead><tr><th></th><th>Platform engineering as we know it</th><th>Durable config</th></tr></thead>
+    <thead><tr><th>Problem</th><th>Git + <code>.env</code> + copy-once templates</th><th>ConfigHub durable config</th></tr></thead>
     <tbody>
-      <tr><td><strong>What comes first</strong></td><td>The platform, built by a team ahead of the apps</td><td>The app. Its setup becomes the base for the next one</td></tr>
-      <tr><td><strong>How an app gets its setup</strong></td><td>A template, copied once when the app is created</td><td>A starter the app stays linked to</td></tr>
-      <tr><td><strong>Where the knowledge lives</strong></td><td>Docs, tickets and the platform team's heads</td><td>With each value, as its reason</td></tr>
-      <tr><td><strong>Who it is built for</strong></td><td>People: portals, forms and golden-path guides</td><td>Agents and people</td></tr>
-      <tr><td><strong>How a change spreads</strong></td><td>One pull request in each repository</td><td>One change, read across every app</td></tr>
-      <tr><td><strong>What it takes to start</strong></td><td>A team and months</td><td>One yes at install</td></tr>
+      <tr><td><strong>Uncommitted edits &amp; CLI flags</strong></td><td><code>git diff</code> shows only committed file lines—never why an agent changed <code>.env</code> or ran <code>kubectl scale</code> / <code>vercel env</code></td><td>Plugin records every supported file and CLI change with the prompt behind it, and warns the next session before it undoes it</td></tr>
+      <tr><td><strong>Staging vs. production safety</strong></td><td>Shared <code>.env</code> files or cloud logins let an agent overwrite production in the same turn as staging</td><td>Agent runs on a scoped key that updates preview/staging freely while production waits for your <code>cub mini approve</code></td></tr>
+      <tr><td><strong>Day-2 fixes across services</strong></td><td>Templates are copied once on day one; rolling out a safer timeout across ten services means ten pull requests</td><td>Apps stay linked to a versioned starter—shared fixes reach every app while app-specific overrides win</td></tr>
+      <tr><td><strong>Answering “what runs where, and why?”</strong></td><td>Scattered across <code>.env</code> files, Helm values, Terraform vars, and hosting dashboards</td><td>Stored as queryable revisions, reasons, and signed approval records across every app and environment</td></tr>
     </tbody>
   </table></div>
-  <p>ConfigHub doesn't run your app. Your cluster, hosting service or VM still does, and Argo CD and Flux still deliver to your clusters. It replaces the templates, the portal and the scattered settings files above them.</p>
+  <div class="callout">
+    <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub replaces the brittle templates and scattered config files above them.
+  </div>
 </section>
 
-<section id="five">
-  <h2>Five ways it is better</h2>
-  <ol class="walk">
-    <li><span class="num">1</span><div class="body">
-      <h3>Nothing to build first</h3>
-      <p>Start with an app. Its staging and production setup can become the starting point for the next app.</p>
-    </div></li>
-    <li><span class="num">2</span><div class="body">
-      <h3>Templates that keep working after day one</h3>
-      <p>A scaffolded app is a copy made once, so the template's next version never reaches it. Here a starter's next version reaches every app made from it, and each app keeps its own values and reasons. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">Starters</a></p>
-    </div></li>
-    <li><span class="num">3</span><div class="body">
-      <h3>The reason travels with the value <span class="badge ok">For agents</span></h3>
-      <p>An agent can't ask the platform team why a limit is set as it is. Without the reason it "fixes" the value, and the next agent fixes it back. With the record, the next agent can see why a value was chosen before changing it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">What the Claude plugin records</a></p>
-    </div></li>
-    <li><span class="num">4</span><div class="body">
-      <h3>Auto-staging and agentic guardrails <span class="badge ok">For agents</span></h3>
-      <p>Give agents a way to test changes and give the owner a separate decision about production:</p>
-      <ul class="tight">
-        <li>a key of their own</li>
-        <li>a staging copy they can change at once</li>
-        <li>a line they cannot cross</li>
-      </ul>
-      <p>The hub refuses an agent's own approval, and it is small enough to sit in every sandbox. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md">Agent keys</a></p>
-    </div></li>
-    <li><span class="num">5</span><div class="body">
-      <h3>Configuration you can query and build on</h3>
-      <p>Platform stacks are a template language for each tool: Helm for clusters, Terraform for cloud, env files for hosting services. A change across the fleet is many pull requests. As data, "which version runs where" is one question, and one change is read across all apps, wherever they run. Tools are built on data, not on templates.</p>
-    </div></li>
-  </ol>
+<section id="works-with">
+  <h2>Connect your stack with a starter</h2>
+  <p>A starter detects your app’s tools, creates staging and production copies in ConfigHub, and optionally wires live delivery when you approve. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a 1-file YAML starter</a></p>
+
+  <div class="stack-group">
+    <h3>Web apps &amp; hosted PaaS</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Kubernetes, cloud config &amp; workers</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h4><span class="badge ok">Worker rollout</span><p>Gate worker limits and timeouts before rolling out to production.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Agent sandboxes &amp; cloud microVMs</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Let an agent test changes inside a sandbox and send proposals out for review.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
 </section>
 
 <section id="daily">
-  <h2>Upgrade to get more advanced operations and features</h2>
-  <p>Start with the Claude plugin alone. Add a hub, on your laptop or shared with your team, and you get these.</p>
+  <h2>Everyday commands and multi-agent guardrails</h2>
   <div class="two">
-    <div>
+    <div class="card">
       <h3>Everyday commands</h3>
       <ul class="tight">
-        <li><code>/confighub:why LOG_LEVEL</code> shows every change to a setting, and what was asked each time.</li>
-        <li><code>cub mini waiting</code> shows what waits for you. Approve or refuse it by the name it shows.</li>
-        <li>To roll back, ask the agent to put the old value back, then approve it.</li>
+        <li><strong>In Claude Code (plugin only):</strong> <code>/confighub:why LOG_LEVEL</code> and <code>/confighub:changes</code> show every edit to a setting and what was asked.</li>
+        <li><strong>In Terminal after Codex setup (plugin only):</strong> <code>~/.codex/confighub/bin/confighub mini changes</code> prints the recorded edits and prompts for the current folder.</li>
+        <li><strong>In your own Terminal (with a hub):</strong>
+          <ul class="tight">
+            <li><code>$ cub mini waiting</code> — inspect pending production proposals, diffs, and each proposal’s ID (such as <code>api-base/upload-...</code>).</li>
+            <li><code>$ cub mini approve PROPOSAL_ID --note "Why"</code> (or <code>cub mini refuse</code>) — approve or reject using the exact ID printed by <code>cub mini waiting</code>.</li>
+            <li><code>$ cub mini rollback APP-live --change-order PROPOSAL_ID --reason "Why"</code> — propose an atomic rollback to the prior revision.</li>
+          </ul>
+        </li>
       </ul>
     </div>
-    <div>
-      <h3>Control over your agents</h3>
+    <div class="card">
+      <h3>When agents run unattended or across a team</h3>
       <ul class="tight">
-        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#who-acted-give-the-agent-a-key-of-its-own">A key for each agent</a>, with only the rights it needs.</li>
-        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approval of the exact change</a>, and nothing after it.</li>
-        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#stopping-an-agent">A way to stop them</a> at their next request.</li>
-        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a> you can verify.</li>
-        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">What it cost</a>, in tokens, for supported sessions.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#who-acted-give-the-agent-a-key-of-its-own">Scoped key per agent</a> — can change staging and propose to production; cannot self-approve or read production secrets.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Exact-revision &amp; concurrent proposals</a> — multiple agents can propose in parallel without clobbering each other, and approving revision 3 never pre-approves revision 4.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#stopping-an-agent">Instant revocation</a> — <code>cub mini revoke-agent</code> cuts off an agent on its next request.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a> &amp; <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#model-use">token tracking</a> — verify entries and see token spend per change.</li>
+        <li><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Laptop to shared hub</a> — move to confighub.com or self-hosted servers when teammates and CI join (<a href="https://docs.confighub.com">ConfigHub docs</a>).</li>
       </ul>
     </div>
   </div>
-  <p class="small">This covers what your app reads from the hub. An agent that also holds your cloud or cluster credentials can still go around it. See <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
-</section>
-
-<section id="where">
-  <h2>From your laptop to your team</h2>
-  <p>A local hub runs on your own machine, free and with no account. A shared hub, on confighub.com or on your own servers, gives your team, your agents and your CI jobs one place, with the same commands. The same record then answers what security and compliance ask: who changed what, why, and who approved it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Moving to a shared hub</a> · <a href="https://docs.confighub.com">ConfigHub's documentation</a></p>
+  <p class="small" style="margin-top:.85rem">Approvals govern settings your app or delivery pipeline reads from the hub. An agent that also holds direct cloud or cluster write credentials can bypass the hub—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
 </section>
 
 <section id="open">
-  <h2>Open, and yours to extend</h2>
-  <ul class="plain">
-    <li><strong>The Claude plugin is MIT-licensed.</strong> Read it, fork it and change it. <a href="https://github.com/confighubai/confighub-mini-plugin">The plugin on GitHub</a></li>
-    <li><strong>A starter is a plain YAML file.</strong> Write one for your stack, or ask your agent to, and share it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a starter</a></li>
-    <li><strong>The UI and the SDKs are open source,</strong> under the MIT license, so you can build your own tools on a hub. <a href="https://github.com/confighub/ui">The UI</a> · <a href="https://github.com/confighub/sdk">The SDK</a> · <a href="https://github.com/confighub/js-sdk">The JavaScript SDK</a></li>
-    <li><strong>Contributions are welcome.</strong> Fix a guide, share an example or propose a starter. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
-  </ul>
-  <p>The local hub is the full ConfigHub server, as one download for macOS and Linux. It is free and needs no account.</p>
-  <p class="small">Some <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software comes with a hub inside</a>. For agents: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Click here to download a full ConfigHub binary</a></p>
+  <h2>Open source and transparent licensing</h2>
+  <div class="two">
+    <div class="card">
+      <h3>MIT-licensed open source</h3>
+      <ul class="tight">
+        <li><strong>Plugin &amp; starters (Claude Code + Codex):</strong> <a href="https://github.com/confighubai/confighub-mini-plugin">confighubai/confighub-mini-plugin</a></li>
+        <li><strong>Web UI &amp; SDKs:</strong> <a href="https://github.com/confighub/ui">UI</a> · <a href="https://github.com/confighub/sdk">Go SDK</a> · <a href="https://github.com/confighub/js-sdk">JavaScript SDK</a></li>
+        <li><strong>Extend or contribute:</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a YAML starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Free standalone local hub binary</h3>
+      <p style="margin-top:0">The local hub package (52 to 77 MB for macOS and Linux) bundles the prebuilt ConfigHub server and PostgreSQL as a free single-machine binary—no account, license key, or network needed after download. Downloaded when you run <code>/confighub:staging</code> in Claude Code (or <code>~/.codex/confighub/bin/confighub mini get</code> in Terminal), or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">installed standalone with SHA-256 checksums</a>.</p>
+    </div>
+  </div>
+  <p class="small" style="margin-top:.9rem">Also supports <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software shipped with a built-in hub</a>. Machine-readable indexes for agents: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
+  <p class="buttons">
+    <a class="btn primary" href="first-look.html">Try 3 guided examples →</a>
+    <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Standalone local hub download</a>
+  </p>
 </section>
 
 </div>
 
 <footer><div class="wrap">
-  <p>For macOS and Linux. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Claude plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Walkthroughs</a></p>
+  <p>For macOS and Linux. <a href="first-look.html">Three guided examples</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">All walkthroughs</a> · <a href="https://docs.confighub.com">ConfigHub documentation</a></p>
 </div></footer>
+
+<script>
+(function(){
+  var clientTabs = document.querySelectorAll('[data-client-tab]');
+  var clientPanes = document.querySelectorAll('[data-client-pane]');
+  function setClient(c){
+    clientTabs.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-client-tab') === c ? 'true' : 'false'); });
+    clientPanes.forEach(function(p){ p.hidden = p.getAttribute('data-client-pane') !== c; });
+    try { localStorage.setItem('confighub-client', c); } catch(e){}
+  }
+  clientTabs.forEach(function(b){
+    b.addEventListener('click', function(){ setClient(b.getAttribute('data-client-tab')); });
+  });
+  try {
+    var saved = localStorage.getItem('confighub-client');
+    if (saved === 'codex' || saved === 'claude') setClient(saved);
+  } catch(e){}
+
+  var beatTabs = document.querySelectorAll('[data-beat-tab]');
+  var beatPanes = document.querySelectorAll('[data-beat-pane]');
+  beatTabs.forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-beat-tab');
+      beatTabs.forEach(function(t){ t.setAttribute('aria-selected', t === b ? 'true' : 'false'); });
+      beatPanes.forEach(function(p){ p.hidden = p.getAttribute('data-beat-pane') !== id; });
+    });
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var code = btn.parentElement.querySelector('code');
+      if (!code || !navigator.clipboard) return;
+      navigator.clipboard.writeText(code.textContent).then(function(){
+        var orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = orig; }, 1400);
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
