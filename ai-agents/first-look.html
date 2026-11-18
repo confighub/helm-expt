@@ -85,7 +85,7 @@
     .stage-table { width:100%; border-collapse:collapse; margin:.75rem 0; font-size:.94rem; }
     .stage-table th, .stage-table td { text-align:left; vertical-align:top; padding:.6rem .7rem; border-bottom:1px solid var(--line); }
     .stage-table th { font-size:.8rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
-    .ops-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-top:.85rem; }
+    .ops-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:1rem; margin-top:.85rem; }
     .ops-card { background:var(--card); border:1px solid var(--line); border-radius:.5rem; padding:.9rem 1rem; font-size:.93rem; }
     .ops-card h3 { margin-top:0; }
     .ops-card p:last-child { margin-bottom:0; }
@@ -116,7 +116,7 @@
 
     <div class="setup-box" id="setup">
       <div class="setup-head">
-        <p class="setup-title">Install once (takes ~15 seconds)</p>
+        <p class="setup-title">Install the plugin</p>
         <div class="tabs" role="group" aria-label="Choose your coding agent">
           <button type="button" data-set-client="claude" aria-pressed="true">Claude Code</button>
           <button type="button" data-set-client="codex" aria-pressed="false">Codex CLI</button>
@@ -143,17 +143,17 @@ claude plugin install confighub@confighub</code></pre>
     </div>
 
     <ul class="jumps">
-      <li><a href="#remember">01 · Remember why a setting changed (2 min)</a></li>
-      <li><a href="#preview">02 · Try a change in a live preview (5 min)</a></li>
-      <li><a href="#starter">03 · Reuse setup in a second app (3 min)</a></li>
-      <li><a href="#operations">Deployments, GitOps &amp; workers</a></li>
+      <li><a href="#remember">Remember one setting in five minutes</a></li>
+      <li><a href="#preview">Run a preview of my app</a></li>
+      <li><a href="#starter">Reuse a setting in a second app</a></li>
+      <li><a href="#operations">Two things to try next</a></li>
     </ul>
   </header>
 
   <section class="story" id="remember">
     <p class="tag">01 · Plugin only · No server or account</p>
     <h2>Remember why a setting changed across sessions</h2>
-    <p>Git diffs show what a file holds after someone commits, not <em>why</em> an agent changed an uncommitted value—or why tomorrow’s session shouldn’t revert it.</p>
+    <p><strong>You</strong> ask for a change, then open a fresh session in the same folder. <strong>Your agent</strong> makes the edit and later explains it from the local record.</p>
 
     <div class="story-body">
       <ol class="steps">
@@ -188,7 +188,7 @@ claude plugin install confighub@confighub</code></pre>
         <div class="out"><span class="dim">.env · recorded by ConfigHub plugin</span>
 CACHE: <span class="ok">off → on</span>
 asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
-        <p>Even with zero Git commits, the fresh session recovers both the previous value (<code>off</code>) and the sale reason—and warns before another session silently turns it back off.</p>
+        <p>Look for both the previous value (<code>off</code>) and next week’s sale. The second session can recover both before you commit anything.</p>
         <p class="small">Clean up anytime by deleting <code>try-confighub</code>.</p>
       </aside>
     </div>
@@ -198,7 +198,7 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
   <section class="story" id="preview">
     <p class="tag">02 · Local hub · Safe experimentation</p>
     <h2>Try a change in a running preview before shipping it</h2>
-    <p>Give your agent a running preview where it can test a change over HTTP, while your local files, staging, and production stay untouched.</p>
+    <p><strong>You</strong> choose an app and open the address your agent gives you. <strong>Your agent</strong> changes the preview setting, checks what the app serves and leaves it running.</p>
 
     <div class="story-body">
       <ol class="steps">
@@ -224,16 +224,16 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
             <span class="prompt-label">Ask in a later session</span>
             <pre><code>Is my preview still running? What does it serve?</code></pre>
           </div>
-          <p class="small">Like the result? Ask your agent to make it the shared default. Staging updates immediately; production waits until you run the printed <code>cub mini approve</code> command in your own terminal.</p>
+          <p class="small">Reopen the same app session to find the preview again. Ask your agent to stop it when you’re finished.</p>
         </li>
       </ol>
 
       <aside class="result">
-        <p class="result-title">What the running copies return</p>
+        <p class="result-title">From the recorded greeter run</p>
         <div class="out">Preview URL:    <span class="ok">Welcome to the neighborhood!</span>
 Staging copy:   <span class="dim">Hello, world!</span>
-Production:     <span class="wait">Hello, world! (locked until you approve)</span></div>
-        <p>ConfigHub runs an isolated local preview process with the candidate setting and checks its live HTTP response—instead of editing your shared <code>.env</code> in place.</p>
+Production:     <span class="wait">Hello, world!</span></div>
+        <p>Your wording may differ. Read the preview URL to check the greeting. The preview leaves the app files and both hub copies as they were.</p>
         <p class="small">The agent’s scoped key can change staging and propose for production, but the hub refuses if the agent tries to approve its own change.</p>
       </aside>
     </div>
@@ -242,44 +242,39 @@ Production:     <span class="wait">Hello, world! (locked until you approve)</spa
 
   <section class="story" id="starter">
     <p class="tag">03 · Multi-app inheritance · Keep per-app overrides</p>
-    <h2>Start a second app from the first—without copying its overrides</h2>
-    <p>Copy-pasted templates drift on day two. Linking a new app to an existing app (or a shared starter) lets improvements flow to every app while keeping app-specific settings—like one service’s database pool—isolated.</p>
+    <h2>Give a second app the greeting you just tried</h2>
+    <p><strong>You</strong> choose the greeting to share and open a new Git folder. <strong>Your agent</strong> runs both apps with their staging settings and checks that the second app inherited the greeting.</p>
 
     <div class="story-body">
       <ol class="steps">
         <li>
-          <p><strong>Create a new folder</strong> outside the first app’s repo and start an ordinary <code class="only-claude">claude</code><code class="only-codex">codex</code> session:</p>
-          <div class="snip">
-            <span class="prompt-label">Terminal</span>
+          <p>In the greeter session from the preview exercise, ask:</p>
+          <div class="snip"><span class="prompt-label">Ask your agent</span>
+            <pre><code>Make the preview greeting our shared default for welcoming visitors. Put it in staging and show me what the greeter serves there.</code></pre>
+          </div>
+        </li>
+        <li>
+          <p>In Terminal, start from the folder that <em>contains</em> the greeter repository. Create a sibling folder:</p>
+          <div class="snip"><span class="prompt-label">Terminal</span>
             <pre><code>mkdir catalog &amp;&amp; cd catalog &amp;&amp; git init -q</code></pre>
           </div>
+          <p class="only-claude">Open a new <code>claude</code> session here.</p>
+          <p class="only-codex">Open a new <code>codex</code> session here using your ordinary login. The greeter’s launcher is scoped to the first app.</p>
         </li>
         <li>
-          <p class="only-claude"><strong>Link it to your first app’s setup</strong> (type <code>/confighub:start-from greeter</code>, or ask in plain words):</p>
-          <p class="only-codex"><strong>Ask your agent to build from the first app’s setup:</strong></p>
-          <div class="snip">
-            <span class="prompt-label">Ask your agent</span>
-            <pre><code>Build a small catalog service using greeter's ConfigHub setup.</code></pre>
+          <p>Use the first app’s name in your request. Reopen with the catalog’s own launcher if setup asks you to.</p>
+          <div class="snip"><span class="prompt-label">Ask your agent</span>
+            <pre><code>Build a small catalog service using greeter’s ConfigHub setup. Let it inherit the greeting. Run catalog with its staging settings and show me the response.</code></pre>
           </div>
         </li>
-        <li>
-          <p><strong>Promote shared fixes safely:</strong> shared defaults (like the approved greeting or <code>LOG_LEVEL=warn</code>) carry into <code>catalog</code> with their reasons, while <code>catalog</code> still gets its own production approval gate.</p>
-        </li>
       </ol>
-
       <aside class="result">
-        <p class="result-title">What shares vs. stays separate</p>
-        <div class="out"><span class="dim">Inherited by catalog from greeter:</span>
-  GREETING = <span class="ok">Welcome to the neighborhood!</span>
-  LOG_LEVEL = <span class="ok">warn</span> <span class="dim">(reason travels with value)</span>
-
-<span class="dim">Kept only on greeter (not copied to catalog):</span>
-  PORT = 3000 <span class="dim">(app-specific)</span>
-  greeter live overrides <span class="dim">(preserved across upgrades)</span></div>
-        <p>When a teammate hardens a shared <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">starter</a> across services, existing apps upgrade in one step without losing their own overrides (such as one app’s custom <code>DB_POOL_SIZE</code>).</p>
+        <p class="result-title">What to check</p>
+        <p>Both staging apps should serve the greeting you chose. Ask your agent to show where catalog gets it. In the recorded run, catalog served <strong>Welcome to the neighborhood!</strong> with no greeting in its own settings file.</p>
+        <p>Catalog has its own production approval. You can finish the exercise with that order still waiting.</p>
       </aside>
     </div>
-    <p class="story-foot">Team &amp; fleet examples: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Team starter hardening walkthrough</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md#use-the-starter-for-two-rails-apps">Two Rails apps on Fly.io</a></p>
+    <p class="story-foot"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md#a-second-app-from-the-first">Second app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Second app in Codex</a>. To share a logging fix across a team while keeping the shop’s own settings, try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a>.</p>
   </section>
 
   <section class="more" id="same-hub">
@@ -293,7 +288,7 @@ Production:     <span class="wait">Hello, world! (locked until you approve)</spa
         <tr>
           <td><strong>Plugin alone</strong></td>
           <td>Hook in Claude Code or Codex (no daemon)</td>
-          <td>Records config edits, CLI flags, and reasons; warns the next session before it silently undoes a change.</td>
+          <td>Remembers supported edits and CLI changes with their reasons. A fresh session can explain what happened.</td>
         </tr>
         <tr>
           <td><strong>Local hub (<code>cub mini</code>)</strong></td>
@@ -310,25 +305,22 @@ Production:     <span class="wait">Hello, world! (locked until you approve)</spa
   </section>
 
   <section class="more" id="operations">
-    <p class="tag">Optional · Real hosts, clusters &amp; workers</p>
-    <h2 id="two-things-to-try-next">Connect to where your apps run</h2>
+    <h2 id="two-things-to-try-next">Two things to try next</h2>
     <div class="ops-grid">
       <article class="ops-card">
-        <h3>Ship approved settings to Vercel or Fly.io</h3>
-        <p>Keep staging open to your agent while holding production host updates until you run <code>cub mini approve</code>.</p>
-        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></p>
+        <h3>Restart a Temporal worker during a rollout</h3>
+        <p><strong>You</strong> choose the local rehearsal and ask what happens if the worker restarts while a change is waiting. You’ll need the mini package, Go, Python 3 and the Temporal CLI.</p>
+        <p><strong>Your agent</strong> runs the rehearsal and shows the retry limit before and after restart. Look for the old limit while approval is pending, one attempt after approval and a refusal if the policy differs. The rehearsal supplies its test approval. In your own rollout, you approve.</p>
+        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Run the Temporal worker rehearsal</a></p>
       </article>
       <article class="ops-card">
-        <h3>Compare Git, the hub, and a running cluster</h3>
-        <p>Run a disposable local Kubernetes + Argo CD cluster to separate deliberate changes (with reasons) from unrecorded <code>kubectl</code> drift, then hand delivery cleanly back to Git.</p>
-        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Git, the hub and what’s running</a></p>
-      </article>
-      <article class="ops-card">
-        <h3>Restart a Temporal worker mid-rollout</h3>
-        <p>Verify in a local Temporal rehearsal that a restarted worker keeps its old retry limit while approval is pending, applies the new limit once approved, and refuses tampered policies.</p>
-        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Temporal worker guide</a></p>
+        <h3>Find out why the cluster disagrees with Git</h3>
+        <p><strong>You</strong> choose a disposable local cluster and decide when to remove it. The guide lists the tools, including Docker, kind, kubectl and cub-scout.</p>
+        <p><strong>Your agent</strong> compares Git, the hub and the running cluster, then shows delivery returning to Git. Look for two replicas in Git, three in the hub with a reason, and four on the cluster with an extra environment variable.</p>
+        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Compare Git, the hub and the cluster</a></p>
       </article>
     </div>
+    <p class="story-foot">Hosting a web app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a>.</p>
   </section>
 </main>
 

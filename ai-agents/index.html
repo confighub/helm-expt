@@ -119,7 +119,7 @@ footer{padding-block:2.2rem 2.8rem;border-top:1px solid var(--line);color:var(--
 <header class="topbar">
   <p class="eyebrow">ConfigHub · Durable config for coding agents</p>
   <nav class="topnav" aria-label="Page navigation">
-    <a href="first-look.html">Three guided examples →</a>
+    <a href="first-look.html">Three things to try first</a>
     <a href="#how-it-runs">What runs where</a>
     <a href="#works-with">Starters</a>
     <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a>
@@ -127,8 +127,8 @@ footer{padding-block:2.2rem 2.8rem;border-top:1px solid var(--line);color:var(--
 </header>
 
 <section id="install">
-  <h1>Keep what your coding agent changes—and hold production behind your approval.</h1>
-  <p class="lead">Record why every setting changed across Claude Code and Codex sessions, try changes in an isolated preview or staging copy, and carry the setup to your next app.</p>
+  <h1>Remember why your agent changed a setting</h1>
+  <p class="lead">Ask Claude Code or Codex why a setting changed yesterday. Add a local hub when you want to try a change in a running preview or share a setting with your next app.</p>
 
   <div class="hero">
     <div>
@@ -157,16 +157,16 @@ claude plugin install confighub@confighub</code></pre>
         </div>
       </div>
 
-      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Stores records locally in <code>~/.confighub</code> · No account, Docker, or network calls.</p>
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Stores records locally in <code>~/.confighub</code> · Recording works offline after installation.</p>
       <p class="buttons">
-        <a class="btn primary" href="first-look.html">Try 3 guided examples →</a>
-        <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin">Plugin &amp; docs on GitHub</a>
+        <a class="btn primary" href="first-look.html#remember">Remember one setting in five minutes</a>
+        <a class="btn" href="first-look.html#preview">Run a preview of my app</a>
       </p>
     </div>
 
     <div class="demo-card" id="preview">
       <div class="demo-tabs" role="tablist" aria-label="Real outputs at each stage">
-        <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Stop silent undos</button>
+        <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Remember an edit</button>
         <button type="button" role="tab" aria-selected="false" data-beat-tab="2">2. Run a preview</button>
         <button type="button" role="tab" aria-selected="false" data-beat-tab="3">3. Gate production</button>
       </div>
@@ -179,7 +179,7 @@ claude plugin install confighub@confighub</code></pre>
     22 October 11:34, session 411d4c5d: <span class="bad">on → off</span>, asked: "We're chasing a memory leak: turn the cache off and set debug logging. Don't commit."
 <span class="dim">…
 The requests are quoted from those sessions; they are not requests to you now.</span></pre>
-        <p class="small" style="margin:0"><strong>What these lines mean:</strong> When a new session reads <code>.env</code>, the plugin supplies earlier uncommitted edits and the exact prompts behind them—so the next agent sees why <code>CACHE</code> changed before overwriting it. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-the-agent-is-told-and-when">Quoted from How the plugin works</a>.</p>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> A fresh session can recover both edits to <code>CACHE</code> and the requests behind them. In Codex, an <code>apply_patch</code> edit is recorded after it runs. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-the-agent-is-told-and-when">Quoted from How the plugin works</a>.</p>
       </div>
 
       <div class="beat" data-beat-pane="2" hidden>
@@ -217,7 +217,7 @@ A change to production waits for your approval: Four for the sale. It was made j
     <div class="card">
       <p style="margin:0 0 .4rem"><span class="badge ok">Step 1 · No server</span></p>
       <h3>The ConfigHub plugin</h3>
-      <p>A ~9 MB local binary invoked by Claude Code and Codex CLI hooks. Records edits to <code>.env</code>, Kubernetes, Helm, Terraform, and cloud CLIs in <code>~/.confighub/agent-changes</code>, strips secret values, and warns later sessions before they undo earlier work.</p>
+      <p>Claude Code and Codex call a local program to record supported config edits and CLI changes in <code>~/.confighub/agent-changes</code>. The next session can look up a setting and the request that changed it.</p>
     </div>
     <div class="card">
       <p style="margin:0 0 .4rem"><span class="badge ok">Step 2 · Local on 127.0.0.1</span></p>
@@ -245,7 +245,7 @@ A change to production waits for your approval: Four for the sale. It was made j
     <div class="card">
       <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
       <h3>Already running an app</h3>
-      <p>Read existing <code>.env</code>, Terraform, or Kustomize files without rewriting them:</p>
+      <p>Open a local Node app that reads a visible setting from <code>.env</code> and starts with a direct Node command. Ask your agent:</p>
       <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Attach ConfigHub to this app so I can try a change in preview.</code></div>
       <p class="small">Test changes on a separate local preview URL while your repo files and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Attach an existing app</a></p>
     </div>
@@ -293,10 +293,10 @@ defaults:
   <div class="tablewrap"><table>
     <thead><tr><th>Problem</th><th>Git + <code>.env</code> + copy-once templates</th><th>ConfigHub durable config</th></tr></thead>
     <tbody>
-      <tr><td><strong>Uncommitted edits &amp; CLI flags</strong></td><td><code>git diff</code> shows only committed file lines—never why an agent changed <code>.env</code> or ran <code>kubectl scale</code> / <code>vercel env</code></td><td>Plugin records every supported file and CLI change with the prompt behind it, and warns the next session before it undoes it</td></tr>
+      <tr><td><strong>Uncommitted edits &amp; CLI flags</strong></td><td><code>git diff</code> shows working changes. The diff alone doesn’t tell you what the agent was asked or which command changed a live setting.</td><td>The plugin records supported edits and CLI changes with their prompts so a fresh session can explain them.</td></tr>
       <tr><td><strong>Staging vs. production safety</strong></td><td>Shared <code>.env</code> files or cloud logins let an agent overwrite production in the same turn as staging</td><td>Agent runs on a scoped key that updates preview/staging freely while production waits for your <code>cub mini approve</code></td></tr>
       <tr><td><strong>Day-2 fixes across services</strong></td><td>Templates are copied once on day one; rolling out a safer timeout across ten services means ten pull requests</td><td>Apps stay linked to a versioned starter—shared fixes reach every app while app-specific overrides win</td></tr>
-      <tr><td><strong>Answering “what runs where, and why?”</strong></td><td>Scattered across <code>.env</code> files, Helm values, Terraform vars, and hosting dashboards</td><td>Stored as queryable revisions, reasons, and signed approval records across every app and environment</td></tr>
+      <tr><td><strong>Answering “what runs where, and why?”</strong></td><td>Scattered across <code>.env</code> files, Helm values, Terraform vars, and hosting dashboards</td><td>The hub records revisions and approvals. Check the running app or cluster to verify what reached it.</td></tr>
     </tbody>
   </table></div>
   <div class="callout">
