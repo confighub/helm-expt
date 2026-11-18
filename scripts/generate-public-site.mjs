@@ -4840,7 +4840,8 @@ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
     <p>Local files work with kubectl alone. Keep them, test them, apply them with kubectl, or commit them to Git.</p>
-    <p><strong>Next:</strong> <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
+    <p>Want to try a different replica count in staging? <a href="./redis-walkthrough.html#local-to-shared">Take this Redis selection into a local hub</a>. Keep the package you already picked and the reason for the change.</p>
+    <p>Ready to deploy the rendered files instead? You can <a href="./deploy-with-flux-or-argo.html#now-deploy">choose how to deploy the reviewed result</a>.</p>
     <p>For your own Helm values or an unexpected result, <a href="./ask.html">check your configuration with your AI assistant</a>.</p>
     <p>Other paths: <a href="./testing.html">choose a Helm, AICR, OCI, YAML, promotion, or fleet example</a>, or <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>. Before promoting an upgrade, <a href="./promote.html">check it against the next environment</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>. <a href="./how-it-works.html">Learn how releases, promotion and rollback fit together</a>.</p>
   </section>
@@ -5702,6 +5703,14 @@ grep -R "kind: Secret" ./redis/out/manifests
     --non-interactive --namespace redis \\
     --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
   <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
+
+  <h2 id="local-to-shared">Take this Redis selection into a local hub</h2>
+  <p>Keep the work directory from the first render. <code>out/spec/selection.yaml</code> names your choices; the installer package digest identifies the exact package you started from. The digest printed beside <code>objects:</code> identifies the rendered Kubernetes objects.</p>
+  <p>On 18 November 2026 we used the 14 objects from that render as a Kustomize base and attached it to a local hub with staging and production settings. In staging we changed the Redis replica StatefulSet from three replicas to two. The field in the hub carried the reason: “Keep two read replicas in staging to test failover without paying for a third.” The local production settings stayed at three.</p>
+  <p>We explicitly attached the installer’s selection and package digest to the hub configuration before exporting it. We opened the export and found the same package digest, the <code>reuse-existing-secret</code> base and the staging change reason. This was a manual handoff; selecting a Workshop package does not automatically connect it to a hub.</p>
+  <p>A second, independent local hub restored all 14 objects in each copy. The selection matched byte for byte, and the staging field still named its reason. A proposed change for production showed just the replica count, three to two. It stayed pending.</p>
+  <p><strong>What was running:</strong> the test cluster stayed on the original configuration. Kubernetes reported one ready primary and three ready replicas. Redis answered <code>PONG</code> and reported three connected replicas. Shared-hub sign-in was unavailable, so we did not verify a shared-hub approval or a rollout to two replicas in this run.</p>
+  <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md#redis-from-the-workshop">Follow the handoff and see what was verified</a>. The <code>redis-existing-secret</code> password belongs in the target namespace and stays out of the handoff.</p>
 
   <h2>What we checked</h2>
   <p>The Redis steps above are backed by separate receipts. A render check does not stand in for a Kubernetes run, an OCI delivery, or an upgrade test.</p>
