@@ -1212,7 +1212,7 @@ const HOOK_STORIES = {
   "helm-cert-manager": {
     jobs: ["cert-manager-startupapicheck"], covers: [],
     does: "Runs a Job after installing that waits until the cert-manager API answers.",
-    instead: "It is left out. It only waits and checks, so nothing you need goes with it.",
+    instead: "It is left out of the rendered YAML because that post-install Job creates no cluster objects and only probes whether the cert-manager API answers.",
   },
   "helm-argo-cd": {
     jobs: ["argo-cd-argocd-redis-secret-init"], covers: ["argocd/argocd-redis"],
@@ -1358,7 +1358,7 @@ const prodThree = (what) => `Dev only adds a label. Prod also runs three replica
 const recorded = "Every change is written down with the reason you gave, so how prod differs never lives only in someone's head.";
 const HELM_HUMAN = {
   "helm-redis": {
-    plan: "Here it says to create the Secret redis/redis-existing-secret, which holds the password, before you deploy.",
+    plan: "Before deploying Redis as plain YAML, create the Secret redis/redis-existing-secret so Redis reads your password from it.",
     planFacts: (f) => [planHas(f, "redis/redis-existing-secret")],
     lead: "You run Redis as a fast cache or queue beside your app. Its Helm chart makes up a new password every time it runs, so two installs with the same settings never match.",
     sentences: [
@@ -1371,7 +1371,7 @@ const HELM_HUMAN = {
       variantDoes("helm-redis", /redis-replicas.*set-replicas 1/), variantDoes("helm-redis", /redis-master.*set-container-resources/), reasons("helm-redis")],
   },
   "helm-postgresql": {
-    plan: "Here it says to create the Secret postgresql/postgresql-auth, which holds the administrator password, before you deploy.",
+    plan: "Before deploying PostgreSQL as plain YAML, create the Secret postgresql/postgresql-auth so the database reads your administrator password from it.",
     planFacts: (f) => [planHas(f, "postgresql/postgresql-auth")],
     lead: "You run PostgreSQL to keep your app's data. Its Helm chart makes up a new administrator password every time it runs, so a reinstall can leave the password out of step with the database.",
     sentences: [
@@ -1383,7 +1383,7 @@ const HELM_HUMAN = {
     facts: (f) => [[f.rerendered.length > 0, "two renders no longer differ"], holds(f, 6), replicasOf(f, "postgresql", 1), variantDoes("helm-postgresql", /set-replicas 3/), reasons("helm-postgresql")],
   },
   "helm-ingress-nginx": {
-    plan: "Here it says the admission webhook's certificate, which Helm's two hidden Jobs would have made, must be on the cluster before you deploy.",
+    plan: "Before deploying ingress-nginx as plain YAML, make sure the webhook certificate Secret ingress-nginx/ingress-nginx-admission is on the cluster, since Helm's two hidden Jobs used to create it.",
     planFacts: (f) => [planHas(f, "ingress-nginx/ingress-nginx-admission"), [/hook/i.test(f.plan.find((step) => step.id === "ingress-nginx/ingress-nginx-admission")?.detail ?? ""), "the plan no longer says the hook Jobs made the certificate"]],
     lead: "You install ingress-nginx so traffic from outside the cluster reaches your services. While it installs, its chart runs two hidden Jobs to make a certificate, and you never see them.",
     sentences: [
@@ -1396,7 +1396,7 @@ const HELM_HUMAN = {
       replicasOf(f, "ingress-nginx-controller", 1), variantDoes("helm-ingress-nginx", /set-replicas 3/), reasons("helm-ingress-nginx")],
   },
   "helm-kube-prometheus-stack": {
-    plan: "Here it says to put the ten new kinds in first, then run the chart's two setup Jobs in order to make and wire in the webhook certificate, and then remove the Jobs.",
+    plan: "Deploying kube-prometheus-stack as plain YAML takes three steps around the objects. Apply the ten CRDs first, run the two webhook setup Jobs in order, and then remove those Jobs.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 10), [f.hooks.filter((doc) => doc.kind === "Job").length === 2, "the chart no longer runs two setup Jobs"], planHas(f, "preflight-or-presync-crd-apply", "preserve-ordering", "preserve-cleanup-policy")],
     lead: "You install kube-prometheus-stack to get Prometheus, Grafana and alerting in one go. It makes 125 objects, runs setup Jobs and adds ten new kinds of object, and you see none of it until Helm has run.",
     sentences: [
@@ -1409,7 +1409,7 @@ const HELM_HUMAN = {
       planHas(f, "preflight-or-presync-crd-apply", "preserve-ordering"), replicasOf(f, "kube-prometheus-stack-operator", 1), variantDoes("helm-kube-prometheus-stack", /set-replicas 3/), reasons("helm-kube-prometheus-stack")],
   },
   "helm-cert-manager": {
-    plan: "Here it says to put the six CRDs in first, and never to let Argo CD or Flux delete them when they prune, because deleting a CRD deletes every object of that kind.",
+    plan: "Deploying cert-manager as plain YAML takes two rules around the objects. Apply the six CRDs before any Certificate or Issuer, and mark those CRDs so Argo CD or Flux never prunes them.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 6), planHas(f, "crd-ordering", "prune-protection")],
     lead: "You install cert-manager so your services get TLS certificates without anyone renewing them by hand. Its Helm chart is a stack of templates, and you only see what it makes after Helm has run.",
     sentences: [
@@ -1422,7 +1422,7 @@ const HELM_HUMAN = {
       kinds(f, "CustomResourceDefinition", 6), planHas(f, "crd-ordering", "prune-protection")],
   },
   "helm-argo-cd": {
-    plan: "Here it says to create the Secret that holds the Redis password, to put the three CRDs in first, and never to let a prune delete them.",
+    plan: "Deploying Argo CD as plain YAML takes three steps around the objects. Create the Redis password Secret, apply the three CRDs first, and mark those CRDs so a prune never deletes them.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 3), planHas(f, "argocd/argocd-redis", "crd-ordering", "prune-protection")],
     lead: "You install Argo CD so your clusters follow what's in Git. Before it installs, its chart runs a hidden Job to make a password for Argo CD's own Redis.",
     sentences: [
@@ -1435,7 +1435,7 @@ const HELM_HUMAN = {
       replicasOf(f, "argo-cd-argocd-server", 1), variantDoes("helm-argo-cd", /set-replicas 3/), reasons("helm-argo-cd")],
   },
   "helm-external-secrets": {
-    plan: "Here it says to put the 25 CRDs in first, and that the webhook's empty Secret is filled in on the cluster after apply.",
+    plan: "Deploying External Secrets as plain YAML takes two notes around the objects. Apply the 25 CRDs first, and leave the empty webhook Secret for cert-controller to fill in after apply.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 25), planHas(f, "crd-ordering", "external-secrets/external-secrets-webhook")],
     lead: "You install External Secrets so your apps read passwords from a vault instead of from Git. Its chart adds 25 new kinds of object, and one of its Secrets ships empty for the cluster to fill in.",
     sentences: [
@@ -1461,7 +1461,7 @@ const HELM_HUMAN = {
       replicasOf(f, "metrics-server", 1), variantDoes("helm-metrics-server", /set-replicas 3/), reasons("helm-metrics-server")],
   },
   "helm-gatekeeper": {
-    plan: "Here it says to check the cluster is ready for the webhook before you apply, to put the 17 CRDs in first and wait until they are ready, and then to check that the controller, the audit and the webhook come up, which is the work Helm's hidden Jobs did.",
+    plan: "Deploying Gatekeeper as plain YAML takes three checks around the objects. Confirm webhook prerequisites before apply, apply the 17 CRDs first until established, and verify that controller, audit and webhook become ready.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 17), planHas(f, "preflight-or-presync", "crd-ordering", "lifecycle"), [/controller-manager-ready.*audit-ready.*webhook/.test(f.plan.find((step) => step.id === "lifecycle")?.detail ?? ""), "the plan no longer checks the controller, the audit and the webhook in that order"]],
     lead: "You install Gatekeeper to stop objects that break your rules from reaching the cluster. Its chart runs hidden Jobs before and after installing, and adds 17 new kinds of object.",
     sentences: [
@@ -1474,7 +1474,7 @@ const HELM_HUMAN = {
       replicasOf(f, "gatekeeper-audit", 1), variantDoes("helm-gatekeeper", /gatekeeper-audit.*set-replicas 3/), reasons("helm-gatekeeper")],
   },
   "helm-gpu-operator": {
-    plan: "Here it says to apply the new CRDs before an upgrade, and after you delete the operator, to run the Job that removes its labels from your nodes.",
+    plan: "Operating the NVIDIA GPU Operator as plain YAML takes two lifecycle steps around the objects. Apply the updated CRDs before an upgrade, and run the node-label cleanup Job after uninstall.",
     planFacts: (f) => [planHas(f, "lifecycle-action-pre-upgrade", "lifecycle-action-post-delete")],
     lead: "You install the NVIDIA GPU Operator so pods can use your GPUs without anyone setting up each node by hand. Its chart runs a hidden Job before each upgrade and another after you uninstall.",
     sentences: [
@@ -1492,11 +1492,10 @@ const HELM_HUMAN = {
 // The first-time pages say object, folder and copy. ConfigHub's own words
 // (Unit, Space, variant) stay on the details pages and in the commands, and
 // one sentence beside the commands says which cub word means which.
-// A first-time reader meets "the plan" on a Helm page, so the page says what
-// it is, what this chart's plan says, and who carries it out.
-const PLAN_IS = "The plan is what Helm did for you that plain YAML can't do on its own.";
-const PLAN_WHO = "Helm ran these steps out of sight. Now they are a checklist you can read, and whoever deploys carries it out, by hand or with their deploy tool's own settings. Nothing runs it for you.";
-const planParagraph = (name, plan) => `<p class="ex-plan"><strong>What the plan is.</strong> ${PLAN_IS} ${plan ? `${plan} ${PLAN_WHO}` : `${name} needs none, because plain YAML carries everything its chart does.`}</p>`;
+// A first-time reader meets "the plan" on a Helm page after seeing the
+// concrete steps around this chart's YAML.
+const PLAN_AFTER = "The Catalog ships those steps alongside the YAML as what it calls the plan, so you can configure them in Argo CD sync waves, Flux dependsOn, or your rollout script.";
+const planParagraph = (name, plan) => `<p class="ex-plan"><strong>Steps outside the YAML.</strong> ${plan ? `${plan} ${PLAN_AFTER}` : `${name} needs no extra ordering or setup steps, so its Catalog entry carries no separate plan alongside the rendered YAML.`}</p>`;
 const PRODUCT_WORDS = /\b(Units?|Spaces?|[Vv]ariants?)\b/;
 const plainWords = (text) => text.replace(/\bvariants\b/g, "copies").replace(/\bvariant\b/g, "copy").replace(/\bUnits\b/g, "objects").replace(/\bUnit\b/g, "object").replace(/\bapps layer\b/g, "apps folder");
 function cubWordsNote(rows) {
@@ -1585,10 +1584,10 @@ function whereToLook({ check }, id) {
   }
   const before = [hooks ? `${hooks} Helm hooks` : "", crdsAfter > crdsBefore ? `${crdsBefore ? `${crdsBefore} of the ${crdsAfter}` : `none of the ${crdsAfter}`} CRDs` : ""].filter(Boolean).join(" and ");
   const after = [hooks ? "no hooks" : "", crdsAfter > crdsBefore ? `all ${crdsAfter} CRDs` : ""].filter(Boolean).join(" and ");
-  return `Compare the lines under Lifecycle work. What helm template writes has ${before}. What the Catalog keeps has ${after}.`;
+  return `Compare the lines under Lifecycle work. What helm template writes has ${before}. What the Catalog keeps has ${after}${hooks ? ", and the table above shows how each hook is handled" : ""}.`;
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", whyNot, loadRows, loadNote, undoRows, undoNote = "To remove everything loading created in your organization, delete the copies first, then the base folder and component.", laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", notesHtml = "", whyNot, loadRows, loadNote, undoRows, undoNote = "To remove everything loading created in your organization, delete the copies first, then the base folder and component.", laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
   const { check, escapeHtml, commandBlock, signupUrl } = h;
   check(undoRows?.length > 0, `${ROOT}/${id}: simpleLayout has no undo commands beside Load it into your ConfigHub`);
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
@@ -1654,7 +1653,7 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
       <p class="ex-note ex-credits">${escapeHtml(credits)}</p>
     </section>
-`;
+${notesHtml}`;
 }
 
 // A Helm page in the reader's words. The pictures say what to look at, what
@@ -1701,6 +1700,10 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
       after: ` <a href="./${details}">The details page</a> has the commands that made both.`,
     }),
     credits: `About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples${dates}.${bundleLoad ? " They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make." : ""}`,
+    notesHtml: [
+      human.plan && h.technicalNoteHtml ? h.technicalNoteHtml(page.name, "The plan documents list the ordering, prerequisite and cleanup steps around the rendered YAML rather than executing them automatically; configure those steps in Argo CD, Flux or your deployment pipeline.") : "",
+      id === "helm-cert-manager" && h.technicalNoteHtml ? h.technicalNoteHtml(page.name, "The flattened cert-manager bundle omits the post-install startupapicheck Job rather than running that readiness probe automatically.") : "",
+    ].filter(Boolean).join("\n"),
   };
 }
 
@@ -1763,7 +1766,12 @@ function simplePage(id, h) {
   const lead = `${page.lead ?? HELM_HUMAN[id].lead} ${shows}`;
   check(opening, `${ROOT}/${id}: READ_FIRST has no opening for a ${page.kicker} page`);
   const plainText = `${lead} ${opening} ${prose}`;
-  check(page.kicker !== "Helm chart" || plainText.search(/\bplan\b/i) === plainText.indexOf("What the plan is.") + "What the ".length, `${ROOT}/${id}: the page says "plan" before the paragraph that says what the plan is`);
+  check(
+    page.kicker !== "Helm chart" ||
+      (plainText.search(/\bplan\b/i) > plainText.indexOf("Steps outside the YAML.") &&
+        (!HELM_HUMAN[id].plan || plainText.indexOf(HELM_HUMAN[id].plan) < plainText.search(/\bplan\b/i))),
+    `${ROOT}/${id}: a Helm page must show the chart's concrete steps before the word "plan" first appears`,
+  );
   check(body.indexOf('id="why-not-git"') !== -1 && body.indexOf('id="why-not-git"') < body.indexOf('id="pictures"'), `${ROOT}/${id}: the page must answer "why not Git" before the pictures`);
   check(!PRODUCT_WORDS.test(plainText), `${ROOT}/${id}: the first-time page says "${plainText.match(PRODUCT_WORDS)?.[0]}"; say object, folder or copy, and keep ConfigHub's words for the details page`);
   return {
