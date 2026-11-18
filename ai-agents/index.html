@@ -125,7 +125,8 @@ ul.tight li{margin:.25rem 0}
   <div class="hero"><div>
   <p class="lead">Ask your agent for a preview. See what the app actually serves while production stays as it is. When you like the change, you can keep it for this app and the next one.</p>
   <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></p>
-  <p class="small">Already working in an app? Turn on the cache for next week’s sale. Ask a fresh session why it’s on. No hub or account needed. Building an app? Try a new greeting in a local preview while the original keeps running.</p>
+  <p><a href="first-look.html"><strong>Three things to try first</strong></a> sets out your part and your agent’s part in each example.</p>
+  <p class="small"><strong>You</strong> install the plugin, open your app and ask for a change. <strong>Your agent</strong> records the reason or runs the preview and gives you its address. You decide when a production change goes ahead.</p>
   <details><summary>Install the plugin in Claude Code</summary>
     <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
@@ -171,7 +172,7 @@ claude plugin install confighub@confighub</code></pre>
   <p>In the greeter, we made the preview greeting the shared default. Staging served it right away. Production still served <samp>Hello, world!</samp> until approval, then served <samp>Welcome to the neighborhood!</samp> too.</p>
   <p>In a new folder, a fresh session built a catalog from the greeter’s setup. The catalog served <samp>Welcome to the neighborhood!</samp> in staging without a greeting in its own settings file. It still needed its own approval before its production copy served that greeting.</p>
   <p class="small">These were requests to running apps on one Mac, with a scripted owner handling approvals. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview and second app in Codex</a>.</p>
-  <p><a href="first-look.html">Three things to try first</a>: recover a reason, run a preview, and decide which fixes the next app should inherit.</p>
+
 </section>
 
 <section id="why">
