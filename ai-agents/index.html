@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Keep the setup your coding agent builds, with staging to try changes and owner approval before production.">
-<title>ConfigHub Durable Config</title>
+<title>ConfigHub: try a change in your first app before you ship it</title>
 </head>
 <body>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -110,26 +110,60 @@ ul.tight li{margin:.25rem 0}
 .survives .rung{grid-template-columns:11rem 1fr}
 @media (max-width:560px){.survives .rung{grid-template-columns:1fr;gap:.2rem}}
 .walk h3 .badge{margin-left:.4rem}
+.preview h2{font-size:1.25rem}
+.preview dl{margin:0}
+.preview dt{color:var(--muted);margin-top:.7rem}
+.preview dd{margin:.1rem 0;font-weight:600}
 </style>
 
 <div class="wrap">
 
 <section id="install">
-  <p class="eyebrow">ConfigHub for apps made with AI</p>
-  <h1>Your agent makes your apps. Durable config makes the platform.</h1>
-  <p class="lead">Ask a coding agent for an app and it writes the app, with a staging and a production setup. ConfigHub keeps that setup as durable config: every setting with its reason, kept through the next session, the next version and the next app. Kept that way, the setup of your apps is your platform.</p>
-  <h2 style="margin-top:2rem">Try the plugin in Claude Code</h2>
-  <p>Change one setting and ask why it changed. You can try it with a sample project on your computer. No hub or ConfigHub account needed.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Try the plugin in five minutes</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Start in Codex</a></p>
-  <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+  <p class="eyebrow">ConfigHub · Durable config for apps</p>
+  <h1>Build your first app with Claude or Codex. Try a change before you ship it.</h1>
+  <div class="hero"><div>
+  <p class="lead">Ask your agent for a preview. See what the app actually serves while production stays as it is. When you like the change, you can keep it for this app and the next one.</p>
+  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Try it in Claude Code in five minutes</a> <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Start in Codex</a></p>
+  <p class="small">The five-minute try records a settings change on your computer. No hub or ConfigHub account needed.</p>
+  <details><summary>Install the plugin in Claude Code</summary>
+    <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
-  <p>After installing, open a fresh Claude Code session. Ask Claude to change a setting, then type <code>/confighub:why SETTING</code> in Claude Code to see what changed and why.</p>
-  <p>Want staging and production too? In an empty Git repository, ask Claude Code:</p>
-  <p class="say">Build me a small web service using ConfigHub, with a staging and a production setup.</p>
-  <p>Once it’s running, ask for a warmer greeting in preview and have the agent show you the response. Staging and production keep the old greeting while you try it. When you like it, ask to put it in staging. Your production app changes when its delivery setup picks up the approved settings.</p>
-  <p>Building a second app? Ask your agent to start from the first app’s setup so it gets the improved greeting too. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Try it with Claude Code</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">follow the Codex steps for macOS</a>.</p>
-  <p class="muted">The free local hub runs on macOS and Linux without a ConfigHub account, Docker or Kubernetes. Connecting an app you already have reads its settings files without rewriting them. If you are an AI agent, start with <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
-  <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">Choose a walkthrough</a></p>
+    <p>Open a fresh Claude Code session in the same project after installing.</p>
+  </details>
+  </div><div class="card preview" id="preview">
+    <h2>“Try a warmer greeting in preview.”</h2>
+    <dl><dt>Preview served</dt><dd><samp>Welcome to the neighborhood!</samp></dd>
+        <dt>Staging and production still served</dt><dd><samp>Hello, world!</samp></dd></dl>
+    <p class="small">Actual responses from three copies of a greeter running on one Mac with Codex. <a href="#next-app">See what the second app inherited</a>.</p>
+  </div></div>
+</section>
+
+<section id="start">
+  <h2>Where are you starting?</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>From scratch</h3>
+      <p>In an empty Git folder, ask: “Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.” The local hub keeps separate staging and production settings.</p>
+      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build your first app</a>
+    </div>
+    <div class="card">
+      <h3>Halfway through building</h3>
+      <p>Install the plugin and reopen the same project. Ask: “Turn the cache on in <code>.env</code> for Friday’s sale.” Tomorrow, ask Claude why the cache is on. It can find the edit and your request, even if you never committed it.</p>
+      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Try it on one setting</a>
+    </div>
+    <div class="card">
+      <h3>Already running an app</h3>
+      <p>Ask: “Attach ConfigHub to this app. I want to try a change in staging.” It reads your existing settings files without rewriting them or switching your deployment. Connect delivery when you’re ready.</p>
+      <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Attach an existing app</a>
+    </div>
+  </div>
+</section>
+
+<section id="next-app">
+  <h2>What the second app inherited</h2>
+  <p>In the greeter, we made the preview greeting the shared default. Staging served it right away. Production still served <samp>Hello, world!</samp> until approval, then served <samp>Welcome to the neighborhood!</samp> too.</p>
+  <p>In a new folder, a fresh session built a catalog from the greeter’s setup. The catalog served <samp>Welcome to the neighborhood!</samp> in staging without a greeting in its own settings file. It still needed its own approval before its production copy served that greeting.</p>
+  <p class="small">These were requests to running apps on one Mac, with a scripted owner handling approvals. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview and second app in Codex</a>.</p>
 </section>
 
 <section id="why">
@@ -184,24 +218,6 @@ defaults:
   <p class="small">The walkthrough <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a> runs this on your laptop and checks the settings and reasons in the hub.</p>
 </section>
 
-<section id="start">
-  <h2>Three ways to start</h2>
-  <div class="grid3">
-    <div class="card">
-      <h3>Make a new app</h3>
-      <p>Ask your agent to build it "using ConfigHub". It writes the app and gives it a staging and a production setup. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">A new app</a></p>
-    </div>
-    <div class="card">
-      <h3>Attach an app you already have</h3>
-      <p>Ask your agent to "attach ConfigHub to this app". Your staging and production values stay as they are, and your files are not changed. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
-    </div>
-    <div class="card">
-      <h3>Use a starter</h3>
-      <p>Start with settings for the tools you already use, such as Vercel or Argo CD. Keep your own values and try changes in staging before you approve them for production. <a href="#works-with">Starters for the tools you use</a></p>
-    </div>
-  </div>
-  <p class="small">Some software comes with a hub inside. You change it to suit you, and keep your changes when its next version arrives. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Software with ConfigHub inside</a></p>
-</section>
 
 <section id="works-with">
   <h2>Give your app a starting setup</h2>
@@ -311,6 +327,7 @@ defaults:
     <li><strong>Contributions are welcome.</strong> Fix a guide, share an example or propose a starter. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
   </ul>
   <p>The local hub is the full ConfigHub server, as one download for macOS and Linux. It is free and needs no account.</p>
+  <p class="small">Some <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software comes with a hub inside</a>. For agents: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/llms.txt">llms.txt</a>.</p>
   <p class="buttons"><a class="btn primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Click here to download a full ConfigHub binary</a></p>
 </section>
 
