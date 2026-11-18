@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Try three ConfigHub stories in the order you need them: remember a decision, preview a change, and give the next app a better starting point.">
+  <title>Three things to try first · ConfigHub</title>
+  <style>
+    :root { color-scheme: light dark; --paper:#faf9f4; --ink:#182a27; --muted:#435854; --line:#c9d2c6; --panel:#edf3eb; --accent:#18594a; --action:#fff; font: 100%/1.6 system-ui,sans-serif; }
+    @media (prefers-color-scheme:dark) { :root { --paper:#121d1a; --ink:#eff6ea; --muted:#bdcdc0; --line:#42554b; --panel:#20362d; --accent:#a5e2c7; --action:#10281e; } }
+    * { box-sizing:border-box; }
+    body { background:var(--paper); color:var(--ink); margin:0; }
+    main,footer { width:min(100% - 2.5rem,62rem); margin:auto; }
+    header { padding:2rem 0 1.8rem; }
+    a { color:var(--accent); text-underline-offset:.16em; }
+    a:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+    h1,h2,h3 { line-height:1.2; text-wrap:balance; }
+    h1 { font-size:clamp(2.3rem,6vw,4rem); margin:1.1rem 0 .5rem; letter-spacing:-.045em; }
+    h2 { font-size:clamp(1.45rem,3.4vw,2.1rem); margin:.35rem 0 .75rem; letter-spacing:-.028em; }
+    h3 { font-size:1.13rem; margin:.25rem 0; }
+    p { margin:.45rem 0 .9rem; max-width:68ch; }
+    .lead { font-size:1.2rem; }
+    .actions { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem 1.1rem; margin:1rem 0 .5rem; }
+    .primary { background:var(--accent); color:var(--action); padding:.55rem .9rem; border-radius:.35rem; text-decoration:none; font-weight:650; }
+    .story, .more { border-top:1px solid var(--line); padding:1.5rem 0; }
+    .tag { color:var(--muted); font-size:.83rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin:0; }
+    .story-body { display:grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap:1.2rem 2rem; align-items:start; }
+    .result { padding:.8rem 1rem; background:var(--panel); border-left:3px solid var(--accent); border-radius:0 .35rem .35rem 0; }
+    .result p:last-child { margin-bottom:0; }
+    code,samp { font-size:.97em; overflow-wrap:anywhere; }
+    .more article { margin-top:1.25rem; }
+    footer { padding:1.25rem 0 2.5rem; border-top:1px solid var(--line); }
+    @media(max-width:42rem) { .story-body { grid-template-columns:1fr; gap:0; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <a href="./">ConfigHub for your first app</a>
+    <h1>Three things to try first</h1>
+    <p class="lead">Can your next session explain a setting? Can you try a change while production keeps working? Can your next app use the fix without inheriting everything else?</p>
+    <p>Start with the question you have today. Each example links to the steps and tells you what to look for.</p>
+    <div class="actions"><a class="primary" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Try one setting in Claude Code</a><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Set up Codex</a></div>
+    <p>Already set up? <a href="#preview">Try a preview</a> or <a href="#starter">share a fix between apps</a>. An agent can do the setup and propose changes; the owner reviews and decides each approval.</p>
+  </header>
+
+  <section class="story" id="remember">
+    <p class="tag">01 · Plugin only</p>
+    <h2>Find out why the cache is on</h2>
+    <div class="story-body"><div>
+      <p><strong>Why it matters.</strong> A settings file tells tomorrow’s agent that caching is on. The plugin can also show the request that turned it on, even if nobody committed the edit.</p>
+      <p><strong>Try it.</strong> Open the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">five-minute Claude Code guide</a>. It gives you a throwaway Git folder with <code>CACHE=off</code>. In a fresh session ask: “Turn the cache on in <code>.env</code> for next week’s sale. Don’t commit.” Reopen the folder in another session and type <code>/confighub:why CACHE</code>.</p>
+    </div><aside class="result"><strong>What to look for</strong><p>The change from <code>off</code> to <code>on</code> and the request about the sale. No hub or ConfigHub account needed.</p><p>Using Codex? Follow <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">its hook setup</a> and use its “Read the record” command. The slash command is for Claude Code.</p></aside></div>
+    <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Compare with and without the plugin</a> in a test where a deploy would undo an earlier change. It measures that situation, not how often it happens in your repo.</p>
+  </section>
+
+  <section class="story" id="preview">
+    <p class="tag">02 · Your first app on a local hub</p>
+    <h2>See a change before you ship it</h2>
+    <div class="story-body"><div>
+      <p><strong>Why it matters.</strong> A preview gives your agent somewhere to experiment. You can judge the result from the running app, and decide later what production gets.</p>
+      <p><strong>Try it.</strong> After <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">setting up Codex</a> on macOS, ask for a small greeting app using ConfigHub in an empty Git folder. Follow the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">preview steps</a> in a fresh session. Ask: “Try a warmer greeting in preview and show me what it serves over HTTP.”</p>
+    </div><aside class="result"><strong>What the running apps returned</strong><p>Preview: <samp>Welcome to the neighborhood!</samp><br>Staging and production: <samp>Hello, world!</samp></p><p>These were local processes on one Mac. A stored setting alone doesn’t show that an app has loaded it.</p></aside></div>
+    <p><strong>Then try a second app.</strong> Make the greeting the shared default. In the recorded run, staging took it first; production waited for approval. A catalog built from the greeter’s setup in another folder inherited the greeting without setting it again and needed its own production approval. The test used a scripted owner; in your app, review the exact order yourself.</p>
+    <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build an app with Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Attach an existing app instead</a></p>
+  </section>
+
+  <section class="story" id="starter">
+    <p class="tag">03 · A starter for more than one app</p>
+    <h2>Share the logging fix, not the shop’s database limit</h2>
+    <div class="story-body"><div>
+      <p><strong>Why it matters.</strong> The shop needs 20 database connections. Other apps don’t. But none of them should log request bodies. A starter holds shared defaults and the reasons for them. Approving a new version lets you improve existing apps as well as new ones.</p>
+      <p><strong>Try it.</strong> Open <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Story 25: harden the shop</a>. Use its terminal steps or give your agent the hardening request in its quick start. Review the shop change and the starter change separately. Start the cart from the approved starter, then upgrade the shop.</p>
+    </div><aside class="result"><strong>What to check in the hub</strong><p>The cart gets the new logging and replica defaults. The shared starter does not acquire the shop’s pool size. The shop keeps its production log-level override.</p><p>This story checks stored settings. For a running-service comparison, see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md#testing">two apps on Fly</a>.</p></aside></div>
+  </section>
+
+  <section class="more" id="same-hub">
+    <h2>What does mini add to ConfigHub?</h2>
+    <p>The plugin captures the edit and request in the coding session. The local hub is ConfigHub on your machine; <code>cub mini</code> arranges its usual variants, permissions and change orders for a common job. To see what it saves you setting up by hand, compare <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md">mini and plain cub, command by command</a>.</p>
+    <p>In an Argo CD setup comparison, agents using plain cub often switched delivery before the approval gate was in place. Agents using mini more often got the order right. That’s a difference in setup; the test didn’t show an unapproved change reaching production. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#setting-up-argo-cd-with-mini-or-plain-cub">Read the eleven-check comparison</a>.</p>
+    <p>When a colleague or CI needs the same settings, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">move to a shared hub</a>. Follow <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">Story 24: one base for ten apps</a> to see how one shared update can preserve each app’s own values.</p>
+  </section>
+
+  <section class="more" id="operations">
+    <h2>Three questions to try next</h2>
+    <article><h3>What happens to a rollout if work stops?</h3>
+      <p>In the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker example</a>, run the restart rehearsal. Look for the old retry policy while approval waits, then the new one after approval. Try changing the policy without changing the approved digest: delivery must refuse it. Plain Temporal handled restart and resume too; the hub adds a record of which policy the owner approved.</p>
+    </article>
+    <article><h3>Does “the owner said yes” count?</h3>
+      <p>Try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">Story 22: approval from a Slack thread</a>. Give the agent the request from the quick start. Look for a pending order, even though the request says someone approved. The named owner must still approve that exact change. The walkthrough uses a local Slack stand-in; it sends no messages.</p>
+    </article>
+    <article><h3>Can a reviewer tell why the agent chose two replicas?</h3>
+      <p>Use the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-it-records-and-what-it-does-not">recorded replica example</a>. Ask for the fewest replicas that keep serving during a node drain. In a fresh Claude Code session, type <code>/confighub:why replicas</code> and compare it with the Git diff and commit. Good commits often explained the chosen number too. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#explaining-a-rendered-setting">Compare what each kept</a> about the alternative the agent set aside.</p>
+    </article>
+  </section>
+</main>
+<footer><a href="./">Product overview</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What the plugin can and can’t do</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">For agents following these stories</a></footer>
+</body>
+</html>
