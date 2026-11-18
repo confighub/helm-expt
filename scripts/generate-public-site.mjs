@@ -840,7 +840,7 @@ const SPLIT_PAGES = [
   { key: "eksInferenceHtml", file: EKS_INFERENCE_PAGE_FILE, title: EKS_INFERENCE_PAGE_TITLE, description: "See the eight parts of a GPU inference platform on Amazon EKS, and check the whole platform on your laptop in one command with no AWS account or GPU.", build: () => eksInferenceHtml() },
   { key: "nvkeHtml", file: NVKE_PAGE_FILE, title: NVKE_PAGE_TITLE, description: "See what ConfigHub does for the GPU add-ons on two NVKE clusters, from one lab run with no GPUs, and what that run did not show.", build: () => splitGuideHtml(nvkePage({ escapeHtml, markdownLikeTable, technicalNoteHtml })) },
   ...BEFORE_AFTER_PAGES.map((page) => ({ key: page.key, file: page.file, title: page.title, description: page.description, beforeAfter: true, build: () => beforeAfterHtml(page.id) })),
-  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, technicalNoteHtml, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after"), workshopInstall: WORKSHOP_PLUGIN_INSTALL })) })),
+  ...SIMPLE_PAGES.map((page) => ({ key: `example_${page.id.replace(/-/g, "_")}`, file: page.file, title: `${page.name}, before and after`, description: `${page.name} as you may have it today and as ConfigHub holds it, side by side.`, beforeAfter: true, build: () => splitGuideHtml(simpleBeforeAfterPage(page.id, { check, escapeHtml, markdownLikeTable, commandBlock, technicalNoteHtml, listing: readListingFile(GPU_ENTRY), signupUrl: confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "before-after"), plansUrl: confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "before-after"), workshopInstall: WORKSHOP_PLUGIN_INSTALL, installerInstall: INSTALLER_PLUGIN_INSTALL_COMMAND })) })),
 ];
 const JOURNEY_PAGES = JOURNEY_SNAPSHOT.journeys.map((journey) => ({ ...journey, title: sectionRows("guides").find((row) => row.id === journey.id)?.title ?? journey.title, key: `journey_${journey.id.replace(/-/g, "_")}`, file: `${journey.id}.html` }));
 
@@ -2364,7 +2364,7 @@ function buildLlmsTxt() {
 
 > A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
-ConfigHub is a hosted service that stores finished Kubernetes YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. This site, the ConfigHub Workshop, is a public set of examples for that service. [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) says where release, promote, approve and roll back fit, and the [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) takes one component from its first upload to production.
+ConfigHub is a hosted service that stores finished Kubernetes YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. This site, the ConfigHub Workshop, is a public set of examples for that service. Local cub checks and the Workshop Catalog are free with no account, exported bundles stay standard Kubernetes YAML and OCI with no lock-in, and ConfigHub Spaces, Targets, Triggers and Workers are created via cub CLI commands, onboarding scripts or the API rather than declarative YAML files today (see [Common questions](${SITE_BASE_URL}ask.html#faq)). [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) says where release, promote, approve and roll back fit, and the [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) takes one component from its first upload to production.
 
 - [Configs](${SITE_BASE_URL}configs.json): the Configs section, one row per Catalog entry with its format, version, base, object count, flattening verdict and listing URL. Schema: ${SITE_BASE_URL}configs.schema.json.
 - [Stacks](${SITE_BASE_URL}stacks.json): the Stacks section, one row per shipped stack with its parts, whether each part was checked, and the cub stack check command to try it. Schema: ${SITE_BASE_URL}stacks.schema.json.
@@ -9292,6 +9292,13 @@ function faqSectionsHtml(catalog) {
 	          answer:
 	            "A Unit is one versioned desired-state record. A Space holds related Units. A Target defines where ConfigHub delivers them. An OCI Target publishes the Space as a bundle.",
           links: [["The data model", "../docs/user/confighub-data-model.md"], ["Detailed mechanism guide", "../docs/user/how-it-works.md"]],
+        },
+        {
+          status: "answered",
+          question: "Can Spaces, Targets, Triggers, and Workers be declared in files?",
+          answer:
+            "They are created via cub CLI commands, onboarding scripts, or the API rather than declarative YAML files today. Your Kubernetes workload and platform objects stay plain YAML, and exported bundles carry no proprietary wrapper.",
+          links: [["The data model", "../docs/user/confighub-data-model.md"], ["How ConfigHub works", "./how-confighub-works.html"]],
         },
 	        {
 	          status: "answered",

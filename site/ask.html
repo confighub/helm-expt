@@ -708,7 +708,7 @@
         td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.3k tokens and the core <code>SKILL.md</code> is about 5.2k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.4k tokens and the core <code>SKILL.md</code> is about 5.2k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
     <h3 id="ask-token-optimal">The token-optimal path</h3>
     <ol>
       <li>Render, compare, search, and hash locally first. Those deterministic steps use no model tokens.</li>
@@ -1059,6 +1059,14 @@ cub check --format json --output cub-check.json ./rendered</code></pre>
         </div>
         <p>A Unit is one versioned desired-state record. A Space holds related Units. A Target defines where ConfigHub delivers them. An OCI Target publishes the Space as a bundle.</p>
         <p class="faq-links"><a href="d/docs/user/confighub-data-model.html">The data model</a> · <a href="d/docs/user/how-it-works.html">Detailed mechanism guide</a></p>
+      </article>
+          <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Can Spaces, Targets, Triggers, and Workers be declared in files?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>They are created via cub CLI commands, onboarding scripts, or the API rather than declarative YAML files today. Your Kubernetes workload and platform objects stay plain YAML, and exported bundles carry no proprietary wrapper.</p>
+        <p class="faq-links"><a href="d/docs/user/confighub-data-model.html">The data model</a> · <a href="./how-confighub-works.html">How ConfigHub works</a></p>
       </article>
           <article class="faq-card answered">
         <div class="faq-head">

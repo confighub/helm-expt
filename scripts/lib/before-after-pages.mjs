@@ -1043,7 +1043,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space apptique-example-prod --unit frontend --change-desc \"Give prod the requests and limits of the prod overlay\" set-container-resources server all 200m 128Mi 2"],
     laptop: ["kustomize build prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize", output: [["check-prod.txt", "cub config check prod.yaml"]], laptopNeeds: "kustomize and the Workshop plugin",
-    laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
+    laptopNote: "Runs locally without an account. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
     loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>apptique-example-base</code> and two copies, <code>apptique-example-dev</code> and <code>apptique-example-prod</code>, with 4 objects in each.",
     undoRows: ["cub space delete --recursive apptique-example-prod", "cub space delete --recursive apptique-example-dev", "cub space delete --recursive apptique-example-base", "cub component delete apptique-example"],
     units: "Each copy stores its 4 objects separately.",
@@ -1066,7 +1066,7 @@ const GITOPS_SIMPLE = [
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Run three replicas in prod\" set-replicas 3",
       "cub function set --space checkout-cache-example-prod --unit checkout-cache --change-desc \"Give prod a 1Gi memory limit\" -- set-yq '.spec.template.spec.containers[0].resources.limits.memory = \"1Gi\"'"],
     laptop: ["kustomize build --enable-helm overlays/prod > prod.yaml", "cub config check prod.yaml"], needs: "kustomize and helm", output: [["check-prod.txt", "cub config check prod.yaml"]], laptopNeeds: "kustomize, helm and the Workshop plugin",
-    laptopNote: "No account needed. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
+    laptopNote: "Runs locally without an account. This writes out every object prod runs and checks what it installs.", safety: "It touches no cluster.",
     loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>checkout-cache-example-base</code> and three copies for dev, staging and prod, with 2 objects in each.",
     undoRows: ["for env in prod staging dev base; do cub space delete --recursive checkout-cache-example-$env; done", "cub component delete checkout-cache-example"],
     units: "Each copy stores its 2 objects separately.",
@@ -1082,12 +1082,12 @@ const GITOPS_SIMPLE = [
     facts: [["before/manifests/apptique/prod/deployment.yaml", /replicas: 3/]],
     dir: "gitops/argo/beginner-app-of-apps",
     load: ["cub argo apply . --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates two base folders, two cluster copies (<code>argo-apptique-dev</code> and <code>argo-apptique-prod</code>) and a cluster record in <code>argo-targets</code>.",
+    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "This touches no live cluster, and Argo CD keeps syncing from Git unless you later choose to switch an Application's source to ConfigHub OCI.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    loadNote: "If you want to explore the rendered Applications in hosted ConfigHub, sign in and run these commands to upload the dev and prod copies into your workspace.",
     undoRows: ["bash onboard/cleanup.sh"],
-    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.",
+    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your workspace, run the generated cleanup script.",
     units: "Each copy keeps everything its Application deploys together, in one place.",
-    rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git. Only handover.sh, a separate step you choose to run, points each Application at ConfigHub instead." }],
+    rows: [{ does: "A root Application makes other Applications, and each one points at a folder in Git.", instead: "The root and its Applications stay with Argo CD as the control tree. What each Application deploys is a base in ConfigHub, with a copy for its cluster." }, { does: "Argo CD syncs whatever is in Git.", instead: "Argo CD keeps syncing Git unless you later run a separate handover script to point an Application at ConfigHub OCI." }],
   },
   {
     id: "argo-applicationset", file: "example-argo-cd-applicationset.html", name: "An Argo CD ApplicationSet", kicker: "Argo CD ApplicationSet",
@@ -1099,10 +1099,10 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/apptique/overlays/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/argo/beginner-applicationset",
     load: ["cub argo apply . --prefix appset --out onboard", "bash onboard/apply.sh"],
-    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "It touches no cluster, and Argo CD keeps reading Git as it does today. Pointing Argo CD at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
-    loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>appset-apptique-base</code>, two copies (<code>appset-apptique-dev</code> and <code>appset-apptique-prod</code>) and a cluster record in <code>appset-targets</code>.",
+    laptop: ["cub argo plan ."], output: [["argo-plan.txt", "cub argo plan ."]], needs: "the argo plugin and kustomize", safety: "This touches no live cluster, and Argo CD keeps syncing from Git unless you later choose to switch an Application's source to ConfigHub OCI.", ownRepo: "In your own Argo CD repository, run the last line from its root.",
+    loadNote: "If you want to explore the rendered Applications in hosted ConfigHub, sign in and run these commands to upload the dev and prod copies into your workspace.",
     undoRows: ["bash onboard/cleanup.sh"],
-    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.",
+    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your workspace, run the generated cleanup script.",
     units: "Each copy keeps everything its Application deploys together, in one place.",
     rows: [{ does: "An ApplicationSet makes Applications from a template on the cluster, so you never see them before they exist.", instead: "The template is filled in here, one Application per environment, each a copy of one base." }, { does: "The ApplicationSet was applied by hand.", instead: "It stays in the cluster. The report from cub argo plan says handover must patch it or repoint its Applications one by one." }],
   },
@@ -1116,10 +1116,10 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /value: 3/]],
     dir: "gitops/flux/beginner",
     load: ["cub flux apply . --require Healthy --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy"]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates two base folders (<code>flux-infrastructure-base</code> and <code>flux-apps-base</code>), four cluster copies across dev and prod, and cluster records in <code>flux-targets</code>.",
+    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy"]], needs: "the flux plugin and kustomize", safety: "This touches no live cluster, and Flux keeps syncing from Git unless you later choose to switch a cluster's Flux source to ConfigHub OCI.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    loadNote: "If you want to explore the fleet UI in hosted ConfigHub, sign in and run these commands to upload the rendered dev and prod copies into your workspace.",
     undoRows: ["bash onboard/cleanup.sh"],
-    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.",
+    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your workspace, run the generated cleanup script.",
     units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Each cluster's Kustomization points at an overlay in Git, and Flux applies it.", instead: "Each folder becomes a base in ConfigHub with a copy for each cluster. The Kustomization stays in Flux, and after handover it reads ConfigHub instead of Git." }, { does: "flux bootstrap owns flux-system.", instead: "It stays outside ConfigHub, and the report from cub flux plan lists it." }],
   },
@@ -1133,10 +1133,10 @@ const GITOPS_SIMPLE = [
     facts: [["before/apps/prod/kustomization.yaml", /newTag: 1\.26\.3-alpine/], ["before/apps/prod/kustomization.yaml", /value: 4/]],
     dir: "gitops/flux/expert-fleet",
     load: ["cub flux apply . --require Healthy --prefix fleet --out onboard", "CONFIGHUB_OCI=oci.hub.confighub.com bash onboard/apply.sh"],
-    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy", "<code>cub flux plan . --require Healthy</code> reads the repository only and printed 125 lines. Below are the fleet summary and the <code>in flight</code> version line across environments.", true]], needs: "the flux plugin and kustomize", safety: "It touches no cluster, and Flux keeps reading Git as it does today. Pointing Flux at ConfigHub instead is a separate step, handover.sh, and you choose whether to run it.", ownRepo: "In your own Flux repository, run the last line from its root.",
-    loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates four base folders, ten cluster copies across <code>dev-1</code>, <code>staging-1</code> and <code>prod-1</code>, and cluster records in <code>fleet-targets</code>.",
+    laptop: ["cub flux plan . --require Healthy"], output: [["flux-plan.txt", "cub flux plan . --require Healthy", "<code>cub flux plan . --require Healthy</code> reads the Git repository locally without touching a cluster. In the summary below, <code>4 layers</code> are the Flux Kustomization folders and <code>10 variants</code> are the rendered cluster copies.", true]], needs: "the flux plugin and kustomize", safety: "This touches no live cluster, and Flux keeps syncing from Git unless you later choose to switch a cluster's Flux source to ConfigHub OCI.", ownRepo: "In your own Flux repository, run the last line from its root.",
+    loadNote: "If you want to explore the fleet UI in hosted ConfigHub, sign in and run these commands to upload the rendered <code>dev-1</code>, <code>staging-1</code> and <code>prod-1</code> copies into your workspace.",
     undoRows: ["bash onboard/cleanup.sh"],
-    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your organization, run the generated cleanup script.",
+    undoNote: "To remove everything <code>onboard/apply.sh</code> created in your workspace, run the generated cleanup script.",
     units: "Each cluster gets its own copy, which holds everything Flux applies to that cluster from the folder.",
     rows: [{ does: "Image automation writes new tags into the dev overlay.", instead: "It keeps doing so, and the report from cub flux plan names it, so you know dev's version can change without a review." }, { does: "A HelmRelease pins edge-router to 2.4.x, so its version can change at any reconcile.", instead: "The report from cub flux plan says to pin one exact version, so what runs changes only when a release says so." }],
   },
@@ -1163,7 +1163,7 @@ const APP_SIMPLE = [
       "cub function set --space shop-web-prod --unit shop-web --change-desc \"Run five replicas in prod\" set-replicas 5",
     ],
     laptop: ["cub app check shop-web", "cub stack sandbox shop-platform"], output: [["app-check.txt", "cub app check shop-web.yaml", "<code>cub app check</code> printed this for shop-web."], ["stack-sandbox.txt", "cub stack sandbox shop-platform"]], needs: "the Workshop plugin",
-    laptopNote: "No account needed. The first line lists what the app needs, and the second checks it on a platform that carries those.",
+    laptopNote: "Runs locally without an account. The first line lists what the app needs, and the second checks it on a platform that carries those.",
     safety: "It touches no cluster.",
     loadNote: "Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>shop-web-base</code> and two copies, <code>shop-web-dev</code> and <code>shop-web-prod</code>, with 6 objects in each.",
     undoRows: ["cub space delete --recursive shop-web-prod", "cub space delete --recursive shop-web-dev", "cub space delete --recursive shop-web-base", "cub component delete shop-web"],
@@ -1212,7 +1212,7 @@ const HOOK_STORIES = {
   "helm-cert-manager": {
     jobs: ["cert-manager-startupapicheck"], covers: [],
     does: "Runs a Job after installing that waits until the cert-manager API answers.",
-    instead: "It is left out of the rendered YAML because that post-install Job creates no cluster objects and only probes whether the cert-manager API answers.",
+    instead: "Left out of the rendered YAML because Argo CD, Flux, or kubectl rollout status can wait directly for the cert-manager webhook Deployment instead of running a separate probe Job.",
   },
   "helm-argo-cd": {
     jobs: ["argo-cd-argocd-redis-secret-init"], covers: ["argocd/argocd-redis"],
@@ -1461,7 +1461,7 @@ const HELM_HUMAN = {
       replicasOf(f, "metrics-server", 1), variantDoes("helm-metrics-server", /set-replicas 3/), reasons("helm-metrics-server")],
   },
   "helm-gatekeeper": {
-    plan: "Deploying Gatekeeper as plain YAML takes three checks around the objects. Confirm webhook prerequisites before apply, apply the 17 CRDs first until established, and verify that controller, audit and webhook become ready.",
+    plan: "Deploying Gatekeeper as plain YAML needs three rollout steps around the objects. Check webhook prerequisites before apply, apply the 17 CRDs first until established, and wait for the controller, audit, and webhook Deployments to become ready.",
     planFacts: (f) => [kinds(f, "CustomResourceDefinition", 17), planHas(f, "preflight-or-presync", "crd-ordering", "lifecycle"), [/controller-manager-ready.*audit-ready.*webhook/.test(f.plan.find((step) => step.id === "lifecycle")?.detail ?? ""), "the plan no longer checks the controller, the audit and the webhook in that order"]],
     lead: "You install Gatekeeper to stop objects that break your rules from reaching the cluster. Its chart runs hidden Jobs before and after installing, and adds 17 new kinds of object.",
     sentences: [
@@ -1494,16 +1494,10 @@ const HELM_HUMAN = {
 // one sentence beside the commands says which cub word means which.
 // A first-time reader meets "the plan" on a Helm page after seeing the
 // concrete steps around this chart's YAML.
-const PLAN_AFTER = "The Catalog ships those steps alongside the YAML as what it calls the plan, so you can configure them in Argo CD sync waves, Flux dependsOn, or your rollout script.";
-const planParagraph = (name, plan) => `<p class="ex-plan"><strong>Steps outside the YAML.</strong> ${plan ? `${plan} ${PLAN_AFTER}` : `${name} needs no extra ordering or setup steps, so its Catalog entry carries no separate plan alongside the rendered YAML.`}</p>`;
+const PLAN_AFTER = "Plain YAML in GitOps never runs Helm hooks on its own. Alongside the rendered YAML, a short checklist file (the chart's plan) writes those steps down so you can map them to Argo CD sync waves or Flux dependsOn.";
+const planParagraph = (name, plan) => `<p class="ex-plan"><strong>Steps outside the YAML.</strong> ${plan ? `${plan} ${PLAN_AFTER}` : `${name} needs no extra ordering or setup steps, so no separate plan file is needed alongside the rendered YAML.`}</p>`;
 const PRODUCT_WORDS = /\b(Units?|Spaces?|[Vv]ariants?)\b/;
 const plainWords = (text) => text.replace(/\bvariants\b/g, "copies").replace(/\bvariant\b/g, "copy").replace(/\bUnits\b/g, "objects").replace(/\bUnit\b/g, "object").replace(/\bapps layer\b/g, "apps folder");
-function cubWordsNote(rows) {
-  const words = [[/--space |cub space /, "<code>--space</code> names a folder"], [/--unit /, "<code>--unit</code> names an object"], [/cub variant |--variant /, "<code>variant</code> names a copy"]]
-    .filter(([pattern]) => rows.some((row) => pattern.test(row))).map(([, said]) => said);
-  if (!words.length) return "";
-  return ` In the CLI flags below, ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.`;
-}
 // What ConfigHub is, under every example page's opening, for a reader who has
 // never heard of it. Newcomer readers could not tell why they would care, so
 // it starts from the problem this kind of page solves. It leaves the plan to
@@ -1520,9 +1514,9 @@ const READ_FIRST = {
   App: ["An app's files don't say what a cluster must already have, so you find out only when a move fails.", () => "This page shows one example app checked against a cluster's needs before the move."],
 };
 // What the page offers ends the page's first paragraph, because readers
-// judged the page there. The next paragraph says what you review today,
-// what ConfigHub is and how a deploy tool reads from it.
-const WHAT_CONFIGHUB = "ConfigHub is a hosted service that stores that finished YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. The rest of your Git stays as it is. This site, the ConfigHub Workshop, is a public set of examples for that service. Its Catalog holds charts it has already rendered and tested, with the evidence on GitHub.";
+// judged the page there. The next paragraph leads with free local inspection,
+// then says when a team uses hosted ConfigHub and how OCI releases stay portable.
+const WHAT_CONFIGHUB = "You can read the rendered YAML on GitHub in your browser or check files locally with ConfigHub's open-source CLI (cub), for free and without an account. When a team wants shared change history, environment promotion, and release approvals, hosted ConfigHub stores your shared base YAML and one linked copy per environment. ConfigHub publishes each approved environment as a standard OCI bundle that Argo CD or Flux pulls, while your application code stays in Git. Every bundle exports plain Kubernetes YAML, so you can leave at any time without lock-in.";
 function whatConfigHub(kicker, name) {
   if (!READ_FIRST[kicker]) return { shows: "", opening: "" };
   const [problem, shows] = READ_FIRST[kicker];
@@ -1531,17 +1525,15 @@ function whatConfigHub(kicker, name) {
 
 // Every reader in the newcomer trials asked why they would not just keep the
 // rendered YAML in Git, and asked it as soon as the opening named Git. These
-// are the three answers, first on the page. A Helm page's objects come from the Catalog; the other pages start
-// from the reader's own repository.
-function whyNotGit(name) {
+// are the three answers, first on the page, including a zero-install link to
+// read the rendered YAML in the browser and a link to confighub.com for hosted tiers.
+function whyNotGit({ name, escapeHtml, previewUrl, previewText, plansUrl }) {
   return {
     heading: name ? "Why not just commit helm template output to Git?" : "Why not just keep the finished YAML in Git?",
     items: [
-      ["History and review.", "ConfigHub keeps each change with who made it and why, and moving a change to prod can require someone's approval."],
-      ["One base, many environments.", "Each environment is a copy of one base. Fix the base once, pass the fix on to each copy when you choose, and each copy keeps its own changes."],
-      ["A tested starting point.", name
-        ? `These ${name} objects come from the Workshop's Catalog, which rendered and checked them, so you start from objects someone has already looked at.`
-        : "The charts in the Workshop's Catalog have already been rendered and checked, so anything you add from it starts from objects someone has already looked at."],
+      ["Release gates beyond branch diffs.", escapeHtml("A Git pull request diffs templates or duplicate files in a branch, whereas ConfigHub gates the exact rendered objects and publishes a pinned OCI release only after approval.")],
+      ["Linked environment copies instead of folder sprawl.", escapeHtml("Committing rendered YAML per cluster duplicates thousands of lines in Git, whereas ConfigHub links dev, staging, and prod to one base while keeping each environment's overrides.")],
+      ["Free local inspection and plain YAML out.", `You can <a href="${escapeHtml(previewUrl)}">${escapeHtml(previewText)}</a> in your browser or run local checks without an account. Outputs stay standard Kubernetes YAML and OCI with no lock-in, and <a href="${escapeHtml(plansUrl)}">confighub.com</a> lists hosted team tiers.`],
     ],
   };
 }
@@ -1557,19 +1549,23 @@ function fluxReportExcerpt(check, id, lines) {
   return [...lines.slice(0, 5), "", appsHeading, inFlight];
 }
 
+function checkReportExcerpt(lines) {
+  const sloganAt = lines.findIndex((line) => /Free look before you install\. Compose it into a cub stack/.test(line));
+  if (sloganAt < 0) return null;
+  let end = sloganAt;
+  while (end > 0 && lines[end - 1].trim() === "") end -= 1;
+  return lines.slice(0, end);
+}
+
 function recordedOutput({ check, escapeHtml }, id, rec, { intro, look = "", blocks, after = "" }) {
   const shown = blocks.map(({ said, file, command, foldFull = false }) => {
     check(rec.files[`transcripts/${file}`], `${ROOT}/${id}/receipt.json does not pin transcripts/${file}, and the page shows it`);
     check(rec.commands.includes(command), `${ROOT}/${id}/receipt.json no longer records "${command}", and the page says it printed transcripts/${file}`);
     const lines = transcriptLines(read(id, `transcripts/${file}`));
-    const excerpt = foldFull ? fluxReportExcerpt(check, id, lines) : null;
+    const excerpt = foldFull ? fluxReportExcerpt(check, id, lines) : checkReportExcerpt(lines);
     return { said, lines, excerpt };
   });
-  const text = shown.flatMap(({ lines, excerpt }) => excerpt ?? lines).join("\n");
-  const words = [[/\bvariants?\b/, "<code>variant</code> means a copy"], [/\bTarget\b/, "<code>Target</code> means a cluster"], [/\bSpaces?\b/, "<code>Space</code> means a folder"], [/\bUnits?\b/, "<code>Unit</code> means an object"]]
-    .filter(([pattern]) => pattern.test(text)).map(([, said]) => said);
-  const wordsNote = words.length ? ` In the CLI output, ${words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`}.` : "";
-  return `<p class="ex-out-h"><strong>${escapeHtml(intro)}</strong> This is the recorded output from ${escapeHtml(rec.recordedOn)}, made with cub ${escapeHtml(rec.tools.cub)}, so you can read it before you install anything.${look ? ` ${escapeHtml(look)}` : ""}${wordsNote}</p>
+  return `<p class="ex-out-h"><strong>${escapeHtml(intro)}</strong> This is the recorded output from ${escapeHtml(rec.recordedOn)}, made with cub ${escapeHtml(rec.tools.cub)}, so you can read it before you install anything.${look ? ` ${escapeHtml(look)}` : ""}</p>
 ${shown.map(({ said, lines, excerpt }) => excerpt
     ? `          <p class="ex-note">${said}</p>
           <pre class="ex-code ex-out"><code>${excerpt.map((line) => escapeHtml(line)).join("\n")}</code></pre>
@@ -1596,22 +1592,31 @@ function whereToLook({ check }, id) {
   }
   const before = [hooks ? `${hooks} Helm hooks` : "", crdsAfter > crdsBefore ? `${crdsBefore ? `${crdsBefore} of the ${crdsAfter}` : `none of the ${crdsAfter}`} CRDs` : ""].filter(Boolean).join(" and ");
   const after = [hooks ? "no hooks" : "", crdsAfter > crdsBefore ? `all ${crdsAfter} CRDs` : ""].filter(Boolean).join(" and ");
-  return `Compare the lines under Lifecycle work. What helm template writes has ${before}. What the Catalog keeps has ${after}${hooks ? ", and the table above shows how each hook is handled" : ""}.`;
+  return `Compare the lines under Lifecycle work. Plain helm template output has ${before}. The pre-rendered YAML on this page has ${after}${hooks ? ", and the table above shows how each hook is handled" : ""}.`;
 }
 
-function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", notesHtml = "", whyNot, loadRows, loadNote, undoRows, undoNote = "To remove everything loading created in your organization, delete the copies first, then the base folder and component.", laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
-  const { check, escapeHtml, commandBlock, signupUrl } = h;
+function simpleLayout(h, { id, beforeLabel, beforeHtml, beforeNote, shot, afterLabel, afterNote, afterExtra = "", graphCaption = "Prod is a copy of the base that lists its own changes", graphNote = "", rows, rowsHeading, rowsColumns, sentences, planHtml = "", notesHtml = "", whyNot, previewUrl, previewButtonLabel, loadRows, loadNote, undoRows, undoNote = "To remove everything loading created in your organization, delete the copies first, then the base folder and component.", laptopRows, laptopNote, output, needs, laptopNeeds = needs, credits, wide }) {
+  const { check, escapeHtml, commandBlock, signupUrl, plansUrl } = h;
   check(undoRows?.length > 0, `${ROOT}/${id}: simpleLayout has no undo commands beside Load it into your ConfigHub`);
+  check(previewUrl && previewButtonLabel, `${ROOT}/${id}: simpleLayout has no zero-install browser YAML link`);
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
+  const pluginInstallNote = /Workshop plugin/.test(laptopNeeds)
+    ? ` Add the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.`
+    : /package plugin/.test(laptopNeeds)
+      ? ` Add the package plugin with <code>${escapeHtml(h.installerInstall ?? "cub plugin install confighub/installer")}</code>.`
+      : "";
+  const laptopRequirementHtml = laptopNeeds === "curl"
+    ? `<p class="ex-note">Uses standard <code>curl</code> and <code>grep</code> with no custom CLI install. To also run the static lifecycle check below on your own YAML, install ConfigHub's open-source CLI (<a href="./try.html#install-cub">cub</a>) and add its check plugin with <code>${escapeHtml(h.workshopInstall)}</code>.</p>`
+    : `<p class="ex-note">To run this command locally, install ConfigHub's open-source CLI (<a href="./try.html#install-cub">cub</a>) with ${escapeHtml(laptopNeeds)}.${pluginInstallNote}</p>`;
   return `    <figure class="ex-card ex-graph">
       <figcaption>How a change reaches your cluster</figcaption>
-      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart in this Catalog), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
+      <img src="./before-after/confighub-pipeline.svg" alt="Two-row pipeline diagram from left to right. Today, Git holds chart templates, values or Kustomize overlays, and Helm, Argo CD or Flux renders them at deploy time on the cluster. With ConfigHub, your app code stays in Git and CI renders plain YAML once (or you start from a tested chart on this site), ConfigHub stores the shared base and one copy per environment with its change history and approvals, ConfigHub publishes a pinned OCI release, and Argo CD or Flux pulls that release into your cluster.">
       <p class="ex-note">ConfigHub publishes OCI releases and holds no credentials to your cluster.</p>
     </figure>
     <section aria-labelledby="why-not-git" class="ex">
       <h2 id="why-not-git" class="ex-went-h">${escapeHtml(whyNot.heading)}</h2>
       <ul class="ex-why">
-        ${whyNot.items.map(([lead, rest]) => `<li><strong>${escapeHtml(lead)}</strong> ${escapeHtml(rest)}</li>`).join("\n        ")}
+        ${whyNot.items.map(([lead, restHtml]) => `<li><strong>${escapeHtml(lead)}</strong> ${restHtml}</li>`).join("\n        ")}
       </ul>
     </section>
     <section aria-labelledby="pictures" class="ex">
@@ -1648,18 +1653,19 @@ ${rows.map((row) => `          <tr><td>${escapeHtml(row.does)}</td><td>${escapeH
         </tbody>
       </table>
       <div class="ex-actions">
-        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
-          <p class="installer-command-note">${loadNote}${cubWordsNote(loadRows)}</p>
-          ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">${undoNote}</p>
-          ${commandBlock(undoRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool${needs === "no plugin" ? "" : `, with ${escapeHtml(needs)}`}.</p>
-        </details>
+        <a class="ex-link-button" href="${escapeHtml(previewUrl)}">${escapeHtml(previewButtonLabel)}</a>
         <details class="ex-button"><summary>Try it on your laptop</summary>
           <p class="installer-command-note">${laptopNote}</p>
           ${commandBlock(laptopRows.map((cmd) => ({ cmd })))}
-          <p class="ex-note">You need <a href="./try.html#install-cub">cub</a>, ConfigHub's command-line tool, with ${escapeHtml(laptopNeeds)}.${/Workshop plugin/.test(laptopNeeds) ? ` Install the Workshop plugin with <code>${escapeHtml(h.workshopInstall)}</code>.` : ""}</p>
+          ${laptopRequirementHtml}
           ${output}
+        </details>
+        <details class="ex-button"><summary>Load it into your ConfigHub</summary>
+          <p class="installer-command-note">${loadNote}</p>
+          ${commandBlock(loadRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">${undoNote}</p>
+          ${commandBlock(undoRows.map((cmd) => ({ cmd })))}
+          <p class="ex-note">Loading into hosted ConfigHub needs a <a href="${signupUrl}">ConfigHub account</a> and <a href="./try.html#install-cub">cub</a>${needs === "no plugin" ? "" : ` with ${escapeHtml(needs)}`}. Exported bundles stay plain Kubernetes YAML and OCI, and <a href="${plansUrl}">confighub.com</a> lists hosted team tiers.</p>
         </details>
       </div>
       <p class="ex-more"><a href="./${details}">Show me the details</a> (for experienced users)</p>
@@ -1676,6 +1682,12 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
   const details = BEFORE_AFTER_PAGES.find((row) => row.id === id).file;
   const load = BUNDLE_LOADS[id];
   h.check(load || f.rec.installer?.manifests, `${ROOT}/${id}: the receipt has no installer manifest count; record it with --generate`);
+  const previewUrl = f.listing?.flattened?.objectsUrl;
+  h.check(previewUrl, `${ROOT}/${id}: listing has no flattened.objectsUrl for zero-install browser preview`);
+  const rawObjectsUrl = previewUrl.replace("https://github.com/confighub/helm-expt/blob/main/", "https://raw.githubusercontent.com/confighub/helm-expt/main/");
+  const localYaml = `${page.space.replace(/-example$/, "")}.yaml`;
+  const previewText = `read all ${f.after.length} rendered ${page.name} objects on GitHub`;
+  const previewButtonLabel = `Read all ${f.after.length} rendered ${page.name} objects on GitHub (no install)`;
   const variants = PLAIN_VARIANTS[id]?.variants ?? ["dev", "prod"];
   const variantFolders = variants.length === 2 ? `<code>${escapeHtml(page.space)}-dev</code> and <code>${escapeHtml(page.space)}-prod</code>` : `<code>${escapeHtml(page.space)}-prod</code>`;
   const makes = load
@@ -1693,28 +1705,30 @@ function humanHelmLayout(h, { id, page, f, shot, human, excerpt, bundleLoad, set
     afterNote: "The image is written out as a plain value you can read and change, and so is every other field.",
     graphCaption: "Each environment is a copy of one shared base",
     graphNote: `The settings every environment shares are stored once, as the base. ${human.graphNote}`,
-    sentences: human.sentences, planHtml: planParagraph(escapeHtml(page.name), human.plan && escapeHtml(human.plan)), whyNot: whyNotGit(page.name),
+    sentences: human.sentences, planHtml: planParagraph(escapeHtml(page.name), human.plan && escapeHtml(human.plan)),
+    whyNot: whyNotGit({ name: page.name, escapeHtml, previewUrl, previewText, plansUrl: h.plansUrl }),
+    previewUrl, previewButtonLabel,
     rows: helmRows(id, f, h.check, shot),
     rowsHeading: "What Helm does without showing you", rowsColumns: ["What Helm does", "What you get instead"],
     loadRows: ["cub auth login", bundleLoad || `${setupHere} && cub installer upload --work-dir ./${page.space} --space ${page.space} && cub component create ${page.space} && cub space update --patch ${page.space} --component ${page.space}`, ...(HELM_VARIANTS[id]?.rows ?? [])],
-    loadNote: `Run the first line to sign in, then paste the rest. In your organization, this creates the base folder <code>${escapeHtml(page.space)}</code> and ${variants.length === 2 ? "two copies," : "one copy,"} ${variantFolders}. ${makes} ${escapeHtml(changeNote)} It touches no cluster.`,
+    loadNote: `If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>${escapeHtml(page.space)}</code> and ${variants.length === 2 ? "two copies," : "one copy,"} ${variantFolders}. ${makes} ${escapeHtml(changeNote)} It touches no cluster.`,
     undoRows: [...variants.slice().reverse().map((variant) => `cub space delete --recursive ${page.space}-${variant}`), `cub space delete --recursive ${page.space}`, `cub component delete ${page.space}`],
-    laptopRows: [`${setupHere} && ls ./${page.space}/out/manifests`],
-    laptopNote: `No account needed. This fetches the ${escapeHtml(page.name)} package and writes every object into a folder you can open. To check your own chart and values instead, see <a href="./ask.html">Is my configuration right?</a>`,
-    needs: bundleLoad ? "no plugin" : "its installer plugin and kustomize",
-    laptopNeeds: "its installer plugin and kustomize",
+    laptopRows: [`curl -fsSL ${rawObjectsUrl} -o ${localYaml}`, `grep '^kind:' ${localYaml} | sort | uniq -c`],
+    laptopNote: `Download the rendered ${escapeHtml(page.name)} YAML onto your laptop and list every Kubernetes object kind it installs, with no account or custom CLI needed. You can also <a href="${escapeHtml(previewUrl)}">${escapeHtml(previewText)}</a> or <a href="./ask.html">check your own chart and values in the browser</a>.`,
+    needs: bundleLoad ? "no plugin" : "the package plugin and kustomize",
+    laptopNeeds: "curl",
     output: recordedOutput(h, id, f.rec, {
-      intro: "What the check finds.", look: whereToLook(h, id),
+      intro: "What the static check finds.", look: whereToLook(h, id),
       blocks: [
-        { said: "The Workshop ran <code>cub config check</code> on what <code>helm template</code> writes for this chart, and it printed this.", file: "check-before.txt", command: "cub config check before.yaml" },
-        { said: "It ran the same check on the objects the Catalog keeps, and it printed this.", file: "check-after.txt", command: "cub config check after.yaml" },
+        { said: "Running <code>cub config check</code> on plain <code>helm template</code> output for this chart printed this.", file: "check-before.txt", command: "cub config check before.yaml" },
+        { said: "Running the same check on the pre-rendered YAML on this page printed this.", file: "check-after.txt", command: "cub config check after.yaml" },
       ],
       after: ` <a href="./${details}">The details page</a> has the commands that made both.`,
     }),
-    credits: `About the pictures. They were taken in a ConfigHub organization the Workshop keeps for examples${dates}.${bundleLoad ? " They came from an earlier way of loading, so the object names in them differ slightly from what the commands above make." : ""}`,
+    credits: `About the pictures. Captured${dates} in an example ConfigHub workspace${bundleLoad ? " (object names there show an earlier kind prefix)" : ""}.`,
     notesHtml: [
       human.plan && h.technicalNoteHtml ? h.technicalNoteHtml(page.name, "The plan documents list the ordering, prerequisite and cleanup steps around the rendered YAML rather than executing them automatically; configure those steps in Argo CD, Flux or your deployment pipeline.") : "",
-      id === "helm-cert-manager" && h.technicalNoteHtml ? h.technicalNoteHtml(page.name, "The flattened cert-manager bundle omits the post-install startupapicheck Job rather than running that readiness probe automatically.") : "",
+      id === "helm-cert-manager" && h.technicalNoteHtml ? h.technicalNoteHtml(page.name, "The rendered cert-manager YAML omits Helm's post-install startupapicheck Job because GitOps controllers or kubectl rollout status check webhook readiness directly.") : "",
     ].filter(Boolean).join("\n"),
   };
 }
@@ -1751,20 +1765,33 @@ function simplePage(id, h) {
     check(!/\b[Tt]he plan\b/.test(said), `${ROOT}/${id}: the page says "the plan"; on an Argo CD, Flux, Kustomize or app page say "the report from cub ... plan"`);
     for (const [path, pattern] of page.facts) check(pattern.test(read(id, path)), `${ROOT}/${id}/${path} no longer says what the simple page states (${pattern})`);
     const lines = read(id, page.before).replace(/\n+$/, "").split("\n");
+    const isApp = page.kicker === "App";
+    const previewUrl = isApp
+      ? `https://github.com/confighub/helm-expt/blob/main/${ROOT}/${id}/before/shop-web.yaml`
+      : `${GITHUB}/${ROOT}/${id}/after`;
+    const previewText = isApp
+      ? "read the 5 shop-web objects on GitHub"
+      : "browse the rendered environment YAML on GitHub";
+    const previewButtonLabel = isApp
+      ? "Read the 5 shop-web objects on GitHub (no install)"
+      : "Browse the rendered environment YAML on GitHub (no install)";
     body = simpleLayout(h, {
       id, shot, wide: true, beforeLabel: page.beforeLabel,
       beforeHtml: lines.slice(0, 26).map((line) => escapeHtml(line)).join("\n"),
       beforeNote: page.beforeNote,
       afterLabel: page.afterLabel, afterNote: page.afterNote,
-      credits: `About the picture. It was taken in a ConfigHub organization the Workshop keeps for examples, on ${shot.takenOn}.`,
-      sentences: page.sentences, whyNot: whyNotGit(), rows: page.rows,
+      credits: `About the picture. Captured in the Workshop's example ConfigHub organization on ${shot.takenOn}.`,
+      sentences: page.sentences,
+      whyNot: whyNotGit({ escapeHtml, previewUrl, previewText, plansUrl: h.plansUrl }),
+      previewUrl, previewButtonLabel,
+      rows: page.rows,
       rowsHeading: page.rowsHeading ?? "What you work out by hand today, and what you get instead", rowsColumns: ["Today", "With ConfigHub"],
       afterExtra: id === "flux-expert-fleet" ? fleetVersionsHtml(h) : "",
       loadRows: ["cub auth login", ...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.load],
       loadNote: `${page.loadNote ?? `Run the first line to sign in, then paste the rest. It fetches the example, works out what each environment runs, and saves it in your organization. ${escapeHtml(page.units)}`} ${escapeHtml(page.safety)}`,
       undoRows: page.undoRows, undoNote: page.undoNote,
       laptopRows: [...(page.noClone ? [] : [clone, `cd examples/${page.dir}`]), ...page.laptop],
-      laptopNote: page.laptopNote ?? `No account needed. This fetches the example and shows what each environment runs.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
+      laptopNote: page.laptopNote ?? `Runs locally without an account. To inspect the rendered YAML with zero install, <a href="${escapeHtml(previewUrl)}">${escapeHtml(previewText)}</a>. To run the check locally instead, paste the commands below.${page.ownRepo ? ` ${page.ownRepo}` : ""}`,
       needs: page.needs, laptopNeeds: page.laptopNeeds,
       output: recordedOutput(h, id, rec, {
         intro: "What it prints.",
@@ -1809,7 +1836,7 @@ function simplePage(id, h) {
     .ex-checks li::before { content: "\\2713"; position: absolute; left: 0; color: #2f7a3a; font-weight: 700; }
     .ex-actions { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 10px; }
     .ex-actions details.ex-button { border: 0; padding: 0; margin: 0; background: none; }
-    .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); }
+    .ex-actions .ex-link-button, .ex-actions details.ex-button > summary { display: inline-block; list-style: none; cursor: pointer; padding: 10px 18px; border: 1px solid var(--accent); border-radius: 8px; font-weight: 600; color: var(--accent); background: var(--surface); text-decoration: none; }
     .ex-actions details.ex-button > summary::-webkit-details-marker { display: none; }
     .ex-actions details.ex-button > summary::marker { content: ""; }
     .ex-actions details.ex-button[open] > summary { background: var(--accent); color: #fff; }
