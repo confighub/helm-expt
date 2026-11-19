@@ -5805,11 +5805,26 @@ function deepDetailsCss() {
 `;
 }
 
+function cleanStackSummary(id, summary) {
+  const overrides = {
+    "app-platform": "A web application platform combining PostgreSQL, Redis, ingress-nginx, cert-manager, and Prometheus monitoring.",
+    "eks-inference": "An eight-part Amazon EKS GPU inference stack spanning cloud networking, Karpenter autoscaling, GPU Operator, and inference workloads.",
+    "gpu-node": "Composes NVIDIA GPU Operator, NVSentinel, and cluster-readiness-engine from published OCI bundles; checks manifests offline without needing GPU hardware.",
+    "kubara-gitops-shop": "Combines Kubara (an open-source Kubernetes platform generator) add-ons with Argo CD and the shop-web sample app for offline conflict checks.",
+    "kubara-platform": "A lightweight ingress and TLS base (cert-manager, Traefik, metrics-server) compatible with the open-source Kubara platform generator.",
+    "kubara-shop-platform": "Extends kubara-platform with External Secrets and the shop-web sample app, matching Traefik IngressClass and Secret references offline.",
+    "redis-platform": "Combines Redis caching, External Secrets, and kube-prometheus-stack monitoring as one checked bundle.",
+    "shop-platform": "Combines cert-manager, ingress-nginx, Prometheus monitoring, RabbitMQ, and the shop-web sample app to verify app-to-cluster compatibility.",
+    "web-platform": "Core ingress, TLS, and monitoring services (cert-manager, ingress-nginx, kube-prometheus-stack) for standard web workloads.",
+  };
+  return overrides[id] ?? summary;
+}
+
 function stackHtml() {
   const rows = sectionRows("stacks").map((row) => [
-    `<a href="${escapeHtml(row.source)}">${escapeHtml(row.name)}</a><br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
-    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./eks-inference.html">See its eight parts and check it on your laptop</a>.` : ""),
-    `${row.parts.map((part) => escapeHtml(part)).join(", ")}. ${row.checked ? "Every part has a receipt." : "Not every part has a receipt."}`,
+    `<strong>${escapeHtml(row.name)}</strong> · <a href="${escapeHtml(row.source)}">Read stack.yaml</a> <br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
+    escapeHtml(cleanStackSummary(row.id, row.summary)) + (row.id === "eks-inference" ? ` <a href="./eks-inference.html">See its eight parts and check it on your laptop</a>.` : ""),
+    row.parts.map((part) => escapeHtml(part)).join(", "),
   ]);
   return `<!doctype html>
 <html lang="en">
@@ -5823,16 +5838,41 @@ function stackHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Stacks</h1>
-    <p class="lead">Your cluster needs several things at once, such as ingress, certificates and monitoring, and they have to fit together. A stack names them in one file and checks they don't conflict before anything renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
-    <p>The largest stack is a whole platform for GPU inference on Amazon EKS. <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a> shows its eight parts and checks it in one command.</p>
-    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. To build your own from Catalog entries, follow ${STACK_FROM_CATALOG_GUIDE_LINK}, which composes three NVIDIA GPU entries.</p>
-    ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
+    <p class="boundary-chip">Read stack YAML on GitHub · Offline checks run locally · Deploy with Argo CD, Flux, or kubectl</p>
+    <p class="lead">When you install ingress, cert-manager, Prometheus, and your own Helm charts on the same cluster, single-chart linters miss cross-chart collisions. A <code>stack.yaml</code> file checks multiple rendered Helm charts and Kubernetes YAML manifests together offline. It catches duplicate CRDs, clashing namespaces, RBAC collisions, and missing IngressClasses before you deploy with Argo CD, Flux, or <code>kubectl</code>.</p>
+    <p>Inspect any reference <code>stack.yaml</code> below on GitHub in your browser with zero install. When you want to check your own rendered <code>helm template</code> YAML against a stack locally, use the open-source <code>cub</code> CLI (no account or cluster required).</p>
+    <p><a href="./compose-a-stack.html#own-app">Check your own Helm YAML against a stack</a> · <a href="./eks-inference.html">Inspect the 8-part EKS GPU inference stack</a> · <a href="./compose-a-stack.html">Compose and check a stack</a> · ${STACK_FROM_CATALOG_GUIDE_LINK}</p>
+    ${agentNote(` Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`, "Machine-readable JSON (for scripts and automation):")}
   </header>
   <main>
+    <section aria-labelledby="stack-example">
+      <h2 id="stack-example">How a stack combines your own Helm YAML with shared cluster services</h2>
+      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog manifests, check cross-chart wiring locally, and export plain Kubernetes YAML for GitOps:</p>
+      <pre class="ex-out"><code># stack.yaml — mix local helm template output with shared cluster add-ons
+apiVersion: workshop.confighub.com/v1alpha1
+kind: Stack
+metadata:
+  name: my-web-platform
+spec:
+  components:
+    - name: cert-manager
+      bundle: oci://.../catalog-jetstack-cert-manager-v1-21-1-default@sha256:...
+    - name: ingress-nginx
+      bundle: oci://.../catalog-ingress-nginx-ingress-nginx-4-15-1-default@sha256:...
+    - name: my-service
+      authored: ./rendered/my-helm-service.yaml   # any local helm template / kustomize YAML
+
+# Offline check output (cub stack check ./stack.yaml):
+  [PASS] 0 duplicate resource identities across 3 components
+  [PASS] CRDs ordered before custom resources (Certificate)
+  [PASS] IngressClass "nginx" required by my-service is provided by ingress-nginx
+  =&gt; CHECKED (export plain YAML for Argo CD, Flux, or kubectl)</code></pre>
+    </section>
     <section aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">Every shipped stack</h2>
-      ${markdownLikeTable([["Stack, and the command to try it", "What it builds", "Parts"], ...rows], { rawColumns: [0, 1, 2], firstColumnWidthCh: 30 })}
-      <p>The stacks made to be refused, to show the check, are in <a href="./compose-a-stack.html#stack-checks">the Guide</a>.</p>
+      <p>Click <strong>Read stack.yaml</strong> in any row to inspect its exact manifest on GitHub with zero install, or copy its local check command.</p>
+      ${markdownLikeTable([["Stack and local check command", "What it combines", "Components"], ...rows], { rawColumns: [0, 1, 2], firstColumnWidthCh: 32 })}
+      <p>Want to see what a failed check catches? Open the intentional conflict examples in <a href="./compose-a-stack.html#stack-checks">Compose and check a stack</a>.</p>
     </section>
   </main>
 </body>
@@ -7811,8 +7851,8 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Guides</h1>
-    <p class="lead">Pick a problem or a tool you already use. Follow the steps yourself or with your AI agent, and finish with a result you can inspect.</p>
-
+    <p class="boundary-chip">Step-by-step hands-on walkthroughs · Most run locally with no account</p>
+    <p class="lead">Pick a Kubernetes or Helm task below and run real local commands with inspectable YAML output. Looking for architecture concepts, schema specs, or static-check rules instead? Open <a href="./docs.html">Docs</a>.</p>
   </header>
   <main class="guide-directory">
 ${sections}
@@ -8020,7 +8060,8 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="lead">Read how the Catalog and ConfigHub work, in plain words. To get something done, a Guide is quicker, and each Catalog entry has its own page.</p>
+    <p class="boundary-chip">Concept explanations, check rules, and reference index</p>
+    <p class="lead">Read how pre-rendered Kubernetes YAML, SHA-256 receipts, static checks, and optional ConfigHub promotion work. For hands-on CLI tasks, open <a href="./guides.html">Guides</a>, or browse <a href="./charts/index.html">Configs</a> to inspect a chart directly.</p>
   </header>
   <main>
 
@@ -10415,10 +10456,11 @@ function appsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps</h1>
-    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
-    <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
-    ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
+    <p class="boundary-chip">Browse rendered YAML in your browser · Local checks need no account</p>
+    <p class="lead">Compare familiar Helm, Kustomize, Argo CD, and Flux configurations before and after rendering to plain Kubernetes YAML, or test whether your workload matches a cluster's CRDs and IngressClasses offline.</p>
+    <p>An app is a workload you bring. Your application code and container builds stay in your existing CI pipeline while you inspect and diff the Kubernetes manifests.</p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
+    ${agentNote(` Read the same rows as data at <a href="./apps.json">apps.json</a>.`, "Machine-readable JSON (for scripts and automation):")}
   </header>
   <main>
     ${beforeAfterGalleryHtml(escapeHtml)}

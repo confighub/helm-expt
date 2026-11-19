@@ -638,15 +638,16 @@
   <header class="hero human-hero">
     
     <h1>Apps</h1>
-    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
-    <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
-    <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
+    <p class="boundary-chip">Browse rendered YAML in your browser · Local checks need no account</p>
+    <p class="lead">Compare familiar Helm, Kustomize, Argo CD, and Flux configurations before and after rendering to plain Kubernetes YAML, or test whether your workload matches a cluster's CRDs and IngressClasses offline.</p>
+    <p>An app is a workload you bring. Your application code and container builds stay in your existing CI pipeline while you inspect and diff the Kubernetes manifests.</p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
+    <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
   </header>
   <main>
     <section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
+      <p>Each card opens a worked before-and-after example with exact pre-rendered Kubernetes YAML on GitHub and a local diff or check command you can run with no account.</p>
       <p>Go to <a href="#ba-helm">Helm charts</a>, <a href="#ba-kustomize">Kustomize</a>, <a href="#ba-argo">Argo CD</a>, <a href="#ba-flux">Flux</a> or <a href="#ba-app">Apps</a>.</p>
       <div class="doors ba-gallery">
         <article class="door" id="ba-helm">
