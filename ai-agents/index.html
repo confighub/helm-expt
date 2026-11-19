@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Keep the setup your coding agent builds, with staging to try changes and owner approval before production.">
-<title>ConfigHub: keep what your coding agent changes, and gate production</title>
+<meta name="description" content="Your coding agent changes config faster than you can track it. ConfigHub records why, sets up staging and production, previews changes, deploys what you approve to Vercel, Fly, Daytona and more, and rolls fixes into new versions.">
+<title>ConfigHub for coding agents</title>
 </head>
 <body>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -190,15 +190,22 @@ footer p { max-width: none; }
 @media (max-width: 60rem) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 49rem) { .topbar { align-items: flex-start; } .hero, .grid3, .two { grid-template-columns: 1fr; } }
 @media (max-width: 32rem) { .topnav { gap: .45rem .7rem; } .topnav a { font-size: .81rem; } .grid4 { grid-template-columns: 1fr; } .demo-tabs button { font-size: .75rem; } }
+.problems { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin-top: 1.1rem; }
+.problems .card { gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
+.problems p { font-size: .92rem; line-height: 1.5; }
+.problems .pain { color: var(--muted); }
+@media (max-width: 60rem) { .problems { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 32rem) { .problems { grid-template-columns: 1fr; } }
 .walk pre { max-width: 100%; padding: 1rem; border-radius: .45rem; background: var(--terminal); color: var(--terminal-ink); white-space: pre-wrap; overflow-wrap: anywhere; font: .84rem/1.6 var(--mono); }
 </style>
 
 <div class="wrap">
 
 <header class="topbar">
-  <p class="eyebrow">ConfigHub · Durable config for coding agents</p>
+  <p class="eyebrow">ConfigHub · For Claude Code and Codex</p>
   <nav class="topnav" aria-label="Page navigation">
     <a href="first-look.html">Three things to try first</a>
+    <a href="#problem">What it solves</a>
     <a href="#how-it-runs">What runs where</a>
     <a href="#works-with">Starters</a>
     <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a>
@@ -207,9 +214,32 @@ footer p { max-width: none; }
 
 <section id="install">
   <div class="cover">
-    <div><h1>Remember why your agent changed a setting</h1>
-  <p class="lead">Install the plugin once for your normal work. Tomorrow, another Claude Code or Codex chat can tell you why retries went from two to five, even if you never commit.</p></div>
+    <div><h1>Your agent changed a setting. Do you know why?</h1>
+  <p class="lead">Coding agents edit .env files, Helm values and hosting settings all day, often without committing, and they can change production as easily as staging. ConfigHub keeps the reason behind every change, and helps you set up environments, test changes, deploy them to Vercel, Fly, Daytona and more, and turn fixes into new versions.</p></div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+
+  <div class="problems" id="problem">
+    <div class="card">
+      <h3>Set up environments</h3>
+      <p class="pain">One <code>.env</code> file, and the agent's login reaches production.</p>
+      <p>A starter creates separate staging and production copies, each default with a written reason.</p>
+    </div>
+    <div class="card">
+      <h3>Test changes</h3>
+      <p class="pain">Trying an idea means touching the app you actually use.</p>
+      <p>The agent runs a preview on your laptop or in a Daytona sandbox. Your app and production stay as they are.</p>
+    </div>
+    <div class="card">
+      <h3>Deploy them</h3>
+      <p class="pain">Nothing stops an agent pushing to production in the same turn as staging.</p>
+      <p>Production waits for your approval, then goes to Vercel, Fly, AWS Parameter Store, Unikraft, or Argo CD and Flux.</p>
+    </div>
+    <div class="card">
+      <h3>Make new versions</h3>
+      <p class="pain">A fix to one app means a pull request to every other app.</p>
+      <p>Apps stay linked to a versioned starter, so a fix in version 2 reaches every app and keeps each one's own overrides.</p>
+    </div>
   </div>
 
   <div class="hero">
@@ -244,7 +274,6 @@ claude plugin install confighub@confighub</code></pre>
         <a class="btn primary" href="first-look.html#remember">Remember one setting in five minutes</a>
         <a class="btn" href="first-look.html#preview">Run a preview of my app</a>
       </p>
-      <p class="small" style="margin:.55rem 0 0">Want a running preview that survives the chat? Ask your agent to keep a preview for tomorrow. It offers to attach the app and downloads the local hub only if you say yes.</p>
     </div>
 
     <div class="demo-card" id="preview">
@@ -313,6 +342,9 @@ A change to production waits for your approval: Four for the sale. It was made j
       <p>Deliver approved production settings to Vercel, Fly, or AWS Parameter Store—or let Argo CD and Flux reconcile approved revisions—and move to an organization’s shared hub (on confighub.com or your own servers) with the exact same <code>cub</code> commands.</p>
     </div>
   </div>
+  <div class="callout">
+    <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub replaces the brittle templates and scattered config files above them.
+  </div>
 </section>
 
 <section id="start">
@@ -370,22 +402,6 @@ defaults:
   <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>.</p>
 </section>
 
-<section id="why">
-  <h2>Why Git, <code>.env</code> files, and static templates aren’t enough</h2>
-  <p>Coding agents change settings across local files, cloud CLIs, staging, and production faster than anyone reads a diff. Durable config keeps the setup, its environment boundaries, and the reason behind every value.</p>
-  <div class="tablewrap"><table>
-    <thead><tr><th>Problem</th><th>Git + <code>.env</code> + copy-once templates</th><th>ConfigHub durable config</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Uncommitted edits &amp; CLI flags</strong></td><td><code>git diff</code> shows working changes. The diff alone doesn’t tell you what the agent was asked or which command changed a live setting.</td><td>The plugin records supported edits and CLI changes with their prompts so a fresh session can explain them.</td></tr>
-      <tr><td><strong>Staging vs. production safety</strong></td><td>Shared <code>.env</code> files or cloud logins let an agent overwrite production in the same turn as staging</td><td>Agent runs on a scoped key that updates preview/staging freely while production waits for your <code>cub mini approve</code></td></tr>
-      <tr><td><strong>Day-2 fixes across services</strong></td><td>Templates are copied once on day one; rolling out a safer timeout across ten services means ten pull requests</td><td>Apps stay linked to a versioned starter—shared fixes reach every app while app-specific overrides win</td></tr>
-      <tr><td><strong>Answering “what runs where, and why?”</strong></td><td>Scattered across <code>.env</code> files, Helm values, Terraform vars, and hosting dashboards</td><td>The hub records revisions and approvals. Check the running app or cluster to verify what reached it.</td></tr>
-    </tbody>
-  </table></div>
-  <div class="callout">
-    <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub replaces the brittle templates and scattered config files above them.
-  </div>
-</section>
 
 <section id="works-with">
   <h2>Connect your stack with a starter</h2>
