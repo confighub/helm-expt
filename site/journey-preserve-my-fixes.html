@@ -643,6 +643,16 @@
     <h1>AI overwrites my fixes</h1>
     <p class="lead">When you ask an assistant for one change, it often writes the whole file again. The change you asked for is there. The fixes you made by hand last week may not be. A diff against the version you are running names every field that moved.</p>
     <p><strong>Time.</strong> About four minutes, or six with ConfigHub. <strong>Needs.</strong> <code>cub</code> and the workshop plugin. Steps 1 to 5 need no server, no account and no cluster. Steps 6 and 7 start only when you name a new Space with <code>DEMO_SPACE</code>; a ConfigHub lookup error stops and shows the error.</p>
+    <section id="app-plugin-install" aria-label="Remember an app setting">
+    <p><strong>Why did my agent change this setting?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the <code>confighubai/confighub-mini-plugin</code> app plugin. A fresh chat can explain an uncommitted edit to your app’s <code>.env</code>.</p>
+    <details><summary>Install the app plugin for Claude Code or Codex</summary>
+      <p>For Claude Code, run these in Terminal, then reopen the app folder.</p>
+      <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+      <p>For Codex CLI, use the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup command</a>, approve the hooks and open a new session.</p>
+    </details>
+  </section>
+    <p>The walkthrough below covers Kubernetes YAML.</p>
   </header>
   <main>
     <section aria-labelledby="run-it-yourself">

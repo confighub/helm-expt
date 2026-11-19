@@ -641,6 +641,16 @@
     <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
     <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
     <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    <section id="app-plugin-install" aria-label="Remember an app setting">
+    <p><strong>Why did my agent change this setting?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the <code>confighubai/confighub-mini-plugin</code> app plugin. A fresh chat can explain an uncommitted edit to your app’s <code>.env</code>.</p>
+    <details><summary>Install the app plugin for Claude Code or Codex</summary>
+      <p>For Claude Code, run these in Terminal, then reopen the app folder.</p>
+      <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+      <p>For Codex CLI, use the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup command</a>, approve the hooks and open a new session.</p>
+    </details>
+  </section>
+    <p>For local previews and production approvals on an ordinary app without Kubernetes, read <a href="https://confighub.github.io/helm-expt/ai-agents/first-look.html">Three things to try first</a> or the <a href="https://github.com/confighubai/confighub-mini-plugin#readme">public plugin README</a>.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
     <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
   </header>
