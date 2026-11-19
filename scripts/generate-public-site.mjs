@@ -5838,17 +5838,17 @@ function stackHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Stacks</h1>
-    <p class="boundary-chip">Read stack YAML on GitHub · Offline checks run locally · Deploy with Argo CD, Flux, or kubectl</p>
-    <p class="lead">When you install ingress, cert-manager, Prometheus, and your own Helm charts on the same cluster, single-chart linters miss cross-chart collisions. A <code>stack.yaml</code> file checks multiple rendered Helm charts and Kubernetes YAML manifests together offline. It catches duplicate CRDs, clashing namespaces, RBAC collisions, and missing IngressClasses before you deploy with Argo CD, Flux, or <code>kubectl</code>.</p>
-    <p>Inspect any reference <code>stack.yaml</code> below on GitHub in your browser with zero install. When you want to check your own rendered <code>helm template</code> YAML against a stack locally, use the open-source <code>cub</code> CLI (no account or cluster required).</p>
+    <p class="boundary-chip">Ready-to-run out of the box · Check with cub or your AI agent · Deliver via OCI &amp; GitOps</p>
+    <p class="lead">When you install ingress, cert-manager, Prometheus, GPU operators, and your own charts together, single-chart linters miss cross-component collisions. A <code>stack.yaml</code> file composes components across Helm, NVIDIA AI Cluster Runtime (AICR), Kubara, and YAML, checking duplicate CRDs, namespaces, RBAC, and IngressClasses offline before anything runs. Once deployed under governance with your apps on it, a stack becomes a platform.</p>
+    <p>Inspect any shipped <code>stack.yaml</code> on GitHub with zero install, or run <code>cub stack sandbox</code> and <code>cub stack check</code> locally or from your AI agent with no account.</p>
     <p><a href="./compose-a-stack.html#own-app">Check your own Helm YAML against a stack</a> · <a href="./eks-inference.html">Inspect the 8-part EKS GPU inference stack</a> · <a href="./compose-a-stack.html">Compose and check a stack</a> · ${STACK_FROM_CATALOG_GUIDE_LINK}</p>
-    ${agentNote(` Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`, "Machine-readable JSON (for scripts and automation):")}
+    ${agentNote(` Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
   <main>
     <section aria-labelledby="stack-example">
-      <h2 id="stack-example">How a stack combines your own Helm YAML with shared cluster services</h2>
-      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog manifests, check cross-chart wiring locally, and export plain Kubernetes YAML for GitOps:</p>
-      <pre class="ex-out"><code># stack.yaml — mix local helm template output with shared cluster add-ons
+      <h2 id="stack-example">How a stack combines Catalog OCI bundles with your own YAML</h2>
+      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog bundles, check cross-component wiring locally, and deliver via OCI to Argo CD, Flux, or <code>kubectl</code>:</p>
+      <pre class="ex-out"><code># stack.yaml: mix local helm template output with shared cluster add-ons
 apiVersion: workshop.confighub.com/v1alpha1
 kind: Stack
 metadata:
@@ -7851,8 +7851,8 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Guides</h1>
-    <p class="boundary-chip">Step-by-step hands-on walkthroughs · Most run locally with no account</p>
-    <p class="lead">Pick a Kubernetes or Helm task below and run real local commands with inspectable YAML output. Looking for architecture concepts, schema specs, or static-check rules instead? Open <a href="./docs.html">Docs</a>.</p>
+    <p class="boundary-chip">Run yourself or with your AI agent · Covers Helm, NVIDIA AICR, OCI, and GitOps</p>
+    <p class="lead">Follow step-by-step Guides yourself or with Claude Code and Codex to fix broken Helm charts, use configuration as data across formats, and promote releases. Guides span established Helm and YAML workflows alongside NVIDIA AI Cluster Runtime (AICR), Timoni, and Kubara. For concepts and schemas, open <a href="./docs.html">Docs</a>.</p>
   </header>
   <main class="guide-directory">
 ${sections}
@@ -8060,8 +8060,8 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="boundary-chip">Concept explanations, check rules, and reference index</p>
-    <p class="lead">Read how pre-rendered Kubernetes YAML, SHA-256 receipts, static checks, and optional ConfigHub promotion work. For hands-on CLI tasks, open <a href="./guides.html">Guides</a>, or browse <a href="./charts/index.html">Configs</a> to inspect a chart directly.</p>
+    <p class="boundary-chip">Configuration-as-data model, OCI delivery, check rules, and reference index</p>
+    <p class="lead">Read how configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into OCI bundles, ConfigHub bases and variants, and GitOps releases. For step-by-step tasks you or your agent can run, open <a href="./guides.html">Guides</a>, or browse <a href="./charts/index.html">Configs</a>.</p>
   </header>
   <main>
 
@@ -10456,11 +10456,11 @@ function appsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps</h1>
-    <p class="boundary-chip">Browse rendered YAML in your browser · Local checks need no account</p>
-    <p class="lead">Compare familiar Helm, Kustomize, Argo CD, and Flux configurations before and after rendering to plain Kubernetes YAML, or test whether your workload matches a cluster's CRDs and IngressClasses offline.</p>
-    <p>An app is a workload you bring. Your application code and container builds stay in your existing CI pipeline while you inspect and diff the Kubernetes manifests.</p>
+    <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
+    <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
+    <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
-    ${agentNote(` Read the same rows as data at <a href="./apps.json">apps.json</a>.`, "Machine-readable JSON (for scripts and automation):")}
+    ${agentNote(` Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
     ${beforeAfterGalleryHtml(escapeHtml)}

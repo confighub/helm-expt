@@ -638,18 +638,18 @@
   <header class="hero human-hero">
     
     <h1>Stacks</h1>
-    <p class="boundary-chip">Read stack YAML on GitHub · Offline checks run locally · Deploy with Argo CD, Flux, or kubectl</p>
-    <p class="lead">When you install ingress, cert-manager, Prometheus, and your own Helm charts on the same cluster, single-chart linters miss cross-chart collisions. A <code>stack.yaml</code> file checks multiple rendered Helm charts and Kubernetes YAML manifests together offline. It catches duplicate CRDs, clashing namespaces, RBAC collisions, and missing IngressClasses before you deploy with Argo CD, Flux, or <code>kubectl</code>.</p>
-    <p>Inspect any reference <code>stack.yaml</code> below on GitHub in your browser with zero install. When you want to check your own rendered <code>helm template</code> YAML against a stack locally, use the open-source <code>cub</code> CLI (no account or cluster required).</p>
+    <p class="boundary-chip">Ready-to-run out of the box · Check with cub or your AI agent · Deliver via OCI &amp; GitOps</p>
+    <p class="lead">When you install ingress, cert-manager, Prometheus, GPU operators, and your own charts together, single-chart linters miss cross-component collisions. A <code>stack.yaml</code> file composes components across Helm, NVIDIA AI Cluster Runtime (AICR), Kubara, and YAML, checking duplicate CRDs, namespaces, RBAC, and IngressClasses offline before anything runs. Once deployed under governance with your apps on it, a stack becomes a platform.</p>
+    <p>Inspect any shipped <code>stack.yaml</code> on GitHub with zero install, or run <code>cub stack sandbox</code> and <code>cub stack check</code> locally or from your AI agent with no account.</p>
     <p><a href="./compose-a-stack.html#own-app">Check your own Helm YAML against a stack</a> · <a href="./eks-inference.html">Inspect the 8-part EKS GPU inference stack</a> · <a href="./compose-a-stack.html">Compose and check a stack</a> · <a href="./d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a></p>
-    <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> Read the same rows as data at <a href="./stacks.json">stacks.json</a>.</aside>
+    <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Read the same rows as data at <a href="./stacks.json">stacks.json</a>.</aside>
   </header>
   <main>
     <section aria-labelledby="stack-example">
-      <h2 id="stack-example">How a stack combines your own Helm YAML with shared cluster services</h2>
-      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog manifests, check cross-chart wiring locally, and export plain Kubernetes YAML for GitOps:</p>
+      <h2 id="stack-example">How a stack combines Catalog OCI bundles with your own YAML</h2>
+      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog bundles, check cross-component wiring locally, and deliver via OCI to Argo CD, Flux, or <code>kubectl</code>:</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
-  <pre class="ex-out"><code># stack.yaml — mix local helm template output with shared cluster add-ons
+  <pre class="ex-out"><code># stack.yaml: mix local helm template output with shared cluster add-ons
 apiVersion: workshop.confighub.com/v1alpha1
 kind: Stack
 metadata:
