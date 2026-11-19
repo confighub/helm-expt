@@ -209,11 +209,11 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
             <span class="prompt-label">Ask your agent</span>
             <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
           </div>
-          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask in plain words, such as <code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code> Say yes when the plugin offers to attach the app, or ask <code>Attach ConfigHub to this app so I can try a preview.</code> First use downloads and starts the local hub automatically.</p>
+          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask <em>“Try ‘Evening collection’ as the heading. Keep the usual app as it is. I’d like to open the preview again tomorrow.”</em> Say yes to local setup. Your agent downloads mini on first use and shows the running preview in this chat. Go straight to step 3.</p>
         </li>
         <li>
-          <p class="only-claude"><strong>Reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
-          <p class="only-codex"><strong>Open the app’s scoped session</strong> using the <code>run-codex</code> command printed at the end of Step 1, then ask:</p>
+          <p class="only-claude"><strong>For the new app, reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
+          <p class="only-codex"><strong>For the new app, open its scoped session</strong> using the <code>run-codex</code> command printed at the end of Step 1, then ask:</p>
           <div class="snip">
             <span class="prompt-label">Ask your agent</span>
             <pre><code>Try a warmer greeting in preview.</code></pre>
