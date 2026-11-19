@@ -579,9 +579,10 @@
     <p class="generated"><b>Generated at:</b> 2026-10-06T13:45:42.258Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> Timoni module <code>flux-aio</code> 2.9.4-0, as 21 Kubernetes objects.</p>
-      <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/entries/timoni-flux-aio-2-9-4-0-default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
+      <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
+      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/examples/timoni/flux-aio-2-9-4-0/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/entries/timoni-flux-aio-2-9-4-0-default/try-objects.sh">cluster test script</a>)</p>
       
-      <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
     </section>
     <article class="doc-body">
 <p>This static Timoni record retains the public Flux All-In-One module as a CRD-heavy controller example. The source is pinned to manifest digest <code>sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a</code> and was built locally with Timoni 0.34.0.</p>
@@ -593,15 +594,15 @@
     </article>
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
+      <p></p>
       <div data-entry-steps="timoni-flux-aio-2-9-4-0-default">
         <details class="entry-inputs" data-entry-inputs="timoni-flux-aio-2-9-4-0-default" open>
         <summary>What is fixed, and what you supply</summary>
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
         <ul class="entry-inputs-list"><li><code>module</code> is <code>oci://ghcr.io/stefanprodan/modules/flux-aio@sha256:2fdfc00b5a1b59017f63ec0ab78be8b013fa7d542a57d6f1a6db4df64eab5a5a</code></li><li><code>moduleVersion</code> is <code>2.9.4-0</code></li><li><code>instance</code> is <code>flux</code></li><li><code>namespace</code> is <code>flux-system</code></li><li><code>values</code> is <code>examples/timoni/flux-aio-2-9-4-0/selected-values.cue</code></li><li><code>schema</code> is <code>examples/timoni/flux-aio-2-9-4-0/config-schema.cue</code></li><li><code>processor</code> is <code>timoni@0.34.0</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li>1.21.0 <em>Required. Not checked in a live run.</em></li><li>source, kustomize, helm, notification, and watcher controllers <em>Required. Not checked in a live run.</em></li></ul>
+        <ul class="entry-inputs-list"><li><code>Kubernetes version</code>: 1.21.0 <em>Required. Not checked in a live run.</em></li><li><code>Flux controller readiness</code>: source, kustomize, helm, notification, and watcher controllers <em>Required. Not checked in a live run.</em></li></ul>
         
       </details>
         <span id="plan"></span><details class="entry-inputs" id="plan-timoni-flux-aio-2-9-4-0-default" data-entry-plan="timoni-flux-aio-2-9-4-0-default" open>
@@ -642,7 +643,7 @@ ef43b86cb0b2de345b59d1925d0f29927e600c65c7b84c42a1bfb8710d772e8e  timoni-flux-ai
           <p>This step needs an upload command from step 3, and this entry has none. A published artifact for this entry, with a receipt, would make this step available.</p>
         </div>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../../../../listings/timoni-flux-aio-2-9-4-0-default.json">timoni-flux-aio-2-9-4-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../../../../listings/timoni-flux-aio-2-9-4-0-default.json">timoni-flux-aio-2-9-4-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>

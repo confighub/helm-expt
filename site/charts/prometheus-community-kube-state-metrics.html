@@ -591,30 +591,32 @@
   <header>
     
     <h1>Find, compare and use prometheus-community/kube-state-metrics</h1>
-    <p class="lead">The Catalog holds one version of the Helm chart prometheus-community/kube-state-metrics, with 2 bases. That version is 7.4.0.</p>
-    <p data-chart-what>The Catalog files this chart under Monitoring and logs. Its listings do not yet describe what it does, so read the objects before you rely on the name.</p>
-    <p data-chart-run-state>The Catalog rendered all 2 bases and retains the exact objects of each. The listings record an upload as a variant for 2 bases and a promoted change for 2 bases. They record no deployment for any base.</p>
+    <p class="lead">The Catalog holds one version of the Helm chart prometheus-community/kube-state-metrics, with 2 bases. That version is 7.4.0. Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
+    <p data-chart-what>Filed under Monitoring and logs. Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.</p>
+    <p data-chart-run-state>The Catalog pre-rendered all 2 presets to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account. Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
     <p class="chart-guide-links"><strong>Guides.</strong> <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> <code>prometheus-community/kube-state-metrics</code> 7.4.0, as 5 Kubernetes objects in its <code>default</code> preset.</p>
-      <p><strong>Install it.</strong> <code>curl -fsSL -o try-objects.sh https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-state-metrics-7-4-0/default/try-objects.sh &amp;&amp; bash try-objects.sh</code></p>
+      <p><strong>What it is.</strong> <code>prometheus-community/kube-state-metrics</code> 7.4.0, pre-rendered as 5 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
+      <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
+      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-state-metrics-7-4-0/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default:latest@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2</code></p>
-      <p><strong>Needs first.</strong> Nothing. The script applies any CRDs first.</p>
-      <p><strong>How it works.</strong> <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>, and <a href="../config.html">Helm in the Catalog</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
-      <h2 id="versions">Pick a version and a base</h2>
-      <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
+      <h2 id="versions">Pick a version and a preset</h2>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub, or pass the JSON record to your AI agent.</p>
+      <p>Flattening (rendering once to plain YAML) shows whether manifests deliver directly via OCI, Argo CD, Flux, or kubectl, or carry a plan for ordered CRD and Secret setup.</p>
       <article class="chart-version" data-chart-version="7.4.0">
         <h3 id="version-7-4-0">7.4.0 <span class="status good">newest</span></h3>
-        <p>2 bases. The installer package is published and signed. <a href="./prometheus-community-kube-state-metrics-7-4-0.html">Open the page for 7.4.0</a>.</p>
+        <p>2 rendered presets. The installer package is published and signed. <a href="./prometheus-community-kube-state-metrics-7-4-0.html">Open version detail page for 7.4.0</a>.</p>
         <div class="card"><table>
-        <thead><tr><th>Base</th><th>Objects</th><th>Flattening verdict</th><th>Published as OCI</th><th>Flag</th><th>Open</th></tr></thead>
-        <tbody><tr><td>default <span class="status">default</span></td><td>5</td><td><a href="../config.html#verdict-safe-to-flatten" title="Kept as exact Kubernetes objects. Nothing else has to travel with them.">safe-to-flatten</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml">exact objects</a> · <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-default.json">listing</a></td></tr><tr><td>cluster-metrics-readonly</td><td>5</td><td><a href="../config.html#verdict-safe-to-flatten" title="Kept as exact Kubernetes objects. Nothing else has to travel with them.">safe-to-flatten</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml">exact objects</a> · <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.json">listing</a></td></tr></tbody>
+        <thead><tr><th>Preset</th><th>K8s objects</th><th>Flattening &amp; GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
+        <tbody><tr><td>default <span class="status">default</span></td><td>5</td><td><a href="../config.html#verdict-safe-to-flatten">Applies directly as plain YAML</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/effective-values.yaml">Values</a> · <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-default.json">JSON</a></td></tr><tr><td>cluster-metrics-readonly</td><td>5</td><td><a href="../config.html#verdict-safe-to-flatten">Applies directly as plain YAML</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/effective-values.yaml">Values</a> · <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.json">JSON</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -669,8 +671,8 @@ b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc  prometheus-com
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
-      <p>Steps 1 and 2 need no account. <a href="../try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command. Step 2 uses <code>cub config diff</code>, which <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds. A <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">live walk on 2026-10-08</a> ran steps 3 to 5 for <code>bitnami-nginx-24-0-2-http-clusterip</code> and <code>nvidia-gpu-operator-v26-3-3-default</code>. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it. These are the steps for 7.4.0, the newest version, on its default base.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 7.4.0, the newest version, on its default base.</p>
       <div data-entry-steps="prometheus-community-kube-state-metrics-7-4-0-default">
         <details class="entry-inputs" data-entry-inputs="prometheus-community-kube-state-metrics-7-4-0-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -730,7 +732,7 @@ b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc  prometheus-com
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-default.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-kube-state-metrics-7-4-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote prometheus-community-kube-state-metrics-7-4-0-default-dev --dry-run -o mutations
@@ -742,7 +744,7 @@ b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc  prometheus-com
 <span class="term-prompt">$</span> cub release publish prometheus-community-kube-state-metrics-7-4-0-default-dev</code></pre>
         </div>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>These steps are the <code>nextSteps</code> array of <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-default.json">prometheus-community-kube-state-metrics-7-4-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/prometheus-community-kube-state-metrics-7-4-0-default.json">prometheus-community-kube-state-metrics-7-4-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
     <section aria-labelledby="other-bases" class="chart-other-bases">
       <h2 id="other-bases">Use another version or base</h2>
@@ -757,7 +759,7 @@ b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc  prometheus-com
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>This page as data is <a href="./prometheus-community-kube-state-metrics.json">prometheus-community-kube-state-metrics.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> This page as data is <a href="./prometheus-community-kube-state-metrics.json">prometheus-community-kube-state-metrics.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>
@@ -783,7 +785,7 @@ b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc  prometheus-com
   openLinkedPlan();
 })();</script>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a base</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
+<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title">On this page</p><ul><li><a href="#versions">Pick a version and a preset</a></li><li><a href="#see-what-changes">See what changes</a></li><li><a href="#use-in-confighub">Use this entry in ConfigHub</a></li><li><a href="#other-bases">Use another version or base</a></li><li><a href="#chart-as-data">Read this page as data</a></li><li><a href="#technical-notes">Technical notes and disclaimers</a></li></ul><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="../stack.html">Every stack &rarr;</a></li></ul></nav>
 </div>
 </body>
 </html>
