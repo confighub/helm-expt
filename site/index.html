@@ -73,8 +73,8 @@
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .page { max-width: 1280px; margin: 0 auto; padding: 0 20px 8px; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
-  .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
-  .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
+  .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: pre-wrap; word-break: break-word; }
+  .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); white-space: pre-wrap; }
   .home-cmd { font-family: var(--mono); font-size: .86rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; max-width: 860px; overflow-x: auto; }
   .home-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
   .home-overview > section { min-width: 0; }
@@ -115,16 +115,21 @@
   .hero-search input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: .95rem; }
   .hero-search .btn { cursor: pointer; white-space: nowrap; font-family: var(--sans); }
   @media (max-width: 560px) { .hero-search { flex-direction: column; } }
+  .hero-picks { font-size: .9rem; color: var(--muted); margin: 12px 0 0; }
+  .hero-picks a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
   .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
   /* The hero says one thing and offers three verbs. The four explainer
      paragraphs that used to fill the column beside the terminal now live as
      cards under "What is the Workshop?" below, one idea per card, so the top
      of the page scans instead of reads. */
-  .what-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 4px 0 14px; }
+  .what-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
+  @media (max-width: 760px) { .what-cards { grid-template-columns: 1fr; } }
   .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: none; }
   .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 700; }
-  .what-card p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .what-card p { margin: 0 0 8px; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .what-card p:last-child { margin-bottom: 0; }
+  .what-card a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
   .what-links { font-size: .9rem; color: var(--muted); margin: 0; }
   /* One-glance strip of every format and pattern the catalog supports, linking
      into the Catalog's formats panel. So the home says "not Helm-only" up top. */
@@ -382,35 +387,36 @@
         <div class="hero-head">
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
-          <p class="lead">ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
-          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
+          <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
+          <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Start with your own chart or app. Use <code>cub</code> directly or ask your agent to inspect the rendered configuration, compare changes and run checks. Local checks need no account.</p>
+            <p class="lead">Start with your own chart, app, or GPU recipe. Check rendered objects in your browser, run <code>cub</code> (our open-source CLI) and its plugins locally, or hand the task to Claude Code or Codex. Local checks need no account.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
+              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
-            <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it using your existing setup.</p>
+            <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
+              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
             </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, check a platform free, then release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub open source, or upload to ConfigHub Server</span></div>
-            <pre class="term-body"><code><span class="cmt"># what will this chart install?</span>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub + plugins open source, or publish via ConfigHub + OCI</span></div>
+            <pre class="term-body"><code><span class="cmt"># 1. what will this chart actually install? (local, no account)</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># give a whole stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
+<span class="cmt"># 2. check a ready-to-run stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
 <span class="pr">$</span> cub stack sandbox eks-inference
-=> <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
+=&gt; <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># Use ConfigHub to store, place and publish default redis config</span>
+<span class="cmt"># 3. load as a ConfigHub base, create a prod variant, publish OCI</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub variant create prod redis-base <span class="k">--target</span> prod/target
 <span class="pr">$</span> cub release publish redis-prod
@@ -421,41 +427,69 @@
       </header>
 
       <main>
+        <section class="section" id="popular-examples">
+          <span class="eyebrow">Three Workshop pillars · Ready to use out of the box</span>
+          <h2>Fix broken configs, unify formats, and check whole stacks</h2>
+          <p class="intro">Every example links to exact rendered Kubernetes objects on GitHub alongside copyable commands for you or your AI agent.</p>
+          <div class="what-cards">
+            <div class="what-card">
+              <h3>1. Fix broken Helm charts with AI agents</h3>
+              <p>Catch ignored <code>values.yaml</code> keys, Secrets that regenerate on reinstall, moved images, and hook or CRD ordering traps across 124 pre-rendered charts.</p>
+              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values check</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./guides.html#guides-helm-questions">Helm guides</a></p>
+            </div>
+            <div class="what-card">
+              <h3>2. Unify Helm, NVIDIA AICR, and YAML via OCI</h3>
+              <p>Flatten established Helm and Kustomize files alongside NVIDIA AI Cluster Runtime (AICR) GPU recipes and Timoni modules into explicit YAML in OCI bundles.</p>
+              <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> · <a href="./try-aicr.html">NVIDIA AICR guide</a> · <a href="./oci.html">OCI bundles</a></p>
+            </div>
+            <div class="what-card">
+              <h3>3. Check ready-to-run stacks and GitOps</h3>
+              <p>Test 12 multi-component stacks (such as ingress, cert-manager, Prometheus, or EKS GPU inference) for CRD and namespace collisions before Argo CD or Flux deploys.</p>
+              <p><a href="./stack.html">12 ready-to-run stacks</a> · <a href="./apps.html#before-and-after">Before &amp; after apps</a> · <a href="./deploy-with-flux-or-argo.html">Flux &amp; Argo CD</a></p>
+            </div>
+            <div class="what-card">
+              <h3>4. Try cub tools and plugins out of the box</h3>
+              <p>Run <code>cub config check</code>, <code>cub config diff</code>, <code>cub stack check</code>, and 12 open-source plugins in a 10-minute laptop walkthrough with no cluster or account.</p>
+              <p><a href="./try.html">10-minute CLI tutorial</a> · <a href="./plugins.html">12 cub plugins</a> · <a href="./ask.html">Browser YAML check</a></p>
+            </div>
+          </div>
+        </section>
         <section class="section" id="give-it-to-your-agent">
-          <span class="eyebrow">For your agent</span>
-          <h2>Prompt Claude or Codex to get started</h2>
-          <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
+          <span class="eyebrow">For your AI agent</span>
+          <h2>Give Claude Code or Codex the Catalog and cub tools</h2>
+          <p class="intro">Paste this one-line setup prompt into Claude Code, Codex, or any shell-capable agent so it queries compact Catalog JSON records and runs deterministic <code>cub</code> checks.</p>
           <p class="agent-prompt"><code class="prompt-text">Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></p>
-          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
-          <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
-          <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-          <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
+          <p class="intro">Or install the Workshop skill directly in your repository. <a href="./ai.html">Use with your AI</a> covers full agent workflows.</p>
+          <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
+          <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></pre>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the open-source cub CLI</a> first. Public OCI bundles and local checks need no account, and you sign in only when storing bases or variants in ConfigHub.</p>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
+          <p class="intro">Every section states plainly what has been rendered and statically checked versus what has not run on a live cluster.</p>
           <ul class="home-sections">
-            <li><a href="./charts/index.html">Configs</a>: 528 configurations. 357 are tested and rendered to the exact objects they install. 133 are AICR recipes rendered as Argo CD Applications, and they have not been published or run. 38 are NIMService model variants kept as exact objects with their plans, and 37 of them are published as OCI.</li>
-            <li><a href="./stack.html">Stacks</a>: 12 stacks, sets of configs checked together before anything runs.</li>
-            <li><a href="./apps.html">Apps</a>: 25 worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
-            <li><a href="./plugins.html">Plugins</a>: 12 cub plugins, each marked by its state.</li>
-            <li><a href="./guides.html">Guides</a>: 58 known paths an agent walks with you, the five journeys first.</li>
-            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust it, and every reference.</li>
+            <li><a href="./charts/index.html">Configs</a>: 528 configurations across Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, OCI, and YAML. 357 are tested and rendered to the exact objects they install. 133 are NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run. 38 are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and 37 of them are published as OCI.</li>
+            <li><a href="./stack.html">Stacks</a>: 12 ready-to-run stacks checked together for CRD, namespace, and RBAC conflicts before anything runs.</li>
+            <li><a href="./apps.html">Apps</a>: 25 worked example apps showing configuration as data across Helm, Kustomize, Argo CD, and Flux.</li>
+            <li><a href="./plugins.html">Plugins</a>: 12 open-source <code>cub</code> CLI plugins for Helm, scanning, cluster checks, Argo CD, and Flux, each marked by its state.</li>
+            <li><a href="./guides.html">Guides</a>: 58 step-by-step Guides an agent walks with you across Helm, NVIDIA AICR, OCI, promotions, and fleets.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust each recorded check, and the complete reference index.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <p class="intro">The Catalog supplies configurations and evidence. Workshop combines it with Guides and tools. <code>cub</code> is the command-line interface that you and your agent use. ConfigHub Server keeps shared configuration and manages its releases. You can run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
-          <p class="intro">Other catalogs give you charts. We give your agents the rendered objects, digests and recorded checks to assess them before use.</p>
-          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported. Install decides which objects exist, and customise changes a copy for one place. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
+          <p class="intro">Other catalogs give you charts. ConfigHub Workshop gives you and your agents pre-rendered Kubernetes objects, digests, recorded checks, Guides, and <code>cub</code> plugins to solve config problems out of the box. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into explicit Kubernetes objects. OCI is a shared transport for this configuration, and each entry records its source-specific processing and checks.</p>
+          <p class="intro">You can run local checks without a ConfigHub account. Loading an OCI bundle into <a href="./confighub.html">ConfigHub Server</a> creates a shared base (developer intent), lets operators customize environment variants, and publishes releases for Argo CD or Flux. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
         </section>
         </div>
       </main>
 
       <footer class="foot">
-        <p class="sub">Every result links to the command, receipt, or known gap behind it. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Send feedback</a>.</p>
+        <p class="sub">Every check result on this site links to the exact input files, CLI command, and recorded output behind it, and states its limits plainly. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Send feedback</a>.</p>
       </footer>
     </div>
   </div>

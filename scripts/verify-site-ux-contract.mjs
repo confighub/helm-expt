@@ -124,7 +124,7 @@ const checks = [
   },
   {
     file: "site/index.html",
-    terms: ["AICR recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -414,7 +414,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.", "Start with your own chart or app", "Local checks need no account", "ConfigHub adds version history, approvals and releases", "Argo CD or Flux still delivers it using your existing setup."],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop helps you and your AI agent fix silent Helm bugs", "NVIDIA AI Cluster Runtime (AICR)", "Start with your own chart, app, or GPU recipe", "Local checks need no account", "Argo CD or Flux still delivers it using your existing setup."],
   },
   {
     file: "site/ask.html",
@@ -1715,10 +1715,10 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   const readSite = (file) => (fs.existsSync(path.join(root, file)) ? fs.readFileSync(path.join(root, file), "utf8") : "");
   if (count > 0) {
     const home = readSite("site/index.html");
-    const line = home.match(/(\d+) configurations\. (\d+) are tested and rendered to the exact objects they install\. (\d+) are AICR recipes[^<]*/)?.[0] ?? "";
+    const line = home.match(/(\d+) configurations across Helm, NVIDIA AI Cluster Runtime \(AICR\), Timoni, OCI, and YAML\. (\d+) are tested and rendered to the exact objects they install\. (\d+) are NVIDIA AI Cluster Runtime \(AICR\) recipes[^<]*/)?.[0] ?? "";
     const [total, tested, aicr] = (line.match(/\d+/g) ?? []).map(Number);
-    if (!line.includes(`${count} are NIMService model variants kept as exact objects with their plans, and ${clause}.`)) {
-      failures.push(`site/index.html: the Configs line does not say that ${count} NIMService model variants are kept as exact objects and that ${clause}`);
+    if (!line.includes(`${count} are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and ${clause}.`)) {
+      failures.push(`site/index.html: the Configs line does not say that ${count} NVIDIA inference manifests (NIMService) are kept as exact objects and that ${clause}`);
     }
     if (tested + aicr + count !== total) {
       failures.push(`site/index.html: the Configs line counts ${tested} tested and rendered configurations, which must be ${total} less the ${aicr} AICR recipes and the ${count} NIMService model variants`);
