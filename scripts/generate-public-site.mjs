@@ -4088,6 +4088,7 @@ ${homeJourneyLinks()}
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
           <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
+          <p><strong>Working on an app in Claude Code or Codex?</strong> <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a>. Install the ConfigHub plugin to give your next chat the reason for an uncommitted change.</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
           <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
@@ -4098,7 +4099,7 @@ ${homeJourneyLinks()}
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
               <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
-            <p>Using Claude Code or Codex on an app? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a>. The next chat can tell you why it changed.</p>
+
             <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
@@ -10759,7 +10760,7 @@ function aiHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Use Claude or Codex for Kubernetes configuration</h1>
-    <p>Working on an app? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a> works with an uncommitted edit in a local Git folder.</p>
+    <p>Want the next chat to remember why you changed a setting? Install the <a href="${REMEMBER_SETTING_GUIDE_URL}">ConfigHub plugin for your app</a> using the five-minute guide. The Workshop skill below is for Kubernetes configuration.</p>
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
     <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
