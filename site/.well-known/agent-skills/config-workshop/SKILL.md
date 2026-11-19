@@ -9,6 +9,8 @@ metadata:
 
 # ConfigHub Workshop
 
+For a local app whose next chat should remember **why an uncommitted setting changed**, use the [five-minute app plugin guide](https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes). Claude Code installs `confighub@confighub` from the `confighubai/confighub-mini-plugin` marketplace. Codex uses the [Codex setup command](https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up). The Workshop skill covers the Kubernetes catalog.
+
 Use ConfigHub Workshop to answer a practical configuration question with exact
 objects and evidence. Do not turn an inspection request into a deployment.
 

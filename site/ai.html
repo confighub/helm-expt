@@ -645,7 +645,15 @@
   <header class="hero human-hero">
     
     <h1>Use Claude or Codex for Kubernetes configuration</h1>
-    <p>Want the next chat to remember why you changed a setting? Install the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">ConfigHub plugin for your app</a> using the five-minute guide. The Workshop skill below is for Kubernetes configuration.</p>
+    <section id="app-plugin-install" aria-label="Remember an app setting">
+    <p><strong>Why did my agent change this setting?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the <code>confighubai/confighub-mini-plugin</code> app plugin. A fresh chat can explain an uncommitted edit to your app’s <code>.env</code>.</p>
+    <details><summary>Install the app plugin for Claude Code or Codex</summary>
+      <p>For Claude Code, run these in Terminal, then reopen the app folder.</p>
+      <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+      <p>For Codex CLI, use the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup command</a>, approve the hooks and open a new session.</p>
+    </details>
+  </section>
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
     <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
@@ -705,7 +713,7 @@ When I ask about a chart, a values file, an upgrade, a rollback, a digest or sup
         td code, td a { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.4k tokens and the core <code>SKILL.md</code> is about 5.2k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
+    <p><strong>How to read the estimates.</strong> They are rough planning ranges for one focused turn, not quotas, provider bills, or guarantees. They include the likely Guide, one relevant record, task files, and useful command output; an agent host may add system instructions, tool transcripts, retries, and uncached context. The planning heuristic is about one token per four characters. At the current site size, <code>llms.txt</code> is about 5.4k tokens and the core <code>SKILL.md</code> is about 5.3k before references or task files. Use your provider's token meter for the actual count. To estimate money, multiply input and output tokens by that model's current per-million-token rates; caching and tool billing vary by provider.</p>
     <h4 id="ai-token-optimal">Five rules for a token-optimal run</h4>
     <ol>
       <li>Prefer a zero-AI-token browser or CLI check when the answer is deterministic.</li>
