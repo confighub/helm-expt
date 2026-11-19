@@ -388,7 +388,7 @@
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
           <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
-          <p><strong>Working on an app in Claude Code or Codex?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a>. Install the ConfigHub plugin to give your next chat the reason for an uncommitted change.</p>
+          <p>Using Claude Code or Codex to remember why an app setting changed? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the confighubai/confighub-mini-plugin app plugin. <a href="#app-plugin-install">Install the app plugin</a>.</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
           <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
@@ -429,6 +429,15 @@
       </header>
 
       <main>
+        <section id="app-plugin-install" aria-label="Remember an app setting">
+    <p><strong>Why did my agent change this setting?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the <code>confighubai/confighub-mini-plugin</code> app plugin. A fresh chat can explain an uncommitted edit to your app’s <code>.env</code>.</p>
+    <details><summary>Install the app plugin for Claude Code or Codex</summary>
+      <p>For Claude Code, run these in Terminal, then reopen the app folder.</p>
+      <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+      <p>For Codex CLI, use the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup command</a>, approve the hooks and open a new session.</p>
+    </details>
+  </section>
         <section class="section" id="popular-examples">
           <span class="eyebrow">Three Workshop pillars · Ready to use out of the box</span>
           <h2>Fix broken configs, unify formats, and check whole stacks</h2>

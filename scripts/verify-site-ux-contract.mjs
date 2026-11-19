@@ -48,6 +48,15 @@ function countFlaggedAicrListings() {
 }
 
 const checks = [
+  ...["site/index.html", "site/ai.html"].map((file) => ({
+    file,
+    terms: [
+      "try-the-plugin.md#try-it-in-five-minutes",
+      "claude plugin marketplace add confighubai/confighub-mini-plugin",
+      "claude plugin install confighub@confighub",
+      "docs/codex.md#set-it-up",
+    ],
+  })),
   { file: "site/ai-chaos-in-production.html", terms: ["six local kind clusters", "two to three hours", "after onboarding", "40Mi", "mutating check", "The parity gate works.", "Workshop has not rerun", "teardown.sh --confighub", "agent contract", "assets/ai-chaos/r2-gui-refused-order.jpg"] },
   ...["index", "guides", "ai", "plugins", "bring-sveltos-into-confighub"].map(page => ({ file: `site/${page}.html`, terms: ["ai-chaos-in-production.html"] })),
   { file: "site/guides.html", terms: ['id="guides-deep-dives"', 'id="guides-gitops"', 'id="guides-stacks-and-platforms"'] },
