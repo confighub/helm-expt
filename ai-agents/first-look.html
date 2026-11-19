@@ -158,12 +158,13 @@ claude plugin install confighub@confighub</code></pre>
     <div class="story-body">
       <ol class="steps">
         <li>
-          <p><strong>Create a throwaway Git folder</strong> with one setting and start <code class="only-claude">claude</code><code class="only-codex">codex</code>:</p>
+          <p><strong>Use your own Git app, or create a sample folder</strong> with one setting and start <code class="only-claude">claude</code><code class="only-codex">codex</code>.</p>
           <div class="snip">
             <span class="prompt-label">Terminal</span>
             <pre><code>mkdir try-confighub &amp;&amp; cd try-confighub &amp;&amp; git init -q &amp;&amp;
   printf 'CACHE=off\n' &gt; .env &amp;&amp; git add -f .env</code></pre>
           </div>
+          <p class="small">In your own app, open a fresh session and pick any non-secret setting you want to change with a reason.</p>
         </li>
         <li>
           <p><strong>Ask in Session 1</strong> (and allow the edit):</p>
@@ -192,7 +193,7 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
         <p class="small">Clean up anytime by deleting <code>try-confighub</code>.</p>
       </aside>
     </div>
-    <p class="story-foot">More detail: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute plugin guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Measured runs with and without the plugin</a></p>
+    <p class="story-foot">More detail: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute plugin guide</a> · <a href="#preview">Run a preview of the app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Measured runs with and without the plugin</a></p>
   </section>
 
   <section class="story" id="preview">
@@ -208,7 +209,7 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
             <span class="prompt-label">Ask your agent</span>
             <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
           </div>
-          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Open it and ask: <code>Attach ConfigHub to this app so I can try a preview.</code> First use downloads and starts the local hub automatically.</p>
+          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask in plain words, such as <code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code> Say yes when the plugin offers to attach the app, or ask <code>Attach ConfigHub to this app so I can try a preview.</code> First use downloads and starts the local hub automatically.</p>
         </li>
         <li>
           <p class="only-claude"><strong>Reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
@@ -224,7 +225,7 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
             <span class="prompt-label">Ask in a later session</span>
             <pre><code>Is my preview still running? What does it serve?</code></pre>
           </div>
-          <p class="small">Reopen the same app session to find the preview again. Ask your agent to stop it when you’re finished.</p>
+          <p class="small">A fresh session in the app folder finds the running preview address and process without being given the URL. Ask your agent to stop the preview when you finish.</p>
         </li>
       </ol>
 
