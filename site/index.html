@@ -386,34 +386,41 @@
       <header>
         <div class="hero-head">
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
-          <h1>Inspect rendered Kubernetes YAML and catch silent Helm mistakes</h1>
-          <p class="lead">Helm template and schema linters pass valid YAML even when a misspelled values key did nothing, a Secret regenerates on reinstall, or hook Jobs break Argo CD and Flux. Browse 124 Helm charts pre-rendered to exact Kubernetes YAML in your browser, or check your own chart with no account.</p>
-          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search 124 Helm charts &amp; configs, e.g. cert-manager, argo-cd, redis"><button class="btn primary" type="submit">Search the Catalog</button></form>
-          <p class="hero-picks">Open rendered YAML now (zero install): <a href="./example-cert-manager.html">cert-manager</a> · <a href="./example-gatekeeper.html">Gatekeeper</a> · <a href="./example-ingress-nginx.html">ingress-nginx</a> · <a href="./example-redis.html">Redis</a> · <a href="./example-argo-cd.html">Argo CD</a></p>
+          <h1>Configuration catalog for Agents and Kubernetes</h1>
+          <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
+          <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Start with your own chart or app. Paste rendered YAML in your browser or run <code>cub</code> (our open-source CLI) locally to diff upgrades, spot ignored <code>values.yaml</code> keys, and list every CRD and hook Job before anything touches a cluster.</p>
+            <p class="lead">Start with your own chart, app, or GPU recipe. Check rendered objects in your browser, run <code>cub</code> (our open-source CLI) and its plugins locally, or hand the task to Claude Code or Codex. Local checks need no account.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
-              <a class="btn ghost" href="./why-did-helm-ignore-my-values.html">See an ignored-values check</a>
+              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
-            <p class="sub">Local checks and public YAML files need no account and never upload your files.</p>
+            <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="./ai.html">Set up my AI agent</a>
+              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
+            </div>
           </div>
           <div class="hero-term">
-          <div class="term" aria-label="Check a chart locally with cub">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">local CLI checks (open source, no account)</span></div>
-            <pre class="term-body"><code><span class="cmt"># what will this chart actually install?</span>
+          <div class="term" aria-label="Check a config free, check a platform free, then release by digest with an account">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub + plugins open source, or publish via ConfigHub + OCI</span></div>
+            <pre class="term-body"><code><span class="cmt"># 1. what will this chart actually install? (local, no account)</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># check an 8-chart platform for CRD or namespace collisions: <a href="./eks-inference.html">example</a></span>
+<span class="cmt"># 2. check a ready-to-run stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
 <span class="pr">$</span> cub stack sandbox eks-inference
 =&gt; <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># optional later: publish a reviewed bundle for Argo CD or Flux</span>
-<span class="pr">$</span> cub release publish redis-prod</code></pre>
+<span class="cmt"># 3. load as a ConfigHub base, create a prod variant, publish OCI</span>
+<span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
+<span class="pr">$</span> cub variant create prod redis-base <span class="k">--target</span> prod/target
+<span class="pr">$</span> cub release publish redis-prod
+<span class="cmt"># note: your Argo CD or Flux pulls that digest and deploys it</span></code></pre>
           </div>
           </div>
         </div>
@@ -421,65 +428,64 @@
 
       <main>
         <section class="section" id="popular-examples">
-          <span class="eyebrow">Four common workflows · No install required to read</span>
-          <h2>Pick the Kubernetes task in front of you</h2>
-          <p class="intro">Each example links to the exact rendered Kubernetes YAML on GitHub alongside the command and recorded check output.</p>
+          <span class="eyebrow">Three Workshop pillars · Ready to use out of the box</span>
+          <h2>Fix broken configs, unify formats, and check whole stacks</h2>
+          <p class="intro">Every example links to exact rendered Kubernetes objects on GitHub alongside copyable commands for you or your AI agent.</p>
           <div class="what-cards">
             <div class="what-card">
-              <h3>1. Catch ignored Helm values, hooks, and CRDs</h3>
-              <p>Inspect all 40 cert-manager objects or 26 Gatekeeper objects in your browser, and detect misspelled keys in <code>values.yaml</code> that <code>helm template</code> silently drops.</p>
-              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values check</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./example-gatekeeper.html">Gatekeeper YAML</a></p>
+              <h3>1. Fix broken Helm charts with AI agents</h3>
+              <p>Catch ignored <code>values.yaml</code> keys, Secrets that regenerate on reinstall, moved images, and hook or CRD ordering traps across 124 pre-rendered charts.</p>
+              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values check</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./guides.html#guides-helm-questions">Helm guides</a></p>
             </div>
             <div class="what-card">
-              <h3>2. Audit an existing app or Kustomize overlays</h3>
-              <p>Catch chart Secrets that regenerate random passwords on reinstall, and compare dev and prod Kustomize overlays side by side as plain YAML.</p>
-              <p><a href="./guides.html#guides-existing-apps">I have an existing app</a> · <a href="./example-kustomize-dev-and-prod.html">Kustomize dev vs prod</a> · <a href="./example-redis.html">Redis YAML</a></p>
+              <h3>2. Unify Helm, NVIDIA AICR, and YAML via OCI</h3>
+              <p>Flatten established Helm and Kustomize files alongside NVIDIA AI Cluster Runtime (AICR) GPU recipes and Timoni modules into explicit YAML in OCI bundles.</p>
+              <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> · <a href="./try-aicr.html">NVIDIA AICR guide</a> · <a href="./oci.html">OCI bundles</a></p>
             </div>
             <div class="what-card">
-              <h3>3. Diff Argo CD, Flux, or multi-chart bundles</h3>
-              <p>See which image tags and chart versions actually deploy across dev, staging, and prod GitOps overlays, or check 12 multi-chart bundles for CRD conflicts.</p>
-              <p><a href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a> · <a href="./example-flux-which-version-where.html">Flux version diff</a> · <a href="./stack.html">12 multi-chart bundles</a></p>
+              <h3>3. Check ready-to-run stacks and GitOps</h3>
+              <p>Test 12 multi-component stacks (such as ingress, cert-manager, Prometheus, or EKS GPU inference) for CRD and namespace collisions before Argo CD or Flux deploys.</p>
+              <p><a href="./stack.html">12 ready-to-run stacks</a> · <a href="./apps.html#before-and-after">Before &amp; after apps</a> · <a href="./deploy-with-flux-or-argo.html">Flux &amp; Argo CD</a></p>
             </div>
             <div class="what-card">
-              <h3>4. Try the 10-minute local CLI walkthrough</h3>
-              <p>Render, verify, and diff a real Redis chart on your laptop with no cluster and no account, or point an optional coding agent at compact JSON records.</p>
-              <p><a href="./try.html">10-minute CLI tutorial</a> · <a href="./ai.html">Set up my AI agent</a> · <a href="./llms.txt">llms.txt</a></p>
+              <h3>4. Try cub tools and plugins out of the box</h3>
+              <p>Run <code>cub config check</code>, <code>cub config diff</code>, <code>cub stack check</code>, and 12 open-source plugins in a 10-minute laptop walkthrough with no cluster or account.</p>
+              <p><a href="./try.html">10-minute CLI tutorial</a> · <a href="./plugins.html">12 cub plugins</a> · <a href="./ask.html">Browser YAML check</a></p>
             </div>
           </div>
         </section>
+        <section class="section" id="give-it-to-your-agent">
+          <span class="eyebrow">For your AI agent</span>
+          <h2>Give Claude Code or Codex the Catalog and cub tools</h2>
+          <p class="intro">Paste this one-line setup prompt into Claude Code, Codex, or any shell-capable agent so it queries compact Catalog JSON records and runs deterministic <code>cub</code> checks.</p>
+          <p class="agent-prompt"><code class="prompt-text">Use the ConfigHub Workshop catalog for Kubernetes config work. It holds configurations rendered to exact objects, each with a record of what was checked and what was not, across Helm, AICR (AI infrastructure), Timoni, Kubara, plain YAML, and OCI. Start at https://confighub.github.io/helm-expt/site/llms.txt, search only enough of the relevant section or listings index to identify one entry, then read that entry's listing and one relevant Guide. Do not load whole indexes or the whole catalog into model context. Do the work with `cub` and the cub workshop plugin (https://github.com/confighub/cub-workshop): `cub config`, `cub config values` and `cub config diff`, `cub stack check` and `cub stack sandbox`, `cub app match`. Prefer exact versions and digests.</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></p>
+          <p class="intro">Or install the Workshop skill directly in your repository. <a href="./ai.html">Use with your AI</a> covers full agent workflows.</p>
+          <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
+          <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></pre>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the open-source cub CLI</a> first. Public OCI bundles and local checks need no account, and you sign in only when storing bases or variants in ConfigHub.</p>
+        </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
-          <span class="eyebrow">Site directory</span>
+          <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
           <p class="intro">Every section states plainly what has been rendered and statically checked versus what has not run on a live cluster.</p>
           <ul class="home-sections">
-            <li><a href="./charts/index.html">Configs</a>: 528 configurations (including 124 standard Helm charts). 357 are tested and rendered to the exact objects they install. For GPU clusters, 133 are NVIDIA GPU cluster recipes (AICR) rendered as Argo CD Applications, and they have not been published or run. 38 are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and 37 of them are published as OCI.</li>
-            <li><a href="./stack.html">Stacks</a>: 12 multi-chart platform bundles (such as ingress, cert-manager, and Prometheus) checked together for CRD and namespace conflicts.</li>
-            <li><a href="./apps.html">Apps</a>: 25 side-by-side worked examples comparing Helm, Kustomize, Argo CD, and Flux repos against rendered YAML outputs.</li>
-            <li><a href="./plugins.html">Plugins</a>: 12 open-source <code>cub</code> CLI plugins for Helm, Argo CD, Flux, security scanning, and cluster inspection.</li>
-            <li><a href="./guides.html">Guides</a>: 58 step-by-step troubleshooting and migration walkthroughs you can run in your terminal.</li>
-            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, verification rules, known limits, and the reference index.</li>
+            <li><a href="./charts/index.html">Configs</a>: 528 configurations across Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, OCI, and YAML. 357 are tested and rendered to the exact objects they install. 133 are NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run. 38 are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and 37 of them are published as OCI.</li>
+            <li><a href="./stack.html">Stacks</a>: 12 ready-to-run stacks checked together for CRD, namespace, and RBAC conflicts before anything runs.</li>
+            <li><a href="./apps.html">Apps</a>: 25 worked example apps showing configuration as data across Helm, Kustomize, Argo CD, and Flux.</li>
+            <li><a href="./plugins.html">Plugins</a>: 12 open-source <code>cub</code> CLI plugins for Helm, scanning, cluster checks, Argo CD, and Flux, each marked by its state.</li>
+            <li><a href="./guides.html">Guides</a>: 58 step-by-step Guides an agent walks with you across Helm, NVIDIA AICR, OCI, promotions, and fleets.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust each recorded check, and the complete reference index.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
-          <span class="eyebrow">How this site fits your workflow</span>
+          <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <p class="intro">Other catalogs give you charts and unrendered Go templates. ConfigHub Workshop is our public test bench: it gives you the pre-rendered Kubernetes YAML objects, pinned image digests, and recorded static checks before you install.</p>
-          <p class="intro">You can read every rendered YAML file on GitHub and run local checks without a ConfigHub account using <code>cub</code>. Each entry records its source-specific processing and checks, including whether Helm hooks or CRDs need ordered apply steps. <a href="./d/docs/user/what-config-workshop-is.html">See what Workshop includes</a>.</p>
-          <p class="intro">If a team later wants shared revision history and promotion beyond Git, optional <a href="./confighub.html">ConfigHub Server</a> stores reviewed YAML revisions. OCI is a shared transport for this configuration into your existing Argo CD or Flux setup. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains the flow.</p>
+          <p class="intro">Other catalogs give you charts. ConfigHub Workshop gives you and your agents pre-rendered Kubernetes objects, digests, recorded checks, Guides, and <code>cub</code> plugins to solve config problems out of the box. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into explicit Kubernetes objects. OCI is a shared transport for this configuration, and each entry records its source-specific processing and checks.</p>
+          <p class="intro">You can run local checks without a ConfigHub account. Loading an OCI bundle into <a href="./confighub.html">ConfigHub Server</a> creates a shared base (developer intent), lets operators customize environment variants, and publishes releases for Argo CD or Flux. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
         </section>
         </div>
-        <section class="section" id="give-it-to-your-agent">
-          <span class="eyebrow">Optional · For terminal coding assistants</span>
-          <h2>Use Catalog records from Claude Code or Codex</h2>
-          <p class="intro">If you use a coding assistant, point it at <a href="./llms.txt">llms.txt</a> so it queries small per-chart JSON records instead of guessing from Go templates (<a href="./ai.html">full guide</a> · <a href="./try.html#install-cub">CLI-only setup</a>).</p>
-          <details>
-            <summary><strong>Show copyable agent prompt and optional skill command</strong></summary>
-            <pre class="agent-prompt prompt-pre"><code class="prompt-text">Use https://confighub.github.io/helm-expt/site/llms.txt to inspect pre-rendered Kubernetes YAML and static checks for Helm charts, Kustomize overlays, and OCI bundles. Read only the relevant section index and one entry's listing JSON rather than loading whole indexes. For local checks, use `cub` with cub-workshop (`cub config check`, `cub config values`, `cub config diff`, `cub stack check`).</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></pre>
-            <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Start at <a href="./llms.txt">llms.txt</a>. It lists the compact JSON indexes for configs, stacks, apps, plugins, and guides.</aside>
-            <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></pre>
-          </details>
-        </section>
       </main>
 
       <footer class="foot">

@@ -124,7 +124,7 @@ const checks = [
   },
   {
     file: "site/index.html",
-    terms: ["NVIDIA GPU cluster recipes (AICR) rendered as Argo CD Applications, and they have not been published or run", "Inspect rendered Kubernetes YAML and catch silent Helm mistakes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -414,7 +414,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Inspect rendered Kubernetes YAML and catch silent Helm mistakes", "Browse 124 Helm charts pre-rendered to exact Kubernetes YAML in your browser", "Start with your own chart or app", "need no account"],
+    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop helps you and your AI agent fix silent Helm bugs", "NVIDIA AI Cluster Runtime (AICR)", "Start with your own chart, app, or GPU recipe", "Local checks need no account", "Argo CD or Flux still delivers it using your existing setup."],
   },
   {
     file: "site/ask.html",
@@ -1715,8 +1715,8 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
   const readSite = (file) => (fs.existsSync(path.join(root, file)) ? fs.readFileSync(path.join(root, file), "utf8") : "");
   if (count > 0) {
     const home = readSite("site/index.html");
-    const line = home.match(/(\d+) configurations \(including \d+ standard Helm charts\)\. (\d+) are tested and rendered to the exact objects they install\. For GPU clusters, (\d+) are NVIDIA GPU cluster recipes \(AICR\)[^<]*/)?.[0] ?? "";
-    const [total, _helm, tested, aicr] = (line.match(/\d+/g) ?? []).map(Number);
+    const line = home.match(/(\d+) configurations across Helm, NVIDIA AI Cluster Runtime \(AICR\), Timoni, OCI, and YAML\. (\d+) are tested and rendered to the exact objects they install\. (\d+) are NVIDIA AI Cluster Runtime \(AICR\) recipes[^<]*/)?.[0] ?? "";
+    const [total, tested, aicr] = (line.match(/\d+/g) ?? []).map(Number);
     if (!line.includes(`${count} are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and ${clause}.`)) {
       failures.push(`site/index.html: the Configs line does not say that ${count} NVIDIA inference manifests (NIMService) are kept as exact objects and that ${clause}`);
     }
