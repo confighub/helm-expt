@@ -331,7 +331,7 @@ function nimServicePublishedClause() {
 // counted as tested and rendered, whether or not it is published.
 function nimServiceCountSentence() {
   if (nimServiceVariantCount === 0) return "";
-  return ` ${nimServiceVariantCount} are NIMService model variants kept as exact objects with their plans, and ${nimServicePublishedClause()}.`;
+  return ` ${nimServiceVariantCount} are NVIDIA inference manifests (NIMService) kept as exact objects with their plans, and ${nimServicePublishedClause()}.`;
 }
 
 // Which page carries the five steps for which entries. A Helm entry, and the
@@ -664,7 +664,19 @@ const STACK_FROM_CATALOG_GUIDE_LINK = '<a href="./d/docs/user/workshop-stack-fro
 // Every chart page links the stack Guide, because any published entry can go
 // into a stack.
 const CHART_GUIDES = new Map([
-  ["nvidia/gpu-operator", [{ href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone. It says which changed fields can restart pods on GPU nodes, and how a version step moves through dev and QA" }]],
+  ["argo-cd/argo-cd", [{ href: "../example-argo-cd.html", text: "Open the worked Argo CD YAML walkthrough", after: " to inspect all 55 rendered objects, 3 CRDs, and the Redis password Secret generator before installing" }]],
+  ["bitnami/postgresql", [{ href: "../example-postgresql.html", text: "Open the worked PostgreSQL YAML walkthrough", after: " to inspect StatefulSet storage, Credentials Secrets, and static checks" }]],
+  ["bitnami/redis", [{ href: "../example-redis.html", text: "Open the worked Redis YAML walkthrough", after: " to see why default Secrets regenerate on reinstall and how reuse-existing-secret fixes it" }]],
+  ["external-secrets/external-secrets", [{ href: "../example-external-secrets.html", text: "Open the worked External Secrets YAML walkthrough", after: " to inspect its webhook certificates and CRD ordering requirements" }]],
+  ["gatekeeper/gatekeeper", [{ href: "../example-gatekeeper.html", text: "Open the worked Gatekeeper YAML walkthrough", after: " to inspect all 26 rendered objects, validating webhooks, and CRD pre-steps" }]],
+  ["ingress-nginx/ingress-nginx", [{ href: "../example-ingress-nginx.html", text: "Open the worked ingress-nginx YAML walkthrough", after: " to inspect admission webhook Jobs and ClusterIP vs LoadBalancer presets" }]],
+  ["jetstack/cert-manager", [{ href: "../example-cert-manager.html", text: "Open the worked cert-manager YAML walkthrough", after: " to inspect all 40 rendered objects, startupcheck hook Jobs, and 6 CRDs" }]],
+  ["metrics-server/metrics-server", [{ href: "../example-metrics-server.html", text: "Open the worked metrics-server YAML walkthrough", after: " to inspect APIService registration and kubelet TLS flags" }]],
+  ["nvidia/gpu-operator", [
+    { href: "../example-gpu-operator.html", text: "Open the worked GPU Operator YAML walkthrough", after: " to inspect rendered DaemonSets, node-feature-discovery CRDs, and hooks" },
+    { href: "../d/docs/user/workshop-gpu-operator-upgrade-guide.html", text: "See what a gpu-operator upgrade changes", after: ", from one version to the next and for a driver change alone" },
+  ]],
+  ["prometheus-community/kube-prometheus-stack", [{ href: "../example-kube-prometheus-stack.html", text: "Open the worked kube-prometheus-stack YAML walkthrough", after: " to inspect Prometheus Operator CRDs, admission hooks, and Grafana Secrets" }]],
 ]);
 
 // The website renders only user-facing documentation: the guides and reference
@@ -3643,8 +3655,8 @@ ${bannerCss()}
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .page { max-width: 1280px; margin: 0 auto; padding: 0 20px 8px; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
-  .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: normal; }
-  .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); }
+  .agent-prompt code { background: none; padding: 0; font-size: inherit; white-space: pre-wrap; word-break: break-word; }
+  .agent-prompt { font-family: var(--mono); font-size: .86rem; line-height: 1.55; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 14px; max-width: 860px; color: var(--ink); white-space: pre-wrap; }
   .home-cmd { font-family: var(--mono); font-size: .86rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; max-width: 860px; overflow-x: auto; }
   .home-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
   .home-overview > section { min-width: 0; }
@@ -3685,16 +3697,21 @@ ${bannerCss()}
   .hero-search input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: .95rem; }
   .hero-search .btn { cursor: pointer; white-space: nowrap; font-family: var(--sans); }
   @media (max-width: 560px) { .hero-search { flex-direction: column; } }
+  .hero-picks { font-size: .9rem; color: var(--muted); margin: 12px 0 0; }
+  .hero-picks a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
   .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
   /* The hero says one thing and offers three verbs. The four explainer
      paragraphs that used to fill the column beside the terminal now live as
      cards under "What is the Workshop?" below, one idea per card, so the top
      of the page scans instead of reads. */
-  .what-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 4px 0 14px; }
+  .what-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
+  @media (max-width: 760px) { .what-cards { grid-template-columns: 1fr; } }
   .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: none; }
   .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 700; }
-  .what-card p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .what-card p { margin: 0 0 8px; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .what-card p:last-child { margin-bottom: 0; }
+  .what-card a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
   .what-links { font-size: .9rem; color: var(--muted); margin: 0; }
   /* One-glance strip of every format and pattern the catalog supports, linking
      into the Catalog's formats panel. So the home says "not Helm-only" up top. */
@@ -4068,36 +4085,37 @@ ${homeJourneyLinks()}
         <div class="hero-head">
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>Configuration catalog for Agents and Kubernetes</h1>
-          <p class="lead">ConfigHub Workshop gives agents, and the people working with them, a catalog of tested configuration as data, tools to act on it, and a ConfigHub on-ramp.</p>
-          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Find a chart, such as gpu-operator"><button class="btn primary" type="submit">Search the Catalog</button></form>
+          <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
+          <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Start with your own chart or app. Use <code>cub</code> directly or ask your agent to inspect the rendered configuration, compare changes and run checks. Local checks need no account.</p>
+            <p class="lead">Start with your own chart, app, or GPU recipe. Check rendered objects in your browser, run <code>cub</code> (our open-source CLI) and its plugins locally, or hand the task to Claude Code or Codex. Local checks need no account.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
+              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
             <p>Using Claude Code or Codex on an app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a>. The next chat can tell you why it changed.</p>
-            <p>When your team needs to keep and share the result, ConfigHub adds version history, approvals and releases. Argo CD or Flux still delivers it using your existing setup.</p>
+            <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
+              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
             </div>
           </div>
           <div class="hero-term">
           <div class="term" aria-label="Check a config free, check a platform free, then release by digest with an account">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub open source, or upload to ConfigHub Server</span></div>
-            <pre class="term-body"><code><span class="cmt"># what will this chart install?</span>
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">use cub + plugins open source, or publish via ConfigHub + OCI</span></div>
+            <pre class="term-body"><code><span class="cmt"># 1. what will this chart actually install? (local, no account)</span>
 <span class="pr">$</span> cub config check redis
 14 objects: 3 ConfigMap, 1 NetworkPolicy, 2 PodDisruptionBudget,
 1 Secret, 3 Service, 2 ServiceAccount, 2 StatefulSet
 
-<span class="cmt"># give a whole stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
+<span class="cmt"># 2. check a ready-to-run stack: <a href="./eks-inference.html">an EKS GPU inference platform</a></span>
 <span class="pr">$</span> cub stack sandbox eks-inference
-=> <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
+=&gt; <span class="verdict">CHECKED</span>  130 objects, no conflicts across 8 components
 
-<span class="cmt"># Use ConfigHub to store, place and publish default redis config</span>
+<span class="cmt"># 3. load as a ConfigHub base, create a prod variant, publish OCI</span>
 <span class="pr">$</span> cub variant upload <span class="k">--component</span> redis <span class="k">--variant</span> base redis.yaml
 <span class="pr">$</span> cub variant create prod redis-base <span class="k">--target</span> prod/target
 <span class="pr">$</span> cub release publish redis-prod
@@ -4108,41 +4126,69 @@ ${homeJourneyLinks()}
       </header>
 
       <main>
+        <section class="section" id="popular-examples">
+          <span class="eyebrow">Three Workshop pillars · Ready to use out of the box</span>
+          <h2>Fix broken configs, unify formats, and check whole stacks</h2>
+          <p class="intro">Every example links to exact rendered Kubernetes objects on GitHub alongside copyable commands for you or your AI agent.</p>
+          <div class="what-cards">
+            <div class="what-card">
+              <h3>1. Fix broken Helm charts with AI agents</h3>
+              <p>Catch ignored <code>values.yaml</code> keys, Secrets that regenerate on reinstall, moved images, and hook or CRD ordering traps across 124 pre-rendered charts.</p>
+              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values check</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./guides.html#guides-helm-questions">Helm guides</a></p>
+            </div>
+            <div class="what-card">
+              <h3>2. Unify Helm, NVIDIA AICR, and YAML via OCI</h3>
+              <p>Flatten established Helm and Kustomize files alongside NVIDIA AI Cluster Runtime (AICR) GPU recipes and Timoni modules into explicit YAML in OCI bundles.</p>
+              <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> · <a href="./try-aicr.html">NVIDIA AICR guide</a> · <a href="./oci.html">OCI bundles</a></p>
+            </div>
+            <div class="what-card">
+              <h3>3. Check ready-to-run stacks and GitOps</h3>
+              <p>Test 12 multi-component stacks (such as ingress, cert-manager, Prometheus, or EKS GPU inference) for CRD and namespace collisions before Argo CD or Flux deploys.</p>
+              <p><a href="./stack.html">12 ready-to-run stacks</a> · <a href="./apps.html#before-and-after">Before &amp; after apps</a> · <a href="./deploy-with-flux-or-argo.html">Flux &amp; Argo CD</a></p>
+            </div>
+            <div class="what-card">
+              <h3>4. Try cub tools and plugins out of the box</h3>
+              <p>Run <code>cub config check</code>, <code>cub config diff</code>, <code>cub stack check</code>, and ${sectionCount("plugins")} open-source plugins in a 10-minute laptop walkthrough with no cluster or account.</p>
+              <p><a href="./try.html">10-minute CLI tutorial</a> · <a href="./plugins.html">${sectionCount("plugins")} cub plugins</a> · <a href="./ask.html">Browser YAML check</a></p>
+            </div>
+          </div>
+        </section>
         <section class="section" id="give-it-to-your-agent">
-          <span class="eyebrow">For your agent</span>
-          <h2>Prompt Claude or Codex to get started</h2>
-          <p class="intro">Paste this into Claude Code, Codex, or any agent that can run a shell.</p>
+          <span class="eyebrow">For your AI agent</span>
+          <h2>Give Claude Code or Codex the Catalog and cub tools</h2>
+          <p class="intro">Paste this one-line setup prompt into Claude Code, Codex, or any shell-capable agent so it queries compact Catalog JSON records and runs deterministic <code>cub</code> checks.</p>
           <p class="agent-prompt"><code class="prompt-text">${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code>${copyPromptButton()}</p>
-          <p class="intro">Or install the skill in your project. <a href="./ai.html">Use with your AI</a> has the fuller prompt.</p>
-          ${agentNote(`Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
-          <pre class="home-cmd"><code>npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code></pre>
-          <p class="install-cub-note">New to <code>cub</code> and ConfigHub? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public catalog uses OCI and standard config formats. You don’t need to sign up until you want to save changes in ConfigHub</p>
+          <p class="intro">Or install the Workshop skill directly in your repository. <a href="./ai.html">Use with your AI</a> covers full agent workflows.</p>
+          ${agentNote(` Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
+          <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code>${copyPromptButton()}</pre>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the open-source cub CLI</a> first. Public OCI bundles and local checks need no account, and you sign in only when storing bases or variants in ConfigHub.</p>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
+          <p class="intro">Every section states plainly what has been rendered and statically checked versus what has not run on a live cluster.</p>
           <ul class="home-sections">
-            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations. ${sectionCount("configs") - aicrRenderedOnlyCount - nimServiceVariantCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are AICR recipes rendered as Argo CD Applications, and they have not been published or run.${nimServiceCountSentence()}</li>
-            <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} stacks, sets of configs checked together before anything runs.</li>
-            <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps, plain or delivered by Argo CD, Flux or a generator.</li>
-            <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} cub plugins, each marked by its state.</li>
-            <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} known paths an agent walks with you, the five journeys first.</li>
-            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust it, and every reference.</li>
+            <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations across Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, OCI, and YAML. ${sectionCount("configs") - aicrRenderedOnlyCount - nimServiceVariantCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run.${nimServiceCountSentence()}</li>
+            <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} ready-to-run stacks checked together for CRD, namespace, and RBAC conflicts before anything runs.</li>
+            <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps showing configuration as data across Helm, Kustomize, Argo CD, and Flux.</li>
+            <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} open-source <code>cub</code> CLI plugins for Helm, scanning, cluster checks, Argo CD, and Flux, each marked by its state.</li>
+            <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} step-by-step Guides an agent walks with you across Helm, NVIDIA AICR, OCI, promotions, and fleets.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust each recorded check, and the complete reference index.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <p class="intro">The Catalog supplies configurations and evidence. Workshop combines it with Guides and tools. <code>cub</code> is the command-line interface that you and your agent use. ConfigHub Server keeps shared configuration and manages its releases. You can run local checks without a ConfigHub account. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
-          <p class="intro">Other catalogs give you charts. We give your agents the rendered objects, digests and recorded checks to assess them before use.</p>
-          <p class="intro">Configuration as data starts with flattened, explicit objects you can inspect and compare. OCI is a shared transport for this configuration. Each entry records its source-specific processing and checks, including whether flattening is supported. Install decides which objects exist, and customise changes a copy for one place. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
+          <p class="intro">Other catalogs give you charts. ConfigHub Workshop gives you and your agents pre-rendered Kubernetes objects, digests, recorded checks, Guides, and <code>cub</code> plugins to solve config problems out of the box. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">Configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into explicit Kubernetes objects. OCI is a shared transport for this configuration, and each entry records its source-specific processing and checks.</p>
+          <p class="intro">You can run local checks without a ConfigHub account. Loading an OCI bundle into <a href="./confighub.html">ConfigHub Server</a> creates a shared base (developer intent), lets operators customize environment variants, and publishes releases for Argo CD or Flux. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
         </section>
         </div>
       </main>
 
       <footer class="foot">
-        <p class="sub">Every result links to the command, receipt, or known gap behind it. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
+        <p class="sub">Every check result on this site links to the exact input files, CLI command, and recorded output behind it, and states its limits plainly. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
       </footer>
     </div>
   </div>
@@ -5806,11 +5852,26 @@ function deepDetailsCss() {
 `;
 }
 
+function cleanStackSummary(id, summary) {
+  const overrides = {
+    "app-platform": "A web application platform combining PostgreSQL, Redis, ingress-nginx, cert-manager, and Prometheus monitoring.",
+    "eks-inference": "An eight-part Amazon EKS GPU inference stack spanning cloud networking, Karpenter autoscaling, GPU Operator, and inference workloads.",
+    "gpu-node": "Composes NVIDIA GPU Operator, NVSentinel, and cluster-readiness-engine from published OCI bundles; checks manifests offline without needing GPU hardware.",
+    "kubara-gitops-shop": "Combines Kubara (an open-source Kubernetes platform generator) add-ons with Argo CD and the shop-web sample app for offline conflict checks.",
+    "kubara-platform": "A lightweight ingress and TLS base (cert-manager, Traefik, metrics-server) compatible with the open-source Kubara platform generator.",
+    "kubara-shop-platform": "Extends kubara-platform with External Secrets and the shop-web sample app, matching Traefik IngressClass and Secret references offline.",
+    "redis-platform": "Combines Redis caching, External Secrets, and kube-prometheus-stack monitoring as one checked bundle.",
+    "shop-platform": "Combines cert-manager, ingress-nginx, Prometheus monitoring, RabbitMQ, and the shop-web sample app to verify app-to-cluster compatibility.",
+    "web-platform": "Core ingress, TLS, and monitoring services (cert-manager, ingress-nginx, kube-prometheus-stack) for standard web workloads.",
+  };
+  return overrides[id] ?? summary;
+}
+
 function stackHtml() {
   const rows = sectionRows("stacks").map((row) => [
-    `<a href="${escapeHtml(row.source)}">${escapeHtml(row.name)}</a><br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
-    escapeHtml(row.summary) + (row.id === "eks-inference" ? ` <a href="./eks-inference.html">See its eight parts and check it on your laptop</a>.` : ""),
-    `${row.parts.map((part) => escapeHtml(part)).join(", ")}. ${row.checked ? "Every part has a receipt." : "Not every part has a receipt."}`,
+    `<strong>${escapeHtml(row.name)}</strong> · <a href="${escapeHtml(row.source)}">Read stack.yaml</a> <br><code style="white-space:nowrap">${escapeHtml(row.next.command)}</code>`,
+    escapeHtml(cleanStackSummary(row.id, row.summary)) + (row.id === "eks-inference" ? ` <a href="./eks-inference.html">See its eight parts and check it on your laptop</a>.` : ""),
+    row.parts.map((part) => escapeHtml(part)).join(", "),
   ]);
   return `<!doctype html>
 <html lang="en">
@@ -5824,16 +5885,41 @@ function stackHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Stacks</h1>
-    <p class="lead">Your cluster needs several things at once, such as ingress, certificates and monitoring, and they have to fit together. A stack names them in one file and checks they don't conflict before anything renders. A platform is what a stack becomes once it runs under governance with your apps on it.</p>
-    <p>The largest stack is a whole platform for GPU inference on Amazon EKS. <a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a> shows its eight parts and checks it in one command.</p>
-    <p><a href="./compose-a-stack.html">Compose and check a stack</a> shows how, step by step. To build your own from Catalog entries, follow ${STACK_FROM_CATALOG_GUIDE_LINK}, which composes three NVIDIA GPU entries.</p>
-    ${agentNote(`Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
+    <p class="boundary-chip">Ready-to-run out of the box · Check with cub or your AI agent · Deliver via OCI &amp; GitOps</p>
+    <p class="lead">When you install ingress, cert-manager, Prometheus, GPU operators, and your own charts together, single-chart linters miss cross-component collisions. A <code>stack.yaml</code> file composes components across Helm, NVIDIA AI Cluster Runtime (AICR), Kubara, and YAML, checking duplicate CRDs, namespaces, RBAC, and IngressClasses offline before anything runs. Once deployed under governance with your apps on it, a stack becomes a platform.</p>
+    <p>Inspect any shipped <code>stack.yaml</code> on GitHub with zero install, or run <code>cub stack sandbox</code> and <code>cub stack check</code> locally or from your AI agent with no account.</p>
+    <p><a href="./compose-a-stack.html#own-app">Check your own Helm YAML against a stack</a> · <a href="./eks-inference.html">Inspect the 8-part EKS GPU inference stack</a> · <a href="./compose-a-stack.html">Compose and check a stack</a> · ${STACK_FROM_CATALOG_GUIDE_LINK}</p>
+    ${agentNote(` Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
   <main>
+    <section aria-labelledby="stack-example">
+      <h2 id="stack-example">How a stack combines Catalog OCI bundles with your own YAML</h2>
+      <p>Mix your own rendered <code>helm template</code> output (<code>authored:</code>) with SHA-256 pinned Catalog bundles, check cross-component wiring locally, and deliver via OCI to Argo CD, Flux, or <code>kubectl</code>:</p>
+      <pre class="ex-out"><code># stack.yaml: mix local helm template output with shared cluster add-ons
+apiVersion: workshop.confighub.com/v1alpha1
+kind: Stack
+metadata:
+  name: my-web-platform
+spec:
+  components:
+    - name: cert-manager
+      bundle: oci://.../catalog-jetstack-cert-manager-v1-21-1-default@sha256:...
+    - name: ingress-nginx
+      bundle: oci://.../catalog-ingress-nginx-ingress-nginx-4-15-1-default@sha256:...
+    - name: my-service
+      authored: ./rendered/my-helm-service.yaml   # any local helm template / kustomize YAML
+
+# Offline check output (cub stack check ./stack.yaml):
+  [PASS] 0 duplicate resource identities across 3 components
+  [PASS] CRDs ordered before custom resources (Certificate)
+  [PASS] IngressClass "nginx" required by my-service is provided by ingress-nginx
+  =&gt; CHECKED (export plain YAML for Argo CD, Flux, or kubectl)</code></pre>
+    </section>
     <section aria-labelledby="what-a-stack-is">
       <h2 id="what-a-stack-is">Every shipped stack</h2>
-      ${markdownLikeTable([["Stack, and the command to try it", "What it builds", "Parts"], ...rows], { rawColumns: [0, 1, 2], firstColumnWidthCh: 30 })}
-      <p>The stacks made to be refused, to show the check, are in <a href="./compose-a-stack.html#stack-checks">the Guide</a>.</p>
+      <p>Click <strong>Read stack.yaml</strong> in any row to inspect its exact manifest on GitHub with zero install, or copy its local check command.</p>
+      ${markdownLikeTable([["Stack and local check command", "What it combines", "Components"], ...rows], { rawColumns: [0, 1, 2], firstColumnWidthCh: 32 })}
+      <p>Want to see what a failed check catches? Open the intentional conflict examples in <a href="./compose-a-stack.html#stack-checks">Compose and check a stack</a>.</p>
     </section>
   </main>
 </body>
@@ -7812,8 +7898,8 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Guides</h1>
-    <p class="lead">Pick a problem or a tool you already use. Follow the steps yourself or with your AI agent, and finish with a result you can inspect.</p>
-
+    <p class="boundary-chip">Run yourself or with your AI agent · Covers Helm, NVIDIA AICR, OCI, and GitOps</p>
+    <p class="lead">Follow step-by-step Guides yourself or with Claude Code and Codex to fix broken Helm charts, use configuration as data across formats, and promote releases. Guides span established Helm and YAML workflows alongside NVIDIA AI Cluster Runtime (AICR), Timoni, and Kubara. For concepts and schemas, open <a href="./docs.html">Docs</a>.</p>
   </header>
   <main class="guide-directory">
 ${sections}
@@ -8021,7 +8107,8 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs</h1>
-    <p class="lead">Read how the Catalog and ConfigHub work, in plain words. To get something done, a Guide is quicker, and each Catalog entry has its own page.</p>
+    <p class="boundary-chip">Configuration-as-data model, OCI delivery, check rules, and reference index</p>
+    <p class="lead">Read how configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into OCI bundles, ConfigHub bases and variants, and GitOps releases. For step-by-step tasks you or your agent can run, open <a href="./guides.html">Guides</a>, or browse <a href="./charts/index.html">Configs</a>.</p>
   </header>
   <main>
 
@@ -10416,10 +10503,11 @@ function appsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Apps</h1>
-    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
-    <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
-    ${agentNote(`Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
+    <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
+    <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
+    <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
+    ${agentNote(` Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
   <main>
     ${beforeAfterGalleryHtml(escapeHtml)}
@@ -11766,6 +11854,22 @@ function verifyRetainedCatalogConfigurations(row) {
   );
 }
 
+function catalogIndexWorkedExample(chart) {
+  switch (chart) {
+    case "argo-cd/argo-cd": return "../example-argo-cd.html";
+    case "bitnami/postgresql": return "../example-postgresql.html";
+    case "bitnami/redis": return "../example-redis.html";
+    case "external-secrets/external-secrets": return "../example-external-secrets.html";
+    case "gatekeeper/gatekeeper": return "../example-gatekeeper.html";
+    case "ingress-nginx/ingress-nginx": return "../example-ingress-nginx.html";
+    case "jetstack/cert-manager": return "../example-cert-manager.html";
+    case "metrics-server/metrics-server": return "../example-metrics-server.html";
+    case "nvidia/gpu-operator": return "../example-gpu-operator.html";
+    case "prometheus-community/kube-prometheus-stack": return "../example-kube-prometheus-stack.html";
+    default: return "";
+  }
+}
+
 function retainedCatalogVersionCell(catalog, entry) {
   const rows = retainedInstallerRows(catalog, entry.chart);
   check(rows.length > 0, `${entry.chart}: retained installer package inventory is empty`);
@@ -11786,11 +11890,16 @@ function retainedCatalogVersionCell(catalog, entry) {
       String(row.bases ?? "").split(";"),
       row.default_base,
     );
-    const listingLink = listingPath
-      ? ` <a data-catalog-listing="${escapeHtml(identity)}" href="../../${escapeHtml(listingPath)}" rel="noopener" style="font-size:.8rem">record</a>`
+    const listingId = listingPath ? listingPath.replace(/^site\/listings\/|\.json$/g, "") : "";
+    const objectsHref = listingId ? (listingFacts(listingId)?.objectsUrl ?? "") : "";
+    const yamlLink = objectsHref
+      ? ` · <a href="${escapeHtml(objectsHref)}" rel="noopener" style="font-size:.8rem">YAML</a>`
       : "";
-    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a> <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">receipt</a>${listingLink}</span>`;
-  }).join("<br>");
+    const listingLink = listingPath
+      ? ` · <a data-catalog-listing="${escapeHtml(identity)}" href="../../${escapeHtml(listingPath)}" rel="noopener" style="font-size:.8rem">JSON</a>`
+      : "";
+    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a>${yamlLink} · <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">OCI digest</a>${listingLink}</span>`;
+  }).join(" <br>");
 }
 
 // The configuration names are the most useful strings on the row and used to be
@@ -11812,13 +11921,13 @@ function retainedCatalogConfigurationsCell(catalog, entry) {
     // Each retained version opens its own page's options.
     const page = chartOptionsHref(catalog, row);
     const configurations = String(row.bases ?? "").split(";").filter(Boolean);
-    const label = configurations.length === 1 ? "configuration" : "configurations";
+    const label = configurations.length === 1 ? "preset" : "presets";
     const identity = `${row.chart}@${row.version}`;
     const links = configurations
       .map((name) => `<a href="${page}">${escapeHtml(name)}</a>`)
       .join(", ");
-    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
-  }).join("<br>");
+    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${links} <br><span style="color:var(--muted);font-size:.85rem">${configurations.length} rendered ${label}</span></span>`;
+  }).join(" <br>");
 }
 
 // Whether a configuration survives being shipped as plain rendered YAML is the
@@ -11848,11 +11957,22 @@ function flatteningVerdictCell(catalog, entry) {
   );
   const decided = String(row?.decided_lanes || "").trim();
   if (!decided) return `<span data-flattening="undecided" style="color:var(--muted)">No verdict yet. Undecided is not the same as safe.</span>`;
+  const plainVerdictLabels = {
+    "born-flattened": "Plain Kubernetes YAML",
+    "safe-to-flatten": "Applies directly as YAML",
+    "flatten-with-routes": "YAML + ordered CRD/Secret setup",
+    "unsafe-to-flatten": "Requires Helm at install time",
+  };
   const parts = decided.split(";").map((part) => part.trim()).filter(Boolean);
   const lines = parts.map((part) => {
     const [base, verdict] = part.split(":").map((piece) => (piece || "").trim());
-    return `${escapeHtml(base)}: <strong>${verdictLinkHtml(verdict, "../")}</strong>`;
-  }).join("<br>");
+    const plain = plainVerdictLabels[verdict];
+    const gloss = VERDICT_GLOSS[verdict];
+    const link = plain && gloss
+      ? `<a href="../config.html#verdict-${escapeHtml(verdict)}" title="${escapeHtml(`${gloss} (${verdict})`)}">${escapeHtml(plain)}</a>`
+      : verdictLinkHtml(verdict, "../");
+    return `${escapeHtml(base)}: <strong>${link}</strong>`;
+  }).join(" <br>");
   return `<span data-flattening="decided">${lines}</span>`;
 }
 
@@ -11890,15 +12010,17 @@ function installerPackageSignatureHtml({ status, command, receipt, bundle }) {
 function firstPathCell(catalog, entry, row) {
   const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
   const page = chartOptionsHref(catalog, entry);
-  let note = "Open the chart page for the command and option cards.";
-  if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
-  else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
+  let note = "Open chart page for rendered YAML and checks.";
+  if (row?.row_kind === "candidate") note = "Candidate preset; inspect base first.";
+  else if (row?.row_kind === "derived") note = "Derived environment preset; start from base.";
   else if (row?.row_kind === "base") {
     note = entry.proof_surface === "top20-catalog-supported"
-      ? "Recommended configuration to try first."
-      : "Available configuration. Read the chart page before use.";
+      ? "Recommended preset with local cluster proof."
+      : "Pre-rendered preset; open chart page for YAML.";
   }
-  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
+  const workedHref = catalogIndexWorkedExample(entry.chart);
+  const workedLink = workedHref ? ` <br><a href="${escapeHtml(workedHref)}" style="font-size:.85rem">Worked YAML walkthrough</a>` : "";
+  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a> <br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>${workedLink}`;
 }
 
 function catalogReadiness(entry, row) {
@@ -11906,14 +12028,14 @@ function catalogReadiness(entry, row) {
     return {
       id: "package-published-review-before-use",
       label: "Package published; review before use",
-      detail: "This exact package is published. Its runtime checks are not complete.",
+      detail: "Published OCI bundle and rendered YAML; live cluster apply not run here.",
     };
   }
   if (row?.row_kind === "candidate") {
     return {
       id: "not-ready-yet",
       label: "Not ready yet",
-      detail: "This is a planned configuration, not a runnable package.",
+      detail: "Planned preset, not yet packaged.",
     };
   }
   // The Bitnami fetch receipt outranks the lanes here: a chart whose default
@@ -11924,68 +12046,66 @@ function catalogReadiness(entry, row) {
       id: "review-before-use",
       label: "Review before use",
       detail: movedImage.legacy
-        ? "Its default image no longer pulls, and the Catalog bases pin a bitnamilegacy copy instead."
-        : "Its default image no longer pulls. Read the chart page before use.",
+        ? "Upstream default image moved; Catalog presets pin a working bitnamilegacy digest."
+        : "Upstream default image no longer pulls; check image overrides on chart page.",
     };
   }
   if (entry.proof_surface === "top20-catalog-supported") {
     return {
       id: "ready-to-try",
       label: "Ready to try",
-      detail: "This is one of the strongest public starting points.",
+      detail: "Rendered YAML, static checks, and local cluster apply verified.",
     };
   }
   if (entry.proof_surface === "next80-proof-grade") {
     return {
       id: "review-before-use",
       label: "Review before use",
-      detail: "Checks exist, but this chart still needs chart-specific review.",
+      detail: "Rendered YAML and static checks verified; check CRDs, hooks, and Secrets for your cluster.",
     };
   }
   return {
     id: "not-ready-yet",
     label: "Not ready yet",
-    detail: "Open the chart page to see what remains.",
+    detail: "Open chart page to see remaining checks.",
   };
 }
 
 function catalogUseCell(entry, row) {
   const readiness = catalogReadiness(entry, row);
-  return `<strong>${escapeHtml(readiness.label)}</strong><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(readiness.detail)}</span>`;
+  return `<strong>${escapeHtml(readiness.label)}</strong> <br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(readiness.detail)}</span>`;
 }
 
 function featurePlain(feature) {
   const labels = {
-    capabilities: "Kubernetes API capabilities",
-    "cluster-rbac": "cluster RBAC",
-    crds: "CRDs",
-    "generated-facts": "generated facts",
-    hook: "hooks",
-    hooks: "hooks",
-    lookup: "Helm lookup",
-    "stateful-storage": "stateful storage",
-    tpl: "tpl templates",
-    webhooks: "webhooks",
+    capabilities: "Checks cluster API versions",
+    "cluster-rbac": "ClusterRole / cluster RBAC",
+    crds: "Includes CRDs",
+    "generated-facts": "Generates Secrets/certs on render",
+    hook: "Helm lifecycle hooks",
+    hooks: "Helm lifecycle hooks",
+    lookup: "Helm lookup() live cluster query",
+    "stateful-storage": "PersistentVolumeClaims",
+    tpl: "Dynamic tpl values",
+    webhooks: "Admission webhooks",
   };
   return labels[feature] ?? humanizeReasonToken(feature);
 }
 
-function watchFirstCell(entry, rows, row) {
+function watchFirstCell(entry, rows, row, signals = {}) {
   if (entry.proof_surface === "retained-publication-only") {
-    return "Publication is verified; target prerequisites and runtime behavior still require review.";
+    return "Signed OCI bundle published; verify cluster prerequisites before applying.";
   }
   const notes = [];
   const features = splitSemicolonList(entry.source_features).map(featurePlain).slice(0, 4);
-  const hasHookSignal = rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
-  const hasCrdSignal = rows.some((candidate) => /crd/i.test(candidate.quirk_features || "") || /crd/i.test(candidate.next_action || ""));
-  if (features.length) notes.push(features.join(", "));
-  if (hasHookSignal && !features.some((feature) => /hook/i.test(feature))) notes.push("hooks or lifecycle actions");
-  if (hasCrdSignal && !features.some((feature) => /CRD/.test(feature))) notes.push("CRDs");
-  const rawReason = cleanPageActionText(row?.hard_gap || row?.active_proof_reason || "");
-  const reason = humanizeReasonList(rawReason);
-  if (reason && !isCatalogOverviewNoise(reason)) notes.push(reason);
-  if (!notes.length) return "No special caveat shown in the catalog row.";
-  return escapeHtml(notes.slice(0, 3).join("; "));
+  const hasHookSignal = Boolean(signals.hasHooks) || rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
+  const hasCrdSignal = Boolean(signals.hasCrds) || rows.some((candidate) => /crd/i.test(candidate.quirk_features || "") || /crd/i.test(candidate.next_action || ""));
+  if (features.length) notes.push(...features);
+  if (hasHookSignal && !notes.some((feature) => /hook/i.test(feature))) notes.push("Helm lifecycle hooks");
+  if (hasCrdSignal && !notes.some((feature) => /CRD/i.test(feature))) notes.push("Includes CRDs");
+  if (!notes.length && signals.hasOrderedSetup) return "Requires ordered Secret or prerequisite setup before applying YAML.";
+  if (!notes.length) return "Standard Kubernetes objects; no Helm hooks or CRDs flagged.";
+  return escapeHtml([...new Set(notes)].slice(0, 4).join(" · "));
 }
 
 function isCatalogOverviewNoise(value) {
@@ -12022,7 +12142,7 @@ function chartIndexHtml(catalog) {
   const aicrEntryCount = aicrCatalogEntries().length;
   const catalogFormats = [
     ["Helm chart", "helm-chart", catalog.catalogComponents.length],
-    ["AICR platform", "ai-platform", aicrEntryCount],
+    ["NVIDIA AICR (AI Cluster Runtime)", "ai-platform", aicrEntryCount],
     ["Timoni module", "timoni", 1],
     ["Configuration OCI", "configuration-oci", 1],
     ["Kubernetes YAML", "kubernetes-yaml", 1 + (nimServiceVariantCount > 0 ? 1 : 0)],
@@ -12062,24 +12182,25 @@ function chartIndexHtml(catalog) {
         /hook/i.test(entry.not_yet_enabled || "") ||
         matrixRows.some((row) => Number(row.hook_count || 0) > 0 || String(row.lifecycle_route_contract || "n/a") !== "n/a");
       const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants) || matrixRows.some((row) => /crd/i.test(row.quirk_features || ""));
+      const hasOrderedSetup = /flatten-with-routes/.test(flatteningVerdictSearchText(catalog, entry));
       const evidenceSurface = entry.proof_surface === "retained-publication-only" ? "publication-only" : "readiness-evidence";
       const succession = catalog.chartSuccessions?.get(entry.chart);
       const successorRole = catalog.chartSuccessorOf?.get(entry.chart);
       let successionNote = "";
       if (succession?.successors?.length) {
         const links = succession.successors.map((successor) => `<a href="${componentPageHref(catalog, successor.chart)}">${escapeHtml(successor.chart)}</a>`).join(" · ");
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successors recorded: ${links}</span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successors recorded: ${links}</span>`;
       } else if (succession?.planned?.length) {
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor picked, not yet a catalog entry</span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successor picked, not yet a catalog entry</span>`;
       } else if (successorRole) {
-        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
+        successionNote = ` <br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
       }
       return `<tr data-chart-row data-kind="helm-chart" data-evidence-surface="${evidenceSurface}" data-readiness="${escapeHtml(readiness.id)}" data-category="${escapeHtml(category.id)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
-        <td><a data-chart-page-link="${escapeHtml(entry.chart)}" href="./${chartOverviewFileName(entry.chart)}">${escapeHtml(entry.chart)}</a><br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
+        <td><a data-chart-page-link="${escapeHtml(entry.chart)}" href="./${chartOverviewFileName(entry.chart)}">${escapeHtml(entry.chart)}</a> <br><span style="color:var(--muted);font-size:.85rem">${escapeHtml(category.label)}</span>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(catalog, entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
-        <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
+        <td>${watchFirstCell(entry, matrixRows, firstRow, { hasHooks, hasCrds, hasOrderedSetup })}</td>
         <td>${flatteningVerdictCell(catalog, entry)}</td>
         <td>${retainedCatalogConfigurationsCell(catalog, entry)}</td>
       </tr>`;
@@ -12248,29 +12369,32 @@ function aicrCatalogRows() {
       </tr>`,
   ].join("\n");
   const catalogSearchBlock = `<div class="card">
-        <label for="chart-filter"><strong>Search the catalog</strong></label>
-        <input id="chart-filter" type="search" placeholder="component, version, format, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <label for="chart-filter"><strong>Search configurations across Helm, NVIDIA AICR, Timoni, OCI, and YAML</strong></label>
+        <input id="chart-filter" type="search" placeholder="Search component, format, preset, or trait, e.g. cert-manager, gpu-operator, eks-h100, timoni, crd..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Format<br><select id="format-filter"><option value="">All formats</option>${catalogFormats.map(([label, kind, n]) => `<option value="${kind}">${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
-          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="ready-to-try">Ready to try</option><option value="review-before-use">Review before use</option><option value="package-published-review-before-use">Package published; review before use</option><option value="not-ready-yet">Not ready yet</option></select></label>
-          <label>Workload category<br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}">${escapeHtml(category.label)}</option>`).join("")}</select></label>
-          <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
-          <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
-          <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
+          <label>Format <br><select id="format-filter"><option value="">All formats</option>${catalogFormats.filter(([kindLabel]) => kindLabel === "Helm chart").concat(catalogFormats.filter(([kindLabel]) => kindLabel !== "Helm chart")).map(([label, kind, n]) => `<option value="${kind}"> · ${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
+          <label>Readiness <br><select id="level-filter"><option value="">All</option><option value="ready-to-try"> · Ready to try</option><option value="review-before-use"> · Review before use</option><option value="package-published-review-before-use"> · Package published; review before use</option><option value="not-ready-yet"> · Not ready yet</option></select></label>
+          <label>Workload category <br><select id="category-filter"><option value="">All</option>${CATALOG_COMPONENT_CATEGORIES.map((category) => `<option value="${escapeHtml(category.id)}"> · ${escapeHtml(category.label)}</option>`).join("")}</select></label>
+          <label>First configuration (preset) <br><select id="status-filter"><option value="">All</option><option value="start-here"> · Verified local apply</option><option value="render-only"> · Pre-rendered YAML</option><option value="see chart page"> · See chart page</option></select></label>
+          <label>Hooks <br><select id="hook-filter"><option value="">All</option><option value="yes"> · Uses Helm hooks</option><option value="no"> · No Helm hooks</option></select></label>
+          <label>CRDs <br><select id="crd-filter"><option value="">All</option><option value="yes"> · Includes CRDs</option><option value="no"> · No CRDs</option></select></label>
         </div>
-        <p>Each row gives a flattening verdict, such as <code>flatten-with-routes</code>. <a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">What the flattening verdict means</a> explains each one and what you do with it.</p>
-        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Review before use</strong> entries have checks but need more chart-specific review. <strong>Package published; review before use</strong> confirms the exact package is available but does not claim that its runtime checks are complete. <strong>Not ready yet</strong> marks a planned path that is not runnable.</p>
+        <p style="margin:12px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
+        <ul style="margin:0 0 10px; padding-left:20px">
+          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
+          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
+          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
+        </ul>
+        <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
-        <p>Chart not listed here? Any public chart still renders locally with no account: <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>. <a href="../ask.html">Check one question about the result</a>, then choose whether to report a public finding for Catalog review.</p>
-        <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry.</p>
       </div>
       <div id="format-intro">
         <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> <a href="../config.html">Read more about Helm in the Catalog here</a>. Each chart was flattened once into plain Kubernetes objects, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through every step. <a href="index.html">Show every format</a>.</p>
-        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AICR and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five choices into one recipe for a GPU cluster, and each recipe is kept in the Catalog as Argo CD Applications. For a whole GPU inference platform on Amazon EKS, <a href="../eks-inference.html">try the EKS GPU inference platform on your laptop</a>. <a href="index.html">Show every format</a>.</p>
+        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AI Cluster Runtime (AICR) and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five GPU cluster choices (service, accelerator, OS, workload, and platform) into one recipe kept as Argo CD Applications. For a whole GPU inference platform on Amazon EKS, <a href="../eks-inference.html">try the EKS GPU inference stack on your laptop</a>. <a href="index.html">Show every format</a>.</p>
       </div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
+        <thead><tr><th>Component &amp; format</th><th>Versions, YAML &amp; OCI</th><th>Recommended preset</th><th>Verification depth</th><th>Detected K8s traits</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
 ${nonHelmCatalogRowsHtml}
@@ -12385,51 +12509,49 @@ ${nonHelmCatalogRowsHtml}
   <header>
     ${topNav("..")}
     <h1>Configs</h1>
-  <p class="boundary-chip">Runs on your laptop</p>
-    <p class="lead">This catalog is the store of tested Kubernetes configurations and the case for trusting them. Every published entry is an image of the exact objects, checked, with a receipt. An entry that is not published says so.</p>
-    <p class="format-doors"><strong>Find out more and learn how each format works:</strong> <a href="../config.html">Helm</a>, <a href="../try-aicr.html">NVIDIA AICR</a>, <a href="../try.html">cub installer</a>, <a href="../bring-kubara-into-confighub.html">Kubara</a>, <a href="../bring-sveltos-into-confighub.html">Sveltos</a>, <a href="../oci.html">OCI</a>, and <a href="../formats.html">every other format</a>. <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> is the same for all of them. <a href="../apps.html#before-and-after">See a Helm chart, Kustomize overlays, an Argo CD app and a Flux fleet before and after</a>.</p>
-     ${commandBlock([
-       { comment: "what it installs, and what it hides", cmd: "cub config check redis" },
-       { comment: "push it as a verified image", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
-       { comment: "prove the bytes match the receipt", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
-     ], { title: "run it", label: "Run it: check and verify a catalog image" })}
-     <p class="caption">The plugin lives at <a href="https://github.com/confighub/cub-workshop">github.com/confighub/cub-workshop</a>, and it takes one install with no account.</p>
-
-     <p><strong>You want a configuration, at a version.</strong> Every entry follows one model, and <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a> explains it in three steps. First see <a href="../proof.html#trust">why you can trust an entry</a>, then search the catalog and open one to read its package, configurations, and evidence.</p>
-     <div class="support-panel" aria-label="Formats and patterns we support">
-       <p class="support-lead"><strong>Every format and pattern we support.</strong> Bring one of these formats as config-as-data, or compose and deliver it with these patterns.</p>
-       <p class="support-group">Bring any format</p>
-       <div class="support-chips">
-         <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
-         <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
-         <a href="index.html?format=timoni">Timoni <b>1</b></a>
-         <a href="../bring-kubara-into-confighub.html">Kubara</a>
-         <a href="../config.html#formats">Sveltos fleets</a>
-         <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
-         <a href="index.html?format=kubernetes-yaml">Plain YAML <b>${1 + (nimServiceVariantCount > 0 ? 1 : 0)}</b></a>
-       </div>
-       <p class="support-group">Compose and deliver</p>
-       <div class="support-chips">
-         <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
-         <a href="../stack.html">Stacks &amp; fleets</a>
-         <a href="../oci.html">OCI shapes</a>
-       </div>
-       <p><a href="../formats.html"><strong>Browse every non-Helm entry, grouped by format, with a link to each listing record</strong></a></p>
-     </div>
+    <p class="boundary-chip">Browse rendered objects · Use with AI agents or cub · Local checks need no account</p>
+    <p class="lead">Inspect pre-rendered Kubernetes objects, OCI digests, and recorded checks across ${catalog.catalogComponents.length} Helm charts, ${aicrEntryCount} NVIDIA AI Cluster Runtime (AICR) recipes, Timoni, and YAML. Use this Catalog directly or with Claude Code and Codex to fix broken Helm values, review hooks and CRDs, and deliver through one OCI model.</p>
+    <p><strong>Try a worked entry:</strong> <a href="./jetstack-cert-manager.html">cert-manager</a> · <a href="./argo-cd-argo-cd.html">argo-cd</a> · <a href="./ingress-nginx-ingress-nginx.html">ingress-nginx</a> · <a href="./prometheus-community-kube-prometheus-stack.html">kube-prometheus-stack</a> · <a href="./nvidia-gpu-operator.html">gpu-operator</a> · <a href="./bitnami-redis.html">redis</a> · <a href="index.html?format=ai-platform">NVIDIA AICR GPU recipes</a></p>
   </header>
   <main>
 
     <section aria-labelledby="search">
       <h2 id="search">Search the catalog</h2>
-      <p>The catalog holds ${catalog.catalogComponents.length} Helm charts and non-Helm entries in one filterable table: ${aicrEntryCount} AICR entries, a Timoni module, a literal configuration OCI, and a plain Kubernetes YAML entry.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} entry is one row with ${nimServiceVariantCount} model variants, and ${nimServicePublishedClause()}.` : ""} Use the <strong>Format</strong> filter to narrow to any one, for example all ${aicrEntryCount} AICR entries; the other filters and the text search span every entry.</p>
-      ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
-      <p>Already have GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> report how their state differs without a recipe or a matching entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before deciding what should change. <a href="../try-aicr.html">Open the AICR starting paths</a>.</p>
       ${catalogSearchBlock}
     </section>
 
-
-
-
+    <section aria-labelledby="more-formats">
+      <h2 id="more-formats">Multi-format delivery, cub tools, and your own configs</h2>
+      <p>Component not listed here? Render any chart locally with no account using <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>, then <a href="../ask.html">check the rendered YAML in your browser</a> or with <code>cub config check</code>.</p>
+      <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, taking you from local YAML inspection and diffs to ConfigHub bases, variants, and OCI releases. See <a href="../proof.html#trust">how each check is verified</a> and <a href="../apps.html#before-and-after">before-and-after YAML examples</a>.</p>
+      <div class="support-panel" aria-label="Formats and patterns we support">
+        <p class="support-lead"><strong>One model across established and new formats.</strong> Alongside ${catalog.catalogComponents.length} Helm charts, this table holds ${aicrEntryCount} AICR entries (NVIDIA AI Cluster Runtime) for GPU clusters, a Timoni module, a literal configuration OCI, and plain Kubernetes YAML entries.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} row covers ${nimServiceVariantCount} NVIDIA inference manifests (${nimServicePublishedClause()}).` : ""}</p>
+        <p class="support-group">Filter by format</p>
+        <div class="support-chips">
+          <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
+          <a href="index.html?format=ai-platform">AICR &amp; NIM <b>${aicrEntryCount}</b></a>
+          <a href="index.html?format=timoni">Timoni <b>1</b></a>
+          <a href="../bring-kubara-into-confighub.html">Kubara</a>
+          <a href="../config.html#formats">Sveltos fleets</a>
+          <a href="index.html?format=configuration-oci">OCI config <b>1</b></a>
+          <a href="index.html?format=kubernetes-yaml">Plain YAML <b>${1 + (nimServiceVariantCount > 0 ? 1 : 0)}</b></a>
+        </div>
+        <p class="support-group">Compose and deliver</p>
+        <div class="support-chips">
+          <a href="../deploy-with-flux-or-argo.html">Flux / Argo CD</a>
+          <a href="../stack.html">Stacks &amp; fleets</a>
+          <a href="../oci.html">OCI shapes</a>
+          <a href="../formats.html">All non-Helm records</a>
+        </div>
+      </div>
+      ${commandBlock([
+        { comment: "inspect rendered objects and static warnings locally", cmd: "cub config check redis" },
+        { comment: "package reviewed YAML as an OCI bundle", cmd: "cub config check redis --out oci://registry/team/redis:v1" },
+        { comment: "verify bundle digest against its recorded check", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
+      ], { title: "optional local CLI (github.com/confighub/cub-workshop)", label: "Run local CLI checks with cub-workshop" })}
+      <p>Operating NVIDIA GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> compare live node state without needing a matching Catalog entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before changing settings. <a href="../try-aicr.html">Open the AICR GPU guide</a> · <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>.</p>
+      ${agentNote(` An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
+    </section>
 
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
@@ -13596,7 +13718,7 @@ function assessmentStateText(stage) {
     blocked: "evidence blocked",
     "not-applicable": "no evidence required",
   }[stage.evidenceState] ?? sentenceCase(stage.evidenceState);
-  return `${result}<br><span class="small">${escapeHtml(evidence)}</span>`;
+  return `${result} <br><span class="small">${escapeHtml(evidence)}</span>`;
 }
 
 function assessmentQuestionsHtml(record) {
@@ -13612,7 +13734,7 @@ function assessmentQuestionsHtml(record) {
     [
       `Destination access: ${stage.destinationAccessRequired ? "yes" : "no"}`,
       `Selected configuration deployed: ${stage.deploymentRequired ? "yes" : "no"}`,
-    ].join("<br>"),
+    ].join(" <br>"),
     assessmentStateText(stage),
   ]);
   return `<section aria-labelledby="assessment-questions">
@@ -15243,22 +15365,17 @@ function chartPageCss() {
 function chartRunStateSentences(model) {
   const listings = model.versions.flatMap((version) => version.bases).map((base) => base.listing).filter(Boolean);
   const total = listings.length;
-  const basesWord = (count) => `${count} ${count === 1 ? "base" : "bases"}`;
+  const basesWord = (count) => `${count} ${count === 1 ? "preset" : "presets"}`;
   const count = (stepId, state) => listings.filter((listing) => (listing.nextSteps ?? []).some((step) => step.id === stepId && step.state === state)).length;
-  const list = (items, joiner = "and") => (items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} ${joiner} ${items.at(-1)}`);
   const rendered = count("get-objects", "run-for-this-entry");
+  const deployed = count("deploy", "run-for-this-entry");
   const sentences = [rendered === total
-    ? `The Catalog rendered ${total === 1 ? "its one base" : `all ${total} bases`} and retains the exact objects of each.`
-    : `The Catalog rendered ${rendered} of ${basesWord(total)} and retains their exact objects.`];
-  const steps = [...CHART_STEP_NOUNS.keys()];
-  const ran = steps.filter((id) => count(id, "run-for-this-entry") > 0);
-  const untouched = steps.filter((id) => ["run-for-this-entry", "partly-run-for-this-entry", "blocked-for-this-entry"].every((state) => count(id, state) === 0));
-  const bare = (id) => CHART_STEP_NOUNS.get(id).replace(/^an? /, "");
-  if (ran.length) sentences.push(`The listings record ${list(ran.map((id) => `${CHART_STEP_NOUNS.get(id)} for ${basesWord(count(id, "run-for-this-entry"))}`))}.`);
-  if (untouched.length) sentences.push(`${ran.length ? "They record" : "The listings record"} no ${list(untouched.map(bare), "or")} for any base.`);
-  for (const [state, words] of [["partly-run-for-this-entry", "partly recorded"], ["blocked-for-this-entry", "blocked"]]) {
-    const hit = steps.filter((id) => count(id, state) > 0);
-    if (hit.length) sentences.push(`${list(hit.map((id) => `${CHART_STEP_NOUNS.get(id)} is ${words} for ${basesWord(count(id, state))}`))}.`.replace(/^a/, "A"));
+    ? `The Catalog pre-rendered ${total === 1 ? "its preset" : `all ${total} presets`} to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account.`
+    : `The Catalog pre-rendered ${rendered} of ${basesWord(total)} to plain Kubernetes YAML with recorded SHA-256 digests.`];
+  if (deployed > 0) {
+    sentences.push(`A live cluster apply passed for ${basesWord(deployed)}, while cluster-specific CRDs and Secrets still require verification on your target cluster.`);
+  } else {
+    sentences.push("Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.");
   }
   return sentences;
 }
@@ -15269,14 +15386,14 @@ function chartWhatItIsSentences(model) {
   const category = catalogComponentCategory(model.chart);
   const newest = model.versions[0];
   const listing = (newest.bases.find((base) => base.isDefault) ?? newest.bases[0])?.listing;
-  const sentences = [`The Catalog files this chart under ${escapeHtml(category.label)}.`];
+  const sentences = [`Filed under ${escapeHtml(category.label)}.`];
   const roles = listing?.discovery?.roles ?? [];
   if (listing?.discovery?.status === "classified" && roles.length && listing.discovery.rationale) {
     const role = roles.map((entry) => `${entry.role} ${entry.componentType}`).join(" and ");
     sentences.push(`Its newest listing records the role ${escapeHtml(role)}.`);
     sentences.push(`<span data-chart-rationale>${escapeHtml(listing.discovery.rationale)}</span>`);
   } else {
-    sentences.push("Its listings do not yet describe what it does, so read the objects before you rely on the name.");
+    sentences.push("Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.");
   }
   return sentences;
 }
@@ -15320,6 +15437,21 @@ function chartDefaultPair(model) {
   return null;
 }
 
+function chartPlainYamlStatusHtml(facts, siteHref) {
+  const verdict = String(facts.verdict || "");
+  const href = `${siteHref}config.html#verdict-${escapeHtml(verdict)}`;
+  if (verdict === "safe-to-flatten" || verdict === "born-flattened") {
+    return `<a href="${href}">Applies directly as plain YAML</a>`;
+  }
+  if (verdict === "flatten-with-routes") {
+    return `<a href="${href}">YAML + ordered CRD/Secret setup</a>${facts.planRecorded ? " (steps below)" : ""}`;
+  }
+  if (verdict === "unsafe-to-flatten") {
+    return `<a href="${href}">Requires Helm at install time</a>`;
+  }
+  return listingVerdictHtml(facts, siteHref);
+}
+
 function chartVersionsSectionHtml(model) {
   const articles = model.versions.map((version, index) => {
     const row = version.row;
@@ -15330,24 +15462,30 @@ function chartVersionsSectionHtml(model) {
     const rows = version.bases.map((base) => {
       if (!base.facts) return [escapeHtml(base.base), "", "No listing yet", "", "", ""];
       const facts = base.facts;
+      const valuesEntry = (base.listing?.source?.fixedAtBuildTime ?? []).find((item) => String(item).startsWith("valuesProfile="));
+      const valuesPath = valuesEntry ? String(valuesEntry).slice("valuesProfile=".length) : "";
+      const valuesLink = valuesPath && existsSync(join(repoRoot, valuesPath))
+        ? ` · <a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(valuesPath)}">Values</a>`
+        : "";
       return [
         `${escapeHtml(base.base)}${base.isDefault ? ` <span class="status">default</span>` : ""}`,
         String(facts.objectCount),
-        listingVerdictHtml(facts, "../"),
+        chartPlainYamlStatusHtml(facts, "../"),
         escapeHtml(listingPublishedText(facts)),
         facts.flagged ? `<span class="status warn" title="${escapeHtml(facts.flagQuestion)}">watch</span>` : "None",
-        `<a href="${escapeHtml(facts.objectsUrl)}">exact objects</a> · <a href="../listings/${escapeHtml(facts.id)}.json">listing</a>`,
+        `<a href="${escapeHtml(facts.objectsUrl)}">Read YAML</a>${valuesLink} · <a href="../listings/${escapeHtml(facts.id)}.json">JSON</a>`,
       ];
     });
     return `<article class="chart-version" data-chart-version="${escapeHtml(version.version)}">
         <h3 id="version-${escapeHtml(chartPageSlug(version.version))}">${escapeHtml(version.version)}${index === 0 ? ` <span class="status good">newest</span>` : ""}</h3>
-        <p>${version.bases.length === 1 ? "One base" : `${version.bases.length} bases`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open the page for ${escapeHtml(version.version)}</a>.</p>
-        ${markdownLikeTable([["Base", "Objects", "Flattening verdict", "Published as OCI", "Flag", "Open"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
+        <p>${version.bases.length === 1 ? "One rendered preset" : `${version.bases.length} rendered presets`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open version detail page for ${escapeHtml(version.version)}</a>.</p>
+        ${markdownLikeTable([["Preset", "K8s objects", "Flattening & GitOps status", "OCI bundle", "Review flag", "Inspect"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
       </article>`;
   }).join("\n      ");
   return `<section aria-labelledby="versions">
-      <h2 id="versions">Pick a version and a base</h2>
-      <p>Versions are listed newest first. Each row is one base, and every cell is read from that base's listing. A base marked watch has a checked result with a limit to review.</p>
+      <h2 id="versions">Pick a version and a preset</h2>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub, or pass the JSON record to your AI agent.</p>
+      <p>Flattening (rendering once to plain YAML) shows whether manifests deliver directly via OCI, Argo CD, Flux, or kubectl, or carry a plan for ordered CRD and Secret setup.</p>
       ${articles}
     </section>`;
 }
@@ -15451,7 +15589,7 @@ function chartOverviewPageHtml(model, liveExample) {
   <header>
     ${topNav("..")}
     <h1>Find, compare and use ${escapeHtml(model.chart)}</h1>
-    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`}</p>
+    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`} Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
     <p data-chart-what>${chartWhatItIsSentences(model).join(" ")}</p>
     <p data-chart-run-state>${chartRunStateSentences(model).map(escapeHtml).join(" ")}</p>
     ${entryStepsTopLinkHtml()}
@@ -15471,7 +15609,7 @@ function chartOverviewPageHtml(model, liveExample) {
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      ${agentNote(`This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`)}
+      ${agentNote(` This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`)}
     </section>
   </main>
   <footer>Generated from the Catalog listings of ${escapeHtml(model.chart)}. Do not edit by hand.</footer>
@@ -16304,7 +16442,7 @@ function entryStepHtml(step, index, listing, siteHref) {
     if (step.alsoRecorded) sentences.push(escapeHtml(step.alsoRecorded));
   }
   if (step.id === "promote" && commands.length) {
-    sentences.push("Promotion carries a change in the base to the dev variant. The base changes when you edit a Unit or upload a newer version into the same Space.");
+    sentences.push("Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm.");
   }
   const links = [];
   if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
@@ -16405,7 +16543,13 @@ function entryInputsHtml(listing) {
     .join("");
   const shown = supplied.slice(0, INSTALL_INPUT_LIMIT);
   const suppliedRows = shown
-    .map((input) => `<li>${escapeHtml(shortInputDetail(input.detail || input.name || ""))} <em>${escapeHtml(INSTALL_INPUT_STATUS.get(input.status))}</em></li>`)
+    .map((input) => {
+      const detail = shortInputDetail(input.detail || input.name || "");
+      const prefix = input.name && input.detail && !String(input.detail).toLowerCase().includes(String(input.name).toLowerCase())
+        ? `<code>${escapeHtml(input.name)}</code>: `
+        : "";
+      return `<li>${prefix}${escapeHtml(detail)} <em>${escapeHtml(INSTALL_INPUT_STATUS.get(input.status))}</em></li>`;
+    })
     .join("");
   const more = supplied.length > shown.length
     ? `<p>The listing records ${supplied.length} of these. This list shows the first ${shown.length}.</p>`
@@ -16439,6 +16583,15 @@ function planStepBrief(step) {
   return `${brief}${rest}`;
 }
 
+function readerPlanStepBrief(step) {
+  const all = String(step.mechanism || step.id || "").split(/(?<=\.)\s+/);
+  const trimmed = all
+    .filter((sentence, index) => !(index === 0 && /^Without\b/.test(sentence)))
+    .filter((sentence) => !/^The installer package includes [^.]*prerequisites\/target-facts\//.test(sentence));
+  const chosen = (trimmed.length ? trimmed : all).slice(0, 2).join(" ");
+  return shortInputDetail(chosen).replace(/\s*The listing gives the rest\.$/, "");
+}
+
 // The first thing on an entry page: what the entry is, the one command that
 // installs it, and what it needs first. It reads the first listing of the
 // page, which is the default preset.
@@ -16447,22 +16600,30 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   if (!listing) return "";
   // An entry with a page that walks through it links that page from the box.
   const walkthroughs = new Map([
-    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy the GPU Operator from the Catalog"]],
+    ["argo-cd/argo-cd", ["example-argo-cd.html", "Worked walkthrough"]],
+    ["bitnami/postgresql", ["example-postgresql.html", "Worked walkthrough"]],
+    ["bitnami/redis", ["example-redis.html", "Worked walkthrough"]],
+    ["external-secrets/external-secrets", ["example-external-secrets.html", "Worked walkthrough"]],
+    ["gatekeeper/gatekeeper", ["example-gatekeeper.html", "Worked walkthrough"]],
+    ["ingress-nginx/ingress-nginx", ["example-ingress-nginx.html", "Worked walkthrough"]],
+    ["jetstack/cert-manager", ["example-cert-manager.html", "Worked walkthrough"]],
+    ["metrics-server/metrics-server", ["example-metrics-server.html", "Worked walkthrough"]],
+    ["nvidia/gpu-operator", ["d/docs/user/deploy-gpu-operator-from-catalog.html", "Deploy GPU Operator guide"]],
+    ["prometheus-community/kube-prometheus-stack", ["example-kube-prometheus-stack.html", "Worked walkthrough"]],
   ]);
   const walkthrough = siteHref ? walkthroughs.get(listing.identity.name) : null;
-  const walkthroughHtml = walkthrough
-    ? `
-      <p><strong>Step by step.</strong> <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>.</p>`
+  const walkthroughInline = walkthrough
+    ? ` · <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>`
     : "";
   const { name, version, base, format, formatLabel } = listing.identity;
   // Where the model and this entry's format are explained.
   const formatDoor = new Map([
     ["helm", ["config.html", "Helm in the Catalog"]],
-    ["aicr", ["try-aicr.html", "NVIDIA AICR in the Catalog"]],
+    ["aicr", ["try-aicr.html", "NVIDIA AICR (AI Cluster Runtime)"]],
   ]).get(format);
   const doorsHtml = siteHref
     ? `
-      <p><strong>How it works.</strong> <a href="${siteHref}/d/docs/user/model-and-vocabulary.html">How the model works</a>${formatDoor ? `, and <a href="${siteHref}/${formatDoor[0]}">${formatDoor[1]}</a>` : ""}.</p>`
+      <p><strong>Docs.</strong> <a href="${siteHref}/d/docs/user/model-and-vocabulary.html">Model</a>${formatDoor ? ` · <a href="${siteHref}/${formatDoor[0]}">${formatDoor[1]}</a>` : ""}${walkthrough && !listing.flattened?.retainedObjects?.url ? ` · <a href="${siteHref}/${walkthrough[0]}">${escapeHtml(walkthrough[1])}</a>` : ""}.</p>`
     : "";
   const presets = listings.filter((item) => item.identity.format === format).length;
   const count = Number(listing.flattened?.objectCount ?? 0);
@@ -16472,18 +16633,26 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   // A long version, such as a digest, is left out of the sentence.
   const versionText = /^v?\d/.test(String(version ?? "")) && String(version).length <= 24 ? ` ${escapeHtml(version)}` : "";
   const what = format === "helm"
-    ? `<code>${escapeHtml(name)}</code>${versionText}, as ${objects} in its <code>${escapeHtml(base)}</code> preset.${presets > 1 ? ` The Catalog holds ${presets} presets of this version.` : ""}`
+    ? `<code>${escapeHtml(name)}</code>${versionText}, pre-rendered as ${objects} in its <code>${escapeHtml(base)}</code> preset.${presets > 1 ? ` (${presets} presets available.)` : ""}`
     : `${escapeHtml(formatLabel ?? format)} <code>${escapeHtml(name)}</code>${versionText}, as ${objects}.`;
+  const objectsUrl = listing.flattened?.retainedObjects?.url ?? listing.flattened?.objectsUrl ?? "";
+  const readYamlHtml = objectsUrl
+    ? `
+      <p><strong>Inspect YAML.</strong> <a href="${escapeHtml(objectsUrl)}">Read rendered YAML on GitHub</a> (zero install)${walkthroughInline}.</p>`
+    : "";
   const eligibility = retainedObjectsScriptEligibility(listing);
-  const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">The five steps below</a> give the commands.`;
-  const install = eligibility.eligible
-    ? `<code>curl -fsSL -o try-objects.sh ${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME} &amp;&amp; bash try-objects.sh</code>`
-    : isAicr
-      ? `Apply its Applications on a cluster that runs Argo CD. ${steps}`
-      : ({
-        "needs-sveltos": `Apply it on a Sveltos management cluster. ${steps}`,
-        "verdict": format === "helm" ? `Use its installer package with <code>cub installer</code>. ${steps}` : steps,
-      })[eligibility.reason] ?? steps;
+  const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">Five steps below</a>.`;
+  const scriptUrl = eligibility.eligible ? `${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}` : "";
+  const install = eligibility.eligible && objectsUrl
+    ? `Download YAML and dry-run locally: <code>curl -fsSLO ${escapeHtml(objectsUrl)} &amp;&amp; kubectl apply --dry-run=client -f ${escapeHtml(objectsUrl.split("/").pop())}</code> (<a href="${escapeHtml(scriptUrl)}">cluster test script</a>)`
+    : eligibility.eligible
+      ? `<a href="${escapeHtml(scriptUrl)}">Inspect script</a>, then test in a throwaway cluster: <code>curl -fsSL -o try-objects.sh ${scriptUrl}</code>`
+      : isAicr
+        ? `Apply its Applications on an Argo CD cluster. ${steps}`
+        : ({
+          "needs-sveltos": `Apply on a Sveltos management cluster. ${steps}`,
+          "verdict": format === "helm" ? `Pull locally with <code>cub installer</code>. ${steps}` : steps,
+        })[eligibility.reason] ?? steps;
   const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
   const bundle = published
     ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
@@ -16506,13 +16675,13 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   const needs = eligibility.reason === "needs-sveltos"
     ? "A Sveltos management cluster, and the clusters it selects."
     : firstSteps.length === 0
-      ? (eligibility.eligible ? "Nothing. The script applies any CRDs first." : "")
-      : `${firstSteps.slice(0, 2).map((step) => escapeHtml(asSentence(planStepBrief(step)))).join(" ")}${firstSteps.length > 2 ? ` The plan below lists ${firstSteps.length - 2} more.` : ""}`;
+      ? (eligibility.eligible ? "Nothing. Standard Kubernetes objects apply directly." : "")
+      : `${escapeHtml(asSentence(readerPlanStepBrief(firstSteps[0])))}${firstSteps.length > 1 ? ` Plan below lists ${firstSteps.length - 1} more.` : ""}`;
   return `<section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> ${what}</p>
+      <p><strong>What it is.</strong> ${what}</p>${readYamlHtml}${needs ? `
+      <p><strong>Needs first.</strong> ${needs}</p>` : ""}
       <p><strong>Install it.</strong> ${install}</p>
-      ${bundle}${needs ? `
-      <p><strong>Needs first.</strong> ${needs}</p>` : ""}${walkthroughHtml}${doorsHtml}
+      ${bundle}${doorsHtml}
     </section>`;
 }
 
@@ -16558,7 +16727,7 @@ function entryPlanHtml(listing, siteHref) {
     // The record's "selected applier" means whichever tool applies the objects.
     const who = String(step.actor ?? "").replace(/\.$/, "").replace(/^selected applier$/, "whatever applies the objects");
     const actor = who ? ` Who: ${escapeHtml(who)}.` : "";
-    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(planStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
+    return `<li><strong>${escapeHtml(planStepTiming(step))}.</strong> ${escapeHtml(recordTextInReaderWords(readerPlanStepBrief(step)))}${actor} <em>${escapeHtml(state)}</em></li>`;
   }).join("");
   const more = steps.length > shown.length
     ? `<p>The listing records ${steps.length} steps. This list shows the first ${shown.length}.</p>`
@@ -16711,17 +16880,16 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
     .join(", ");
   return `<section class="entry-steps" aria-labelledby="${ENTRY_STEPS_ANCHOR}">
       <h2 id="${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</h2>
-      <p>Every Catalog entry page carries these five steps in this order. Each step says what the Catalog has run for this entry, and a step with a missing precondition gives no command.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p>${[
-        "Steps 1 and 2 need no account.",
-        usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before any <code>cub</code> command.` : "",
-        compares ? `Step 2 uses <code>cub config diff</code>, which <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code> adds.` : "",
-        listings.length > 1 ? `This page covers ${listings.length} entries, so open the one you want.` : "",
-        walked ? `A <a href="${entryWalkHref(siteHref)}">live walk on ${escapeHtml(ENTRY_STEPS_WALK.date)}</a> ran steps 3 to 5 for ${ENTRY_STEPS_WALK.entries.map((entry) => `<code>${escapeHtml(entry)}</code>`).join(" and ")}. These commands carry the changes that walk needed. It is a dated log and no receipt, so no state on this page rests on it.` : usesVariant ? `A <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">live run on 2026-10-08</a> used these <code>cub variant</code> commands on other configuration, with no Target. It is not a run for this entry.` : "",
+        usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
+        compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
+        listings.length > 1 ? `Expand any of the ${listings.length} entries below.` : "",
+        walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}
-      ${agentNote(`These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`)}
+      ${agentNote(` These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`)}
     </section>`;
 }
 
