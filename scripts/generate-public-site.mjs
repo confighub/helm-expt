@@ -2384,7 +2384,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Apps](${SITE_BASE_URL}apps.json): the Apps section, one row per worked example app with its delivery, its default-branch address and the commit it was last checked at. Schema: ${SITE_BASE_URL}apps.schema.json.
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
-- [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the confighubai/confighub-mini-plugin app plugin for Claude Code or Codex to remember the reason for an uncommitted .env edit.
+- [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the confighubai/confighub-mini-plugin app plugin for Claude Code or Codex to remember the reason for an uncommitted .env edit. For local app previews, staging and production approvals, and full setup, read the [public plugin README](https://github.com/confighubai/confighub-mini-plugin#readme) or [product overview](https://confighub.github.io/helm-expt/ai-agents/).
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
 - [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
 - [Use ConfigHub Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
@@ -3987,7 +3987,7 @@ function journeyGuideHtml(journey) {
     <p class="eyebrow">Journey ${index + 1} of 5</p>
     <h1>${escapeHtml(journey.title)}</h1>
     <p class="lead">${inlineMarkdown(journey.point)}</p>
-    <p><strong>Time.</strong> ${inlineMarkdown(journey.needs)}</p>
+    <p><strong>Time.</strong> ${inlineMarkdown(journey.needs)}</p>${journey.id === "journey-preserve-my-fixes" ? `\n    ${appSettingGuideHtml()}\n    <p>The walkthrough below covers Kubernetes YAML.</p>` : ""}
   </header>
   <main>
     <section aria-labelledby="run-it-yourself">
@@ -10523,6 +10523,8 @@ function appsHtml() {
     <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
     <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
     <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    ${appSettingGuideHtml()}
+    <p>For local previews and production approvals on an ordinary app without Kubernetes, read <a href="https://confighub.github.io/helm-expt/ai-agents/first-look.html">Three things to try first</a> or the <a href="https://github.com/confighubai/confighub-mini-plugin#readme">public plugin README</a>.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
     ${agentNote(` Read the same rows as data at <a href="./apps.json">apps.json</a>.`)}
   </header>
