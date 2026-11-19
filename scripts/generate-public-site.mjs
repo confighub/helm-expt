@@ -87,6 +87,7 @@ const aiPath = join(siteRoot, "ai.html");
 // The Workshop plugin release the journey pages were checked with. Pages pin an
 // exact release tag, so a reader installs the version the page was checked with.
 const WORKSHOP_PLUGIN_INSTALL = "cub plugin install confighub/cub-workshop@v0.6.61";
+const REMEMBER_SETTING_GUIDE_URL = "https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes";
 const KUBARA_GUIDE_URL = "https://github.com/confighub/kubara-confighub/blob/main/docs/user/cub-kubara.md";
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
@@ -2382,6 +2383,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Stacks](${SITE_BASE_URL}stacks.json): the Stacks section, one row per shipped stack with its parts, whether each part was checked, and the cub stack check command to try it. Schema: ${SITE_BASE_URL}stacks.schema.json.
 - [Apps](${SITE_BASE_URL}apps.json): the Apps section, one row per worked example app with its delivery, its default-branch address and the commit it was last checked at. Schema: ${SITE_BASE_URL}apps.schema.json.
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
+- [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the local plugin for Claude Code or Codex and ask a fresh chat why an uncommitted setting changed.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
 - [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
@@ -4096,7 +4098,7 @@ ${homeJourneyLinks()}
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
               <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
-            <p>Using Claude Code or Codex on an app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a>. The next chat can tell you why it changed.</p>
+            <p>Using Claude Code or Codex on an app? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a>. The next chat can tell you why it changed.</p>
             <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
@@ -7825,7 +7827,8 @@ function familiarGuideStartsHtml() {
     <h2 id="guides-your-tools">Start with what you use</h2>
     <p>Keep your tools. First inspect the configuration; choose delivery changes only when you are ready.</p>
     <h3 id="guides-existing-apps">Bring an existing app</h3>
-    <p>Start from the chart or delivery system you already use.</p>
+    <p>Using Claude Code or Codex on an app? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a>. Change a setting, then ask a fresh chat why.</p>
+    <p>For an app that already uses Helm or GitOps, start with your current tools.</p>
     <ul class="guide-list">
       <li><a href="./bring-argo-into-confighub.html">I use Argo CD</a>. Preview your apps, import a parallel copy, then review handover and recovery.</li>
       <li><a href="./bring-flux-into-confighub.html">I use Flux</a>. Preview your repository and move delivery one cluster at a time.</li>
@@ -10756,6 +10759,7 @@ function aiHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Use Claude or Codex for Kubernetes configuration</h1>
+    <p>Working on an app? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a> works with an uncommitted edit in a local Git folder.</p>
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
     <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
