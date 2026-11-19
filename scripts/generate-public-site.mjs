@@ -12053,7 +12053,7 @@ function chartIndexHtml(catalog) {
   const aicrEntryCount = aicrCatalogEntries().length;
   const catalogFormats = [
     ["Helm chart", "helm-chart", catalog.catalogComponents.length],
-    ["NVIDIA GPU recipe (AICR)", "ai-platform", aicrEntryCount],
+    ["NVIDIA AICR (AI Cluster Runtime)", "ai-platform", aicrEntryCount],
     ["Timoni module", "timoni", 1],
     ["Configuration OCI", "configuration-oci", 1],
     ["Kubernetes YAML", "kubernetes-yaml", 1 + (nimServiceVariantCount > 0 ? 1 : 0)],
@@ -12280,8 +12280,8 @@ function aicrCatalogRows() {
       </tr>`,
   ].join("\n");
   const catalogSearchBlock = `<div class="card">
-        <label for="chart-filter"><strong>Search ${catalog.catalogComponents.length} Helm charts and Kubernetes configurations</strong></label>
-        <input id="chart-filter" type="search" placeholder="Search chart or keyword, e.g. cert-manager, argo-cd, ingress-nginx, redis, prometheus..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <label for="chart-filter"><strong>Search configurations across Helm, NVIDIA AICR, Timoni, OCI, and YAML</strong></label>
+        <input id="chart-filter" type="search" placeholder="Search component, format, preset, or trait, e.g. cert-manager, gpu-operator, eks-h100, timoni, crd..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
           <label>Format <br><select id="format-filter"><option value="">All formats</option>${catalogFormats.filter(([kindLabel]) => kindLabel === "Helm chart").concat(catalogFormats.filter(([kindLabel]) => kindLabel !== "Helm chart")).map(([label, kind, n]) => `<option value="${kind}"> · ${escapeHtml(label)} (${n})</option>`).join("")}</select></label>
           <label>Readiness <br><select id="level-filter"><option value="">All</option><option value="ready-to-try"> · Ready to try</option><option value="review-before-use"> · Review before use</option><option value="package-published-review-before-use"> · Package published; review before use</option><option value="not-ready-yet"> · Not ready yet</option></select></label>
@@ -12290,19 +12290,22 @@ function aicrCatalogRows() {
           <label>Hooks <br><select id="hook-filter"><option value="">All</option><option value="yes"> · Uses Helm hooks</option><option value="no"> · No Helm hooks</option></select></label>
           <label>CRDs <br><select id="crd-filter"><option value="">All</option><option value="yes"> · Includes CRDs</option><option value="no"> · No CRDs</option></select></label>
         </div>
-        <p style="margin:12px 0 6px"><strong>Plain-YAML GitOps compatibility (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
+        <p style="margin:12px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
         <ul style="margin:0 0 10px; padding-left:20px">
-          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): apply straight into Argo CD, Flux, or <code>kubectl apply</code> with no hook or CRD ordering traps.</li>
-          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): pre-rendered YAML is ready, and the chart page lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
-          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): chart templates call live cluster <code>lookup()</code> or dynamic hooks; keep Helm in the loop or pick another preset.</li>
+          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
+          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
+          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
         </ul>
-        <p style="font-size:.92rem; color:var(--muted)"><strong>Verification depth:</strong> <strong>Ready to try</strong> = pre-rendered YAML + static checks + recorded local kind cluster apply. <strong>Review before use</strong> = pre-rendered YAML + static checks recorded (verify CRDs, hooks, and Secrets for your cluster). <strong>Package published; review before use</strong> = signed OCI bundle published without live cluster runs.</p>
+        <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
-      <div id="format-intro"></div>
+      <div id="format-intro">
+        <p class="format-intro" data-format="helm-chart" hidden><strong>You are looking at the Helm charts.</strong> <a href="../config.html">Read more about Helm in the Catalog here</a>. Each chart was flattened once into plain Kubernetes objects, and <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a> takes one chart through every step. <a href="index.html">Show every format</a>.</p>
+        <p class="format-intro" data-format="ai-platform" hidden><strong>You are looking at the NVIDIA AI Cluster Runtime (AICR) and NIM entries.</strong> <a href="../try-aicr.html">Read more about AICR here</a>. AICR turns five GPU cluster choices (service, accelerator, OS, workload, and platform) into one recipe kept as Argo CD Applications. For a whole GPU inference platform on Amazon EKS, <a href="../eks-inference.html">try the EKS GPU inference stack on your laptop</a>. <a href="index.html">Show every format</a>.</p>
+      </div>
       <p id="chart-results" class="chart-results" role="status" hidden></p>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Helm chart / entry</th><th>Versions, YAML &amp; OCI</th><th>Recommended preset</th><th>Verification depth</th><th>Detected K8s traits</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
+        <thead><tr><th>Component &amp; format</th><th>Versions, YAML &amp; OCI</th><th>Recommended preset</th><th>Verification depth</th><th>Detected K8s traits</th><th>Flattens as plain YAML?</th><th>Base variants by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
 ${nonHelmCatalogRowsHtml}
@@ -12417,9 +12420,9 @@ ${nonHelmCatalogRowsHtml}
   <header>
     ${topNav("..")}
     <h1>Configs</h1>
-    <p class="boundary-chip">Browse in your browser · Local checks run on your laptop</p>
-    <p class="lead">Inspect pre-rendered Kubernetes YAML manifests, pinned container digests, and recorded static checks for ${catalog.catalogComponents.length} Helm charts before you install, with no account or cluster. Unlike a chart index that stops at raw Go templates, each entry shows the exact Deployments, CRDs, RBAC rules, Secrets, and Helm hook Jobs it produces.</p>
-    <p><strong>Popular charts with worked YAML walkthroughs:</strong> <a href="./jetstack-cert-manager.html">cert-manager</a> · <a href="./argo-cd-argo-cd.html">argo-cd</a> · <a href="./ingress-nginx-ingress-nginx.html">ingress-nginx</a> · <a href="./prometheus-community-kube-prometheus-stack.html">kube-prometheus-stack</a> · <a href="./external-secrets-external-secrets.html">external-secrets</a> · <a href="./gatekeeper-gatekeeper.html">gatekeeper</a> · <a href="./bitnami-redis.html">redis</a> · <a href="./bitnami-postgresql.html">postgresql</a></p>
+    <p class="boundary-chip">Browse rendered objects · Use with AI agents or cub · Local checks need no account</p>
+    <p class="lead">Inspect pre-rendered Kubernetes objects, OCI digests, and recorded checks across ${catalog.catalogComponents.length} Helm charts, ${aicrEntryCount} NVIDIA AI Cluster Runtime (AICR) recipes, Timoni, and YAML. Use this Catalog directly or with Claude Code and Codex to fix broken Helm values, review hooks and CRDs, and deliver through one OCI model.</p>
+    <p><strong>Try a worked entry:</strong> <a href="./jetstack-cert-manager.html">cert-manager</a> · <a href="./argo-cd-argo-cd.html">argo-cd</a> · <a href="./ingress-nginx-ingress-nginx.html">ingress-nginx</a> · <a href="./prometheus-community-kube-prometheus-stack.html">kube-prometheus-stack</a> · <a href="./nvidia-gpu-operator.html">gpu-operator</a> · <a href="./bitnami-redis.html">redis</a> · <a href="index.html?format=ai-platform">NVIDIA AICR GPU recipes</a></p>
   </header>
   <main>
 
@@ -12429,11 +12432,11 @@ ${nonHelmCatalogRowsHtml}
     </section>
 
     <section aria-labelledby="more-formats">
-      <h2 id="more-formats">Other formats, local CLI checks, and missing charts</h2>
-      <p>Chart not listed here? Render any chart locally with no account using <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>, then <a href="../ask.html">check the rendered YAML in your browser</a>.</p>
-      <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, and each step says what the Catalog has run for that entry. See <a href="../proof.html#trust">how each check is verified</a> and <a href="../apps.html#before-and-after">before-and-after YAML examples</a>.</p>
+      <h2 id="more-formats">Multi-format delivery, cub tools, and your own configs</h2>
+      <p>Component not listed here? Render any chart locally with no account using <code>helm template rel &lt;chart&gt; -f your-values.yaml --include-crds</code>, then <a href="../ask.html">check the rendered YAML in your browser</a> or with <code>cub config check</code>.</p>
+      <p id="entry-steps-everywhere">Every entry page carries the same five steps under <strong>${escapeHtml(NEXT_STEPS_HEADING)}</strong>, taking you from local YAML inspection and diffs to ConfigHub bases, variants, and OCI releases. See <a href="../proof.html#trust">how each check is verified</a> and <a href="../apps.html#before-and-after">before-and-after YAML examples</a>.</p>
       <div class="support-panel" aria-label="Formats and patterns we support">
-        <p class="support-lead"><strong>Filter by format or delivery pattern.</strong> Alongside ${catalog.catalogComponents.length} Helm charts, this table holds ${aicrEntryCount} AICR entries for NVIDIA GPU clusters, a Timoni module, a literal configuration OCI, and plain Kubernetes YAML entries.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} row covers ${nimServiceVariantCount} NVIDIA inference manifests (${nimServicePublishedClause()}).` : ""}</p>
+        <p class="support-lead"><strong>One model across established and new formats.</strong> Alongside ${catalog.catalogComponents.length} Helm charts, this table holds ${aicrEntryCount} AICR entries (NVIDIA AI Cluster Runtime) for GPU clusters, a Timoni module, a literal configuration OCI, and plain Kubernetes YAML entries.${nimServiceVariantCount > 0 ? ` The ${NIMSERVICE_ENTRY_NAME} row covers ${nimServiceVariantCount} NVIDIA inference manifests (${nimServicePublishedClause()}).` : ""}</p>
         <p class="support-group">Filter by format</p>
         <div class="support-chips">
           <a href="index.html?format=helm-chart">Helm <b>${catalog.catalogComponents.length}</b></a>
@@ -12458,7 +12461,7 @@ ${nonHelmCatalogRowsHtml}
         { comment: "verify bundle digest against its recorded check", cmd: "cub config verify oci://registry/team/redis@sha256:…" },
       ], { title: "optional local CLI (github.com/confighub/cub-workshop)", label: "Run local CLI checks with cub-workshop" })}
       <p>Operating NVIDIA GPU nodes? <code>aicr snapshot</code> and <code>aicr diff</code> compare live node state without needing a matching Catalog entry. A difference is not automatically a fault. Compare each node with the recipe the provider intends for its hardware and workload before changing settings. <a href="../try-aicr.html">Open the AICR GPU guide</a> · <a href="../d/docs/user/model-and-vocabulary.html">How the model works</a>.</p>
-      ${agentNote(`An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
+      ${agentNote(` An entry flagged for review reads <code>completed/watch</code> at <code>checks.materialization</code> in <a href="../configs.json">configs.json</a>. Its listing gives the open question as that stage's answer.`)}
     </section>
 
   </main>
