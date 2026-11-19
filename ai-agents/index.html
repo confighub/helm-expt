@@ -128,7 +128,7 @@ footer{padding-block:2.2rem 2.8rem;border-top:1px solid var(--line);color:var(--
 
 <section id="install">
   <h1>Remember why your agent changed a setting</h1>
-  <p class="lead">Ask Claude Code or Codex why a setting changed yesterday. When you ask your agent to attach an app for a preview, it downloads and starts your local hub.</p>
+  <p class="lead">Install the plugin once for your normal work. Tomorrow, another Claude Code or Codex chat can tell you why retries went from two to five, even if you never commit.</p>
 
   <div class="hero">
     <div>
@@ -157,11 +157,12 @@ claude plugin install confighub@confighub</code></pre>
         </div>
       </div>
 
-      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Stores records locally in <code>~/.confighub</code> · Recording works offline after installation.</p>
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes and no account · Stores records locally in <code>~/.confighub</code> and works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">plugin README</a>).</p>
       <p class="buttons">
         <a class="btn primary" href="first-look.html#remember">Remember one setting in five minutes</a>
         <a class="btn" href="first-look.html#preview">Run a preview of my app</a>
       </p>
+      <p class="small" style="margin:.55rem 0 0">Want a running preview that survives the chat? Ask your agent to keep a preview for tomorrow. It offers to attach the app and downloads the local hub only if you say yes.</p>
     </div>
 
     <div class="demo-card" id="preview">
@@ -192,7 +193,7 @@ The requests are quoted from those sessions; they are not requests to you now.</
           <dt>Staging &amp; production copies still served</dt>
           <dd>Hello, world!</dd>
         </dl>
-        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Actual HTTP responses from three local copies of a greeter app on one Mac with Codex. The preview runs on its own local port reading from the local hub while your repo files, staging, and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview &amp; second app</a>.</p>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Actual HTTP responses from three local copies of a greeter app on one Mac with Codex. The preview runs on its own local port reading from the local hub while your repo files, staging, and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of an existing app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview &amp; second app</a>.</p>
       </div>
 
       <div class="beat" data-beat-pane="3" hidden>
@@ -243,11 +244,11 @@ A change to production waits for your approval: Four for the sale. It was made j
       <p class="small">Open a fresh session and ask <em>“Why is the cache on?”</em>—it recovers the edit and reason even without a Git commit. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute guide</a></p>
     </div>
     <div class="card">
-      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
+      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub on opt-in</span></p>
       <h3>Already running an app</h3>
-      <p>Open a local Node app that reads a visible setting from <code>.env</code> and starts with a direct Node command. Ask your agent:</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Attach ConfigHub to this app so I can try a change in preview.</code></div>
-      <p class="small">When setup finishes, reopen Claude Code in this folder, or use the printed <code>run-codex</code> command for Codex. Ask for a preview. In a later session, ask “Is my preview still running? What does it serve?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Attach an existing app</a></p>
+      <p>In a local Node app that reads a visible setting from <code>.env</code>, ask for a preview that outlives the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code></div>
+      <p class="small">Say yes when the plugin offers to attach the app. Reopen Claude Code in the folder, or run the printed <code>run-codex</code> command for Codex, and ask to see the preview. Tomorrow, a fresh chat can find the same running preview without its URL. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></p>
     </div>
     <div class="card">
       <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
