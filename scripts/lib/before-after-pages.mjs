@@ -2008,7 +2008,7 @@ export function beforeAfterGalleryHtml(escapeHtml) {
         </article>`).join("\n");
   return `<section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
+      <p>Each card opens a worked before-and-after example with rendered Kubernetes YAML on GitHub, local <code>cub</code> checks you or your agent can run without an account, and one-paste ConfigHub import.</p>
       <p>Go to ${jumps.slice(0, -1).join(", ")} or ${jumps.at(-1)}.</p>
       <div class="doors ba-gallery">
 ${cards}

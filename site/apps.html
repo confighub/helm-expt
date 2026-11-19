@@ -638,15 +638,16 @@
   <header class="hero human-hero">
     
     <h1>Apps</h1>
-    <p class="lead">Find out whether your app will run on the cluster you've been given, and see what prod does differently from dev. Start with an example like yours, then try your own.</p>
-    <p>An app is a workload you bring. Your code and container images stay in their existing workflows. ConfigHub manages the configuration that connects and runs them.</p>
-    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Check an app against a platform</a></p>
-    <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
+    <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
+    <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
+    <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
+    <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Read the same rows as data at <a href="./apps.json">apps.json</a>.</aside>
   </header>
   <main>
     <section aria-labelledby="before-and-after">
       <h2 id="before-and-after">See a config before and after</h2>
-      <p>Each example shows the files you may have today next to the same thing in ConfigHub. You can load any of them into your own ConfigHub with one paste.</p>
+      <p>Each card opens a worked before-and-after example with rendered Kubernetes YAML on GitHub, local <code>cub</code> checks you or your agent can run without an account, and one-paste ConfigHub import.</p>
       <p>Go to <a href="#ba-helm">Helm charts</a>, <a href="#ba-kustomize">Kustomize</a>, <a href="#ba-argo">Argo CD</a>, <a href="#ba-flux">Flux</a> or <a href="#ba-app">Apps</a>.</p>
       <div class="doors ba-gallery">
         <article class="door" id="ba-helm">
