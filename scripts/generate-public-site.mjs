@@ -4096,6 +4096,7 @@ ${homeJourneyLinks()}
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
               <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
+            <p>Using Claude Code or Codex on an app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a>. The next chat can tell you why it changed.</p>
             <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
