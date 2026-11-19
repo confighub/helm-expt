@@ -591,7 +591,7 @@
       <p><strong>Needs first.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. Plan below lists 2 more.</p>
       <p><strong>Install it.</strong> <a href="#use-in-confighub">Five steps below</a>.</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d</code></p>
-      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
@@ -739,8 +739,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 presets below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="karpenter-karpenter-1-14-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 1.14.0</summary>
         <details class="entry-inputs" data-entry-inputs="karpenter-karpenter-1-14-0-default" open>
@@ -780,9 +780,6 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff karpenter-karpenter-1-14-0-default.yaml karpenter-karpenter-1-14-0-crds-managed.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
           <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
@@ -813,7 +810,7 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote karpenter-karpenter-1-14-0-default-dev --dry-run -o mutations
@@ -830,7 +827,6 @@ c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381  karpenter-karp
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-default-dev</code></pre>
         </div>
-      </details>
       </details>
       <details class="entry-steps-base" data-entry-steps="karpenter-karpenter-1-14-0-crds-managed">
         <summary>Helm chart, base <strong>crds-managed</strong>, version 1.14.0</summary>
@@ -870,9 +866,6 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff karpenter-karpenter-1-14-0-crds-managed.yaml karpenter-karpenter-1-14-0-default.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
           <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
@@ -897,7 +890,7 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote karpenter-karpenter-1-14-0-crds-managed-dev --dry-run -o mutations
@@ -908,7 +901,6 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-crds-managed-dev</code></pre>
         </div>
-      </details>
       </details>
       <details class="entry-steps-base" data-entry-steps="karpenter-karpenter-1-14-0-eks-inference">
         <summary>Helm chart, base <strong>eks-inference</strong>, version 1.14.0</summary>
@@ -949,9 +941,6 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff karpenter-karpenter-1-14-0-eks-inference.yaml karpenter-karpenter-1-14-0-default.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
           <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
@@ -982,7 +971,7 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote karpenter-karpenter-1-14-0-eks-inference-dev --dry-run -o mutations
@@ -1000,8 +989,7 @@ cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb  karpenter-karp
 <span class="term-prompt">$</span> cub release publish karpenter-karpenter-1-14-0-eks-inference-dev</code></pre>
         </div>
       </details>
-      </details>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/karpenter-karpenter-1-14-0-default.json">karpenter-karpenter-1-14-0-default.json</a>, <a href="../listings/karpenter-karpenter-1-14-0-crds-managed.json">karpenter-karpenter-1-14-0-crds-managed.json</a>, <a href="../listings/karpenter-karpenter-1-14-0-eks-inference.json">karpenter-karpenter-1-14-0-eks-inference.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/karpenter-karpenter-1-14-0-default.json">karpenter-karpenter-1-14-0-default.json</a>, <a href="../listings/karpenter-karpenter-1-14-0-crds-managed.json">karpenter-karpenter-1-14-0-crds-managed.json</a>, <a href="../listings/karpenter-karpenter-1-14-0-eks-inference.json">karpenter-karpenter-1-14-0-eks-inference.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="after-render">

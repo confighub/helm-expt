@@ -649,7 +649,7 @@
     </article>
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p><a href="../../../../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for <code>cub variant</code> comes from a <a href="../../../../d/docs/user/live-run-log-2026-10-08.html">recorded CLI log (2026-10-08)</a>, not a live run of this entry.</p>
       <div data-entry-steps="aicr-eks-h100-training-kubeflow-v0-20-0-argocd">
         <details class="entry-inputs" data-entry-inputs="aicr-eks-h100-training-kubeflow-v0-20-0-argocd" open>
@@ -707,9 +707,6 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
 <span class="term-comment"># list what changed from v0.19.0 to v0.20.0</span>
 <span class="term-prompt">$</span> cub config diff aicr-eks-h100-training-kubeflow-v0-19-0-argocd.yaml aicr-eks-h100-training-kubeflow-v0-20-0-argocd.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-20-0/confighub-upload-receipt.yaml">Read the receipt</a>.</p>
@@ -739,7 +736,7 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. It followed base to development to staging to production. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml">Read the receipt</a>.</p>
+          <p>A promotion ran for this entry. It followed base to development to staging to production. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow-v0-20-0/promotion-readiness-receipt.yaml">Read the receipt</a>.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev --dry-run -o mutations
 
@@ -755,9 +752,8 @@ f2a4f9e60e872bf2266a8dc89a239e704b0dd5f77a643c3bdf9561a088de99cc  aicr-eks-h100-
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish aicr-eks-h100-training-kubeflow-v0-20-0-argocd-dev</code></pre>
         </div>
-      </details>
       </div>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json">aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../../../../listings/aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json">aicr-eks-h100-training-kubeflow-v0-20-0-argocd.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>

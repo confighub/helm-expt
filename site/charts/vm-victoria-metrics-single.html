@@ -591,7 +591,7 @@
   <header>
     
     <h1>Find, compare and use vm/victoria-metrics-single</h1>
-    <p class="lead">The Catalog holds one version of the Helm chart vm/victoria-metrics-single, with 2 bases. That version is 0.39.0. Each base is a pre-rendered Helm values preset saved as plain Kubernetes YAML so you can audit upgrades before deploying.</p>
+    <p class="lead">The Catalog holds one version of the Helm chart vm/victoria-metrics-single, with 2 bases. That version is 0.39.0. Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
     <p data-chart-what>Filed under Monitoring and logs. Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.</p>
     <p data-chart-run-state>The Catalog pre-rendered all 2 presets to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account. Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
@@ -605,17 +605,17 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/vm-victoria-metrics-single-0-39-0/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default:latest@sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583</code></p>
-      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
       <h2 id="versions">Pick a version and a preset</h2>
-      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub with no install.</p>
-      <p>Plain-YAML GitOps status shows whether rendered manifests apply directly with kubectl, Argo CD, or Flux, or require ordered CRD and Secret setup first.</p>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub, or pass the JSON record to your AI agent.</p>
+      <p>Flattening (rendering once to plain YAML) shows whether manifests deliver directly via OCI, Argo CD, Flux, or kubectl, or carry a plan for ordered CRD and Secret setup.</p>
       <article class="chart-version" data-chart-version="0.39.0">
         <h3 id="version-0-39-0">0.39.0 <span class="status good">newest</span></h3>
         <p>2 rendered presets. The installer package is published and signed. <a href="./vm-victoria-metrics-single-0-39-0.html">Open version detail page for 0.39.0</a>.</p>
         <div class="card"><table>
-        <thead><tr><th>Preset (base)</th><th>K8s objects</th><th>Plain-YAML GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
+        <thead><tr><th>Preset</th><th>K8s objects</th><th>Flattening &amp; GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
         <tbody><tr><td>default <span class="status">default</span></td><td>3</td><td><a href="../config.html#verdict-safe-to-flatten">Applies directly as plain YAML</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/effective-values.yaml">Values</a> · <a href="../listings/vm-victoria-metrics-single-0-39-0-default.json">JSON</a></td></tr><tr><td>default-reviewed</td><td>3</td><td><a href="../config.html#verdict-safe-to-flatten">Applies directly as plain YAML</a></td><td>Published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/effective-values.yaml">Values</a> · <a href="../listings/vm-victoria-metrics-single-0-39-0-default-reviewed.json">JSON</a></td></tr></tbody>
       </table></div>
       <style>
@@ -671,7 +671,7 @@
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 0.39.0, the newest version, on its default base.</p>
       <div data-entry-steps="vm-victoria-metrics-single-0-39-0-default">
         <details class="entry-inputs" data-entry-inputs="vm-victoria-metrics-single-0-39-0-default" open>
@@ -708,9 +708,6 @@
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff vm-victoria-metrics-single-0-39-0-default.yaml vm-victoria-metrics-single-0-39-0-default-reviewed.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/vm-victoria-metrics-single-0-39-0-default.yaml">Read the record that states this</a>.</p>
@@ -735,7 +732,7 @@
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/vm-victoria-metrics-single-0-39-0-default.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/vm-victoria-metrics-single-0-39-0-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote vm-victoria-metrics-single-0-39-0-default-dev --dry-run -o mutations
@@ -746,9 +743,8 @@
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish vm-victoria-metrics-single-0-39-0-default-dev</code></pre>
         </div>
-      </details>
       </div>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/vm-victoria-metrics-single-0-39-0-default.json">vm-victoria-metrics-single-0-39-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/vm-victoria-metrics-single-0-39-0-default.json">vm-victoria-metrics-single-0-39-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
     <section aria-labelledby="other-bases" class="chart-other-bases">
       <h2 id="other-bases">Use another version or base</h2>
@@ -763,7 +759,7 @@
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> This page as data is <a href="./vm-victoria-metrics-single.json">vm-victoria-metrics-single.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> This page as data is <a href="./vm-victoria-metrics-single.json">vm-victoria-metrics-single.json</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.</aside>
     </section>
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>

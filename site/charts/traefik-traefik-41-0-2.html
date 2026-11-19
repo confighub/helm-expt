@@ -580,7 +580,7 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/traefik-traefik-41-0-2/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73</code></p>
-      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
@@ -632,7 +632,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <div data-entry-steps="traefik-traefik-41-0-2-default">
         <details class="entry-inputs" data-entry-inputs="traefik-traefik-41-0-2-default" open>
@@ -671,9 +671,6 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 <span class="term-comment"># list what changed from 40.2.0 to 41.0.2</span>
 <span class="term-prompt">$</span> cub config diff traefik-traefik-40-2-0-default.yaml traefik-traefik-41-0-2-default.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
           <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
@@ -704,7 +701,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote traefik-traefik-41-0-2-default-dev --dry-run -o mutations
@@ -721,9 +718,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish traefik-traefik-41-0-2-default-dev</code></pre>
         </div>
-      </details>
       </div>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/traefik-traefik-41-0-2-default.json">traefik-traefik-41-0-2-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/traefik-traefik-41-0-2-default.json">traefik-traefik-41-0-2-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="retained-configurations">

@@ -15368,13 +15368,13 @@ function chartVersionsSectionHtml(model) {
     return `<article class="chart-version" data-chart-version="${escapeHtml(version.version)}">
         <h3 id="version-${escapeHtml(chartPageSlug(version.version))}">${escapeHtml(version.version)}${index === 0 ? ` <span class="status good">newest</span>` : ""}</h3>
         <p>${version.bases.length === 1 ? "One rendered preset" : `${version.bases.length} rendered presets`}. ${packageSentence} <a href="./${escapeHtml(version.pageFile)}">Open version detail page for ${escapeHtml(version.version)}</a>.</p>
-        ${markdownLikeTable([["Preset (base)", "K8s objects", "Plain-YAML GitOps status", "OCI bundle", "Review flag", "Inspect"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
+        ${markdownLikeTable([["Preset", "K8s objects", "Flattening & GitOps status", "OCI bundle", "Review flag", "Inspect"], ...rows], { rawColumns: [0, 1, 2, 3, 4, 5] })}
       </article>`;
   }).join("\n      ");
   return `<section aria-labelledby="versions">
       <h2 id="versions">Pick a version and a preset</h2>
-      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub with no install.</p>
-      <p>Plain-YAML GitOps status shows whether rendered manifests apply directly with kubectl, Argo CD, or Flux, or require ordered CRD and Secret setup first.</p>
+      <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub, or pass the JSON record to your AI agent.</p>
+      <p>Flattening (rendering once to plain YAML) shows whether manifests deliver directly via OCI, Argo CD, Flux, or kubectl, or carry a plan for ordered CRD and Secret setup.</p>
       ${articles}
     </section>`;
 }
@@ -15478,7 +15478,7 @@ function chartOverviewPageHtml(model, liveExample) {
   <header>
     ${topNav("..")}
     <h1>Find, compare and use ${escapeHtml(model.chart)}</h1>
-    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`} Each base is a pre-rendered Helm values preset saved as plain Kubernetes YAML so you can audit upgrades before deploying.</p>
+    <p class="lead">The Catalog holds ${versionWord} of the Helm chart ${escapeHtml(model.chart)}, with ${baseWord}${model.versions.length === 1 ? "" : " across them"}. ${model.versions.length === 1 ? `That version is ${escapeHtml(newest.version)}.` : `The newest is ${escapeHtml(newest.version)}.`} Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
     <p data-chart-what>${chartWhatItIsSentences(model).join(" ")}</p>
     <p data-chart-run-state>${chartRunStateSentences(model).map(escapeHtml).join(" ")}</p>
     ${entryStepsTopLinkHtml()}
@@ -15498,7 +15498,7 @@ function chartOverviewPageHtml(model, liveExample) {
     <section aria-labelledby="chart-as-data">
       <h2 id="chart-as-data">Read this page as data</h2>
       <p>One file holds everything on this page in a form a program can read.</p>
-      ${agentNote(` This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`, "Machine-readable JSON (for scripts and automation):")}
+      ${agentNote(` This page as data is <a href="./${escapeHtml(model.jsonName)}">${escapeHtml(model.jsonName)}</a>, and <a href="../chart.schema.json">chart.schema.json</a> defines its fields. It lists versions newest first, with each base's listing, object file and SHA-256. It also holds the stored summary lines and the commands that compute any other diff. Read a base's listing before you cite a fact about it.`)}
     </section>
   </main>
   <footer>Generated from the Catalog listings of ${escapeHtml(model.chart)}. Do not edit by hand.</footer>
@@ -16331,7 +16331,7 @@ function entryStepHtml(step, index, listing, siteHref) {
     if (step.alsoRecorded) sentences.push(escapeHtml(step.alsoRecorded));
   }
   if (step.id === "promote" && commands.length) {
-    sentences.push("Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space.");
+    sentences.push("Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm.");
   }
   const links = [];
   if (step.link) links.push(`<a href="${escapeHtml(step.link)}">Open the retained files</a>`);
@@ -16368,14 +16368,7 @@ function entryStepsListingHtml(listing, siteHref) {
     ? `<p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> ${escapeHtml(materialization.answer ?? "")}</p>
         `
     : "";
-  const localStepsHtml = steps.slice(0, 2).map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ");
-  const serverStepsHtml = `<details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
-        ${steps.slice(2).map((step, offset) => entryStepHtml(step, offset + 2, listing, siteHref)).join("\n        ")}
-      </details>`;
-  return `${flag}${entryInputsHtml(listing)}${entryPlanHtml(listing, siteHref)}${localStepsHtml}
-        ${serverStepsHtml}`;
+  return `${flag}${entryInputsHtml(listing)}${entryPlanHtml(listing, siteHref)}${steps.map((step, index) => entryStepHtml(step, index, listing, siteHref)).join("\n        ")}`;
 }
 
 // What the listing records as fixed when the entry was built, beside what the
@@ -16514,8 +16507,8 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   const { name, version, base, format, formatLabel } = listing.identity;
   // Where the model and this entry's format are explained.
   const formatDoor = new Map([
-    ["helm", ["config.html", "Helm checks"]],
-    ["aicr", ["try-aicr.html", "AICR recipes"]],
+    ["helm", ["config.html", "Helm in the Catalog"]],
+    ["aicr", ["try-aicr.html", "NVIDIA AICR (AI Cluster Runtime)"]],
   ]).get(format);
   const doorsHtml = siteHref
     ? `
@@ -16776,16 +16769,16 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
     .join(", ");
   return `<section class="entry-steps" aria-labelledby="${ENTRY_STEPS_ANCHOR}">
       <h2 id="${ENTRY_STEPS_ANCHOR}">${escapeHtml(NEXT_STEPS_HEADING)}</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p>${[
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
         compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
-        listings.length > 1 ? `Expand any of the ${listings.length} presets below.` : "",
+        listings.length > 1 ? `Expand any of the ${listings.length} entries below.` : "",
         walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}
-      ${agentNote(` These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`, "Machine-readable JSON (for scripts and automation):")}
+      ${agentNote(` These steps are the <code>nextSteps</code> array of ${listingLinks}. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.`)}
     </section>`;
 }
 

@@ -591,7 +591,7 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-opensearch-2-0-10-default:latest@sha256:94a32f89d5d9f51386a8b26740f1e34f30008377ddc391f88c73b9115961b01d</code></p>
-      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
       <h2 id="pillars-here">What this page gives you</h2>
@@ -739,8 +739,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 presets below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="bitnami-opensearch-2-0-10-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 2.0.10</summary>
         <details class="entry-inputs" data-entry-inputs="bitnami-opensearch-2-0-10-default" open>
@@ -777,9 +777,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff bitnami-opensearch-2-0-10-default.yaml bitnami-opensearch-2-0-10-ha.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its published literal configuration bundle. <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-default.yaml">Read the record that states this</a>.</p>
@@ -804,7 +801,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="promote" data-state="run-for-this-entry">
           <h3>5. Promote a change <span class="status good">Run for this entry</span></h3>
-          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-default.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-default.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote bitnami-opensearch-2-0-10-default-dev --dry-run -o mutations
@@ -815,7 +812,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish bitnami-opensearch-2-0-10-default-dev</code></pre>
         </div>
-      </details>
       </details>
       <details class="entry-steps-base" data-entry-steps="bitnami-opensearch-2-0-10-ha">
         <summary>Helm chart, base <strong>ha</strong>, version 2.0.10</summary>
@@ -856,9 +852,6 @@ c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564  bitnami-opense
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff bitnami-opensearch-2-0-10-ha.yaml bitnami-opensearch-2-0-10-default.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-ha.yaml">Read the record that states this</a>.</p>
@@ -896,7 +889,7 @@ c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564  bitnami-opense
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-ha.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-ha.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -911,7 +904,6 @@ c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564  bitnami-opense
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
-      </details>
       </details>
       <details class="entry-steps-base" data-entry-steps="bitnami-opensearch-2-0-10-legacy">
         <summary>Helm chart, base <strong>legacy</strong>, version 2.0.10</summary>
@@ -952,9 +944,6 @@ ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc  bitnami-opense
 <span class="term-comment"># list what differs between the two bases</span>
 <span class="term-prompt">$</span> cub config diff bitnami-opensearch-2-0-10-legacy.yaml bitnami-opensearch-2-0-10-default.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-legacy.yaml">Read the record that states this</a>.</p>
@@ -992,7 +981,7 @@ ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc  bitnami-opense
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-legacy.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-opensearch-2-0-10-legacy.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -1008,8 +997,7 @@ ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc  bitnami-opense
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
-      </details>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/bitnami-opensearch-2-0-10-default.json">bitnami-opensearch-2-0-10-default.json</a>, <a href="../listings/bitnami-opensearch-2-0-10-ha.json">bitnami-opensearch-2-0-10-ha.json</a>, <a href="../listings/bitnami-opensearch-2-0-10-legacy.json">bitnami-opensearch-2-0-10-legacy.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/bitnami-opensearch-2-0-10-default.json">bitnami-opensearch-2-0-10-default.json</a>, <a href="../listings/bitnami-opensearch-2-0-10-ha.json">bitnami-opensearch-2-0-10-ha.json</a>, <a href="../listings/bitnami-opensearch-2-0-10-legacy.json">bitnami-opensearch-2-0-10-legacy.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="after-render">

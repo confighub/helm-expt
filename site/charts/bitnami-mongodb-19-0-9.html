@@ -579,7 +579,7 @@
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
       <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
-      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm checks</a>.</p>
+      <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
@@ -631,8 +631,8 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
-      <p>Steps 1 and 2 fetch and diff plain Kubernetes YAML locally with no account. Optional steps 3 to 5 upload the preset into ConfigHub for team approvals and environment promotion; each badge states whether a step has been run for this exact entry.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 presets below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="bitnami-mongodb-19-0-9-existing-secret-replicaset" open>
         <summary>Helm chart, base <strong>existing-secret-replicaset</strong>, version 19.0.9</summary>
         <details class="entry-inputs" data-entry-inputs="bitnami-mongodb-19-0-9-existing-secret-replicaset" open>
@@ -680,9 +680,6 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
 <span class="term-comment"># list what changed from 19.0.7 to 19.0.9</span>
 <span class="term-prompt">$</span> cub config diff bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml bitnami-mongodb-19-0-9-existing-secret-replicaset.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-existing-secret-replicaset.yaml">Read the record that states this</a>.</p>
@@ -720,7 +717,7 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-existing-secret-replicaset.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-existing-secret-replicaset.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -735,7 +732,6 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
-      </details>
       </details>
       <details class="entry-steps-base" data-entry-steps="bitnami-mongodb-19-0-9-static-passwords">
         <summary>Helm chart, base <strong>static-passwords</strong>, version 19.0.9</summary>
@@ -782,9 +778,6 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
 <span class="term-comment"># list what changed from 19.0.7 to 19.0.9</span>
 <span class="term-prompt">$</span> cub config diff bitnami-mongodb-19-0-7-static-passwords.yaml bitnami-mongodb-19-0-9-static-passwords.yaml --summary</code></pre>
         </div>
-        <details class="entry-inputs" data-optional-server-steps>
-        <summary>Optional ConfigHub Server workflow (steps 3 to 5, account required)</summary>
-        <p>Skip steps 3 to 5 if you deploy plain YAML directly with kubectl, Helm, Argo CD, or Flux. Open them only to test hosted ConfigHub team environments (Spaces), deployable configs (Units), and promotion.</p>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
           <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-static-passwords.yaml">Read the record that states this</a>.</p>
@@ -822,7 +815,7 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant when a Unit or version updates in a Space. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-static-passwords.yaml">Read the record that states this</a>.</p>
+          <p>A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-0-9-static-passwords.yaml">Read the record that states this</a>.</p>
           <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
           <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
@@ -838,8 +831,7 @@ ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2  bitnami-mongod
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </details>
-      </details>
-      <aside class="agent-note" aria-label="Machine-readable JSON (for scripts and automation):"><span class="agent-note-label">Machine-readable JSON (for scripts and automation):</span> These steps are the <code>nextSteps</code> array of <a href="../listings/bitnami-mongodb-19-0-9-existing-secret-replicaset.json">bitnami-mongodb-19-0-9-existing-secret-replicaset.json</a>, <a href="../listings/bitnami-mongodb-19-0-9-static-passwords.json">bitnami-mongodb-19-0-9-static-passwords.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/bitnami-mongodb-19-0-9-existing-secret-replicaset.json">bitnami-mongodb-19-0-9-existing-secret-replicaset.json</a>, <a href="../listings/bitnami-mongodb-19-0-9-static-passwords.json">bitnami-mongodb-19-0-9-static-passwords.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
 
     <section aria-labelledby="retained-configurations">
