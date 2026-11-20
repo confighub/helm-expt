@@ -190,11 +190,11 @@ footer p { max-width: none; }
 @media (max-width: 60rem) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 49rem) { .topbar { align-items: flex-start; } .hero, .grid3, .two { grid-template-columns: 1fr; } }
 @media (max-width: 32rem) { .topnav { gap: .45rem .7rem; } .topnav a { font-size: .81rem; } .grid4 { grid-template-columns: 1fr; } .demo-tabs button { font-size: .75rem; } }
-.problems { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin-top: 1.1rem; }
-.problems .card { gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
-.problems p { font-size: .92rem; line-height: 1.5; }
+.problems { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .8rem; margin-top: 1.1rem; }
+.problems .card { padding: 1.05rem; gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
+.problems p { font-size: .9rem; line-height: 1.48; }
 .problems .pain { color: var(--muted); }
-@media (max-width: 60rem) { .problems { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 68rem) { .problems { grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); } }
 @media (max-width: 32rem) { .problems { grid-template-columns: 1fr; } }
 .walk pre { max-width: 100%; padding: 1rem; border-radius: .45rem; background: var(--terminal); color: var(--terminal-ink); white-space: pre-wrap; overflow-wrap: anywhere; font: .84rem/1.6 var(--mono); }
 .welcome { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
@@ -237,6 +237,11 @@ footer p { max-width: none; }
   </div>
 
   <div class="problems" id="problem">
+    <div class="card">
+      <h3>Deploy your app cleanly</h3>
+      <p class="pain"><strong>Today:</strong> Setting up envs, checking values are right, saving settings, and copying them into a new app are scattered across <code>.env</code> files and host dashboards.</p>
+      <p><strong>With ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> settings in one place, checks them before deploy, and clones a working setup for your next app. <a href="first-look.html#starter">Reuse across apps</a></p>
+    </div>
     <div class="card">
       <h3>Lost reasons</h3>
       <p class="pain"><strong>Today:</strong> Your agent edits <code>.env</code> or deploy settings without committing, and tomorrow nobody knows why.</p>
