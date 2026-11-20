@@ -190,12 +190,16 @@ footer p { max-width: none; }
 @media (max-width: 60rem) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 49rem) { .topbar { align-items: flex-start; } .hero, .grid3, .two { grid-template-columns: 1fr; } }
 @media (max-width: 32rem) { .topnav { gap: .45rem .7rem; } .topnav a { font-size: .81rem; } .grid4 { grid-template-columns: 1fr; } .demo-tabs button { font-size: .75rem; } }
-.problems { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .8rem; margin-top: 1.1rem; }
-.problems .card { padding: 1.05rem; gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
-.problems p { font-size: .9rem; line-height: 1.48; }
+.problems { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: .95rem; margin-top: 1.15rem; }
+.problems .card { padding: 1.15rem 1.25rem; gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
+.problems p { font-size: .94rem; line-height: 1.52; }
 .problems .pain { color: var(--muted); }
-@media (max-width: 68rem) { .problems { grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); } }
-@media (max-width: 32rem) { .problems { grid-template-columns: 1fr; } }
+.cover .buttons { margin-top: 1.25rem; margin-bottom: 0; }
+.cover .btn { background: rgba(255,255,255,.1); border-color: #63808e; color: #fff; }
+.cover .btn.primary { background: #fff; border-color: #fff; color: #142238; }
+.first-prompt-box { margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
+.first-prompt-box h3 { font-size: 1rem; margin-bottom: .35rem; }
+.first-prompt-box .snip { margin: .55rem 0; }
 .walk pre { max-width: 100%; padding: 1rem; border-radius: .45rem; background: var(--terminal); color: var(--terminal-ink); white-space: pre-wrap; overflow-wrap: anywhere; font: .84rem/1.6 var(--mono); }
 .welcome { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 .first-action { padding: 1.15rem 1.25rem; border: 1px solid #63808e; border-radius: .7rem; background: #142d42; }
@@ -213,59 +217,86 @@ footer p { max-width: none; }
   <p class="eyebrow">ConfigHub · For Claude Code and Codex</p>
   <nav class="topnav" aria-label="Page navigation">
     <a href="first-look.html">Try first</a>
-    <a href="plugin.html">Plugin</a>
-    <a href="mini.html">Mini Hub</a>
-    <a href="hub.html">Shared Hub</a>
-    <a href="plugins.html">Plugins</a>
+    <a href="#why-how">How it works</a>
     <a href="starters.html">Starters</a>
     <a href="stories.html">Stories</a>
-    <a href="trust.html">Proof</a>
-    <a href="reference.html">Reference</a>
+    <a href="reference.html">Docs</a>
   </nav>
 </header>
 
 <section id="install">
-  <div class="cover welcome">
-    <div><h1>Your agent changed a setting. Do you know why?</h1>
-  <p class="lead">Your next chat can tell you why the last one changed a setting, even if you never committed it. Start in your app folder. You can add a local hub later for staging, previews and production approvals.</p></div>
-    <aside class="first-action" id="first-prompt" aria-labelledby="first-prompt-title">
-      <h2 id="first-prompt-title">Before you change a setting back</h2>
-      <p>In your app folder, ask Claude Code or Codex:</p>
-      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Pick the last setting ConfigHub recorded. What changed, why, and where does this app use it? Show me what you can verify. Leave the files alone.</code></pre></div>
-      <p>For example, the code can tell you caching is on. The recorded request can tell you someone turned it on for Friday’s sale. That matters if you’re about to switch it off.</p>
-      <p>Nothing recorded yet? <a href="first-look.html#remember">Try it with one edit in a sample folder.</a></p>
-      <p>Want to see a change running? <a href="first-look.html#preview">Try a local preview</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">test a setting in Daytona</a>.</p>
-    </aside>
+  <div class="cover">
+    <div>
+      <h1>Your agent changed a setting. Do you know why?</h1>
+      <p class="lead">ConfigHub keeps your app settings, the reason for every change, isolated previews, and production approvals in one place for Claude Code and Codex. Start in your app folder with no Kubernetes and no account.</p>
+      <p class="buttons">
+        <a class="btn primary" href="#install-box">Install in 30 seconds</a>
+        <a class="btn" href="first-look.html">See 3 quick examples</a>
+      </p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
+</section>
 
-  <div class="problems" id="problem">
+<section id="problem">
+  <h2>What basic problems ConfigHub solves</h2>
+  <p>Five everyday app-config headaches that happen as soon as coding agents edit your settings.</p>
+  <div class="problems">
     <div class="card">
-      <h3>Deploy your app cleanly</h3>
-      <p class="pain"><strong>Today:</strong> Setting up envs, checking values are right, saving settings, and copying them into a new app are scattered across <code>.env</code> files and host dashboards.</p>
-      <p><strong>With ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> settings in one place, checks them before deploy, and clones a working setup for your next app. <a href="first-look.html#preview">Run a preview</a> · <a href="first-look.html#starter">Reuse across apps</a></p>
+      <h3>1. Deploy your app cleanly</h3>
+      <p class="pain">Envs, pre-deploy checks, and copying a working setup into a new app are scattered across <code>.env</code> files and host dashboards.</p>
+      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, checks values before deploy, and clones cleanly for your next app.</p>
     </div>
     <div class="card">
-      <h3>Lost reasons</h3>
-      <p class="pain"><strong>Today:</strong> Your agent edits <code>.env</code> or deploy settings without committing, and tomorrow nobody knows why.</p>
-      <p><strong>With ConfigHub:</strong> Saves the prompt with every edit locally so the next chat explains it. <a href="plugin.html">Step 1: Plugin</a></p>
+      <h3>2. Know why a setting changed</h3>
+      <p class="pain">An agent edits <code>.env</code> without committing, and tomorrow nobody knows why a value is set that way.</p>
+      <p><strong>ConfigHub:</strong> Records the prompt with every edit locally so the next chat explains it before you undo it.</p>
     </div>
     <div class="card">
-      <h3>Broken working app</h3>
-      <p class="pain"><strong>Today:</strong> Trying a new setting means touching the running app you actually use.</p>
-      <p><strong>With ConfigHub:</strong> Try the change in a local preview, or bring a settings experiment back from Daytona for review. <a href="mini.html">Step 2: Mini Hub</a></p>
+      <h3>3. Try changes without breaking your app</h3>
+      <p class="pain">Testing a new setting usually means touching the running app you already rely on.</p>
+      <p><strong>ConfigHub:</strong> Opens a local or Daytona preview on its own settings while your working app stays untouched.</p>
     </div>
     <div class="card">
-      <h3>Unreviewed production</h3>
-      <p class="pain"><strong>Today:</strong> One shared login lets an agent change production in the same turn as staging.</p>
-      <p><strong>With ConfigHub:</strong> Gives the agent a scoped key; production waits for your approval before shipping to Vercel, Fly, AWS SSM, or GitOps. <a href="starters.html">Starters &amp; recipes</a></p>
+      <h3>4. Keep production behind your approval</h3>
+      <p class="pain">One shared login lets an agent change production in the same turn as staging.</p>
+      <p><strong>ConfigHub:</strong> Gives the agent a scoped key; production waits for your approval before shipping.</p>
     </div>
     <div class="card">
-      <h3>Copy-paste drift</h3>
-      <p class="pain"><strong>Today:</strong> Hardening one service means repeating the same pull request across ten apps.</p>
-      <p><strong>With ConfigHub:</strong> Links apps to a versioned starter so shared fixes roll out while each app keeps its own overrides. <a href="hub.html">Step 3: Shared Hub</a></p>
+      <h3>5. Fix once across many apps</h3>
+      <p class="pain">Copied templates drift, so hardening one service means repeating the same PR across ten apps.</p>
+      <p><strong>ConfigHub:</strong> Links apps to a versioned starter so shared fixes roll out while each app keeps its own overrides.</p>
     </div>
   </div>
+</section>
 
+<section id="why-how">
+  <h2>Why it works, and how you adopt it</h2>
+  <p>Git only sees committed files, prompt rules don't stop an agent using your own credentials, and copied templates drift after day one. ConfigHub solves this in three optional steps—stop at whichever step you need:</p>
+  <div class="grid3">
+    <div class="card">
+      <span class="badge ok">Step 1 · Zero servers</span>
+      <h3>Plugin in your app folder</h3>
+      <p class="small">MIT-licensed hooks for Claude Code and Codex. Saves why each setting changed locally in <code>~/.confighub</code> with no account.</p>
+      <p class="small"><a href="plugin.html">How the Plugin works →</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Step 2 · Local on 127.0.0.1</span>
+      <h3>Mini Hub on your laptop</h3>
+      <p class="small">Add when you want separate <code>base</code>, <code>staging</code>, and <code>live</code> copies, durable previews, and scoped agent keys. Free, no Docker.</p>
+      <p class="small"><a href="mini.html">How Mini Hub works →</a></p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Step 3 · Team scale</span>
+      <h3>Shared Hub &amp; starters</h3>
+      <p class="small">Move the same setup to a shared hub for teammate approvals, multi-app starters, and Kubernetes or cloud delivery.</p>
+      <p class="small"><a href="hub.html">How Shared Hub works →</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="install-box">
+  <h2>Install and try it in 30 seconds</h2>
   <div class="hero">
     <div>
       <div class="install-card">
@@ -280,7 +311,7 @@ footer p { max-width: none; }
             <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder and <a href="#first-prompt">ask about a setting before changing it</a>. Type <code>/confighub:changes</code> for the full list.</p>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder, or type <code>/confighub:changes</code>.</p>
         </div>
 
         <div class="client-pane" data-client-pane="codex" hidden>
@@ -289,15 +320,17 @@ claude plugin install confighub@confighub</code></pre>
             <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
   "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">Copies the CLI to <code>~/.codex/confighub/bin/confighub</code>. In Codex CLI, run <code>/hooks</code> once to review and approve the ConfigHub hooks, then start a fresh session in your project folder (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup &amp; removal</a>).</p>
+          <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a>).</p>
         </div>
       </div>
 
-      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes and no account · Stores records locally in <code>~/.confighub</code> and works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">plugin README</a>).</p>
-      <p class="buttons">
-        <a class="btn primary" href="first-look.html#remember">Remember one setting in five minutes</a>
-        <a class="btn" href="first-look.html#preview">Run a preview of my app</a>
-      </p>
+      <div class="first-prompt-box" id="first-prompt">
+        <h3>Already installed? Paste this into a fresh chat</h3>
+        <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>I'm thinking of undoing our last settings change. Why did we make it, and where does this app use it? Just show me for now.</code></pre></div>
+        <p class="small" style="margin:0">Nothing recorded yet? <a href="first-look.html#remember">Try one edit in 5 minutes</a> or <a href="first-look.html#preview">run a preview</a>.</p>
+      </div>
+
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
     </div>
 
     <div class="demo-card" id="preview">
