@@ -3188,6 +3188,13 @@ function siteSidebarHtml(relPath, section, html = "") {
       ? { ...item, pages: [...item.pages.filter(([path]) => path === relPath), ...item.pages.filter(([path]) => path !== relPath)] }
       : item))
     .sort((left, right) => Number(Boolean(section) && right.label === section.label) - Number(Boolean(section) && left.label === section.label));
+  const useCases = `<p class="cw-nav-title"><strong><a href="${base}/index.html#popular-examples">Five K8s use cases</a></strong></p>${list([
+    ["try-aicr.html", "1. GPU Fleets"],
+    ["try.html", "2. AI Sandbox on K8s"],
+    ["why-did-helm-ignore-my-values.html", "3. AI Operations for K8s"],
+    ["compose-a-stack.html", "4. Agentic Platform"],
+    ["charts/index.html", "5. Browse the Catalog"],
+  ])}`;
   // Two links under each of the other two headings, as the home page has.
   const aiLinks = list([["ai.html#install-skill", "Set up my AI agent"], ["ask.html", "Check my charts and values"]]);
   const configHubLinks = list([["deploy-one-thing.html", "Deploy one thing"], ["how-it-works.html", "Promotions and Pipelines"]]);
@@ -3199,19 +3206,22 @@ function siteSidebarHtml(relPath, section, html = "") {
       : [["guides.html", "All Guides"], ...guideHeadings(html).map(([id, title]) => [`${relPath}#${id}`, title])];
     const primary = local.slice(0, 7);
     const extra = local.slice(7);
-    return `<p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "In this Guide"}</strong></p>${list(primary)}
+    return `${useCases}
+      <p class="cw-nav-title"><strong>${relPath === "guides.html" ? "Find your starting point" : "In this Guide"}</strong></p>${list(primary)}
       ${deepDives}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
       <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}
 ${extra.length ? `<details><summary>More in this Guide</summary>${list(extra)}</details>` : ""}`;
   }
   if (section?.hub === relPath) {
-    return `<p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
+    return `${useCases}
+      <p class="cw-nav-title"><strong>Starting questions</strong></p>${list(sectionStartingQuestions(section.label))}
       ${deepDives}
       <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
       <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}`;
   }
-  return `${deepDives}
+  return `${useCases}
+    ${deepDives}
     <p class="cw-nav-title"><strong><a href="${base}/ai.html">AI: Claude and Codex patterns</a></strong></p>${aiLinks}
     <p class="cw-nav-title"><strong><a href="${base}/confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>${configHubLinks}` + sectionsCurrentFirst.map((item) => `<details${section && item.label === section.label ? " open" : ""}><summary>${escapeHtml(item.label)}</summary>${list(item.pages)}</details>`).join("\n");
 }
@@ -5934,9 +5944,9 @@ function stackHtml() {
     ${topNav(".")}
     <h1>Stacks</h1>
     <p class="boundary-chip">Ready-to-run out of the box · Check with cub or your AI agent · Deliver via OCI &amp; GitOps</p>
-    <p class="lead">When you install ingress, cert-manager, Prometheus, GPU operators, and your own charts together, single-chart linters miss cross-component collisions. A <code>stack.yaml</code> file composes components across Helm, NVIDIA AI Cluster Runtime (AICR), Kubara, and YAML, checking duplicate CRDs, namespaces, RBAC, and IngressClasses offline before anything runs. Once deployed under governance with your apps on it, a stack becomes a platform.</p>
-    <p>Inspect any shipped <code>stack.yaml</code> on GitHub with zero install, or run <code>cub stack sandbox</code> and <code>cub stack check</code> locally or from your AI agent with no account.</p>
+    <p class="lead">Compose Helm, NVIDIA AI Cluster Runtime (AICR), Kubara, and YAML into one <code>stack.yaml</code> and check duplicate CRDs, namespaces, RBAC, and IngressClasses offline before anything runs.</p>
     <p><a href="./compose-a-stack.html#own-app">Check your own Helm YAML against a stack</a> · <a href="./eks-inference.html">Inspect the 8-part EKS GPU inference stack</a> · <a href="./compose-a-stack.html">Compose and check a stack</a> · ${STACK_FROM_CATALOG_GUIDE_LINK}</p>
+    <details><summary>How local stack checks work with no account</summary><p>Inspect any shipped <code>stack.yaml</code> on GitHub with zero install, or run <code>cub stack sandbox</code> and <code>cub stack check</code> locally or from your AI agent with no account. Once deployed under governance with your apps on it, a stack becomes a platform.</p></details>
     ${agentNote(` Read the same rows as data at <a href="./stacks.json">stacks.json</a>.`)}
   </header>
   <main>
