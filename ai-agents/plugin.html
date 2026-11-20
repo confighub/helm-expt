@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Step 1: install the MIT-licensed ConfigHub plugin for Claude Code or Codex. Zero background servers, local history in ~/.confighub, and optional MCP and PR guardrails.">
+<title>Step 1: The Plugin · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html" aria-current="page">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Step 1 of 3 · Zero background servers · No account</p>
+      <h1>Remember why your agent changed a setting</h1>
+      <p class="lead">Install the MIT-licensed plugin once for Claude Code or Codex. Every supported settings edit is recorded locally with the prompt that asked for it, so tomorrow's chat knows why a value changed even before you commit.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="what-it-records">
+  <h2>What the plugin records and what it never records</h2>
+  <p>Hooks run locally on your machine and write signed entries to <code>~/.confighub/agent-changes</code>. Nothing leaves your computer unless you opt in.</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Recorded locally</span>
+      <h3>Config keys, CLI changes, and prompts</h3>
+      <ul class="tight">
+        <li>Changed keys in <code>.env</code>, Compose, Terraform, GitHub Actions, Kubernetes YAML, Helm values, and Kustomize files.</li>
+        <li>State-changing CLI commands (<code>vercel</code>, <code>fly</code>, <code>aws ssm</code>, <code>kubectl</code>, <code>helm</code>, <code>terraform</code>, <code>cub</code>) and MCP tool calls.</li>
+        <li>The prompt you gave the agent and the reason it stated, signed on disk.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="badge wait">Never recorded</span>
+      <h3>Secrets, passwords, and raw command output</h3>
+      <ul class="tight">
+        <li>Anything matching a password, API key, token, or credential connection string is skipped.</li>
+        <li>Full file copies and raw command stdout are not stored in the journal.</li>
+        <li>Ordinary code edits outside config files stay untouched so coding speed does not change.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="clients">
+  <h2>Claude Code and Codex CLI capabilities</h2>
+  <p>Both clients recover the full history of uncommitted settings edits in a fresh chat. Pre-edit warnings differ because each client exposes different hook points.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Capability</th><th>Claude Code</th><th>Codex CLI</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Install</strong></td><td><code>claude plugin marketplace add confighubai/confighub-mini-plugin</code> then <code>claude plugin install confighub@confighub</code></td><td>One-line <code>codex-setup</code> script, then approve <code>/hooks</code> once (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a>)</td></tr>
+        <tr><td><strong>Record edit and prompt</strong></td><td>Recorded on edit; fresh session sees prior reasons automatically</td><td><code>apply_patch</code> edits recorded right after they run; fresh session recovers them</td></tr>
+        <tr><td><strong>Warn before undoing an edit</strong></td><td>Warns before overwriting an earlier uncommitted change</td><td>Recovers the history after the turn; see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#client-capabilities">capability matrix</a></td></tr>
+        <tr><td><strong>Inspect directly</strong></td><td><code>/confighub:why NAME</code> and <code>/confighub:changes</code></td><td><code>~/.codex/confighub/bin/confighub mini changes</code></td></tr>
+        <tr><td><strong>MCP tool checks</strong></td><td><code>/confighub:checks</code> (<code>log</code>, <code>warn</code>, <code>repeats</code>, <code>ask</code>)</td><td>Supported with a local MCP server</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="guardrails">
+  <h2>Zero-hub guardrails for teams and pull requests</h2>
+  <p>You can adopt four practical safeguards before you ever start a hub.</p>
+  <div class="grid3">
+    <div class="card">
+      <h3>Emergency stop</h3>
+      <p class="small">Pause every Claude Code session at its next tool call with one file on disk.</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>touch ~/.confighub/halt</code></pre></div>
+      <p class="small">Remove the file to resume. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-19-recovery.md">Incident recovery walkthrough</a>.</p>
+    </div>
+    <div class="card">
+      <h3>Pull-request review comments</h3>
+      <p class="small">Set <code>CUB_MINI_RECORD_IN_REPO=1</code> and add the GitHub Action so every PR lists changed settings and why they changed.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/review/README.md">PR review Action</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/entire.md">Entire checkpoints</a></p>
+    </div>
+    <div class="card">
+      <h3>Share plugin setup via Git</h3>
+      <p class="small">Commit <code>extraKnownMarketplaces</code> and <code>enabledPlugins</code> in <code>.claude/settings.json</code> so teammates get the plugin automatically.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md">Five-minute guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/inventory.md">Repo inventory</a></p>
+    </div>
+  </div>
+
+  <div class="rung-next">
+    <div>
+      <h3>Ready for isolated previews and production approval gates?</h3>
+      <p class="small">Step 2 adds a free local hub on <code>127.0.0.1</code> with no Docker and no account.</p>
+    </div>
+    <a class="btn primary" href="mini.html">Next: Step 2, Mini Hub →</a>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="first-look.html">Try first</a> · <a href="mini.html">Mini Hub</a> · <a href="plugins.html">Plugins</a> · <a href="starters.html">Starters</a> · <a href="../site/">Kubernetes Workshop</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Combine agent and sandbox plugins with versioned ConfigHub starters. Interactive Plugin x Starter recipe picker plus all shipped starters and how to write your own YAML starter.">
+<title>Starters &amp; Composable Recipes · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html" aria-current="page">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Plugin × Starter = Working Recipe · Extensible in 1 YAML file</p>
+      <h1>Starters and composable recipes</h1>
+      <p class="lead">A starter is a versioned YAML file of default settings, guardrails, and plain-English reasons. Unlike a copy-once template, apps stay linked to their starter so hardening fixes reach every app while per-app overrides stay untouched.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="recipes">
+  <h2>Compose a Plugin + Starter recipe</h2>
+  <p>Pick how your agent runs on the left and where your app deploys on the right. Every combination uses the same ConfigHub model.</p>
+  <div class="recipe-controls">
+    <label>1. Agent or sandbox plugin
+      <select data-recipe-plugin>
+        <option value="nono" selected>nono sandbox plugin (Early)</option>
+        <option value="claude">Claude Code plugin</option>
+        <option value="codex">Codex CLI hooks</option>
+        <option value="daytona">Daytona cloud sandbox</option>
+        <option value="ci">GitHub Actions CI (ephemeral hub)</option>
+      </select>
+    </label>
+    <label>2. App starter
+      <select data-recipe-starter>
+        <option value="vercel" selected>Vercel / Next.js starter</option>
+        <option value="web">Web (.env) starter</option>
+        <option value="fly">Rails on Fly starter</option>
+        <option value="ssm">AWS Parameter Store starter</option>
+        <option value="temporal">Temporal worker starter</option>
+        <option value="gitops">Argo CD / Flux Kustomize starter</option>
+      </select>
+    </label>
+  </div>
+  <div class="recipe-out" data-recipe-out>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem">
+      <h3 data-r-title>nono sandbox plugin + Vercel / Next.js starter</h3>
+      <span class="badge wait" data-r-status>Early integration</span>
+    </div>
+    <p class="small" data-r-summary>Runs the coding agent inside an OS-level nono sandbox while recording every settings edit. Paired with the Vercel / Next.js starter, staging updates freely while production waits for your cub mini approve.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code data-r-prompt>Try a warmer banner in staging on Vercel, and hold production for my approval.</code></div>
+    <p class="small"><a data-r-link href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel guide</a> · <a href="plugins.html">See all plugins</a></p>
+  </div>
+</section>
+
+<section id="shipped">
+  <h2>Shipped starters and guides</h2>
+  <p>Filter by runtime. Most starters include a no-account local stand-in so you can rehearse on your laptop first.</p>
+  <div class="filter-bar" data-filter-group="starters" role="group" aria-label="Filter starters">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-filter="web" aria-pressed="false">Web &amp; PaaS</button>
+    <button type="button" class="chip" data-filter="cloud" aria-pressed="false">Cloud &amp; Workers</button>
+    <button type="button" class="chip" data-filter="sandbox" aria-pressed="false">Sandboxes &amp; VMs</button>
+    <button type="button" class="chip" data-filter="gitops" aria-pressed="false">Kubernetes &amp; GitOps</button>
+  </div>
+
+  <div class="grid4" data-filter-target="starters">
+    <div class="card" data-tags="web">
+      <span class="badge ok">Local &amp; VM</span>
+      <h3>Web (<code>.env</code>)</h3>
+      <p class="small">Any Node, Python, or Go service reading <code>.env</code>, with preview, staging, and production copies.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="web">
+      <span class="badge ok">Live delivery</span>
+      <h3>Next.js on Vercel</h3>
+      <p class="small">Connect a linked Vercel project so staging updates quickly and approving pushes production.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Starter</a></p>
+    </div>
+    <div class="card" data-tags="web">
+      <span class="badge ok">Live delivery</span>
+      <h3>Rails on Fly</h3>
+      <p class="small">Share one hardened setup across two Rails apps and deliver approved settings to Fly Machines.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Guide</a></p>
+    </div>
+    <div class="card" data-tags="cloud">
+      <span class="badge ok">Live or local</span>
+      <h3>AWS Parameter Store</h3>
+      <p class="small">Deliver approved production values to AWS SSM Parameter Store (includes a no-account stand-in).</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="cloud">
+      <span class="badge ok">Worker rollout</span>
+      <h3>Temporal worker</h3>
+      <p class="small">Gate activity retry limits and timeouts before rolling out to live workers, then verify after restart.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="sandbox">
+      <span class="badge ok">Cloud sandbox</span>
+      <h3>Daytona</h3>
+      <p class="small">Run agent experiments in a disposable Daytona sandbox and bring reviewed settings back.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="sandbox">
+      <span class="badge ok">MicroVM</span>
+      <h3>Unikraft</h3>
+      <p class="small">Change and roll back service settings locally or on Unikraft Cloud behind owner approval.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="sandbox">
+      <span class="badge ok">File pull</span>
+      <h3>Service on a VM</h3>
+      <p class="small">Write a VM service's config folder strictly from approved hub revisions; the agent never touches the host.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/vm.md">VM guide</a></p>
+    </div>
+    <div class="card" data-tags="gitops">
+      <span class="badge ok">Kustomize GitOps</span>
+      <h3>Argo CD</h3>
+      <p class="small">Kustomize overlays reconciled by Argo CD from approved hub revisions.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="gitops">
+      <span class="badge ok">Kustomize GitOps</span>
+      <h3>Flux</h3>
+      <p class="small">Kustomize repository reconciled by Flux with production approval gating.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="gitops">
+      <span class="badge soft">Helm values</span>
+      <h3>Your own Helm chart</h3>
+      <p class="small">Keep your values and their reasons cleanly across upstream chart upgrades.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/your-own-chart.md">Helm values guide</a> · <a href="../site/charts/index.html">124 Catalog charts</a></p>
+    </div>
+    <div class="card" data-tags="sandbox">
+      <span class="badge soft">Embedded</span>
+      <h3>Bundled software hub</h3>
+      <p class="small">Ship an application or platform with ConfigHub Mini embedded inside.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">Bundled hub notes</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="build-your-own">
+  <h2>Add your own starter or delivery plugin</h2>
+  <p>You are not limited to the starters above. A starter is one YAML file of defaults, rules, and reasons.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Write a 1-file YAML starter</h3>
+      <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>starter: web
+version: 1
+defaults:
+  - key: REPLICAS
+    value: "2"
+    reason: Two instances so one can restart without downtime.</code></pre></div>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write and check a starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
+    </div>
+    <div class="card">
+      <h3>Write a custom delivery plugin</h3>
+      <p class="small">Connect any hosting platform, secrets store, or internal service by reading a pinned ConfigHub snapshot and applying only owner-approved revisions.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/extensions/delivery/README.md">Delivery plugin example</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/extensions/config-snapshot/README.md">Config snapshot example</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="plugins.html">Plugins</a> · <a href="stories.html">Field stories</a> · <a href="trust.html">Proof</a> · <a href="../site/">Kubernetes Workshop</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

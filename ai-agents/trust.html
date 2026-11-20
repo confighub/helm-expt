@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Measured blind runs in Claude Code and Codex, signed local records, the 1-command self-evaluation runner, and honest security limits.">
+<title>Proof, Security &amp; Limits · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html" aria-current="page">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Measured blind runs · Signed records · Honest boundaries</p>
+      <h1>What has been tested, and what it cannot stop</h1>
+      <p class="lead">Every claim on this site links to dated transcripts and JSON receipts on GitHub, plus a one-command evaluation harness you can run with your own models.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="evidence">
+  <h2>Blind runs in Claude Code and Codex</h2>
+  <p>Fresh sessions were given no prior conversation, no URL, and no product hint. Judges verified running processes and HTTP responses from outside the agent.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Everyday test</th><th>Without ConfigHub</th><th>With ConfigHub</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Recover why an uncommitted <code>.env</code> edit happened</strong></td><td>0/4 fresh chats recovered the scanner reason behind raising retries from 2 to 5.</td><td>4/4 fresh Claude Code and Codex chats recovered the exact edit and request.</td></tr>
+        <tr><td><strong>Reopen a preview tomorrow without its URL</strong></td><td>1/4 fresh chats returned the same running preview process; others restarted or lost it.</td><td>Both Claude Code and Codex returned the exact running preview URL and process while leaving repo, staging, and prod untouched.</td></tr>
+        <tr><td><strong>Stop an autonomous agent from changing production</strong></td><td>Shared credentials allow an agent in auto mode to modify production directly.</td><td>40/40 Claude Code sessions in auto mode failed to alter production and submitted change orders instead.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:.85rem"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Read full quoted evidence</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/testing.md">All dated run records</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/evaluate/README.md">Run the evaluation yourself</a></p>
+</section>
+
+<section id="limits">
+  <h2>Honest security boundaries</h2>
+  <p>ConfigHub governs configuration stored in the hub and delivered from it. Know these three boundaries before relying on it in production.</p>
+  <div class="grid3">
+    <div class="card">
+      <span class="badge wait">Boundary 1</span>
+      <h3>Direct cloud credentials bypass the hub</h3>
+      <p class="small">If an agent also holds direct write credentials to your cluster, Vercel, Fly, or AWS account, it can bypass the hub. Keep production write keys out of the agent's environment.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">Limiting what an agent can reach</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Boundary 2</span>
+      <h3>Tamper-evident signed records</h3>
+      <p class="small">Journal entries are cryptographically signed and verifiable with <code>cosign</code> or SPIFFE workload identities. Lock down writes to <code>~/.confighub/agent-changes</code> in sandbox settings.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records guide</a></p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Boundary 3</span>
+      <h3>What we do not claim</h3>
+      <p class="small">Recording is local and offline; the hub is not a secret vault or OS kernel sandbox (pair with Vault or <code>nono</code>/containers for those layers).</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Full limits document</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="plugin.html">Plugin</a> · <a href="mini.html">Mini Hub</a> · <a href="hub.html">Shared Hub</a> · <a href="reference.html">Reference</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

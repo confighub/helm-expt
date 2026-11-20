@@ -212,12 +212,15 @@ footer p { max-width: none; }
 <header class="topbar">
   <p class="eyebrow">ConfigHub · For Claude Code and Codex</p>
   <nav class="topnav" aria-label="Page navigation">
-    <a href="first-look.html">Three things to try first</a>
-    <a href="#first-prompt">First prompt</a>
-    <a href="#problem">What it solves</a>
-    <a href="#how-it-runs">What runs where</a>
-    <a href="#works-with">Starters</a>
-    <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a>
+    <a href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
   </nav>
 </header>
 
@@ -235,24 +238,24 @@ footer p { max-width: none; }
 
   <div class="problems" id="problem">
     <div class="card">
-      <h3>Set up environments</h3>
-      <p class="pain">One <code>.env</code> file, and the agent's login reaches production.</p>
-      <p>A starter creates separate staging and production copies, each default with a written reason.</p>
+      <h3>Lost reasons</h3>
+      <p class="pain"><strong>Today:</strong> Your agent edits <code>.env</code> or deploy settings without committing, and tomorrow nobody knows why.</p>
+      <p><strong>With ConfigHub:</strong> Saves the prompt with every edit locally so the next chat explains it. <a href="plugin.html">Step 1: Plugin</a></p>
     </div>
     <div class="card">
-      <h3>Test changes</h3>
-      <p class="pain">Trying an idea means touching the app you actually use.</p>
-      <p>Open a preview on your laptop, or try a settings change in a disposable Daytona sandbox and bring it back for review.</p>
+      <h3>Broken working app</h3>
+      <p class="pain"><strong>Today:</strong> Trying a new setting means touching the running app you actually use.</p>
+      <p><strong>With ConfigHub:</strong> Opens a preview on your laptop or in a Daytona sandbox while your app stays untouched. <a href="mini.html">Step 2: Mini Hub</a></p>
     </div>
     <div class="card">
-      <h3>Deploy them</h3>
-      <p class="pain">Nothing stops an agent pushing to production in the same turn as staging.</p>
-      <p>Production waits for your approval, then goes to Vercel, Fly, AWS Parameter Store, Unikraft, or Argo CD and Flux.</p>
+      <h3>Unreviewed production</h3>
+      <p class="pain"><strong>Today:</strong> One shared login lets an agent change production in the same turn as staging.</p>
+      <p><strong>With ConfigHub:</strong> Gives the agent a scoped key; production waits for your approval before shipping to Vercel, Fly, AWS SSM, or GitOps. <a href="starters.html">Starters &amp; recipes</a></p>
     </div>
     <div class="card">
-      <h3>Make new versions</h3>
-      <p class="pain">A fix to one app means a pull request to every other app.</p>
-      <p>Apps stay linked to a versioned starter, so a fix in version 2 reaches every app and keeps each one's own overrides.</p>
+      <h3>Copy-paste drift</h3>
+      <p class="pain"><strong>Today:</strong> Hardening one service means repeating the same pull request across ten apps.</p>
+      <p><strong>With ConfigHub:</strong> Links apps to a versioned starter so shared fixes roll out while each app keeps its own overrides. <a href="hub.html">Step 3: Shared Hub</a></p>
     </div>
   </div>
 
@@ -344,16 +347,19 @@ A change to production waits for your approval: Four for the sale. It was made j
       <p style="margin:0 0 .4rem"><span class="badge ok">Step 1 · No server</span></p>
       <h3>The ConfigHub plugin</h3>
       <p>Claude Code and Codex call a local program to record supported config edits and CLI changes in <code>~/.confighub/agent-changes</code>. The next session can look up a setting and the request that changed it.</p>
+      <p class="small"><a href="plugin.html">Explore Step 1: Plugin →</a></p>
     </div>
     <div class="card">
       <p style="margin:0 0 .4rem"><span class="badge ok">Step 2 · Local on 127.0.0.1</span></p>
       <h3>Local hub + <code>cub</code></h3>
       <p>An optional 52 to 77 MB download running the ConfigHub server and bundled PostgreSQL as ordinary user processes in <code>~/.confighub/servers</code>—no Docker, cluster, or account. Includes <code>cub</code>, ConfigHub’s CLI, for previews, staging vs. production copies, and approvals.</p>
+      <p class="small"><a href="mini.html">Explore Step 2: Mini Hub →</a></p>
     </div>
     <div class="card">
       <p style="margin:0 0 .4rem"><span class="badge wait">Step 3 · Team &amp; hosts</span></p>
       <h3>Delivery &amp; shared hub</h3>
       <p>Deliver approved production settings to Vercel, Fly, or AWS Parameter Store—or let Argo CD and Flux reconcile approved revisions—and move to an organization’s shared hub (on confighub.com or your own servers) with the exact same <code>cub</code> commands.</p>
+      <p class="small"><a href="hub.html">Explore Step 3: Shared Hub →</a></p>
     </div>
   </div>
   <div class="callout">
@@ -509,7 +515,7 @@ defaults:
 </div>
 
 <footer><div class="wrap">
-  <p>For macOS and Linux. <a href="first-look.html">Three guided examples</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Current downloads</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">Plugin on GitHub</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">All walkthroughs</a> · <a href="https://docs.confighub.com">ConfigHub documentation</a></p>
+  <p>For macOS and Linux. <a href="first-look.html">Try first</a> · <a href="plugins.html">Plugins</a> · <a href="starters.html">Starters &amp; recipes</a> · <a href="stories.html">24 field stories</a> · <a href="trust.html">Proof &amp; limits</a> · <a href="reference.html">Reference</a> · <a href="../site/">Kubernetes Workshop</a> · <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a></p>
 </div></footer>
 
 <script>

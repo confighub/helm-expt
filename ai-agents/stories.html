@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="24 reproducible field stories showing ConfigHub with Claude Code, Codex, local Mini Hub, and shared hubs across previews, approvals, shared bases, and fleets.">
+<title>Field Stories · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html" aria-current="page">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">24 reproducible walkthroughs · Every command &amp; output on GitHub</p>
+      <h1>Field stories, grouped by the job you need done</h1>
+      <p class="lead">Every story below is a runnable walkthrough with exact commands, recorded outputs, and an Agent section your coding assistant can follow directly.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Filter by job</h2>
+  <p>Each card shows which rung it uses (<code>Plugin</code>, <code>Mini</code>, or <code>Shared Hub</code>) and links to the full transcript on GitHub.</p>
+  <div class="filter-bar" data-filter-group="stories" role="group" aria-label="Filter stories">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All 24 stories</button>
+    <button type="button" class="chip" data-filter="first-hour" aria-pressed="false">First hour &amp; previews</button>
+    <button type="button" class="chip" data-filter="approvals" aria-pressed="false">Approvals &amp; recovery</button>
+    <button type="button" class="chip" data-filter="bases" aria-pressed="false">Shared bases &amp; upgrades</button>
+    <button type="button" class="chip" data-filter="fleets" aria-pressed="false">Drift, CI, VMs &amp; fleets</button>
+  </div>
+
+  <div class="grid3" data-filter-target="stories">
+    <div class="card" data-tags="first-hour">
+      <span class="badge ok">Mini · Story 13</span>
+      <h3>First hour: from page to approval gate</h3>
+      <p class="small">Plugin plus a laptop hub with no account: production waits for your approval and self-approval is refused.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-13-first-hour.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="first-hour">
+      <span class="badge ok">Plugin · Story 23</span>
+      <h3>Setup travels from the first prompt</h3>
+      <p class="small">Keep the reason for each setting an agent writes from the very first file and trace where the app came from.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-23-theo-first-app.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="first-hour">
+      <span class="badge ok">Mini · Story 20</span>
+      <h3>More memory in staging, prod untouched</h3>
+      <p class="small">An agent updates staging's own settings freely while production changes only with your approval.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-20-noors-staging.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="first-hour">
+      <span class="badge ok">Mini · Story 04</span>
+      <h3>Preview a branch on its own hub</h3>
+      <p class="small">See what a branch would do to production, run it locally with Argo CD, and leave nothing behind.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-04-preview-a-change.md">Read walkthrough</a></p>
+    </div>
+
+    <div class="card" data-tags="approvals">
+      <span class="badge wait">Hub · Story 22</span>
+      <h3>Approve from Slack and make it count</h3>
+      <p class="small">Approve inside the Slack thread where work started; only the named owner's command approves the order.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="approvals">
+      <span class="badge wait">Plugin + Mini · Story 19</span>
+      <h3>Bad afternoon: stop it, find it, undo it</h3>
+      <p class="small">One command pauses every agent session, revokes a key, finds its change, and rolls back cleanly.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-19-recovery.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="approvals">
+      <span class="badge wait">Mini · Story 11</span>
+      <h3>Propose, never self-approve</h3>
+      <p class="small">An agent proposes a production change and is refused when it tries to approve its own order.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-11-propose-not-approve.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="approvals">
+      <span class="badge ok">Mini · Story 15</span>
+      <h3>The three things you are told</h3>
+      <p class="small">A pending order, an agent retrying a refused value, and an unreachable hub, with zero noise otherwise.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-15-the-telling.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="approvals">
+      <span class="badge ok">Mini · Story 16</span>
+      <h3>App platform release and rollback</h3>
+      <p class="small">Agent proposes a release, owner approves, runtime takes it, and one approved command rolls it back.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-16-app-platform.md">Read walkthrough</a></p>
+    </div>
+
+    <div class="card" data-tags="bases">
+      <span class="badge ok">Mini + Hub · Story 25</span>
+      <h3>Ship it, harden it, inherit it</h3>
+      <p class="small">Reviewer fixes become starter version 2: new apps start hardened and existing apps keep their overrides.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="bases">
+      <span class="badge wait">Hub · Story 24</span>
+      <h3>One base, ten apps, one bump</h3>
+      <p class="small">Update a shared platform base once and roll the fix across ten services while preserving per-app overrides.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="bases">
+      <span class="badge ok">Mini · Story 18</span>
+      <h3>New app fits the team pattern</h3>
+      <p class="small">Rules block out-of-range values before reaching the service, and a second app inherits from the first.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-18-dev-intent.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="bases">
+      <span class="badge ok">Mini · Story 02</span>
+      <h3>Keep your changes across upstream updates</h3>
+      <p class="small">Customize an app someone else built, record each reason, and survive their next release without losing edits.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-02-keep-your-changes.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="bases">
+      <span class="badge ok">Hub · Story 07</span>
+      <h3>Take 100 platform updates, keep your 1 fix</h3>
+      <p class="small">Upgrade a platform months later while preserving the deliberate value you set and its written reason.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-07-next-version.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="bases">
+      <span class="badge ok">Hub · Story 08</span>
+      <h3>Manage an AI assistant's own config</h3>
+      <p class="small">Give every team a shared AI assistant while letting each team keep its own evaluated customizations.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-08-agent-config.md">Read walkthrough</a></p>
+    </div>
+
+    <div class="card" data-tags="fleets">
+      <span class="badge ok">Mini · Story 09</span>
+      <h3>Git, hub, and cluster side by side</h3>
+      <p class="small">Compare what Git says, what the hub approved, and what runs on the cluster, then hand back to Git without restarts.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge ok">Mini · Story 03</span>
+      <h3>A disposable hub per agent run</h3>
+      <p class="small">A sandbox agent boots its own hub, outputs fixes as files for review, and throws the hub away.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-03-a-hub-per-agent-run.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge ok">Mini · Story 14</span>
+      <h3>A VM service pulling approved settings</h3>
+      <p class="small">The VM writes its config folder only from approved hub revisions while the agent holds no host access.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-14-sam-vm.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge ok">Mini · Story 21</span>
+      <h3>Size a service from measured load</h3>
+      <p class="small">Measure CPU and memory under real load and propose the new limits with the measurement as the reason.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-21-ana-sized.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge wait">Hub · Story 10</span>
+      <h3>A key each across three parties</h3>
+      <p class="small">Issue separate keys per party on a shared hub so every write outside a key's scope is refused.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-10-a-key-each.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge wait">Hub · Story 12</span>
+      <h3>Devlab laptop connecting up to shared hub</h3>
+      <p class="small">Work locally with zero inbound ports, then copy approved work and its reasons up to the team hub.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-12-laptop-connects-out.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge wait">Hub · Story 01</span>
+      <h3>Find the fault and hand back clean files</h3>
+      <p class="small">Diagnose a broken platform, preserve intentional fixes with reasons, and export clean Git files.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-01-find-the-fault.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge wait">Hub · Story 06</span>
+      <h3>Query what runs and who changed what</h3>
+      <p class="small">Audit every customer deployment in one command: who changed what, whether they gave a reason, and rule violations.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-06-what-runs-and-why.md">Read walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="fleets">
+      <span class="badge wait">Hub · Story 17</span>
+      <h3>The portal is the agent</h3>
+      <p class="small">Ask the hub directly what runs, what breaks a rule, what a key may change, and how to clone a tested service.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-17-the-portal.md">Read walkthrough</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="starters.html">Starters &amp; recipes</a> · <a href="trust.html">Proof &amp; limits</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">All walkthroughs on GitHub</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
