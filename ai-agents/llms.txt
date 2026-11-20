@@ -1,0 +1,34 @@
+# ConfigHub for Coding Agents (Door A)
+
+> Apps-first configuration memory, environment checks, previews, and production approvals for Claude Code and Codex. No Kubernetes platform required.
+
+Base URL: https://confighub.github.io/helm-expt/ai-agents/
+Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalog.json
+
+## When to use this door vs Door B
+
+- Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, AWS SSM, Daytona, nono sandbox, or cloning working settings to a new app).
+- Use **Door B (`site/`)** when the user is working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, or multi-component cluster stacks:
+  https://confighub.github.io/helm-expt/site/llms.txt
+
+## Progression ladder
+
+1. **Step 1: Plugin** (`plugin.html`)
+   Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI. Records why every setting changed locally in `~/.confighub`. Zero background processes, no account, works offline.
+2. **Step 2: Mini Hub** (`mini.html`)
+   Run a local hub for `base`, `staging`, and `live` settings, check values before deploy, open isolated previews (local or Daytona), and give agents scoped credentials.
+3. **Step 3: Shared Hub** (`hub.html`)
+   Share versioned starters across many apps, roll out common fixes while keeping per-app overrides, and require human approval before production changes ship.
+
+## Key pages
+
+- `index.html`: Overview, five core problems solved, install commands, and interactive walkthrough.
+- `first-look.html`: Three five-minute tasks (remember a setting, preview safely, reuse a starter across apps).
+- `plugin.html`: Local change log, `/confighub:changes`, hooks, and offline boundaries.
+- `mini.html`: Local hub workflow, env checks, previews, and scoped keys.
+- `hub.html`: Team governance, multi-app starters, and bridge to Kubernetes.
+- `plugins.html`: Composable plugins (ConfigHub, nono sandbox, Daytona, Vercel, Fly, AWS SSM).
+- `starters.html`: Interactive Plugin x Starter picker and copyable recipes (including nono + Vercel).
+- `stories.html`: 24 filterable scenarios across Plugin, Mini Hub, and Shared Hub.
+- `trust.html`: Local-first guarantees, secret handling, and proof boundaries.
+- `reference.html`: CLI commands, storage paths, and upstream repositories.

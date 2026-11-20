@@ -21,6 +21,8 @@ spec:
     Re-run that trace after adding a step that reads docs/user/, docs/README.md,
     site/ or the site generator, and add it here.
   paths:
+    - "index.html"
+    - "ai-agents/**"
     - "docs/user/**/*.md"
     - "docs/README.md"
     - "site/**"
