@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Composable plugins and integrations for ConfigHub: Claude Code, Codex, nono, Daytona, Vercel, Fly, AWS Parameter Store, Vault, OpenTelemetry, and cub plugins.">
+<title>Plugins &amp; Integrations · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html" aria-current="page">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Composable ecosystem · Honest status on every integration</p>
+      <h1>Plugins, sandboxes, and delivery tools</h1>
+      <p class="lead">ConfigHub hands each job to the tool built for it. Combine an agent or sandbox plugin with a <a href="starters.html">starter</a> and a delivery plugin, such as <strong>nono + Vercel starter</strong> for a sandboxed agent shipping approved settings to Vercel.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="catalog">
+  <h2>Browse by role</h2>
+  <p>Filter plugins by where they sit in your workflow. Status badges come directly from tested runs in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">integrations.md</a>.</p>
+  <div class="filter-bar" data-filter-group="plugins" role="group" aria-label="Filter plugins">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-filter="agent" aria-pressed="false">Agents &amp; Sandboxes</button>
+    <button type="button" class="chip" data-filter="delivery" aria-pressed="false">Delivery &amp; Cloud</button>
+    <button type="button" class="chip" data-filter="security" aria-pressed="false">Security, Audit &amp; CI</button>
+    <button type="button" class="chip" data-filter="k8s" aria-pressed="false">Kubernetes &amp; GitOps</button>
+  </div>
+
+  <div class="grid3" data-filter-target="plugins">
+    <div class="card" data-tags="agent">
+      <span class="badge ok">Works</span>
+      <h3>Claude Code plugin</h3>
+      <p class="small">Session hooks, pre-edit undo warnings, <code>/confighub:why</code>, MCP guardrails, and opt-in local previews.</p>
+      <p class="small"><a href="plugin.html">Plugin guide</a></p>
+    </div>
+    <div class="card" data-tags="agent">
+      <span class="badge ok">Works</span>
+      <h3>Codex CLI setup</h3>
+      <p class="small">Post-edit recording for <code>apply_patch</code> and CLI commands, plus app-scoped launchers for safe previews.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a></p>
+    </div>
+    <div class="card" data-tags="agent">
+      <span class="badge wait">Early</span>
+      <h3>nono sandbox</h3>
+      <p class="small">Run a coding agent inside an OS-level <code>nono</code> sandbox while ConfigHub records its settings changes. Pair with the <a href="starters.html">Vercel starter</a> for sandboxed previews and gated deploys.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">Integration status</a></p>
+    </div>
+    <div class="card" data-tags="agent">
+      <span class="badge ok">Works</span>
+      <h3>Daytona sandboxes</h3>
+      <p class="small">Records <code>daytona</code> lifecycle commands and lets agents test settings inside a disposable cloud sandbox before proposing them back.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="agent security">
+      <span class="badge ok">Works</span>
+      <h3>Linux containers &amp; <code>sandbox-exec</code></h3>
+      <p class="small">Keep records in Git commits (<code>CUB_MINI_RECORD_IN_REPO=1</code>) so a second sandbox inherits the first sandbox's reasons.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/ci-and-sandboxes.md">CI &amp; sandboxes</a></p>
+    </div>
+    <div class="card" data-tags="agent security">
+      <span class="badge ok">Works</span>
+      <h3>MCP servers &amp; Entire</h3>
+      <p class="small">Watch or gate MCP tool writes with <code>/confighub:checks</code>, or link setting history directly to <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/entire.md">Entire checkpoints</a>.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#how-closely-mcp-calls-are-watched">MCP checks</a></p>
+    </div>
+    <div class="card" data-tags="delivery">
+      <span class="badge ok">Works live</span>
+      <h3>Vercel delivery</h3>
+      <p class="small">Verified on a live Hobby project: record env reasons, update staging, approve production delivery, and roll back.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></p>
+    </div>
+    <div class="card" data-tags="delivery">
+      <span class="badge ok">Works live</span>
+      <h3>Fly.io delivery</h3>
+      <p class="small">Share one hardened config base across Rails apps and deliver owner-approved settings to Fly Machines.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></p>
+    </div>
+    <div class="card" data-tags="delivery">
+      <span class="badge ok">Works live</span>
+      <h3>AWS Parameter Store (<code>cub</code> plugin)</h3>
+      <p class="small">Packaged <code>cub</code> delivery plugin verified against real AWS SSM parameters from a shared hub, plus a local stand-in.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">Parameter Store walkthrough</a></p>
+    </div>
+    <div class="card" data-tags="delivery">
+      <span class="badge soft">Extensible</span>
+      <h3>Custom <code>cub</code> delivery &amp; snapshot plugins</h3>
+      <p class="small">Write a small extension to read pinned config snapshots or deliver approved revisions to any host outside Kubernetes.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/extensions/delivery/README.md">Delivery plugin example</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/extensions/config-snapshot/README.md">Snapshot contract</a></p>
+    </div>
+    <div class="card" data-tags="security">
+      <span class="badge ok">Works</span>
+      <h3>Vault, OpenTelemetry &amp; Sigstore/SPIFFE</h3>
+      <p class="small">Pipe live secrets from Vault without exposing them to agent keys, emit OTel events, and verify signed records with <code>cosign</code> or SPIFFE.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/signed-records.md">Signed records</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">All integrations</a></p>
+    </div>
+    <div class="card" data-tags="security">
+      <span class="badge ok">Works</span>
+      <h3>GitHub PR review &amp; CI Actions</h3>
+      <p class="small">Comment changed settings and their prompts on every pull request (no hub required), or run an ephemeral hub per CI job.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/review/README.md">PR review Action</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/ci/README.md">Agents in CI</a></p>
+    </div>
+    <div class="card" data-tags="k8s delivery">
+      <span class="badge ok">Works</span>
+      <h3>Kubernetes <code>cub</code> plugins &amp; Pilot</h3>
+      <p class="small">Need Helm, NVIDIA AICR, Argo CD, Flux, Sveltos, Kubara, or <code>cub-scout</code>? All 12 released <code>cub</code> plugins live in Door B.</p>
+      <p class="small"><a href="../site/plugins.html">12 Kubernetes cub plugins →</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="starters.html">Starters &amp; recipes</a> · <a href="stories.html">Stories</a> · <a href="trust.html">Proof</a> · <a href="../site/plugins.html">Kubernetes cub plugins</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

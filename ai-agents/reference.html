@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Command cheat sheet for /confighub:* slash commands and cub mini, plain-English glossary, and machine-readable entrypoints for coding agents.">
+<title>Reference &amp; Agent Index · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html" aria-current="page">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Commands · Plain-English glossary · Machine index</p>
+      <h1>Reference for humans and coding agents</h1>
+      <p class="lead">Every slash command, everyday <code>cub mini</code> verb, plain-English term, and raw machine-readable file in one place.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="commands">
+  <h2>Everyday commands</h2>
+  <div class="two">
+    <div class="card">
+      <h3>Claude Code slash commands</h3>
+      <ul class="tight">
+        <li><code>/confighub:changes</code> — list recorded config edits and their prompts.</li>
+        <li><code>/confighub:why NAME</code> — show every change to one setting and why.</li>
+        <li><code>/confighub:inventory</code> — list what the repo deploys and how.</li>
+        <li><code>/confighub:checks</code> — control MCP write checks (<code>log</code>, <code>warn</code>, <code>repeats</code>, <code>ask</code>).</li>
+        <li><code>/confighub:permissions</code> — show what agents may run without asking.</li>
+        <li><code>/confighub:staging</code> — give the current app staging, live, and approvals in Mini Hub.</li>
+        <li><code>/confighub:to-hub</code> — copy local plugin records into a hub.</li>
+        <li><code>/confighub:start-from APP</code> — start a new app inheriting from an existing app.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><code>cub mini</code> terminal commands</h3>
+      <ul class="tight">
+        <li><code>cub mini install</code> — download and start the local hub on <code>127.0.0.1</code>.</li>
+        <li><code>cub mini adopt FOLDER</code> — connect an app's settings without modifying files.</li>
+        <li><code>cub mini upload FOLDER --variant V</code> — push changes (staging updates, live proposes).</li>
+        <li><code>cub mini set</code> — set one value in one copy with a written reason.</li>
+        <li><code>cub mini waiting</code> — inspect pending production orders and exact diffs.</li>
+        <li><code>cub mini approve ID --note "Why"</code> / <code>cub mini refuse</code> — owner decision.</li>
+        <li><code>cub mini rollback APP-live --change-order ID</code> — propose atomic rollback.</li>
+        <li><code>cub mini secret set</code> — store a secret readable by runtime, hidden from agent keys.</li>
+      </ul>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md">How each <code>cub mini</code> verb maps to plain <code>cub</code></a></p>
+    </div>
+  </div>
+</section>
+
+<section id="glossary">
+  <h2>Plain-English glossary</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Word</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hub</strong></td><td>The ConfigHub server that holds revisions, reasons, and approvals: either a free local Mini Hub on <code>127.0.0.1</code> or a shared team hub.</td></tr>
+        <tr><td><strong>Base</strong></td><td>The shared settings an app starts from. Make a shared change once in the base so staging and live inherit it cleanly.</td></tr>
+        <tr><td><strong>Copy (Variant)</strong></td><td>One environment's settings (<code>preview</code>, <code>staging</code>, or <code>live</code>) derived from the base while keeping its own overrides.</td></tr>
+        <tr><td><strong>Starter</strong></td><td>A versioned YAML file of team defaults, rules, and written reasons that multiple apps stay linked to.</td></tr>
+        <tr><td><strong>Change order</strong></td><td>A proposed change to production created by an agent's scoped key that waits for a named human owner's approval.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:.8rem"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/README.md#words">Full glossary on GitHub</a></p>
+</section>
+
+<section id="agents">
+  <h2>Machine-readable index for coding agents</h2>
+  <p>Point Claude Code, Codex, or any shell-capable agent straight at these raw files:</p>
+  <div class="grid3">
+    <div class="card">
+      <h3><code>llms.txt</code></h3>
+      <p class="small">Compact router indexing every starter, walkthrough, concept doc, and proof file.</p>
+      <p class="small"><a href="https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/llms.txt">Open raw llms.txt</a></p>
+    </div>
+    <div class="card">
+      <h3><code>AGENTS.md</code></h3>
+      <p class="small">Operating contract for coding agents: allowed actions, refusal rules, and exact commands.</p>
+      <p class="small"><a href="https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/AGENTS.md">Open raw AGENTS.md</a></p>
+    </div>
+    <div class="card">
+      <h3><code>SKILL.md</code> &amp; Workshop</h3>
+      <p class="small">The installed <code>app-with-confighub</code> skill, plus the Kubernetes Workshop index for Door B.</p>
+      <p class="small"><a href="https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/plugins/confighub/skills/app-with-confighub/SKILL.md">app-with-confighub SKILL.md</a> · <a href="../site/llms.txt">Workshop llms.txt</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="first-look.html">Try first</a> · <a href="plugins.html">Plugins</a> · <a href="starters.html">Starters</a> · <a href="../site/">Kubernetes Workshop</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Step 3: move from a local Mini Hub to a shared ConfigHub server on confighub.com or self-hosted. Per-agent keys, Slack/GitHub approvals, and shared bases across apps.">
+<title>Step 3: Shared Hub · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html">Mini Hub</a>
+    <a href="hub.html" aria-current="page">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Step 3 of 3 · Team &amp; fleet governance · Same cub commands</p>
+      <h1>Graduate from your laptop to a shared hub without starting over</h1>
+      <p class="lead">When teammates, CI pipelines, or unattended agents join, export your local app copies and reasons directly to <code>confighub.com</code> or a self-hosted server. Every <code>cub</code> command and starter stays the same.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="what-changes">
+  <h2>What a shared hub adds</h2>
+  <p>A local hub protects one developer's machine. A shared hub connects people, CI jobs, and running services to one signed source of truth.</p>
+  <div class="grid3">
+    <div class="card">
+      <h3>One key per agent, instant revocation</h3>
+      <p class="small">Issue a scoped key for each unattended agent or CI job. Agents propose in parallel without clobbering each other, and <code>cub mini revoke-agent</code> cuts off any key on its next request.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md">Agents that run for weeks</a></p>
+    </div>
+    <div class="card">
+      <h3>Named team approvers and Slack</h3>
+      <p class="small">Require named owners to approve production orders from Terminal or from the Slack thread where the work started. Approving revision 3 never pre-approves revision 4.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">Approve from Slack walkthrough</a></p>
+    </div>
+    <div class="card">
+      <h3>One shared base across ten apps</h3>
+      <p class="small">Hardening a timeout, image rule, or log policy in starter version 2 propagates cleanly to every linked service while preserving each app's own production overrides.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">One base, ten apps walkthrough</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="move">
+  <h2>Moving an app from laptop Mini to a shared hub</h2>
+  <p>Export keeps your pinned configuration, custom overrides, and recorded change reasons intact.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Hosted or self-hosted</h3>
+      <ul class="tight">
+        <li><strong>Hosted:</strong> Sign in to <a href="https://docs.confighub.com/get-started/tutorial/">confighub.com</a> and restore your exported copies.</li>
+        <li><strong>Self-hosted:</strong> Run your own ConfigHub server with <a href="https://github.com/confighub/cub-server"><code>cub-server</code></a> and connect with the same <code>cub</code> CLI.</li>
+        <li><strong>Web UI &amp; SDKs:</strong> Inspect revisions in the MIT-licensed <a href="https://github.com/confighub/ui">Web UI</a> or automate with the <a href="https://github.com/confighub/sdk">Go SDK</a> and <a href="https://github.com/confighub/js-sdk">JS SDK</a>.</li>
+      </ul>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">Full laptop-to-shared-hub guide</a></p>
+    </div>
+    <div class="card">
+      <h3>Live delivery stays with your existing tools</h3>
+      <ul class="tight">
+        <li><strong>PaaS &amp; cloud:</strong> Deliver approved settings to Vercel, Fly.io, AWS Parameter Store, or VMs via pull.</li>
+        <li><strong>GitOps over OCI:</strong> Publish immutable release digests that Argo CD, Flux, or Sveltos reconcile automatically.</li>
+        <li><strong>Git beside the hub:</strong> Keep <code>.cub-mini</code> records in commits and PR comments alongside hub approvals.</li>
+      </ul>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/gitops-over-oci.md">GitOps over OCI</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/git-and-github.md">Git &amp; GitHub</a></p>
+    </div>
+  </div>
+
+  <div class="rung-next">
+    <div>
+      <h3>Running Kubernetes, Helm, NVIDIA AICR GPU fleets, or GitOps stacks?</h3>
+      <p class="small">Open Door B for pre-rendered charts, GPU recipes, ready-to-run stacks, and <code>cub</code> platform plugins.</p>
+    </div>
+    <a class="btn primary" href="../site/">Open ConfigHub AI Workshop for Kubernetes →</a>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="plugin.html">Plugin</a> · <a href="mini.html">Mini Hub</a> · <a href="plugins.html">Plugins</a> · <a href="starters.html">Starters</a> · <a href="stories.html">Stories</a> · <a href="https://docs.confighub.com">ConfigHub docs</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

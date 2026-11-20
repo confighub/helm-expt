@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Step 2: run ConfigHub Mini locally on 127.0.0.1 with no Docker or account. Isolated previews, base/staging/live copies, scoped agent keys, and owner approvals.">
+<title>Step 2: Local Mini Hub · ConfigHub for coding agents</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="topbar">
+  <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+  <nav class="topnav" aria-label="Primary navigation">
+    <a href="./">Overview</a>
+    <a class="nav-cta" href="first-look.html">Try first</a>
+    <a href="plugin.html">Plugin</a>
+    <a href="mini.html" aria-current="page">Mini Hub</a>
+    <a href="hub.html">Shared Hub</a>
+    <a href="plugins.html">Plugins</a>
+    <a href="starters.html">Starters</a>
+    <a href="stories.html">Stories</a>
+    <a href="trust.html">Proof</a>
+    <a href="reference.html">Reference</a>
+  </nav>
+</header>
+
+<section>
+  <div class="cover">
+    <div>
+      <p class="kicker">Step 2 of 3 · Local on 127.0.0.1 · Free · No Docker or account</p>
+      <h1>Safe previews and production gates on your laptop</h1>
+      <p class="lead">ConfigHub Mini bundles the ConfigHub server, PostgreSQL, and <code>cub</code> as ordinary user processes in <code>~/.confighub</code>. Your agent experiments freely in preview and staging while production waits for your terminal approval.</p>
+    </div>
+    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="model">
+  <h2>How one app lives in Mini Hub</h2>
+  <p>Connecting an app does not rewrite your repo files. ConfigHub creates three copies of its settings and an optional isolated preview, plus a scoped key for the agent.</p>
+  <div class="grid4 accent-top">
+    <div class="card">
+      <span class="badge soft">Shared source</span>
+      <h3><code>app-base</code></h3>
+      <p class="small">Shared settings and starter defaults, each with a written reason. Changes start here once.</p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Agent can update</span>
+      <h3><code>preview</code></h3>
+      <p class="small">A running local copy on its own port that survives across chats while leaving your usual app alone.</p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Agent can update</span>
+      <h3><code>app-staging</code></h3>
+      <p class="small">Takes base changes right away so your agent can verify behavior before proposing to live.</p>
+    </div>
+    <div class="card">
+      <span class="badge wait">Owner approves</span>
+      <h3><code>app-live</code></h3>
+      <p class="small">Agent proposes a change order on its scoped key; the hub refuses self-approval until you approve.</p>
+    </div>
+  </div>
+</section>
+
+<section id="start-mini">
+  <h2>Two ways to start using Mini Hub</h2>
+  <p>You do not have to pre-install a server. Ask for a durable preview in your app folder, or download the standalone package directly.</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Opt-in from chat</span>
+      <h3>Ask for a preview you can reopen tomorrow</h3>
+      <p class="small">In a local Node app reading <code>.env</code>, ask in plain words:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code></div>
+      <p class="small">Say yes when the plugin offers to attach the app. First use downloads the 52 to 77 MB package and starts the local hub on <code>127.0.0.1</code>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app preview guide</a>.</p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Explicit CLI</span>
+      <h3>Attach any repo or run in CI and sandboxes</h3>
+      <p class="small">Works with <code>.env</code>, Compose, Terraform, and Kustomize repos, or inside a disposable CI job with one hub per run.</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>cub mini install
+cub mini adopt . --component myapp
+cub mini waiting</code></pre></div>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md">Install Mini &amp; checksums</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/ci-and-sandboxes.md">CI &amp; sandboxes</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="approvals">
+  <h2>Review, approve, refuse, or roll back</h2>
+  <p>The agent proposes changes using its own scoped key. You inspect and decide in your own terminal using exact revision IDs.</p>
+  <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code># See pending production proposals and exact diffs
+cub mini waiting
+
+# Approve one exact revision with a note
+cub mini approve api-base/upload-20261112-055043-twx5 --note "Checked for Friday sale"
+
+# Or refuse with a reason so the agent does not repeat it
+cub mini refuse api-base/upload-20261112-055043-twx5 --reason "Keep 2 replicas off-peak"
+
+# Propose an atomic rollback to the prior revision
+cub mini rollback api-live --change-order api-base/upload-20261112-055043-twx5 --reason "Revert sale limit"</code></pre></div>
+  <div class="callout">
+    <strong>No lock-in and a clean exit ramp.</strong> Your original files are never modified during adopt. At any point you can export every setting back to plain files and stop or remove the local hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/going-back.md">Going back and uninstalling</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approvals detail</a>.
+  </div>
+
+  <div class="rung-next">
+    <div>
+      <h3>Ready to share history, approvals, and starters across a team?</h3>
+      <p class="small">Step 3 moves the exact same app and <code>cub</code> commands to a shared hub.</p>
+    </div>
+    <a class="btn primary" href="hub.html">Next: Step 3, Shared Hub →</a>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./">Overview</a> · <a href="plugin.html">Plugin</a> · <a href="hub.html">Shared Hub</a> · <a href="plugins.html">Plugins</a> · <a href="starters.html">Starters</a> · <a href="reference.html">Command reference</a></p>
+</footer>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
