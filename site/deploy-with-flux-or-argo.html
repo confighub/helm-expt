@@ -550,10 +550,70 @@
     }
 
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page header.hero.hub-cover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: 0 0 24px;
+      padding: clamp(24px, 3.6vw, 40px);
+      border: 0;
+      border-radius: 14px;
+      color: #ffffff;
+      background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    }
+    .calm-page header.hero.hub-cover::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 0 42%;
+      background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(90deg, transparent, #000 52%);
+    }
+    .calm-page header.hero.hub-cover h1 { color: #ffffff; letter-spacing: -.035em; }
+    .calm-page header.hero.hub-cover p { color: #d5e2ef; }
+    .calm-page header.hero.hub-cover .lead { color: #eef5fb; }
+    .calm-page header.hero.hub-cover a { color: #b5eddb; }
+    .calm-page header.hero.hub-cover code { background: #1c344d; border-color: #3a5670; color: #eef5fb; }
+    .calm-page header.hero.hub-cover .boundary-chip {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #486b82;
+      background: #142d42;
+      color: #b5eddb;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .calm-page header.hero.hub-cover .agent-note {
+      background: #142d42;
+      border-color: #486b82;
+      color: #d5e2ef;
+    }
+    .calm-page header.hero.hub-cover .agent-note-label { color: #b5eddb; }
+    .calm-page header.hero.hub-cover .button.primary {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #142238;
+    }
+    .calm-page header.hero.hub-cover .button.secondary {
+      background: rgba(255, 255, 255, .1);
+      border-color: #63808e;
+      color: #ffffff;
+    }
+    .calm-page header.hero.hub-cover .agent-start {
+      background: #142d42;
+      border-color: #486b82;
+      border-left-color: #99e9ca;
+      color: #eef5fb;
+    }
+    .calm-page header.hero.hub-cover .agent-start p { color: #e3eff4; }
+    .calm-page header.hero.hub-cover .agent-start strong { color: #ffffff; }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
+      gap: 16px;
+      align-items: stretch;
     }
     .calm-page .card,
     .calm-page .metric,
@@ -562,7 +622,14 @@
     .calm-page .door,
     .calm-page .tier,
     .calm-page .matrix-row-card,
-    .calm-page .move-card,
+    .calm-page .move-card {
+      border: 1px solid var(--line);
+      border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: none;
+      padding: 16px 18px;
+    }
     .calm-page .node,
     .calm-page .consumer,
     .calm-page .app-step,

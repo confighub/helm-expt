@@ -447,10 +447,70 @@
     .prompt-pre pre { margin-bottom: 0; }
 
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page header.hero.hub-cover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: 0 0 24px;
+      padding: clamp(24px, 3.6vw, 40px);
+      border: 0;
+      border-radius: 14px;
+      color: #ffffff;
+      background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    }
+    .calm-page header.hero.hub-cover::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 0 42%;
+      background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(90deg, transparent, #000 52%);
+    }
+    .calm-page header.hero.hub-cover h1 { color: #ffffff; letter-spacing: -.035em; }
+    .calm-page header.hero.hub-cover p { color: #d5e2ef; }
+    .calm-page header.hero.hub-cover .lead { color: #eef5fb; }
+    .calm-page header.hero.hub-cover a { color: #b5eddb; }
+    .calm-page header.hero.hub-cover code { background: #1c344d; border-color: #3a5670; color: #eef5fb; }
+    .calm-page header.hero.hub-cover .boundary-chip {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #486b82;
+      background: #142d42;
+      color: #b5eddb;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .calm-page header.hero.hub-cover .agent-note {
+      background: #142d42;
+      border-color: #486b82;
+      color: #d5e2ef;
+    }
+    .calm-page header.hero.hub-cover .agent-note-label { color: #b5eddb; }
+    .calm-page header.hero.hub-cover .button.primary {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #142238;
+    }
+    .calm-page header.hero.hub-cover .button.secondary {
+      background: rgba(255, 255, 255, .1);
+      border-color: #63808e;
+      color: #ffffff;
+    }
+    .calm-page header.hero.hub-cover .agent-start {
+      background: #142d42;
+      border-color: #486b82;
+      border-left-color: #99e9ca;
+      color: #eef5fb;
+    }
+    .calm-page header.hero.hub-cover .agent-start p { color: #e3eff4; }
+    .calm-page header.hero.hub-cover .agent-start strong { color: #ffffff; }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
+      gap: 16px;
+      align-items: stretch;
     }
     .calm-page .card,
     .calm-page .metric,
@@ -459,7 +519,14 @@
     .calm-page .door,
     .calm-page .tier,
     .calm-page .matrix-row-card,
-    .calm-page .move-card,
+    .calm-page .move-card {
+      border: 1px solid var(--line);
+      border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: none;
+      padding: 16px 18px;
+    }
     .calm-page .node,
     .calm-page .consumer,
     .calm-page .app-step,
@@ -643,7 +710,7 @@
 <details><summary>Apps</summary><ul><li><a href="./apps.html">Every app</a></li><li><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></li><li><a href="./testing.html">Find a starting configuration</a></li></ul></details>
 <details><summary>Plugins</summary><ul><li><a href="./plugins.html">Every cub plugin</a></li><li><a href="./bring-kubara-into-confighub.html">Bring Kubara's managed add-ons into ConfigHub</a></li></ul></details>
 <details><summary>Guides</summary><ul><li><a href="./guides.html">Every Guide</a></li><li><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a></li><li><a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a></li><li><a href="./journey-values-did-nothing.html">Helm ignores my values</a></li><li><a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a></li><li><a href="./journey-what-my-app-needs.html">My app does not fit my platform</a></li><li><a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a></li><li><a href="./journey-installs-never-starts.html">My app installs but will not start</a></li><li><a href="./try.html">Try it: Redis in ten minutes</a></li><li><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="./demo.html">The ten-minute demo</a></li><li><a href="./ai.html">Use with your AI</a></li><li><a href="./ask.html">Is my configuration right?</a></li><li><a href="./deploy-with-flux-or-argo.html">Run it with Flux, Argo CD, or kubectl</a></li><li><a href="./promote.html">Promote my config</a></li><li><a href="./does-cluster-match-approved-config.html">Does the cluster match?</a></li><li><a href="./why-do-dev-and-prod-differ.html">Why do dev and prod differ?</a></li><li><a href="./how-it-works.html">Release, promote and roll back</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my fleet and prevent the next outage?</a></li><li><a href="./see-what-is-running.html">See what is running with cub scout</a></li><li><a href="./view-and-change-config-with-uis.html">View and change configuration with ConfigHub UIs</a></li><li><a href="./bring-sveltos-into-confighub.html">Bring your Sveltos fleet into ConfigHub</a></li><li><a href="./bring-argo-into-confighub.html">Bring your Argo CD apps into ConfigHub</a></li><li><a href="./bring-flux-into-confighub.html">Bring your Flux fleet into ConfigHub</a></li><li><a href="./check-a-claim-yourself.html">Check a claim yourself</a></li><li><a href="./take-a-config-further.html">Take a config further</a></li><li><a href="./change-a-config-safely.html">Change a config safely</a></li><li><a href="./handle-hooks-and-crds.html">Handle hooks and CRDs</a></li><li><a href="./operate-a-fleet.html">Operate a fleet</a></li><li><a href="./build-a-confighub-app.html">Build a ConfigHub App</a></li><li><a href="./send-a-public-chart.html">Send a missing or broken public chart</a></li><li><a href="./choose-a-tool.html">Choose a tool and start</a></li><li><a href="./deploy-one-thing.html">Deploy one thing, and look before you do</a></li><li><a href="./eks-inference.html">Try an EKS GPU inference platform on your laptop</a></li><li><a href="./nvke.html">See GPU add-ons on NVKE clusters</a></li></ul></details></details>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     
     <h1>Check the evidence yourself</h1>
     <p class="lead">Behind every claim on this site is a command you can run and a receipt you can recheck. Rerun any check yourself, and see exactly what it proved and what it left untested.</p>
