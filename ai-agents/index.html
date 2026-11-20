@@ -241,33 +241,6 @@ footer p { max-width: none; }
   </div>
 </section>
 
-<section id="start">
-  <h2>What would you like to try?</h2>
-  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
-  <div class="two">
-    <div class="card" id="build-my-first-app">
-      <h3>Build my first app</h3>
-      <p>Start in an empty Git folder. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
-      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
-    </div>
-    <div class="card" id="try-a-change-in-my-app">
-      <h3>Try a change in my app</h3>
-      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
-      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
-    </div>
-  </div>
-  <div class="first-prompt-box" id="why-is-the-cache-on">
-    <h3>Why is the cache on?</h3>
-    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
-    <p>In a fresh chat in the same folder, ask about the change.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
-    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
-  </div>
-</section>
-
 <section id="problem">
   <h2>What basic problems ConfigHub solves</h2>
   <p>Five everyday app-config headaches that happen as soon as coding agents edit your settings.</p>
@@ -300,9 +273,71 @@ footer p { max-width: none; }
   </div>
 </section>
 
+<section id="works-with">
+  <h2>Deploy and Manage your app with Config Starters</h2>
+  <p>A starter detects your app’s tools, creates staging and production copies in ConfigHub, and optionally wires live delivery when you approve. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a 1-file YAML starter</a></p>
+
+  <div class="stack-group">
+    <h3>Web apps &amp; hosted PaaS</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Kubernetes, cloud config &amp; workers</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h4><span class="badge ok">Worker rollout</span><p>Gate worker limits and timeouts before rolling out to production.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Agent sandboxes &amp; cloud microVMs</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
+</section>
+
+<section id="start">
+  <h2>What would you like to try?</h2>
+  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
+  <div class="two">
+    <div class="card" id="build-my-first-app">
+      <h3>Build my first app</h3>
+      <p>Start in an empty Git folder. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
+      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    </div>
+    <div class="card" id="try-a-change-in-my-app">
+      <h3>Try a change in my app</h3>
+      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
+      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
+    </div>
+  </div>
+  <div class="first-prompt-box" id="why-is-the-cache-on">
+    <h3>Why is the cache on?</h3>
+    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
+    <p>In a fresh chat in the same folder, ask about the change.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
+    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
+  </div>
+</section>
+
 <section id="why-how">
   <h2>Why it works, and how you adopt it</h2>
-  <p>Git only sees committed files, prompt rules don't stop an agent using your own credentials, and copied templates drift after day one. ConfigHub solves this in three optional steps—stop at whichever step you need:</p>
+  <p>ConfigHub implements <strong>durable config</strong> by keeping a setting’s value and the reason it changed together. A fresh chat can tell you why the cache is on, even before you commit. Start with the plugin. Add a hub when you want apps to share defaults, keep their own overrides, or require approval for production changes.</p>
   <div class="grid3">
     <div class="card">
       <span class="badge ok">Step 1 · Zero servers</span>
@@ -318,7 +353,7 @@ footer p { max-width: none; }
     </div>
     <div class="card">
       <span class="badge soft">Step 3 · Team &amp; CI</span>
-      <h3>Shared Hub for teammates &amp; CI</h3>
+      <h3>Shared Hub &amp; Cloud</h3>
       <p class="small">Move the exact same setup to a shared hub when a colleague or CI job needs access to the same settings, approvals, and history.</p>
       <p class="small"><a href="hub.html">How Shared Hub works →</a></p>
     </div>
@@ -465,41 +500,6 @@ defaults:
   <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>.</p>
 </section>
 
-
-<section id="works-with">
-  <h2>Connect your stack with a starter</h2>
-  <p>A starter detects your app’s tools, creates staging and production copies in ConfigHub, and optionally wires live delivery when you approve. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a 1-file YAML starter</a></p>
-
-  <div class="stack-group">
-    <h3>Web apps &amp; hosted PaaS</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
-    </div>
-  </div>
-
-  <div class="stack-group">
-    <h3>Kubernetes, cloud config &amp; workers</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h4><span class="badge ok">Worker rollout</span><p>Gate worker limits and timeouts before rolling out to production.</p></div>
-    </div>
-  </div>
-
-  <div class="stack-group">
-    <h3>Agent sandboxes &amp; cloud microVMs</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
-    </div>
-  </div>
-
-  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
-</section>
 
 <section id="daily">
   <h2>Everyday commands and multi-agent guardrails</h2>
