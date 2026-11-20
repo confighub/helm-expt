@@ -229,10 +229,12 @@ footer p { max-width: none; }
     <div><h1>Your agent changed a setting. Do you know why?</h1>
   <p class="lead">Your next chat can tell you why the last one changed a setting, even if you never committed it. Start in your app folder. You can add a local hub later for staging, previews and production approvals.</p></div>
     <aside class="first-action" id="first-prompt" aria-labelledby="first-prompt-title">
-      <h2 id="first-prompt-title">Just installed? Try this now.</h2>
-      <p>In a fresh Claude Code or Codex chat in your app folder, paste this:</p>
-      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Show me the settings changes ConfigHub recorded in this project and why.</code></pre></div>
-      <p>In Claude Code you can also type <code>/confighub:changes</code>. If the record is empty, <a href="first-look.html#remember">make your first recorded edit</a>.</p>
+      <h2 id="first-prompt-title">Before you change a setting back</h2>
+      <p>In your app folder, ask Claude Code or Codex:</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Pick the last setting ConfigHub recorded. What changed, why, and where does this app use it? Show me what you can verify. Leave the files alone.</code></pre></div>
+      <p>For example, the code can tell you caching is on. The recorded request can tell you someone turned it on for Friday’s sale. That matters if you’re about to switch it off.</p>
+      <p>Nothing recorded yet? <a href="first-look.html#remember">Try it with one edit in a sample folder.</a></p>
+      <p>Want to see a change running? <a href="first-look.html#preview">Try a local preview</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">test a setting in Daytona</a>.</p>
     </aside>
   </div>
 
@@ -245,7 +247,7 @@ footer p { max-width: none; }
     <div class="card">
       <h3>Broken working app</h3>
       <p class="pain"><strong>Today:</strong> Trying a new setting means touching the running app you actually use.</p>
-      <p><strong>With ConfigHub:</strong> Opens a preview on your laptop or in a Daytona sandbox while your app stays untouched. <a href="mini.html">Step 2: Mini Hub</a></p>
+      <p><strong>With ConfigHub:</strong> Try the change in a local preview, or bring a settings experiment back from Daytona for review. <a href="mini.html">Step 2: Mini Hub</a></p>
     </div>
     <div class="card">
       <h3>Unreviewed production</h3>
@@ -273,7 +275,7 @@ footer p { max-width: none; }
             <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder and type <code>/confighub:changes</code>.</p>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder and <a href="#first-prompt">ask about a setting before changing it</a>. Type <code>/confighub:changes</code> for the full list.</p>
         </div>
 
         <div class="client-pane" data-client-pane="codex" hidden>
