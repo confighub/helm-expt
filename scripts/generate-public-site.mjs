@@ -2384,7 +2384,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Apps](${SITE_BASE_URL}apps.json): the Apps section, one row per worked example app with its delivery, its default-branch address and the commit it was last checked at. Schema: ${SITE_BASE_URL}apps.schema.json.
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
-- [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the confighubai/confighub-mini-plugin app plugin for Claude Code or Codex to remember the reason for an uncommitted .env edit. For local app previews, staging and production approvals, and full setup, read the [public plugin README](https://github.com/confighubai/confighub-mini-plugin#readme) or [product overview](https://confighub.github.io/helm-expt/ai-agents/).
+- [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the confighubai/confighub-mini-plugin app plugin for Claude Code or Codex to remember the reason for an uncommitted .env edit. For local app previews, staging and production approvals, and full setup, read the [public plugin README](https://github.com/confighubai/confighub-mini-plugin#readme), [Door A product overview](https://confighub.github.io/helm-expt/ai-agents/), [Door A llms.txt](https://confighub.github.io/helm-expt/ai-agents/llms.txt), or [Door A catalog.json](https://confighub.github.io/helm-expt/ai-agents/catalog.json).
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
 - [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
 - [Use ConfigHub Workshop with an AI agent](${SITE_BASE_URL}ai.html): installation, realistic tasks, machine records, and the boundary between a proposed change and a reviewed result.
@@ -3540,7 +3540,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="https://confighub.github.io/helm-expt/ai-agents/">Coding Agents</a><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -12404,13 +12404,16 @@ function aicrCatalogRows() {
           <label>Hooks <br><select id="hook-filter"><option value="">All</option><option value="yes"> · Uses Helm hooks</option><option value="no"> · No Helm hooks</option></select></label>
           <label>CRDs <br><select id="crd-filter"><option value="">All</option><option value="yes"> · Includes CRDs</option><option value="no"> · No CRDs</option></select></label>
         </div>
-        <p style="margin:12px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
-        <ul style="margin:0 0 10px; padding-left:20px">
-          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
-          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
-          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
-        </ul>
-        <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
+        <details style="margin:12px 0 6px">
+          <summary style="cursor:pointer; font-weight:600; color:var(--ink)">How to read Flattening, Presets, and Readiness</summary>
+          <p style="margin:10px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
+          <ul style="margin:0 0 10px; padding-left:20px">
+            <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
+            <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
+            <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
+          </ul>
+          <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
+        </details>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div id="format-intro">
