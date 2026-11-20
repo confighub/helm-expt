@@ -77,11 +77,6 @@
       "purpose": "24 filterable scenarios across Plugin, Mini Hub, and Shared Hub."
     },
     {
-      "path": "trust.html",
-      "title": "Proof and safety",
-      "purpose": "Local-first boundaries, secret redaction, scoped credentials, and verification."
-    },
-    {
       "path": "reference.html",
       "title": "Reference",
       "purpose": "CLI commands, file paths, environment layout, and links to source repositories."
@@ -90,31 +85,44 @@
   "composable_examples": [
     {
       "id": "nono-vercel",
-      "plugins": ["nono", "confighub"],
+      "plugins": [
+        "nono",
+        "confighub"
+      ],
       "starter": "vercel-app",
       "summary": "Run a coding agent inside a nono sandbox while deploying a Vercel app with ConfigHub environment checks and production approval."
     },
     {
       "id": "daytona-nextjs",
-      "plugins": ["daytona", "confighub"],
+      "plugins": [
+        "daytona",
+        "confighub"
+      ],
       "starter": "nextjs-app",
       "summary": "Spin up an isolated Daytona preview for a Next.js app without touching the running live environment."
     },
     {
       "id": "fly-api",
-      "plugins": ["confighub"],
+      "plugins": [
+        "confighub"
+      ],
       "starter": "fly-service",
       "summary": "Manage base, staging, and live environment variables for a Fly.io service with pre-deploy validation."
     },
     {
       "id": "aws-ssm-service",
-      "plugins": ["confighub"],
+      "plugins": [
+        "confighub"
+      ],
       "starter": "aws-ssm-app",
       "summary": "Keep non-secret config in ConfigHub, sync to AWS SSM Parameter Store with scoped agent permissions, and require approval for live."
     },
     {
       "id": "unikraft-incident",
-      "plugins": ["confighub", "unikraft"],
+      "plugins": [
+        "confighub",
+        "unikraft"
+      ],
       "starter": "unikraft-service",
       "summary": "Rehearse an incident banner on Unikraft staging using the exact same image digest as production while production waits for approval."
     }
