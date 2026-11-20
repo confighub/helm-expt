@@ -445,30 +445,8 @@ A change to production waits for your approval: Four for the sale. It was made j
 </section>
 
 <section id="how-it-runs">
-  <h2>What runs where: adopt only the step you need</h2>
-  <p>Start with local hooks alone. Add a local hub on your machine when you want isolated previews and production approval gates, or connect a shared hub when your team joins.</p>
-  <div class="grid3">
-    <div class="card">
-      <p style="margin:0 0 .4rem"><span class="badge ok">Step 1 · No server</span></p>
-      <h3>The ConfigHub plugin</h3>
-      <p>Claude Code and Codex call a local program to record supported config edits and CLI changes in <code>~/.confighub/agent-changes</code>. The next session can look up a setting and the request that changed it.</p>
-      <p class="small"><a href="plugin.html">Explore Step 1: Plugin →</a></p>
-    </div>
-    <div class="card">
-      <p style="margin:0 0 .4rem"><span class="badge ok">Step 2 · Local on 127.0.0.1</span></p>
-      <h3>Local hub + <code>cub</code></h3>
-      <p>An optional 52 to 77 MB download running the ConfigHub server and bundled PostgreSQL as ordinary user processes in <code>~/.confighub/servers</code>—no Docker, cluster, or account. Includes <code>cub</code>, ConfigHub’s CLI, for previews, staging vs. production copies, and approvals.</p>
-      <p class="small"><a href="mini.html">Explore Step 2: Mini Hub →</a></p>
-    </div>
-    <div class="card">
-      <p style="margin:0 0 .4rem"><span class="badge wait">Step 3 · Team &amp; hosts</span></p>
-      <h3>Delivery &amp; shared hub</h3>
-      <p>Deliver approved production settings to Vercel, Fly, or AWS Parameter Store—or let Argo CD and Flux reconcile approved revisions—and move to an organization’s shared hub (on confighub.com or your own servers) with the exact same <code>cub</code> commands.</p>
-      <p class="small"><a href="hub.html">Explore Step 3: Shared Hub →</a></p>
-    </div>
-  </div>
-  <div class="callout">
-    <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub replaces the brittle templates and scattered config files above them.
+  <div class="callout" style="margin-top:0">
+    <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly, Unikraft, Daytona), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub keeps the settings, reasons, previews, and approval gates above them.
   </div>
 </section>
 
