@@ -7948,7 +7948,11 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
     ${topNav(".")}
     <h1>Guides</h1>
     <p class="boundary-chip">Run yourself or with your AI agent · Covers Helm, NVIDIA AICR, OCI, and GitOps</p>
-    <p class="lead">Follow step-by-step Guides yourself or with Claude Code and Codex to fix broken Helm charts, use configuration as data across formats, and promote releases. Guides span established Helm and YAML workflows alongside NVIDIA AI Cluster Runtime (AICR), Timoni, and Kubara. For concepts and schemas, open <a href="./docs.html">Docs</a>.</p>
+    <p class="lead">Follow step-by-step Guides yourself or with Claude Code and Codex to fix broken Helm charts, use configuration as data across formats, and promote releases.</p>
+    <details>
+      <summary>Which tools do the guides cover?</summary>
+      <p>Guides span established Helm and YAML workflows alongside NVIDIA AI Cluster Runtime (AICR), Timoni, and Kubara. For concepts and schemas, open <a href="./docs.html">Docs</a>.</p>
+    </details>
   </header>
   <main class="guide-directory">
 ${sections}
@@ -9230,7 +9234,10 @@ function proofHtml(catalog) {
     ${topNav(".")}
     <h1>Check the evidence yourself</h1>
     <p class="lead">Behind every claim on this site is a command you can run and a receipt you can recheck. Rerun any check yourself, and see exactly what it proved and what it left untested.</p>
-    <p>You can verify any catalog image yourself. <code>cub config verify</code> confirms the image is exactly what its receipt says, and refuses one that has none. The receipt says what was checked, not that the configuration will run on your cluster. A signature records who published the image.</p>
+    <details>
+      <summary>What does an image receipt prove?</summary>
+      <p>You can verify any catalog image yourself. <code>cub config verify</code> confirms the image is exactly what its receipt says, and refuses one that has none. The receipt says what was checked, not that the configuration will run on your cluster. A signature records who published the image.</p>
+    </details>
     ${humanLinks([["Read the counts", "#counters"], ["Check one claim", "./check-a-claim-yourself.html"], ["Security before release", "#security"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
@@ -10554,7 +10561,10 @@ function appsHtml() {
     <h1>Apps</h1>
     <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
     <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
-    <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    <details>
+      <summary>What happens to my existing build pipeline?</summary>
+      <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    </details>
     ${appSettingGuideHtml()}
     <p>For local previews and production approvals on an ordinary app without Kubernetes, read <a href="https://confighub.github.io/helm-expt/ai-agents/first-look.html">Three things to try first</a> or the <a href="https://github.com/confighubai/confighub-mini-plugin#readme">public plugin README</a>.</p>
     <p><a href="#before-and-after">See a config before and after</a> · <a href="#apps-change-path">Learn through one change</a> · <a href="#what-an-app-is">Browse every example app</a> · <a href="./put-an-app-on-a-platform.html">Put an app on a platform</a></p>
@@ -10810,7 +10820,10 @@ function aiHtml(catalog) {
     ${appSettingGuideHtml()}
     <p><em>Our aim is to lower the time and (token) cost of getting up and running with reliable solutions.</em></p>
     <p class="lead">Work with Claude Code or Codex, from one configuration question to a complete app or platform journey. Workshop gives your agent tested starting points, tools and Guides, so you get a useful result you can inspect and keep.</p>
-    <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
+    <details>
+      <summary>What does my agent do, and what does ConfigHub keep?</summary>
+      <p>Your agent investigates and proposes. <code>cub</code> renders, compares and checks. You see the source, the Kubernetes objects and the diff. ConfigHub keeps accepted configuration, protected fixes and team decisions when you want to take the next step.</p>
+    </details>
     <p><a class="button primary" href="#ai-starting-points">Choose an AI journey</a> <a class="button secondary" href="#ai-token-budget">Plan token cost</a> <a class="button secondary" href="./ask.html#ask-token-budget">Use the zero-token checks</a></p>
     <div class="agent-start" id="paste-a-prompt">
       <p><strong>Start here.</strong> Paste this into Claude Code, Codex, or any agent that can run a shell. To keep it in a project, add it to <code>CLAUDE.md</code> or <code>AGENTS.md</code>.</p>
