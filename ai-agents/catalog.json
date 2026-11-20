@@ -63,7 +63,7 @@
     },
     {
       "path": "plugins.html",
-      "title": "Plugins",
+      "title": "Integrations",
       "purpose": "Composable plugins that pair with starters (ConfigHub, nono sandbox, Daytona, Vercel, Fly, AWS SSM)."
     },
     {
