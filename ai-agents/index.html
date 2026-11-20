@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Remember why a setting changed, run a preview, and keep production settings behind owner approval. Try ConfigHub in Claude Code or Codex.">
+<meta name="description" content="Build your app with Claude or Codex. Try a change in a preview, decide what goes live, and reuse the setup that worked for your first app.">
 <title>ConfigHub for coding agents</title>
 </head>
 <body>
@@ -197,6 +197,8 @@ footer p { max-width: none; }
 .cover .buttons { margin-top: 1.25rem; margin-bottom: 0; }
 .cover .btn { background: rgba(255,255,255,.1); border-color: #63808e; color: #fff; }
 .cover .btn.primary { background: #fff; border-color: #fff; color: #142238; }
+#start .card[id] { scroll-margin-block-start: 1rem; }
+#start .card:target { outline: 2px solid var(--link); outline-offset: 3px; }
 .first-prompt-box { margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
 .first-prompt-box h3 { font-size: 1rem; margin-bottom: .35rem; }
 .first-prompt-box .snip { margin: .55rem 0; }
@@ -227,14 +229,42 @@ footer p { max-width: none; }
 <section id="install">
   <div class="cover">
     <div>
-      <h1>Your agent changed a setting. Do you know why?</h1>
-      <p class="lead">ConfigHub keeps your app settings, the reason for every change, isolated previews, and production approvals in one place for Claude Code and Codex. Start in your app folder with no Kubernetes and no account.</p>
+      <h1>Build your app with your agent. Keep it easy to change.</h1>
+      <p class="lead">Ask Claude or Codex to build an app, or start with one you already run. Try your next idea in a preview. Decide what goes live. When you build a second app, give it the setup that worked for the first.</p>
+      <p class="lead">ConfigHub remembers which settings worked, why you chose them, and which ones each app keeps for itself. Start on your laptop. There’s no platform to build first.</p>
       <p class="buttons">
-        <a class="btn primary" href="#install-box">Install in 30 seconds</a>
-        <a class="btn" href="first-look.html">See 3 quick examples</a>
+        <a class="btn primary" href="#build-my-first-app">Build my first app</a>
+        <a class="btn" href="#try-a-change-in-my-app">Try a change in my app</a>
       </p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>What would you like to try?</h2>
+  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
+  <div class="two">
+    <div class="card" id="build-my-first-app">
+      <h3>Build my first app</h3>
+      <p>Start in an empty Git folder. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
+      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    </div>
+    <div class="card" id="try-a-change-in-my-app">
+      <h3>Try a change in my app</h3>
+      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
+      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
+    </div>
+  </div>
+  <div class="first-prompt-box" id="why-is-the-cache-on">
+    <h3>Why is the cache on?</h3>
+    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
+    <p>In a fresh chat in the same folder, ask about the change.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
+    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
   </div>
 </section>
 
@@ -296,7 +326,7 @@ footer p { max-width: none; }
 </section>
 
 <section id="install-box">
-  <h2>Install and try it in 30 seconds</h2>
+  <h2>Install the plugin</h2>
   <div class="hero">
     <div>
       <div class="install-card">
@@ -404,33 +434,6 @@ A change to production waits for your approval: Four for the sale. It was made j
   </div>
   <div class="callout">
     <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub replaces the brittle templates and scattered config files above them.
-  </div>
-</section>
-
-<section id="start">
-  <h2>Where are you starting?</h2>
-  <div class="grid3">
-    <div class="card">
-      <p style="margin:0 0 .35rem"><span class="badge ok">2 min · Plugin only</span></p>
-      <h3>Halfway through building</h3>
-      <p>In any project with a <code>.env</code> file, ask your agent:</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Turn the cache on in .env for Friday's sale. Don't commit.</code></div>
-      <p class="small">Open a fresh session and ask <em>“Why is the cache on?”</em>—it recovers the edit and reason even without a Git commit. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute guide</a></p>
-    </div>
-    <div class="card">
-      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub on opt-in</span></p>
-      <h3>Already running an app</h3>
-      <p>Open a local Node app that reads a visible setting from <code>.env</code> and starts with a direct Node command. Ask your agent:</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code></div>
-      <p class="small">Say yes when your agent offers local setup. On first use it downloads mini, then checks the page and gives you the address in this chat. In a later session, ask “Is my preview still running? What does it serve?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of my app</a></p>
-    </div>
-    <div class="card">
-      <p style="margin:0 0 .35rem"><span class="badge ok">5 min · Local hub</span></p>
-      <h3>Starting a new app</h3>
-      <p>In an empty Git folder, give staging and production separate settings from minute one:</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Build a small web app using ConfigHub with staging and production settings.</code></div>
-      <p class="small">Staging updates right away; production waits for your <code>cub mini approve</code>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">Build a new app</a></p>
-    </div>
   </div>
 </section>
 
