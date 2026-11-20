@@ -158,6 +158,9 @@ html[data-client="claude"] .only-codex, html[data-client="codex"] .only-claude {
 .ops-card p { margin-top: .55rem; }
 footer > a:first-child { font-weight: 650; }
 .story > .problem { margin-top: .7rem; padding: .7rem .95rem; border-left: 3px solid var(--link); background: var(--soft); border-radius: 0 .35rem .35rem 0; color: var(--ink); }
+.host-try { padding: .7rem 0; border-bottom: 1px solid var(--line); }
+.host-try summary { cursor: pointer; font-weight: 600; }
+.host-try[open] > .snip, .host-try > p { margin-top: .6rem; }
 .story > .problem + p { margin-top: .75rem; color: var(--muted); }
 @media (max-width: 48rem) { .arch-grid, .story-body, .ops-grid { grid-template-columns: 1fr; } }
 @media (max-width: 32rem) { .steps > li { padding-left: 2.15rem; } .jumps { display: grid; } }
@@ -235,7 +238,7 @@ claude plugin install confighub@confighub</code></pre>
   <section class="story" id="remember">
     <p class="tag">01 · Plugin only · No server or account</p>
     <h2>Find out why a setting changed, a session later</h2>
-    <p class="problem"><strong>The problem:</strong> the session that made an uncommitted edit is gone, and the diff doesn’t say why it was made.</p>
+    <p class="problem">Git shows the edit. The plugin also keeps the request that prompted it, so a fresh chat can tell you why the cache is on before you decide whether to turn it off.</p>
     <p><strong>You</strong> ask for a change, then open a fresh session in the same folder. <strong>Your agent</strong> makes the edit and later explains it from the local record.</p>
 
     <div class="story-body">
@@ -260,7 +263,7 @@ claude plugin install confighub@confighub</code></pre>
           <p><strong>Open a fresh session</strong> in the same folder and ask:</p>
           <div class="snip">
             <span class="prompt-label">Ask in a fresh session</span>
-            <pre><code>Why is the cache on?</code></pre>
+            <pre><code>I’m thinking of turning the cache off. Why did we turn it on? Just show me for now.</code></pre>
           </div>
           <p class="small only-claude">You can also inspect the record directly in Claude Code with <code>/confighub:why CACHE</code>.</p>
           <p class="small only-codex">You can also inspect the record in Terminal with <code>~/.codex/confighub/bin/confighub mini changes</code>.</p>
@@ -282,7 +285,7 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
   <section class="story" id="preview">
     <p class="tag">02 · Local hub · Safe experimentation</p>
     <h2>Try a change in a running preview before shipping it</h2>
-    <p class="problem"><strong>The problem:</strong> trying an idea means changing the app you actually use, and staging and production share the same settings.</p>
+    <p class="problem">You can start a second copy yourself and save its command and port. With mini, the preview has its own settings and tomorrow’s chat can find the running app for you.</p>
     <p><strong>You</strong> choose an app and open the address your agent gives you. <strong>Your agent</strong> changes the preview setting, checks what the app serves and leaves it running.</p>
 
     <div class="story-body">
@@ -293,7 +296,11 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
             <span class="prompt-label">Ask your agent</span>
             <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
           </div>
-          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask <em>“Try ‘Evening collection’ as the heading. Keep the usual app as it is. I’d like to open the preview again tomorrow.”</em> Say yes to local setup. Your agent downloads mini on first use and shows the running preview in this chat. Go straight to step 3.</p>
+          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask for the change in your app folder.</p>
+          <div class="snip"><span class="prompt-label">Ask in your existing app</span>
+            <pre><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></pre>
+          </div>
+          <p class="small">Say yes to local setup. Your agent downloads mini on first use and shows the running preview in this chat. Go straight to step 3.</p>
         </li>
         <li>
           <p class="only-claude"><strong>For the new app, reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
@@ -328,7 +335,7 @@ Production:     <span class="wait">Hello, world!</span></div>
   <section class="story" id="starter">
     <p class="tag">03 · Multi-app inheritance · Keep per-app overrides</p>
     <h2>Give a second app the greeting you just tried</h2>
-    <p class="problem"><strong>The problem:</strong> a setting you settled on in one app has to be copied into the next app by hand, and the copies drift apart.</p>
+    <p class="problem">A copied template gives you today’s settings. With mini, the new app stays linked to shared defaults. A later fix can reach both apps while each keeps its own values.</p>
     <p><strong>You</strong> choose the greeting to share and open a new Git folder. <strong>Your agent</strong> runs both apps with their staging settings and checks that the second app inherited the greeting.</p>
 
     <div class="story-body">
@@ -357,10 +364,30 @@ Production:     <span class="wait">Hello, world!</span></div>
       <aside class="result">
         <p class="result-title">What to check</p>
         <p>Both staging apps should serve the greeting you chose. Ask your agent to show where catalog gets it. In the recorded run, catalog served <strong>Welcome to the neighborhood!</strong> with no greeting in its own settings file.</p>
-        <p>Catalog has its own production approval. You can finish the exercise with that order still waiting.</p>
+        <p>Catalog has its own production approval. In the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">two-app shop example</a>, changing the shared hours once gave both apps daily support while the shop kept its coral banner and the cart kept indigo.</p>
       </aside>
     </div>
     <p class="story-foot"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md#a-second-app-from-the-first">Second app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Second app in Codex</a>. To share a logging fix across a team while keeping the shop’s own settings, try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a>.</p>
+  </section>
+
+  <section class="more" id="hosted-tries">
+    <h2>Try it on your host</h2>
+    <p>Open your app folder, choose your provider, and copy the prompt. Each guide lists the sample app and sign-in you’ll need.</p>
+    <details id="try-vercel" class="host-try">
+      <summary>Vercel · Try a shorter cache for a sale</summary>
+      <div class="snip"><span class="prompt-label">Ask your agent</span><pre><code>Prices change more often during the sale. Try a 30-second price cache in a Vercel preview. Show me the cache headers from the preview and the live shop. Leave the production change for me to approve.</code></pre></div>
+      <p>Vercel runs the preview. Mini keeps the proposed value and reason, and its delivery add-on checks your approval. In the sale example, the preview served a 30-second cache header while the live shop still served 60. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel guide</a></p>
+    </details>
+    <details id="try-daytona" class="host-try">
+      <summary>Daytona · Keep the experiment after deleting the sandbox</summary>
+      <div class="snip"><span class="prompt-label">Ask your agent</span><pre><code>The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.</code></pre></div>
+      <p>Daytona runs the job. Mini lets you bring the setting and its reason home for review. After the test sandbox was deleted, a new hub held the proposal with 240 in staging and 120 in its production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona guide</a></p>
+    </details>
+    <details id="try-unikraft" class="host-try">
+      <summary>Unikraft · Rehearse an incident notice</summary>
+      <div class="snip"><span class="prompt-label">Ask your agent</span><pre><code>Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I’ll decide whether to publish it.</code></pre></div>
+      <p>Unikraft can run two instances on one image. Mini keeps the proposed notice behind owner approval on its delivery path. In the example, staging warned of a checkout delay while production still said “Orders ship as usual.” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft guide</a></p>
+    </details>
   </section>
 
   <section class="more" id="same-hub">
