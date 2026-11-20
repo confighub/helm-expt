@@ -241,33 +241,6 @@ footer p { max-width: none; }
   </div>
 </section>
 
-<section id="start">
-  <h2>What would you like to try?</h2>
-  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
-  <div class="two">
-    <div class="card" id="build-my-first-app">
-      <h3>Build my first app</h3>
-      <p>Start in an empty Git folder. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
-      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
-    </div>
-    <div class="card" id="try-a-change-in-my-app">
-      <h3>Try a change in my app</h3>
-      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
-      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
-    </div>
-  </div>
-  <div class="first-prompt-box" id="why-is-the-cache-on">
-    <h3>Why is the cache on?</h3>
-    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
-    <p>In a fresh chat in the same folder, ask about the change.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
-    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
-  </div>
-</section>
-
 <section id="problem">
   <h2>What basic problems ConfigHub solves</h2>
   <p>Five everyday app-config headaches that happen as soon as coding agents edit your settings.</p>
@@ -300,9 +273,36 @@ footer p { max-width: none; }
   </div>
 </section>
 
+<section id="start">
+  <h2>What would you like to try?</h2>
+  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
+  <div class="two">
+    <div class="card" id="build-my-first-app">
+      <h3>Build my first app</h3>
+      <p>Start in an empty Git folder. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
+      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    </div>
+    <div class="card" id="try-a-change-in-my-app">
+      <h3>Try a change in my app</h3>
+      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
+      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
+    </div>
+  </div>
+  <div class="first-prompt-box" id="why-is-the-cache-on">
+    <h3>Why is the cache on?</h3>
+    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
+    <p>In a fresh chat in the same folder, ask about the change.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
+    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
+  </div>
+</section>
+
 <section id="why-how">
   <h2>Why it works, and how you adopt it</h2>
-  <p>Git only sees committed files, prompt rules don't stop an agent using your own credentials, and copied templates drift after day one. ConfigHub solves this in three optional steps—stop at whichever step you need:</p>
+  <p>ConfigHub implements <strong>durable config</strong> by keeping a setting’s value and the reason it changed together. A fresh chat can tell you why the cache is on, even before you commit. Start with the plugin. Add a hub when you want apps to share defaults, keep their own overrides, or require approval for production changes.</p>
   <div class="grid3">
     <div class="card">
       <span class="badge ok">Step 1 · Zero servers</span>
