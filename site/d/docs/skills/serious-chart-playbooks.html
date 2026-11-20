@@ -85,6 +85,81 @@
     }
 
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    .cw-content > header {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: 0 0 24px;
+      padding: clamp(22px, 3.4vw, 38px);
+      border: 0;
+      border-radius: 14px;
+      color: #ffffff;
+      background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    }
+    .cw-content > header::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 0 42%;
+      background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(90deg, transparent, #000 52%);
+    }
+    .cw-content > header h1 { color: #ffffff; letter-spacing: -.035em; }
+    .cw-content > header p { color: #d5e2ef; }
+    .cw-content > header .lead,
+    .cw-content > header .tagline { color: #eef5fb; }
+    .cw-content > header strong { color: #ffffff; }
+    .cw-content > header a { color: #b5eddb; }
+    .cw-content > header code { background: #1c344d; border-color: #3a5670; color: #eef5fb; }
+    .cw-content > header .eyebrow { color: #b5eddb; }
+    .cw-content > header .boundary-chip,
+    .cw-content > header .chips span {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #486b82;
+      background: #142d42;
+      color: #b5eddb;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .cw-content > header .agent-note,
+    .cw-content > header .stat-strip {
+      background: #142d42;
+      border-color: #486b82;
+      color: #d5e2ef;
+    }
+    .cw-content > header .agent-note-label,
+    .cw-content > header .stat-strip strong { color: #b5eddb; }
+    .cw-content > header .button.primary {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #142238;
+    }
+    .cw-content > header .button.secondary {
+      background: rgba(255, 255, 255, .1);
+      border-color: #63808e;
+      color: #ffffff;
+    }
+    .cw-content > header .agent-start {
+      background: #142d42;
+      border-color: #486b82;
+      border-left-color: #99e9ca;
+      color: #eef5fb;
+    }
+    .cw-content > header .agent-start p { color: #e3eff4; }
+    .cw-content > header .agent-start strong { color: #ffffff; }
+    .at-a-glance,
+    .chart-version {
+      border: 1px solid var(--line);
+      border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px 18px;
+      margin: 16px 0;
+    }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
     h3 { margin: 0 0 8px; font-size: 1rem; }
@@ -551,7 +626,7 @@
     <p class="lead">A repository document, rendered for the site. You can also <a href="../../../../docs/skills/serious-chart-playbooks.md">view this as a markdown file</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-11-20T11:27:45.453Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-11-20T12:46:22.960Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>UNOFFICIAL/EXPERIMENTAL</p>
 <p>Use these notes when working on charts that exercise several Helm pain points at once. The goal is to keep hard charts as proof points, not exceptions hidden behind easy demos.</p>
