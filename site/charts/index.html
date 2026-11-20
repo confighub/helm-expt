@@ -618,7 +618,7 @@
 </head>
 <body>
 <a class="cw-skip" href="#cw-content">Skip to content</a>
-<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../charts/index.html">Configs</a><a href="../stack.html">Stacks</a><a href="../apps.html">Apps</a><a href="../plugins.html">Plugins</a><a href="../guides.html">Guides</a><a href="../docs.html">Docs</a><a class="nav-cta" href="../confighub.html">ConfigHub Server</a></span></nav></div></div>
+<div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="https://confighub.github.io/helm-expt/ai-agents/">Coding Agents</a><a href="../charts/index.html">Configs</a><a href="../stack.html">Stacks</a><a href="../apps.html">Apps</a><a href="../plugins.html">Plugins</a><a href="../guides.html">Guides</a><a href="../docs.html">Docs</a><a class="nav-cta" href="../confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout">
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong>Starting questions</strong></p><ul><li><a href="../d/docs/user/model-and-vocabulary.html">How our model for config works</a></li><li><a href="../config.html">How does Helm become configuration as data?</a></li><li><a href="../apps.html#before-and-after">What does a config look like before and after?</a></li><li><a href="../why-did-helm-ignore-my-values.html">Why did Helm ignore my values?</a></li><li><a href="../did-this-chart-version-change.html">Did a chart version change?</a></li><li><a href="../did-your-bitnami-chart-stop-pulling.html">Did my chart stop pulling?</a></li><li><a href="../try-aicr.html">Which GPU nodes match an AICR recipe?</a></li><li><a href="../charts/index.html?format=ai-platform">Where are the AICR and NVIDIA NIM configs?</a></li><li><a href="../proof.html">What has been tested?</a></li><li><a href="../confighub.html#promote-a-change">How do I release and promote a config?</a></li></ul>
       <p class="cw-nav-title"><strong><a href="../guides.html#guides-deep-dives">Deep Dives</a></strong></p><ul><li><a href="../d/docs/user/model-and-vocabulary.html">How the model works</a></li><li><a href="../d/docs/user/model-and-vocabulary.html#words">What our words mean</a></li><li><a href="../ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a></li></ul>
@@ -651,13 +651,16 @@
           <label>Hooks <br><select id="hook-filter"><option value="">All</option><option value="yes"> · Uses Helm hooks</option><option value="no"> · No Helm hooks</option></select></label>
           <label>CRDs <br><select id="crd-filter"><option value="">All</option><option value="yes"> · Includes CRDs</option><option value="no"> · No CRDs</option></select></label>
         </div>
-        <p style="margin:12px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
-        <ul style="margin:0 0 10px; padding-left:20px">
-          <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
-          <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
-          <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
-        </ul>
-        <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
+        <details style="margin:12px 0 6px">
+          <summary style="cursor:pointer; font-weight:600; color:var(--ink)">How to read Flattening, Presets, and Readiness</summary>
+          <p style="margin:10px 0 6px"><strong>Flattening &amp; GitOps delivery (&ldquo;Flattens as plain YAML?&rdquo;):</strong></p>
+          <ul style="margin:0 0 10px; padding-left:20px">
+            <li><strong>Applies directly as YAML</strong> (<code>safe-to-flatten</code>): objects are complete; deliver via OCI bundle, Argo CD, Flux, or <code>kubectl apply</code>.</li>
+            <li><strong>YAML + ordered CRD/Secret setup</strong> (<code>flatten-with-routes</code>): objects are pre-rendered, and the entry's plan lists CRDs or Secrets to apply first (<a href="../d/docs/user/model-and-vocabulary.html#what-the-flattening-verdict-means">guide</a>).</li>
+            <li><strong>Requires Helm at install time</strong> (<code>unsafe-to-flatten</code>): templates call live cluster <code>lookup()</code> or dynamic state; keep Helm or <code>cub installer</code> in the loop instead of a static YAML bundle.</li>
+          </ul>
+          <p style="font-size:.92rem; color:var(--muted)"><strong>Model terms:</strong> A <strong>preset</strong> is one named set of values in a package; loading its OCI bundle into ConfigHub creates a shared <strong>base</strong> to customize environment variants. <strong>Ready to try</strong> = rendered YAML + static checks + local kind apply; <strong>Review before use</strong> = rendered YAML + static checks recorded.</p>
+        </details>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div id="format-intro">
