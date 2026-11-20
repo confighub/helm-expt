@@ -1,24 +1,24 @@
 # ConfigHub for Coding Agents (Door A)
 
-> Apps-first configuration memory, environment checks, previews, and production approvals for Claude Code and Codex. No Kubernetes platform required.
+> Build your app with Claude Code or Codex and keep it easy to change. Durable config for environments, previews, linked starters, and production approvals with no platform to build first.
 
 Base URL: https://confighub.github.io/helm-expt/ai-agents/
 Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalog.json
 
 ## When to use this door vs Door B
 
-- Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, AWS SSM, Daytona, nono sandbox, or cloning working settings to a new app).
+- Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, Unikraft, AWS SSM, Daytona, nono sandbox, or reusing working settings across apps).
 - Use **Door B (`site/`)** when the user is working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, or multi-component cluster stacks:
   https://confighub.github.io/helm-expt/site/llms.txt
 
 ## Progression ladder
 
 1. **Step 1: Plugin** (`plugin.html`)
-   Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI. Records why every setting changed locally in `~/.confighub`. Zero background processes, no account, works offline.
+   Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI. Records why supported settings changed locally in `~/.confighub`. Zero background processes, no account, works offline.
 2. **Step 2: Mini Hub** (`mini.html`)
-   Run a local hub for `base`, `staging`, and `live` settings, check values before deploy, open isolated previews (local or Daytona), and give agents scoped credentials.
+   Run a free local hub on `127.0.0.1` for `base`, `staging`, and `live` settings, durable previews (local or Daytona), linked starters across apps, scoped agent keys, and approved delivery (Vercel, Fly, Unikraft, AWS SSM).
 3. **Step 3: Shared Hub** (`hub.html`)
-   Share versioned starters across many apps, roll out common fixes while keeping per-app overrides, and require human approval before production changes ship.
+   Move the exact same setup to a shared hub when teammates or CI jobs need access to the same settings, approvals, and history.
 
 ## Key pages
 
