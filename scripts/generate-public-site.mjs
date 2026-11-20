@@ -3639,17 +3639,17 @@ ${bannerCss()}
 
   :root {
     color-scheme: light;
-    --bg: #ffffff; --surface: #ffffff; --surface-2: #f3f0e9;
-    --ink: #221c15; --muted: #6e6659; --faint: #9c9285;
-    --line: #e7e1d6; --line-strong: #d5cec2;
-    --accent: #ba3d03; --accent-ink: #a33502;
-    --pass: #1f8a4c; --pass-bg: #e4f3ea;
-    --watch: #b5761a; --watch-bg: #f7ecd8;
-    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
-    --term-bg: #221c15; --term-ink: #ede7dd;
+    --bg: #f8f9fb; --surface: #ffffff; --surface-2: #eaf0f6;
+    --ink: #18243a; --muted: #4e5f75; --faint: #6c7d93;
+    --line: #d0d9e4; --line-strong: #b6c4d4;
+    --accent: #244896; --accent-ink: #264d9b;
+    --pass: #13593f; --pass-bg: #e1f4eb;
+    --watch: #70460b; --watch-bg: #fff1d2;
+    --blocked: #b42318; --blocked-bg: #fee4e2;
+    --term-bg: #142238; --term-ink: #f0f5fc;
     --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
-    --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
-    --heading: Inter, ui-sans-serif, system-ui, sans-serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
   * { box-sizing: border-box; }
@@ -3679,41 +3679,46 @@ ${bannerCss()}
 
   .navlinks a:hover { color: var(--accent-ink); }
 
-  .hero-head { padding: 34px 0 0; border-top: 1px solid var(--line); container-type: inline-size; }
-  /* The headline holds one line. The left rail narrows the content column, so
-     the full-size display face wrapped "Compose a platform or stack / from the
-     public Catalog" in two; sized to the column it sits on a single line from a
-     laptop up, and wraps gracefully (never overflows) only when genuinely too
-     narrow, near the width where the rail folds away. */
-  .hero-head h1 { font-size: clamp(1.35rem, 3.8cqi, 2.4rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 0; max-width: none; }
-  /* Top-aligned, not centred: the right column carries the terminal and two
-     notes now, so centring dropped the lead half a screen below the headline
-     and left a hole where the reader looks first. */
+  .hero-head {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: clamp(22px, 3vw, 34px); margin-top: 16px;
+    border-radius: 14px; color: #fff;
+    background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    container-type: inline-size;
+  }
+  .hero-head::before {
+    content: ""; position: absolute; z-index: -1; inset: 0 0 0 42%;
+    background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+    background-size: 24px 24px; mask-image: linear-gradient(90deg, transparent, #000 52%);
+  }
+  .hero-head .eyebrow { color: #93e9c9; font-weight: 600; }
+  .hero-head .eyebrow a { color: #b5eddb; text-decoration: underline; text-underline-offset: 2px; }
+  .hero-head h1 { font-size: clamp(1.5rem, 3.8cqi, 2.55rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.06; margin: 10px 0 0; max-width: none; color: #fff; }
+  .hero-head .lead { font-size: 1rem; line-height: 1.58; margin: 14px 0 0; max-width: 72ch; color: #d5e2ef; }
+  .hero-head .hero-door-note { font-size: .9rem; color: #d5e2ef; margin: 12px 0 0; }
+  .hero-head .hero-door-note a { color: #b5eddb; }
   .boundary-chip { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; margin: 4px 0 0; }
-  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 32px 0 44px; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; padding: 24px 0 32px; }
   .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
-  .hero-head .lead { font-size: 1rem; line-height: 1.65; margin: 22px 0 0; max-width: 78ch; }
-  /* The Catalog search sits in the hero head, so it shows without scrolling.
-     It takes the page's one typeface. */
-  .hero-search { display: flex; gap: 8px; max-width: 600px; margin: 18px 0 0; }
-  .hero-search input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; font-size: .95rem; }
-  .hero-search .btn { cursor: pointer; white-space: nowrap; font-family: var(--sans); }
+  .hero-search { display: flex; gap: 8px; max-width: 620px; margin: 16px 0 0; }
+  .hero-search input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid rgba(255,255,255,.25); border-radius: 9px; background: rgba(255,255,255,.95); color: #18243a; font: inherit; font-size: .94rem; }
+  .hero-search .btn { cursor: pointer; white-space: nowrap; font-family: var(--sans); background: #93e9c9; color: #111e34; font-weight: 650; }
   @media (max-width: 560px) { .hero-search { flex-direction: column; } }
-  .hero-picks { font-size: .9rem; color: var(--muted); margin: 12px 0 0; }
-  .hero-picks a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
-  .hero > div:first-child > p { color: var(--muted); font-size: .95rem; line-height: 1.65; margin: 0 0 22px; }
-  .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 22px; max-width: 48ch; }
-  /* The hero says one thing and offers three verbs. The four explainer
-     paragraphs that used to fill the column beside the terminal now live as
-     cards under "What is the Workshop?" below, one idea per card, so the top
-     of the page scans instead of reads. */
-  .what-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
-  @media (max-width: 760px) { .what-cards { grid-template-columns: 1fr; } }
-  .what-card { border: 1px solid var(--line); border-radius: 13px; padding: 16px 18px; background: var(--surface); box-shadow: none; }
-  .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 700; }
-  .what-card p { margin: 0 0 8px; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  .hero-picks { font-size: .88rem; color: #c7d8e8; margin: 12px 0 0; }
+  .hero-picks a { color: #b5eddb; text-decoration: underline; text-underline-offset: 2px; }
+  .hero > div:first-child > p { color: var(--muted); font-size: .94rem; line-height: 1.58; margin: 0 0 16px; }
+  .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 16px; max-width: 52ch; }
+  .what-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
+  @media (max-width: 980px) { .what-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .what-cards { grid-template-columns: 1fr; } }
+  .what-card { border: 1px solid var(--line); border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line)); border-radius: 11px; padding: 15px 17px; background: var(--surface); box-shadow: none; }
+  .what-card h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 650; }
+  .what-card p { margin: 0 0 8px; font-size: .89rem; color: var(--muted); line-height: 1.5; }
   .what-card p:last-child { margin-bottom: 0; }
   .what-card a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+  #app-plugin-install { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 14px 16px; margin: 0 0 22px; }
+  #app-plugin-install p { margin: 0 0 8px; font-size: .92rem; }
+  #app-plugin-install details summary { cursor: pointer; font-weight: 600; font-size: .89rem; color: var(--accent-ink); }
   .what-links { font-size: .9rem; color: var(--muted); margin: 0; }
   /* One-glance strip of every format and pattern the catalog supports, linking
      into the Catalog's formats panel. So the home says "not Helm-only" up top. */
@@ -4049,7 +4054,8 @@ function configTestCentreHome(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Workshop &middot; Understand and test your configuration</title>
+  <title>ConfigHub AI Workshop for Kubernetes</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <style>${homeDesignCss()}</style>
 </head>
 <body>
@@ -4098,21 +4104,20 @@ ${homeJourneyLinks()}
       <header>
         <div class="hero-head">
           <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
-          <h1>Configuration catalog for Agents and Kubernetes</h1>
-          <p class="lead">ConfigHub Workshop helps you and your AI agent fix silent Helm bugs, inspect pre-rendered Kubernetes YAML, and manage configuration as data across formats. It brings established Helm and YAML workflows together with NVIDIA AI Cluster Runtime (AICR) GPU recipes under one OCI and GitOps delivery model.</p>
-          <p>Using Claude Code or Codex to remember why an app setting changed? <a href="${REMEMBER_SETTING_GUIDE_URL}">Remember one setting in five minutes</a> with the confighubai/confighub-mini-plugin app plugin. <a href="#app-plugin-install">Install the app plugin</a>.</p>
+          <h1>ConfigHub AI Workshop for Kubernetes</h1>
+          <p class="lead">Pre-rendered Kubernetes YAML, NVIDIA AI Cluster Runtime (AICR) GPU recipes, OCI bundles, and cub plugins for humans and AI agents.</p>
+          <p class="hero-door-note">Working on a regular app without Kubernetes? <a href="../ai-agents/">Open ConfigHub for Coding Agents</a> or <a href="${REMEMBER_SETTING_GUIDE_URL}">remember one setting in five minutes</a> (<a href="#app-plugin-install">install the app plugin</a>).</p>
           <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
-          <p class="hero-picks">Try out of the box: <a href="./why-did-helm-ignore-my-values.html">Fix ignored Helm values</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./try-aicr.html">NVIDIA AICR GPU recipes</a> · <a href="./eks-inference.html">8-part EKS GPU stack</a> · <a href="./ai.html">Agent setup</a></p>
+          <p class="hero-picks">Quick starts: <a href="./eks-inference.html">GPU fleets</a> · <a href="./why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./compose-a-stack.html">Agentic platform</a> · <a href="./ai.html">Agent setup</a></p>
         </div>
         <div class="hero">
           <div>
-            <p class="lead">Start with your own chart, app, or GPU recipe. Check rendered objects in your browser, run <code>cub</code> (our open-source CLI) and its plugins locally, or hand the task to Claude Code or Codex. Local checks need no account.</p>
+            <p class="lead">Start with your chart, app, or GPU recipe. Local browser checks and open-source <code>cub</code> plugins need no account.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
               <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
-
-            <p>When your team wants shared history and approvals, upload an OCI bundle into ConfigHub as a shared base, customize per-environment variants, and publish a release digest. Argo CD or Flux still delivers it using your existing setup.</p>
+            <p>Ready for shared history and approvals? Upload an OCI bundle as a ConfigHub base, create variants, and publish a digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ai.html">Set up my AI agent</a>
               <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
@@ -4141,64 +4146,64 @@ ${homeJourneyLinks()}
       </header>
 
       <main>
-        ${appSettingGuideHtml()}
         <section class="section" id="popular-examples">
-          <span class="eyebrow">Three Workshop pillars · Ready to use out of the box</span>
-          <h2>Fix broken configs, unify formats, and check whole stacks</h2>
-          <p class="intro">Every example links to exact rendered Kubernetes objects on GitHub alongside copyable commands for you or your AI agent.</p>
+          <span class="eyebrow">Five ways to use the Workshop</span>
+          <h2>Choose your Kubernetes outcome</h2>
           <div class="what-cards">
             <div class="what-card">
-              <h3>1. Fix broken Helm charts with AI agents</h3>
-              <p>Catch ignored <code>values.yaml</code> keys, Secrets that regenerate on reinstall, moved images, and hook or CRD ordering traps across 124 pre-rendered charts.</p>
-              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values check</a> · <a href="./example-cert-manager.html">cert-manager YAML</a> · <a href="./guides.html#guides-helm-questions">Helm guides</a></p>
+              <h3>1. GPU Fleets</h3>
+              <p>Inspect 138 NVIDIA AI Cluster Runtime (AICR) recipes, <code>gpu-operator</code> upgrades, NIMService variants, and GPU fleet rollouts.</p>
+              <p><a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./eks-inference.html">EKS GPU stack</a> · <a href="./nvke.html">NVKE lab</a></p>
             </div>
             <div class="what-card">
-              <h3>2. Unify Helm, NVIDIA AICR, and YAML via OCI</h3>
-              <p>Flatten established Helm and Kustomize files alongside NVIDIA AI Cluster Runtime (AICR) GPU recipes and Timoni modules into explicit YAML in OCI bundles.</p>
-              <p><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> · <a href="./try-aicr.html">NVIDIA AICR guide</a> · <a href="./oci.html">OCI bundles</a></p>
+              <h3>2. AI Sandbox on K8s</h3>
+              <p>Test Helm, Timoni, and YAML OCI bundles locally with <code>cub stack sandbox</code> and <code>kind</code> before touching a live cluster.</p>
+              <p><a href="./try.html">10-minute sandbox</a> · <a href="./oci.html">OCI bundles</a> · <a href="./ask.html">Browser check</a></p>
             </div>
             <div class="what-card">
-              <h3>3. Check ready-to-run stacks and GitOps</h3>
-              <p>Test 12 multi-component stacks (such as ingress, cert-manager, Prometheus, or EKS GPU inference) for CRD and namespace collisions before Argo CD or Flux deploys.</p>
-              <p><a href="./stack.html">12 ready-to-run stacks</a> · <a href="./apps.html#before-and-after">Before &amp; after apps</a> · <a href="./deploy-with-flux-or-argo.html">Flux &amp; Argo CD</a></p>
+              <h3>3. AI Operations for K8s</h3>
+              <p>Catch ignored Helm values, stop AI from overwriting fixes, and gate Argo CD, Flux, or Sveltos fleets behind approvals.</p>
+              <p><a href="./why-did-helm-ignore-my-values.html">Ignored values</a> · <a href="./ai-chaos-in-production.html">Sveltos fleet repair</a> · <a href="./deploy-with-flux-or-argo.html">GitOps</a></p>
             </div>
             <div class="what-card">
-              <h3>4. Try cub tools and plugins out of the box</h3>
-              <p>Run <code>cub config check</code>, <code>cub config diff</code>, <code>cub stack check</code>, and ${sectionCount("plugins")} open-source plugins in a 10-minute laptop walkthrough with no cluster or account.</p>
-              <p><a href="./try.html">10-minute CLI tutorial</a> · <a href="./plugins.html">${sectionCount("plugins")} cub plugins</a> · <a href="./ask.html">Browser YAML check</a></p>
+              <h3>4. Agentic Platform</h3>
+              <p>Compose reusable platforms from 12 checked stacks, Kubara add-ons, and <code>base</code> to <code>variant</code> inheritance.</p>
+              <p><a href="./compose-a-stack.html">Build a platform</a> · <a href="./stack.html">12 stacks</a> · <a href="./bring-kubara-into-confighub.html">Kubara</a></p>
+            </div>
+            <div class="what-card">
+              <h3>5. Browse &amp; Use the Catalog</h3>
+              <p>Search ${sectionCount("configs")} configs, ${sectionCount("apps")} apps, ${sectionCount("plugins")} <code>cub</code> plugins, and ${sectionCount("guides")} guides, or query them live via JSON.</p>
+              <p><a href="./charts/index.html">Catalog</a> · <a href="./plugins.html">${sectionCount("plugins")} cub plugins</a> · <a href="./llms.txt">llms.txt</a></p>
             </div>
           </div>
         </section>
+        ${appSettingGuideHtml()}
         <section class="section" id="give-it-to-your-agent">
           <span class="eyebrow">For your AI agent</span>
           <h2>Give Claude Code or Codex the Catalog and cub tools</h2>
-          <p class="intro">Paste this one-line setup prompt into Claude Code, Codex, or any shell-capable agent so it queries compact Catalog JSON records and runs deterministic <code>cub</code> checks.</p>
           <p class="agent-prompt"><code class="prompt-text">${escapeHtml(AGENT_PROMPT_ONE_LINER)}</code>${copyPromptButton()}</p>
-          <p class="intro">Or install the Workshop skill directly in your repository. <a href="./ai.html">Use with your AI</a> covers full agent workflows.</p>
           ${agentNote(` Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
           <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code>${copyPromptButton()}</pre>
-          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the open-source cub CLI</a> first. Public OCI bundles and local checks need no account, and you sign in only when storing bases or variants in ConfigHub.</p>
+          <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install cub</a>. <a href="./ai.html">Full agent guide</a>.</p>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
           <span class="eyebrow">The Catalog</span>
           <h2>What the Catalog holds</h2>
-          <p class="intro">Every section states plainly what has been rendered and statically checked versus what has not run on a live cluster.</p>
           <ul class="home-sections">
             <li><a href="./charts/index.html">Configs</a>: ${sectionCount("configs")} configurations across Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, OCI, and YAML. ${sectionCount("configs") - aicrRenderedOnlyCount - nimServiceVariantCount} are tested and rendered to the exact objects they install. ${aicrRenderedOnlyCount} are NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run.${nimServiceCountSentence()}</li>
-            <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} ready-to-run stacks checked together for CRD, namespace, and RBAC conflicts before anything runs.</li>
-            <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps showing configuration as data across Helm, Kustomize, Argo CD, and Flux.</li>
-            <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} open-source <code>cub</code> CLI plugins for Helm, scanning, cluster checks, Argo CD, and Flux, each marked by its state.</li>
-            <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} step-by-step Guides an agent walks with you across Helm, NVIDIA AICR, OCI, promotions, and fleets.</li>
-            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">how the model works</a>, why you can trust each recorded check, and the complete reference index.</li>
+            <li><a href="./stack.html">Stacks</a>: ${sectionCount("stacks")} ready-to-run stacks checked for CRD, namespace, and RBAC conflicts.</li>
+            <li><a href="./apps.html">Apps</a>: ${sectionCount("apps")} worked example apps across Helm, Kustomize, Argo CD, and Flux.</li>
+            <li><a href="./plugins.html">Plugins</a>: ${sectionCount("plugins")} open-source <code>cub</code> plugins, each marked by its state.</li>
+            <li><a href="./guides.html">Guides</a>: ${sectionCount("guides")} Guides for Helm, NVIDIA AICR, OCI, promotions, and fleets.</li>
+            <li><a href="./docs.html">Docs</a>: <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> and the reference index.</li>
           </ul>
         </section>
         <section class="section" id="what-is-the-workshop">
           <span class="eyebrow">The short version</span>
           <h2>What is the Workshop?</h2>
-          <p class="intro">Other catalogs give you charts. ConfigHub Workshop gives you and your agents pre-rendered Kubernetes objects, digests, recorded checks, Guides, and <code>cub</code> plugins to solve config problems out of the box. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
-          <p class="intro">Configuration as data flattens Helm, NVIDIA AI Cluster Runtime (AICR), Timoni, and YAML into explicit Kubernetes objects. OCI is a shared transport for this configuration, and each entry records its source-specific processing and checks.</p>
-          <p class="intro">You can run local checks without a ConfigHub account. Loading an OCI bundle into <a href="./confighub.html">ConfigHub Server</a> creates a shared base (developer intent), lets operators customize environment variants, and publishes releases for Argo CD or Flux. <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a> explains it.</p>
+          <p class="intro">Other catalogs give you charts. ConfigHub Workshop gives you pre-rendered Kubernetes objects, digests, recorded checks, and <code>cub</code> plugins. <a href="./d/docs/user/what-config-workshop-is.html">See the full detail</a>.</p>
+          <p class="intro">OCI is a shared transport for this configuration, and each entry records its source-specific processing and checks. You can run local checks without a ConfigHub account, then load a bundle into <a href="./confighub.html">ConfigHub Server</a> for shared bases, variants, and approvals.</p>
         </section>
         </div>
       </main>
@@ -16991,23 +16996,23 @@ function siteCss() {
   return `
     :root {
       color-scheme: light;
-      --ink: #221c15;
-      --muted: #6e6659;
-      --faint: #9c9285;
-      --line: #e7e1d6;
-      --line-strong: #d5cec2;
-      --panel: #f3f0e9;
-      --surface-2: #f3f0e9;
-      --accent: #ba3d03;
-      --accent-ink: #a33502;
-      --good: #1f8a4c;
-      --warn: #b5761a;
-      --bad: #c53a3a;
-      --surface: #ffffff;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --ink: #18243a;
+      --muted: #4e5f75;
+      --faint: #6c7d93;
+      --line: #d0d9e4;
+      --line-strong: #b6c4d4;
+      --panel: #eaf0f6;
+      --surface-2: #eaf0f6;
+      --accent: #244896;
+      --accent-ink: #264d9b;
+      --good: #13593f;
+      --warn: #70460b;
+      --bad: #b42318;
+      --surface: #f8f9fb;
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      --heading: Inter, ui-sans-serif, system-ui, sans-serif;
-      --term: #0e1419;
+      --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+      --term: #142238;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
