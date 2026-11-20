@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "title": "ConfigHub for Coding Agents (Door A)",
   "base_url": "https://confighub.github.io/helm-expt/ai-agents/",
-  "summary": "Apps-first configuration memory, previews, sandboxes, and approvals for Claude Code and Codex without requiring Kubernetes.",
+  "summary": "Build your app with Claude Code or Codex and keep it easy to change. Durable config for previews, linked starters, and production approvals with no platform to build first.",
   "router": "https://confighub.github.io/helm-expt/ai-agents/llms.txt",
   "kubernetes_door": {
     "title": "ConfigHub AI Workshop for Kubernetes (Door B)",
@@ -24,7 +24,7 @@
       "name": "ConfigHub Mini Hub",
       "url": "https://confighub.github.io/helm-expt/ai-agents/mini.html",
       "repo": "https://github.com/confighubai/confighub-mini",
-      "summary": "Local hub on your laptop for base, staging, and live environments, local or Daytona sandbox previews, pre-deploy checks, and scoped agent keys."
+      "summary": "Free local hub on 127.0.0.1 for base, staging, and live environments, durable previews, linked starters across apps, scoped agent keys, and approved delivery."
     },
     {
       "step": 3,
@@ -32,7 +32,7 @@
       "name": "Shared ConfigHub",
       "url": "https://confighub.github.io/helm-expt/ai-agents/hub.html",
       "url_confighub": "https://confighub.github.io/helm-expt/site/confighub.html",
-      "summary": "Shared team hub for multi-app starters, inheritance, human approvals on production, and GitOps or Kubernetes delivery."
+      "summary": "Move the exact same setup to a shared hub when teammates or CI jobs need access to the same settings, approvals, and history."
     }
   ],
   "pages": [
