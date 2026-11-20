@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "title": "ConfigHub for Coding Agents (Door A)",
+  "base_url": "https://confighub.github.io/helm-expt/ai-agents/",
+  "summary": "Apps-first configuration memory, previews, sandboxes, and approvals for Claude Code and Codex without requiring Kubernetes.",
+  "router": "https://confighub.github.io/helm-expt/ai-agents/llms.txt",
+  "kubernetes_door": {
+    "title": "ConfigHub AI Workshop for Kubernetes (Door B)",
+    "url": "https://confighub.github.io/helm-expt/site/index.html",
+    "router": "https://confighub.github.io/helm-expt/site/llms.txt"
+  },
+  "ladder": [
+    {
+      "step": 1,
+      "id": "plugin",
+      "name": "ConfigHub Plugin",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/plugin.html",
+      "repo": "https://github.com/confighubai/confighub-mini-plugin",
+      "summary": "Local MIT-licensed plugin for Claude Code and Codex that records why every setting changed in ~/.confighub with zero background processes and no account."
+    },
+    {
+      "step": 2,
+      "id": "mini",
+      "name": "ConfigHub Mini Hub",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/mini.html",
+      "repo": "https://github.com/confighubai/confighub-mini",
+      "summary": "Local hub on your laptop for base, staging, and live environments, local or Daytona sandbox previews, pre-deploy checks, and scoped agent keys."
+    },
+    {
+      "step": 3,
+      "id": "hub",
+      "name": "Shared ConfigHub",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/hub.html",
+      "url_confighub": "https://confighub.github.io/helm-expt/site/confighub.html",
+      "summary": "Shared team hub for multi-app starters, inheritance, human approvals on production, and GitOps or Kubernetes delivery."
+    }
+  ],
+  "pages": [
+    {
+      "path": "index.html",
+      "title": "ConfigHub for Coding Agents",
+      "purpose": "Front door for Claude Code and Codex: five core problems solved, install commands, and interactive demo."
+    },
+    {
+      "path": "first-look.html",
+      "title": "Three things to try first",
+      "purpose": "Five-minute hands-on walkthroughs: remember one setting, preview a change safely, and reuse a starter across apps."
+    },
+    {
+      "path": "plugin.html",
+      "title": "Step 1: Plugin",
+      "purpose": "Local change history, slash commands, hooks, and offline storage in ~/.confighub."
+    },
+    {
+      "path": "mini.html",
+      "title": "Step 2: Mini Hub",
+      "purpose": "Local environments, diff and check before deploy, Daytona previews, and scoped agent access."
+    },
+    {
+      "path": "hub.html",
+      "title": "Step 3: Shared Hub",
+      "purpose": "Team approvals, shared starters across many apps, and bridge to full ConfigHub and Kubernetes."
+    },
+    {
+      "path": "plugins.html",
+      "title": "Plugins",
+      "purpose": "Composable plugins that pair with starters (ConfigHub, nono sandbox, Daytona, Vercel, Fly, AWS SSM)."
+    },
+    {
+      "path": "starters.html",
+      "title": "Starters and recipes",
+      "purpose": "Interactive Plugin x Starter picker and copyable recipes for shipping apps cleanly."
+    },
+    {
+      "path": "stories.html",
+      "title": "User stories",
+      "purpose": "24 filterable scenarios across Plugin, Mini Hub, and Shared Hub."
+    },
+    {
+      "path": "trust.html",
+      "title": "Proof and safety",
+      "purpose": "Local-first boundaries, secret redaction, scoped credentials, and verification."
+    },
+    {
+      "path": "reference.html",
+      "title": "Reference",
+      "purpose": "CLI commands, file paths, environment layout, and links to source repositories."
+    }
+  ],
+  "composable_examples": [
+    {
+      "id": "nono-vercel",
+      "plugins": ["nono", "confighub"],
+      "starter": "vercel-app",
+      "summary": "Run a coding agent inside a nono sandbox while deploying a Vercel app with ConfigHub environment checks and production approval."
+    },
+    {
+      "id": "daytona-nextjs",
+      "plugins": ["daytona", "confighub"],
+      "starter": "nextjs-app",
+      "summary": "Spin up an isolated Daytona preview for a Next.js app without touching the running live environment."
+    },
+    {
+      "id": "fly-api",
+      "plugins": ["confighub"],
+      "starter": "fly-service",
+      "summary": "Manage base, staging, and live environment variables for a Fly.io service with pre-deploy validation."
+    },
+    {
+      "id": "aws-ssm-service",
+      "plugins": ["confighub"],
+      "starter": "aws-ssm-app",
+      "summary": "Keep non-secret config in ConfigHub, sync to AWS SSM Parameter Store with scoped agent permissions, and require approval for live."
+    }
+  ]
+}
