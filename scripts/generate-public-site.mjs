@@ -1939,11 +1939,11 @@ function buildSite(generatedAt) {
     demoOrgHtml: demoOrgHtml(),
     chartPages,
     chartOverviewPages,
-    matrixHtml: rebaseRelativeLinks(
+    matrixHtml: styleMatrixHtml(rebaseRelativeLinks(
       readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
       "data/master-catalog-matrix",
       "site",
-    ),
+    )),
     readme: readme(),
   };
   site.robotsTxt = buildRobotsTxt();
@@ -1952,6 +1952,42 @@ function buildSite(generatedAt) {
   finalized.sitemapXml = buildSitemapXml([...finalized.chartPages, ...finalized.chartOverviewPages], finalized.docPages);
   finalized.presetScripts = buildPresetScripts(catalog);
   return finalized;
+}
+
+function styleMatrixHtml(html) {
+  const themeCss = `
+:root {
+  color-scheme: light;
+  --ink: #18243a;
+  --muted: #4e5f75;
+  --line: #d8dfe8;
+  --surface: #ffffff;
+  --surface-2: #f4f6f8;
+  --accent: #244896;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+body { margin: 0; padding: 0; background: var(--surface); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.5; }
+.matrix-cover {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin: 0 0 20px; padding: clamp(22px, 3vw, 34px); border-radius: 14px;
+  color: #ffffff; background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+}
+.matrix-cover::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 0 0 42%;
+  background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+  background-size: 24px 24px; mask-image: linear-gradient(90deg, transparent, #000 52%);
+}
+.matrix-cover h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: -.035em; color: #ffffff; }
+.matrix-cover p.sub { margin: 0; color: #d5e2ef; }
+.matrix-cover a { color: #b5eddb; }
+a { color: var(--accent); }
+thead th { background: var(--surface-2); border-color: var(--line); }
+th, td { border-color: var(--line); }
+`;
+  let out = html.replace("</style>", `${themeCss}\n</style>`);
+  out = out.replace(/(<h1>[\s\S]*?<\/h1>\s*<p class="sub">[\s\S]*?<\/p>)/, '<header class="matrix-cover">$1</header>');
+  return out;
 }
 
 function generatedStamp(catalog, label) {
@@ -17072,7 +17108,7 @@ function siteCss() {
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--sans);
       color: var(--ink);
       background: var(--surface);
       line-height: 1.5;
