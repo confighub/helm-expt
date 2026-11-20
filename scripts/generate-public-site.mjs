@@ -5903,7 +5903,7 @@ function stackHtml() {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Stacks</h1>
     <p class="boundary-chip">Ready-to-run out of the box · Check with cub or your AI agent · Deliver via OCI &amp; GitOps</p>
@@ -7822,7 +7822,7 @@ function pluginsHtml() {
   </style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Plugins</h1>
     <p class="lead">Plugins add commands to cub for the tools you already run, such as Argo CD, Flux, Helm, Kubara and Sveltos. Every public cub plugin is here, marked by its state, with the line that installs it.</p>
@@ -7907,8 +7907,8 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Guides · ConfigHub Workshop</title>
   <style>${siteCss()}
-    .demo-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; padding:0; list-style:none; }
-    .demo-choices li { margin:0; padding:16px 0; border-top:1px solid var(--line); }
+    .demo-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; padding:0; list-style:none; }
+    .demo-choices li { margin:0; padding:16px 18px; border:1px solid var(--line); border-top:3px solid color-mix(in srgb, var(--accent) 45%, var(--line)); border-radius:10px; background:var(--surface); }
     .demo-choices a { display:block; font-weight:600; margin-bottom:8px; font-size:1rem; }
     .guide-directory section { padding-top:24px; padding-bottom:24px; }
     .guide-directory .guide-list:not(.demo-choices) li { margin-bottom:12px; }
@@ -7917,7 +7917,7 @@ ${group.id === "deep-dives" ? deepDiveTopicsHtml() : ""}
   </style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Guides</h1>
     <p class="boundary-chip">Run yourself or with your AI agent · Covers Helm, NVIDIA AICR, OCI, and GitOps</p>
@@ -8126,7 +8126,7 @@ function docsHtml(catalog) {
 </style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Docs</h1>
     <p class="boundary-chip">Configuration-as-data model, OCI delivery, check rules, and reference index</p>
@@ -8191,7 +8191,7 @@ function catalogDocsHtml() {
 .docs-index-list{columns:2;column-gap:26px;padding-left:18px}.docs-index-list li{break-inside:avoid;margin:6px 0}.docs-count{font-size:.8rem;color:var(--muted)}
 @media(max-width:640px){.docs-index-list{columns:1}}
 </style></head><body>
-<header class="hero human-hero">${topNav(".")}<h1>Catalog docs</h1>
+<header class="hero human-hero hub-cover">${topNav(".")}<h1>Catalog docs</h1>
 <p class="lead">The complete index of retained entry demonstrations and corpus notes. Read a configuration's instructions, source and evidence limits before using it.</p>
 <p><a href="./docs.html">Back to Docs by topic</a> · <a href="./charts/index.html">Find a configuration by name or version</a> · <a href="./guides.html">Find a walkthrough</a></p></header>
 <main><section aria-labelledby="continue"><h2 id="continue">Every doc, by area</h2>
@@ -9199,7 +9199,7 @@ function proofHtml(catalog) {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Check the evidence yourself</h1>
     <p class="lead">Behind every claim on this site is a command you can run and a receipt you can recheck. Rerun any check yourself, and see exactly what it proved and what it left untested.</p>
@@ -10522,7 +10522,7 @@ function appsHtml() {
   <style>${siteCss()}</style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Apps</h1>
     <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
@@ -10777,7 +10777,7 @@ function aiHtml(catalog) {
   </style>
 </head>
 <body>
-  <header class="hero human-hero">
+  <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Use Claude or Codex for Kubernetes configuration</h1>
     ${appSettingGuideHtml()}
@@ -17394,10 +17394,70 @@ ${bannerCss()}
 function calmPageCss() {
   return `
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .calm-page header.hero.hub-cover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: 0 0 24px;
+      padding: clamp(24px, 3.6vw, 40px);
+      border: 0;
+      border-radius: 14px;
+      color: #ffffff;
+      background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    }
+    .calm-page header.hero.hub-cover::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 0 42%;
+      background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(90deg, transparent, #000 52%);
+    }
+    .calm-page header.hero.hub-cover h1 { color: #ffffff; letter-spacing: -.035em; }
+    .calm-page header.hero.hub-cover p { color: #d5e2ef; }
+    .calm-page header.hero.hub-cover .lead { color: #eef5fb; }
+    .calm-page header.hero.hub-cover a { color: #b5eddb; }
+    .calm-page header.hero.hub-cover code { background: #1c344d; border-color: #3a5670; color: #eef5fb; }
+    .calm-page header.hero.hub-cover .boundary-chip {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #486b82;
+      background: #142d42;
+      color: #b5eddb;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+    .calm-page header.hero.hub-cover .agent-note {
+      background: #142d42;
+      border-color: #486b82;
+      color: #d5e2ef;
+    }
+    .calm-page header.hero.hub-cover .agent-note-label { color: #b5eddb; }
+    .calm-page header.hero.hub-cover .button.primary {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #142238;
+    }
+    .calm-page header.hero.hub-cover .button.secondary {
+      background: rgba(255, 255, 255, .1);
+      border-color: #63808e;
+      color: #ffffff;
+    }
+    .calm-page header.hero.hub-cover .agent-start {
+      background: #142d42;
+      border-color: #486b82;
+      border-left-color: #99e9ca;
+      color: #eef5fb;
+    }
+    .calm-page header.hero.hub-cover .agent-start p { color: #e3eff4; }
+    .calm-page header.hero.hub-cover .agent-start strong { color: #ffffff; }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
+      gap: 16px;
+      align-items: stretch;
     }
     .calm-page .card,
     .calm-page .metric,
@@ -17406,7 +17466,14 @@ function calmPageCss() {
     .calm-page .door,
     .calm-page .tier,
     .calm-page .matrix-row-card,
-    .calm-page .move-card,
+    .calm-page .move-card {
+      border: 1px solid var(--line);
+      border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: none;
+      padding: 16px 18px;
+    }
     .calm-page .node,
     .calm-page .consumer,
     .calm-page .app-step,

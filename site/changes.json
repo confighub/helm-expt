@@ -1,6 +1,6 @@
 {
   "schema_version": "1",
-  "generated_at": "2026-10-06T13:45:42.258Z",
+  "generated_at": "2026-11-20T11:27:45.453Z",
   "retention": {
     "policy": "additive_only",
     "retained_components": 124,
