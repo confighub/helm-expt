@@ -30,10 +30,29 @@
   <div class="cover">
     <div>
       <p class="kicker">Step 2 of 3 · Local on 127.0.0.1 · Free · No Docker or account</p>
-      <h1>Safe previews and production gates on your laptop</h1>
-      <p class="lead">ConfigHub Mini bundles the ConfigHub server, PostgreSQL, and <code>cub</code> as ordinary user processes in <code>~/.confighub</code>. Your agent experiments freely in preview and staging while production waits for your terminal approval.</p>
+      <h1>Show me both versions of my app</h1>
+      <p class="lead">Try a change in a running preview while your usual app stays untouched, and reopen that preview tomorrow from a fresh chat. Production waits for your approval. No Docker and no account.</p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="see-both">
+  <h2>Can I see the change before I keep it?</h2>
+  <p>Paste either prompt into Claude Code or Codex. Say yes when the plugin offers to start Mini Hub locally on <code>127.0.0.1</code> (52 to 77 MB, ordinary user processes in <code>~/.confighub</code>).</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Local preview</span>
+      <h3>Keep a preview running for tomorrow</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Show me my app as it is and a local preview with the heading "Evening collection." Give me both links and keep the preview running for tomorrow.</code></div>
+      <p class="small"><strong>Observed result:</strong> Both URLs ran side by side. Tomorrow, a fresh chat in the same folder found the running preview without touching the app's normal settings. <a href="first-look.html#preview">Run a preview</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Daytona sandbox</span>
+      <h3>Throw away the sandbox. Keep what you learned.</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.</code></div>
+      <p class="small"><strong>Observed result:</strong> 360 items ran in three batches of 120, then two batches of 240 and 120. After deleting the sandbox, a fresh Mini Hub still held the reason, 240 in staging, and 120 in production waiting for approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#trying-a-larger-batch-before-shipping-it">Preview result</a></p>
+    </div>
   </div>
 </section>
 

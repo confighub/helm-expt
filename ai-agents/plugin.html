@@ -32,9 +32,28 @@
       <p class="kicker">Step 1 of 3 · Zero background servers · No account</p>
       <h1>Remember why your agent changed a setting</h1>
       <p class="lead">Ask why a setting changed before you change it back. The plugin keeps the original request with supported edits, even before you commit.</p>
-      <p><a class="btn primary" href="./#first-prompt">Try it with a setting in my app</a></p>
+      <p><a class="btn primary" href="#try-now">Ask about a setting in my app</a></p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="try-now">
+  <h2>Can I change this setting back?</h2>
+  <p>Open a fresh Claude Code or Codex chat in your app folder and paste this prompt before touching a file:</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Paste into Claude Code or Codex</span>
+      <h3>Ask why before undoing</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>I'm thinking of undoing our last settings change. Why did we make it, and where does this app use it? Just show me for now.</code></div>
+      <p class="small">Works locally with no hub and no account. You can also run <code>/confighub:changes</code> in Claude Code.</p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Observed result</span>
+      <h3>Recovered reason + exact code line</h3>
+      <p class="small">In the catalog example, a fresh chat found that <code>CACHE</code> went from off to on for Friday's sale and pointed straight to the code reading <code>CACHE</code>, even while the edit was uncommitted.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Read the recorded run</a> · <a href="first-look.html#remember">Try it in a sample folder</a></p>
+    </div>
   </div>
 </section>
 
