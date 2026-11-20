@@ -2,29 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=site/">
-  <title>ConfigHub Workshop</title>
-  <meta name="description" content="ConfigHub Workshop: public Kubernetes configuration catalog and worked examples for Helm, Argo CD, Flux, Sveltos, NVIDIA AICR, NVKE, Kubara, Timoni, OCI, and day-1 and day-2 app delivery.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ConfigHub · Two Doors for Apps and Kubernetes</title>
+  <meta name="description" content="Choose your starting door: ConfigHub for Coding Agents (apps-first, no Kubernetes required) or ConfigHub AI Workshop for Kubernetes (GPU fleets, AI sandboxes, AI operations, agentic platforms, and the 528-entry Catalog).">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/">
   <link rel="sitemap" type="application/xml" href="https://confighub.github.io/helm-expt/site/sitemap.xml">
-  <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/site/llms.txt" title="ConfigHub Workshop LLM index">
-  <meta property="og:title" content="ConfigHub Workshop">
-  <meta property="og:description" content="Public Kubernetes configuration catalog and worked examples for Helm, Argo CD, Flux, Sveltos, NVIDIA AICR, NVKE, and day-1 and day-2 app delivery.">
+  <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/ai-agents/llms.txt" title="Door A: ConfigHub for Coding Agents LLM index">
+  <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/site/llms.txt" title="Door B: ConfigHub AI Workshop for Kubernetes LLM index">
+  <meta property="og:title" content="ConfigHub · Two Doors for Apps and Kubernetes">
+  <meta property="og:description" content="Apps-first configuration for Claude Code and Codex, or the ConfigHub AI Workshop for Kubernetes.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #ffffff;
+      --surface: #ffffff;
+      --panel: #f4f6f8;
+      --ink: #18243a;
+      --muted: #4e5f75;
+      --line: #d8dfe8;
+      --accent: #244896;
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 1rem/1.58 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { width: min(100% - 2rem, 72rem); margin: 0 auto; padding: 1.5rem 0 3rem; }
+    .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem 1.5rem; margin-bottom: 1.25rem; }
+    .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 600; font-size: .95rem; color: var(--ink); text-decoration: none; }
+    .brand::before { content: ""; width: 1.55rem; height: 1.55rem; border-radius: .38rem; background: linear-gradient(150deg, transparent 32%, #99e9ca 32% 42%, transparent 42% 52%, #9ae7cf 52% 62%, transparent 62%), #18354d; }
+    .topnav { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; font-size: .9rem; }
+    .topnav a { color: var(--muted); text-decoration: none; font-weight: 550; }
+    .topnav a:hover { color: var(--accent); text-decoration: underline; }
+    .cover {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: clamp(1.7rem, 4vw, 3.2rem);
+      border-radius: .85rem;
+      color: #ffffff;
+      background: linear-gradient(108deg, #111e34 7%, #192f4c 65%, #164450);
+    }
+    .cover::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 0 42%;
+      background-image: linear-gradient(#aed7e615 1px, transparent 1px), linear-gradient(90deg, #aed7e615 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(90deg, transparent, #000 52%);
+    }
+    .cover h1 { margin: 0; max-width: 24ch; font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.06; letter-spacing: -.045em; }
+    .cover p { margin: .9rem 0 0; max-width: 62ch; color: #d5e2ef; font-size: 1.05rem; }
+    .doors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 1.4rem; }
+    .door {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      padding: 1.45rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 3px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+      border-radius: .7rem;
+    }
+    .door .kicker { margin: 0; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); }
+    .door h2 { margin: 0; font-size: 1.45rem; letter-spacing: -.03em; line-height: 1.18; }
+    .door p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .door ul { margin: 0; padding-left: 1.15rem; color: var(--ink); font-size: .93rem; }
+    .door li + li { margin-top: .32rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: auto; padding-top: .4rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .62rem .95rem;
+      border-radius: .42rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .92rem;
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+    .btn:hover { box-shadow: 0 2px 6px #14223822; }
+    .quicklinks { font-size: .88rem; color: var(--muted); }
+    .quicklinks a { color: var(--accent); text-underline-offset: .18em; }
+    .agents {
+      margin-top: 1.4rem;
+      padding: 1.1rem 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: .65rem;
+      background: var(--panel);
+      font-size: .92rem;
+      color: var(--muted);
+    }
+    .agents strong { color: var(--ink); }
+    .agents a { color: var(--accent); }
+    .agents code { font-family: var(--mono); font-size: .88em; background: #ffffff; border: 1px solid var(--line); border-radius: 4px; padding: .05em .3em; color: var(--ink); }
+    footer { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
+    footer a { color: var(--accent); }
+    @media (max-width: 48rem) { .doors { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-  <h1>ConfigHub Workshop</h1>
-  <p><a href="site/">Open the ConfigHub Workshop website</a> or read <a href="site/llms.txt">llms.txt</a> for the agent index.</p>
-  <ul>
-    <li><a href="ai-agents/">ConfigHub plugin and local hub for Claude Code and Codex</a> (<a href="ai-agents/first-look.html">three things to try first</a> · <a href="https://github.com/confighubai/confighub-mini-plugin#readme">plugin README</a>)</li>
-    <li><a href="site/charts/index.html">Configuration Catalog</a> for Helm, NVIDIA AICR, Timoni, OCI, and plain YAML</li>
-    <li><a href="site/bring-argo-into-confighub.html">Argo CD onboarding</a> and <a href="site/example-argo-cd-app-of-apps.html">worked Argo CD examples</a></li>
-    <li><a href="site/bring-flux-into-confighub.html">Flux fleet onboarding</a> and <a href="site/example-flux-which-version-where.html">worked Flux fleet examples</a></li>
-    <li><a href="site/bring-sveltos-into-confighub.html">Sveltos fleet onboarding</a> and <a href="site/ai-chaos-in-production.html">Sveltos fleet repair demonstration</a></li>
-    <li><a href="site/try-aicr.html">NVIDIA AICR</a>, <a href="site/eks-inference.html">EKS GPU inference stack</a>, and <a href="site/nvke.html">NVKE two-cluster lab record</a></li>
-    <li><a href="site/d/docs/user/app-to-live-walkthrough.html">Day-1 app setup</a> and <a href="site/d/docs/user/workshop-review-a-change-guide.html">day-2 change review and promotion</a></li>
-  </ul>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="./">ConfigHub</a>
+      <nav class="topnav" aria-label="Primary doors">
+        <a href="ai-agents/">Door A: Coding Agents</a>
+        <a href="site/">Door B: Kubernetes Workshop</a>
+        <a href="site/charts/index.html">Catalog</a>
+        <a href="ai-agents/starters.html">Starters</a>
+      </nav>
+    </header>
+
+    <section class="cover">
+      <h1>One configuration model. Two front doors.</h1>
+      <p>Start with your app in Claude Code or Codex without touching Kubernetes, or open the ConfigHub AI Workshop for Kubernetes to manage GPU fleets, sandboxes, operations, platforms, and the 528-entry Catalog.</p>
+    </section>
+
+    <main class="doors">
+      <article class="door">
+        <p class="kicker">Door A · Apps First · No Kubernetes Required</p>
+        <h2>ConfigHub for Coding Agents</h2>
+        <p>For developers building and shipping apps with Claude Code or Codex. Start in your app folder with zero background processes and grow only when you need previews or team approvals.</p>
+        <ul>
+          <li>Deploy your app cleanly across <code>base</code>, <code>staging</code>, and <code>live</code> envs</li>
+          <li>Record why every setting changed locally in <code>~/.confighub</code></li>
+          <li>Test changes in local or Daytona previews and require approval for live</li>
+          <li>Combine composable plugins and starters (e.g. <code>nono</code> + Vercel)</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="ai-agents/">Open Door A: Coding Agents</a>
+          <a class="btn" href="ai-agents/first-look.html">Try first</a>
+        </div>
+        <p class="quicklinks"><a href="ai-agents/plugin.html">Plugin</a> · <a href="ai-agents/mini.html">Mini Hub</a> · <a href="ai-agents/hub.html">Shared Hub</a> · <a href="ai-agents/starters.html">Starters</a> · <a href="ai-agents/llms.txt">llms.txt</a></p>
+      </article>
+
+      <article class="door">
+        <p class="kicker">Door B · Kubernetes &amp; Infrastructure</p>
+        <h2>ConfigHub AI Workshop for Kubernetes</h2>
+        <p>Public Kubernetes configuration catalog, stacks, and worked examples for Helm, NVIDIA AICR, Timoni, OCI, Argo CD, Flux, Sveltos, and Kubara.</p>
+        <ul>
+          <li><strong>GPU Fleets</strong> and NVIDIA AICR / NVKE cluster configurations</li>
+          <li><strong>AI Sandbox on K8s</strong> and <strong>AI Operations for K8s</strong></li>
+          <li><strong>Agentic Platform</strong> stacks composed and checked offline</li>
+          <li><strong>Browse &amp; Use the Catalog</strong> across 528 tested configs and receipts</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="site/">Open Door B: Kubernetes Workshop</a>
+          <a class="btn" href="site/charts/index.html">Browse Catalog</a>
+        </div>
+        <p class="quicklinks"><a href="site/stack.html">Stacks</a> · <a href="site/ai.html">AI on K8s</a> · <a href="site/guides.html">Guides</a> · <a href="site/proof.html">Proof</a> · <a href="site/llms.txt">llms.txt</a></p>
+      </article>
+    </main>
+
+    <aside class="agents" aria-label="For coding agents">
+      <strong>For coding agents:</strong> Use <a href="ai-agents/llms.txt"><code>ai-agents/llms.txt</code></a> and <a href="ai-agents/catalog.json"><code>ai-agents/catalog.json</code></a> for apps-first workflows (Door A), or <a href="site/llms.txt"><code>site/llms.txt</code></a> and <a href="site/catalog.json"><code>site/catalog.json</code></a> for Kubernetes configurations and stacks (Door B).
+    </aside>
+
+    <footer>
+      <p><a href="ai-agents/">ConfigHub for Coding Agents</a> · <a href="site/">ConfigHub AI Workshop for Kubernetes</a> · <a href="https://github.com/confighub/helm-expt">GitHub</a></p>
+    </footer>
+  </div>
 </body>
 </html>
