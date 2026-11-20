@@ -4185,6 +4185,33 @@ ${homeJourneyLinks()}
           ${agentNote(` Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
           <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code>${copyPromptButton()}</pre>
           <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install cub</a>. <a href="./ai.html">Full agent guide</a>.</p>
+          <div class="what-cards" style="margin-top:18px">
+            <div class="what-card">
+              <h3>Prompt 1 · GPU Fleets</h3>
+              <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Check the 8-part eks-inference GPU stack locally with cub stack sandbox eks-inference and list any conflicts.</code>${copyPromptButton()}</p>
+              <p><strong>Observed:</strong> <code>CHECKED</code>: 130 objects, 0 conflicts across 8 components with no AWS account or GPU. <a href="./eks-inference.html">EKS GPU stack</a></p>
+            </div>
+            <div class="what-card">
+              <h3>Prompt 2 · AI Sandbox on K8s</h3>
+              <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Run cub config check redis and list the exact Kubernetes objects and Secrets it installs locally.</code>${copyPromptButton()}</p>
+              <p><strong>Observed:</strong> 14 exact objects (2 StatefulSet, 3 ConfigMap, 1 Secret, 2 PDB, 3 Service) verified offline. <a href="./try.html">10-minute sandbox</a></p>
+            </div>
+            <div class="what-card">
+              <h3>Prompt 3 · AI Operations for K8s</h3>
+              <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Run cub config values on my chart and values.yaml to find every setting Helm silently ignored.</code>${copyPromptButton()}</p>
+              <p><strong>Observed:</strong> Diffs rendered YAML with and without each key, catching misspelled paths before apply. <a href="./why-did-helm-ignore-my-values.html">Ignored values</a></p>
+            </div>
+            <div class="what-card">
+              <h3>Prompt 4 · Agentic Platform</h3>
+              <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Compose gpu-operator, nvsentinel, and cluster-readiness-engine into a local stack.yaml and run cub stack check.</code>${copyPromptButton()}</p>
+              <p><strong>Observed:</strong> Flags duplicate CRDs, namespaces, and RBAC offline without touching a cluster. <a href="./d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack</a></p>
+            </div>
+            <div class="what-card">
+              <h3>Prompt 5 · Browse the Catalog</h3>
+              <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Use https://confighub.github.io/helm-expt/site/llms.txt to inspect argo-cd 10.7.0 and list its CRDs and required Secrets.</code>${copyPromptButton()}</p>
+              <p><strong>Observed:</strong> 55 rendered objects, 3 CRDs, and the required <code>argocd-redis</code> Secret read from one listing. <a href="./charts/argo-cd-argo-cd.html">Argo CD entry</a></p>
+            </div>
+          </div>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
@@ -17097,6 +17124,25 @@ ${bannerCss()}
     }
     .cw-content > header .agent-start p { color: #e3eff4; }
     .cw-content > header .agent-start strong { color: #ffffff; }
+    .cw-content > header .card {
+      background: #142d42;
+      border-color: #486b82;
+      border-top-color: #99e9ca;
+      color: #eef5fb;
+    }
+    .cw-content > header .card p,
+    .cw-content > header .card li { color: #d5e2ef; }
+    .cw-content > header .card strong { color: #ffffff; }
+    .cw-content > header ul,
+    .cw-content > header li,
+    .cw-content > header details,
+    .cw-content > header summary { color: #e3eff4; }
+    .cw-content > header summary { font-weight: 600; cursor: pointer; }
+    .cw-content > header .copy-prompt {
+      background: #253a53;
+      color: #f1f6ff;
+      border-color: #526780;
+    }
     .at-a-glance,
     .chart-version {
       border: 1px solid var(--line);
