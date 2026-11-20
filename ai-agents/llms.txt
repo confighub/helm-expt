@@ -27,7 +27,7 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 - `plugin.html`: Local change log, `/confighub:changes`, hooks, and offline boundaries.
 - `mini.html`: Local hub workflow, env checks, previews, and scoped keys.
 - `hub.html`: Team governance, multi-app starters, and bridge to Kubernetes.
-- `plugins.html`: Composable plugins (ConfigHub, nono sandbox, Daytona, Vercel, Fly, AWS SSM).
+- `plugins.html`: Integrations (ConfigHub, nono sandbox, Daytona, Vercel, Fly, Unikraft, AWS SSM).
 - `starters.html`: Interactive Plugin x Starter picker and copyable recipes (including nono + Vercel).
 - `stories.html`: 24 filterable scenarios across Plugin, Mini Hub, and Shared Hub.
 - `trust.html`: Local-first guarantees, secret handling, and proof boundaries.
