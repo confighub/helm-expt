@@ -30,5 +30,4 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 - `plugins.html`: Integrations (ConfigHub, nono sandbox, Daytona, Vercel, Fly, Unikraft, AWS SSM).
 - `starters.html`: Interactive Plugin x Starter picker and copyable recipes (including nono + Vercel).
 - `stories.html`: 24 filterable scenarios across Plugin, Mini Hub, and Shared Hub.
-- `trust.html`: Local-first guarantees, secret handling, and proof boundaries.
 - `reference.html`: CLI commands, storage paths, and upstream repositories.
