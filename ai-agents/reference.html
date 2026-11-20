@@ -56,13 +56,13 @@
     <div class="card">
       <h3><code>cub mini</code> terminal commands</h3>
       <ul class="tight">
-        <li><code>cub mini install</code> — download and start the local hub on <code>127.0.0.1</code>.</li>
+        <li><code>cub mini install</code> — start the installed local hub on 127.0.0.1.</li>
         <li><code>cub mini adopt FOLDER</code> — connect an app's settings without modifying files.</li>
         <li><code>cub mini upload FOLDER --variant V</code> — push changes (staging updates, live proposes).</li>
         <li><code>cub mini set</code> — set one value in one copy with a written reason.</li>
         <li><code>cub mini waiting</code> — inspect pending production orders and exact diffs.</li>
-        <li><code>cub mini approve ID --note "Why"</code> / <code>cub mini refuse</code> — owner decision.</li>
-        <li><code>cub mini rollback APP-live --change-order ID</code> — propose atomic rollback.</li>
+        <li><code>cub mini approve ID --note "Why"</code> / <code>cub mini refuse ID --reason "Why"</code> — owner decision.</li>
+        <li><code>cub mini rollback APP-live --change-order ID --reason "Why"</code> — propose restoring the earlier values.</li>
         <li><code>cub mini secret set</code> — store a secret readable by runtime, hidden from agent keys.</li>
       </ul>
       <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md">How each <code>cub mini</code> verb maps to plain <code>cub</code></a></p>

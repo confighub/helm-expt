@@ -39,12 +39,12 @@
 
 <section id="recipes">
   <h2>Compose a Plugin + Starter recipe</h2>
-  <p>Pick how your agent runs on the left and where your app deploys on the right. Every combination uses the same ConfigHub model.</p>
+  <p>Choose your agent and an app starter. Each guide shows its prerequisites and what ran.</p>
   <div class="recipe-controls">
     <label>1. Agent or sandbox plugin
       <select data-recipe-plugin>
-        <option value="nono" selected>nono sandbox plugin (Early)</option>
-        <option value="claude">Claude Code plugin</option>
+        <option value="claude" selected>Claude Code plugin</option>
+        <option value="nono">nono sandbox plugin (Early)</option>
         <option value="codex">Codex CLI hooks</option>
         <option value="daytona">Daytona cloud sandbox</option>
         <option value="ci">GitHub Actions CI (ephemeral hub)</option>
@@ -52,8 +52,9 @@
     </label>
     <label>2. App starter
       <select data-recipe-starter>
-        <option value="vercel" selected>Vercel / Next.js starter</option>
-        <option value="web">Web (.env) starter</option>
+        <option value="web" selected>Web (.env) starter</option>
+        <option value="vercel">Vercel / Next.js starter</option>
+        <option value="daytona">Daytona settings experiment</option>
         <option value="fly">Rails on Fly starter</option>
         <option value="ssm">AWS Parameter Store starter</option>
         <option value="temporal">Temporal worker starter</option>
@@ -63,12 +64,12 @@
   </div>
   <div class="recipe-out" data-recipe-out>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem">
-      <h3 data-r-title>nono sandbox plugin + Vercel / Next.js starter</h3>
-      <span class="badge wait" data-r-status>Early integration</span>
+      <h3 data-r-title>Claude Code plugin + Web (.env) starter</h3>
+      <span class="badge wait" data-r-status hidden>Early integration</span>
     </div>
-    <p class="small" data-r-summary>Runs the coding agent inside an OS-level nono sandbox while recording every settings edit. Paired with the Vercel / Next.js starter, staging updates freely while production waits for your cub mini approve.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code data-r-prompt>Try a warmer banner in staging on Vercel, and hold production for my approval.</code></div>
-    <p class="small"><a data-r-link href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel guide</a> · <a href="plugins.html">See all plugins</a></p>
+    <p class="small" data-r-summary>Keeps the request with supported settings edits. Try the prompt in a local Node app with a heading it reads from .env.</p>
+    <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code data-r-prompt>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code></div>
+    <p class="small"><a data-r-link href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Local preview guide</a> · <a href="plugins.html">See all plugins</a></p>
   </div>
 </section>
 
@@ -165,12 +166,20 @@
   <div class="two">
     <div class="card">
       <h3>Write a 1-file YAML starter</h3>
-      <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>starter: web
+      <p>Save this example as <code>team-api.yaml</code>. It gives a Node API a ten-second timeout. The author guide shows how to check it.</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>starter: team-api
 version: 1
+about: A Node API that reads its settings from .env.
+after: [web]
+looks_for:
+  files: [package.json, .env]
+owns: [API_]
 defaults:
-  - key: REPLICAS
-    value: "2"
-    reason: Two instances so one can restart without downtime.</code></pre></div>
+  - key: API_TIMEOUT_SECONDS
+    value: "10"
+    reason: Bound an API call so a slow dependency frees the worker after ten seconds.
+wires:
+  approval: live</code></pre></div>
       <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write and check a starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a></p>
     </div>
     <div class="card">
