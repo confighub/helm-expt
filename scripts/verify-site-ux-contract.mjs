@@ -133,7 +133,7 @@ const checks = [
   },
   {
     file: "site/index.html",
-    terms: ["NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run", "Configuration catalog for Agents and Kubernetes", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
+    terms: ["NVIDIA AI Cluster Runtime (AICR) recipes rendered as Argo CD Applications, and they have not been published or run", "ConfigHub AI Workshop for Kubernetes", "GPU Fleets", "AI Sandbox on K8s", "AI Operations for K8s", "Agentic Platform", "Browse &amp; Use the Catalog", '<a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>', '<a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>', "Other catalogs give you charts", "OCI is a shared transport for this configuration", "source-specific processing and checks", "run local checks without a ConfigHub account", "cub config check redis", "cub stack sandbox eks-inference", "cub release publish", "Getting Started Demos", "What is the Workshop?", "I have an existing app", "Check my charts and values", "Build a platform or fleet", "Set up my AI agent", "What the Catalog holds", "ConfigHub Workshop", "UNOFFICIAL CATALOG"],
   },
   {
     file: "site/ask.html",
@@ -423,7 +423,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Configuration catalog for Agents and Kubernetes", "ConfigHub Workshop helps you and your AI agent fix silent Helm bugs", "NVIDIA AI Cluster Runtime (AICR)", "Start with your own chart, app, or GPU recipe", "Local checks need no account", "Argo CD or Flux still delivers it using your existing setup."],
+    headerTerms: ["ConfigHub AI Workshop for Kubernetes", "NVIDIA AI Cluster Runtime (AICR)", "Open ConfigHub for Coding Agents", "Start with your chart, app, or GPU recipe", "need no account", "Argo CD or Flux still delivers it using your existing setup."],
   },
   {
     file: "site/ask.html",
