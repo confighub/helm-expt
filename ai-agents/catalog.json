@@ -111,6 +111,56 @@
       "plugins": ["confighub"],
       "starter": "aws-ssm-app",
       "summary": "Keep non-secret config in ConfigHub, sync to AWS SSM Parameter Store with scoped agent permissions, and require approval for live."
+    },
+    {
+      "id": "unikraft-incident",
+      "plugins": ["confighub", "unikraft"],
+      "starter": "unikraft-service",
+      "summary": "Rehearse an incident banner on Unikraft staging using the exact same image digest as production while production waits for approval."
+    }
+  ],
+  "verified_prompts": [
+    {
+      "id": "undo-check",
+      "title": "Can I change this setting back?",
+      "prompt": "I'm thinking of undoing our last settings change. Why did we make it, and where does this app use it? Just show me for now.",
+      "observed_result": "Fresh chat recovered the request that enabled CACHE for Friday's sale and pointed to the exact code reading CACHE, even while uncommitted.",
+      "guide_url": "https://confighub.github.io/helm-expt/ai-agents/plugin.html#try-now"
+    },
+    {
+      "id": "local-preview",
+      "title": "Can I see the change before I keep it?",
+      "prompt": "Show me my app as it is and a local preview with the heading \"Evening collection.\" Give me both links and keep the preview running for tomorrow.",
+      "observed_result": "Both URLs ran side by side; a fresh chat the next day found the same running preview without modifying the app's normal settings.",
+      "guide_url": "https://confighub.github.io/helm-expt/ai-agents/mini.html#see-both"
+    },
+    {
+      "id": "two-app-starter",
+      "title": "Fix it once. What happens to my other app?",
+      "prompt": "Start a cart app from my shop's setup and give the cart an indigo banner. We now offer support every day. Update the shared hours in staging and show me the hours and banner each app serves.",
+      "observed_result": "Both apps picked up daily support hours while the shop stayed coral and the cart stayed indigo; production waited for approval.",
+      "guide_url": "https://confighub.github.io/helm-expt/ai-agents/starters.html#why-starters"
+    },
+    {
+      "id": "vercel-sale-cache",
+      "title": "On Vercel, try a sale cache without changing the live shop",
+      "prompt": "Prices change more often during the sale. Try a 30-second price cache in a Vercel preview. Show me the cache headers from the preview and the live shop. Leave the production change for me to approve.",
+      "observed_result": "Vercel preview served Cache-Control: public, max-age=30 while production served max-age=60; ConfigHub refused pending production delivery.",
+      "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md"
+    },
+    {
+      "id": "daytona-batch-experiment",
+      "title": "On Daytona, throw away the sandbox and keep the experiment",
+      "prompt": "The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.",
+      "observed_result": "360 items ran in batches of 120, 120, 120 then 240, 120; after deleting the sandbox, a fresh Mini Hub still held the reason, 240 in staging, and 120 in production.",
+      "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md"
+    },
+    {
+      "id": "unikraft-incident-notice",
+      "title": "On Unikraft, rehearse an incident notice on the same image",
+      "prompt": "Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I'll decide whether to publish it.",
+      "observed_result": "Staging served 'Checkout is delayed. Your cart is saved.' while production served 'Orders ship as usual.' on the exact same image digest; production waited for approval.",
+      "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md"
     }
   ]
 }
