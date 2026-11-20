@@ -376,7 +376,7 @@ footer p { max-width: none; }
             <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder, or type <code>/confighub:changes</code>.</p>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder.</p>
         </div>
 
         <div class="client-pane" data-client-pane="codex" hidden>
@@ -390,9 +390,11 @@ claude plugin install confighub@confighub</code></pre>
       </div>
 
       <div class="first-prompt-box" id="first-prompt">
-        <h3>Already installed? Paste this into a fresh chat</h3>
-        <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>I'm thinking of undoing our last settings change. Why did we make it, and where does this app use it? Just show me for now.</code></pre></div>
-        <p class="small" style="margin:0">Nothing recorded yet? <a href="first-look.html#remember">Try one edit in 5 minutes</a> or <a href="first-look.html#preview">run a preview</a>.</p>
+        <h3>Try it in your first chat</h3>
+        <p class="small">Ask your agent to change one setting and say why. For example, in a test app with <code>CACHE=off</code> in <code>.env</code>, paste this:</p>
+        <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre></div>
+        <p class="small">At the end of your first recorded settings edit, look for <strong>ConfigHub plugin</strong>. It shows <code>CACHE off → on</code> and quotes your request. Later, open a fresh chat and ask “Why is the cache on?”</p>
+        <p class="small" style="margin:0"><a href="first-look.html#remember">Set up the sample folder</a> · <a href="first-look.html#preview">Run a preview</a></p>
       </div>
 
       <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
