@@ -31,9 +31,50 @@
     <div>
       <p class="kicker">Plugin × Starter = Working Recipe · Extensible in 1 YAML file</p>
       <h1>Starters and composable recipes</h1>
-      <p class="lead">A starter is a versioned YAML file of default settings, guardrails, and plain-English reasons. Unlike a copy-once template, apps stay linked to their starter so hardening fixes reach every app while per-app overrides stay untouched.</p>
+      <p class="lead">A starter is a versioned YAML file of default settings, guardrails, and plain-English reasons. Unlike a copy-once template, apps stay linked to their starter so shared fixes reach every app while per-app overrides stay untouched.</p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="why-starters">
+  <h2>Fix it once. What happens to my other app?</h2>
+  <p>A template copies settings on day one and leaves you patching every repo on day two. Try this prompt with a starter in Mini Hub:</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Paste into Claude Code or Codex</span>
+      <h3>Start a second app from what already works</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Start a cart app from my shop's setup and give the cart an indigo banner. We now offer support every day. Update the shared hours in staging and show me the hours and banner each app serves.</code></div>
+      <p class="small">Both apps stay linked to the shared starter while keeping the settings they own.</p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Observed result</span>
+      <h3>Both apps picked up daily support hours</h3>
+      <p class="small"><strong>The shop stayed coral. The cart stayed indigo.</strong> Production waited for approval; both apps served the approved change on Fly and rolled back cleanly.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md#testing">Two-app result on Fly</a> · <a href="first-look.html#starter">Reuse across apps</a></p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:1.5rem">Three hosted providers, tested with real prompts</h3>
+  <div class="grid3" style="margin-top:.8rem">
+    <div class="card">
+      <span class="badge ok">Daytona</span>
+      <h3>Keep an experiment after the sandbox is gone</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.</code></div>
+      <p class="small"><strong>Observed:</strong> 360 items ran in batches of 120, 120, 120, then 240, 120. After deleting the sandbox, a fresh hub still held the reason, 240 in staging, and 120 in production. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona guide</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Vercel</span>
+      <h3>Try a sale cache while live stays at 60s</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Prices change more often during the sale. Try a 30-second price cache in a Vercel preview. Show me the cache headers from the preview and the live shop. Leave the production change for me to approve.</code></div>
+      <p class="small"><strong>Observed:</strong> Preview served <code>max-age=30</code> while production still served <code>max-age=60</code>; ConfigHub recorded the reason and refused pending production delivery. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel guide</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Unikraft</span>
+      <h3>Rehearse an incident notice on the same image</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I'll decide whether to publish it.</code></div>
+      <p class="small"><strong>Observed:</strong> Staging served "Checkout is delayed. Your cart is saved." Production served "Orders ship as usual." Same image digest; production waited for approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft guide</a></p>
+    </div>
   </div>
 </section>
 
