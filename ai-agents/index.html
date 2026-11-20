@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Your coding agent changes config faster than you can track it. ConfigHub records why, sets up staging and production, previews changes, deploys what you approve to Vercel, Fly, Daytona and more, and rolls fixes into new versions.">
+<meta name="description" content="Remember why a setting changed, run a preview, and keep production settings behind owner approval. Try ConfigHub in Claude Code or Codex.">
 <title>ConfigHub for coding agents</title>
 </head>
 <body>
@@ -197,6 +197,14 @@ footer p { max-width: none; }
 @media (max-width: 60rem) { .problems { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 32rem) { .problems { grid-template-columns: 1fr; } }
 .walk pre { max-width: 100%; padding: 1rem; border-radius: .45rem; background: var(--terminal); color: var(--terminal-ink); white-space: pre-wrap; overflow-wrap: anywhere; font: .84rem/1.6 var(--mono); }
+.welcome { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.first-action { padding: 1.15rem 1.25rem; border: 1px solid #63808e; border-radius: .7rem; background: #142d42; }
+.first-action h2 { font-size: clamp(1.2rem, 2.1vw, 1.6rem); letter-spacing: -.025em; }
+.first-action p { margin: .55rem 0; color: #e3eff4; font-size: .94rem; }
+.first-action p:last-child { margin-bottom: 0; }
+.first-action p code { background: #263f55; }
+.first-action a { color: #b5eddb; }
+@media (max-width: 48rem) { .welcome { grid-template-columns: 1fr; } }
 </style>
 
 <div class="wrap">
@@ -205,6 +213,7 @@ footer p { max-width: none; }
   <p class="eyebrow">ConfigHub · For Claude Code and Codex</p>
   <nav class="topnav" aria-label="Page navigation">
     <a href="first-look.html">Three things to try first</a>
+    <a href="#first-prompt">First prompt</a>
     <a href="#problem">What it solves</a>
     <a href="#how-it-runs">What runs where</a>
     <a href="#works-with">Starters</a>
@@ -213,10 +222,15 @@ footer p { max-width: none; }
 </header>
 
 <section id="install">
-  <div class="cover">
+  <div class="cover welcome">
     <div><h1>Your agent changed a setting. Do you know why?</h1>
-  <p class="lead">Coding agents edit .env files, Helm values and hosting settings all day, often without committing, and they can change production as easily as staging. ConfigHub keeps the reason behind every change, and helps you set up environments, test changes, deploy them to Vercel, Fly, Daytona and more, and turn fixes into new versions.</p></div>
-    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="lead">Your next chat can tell you why the last one changed a setting, even if you never committed it. Start in your app folder. You can add a local hub later for staging, previews and production approvals.</p></div>
+    <aside class="first-action" id="first-prompt" aria-labelledby="first-prompt-title">
+      <h2 id="first-prompt-title">Just installed? Try this now.</h2>
+      <p>In a fresh Claude Code or Codex chat in your app folder, paste this:</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Show me the settings changes ConfigHub recorded in this project and why.</code></pre></div>
+      <p>In Claude Code you can also type <code>/confighub:changes</code>. If the record is empty, <a href="first-look.html#remember">make your first recorded edit</a>.</p>
+    </aside>
   </div>
 
   <div class="problems" id="problem">
@@ -228,7 +242,7 @@ footer p { max-width: none; }
     <div class="card">
       <h3>Test changes</h3>
       <p class="pain">Trying an idea means touching the app you actually use.</p>
-      <p>The agent runs a preview on your laptop or in a Daytona sandbox. Your app and production stay as they are.</p>
+      <p>Open a preview on your laptop, or try a settings change in a disposable Daytona sandbox and bring it back for review.</p>
     </div>
     <div class="card">
       <h3>Deploy them</h3>
@@ -256,7 +270,7 @@ footer p { max-width: none; }
             <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code session in your project folder after installing.</p>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder and type <code>/confighub:changes</code>.</p>
         </div>
 
         <div class="client-pane" data-client-pane="codex" hidden>
@@ -430,7 +444,7 @@ defaults:
   <div class="stack-group">
     <h3>Agent sandboxes &amp; cloud microVMs</h3>
     <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Let an agent test changes inside a sandbox and send proposals out for review.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
     </div>
   </div>
