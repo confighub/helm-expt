@@ -740,7 +740,10 @@
     <h1>Apps</h1>
     <p class="boundary-chip">Worked Config-as-Data examples · Browse YAML or run with your AI agent</p>
     <p class="lead">See how real workloads move from raw Helm, Kustomize, Argo CD, and Flux repositories to explicit configuration as data, checked offline against a stack and promoted as ConfigHub variants.</p>
-    <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    <details>
+      <summary>What happens to my existing build pipeline?</summary>
+      <p>An app is a workload you bring. Your code and container builds stay in existing CI pipelines while <code>cub</code> and ConfigHub manage the Kubernetes configuration.</p>
+    </details>
     <section id="app-plugin-install" aria-label="Remember an app setting">
     <p><strong>Why did my agent change this setting?</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Remember one setting in five minutes</a> with the <code>confighubai/confighub-mini-plugin</code> app plugin. A fresh chat can explain an uncommitted edit to your app’s <code>.env</code>.</p>
     <details><summary>Install the app plugin for Claude Code or Codex</summary>
