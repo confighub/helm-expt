@@ -273,6 +273,41 @@ footer p { max-width: none; }
   </div>
 </section>
 
+<section id="works-with">
+  <h2>Deploy and Manage your app with Config Starters</h2>
+  <p>A starter detects your app’s tools, creates staging and production copies in ConfigHub, and optionally wires live delivery when you approve. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a 1-file YAML starter</a></p>
+
+  <div class="stack-group">
+    <h3>Web apps &amp; hosted PaaS</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Kubernetes, cloud config &amp; workers</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h4><span class="badge ok">Worker rollout</span><p>Gate worker limits and timeouts before rolling out to production.</p></div>
+    </div>
+  </div>
+
+  <div class="stack-group">
+    <h3>Agent sandboxes &amp; cloud microVMs</h3>
+    <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
+</section>
+
 <section id="start">
   <h2>What would you like to try?</h2>
   <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
@@ -465,41 +500,6 @@ defaults:
   <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>.</p>
 </section>
 
-
-<section id="works-with">
-  <h2>Connect your stack with a starter</h2>
-  <p>A starter detects your app’s tools, creates staging and production copies in ConfigHub, and optionally wires live delivery when you approve. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/starters.md">How starters work</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a 1-file YAML starter</a></p>
-
-  <div class="stack-group">
-    <h3>Web apps &amp; hosted PaaS</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
-    </div>
-  </div>
-
-  <div class="stack-group">
-    <h3>Kubernetes, cloud config &amp; workers</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md">Temporal worker</a></h4><span class="badge ok">Worker rollout</span><p>Gate worker limits and timeouts before rolling out to production.</p></div>
-    </div>
-  </div>
-
-  <div class="stack-group">
-    <h3>Agent sandboxes &amp; cloud microVMs</h3>
-    <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
-    </div>
-  </div>
-
-  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
-</section>
 
 <section id="daily">
   <h2>Everyday commands and multi-agent guardrails</h2>
