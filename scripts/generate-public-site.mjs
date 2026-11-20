@@ -3639,9 +3639,9 @@ ${bannerCss()}
 
   :root {
     color-scheme: light;
-    --bg: #f8f9fb; --surface: #ffffff; --surface-2: #eaf0f6;
+    --bg: #ffffff; --surface: #ffffff; --surface-2: #f4f6f8;
     --ink: #18243a; --muted: #4e5f75; --faint: #6c7d93;
-    --line: #d0d9e4; --line-strong: #b6c4d4;
+    --line: #d8dfe8; --line-strong: #c0cad6;
     --accent: #244896; --accent-ink: #264d9b;
     --pass: #13593f; --pass-bg: #e1f4eb;
     --watch: #70460b; --watch-bg: #fff1d2;
@@ -4115,12 +4115,12 @@ ${homeJourneyLinks()}
             <p class="lead">Start with your chart, app, or GPU recipe. Local browser checks and open-source <code>cub</code> plugins need no account.</p>
             <div class="cta-row">
               <a class="btn primary" href="./ask.html">Check my charts and values</a>
-              <a class="btn primary" href="./guides.html#guides-existing-apps">I have an existing app</a>
+              <a class="btn ghost" href="./guides.html#guides-existing-apps">I have an existing app</a>
             </div>
             <p>Ready for shared history and approvals? Upload an OCI bundle as a ConfigHub base, create variants, and publish a digest. Argo CD or Flux still delivers it using your existing setup.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./ai.html">Set up my AI agent</a>
-              <a class="btn primary" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
+              <a class="btn ghost" href="./ai.html">Set up my AI agent</a>
+              <a class="btn ghost" href="./guides.html#guides-platforms-fleets">Build a platform or fleet</a>
             </div>
           </div>
           <div class="hero-term">
@@ -16999,16 +16999,16 @@ function siteCss() {
       --ink: #18243a;
       --muted: #4e5f75;
       --faint: #6c7d93;
-      --line: #d0d9e4;
-      --line-strong: #b6c4d4;
-      --panel: #eaf0f6;
-      --surface-2: #eaf0f6;
+      --line: #d8dfe8;
+      --line-strong: #c0cad6;
+      --panel: #f4f6f8;
+      --surface-2: #f4f6f8;
       --accent: #244896;
       --accent-ink: #264d9b;
       --good: #13593f;
       --warn: #70460b;
       --bad: #b42318;
-      --surface: #f8f9fb;
+      --surface: #ffffff;
       --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
