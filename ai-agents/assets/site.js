@@ -54,23 +54,24 @@
   var out = document.querySelector("[data-recipe-out]");
   if (pSel && sSel && out) {
     var PLUGINS = {
-      nono: { name: "nono sandbox plugin", status: "Early", role: "Runs the coding agent inside an OS-level nono sandbox while recording every settings edit." },
-      claude: { name: "Claude Code plugin", status: "Works", role: "Records every config edit with its prompt, warns before undoing earlier changes, and gates MCP writes." },
+      nono: { name: "nono sandbox plugin", status: "Early", role: "Runs the coding agent inside an OS-level nono sandbox while recording supported settings edits." },
+      claude: { name: "Claude Code plugin", status: "Works", role: "Keeps the request with supported settings edits." },
       codex: { name: "Codex CLI hooks", status: "Works", role: "Records apply_patch and CLI config edits after they run and works with scoped app launchers." },
-      daytona: { name: "Daytona sandbox", status: "Works", role: "Runs agent experiments in a disposable cloud sandbox and brings approved settings back." },
+      daytona: { name: "Daytona sandbox", status: "Works", role: "Runs agent experiments in a disposable cloud sandbox and brings proposed settings back for review." },
       ci: { name: "GitHub Actions CI", status: "Works", role: "Runs an ephemeral local hub per pull request and comments changed settings with their reasons." }
     };
     var STARTERS = {
       vercel: { name: "Vercel / Next.js starter", cmd: "Try a warmer banner in staging on Vercel, and hold production for my approval.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md", label: "Next.js on Vercel guide" },
-      web: { name: "Web (.env) starter", cmd: "Try \"Evening collection\" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md", label: "Web (.env) walkthrough" },
+      web: { name: "Web (.env) starter", hint: "Try the prompt in a local Node app with a heading it reads from .env.", cmd: "Try \"Evening collection\" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app", label: "Local preview guide" },
+      daytona: { name: "Daytona settings experiment", cmd: "Try a batch size of 240 in my Daytona sandbox because the queue is backing up. Keep production at 120 and bring the change back for review.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md", label: "Daytona experiment guide" },
       fly: { name: "Rails on Fly starter", cmd: "Connect this Rails app with staging and production copies, and hold Fly production for my approval.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md", label: "Rails on Fly guide" },
       ssm: { name: "AWS Parameter Store starter", cmd: "Keep our app settings in ConfigHub and deliver approved production values to AWS Parameter Store.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md", label: "Parameter Store walkthrough" },
       temporal: { name: "Temporal worker starter", cmd: "Rehearse raising the activity retry limit in staging and hold production until I approve.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md", label: "Temporal worker walkthrough" },
       gitops: { name: "Argo CD / Flux starter", cmd: "Keep our Kustomize overlays in ConfigHub so staging syncs and production waits for approval.", url: "https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/gitops-app.md", label: "Argo CD & Flux guide" }
     };
     function renderRecipe() {
-      var p = PLUGINS[pSel.value] || PLUGINS.nono;
-      var s = STARTERS[sSel.value] || STARTERS.vercel;
+      var p = PLUGINS[pSel.value] || PLUGINS.claude;
+      var s = STARTERS[sSel.value] || STARTERS.web;
       var titleEl = out.querySelector("[data-r-title]");
       var statusEl = out.querySelector("[data-r-status]");
       var summaryEl = out.querySelector("[data-r-summary]");
@@ -78,10 +79,9 @@
       var linkEl = out.querySelector("[data-r-link]");
       if (titleEl) titleEl.textContent = p.name + " + " + s.name;
       if (statusEl) {
-        statusEl.textContent = p.status === "Early" ? "Early integration" : "Ready today";
-        statusEl.className = "badge " + (p.status === "Early" ? "wait" : "ok");
+        statusEl.hidden = p.status !== "Early";
       }
-      if (summaryEl) summaryEl.textContent = p.role + " Paired with the " + s.name + ", staging updates freely while production waits for your cub mini approve.";
+      if (summaryEl) summaryEl.textContent = p.role + (s.hint ? " " + s.hint : "");
       if (promptEl) promptEl.textContent = s.cmd;
       if (linkEl) { linkEl.href = s.url; linkEl.textContent = s.label; }
     }

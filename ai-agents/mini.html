@@ -80,7 +80,8 @@
       <h3>Attach any repo or run in CI and sandboxes</h3>
       <p class="small">Works with <code>.env</code>, Compose, Terraform, and Kustomize repos, or inside a disposable CI job with one hub per run.</p>
       <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>cub mini install
-cub mini adopt . --component myapp
+cub mini adopt . --name myapp
+cub mini require-approval myapp --variant live --agent myapp-agent
 cub mini waiting</code></pre></div>
       <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md">Install Mini &amp; checksums</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/ci-and-sandboxes.md">CI &amp; sandboxes</a></p>
     </div>
@@ -89,18 +90,10 @@ cub mini waiting</code></pre></div>
 
 <section id="approvals">
   <h2>Review, approve, refuse, or roll back</h2>
-  <p>The agent proposes changes using its own scoped key. You inspect and decide in your own terminal using exact revision IDs.</p>
-  <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code># See pending production proposals and exact diffs
-cub mini waiting
-
-# Approve one exact revision with a note
-cub mini approve api-base/upload-20261112-055043-twx5 --note "Checked for Friday sale"
-
-# Or refuse with a reason so the agent does not repeat it
-cub mini refuse api-base/upload-20261112-055043-twx5 --reason "Keep 2 replicas off-peak"
-
-# Propose an atomic rollback to the prior revision
-cub mini rollback api-live --change-order api-base/upload-20261112-055043-twx5 --reason "Revert sale limit"</code></pre></div>
+  <p>The agent proposes changes using its own scoped key. You inspect and decide in your own terminal using the order IDs shown below.</p>
+    <div class="snip"><button type="button" class="copy-btn" data-copy>Copy</button><pre><code>cub mini waiting</code></pre></div>
+  <p>Review the proposed values. To approve one, run <code>cub mini approve BASE/ORDER</code> with the exact ID shown. To decline it, run <code>cub mini refuse BASE/ORDER --reason "Why"</code>. You can leave it pending and come back later.</p>
+  <p>To undo an approved change, run <code>cub mini rollback APP-live --change-order BASE/ORDER --reason "Why"</code> with your app and order. Review the new proposal before production changes.</p>
   <div class="callout">
     <strong>No lock-in and a clean exit ramp.</strong> Your original files are never modified during adopt. At any point you can export every setting back to plain files and stop or remove the local hub. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/going-back.md">Going back and uninstalling</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md">Approvals detail</a>.
   </div>
