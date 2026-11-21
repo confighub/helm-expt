@@ -5518,7 +5518,7 @@ function howItWorksHtml() {
     <p>Release publishes an approved configuration by digest, so your reconciler pulls exactly that image instead of a hand-pushed bundle.</p>
     ${markdownLikeTable([
       ["Level", "Do this", "Command", "What you get"],
-      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up --name demo-dev</code>", "A kind cluster with Argo CD, wired to <code>demo-dev/target</code> in ConfigHub, so target-bound releases can reconcile."],
+      ["Advanced", "Attach a cluster that pulls", "<code>cub cluster up demo-dev</code>", "A kind cluster with Argo CD, wired to <code>demo-dev/target</code> in ConfigHub, so target-bound releases can reconcile."],
       ["Basic", "Upload one image, or one app, as a base", "<code>cub variant upload --component redis --variant base oci://…@sha256:…</code><br><code>cub app upload shop-web --run</code>", "A base variant you can clone. Nothing is deployed yet."],
       ["Basic", "Place it on a cluster", "<code>cub variant create demo-dev metrics-server-base --target demo-dev/target --space-pattern \"template:metrics-server-demo-dev\"</code>", "A deployment variant, cloned from the base into a Space named metrics-server-demo-dev, bound to that cluster's OCI target."],
       ["Basic", "Release it", "<code>cub release publish metrics-server-demo-dev</code>", "An OCI image in ConfigHub's registry, pinned to its digest, for your reconciler to pull."],
@@ -5681,7 +5681,7 @@ function configHubHtml(catalog) {
     </ol>
     <p>The matching hashes show that the handoff preserves the reviewed objects. The decision record answers a different question: what did we fix, what did we accept for now, and where may this result run? Read the <a href="./d/data/config-review-decision-chain/summary.html">complete decision, promotion, and delivery chain</a>.</p>
     <p>Open the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">plain-English handoff record</a>, the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml">public OCI receipt</a>, or the <a href="https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml">ConfigHub upload receipt</a>.</p>
-    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a <code>Provider None</code> review Unit in the same Space. Provider None keeps the review beside the configuration without placing it in a deployment release.</p>
+    <p><a href="./ask.html#check-files">Check my config</a> now downloads <code>candidate.yaml</code> and <code>workshop-review.json</code>. Its handoff commands upload the objects with <code>cub variant upload</code> and attach both file hashes. The commands also create a review Unit in the same Space with <code>--unreleasable</code>, which keeps the review beside the configuration without placing it in a deployment release.</p>
     <p>If your own Claude, Codex, or other assistant is already running, the same page builds a prompt for it. The prompt checks the downloaded files, asks before writing to ConfigHub, runs the handoff, and reads the stored result back.</p>
   </section>
   <section aria-labelledby="review-tutorial">
@@ -6152,7 +6152,7 @@ cub stack check my-platform/stack.yaml</code></pre>
         { cmd: WORKSHOP_PLUGIN_INSTALL },
         { cmd: "cub stack check web-tiny", out: "CHECKED; two ConfigMaps; no cluster write" },
         { cmd: "cub auth login" },
-        { cmd: "cub cluster up --name workshop" },
+        { cmd: "cub cluster up workshop" },
         { cmd: "source ~/.confighub/clusters/workshop.env" },
       ])}
       <h3>2. Download the same two component files</h3>
@@ -10708,7 +10708,7 @@ function appGuideHtml(catalog) {
       <h3>2. Create one local destination</h3>
       ${commandBlock([
         { cmd: "cub auth login" },
-        { cmd: "cub cluster up --name workshop" },
+        { cmd: "cub cluster up workshop" },
         { cmd: "source ~/.confighub/clusters/workshop.env" },
         { cmd: "cub target get workshop/target", out: "the ConfigHub target that represents this cluster" },
       ])}
@@ -11229,7 +11229,7 @@ function kubaraGuideHtml(catalog) {
           { cmd: "cub variant promote metrics-server-demo-dev --dry-run" },
         ])}
         <p>If a remote step fails, inspect the records already created before retrying. Preserve existing resources; use the linked runbook for scoped cleanup.</p>
-        <pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
+        <pre><code>cub cluster up demo --space demo-cluster</code></pre>
         <p>One command creates a temporary kind cluster, installs Argo CD, and wires it to a ConfigHub Space. It needs a ConfigHub account and Docker; the cluster runs on your laptop.</p>
         </div>
       </details>
@@ -16544,7 +16544,7 @@ function entryStepHtml(step, index, listing, siteHref) {
   if (step.id === "deploy") {
     const needs = step.needs ?? [];
     if (commands.length) {
-      sentences.push(`The commands name the Target <code>${escapeHtml(NEXT_STEPS_TARGET)}</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.`);
+      sentences.push(`The commands name the Target <code>${escapeHtml(NEXT_STEPS_TARGET)}</code>, which <code>cub cluster up workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination.`);
     }
     if (needs.length && commands.length) {
       sentences.push(`The listing records ${needs.length === 1 ? "one input" : `${needs.length} inputs`} that the destination must supply, so read ${needs.length === 1 ? "it" : "them"} before you deploy.`);

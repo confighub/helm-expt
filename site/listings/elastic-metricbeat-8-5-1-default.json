@@ -563,7 +563,7 @@
         }
       ],
       "notes": [
-        "The target `workshop/target` comes from `cub cluster up --name workshop --no-k8sbot`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without `--no-k8sbot` failed while it installed argobot."
+        "The target `workshop/target` comes from `cub cluster up workshop --no-k8sbot`, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without `--no-k8sbot` failed while it installed argobot."
       ],
       "liveWalk": {
         "date": "2026-11-02",

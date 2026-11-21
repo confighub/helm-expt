@@ -534,8 +534,7 @@ able to pull from the ConfigHub OCI gateway.
 Recommended local setup:
 
 ```sh
-cub cluster up \
-  --name helm-expt-oci-demo \
+cub cluster up helm-expt-oci-demo \
   --space helm-expt-oci-demo-cluster
 ```
 

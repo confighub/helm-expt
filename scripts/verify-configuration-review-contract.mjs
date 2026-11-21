@@ -88,7 +88,7 @@ function verify() {
     "exampleCandidate",
     "loadExample",
     "cub variant upload",
-    "--provider None",
+    "--unreleasable",
     "workshop.confighub.com/candidate-sha256",
     "workshop-review.json",
     "candidate.yaml",
