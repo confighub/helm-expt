@@ -285,26 +285,27 @@ claude plugin install confighub@confighub</code></pre>
 </section>
 
 <section id="problem">
-  <h2>What problem ConfigHub solves, and why it feels different</h2>
-  <p>Coding agents make building an app fast, until settings scatter across <code>.env</code> files, chat logs, and host dashboards. You think in <strong>apps, envs, and deployments</strong>—ConfigHub stores each env as durable config so every change, reason, preview, and rollback outlives the chat.</p>
+  <h2>Stop doing env, add-on, and deploy housekeeping by hand</h2>
+  <p>Building an app with Claude or Codex is fast, until the housekeeping around <strong>envs</strong>, <strong>add-ons</strong> (Stripe, Google, databases), and <strong>deployments</strong> takes over. ConfigHub manages that housekeeping quietly across <code>staging</code>, <code>preview</code>, and <code>live</code>—and keeps every diff, reason, and approval one glance away whenever you want to look.</p>
 
   <div class="tablewrap" style="margin:1.15rem 0 1.4rem">
     <table>
-      <thead><tr><th>What you ask your agent</th><th>What ConfigHub does</th><th>What you actually see</th></tr></thead>
+      <thead><tr><th>What you ask your agent</th><th>What ConfigHub handles for you</th><th>What you see when you look</th></tr></thead>
       <tbody>
-        <tr><td><strong>“Why is the cache on?”</strong></td><td>Reads the saved edit and prompt from <code>~/.confighub</code> even before you commit.</td><td><code>CACHE off → on</code> · “for Saturday’s sale” in a fresh chat.</td></tr>
-        <tr><td><strong>“Give me a sale preview.”</strong></td><td>Creates an isolated preview env from staging while your live app stays untouched.</td><td>Both URLs side by side; tomorrow’s chat finds the preview without the URL.</td></tr>
-        <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Clones Friday’s saved live settings into a fresh preview env (<code>cub mini preview --from-live Friday</code>).</td><td>Preview serves Friday’s banner while live production stays unchanged.</td></tr>
-        <tr><td><strong>“Use this setup for my next app.”</strong></td><td>Links your second app to the same versioned starter while keeping per-app overrides.</td><td>Both apps pick up daily support hours; shop stays coral, cart stays indigo.</td></tr>
+        <tr><td><strong>“Set up staging and live on Vercel with my Stripe and database settings, check them, and open a preview.”</strong></td><td>Reads your app’s envs without rewriting files, flags missing or unsafe values, opens a working preview, and holds live for one approval.</td><td>Working Vercel preview with zero dashboard copy-paste; production waits for you.</td></tr>
+        <tr><td><strong>“Try a 30-second cache in staging and propose it for live.”</strong></td><td>Agent updates staging on its scoped key; the server physically refuses self-approval on production (not a fragile prompt rule).</td><td>Preview serves <code>max-age=30</code>, live stays <code>max-age=60</code> until you approve.</td></tr>
+        <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Clones Friday’s saved live env into a fresh preview (<code>cub mini preview --from-live Friday</code>) while today’s live stays untouched.</td><td>Preview serves Friday’s banner; tomorrow’s chat finds it without the URL.</td></tr>
+        <tr><td><strong>“Test 120 vs 240 batch sizes in Daytona, delete the sandbox, and keep the winner.”</strong></td><td>Saves the winning setting and its reason outside the disposable sandbox so you can preview or ship it on any host.</td><td>360 items in 2 batches instead of 3; fresh hub holds 240 in staging and 120 in live.</td></tr>
+        <tr><td><strong>“Use this setup for my cart app, and set shared support hours to Daily.”</strong></td><td>Links both apps to one versioned starter while each app keeps its own overrides and add-on settings.</td><td>Both apps serve Daily support hours; shop stays coral, cart stays indigo.</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="problems">
     <div class="card">
-      <h3>1. Deploy your app cleanly</h3>
-      <p class="pain">Envs, pre-deploy checks, and copying a working setup into a new app are scattered across <code>.env</code> files and host dashboards.</p>
-      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, checks values before deploy, and clones cleanly for your next app.</p>
+      <h3>1. Zero-housekeeping envs &amp; add-ons</h3>
+      <p class="pain">Keeping <code>.env</code>, Stripe/Google callbacks, database URLs, and host dashboards in sync across staging and live eats hours.</p>
+      <p><strong>ConfigHub:</strong> Manages <code>base</code>, <code>staging</code>, and <code>live</code> in one place, checks values before deploy, and clones cleanly for your next app.</p>
     </div>
     <div class="card">
       <h3>2. Know why a setting changed</h3>
