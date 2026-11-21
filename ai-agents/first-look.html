@@ -186,11 +186,11 @@ footer > a:first-child { font-weight: 650; }
 
     <div class="arch-grid" aria-label="What runs on your computer">
       <div class="arch-card">
-        <strong>1. The plugin (<code>confighub</code>) · Story 01</strong>
+        <strong>1. The plugin (<code>confighub</code>) · Exercise 1</strong>
         <p>Lightweight session hooks for Claude Code or Codex. Keeps the request behind supported setting edits in <code>~/.confighub</code> on your machine. No background server and no account.</p>
       </div>
       <div class="arch-card">
-        <strong>2. The local hub (<code>cub mini</code>, optional) · Stories 02 &amp; 03</strong>
+        <strong>2. The local hub (<code>cub mini</code>, optional) · Exercises 2 and 3</strong>
         <p>Starts the ConfigHub server and a local PostgreSQL on <code>127.0.0.1</code> only (no Docker, no account). Adds isolated previews, staging vs. production copies, and scoped agent keys.</p>
       </div>
     </div>
@@ -391,6 +391,7 @@ Production:     <span class="wait">Hello, world!</span></div>
   <section class="more" id="same-hub">
     <h2>When your team joins</h2>
     <p>Move from the local hub to a shared hub on <code>confighub.com</code> or your own server to share current settings and their reasons. Earlier revisions and delivery stay on the original hub (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/from-plugin-to-confighub.md">moving to a shared hub</a>). Teammates and CI then <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-22-priya-slack.md">approve changes as named owners</a> and manage <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-24-company-base.md">one base across ten services</a>. See <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/cub-mini-and-cub.md"><code>cub mini</code> vs. plain <code>cub</code></a> for the commands.</p>
+    <p>Already using Redis in the Kubernetes Workshop? <a href="../site/redis-walkthrough.html#local-to-shared">Follow the same Redis package from mini to a shared hub</a>. The staging change kept its reason, and the cluster had two ready read replicas after approval.</p>
   </section>
 
   <section class="more" id="operations">

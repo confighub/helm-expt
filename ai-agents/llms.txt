@@ -10,6 +10,7 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 - Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, Unikraft, AWS SSM, Daytona, nono sandbox, or reusing working settings across apps).
 - Use **Door B (`site/`)** when the user is working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, or multi-component cluster stacks:
   https://confighub.github.io/helm-expt/site/llms.txt
+- For an app using the Workshop Redis package, keep its [catalog listing ID](https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json), `bitnami-redis-25-5-3-reuse-existing-secret`. The [Redis handoff](https://confighub.github.io/helm-expt/site/redis-walkthrough.html#local-to-shared) follows that package into mini and a shared hub. Workshop catalog IDs and mini story numbers identify different records.
 
 ## First after install
 
