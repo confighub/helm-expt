@@ -169,6 +169,13 @@
       "prompt": "Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I'll decide whether to publish it.",
       "observed_result": "Staging served 'Checkout is delayed. Your cart is saved.' while production served 'Orders ship as usual.' on the exact same image digest; production waited for approval.",
       "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md"
+    },
+    {
+      "id": "reopen-friday-production-preview",
+      "title": "Open Friday's production settings as a new preview",
+      "prompt": "Open Friday's production settings as a new preview. Leave live production unchanged and show me what both serve.",
+      "observed_result": "Preview served Friday's saved revision (cub mini preview --from-live Friday) across web+catalog and web+Daytona multi-starter apps while live production stayed unchanged; a fresh chat found the preview without its URL.",
+      "guide_url": "https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-21/saved-production-preview/README.md"
     }
   ]
 }

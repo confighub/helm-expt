@@ -285,8 +285,21 @@ claude plugin install confighub@confighub</code></pre>
 </section>
 
 <section id="problem">
-  <h2>What basic problems ConfigHub solves</h2>
-  <p>Five everyday app-config headaches that happen as soon as coding agents edit your settings.</p>
+  <h2>What problem ConfigHub solves, and why it feels different</h2>
+  <p>Coding agents make building an app fast, until settings scatter across <code>.env</code> files, chat logs, and host dashboards. You think in <strong>apps, envs, and deployments</strong>—ConfigHub stores each env as durable config so every change, reason, preview, and rollback outlives the chat.</p>
+
+  <div class="tablewrap" style="margin:1.15rem 0 1.4rem">
+    <table>
+      <thead><tr><th>What you ask your agent</th><th>What ConfigHub does</th><th>What you actually see</th></tr></thead>
+      <tbody>
+        <tr><td><strong>“Why is the cache on?”</strong></td><td>Reads the saved edit and prompt from <code>~/.confighub</code> even before you commit.</td><td><code>CACHE off → on</code> · “for Saturday’s sale” in a fresh chat.</td></tr>
+        <tr><td><strong>“Give me a sale preview.”</strong></td><td>Creates an isolated preview env from staging while your live app stays untouched.</td><td>Both URLs side by side; tomorrow’s chat finds the preview without the URL.</td></tr>
+        <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Clones Friday’s saved live settings into a fresh preview env (<code>cub mini preview --from-live Friday</code>).</td><td>Preview serves Friday’s banner while live production stays unchanged.</td></tr>
+        <tr><td><strong>“Use this setup for my next app.”</strong></td><td>Links your second app to the same versioned starter while keeping per-app overrides.</td><td>Both apps pick up daily support hours; shop stays coral, cart stays indigo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="problems">
     <div class="card">
       <h3>1. Deploy your app cleanly</h3>
@@ -312,6 +325,34 @@ claude plugin install confighub@confighub</code></pre>
       <h3>5. Fix once across many apps</h3>
       <p class="pain">Copied templates drift, so hardening one service means repeating the same PR across ten apps.</p>
       <p><strong>ConfigHub:</strong> Links apps to a versioned starter so shared fixes roll out while each app keeps its own overrides.</p>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <h2>Already installed? Pick your next 5-minute win</h2>
+  <p>After the <a href="#first-prompt">cache example</a>, try a durable preview on your app, reopen a saved production env, or build a fresh app with staging and live separated from turn one.</p>
+  <div class="grid3">
+    <div class="card" id="try-a-change-in-my-app">
+      <span class="badge ok">Existing app</span>
+      <h3>Try a change in a preview</h3>
+      <p class="small">In a local Node app reading its heading from <code>.env</code>, paste:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
+      <p class="small">Open both links side by side. Tomorrow, ask a fresh chat “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
+    </div>
+    <div class="card" id="reopen-friday-env">
+      <span class="badge ok">Time-travel env</span>
+      <h3>Reopen Friday’s live settings</h3>
+      <p class="small">Need to inspect what production served earlier without touching live?</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the Friday preview prompt">Copy</button><code>Open Friday’s production settings as a new preview. Leave live production unchanged and show me what both serve.</code></div>
+      <p class="small">Runs Friday’s saved settings in a preview while live production stays untouched; a fresh chat finds it without the URL. <a href="mini.html#see-both">More preview examples</a></p>
+    </div>
+    <div class="card" id="build-my-first-app">
+      <span class="badge ok">New app</span>
+      <h3>Build my first app</h3>
+      <p class="small">In an empty Git folder, paste:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
+      <p class="small">Starts with separate staging and live envs from turn one, ready to clone for a second app. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
     </div>
   </div>
 </section>
@@ -348,26 +389,7 @@ claude plugin install confighub@confighub</code></pre>
     </div>
   </div>
 
-  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
-</section>
-
-<section id="start">
-  <h2>Next, try a change in a running app</h2>
-  <p>After the <a href="#first-prompt">cache example</a>, use your own app for a preview, or build a small app from scratch.</p>
-  <div class="two">
-    <div class="card" id="try-a-change-in-my-app">
-      <h3>Try a change in my app</h3>
-      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
-      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
-    </div>
-    <div class="card" id="build-my-first-app">
-      <h3>Build my first app</h3>
-      <p>Start in an empty Git folder. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
-      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
-    </div>
-  </div>
+  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="plugins.html">See all integrations</a></p>
 </section>
 
 <section id="why-how">

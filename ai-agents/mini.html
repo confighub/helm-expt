@@ -35,12 +35,18 @@
 <section id="see-both">
   <h2>Can I see the change before I keep it?</h2>
   <p>Paste either prompt into Claude Code or Codex. Say yes when the plugin offers to start Mini Hub locally on <code>127.0.0.1</code> (52 to 77 MB, ordinary user processes in <code>~/.confighub</code>).</p>
-  <div class="two">
+  <div class="grid3">
     <div class="card">
       <span class="badge ok">Local preview</span>
       <h3>Keep a preview running for tomorrow</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Show me my app as it is and a local preview with the heading "Evening collection." Give me both links and keep the preview running for tomorrow.</code></div>
       <p class="small"><strong>Observed result:</strong> Both URLs ran side by side. Tomorrow, a fresh chat in the same folder found the running preview without touching the app's normal settings. <a href="first-look.html#preview">Run a preview</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Time-travel env</span>
+      <h3>Open Friday’s live settings as a preview</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Open Friday’s production settings as a new preview. Leave live production unchanged and show me what both serve.</code></div>
+      <p class="small"><strong>Observed result:</strong> Preview served Friday’s saved revision (<code>cub mini preview --from-live Friday</code>) while live production stayed untouched across multi-starter apps (<code>web + catalog</code> and <code>web + Daytona</code>); a fresh chat found the preview without its URL. <a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-21/saved-production-preview/README.md">Run record</a></p>
     </div>
     <div class="card">
       <span class="badge ok">Daytona sandbox</span>
