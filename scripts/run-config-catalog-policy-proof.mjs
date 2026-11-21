@@ -185,7 +185,7 @@ function runCurrentBody(options = {}) {
     const workflow = entity(cubJson(context, ["changeworkflow", "get", "--space", CURRENT_WORKFLOW_SPACE, CURRENT_WORKFLOW, "-o", "json"]), "ChangeWorkflow");
     assertWorkflow(workflow);
     const component = entity(cubJson(context, ["component", "get", CURRENT_COMPONENT, "-o", "json"]), "Component");
-    check(uuid(component.ComponentID) && component.ChangeWorkflowRequired === true && sameSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID]), "native Component contract drifted");
+    check(uuid(component.ComponentID) && component.RequireChangeWorkflow === true && sameSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID]), "native Component contract drifted");
     cub(context, ["space", "create", space, "--component", component.ComponentID, "--release-target", proofTargetRef,
       "--label", "ApplyPolicyProfile=catalog-standard", "--label", "ResourceClass=system-configuration",
       "--label", `${CURRENT_SCOPE_LABEL}=${CURRENT_SCOPE_VALUE}`, "--trigger-filter", approvalFilterRef, "--where-trigger", "-", "--quiet"]);
@@ -376,7 +376,7 @@ function fakeCurrentFullCli() {
       const unit = units.get(`${space}/${slug}`); if (!unit) notFound(); return json({ Unit: unit });
     }
     if (group === "changeworkflow" && verb === "get") return json({ ChangeWorkflow: { ChangeWorkflowID: ids.workflow, Stages: [{ Name: "approval", WhereSpace: `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'`, ReleasePrerequisites: [CURRENT_PREREQUISITE] }], AttestationPrerequisites: [{ Name: CURRENT_PREREQUISITE, AllowAuthors: true, Type: "Approval", Count: 1, IgnoreFail: false }] } });
-    if (group === "component" && verb === "get") return json({ Component: { ComponentID: ids.component, ChangeWorkflowRequired: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
+    if (group === "component" && verb === "get") return json({ Component: { ComponentID: ids.component, RequireChangeWorkflow: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
     if (group === "revision" && verb === "get") return json({ Revision: { UnitID: ids.unit, RevisionID: ids.revision, RevisionNum: 1, DataHash: "sha256:native", Attestations: releaseAttempt > 0 ? { [ids.approval]: {} } : {} } });
     if (group === "changeorder" && verb === "create") return "";
     if (group === "changeorder" && verb === "get") return json({ ChangeOrder: { ChangeOrderID: ids.order, ChangeWorkflowID: ids.workflow, EndTagID: ids.endTag, InScopeSpaceIDs: [ids.space] } });
@@ -448,7 +448,7 @@ function fakeCurrentCli(scenario = "success") {
       Stages: [{ Name: "approval", WhereSpace: `Labels.${CURRENT_SCOPE_LABEL} = '${CURRENT_SCOPE_VALUE}'`, ReleasePrerequisites: [CURRENT_PREREQUISITE] }],
       AttestationPrerequisites: [{ Name: CURRENT_PREREQUISITE, AllowAuthors: true, Type: "Approval", Count: 1, IgnoreFail: false }],
     } });
-    if (group === "component" && verb === "get") return JSON.stringify({ Component: { ComponentID: ids.component, ChangeWorkflowRequired: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
+    if (group === "component" && verb === "get") return JSON.stringify({ Component: { ComponentID: ids.component, RequireChangeWorkflow: true, AllowedChangeWorkflowIDs: [ids.workflow] } });
     if (group === "space" && verb === "create") return "";
     if (group === "space" && verb === "get") return JSON.stringify({ Space: { SpaceID: ids.space, ComponentID: ids.component, Labels: { [CURRENT_SCOPE_LABEL]: CURRENT_SCOPE_VALUE } } });
     if (group === "space" && verb === "delete") { cleanupCount++; return ""; }
