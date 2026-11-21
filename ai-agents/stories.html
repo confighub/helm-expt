@@ -24,16 +24,94 @@
 <section>
   <div class="cover">
     <div>
-      <p class="kicker">24 reproducible walkthroughs · Every command &amp; output on GitHub</p>
-      <h1>Field stories, grouped by the job you need done</h1>
-      <p class="lead">Every story below is a runnable walkthrough with exact commands, recorded outputs, and an Agent section your coding assistant can follow directly.</p>
+      <p class="kicker">25 first-use stories + 24 field walkthroughs · Every run &amp; ID on GitHub</p>
+      <h1>User stories, from your first five minutes to team fleets</h1>
+      <p class="lead">Start with the 25 audited first-use stories for a new or existing app, or filter the 24 full field walkthroughs below. Mini stories keep their own IDs and link cleanly to Workshop catalog listings where the two meet.</p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
 </section>
 
+<section id="first-experiences">
+  <h2>First experiences with an app</h2>
+  <p>Audited first-use variations from opening an empty folder to reopening Friday’s production settings and sharing a working setup. Full catalog of all 25 IDs and evidence links: <a href="https://github.com/confighubai/confighub-mini/blob/main/stories/story-catalog.md#first-experiences-with-an-app">mini story-catalog.md</a>.</p>
+  <div class="grid3">
+    <div class="card">
+      <span class="badge ok">Plugin · mini 13.05 &amp; 13.06</span>
+      <h3>See your first change and ask why</h3>
+      <p class="small">Set <code>CACHE=on</code> for Saturday’s sale, see <code>off → on</code> on Turn 1, and ask a fresh chat “Why is the cache on?” without touching other edits.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-21/homepage-cache/README.md">Published cache run</a> · <a href="./#first-prompt">Try prompt</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Mini · mini 20.01 &amp; 20.03</span>
+      <h3>Keep a preview and find it tomorrow</h3>
+      <p class="small">Compare a new heading beside your running app while files stay untouched; a fresh chat finds the same preview process without the URL.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-18/first-actions/preview.md">Isolated preview run</a> · <a href="first-look.html#preview">Try preview</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Mini .29 · mini 20.04 &amp; 20.05</span>
+      <h3>Reopen Friday’s production settings</h3>
+      <p class="small">Run today’s app with Friday’s saved live settings in a preview: Friday’s two-retry setting queued after 3 attempts while live kept delivering on attempt 4.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-21/friday-preview-mini29/README.md">mini.29 Friday run</a> · <a href="mini.html#saved-production">See details</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Vercel · mini 20.06</span>
+      <h3>Try a shorter sale cache on Vercel</h3>
+      <p class="small">Vercel Hobby preview returned <code>max-age=30</code> while production kept <code>max-age=60</code> and ConfigHub refused pending production delivery.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel walkthrough</a> · <a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-21/first-experiences/provider-observations.json">Observations</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Daytona · mini 3.01</span>
+      <h3>Throw away the sandbox, keep what worked</h3>
+      <p class="small">Processed 360 items at 120 vs 240 per batch in Daytona Cloud, deleted the sandbox, and kept the reason, staging value, and pending prod order on a fresh hub.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona walkthrough</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Unikraft · mini 20.07</span>
+      <h3>Rehearse an incident banner on the same image</h3>
+      <p class="small">Unikraft staging served the incident notice while production kept serving normal copy on the exact same image digest until approved.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft walkthrough</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Two apps · mini 25.01</span>
+      <h3>Second app inherits fixes, keeps its overrides</h3>
+      <p class="small">Shared support hours updated to Daily across both staging apps on Fly while shop stayed coral and cart stayed indigo.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini/blob/main/stories/runs/2026-11-15/rails-fly-hosted/README.md">Two Rails apps on Fly</a> · <a href="starters.html#why-starters">Starters</a></p>
+    </div>
+    <div class="card">
+      <span class="badge wait">Workshop + Mini · mini 18.02</span>
+      <h3>Take Redis from Workshop to a shared hub</h3>
+      <p class="small">Starts from Workshop package <code>bitnami-redis-25-5-3-reuse-existing-secret</code>, keeps the staging reason in mini, and verifies two ready read replicas on cluster after approval.</p>
+      <p class="small"><a href="../site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json">Workshop Redis listing</a> · <a href="../site/redis-walkthrough.html#local-to-shared">Walkthrough</a></p>
+    </div>
+    <div class="card">
+      <span class="badge soft">Shared Hub · mini 24.01–24.03</span>
+      <h3>Hand off to teammates, CI, and reusable patterns</h3>
+      <p class="small">Move current settings and reasons to a shared hub for named owner approvals and CI keys, or publish a credential-free starter pattern.</p>
+      <p class="small"><a href="hub.html">Shared Hub</a> · <a href="https://github.com/confighubai/confighub-mini/blob/main/stories/story-catalog.md#first-experiences-with-an-app">All 25 first-use IDs</a></p>
+    </div>
+  </div>
+
+  <details style="margin-top:1.1rem">
+    <summary style="cursor:pointer;font-weight:600">See all 25 audited first-use story IDs (mini 13.01 – 24.03)</summary>
+    <div class="tablewrap" style="margin-top:.75rem">
+      <table>
+        <thead><tr><th>Mini ID</th><th>First-use story</th><th>Area</th></tr></thead>
+        <tbody>
+          <tr><td><code>13.01</code>–<code>13.07</code></td><td>Discover from Workshop, coexist with full platform skills, Daytona routing, first remembered setting, Turn-1 edit feedback, ask why before undo, stay quiet on ordinary typos.</td><td>Plugin &amp; onboarding</td></tr>
+          <tr><td><code>23.01</code>–<code>23.02</code></td><td>Build and open a first app in an empty folder; join an existing app halfway through without rewriting files.</td><td>New &amp; existing apps</td></tr>
+          <tr><td><code>18.01</code>–<code>18.03</code></td><td>Attach staging and production; take Workshop Redis (<code>bitnami-redis-25-5-3-reuse-existing-secret</code>) to a shared hub; connect Vercel or Fly delivery with owner confirmation.</td><td>Envs, Workshop &amp; hosts</td></tr>
+          <tr><td><code>20.01</code>–<code>20.07</code>, <code>3.01</code></td><td>Local preview, consent-driven setup, find preview tomorrow without URL, reopen Friday’s production settings (<code>mini.29</code>), named revision forks, Vercel 30s/60s cache, Daytona 120/240 batch, Unikraft incident notice.</td><td>Previews &amp; providers</td></tr>
+          <tr><td><code>22.01</code>, <code>25.01</code>, <code>24.01</code>–<code>24.03</code></td><td>Approve, verify, and roll back live; second app inherits shared fixes while keeping overrides; hand off to teammates/CI; share reusable credential-free patterns.</td><td>Approvals, starters &amp; teams</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:.6rem">Workshop maintains its own catalog identifiers (for example <code>bitnami-redis-25-5-3-reuse-existing-secret</code>); mini rows reference them by link. <a href="https://github.com/confighubai/confighub-mini/blob/main/stories/story-catalog.md#first-experiences-with-an-app">Open the full 25-row catalog on GitHub</a>.</p>
+  </details>
+</section>
+
 <section id="gallery">
-  <h2>Filter by job</h2>
+  <h2>24 field walkthroughs, filtered by job</h2>
   <p>Each card shows which rung it uses (<code>Plugin</code>, <code>Mini</code>, or <code>Shared Hub</code>) and links to the full transcript on GitHub.</p>
   <div class="filter-bar" data-filter-group="stories" role="group" aria-label="Filter stories">
     <button type="button" class="chip" data-filter="all" aria-pressed="true">All 24 stories</button>

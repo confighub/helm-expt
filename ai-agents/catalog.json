@@ -74,7 +74,7 @@
     {
       "path": "stories.html",
       "title": "User stories",
-      "purpose": "24 filterable scenarios across Plugin, Mini Hub, and Shared Hub."
+      "purpose": "25 audited first-use stories (mini 13.01-24.03, including Friday preview and Workshop Redis handoff) plus 24 filterable field walkthroughs."
     },
     {
       "path": "reference.html",
