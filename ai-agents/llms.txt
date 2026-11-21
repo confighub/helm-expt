@@ -11,6 +11,10 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 - Use **Door B (`site/`)** when the user is working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, or multi-component cluster stacks:
   https://confighub.github.io/helm-expt/site/llms.txt
 
+## First after install
+
+Open the app homepage at `index.html#first-prompt`. The first prompt for a new plugin user is “Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.” Start with CACHE=off in a test app. In a fresh chat ask “Why is the cache on?” The next option is a running preview at `index.html#try-a-change-in-my-app`.
+
 ## Progression ladder
 
 1. **Step 1: Plugin** (`plugin.html`)
