@@ -286,13 +286,13 @@ claude plugin install confighub@confighub</code></pre>
 
 <section id="problem">
   <h2>Stop doing env, add-on, and deploy housekeeping by hand</h2>
-  <p>Building an app with Claude or Codex is fast, until the housekeeping around <strong>envs</strong>, <strong>add-ons</strong> (Stripe, Google, databases), and <strong>deployments</strong> takes over. ConfigHub manages that housekeeping quietly across <code>staging</code>, <code>preview</code>, and <code>live</code>—and keeps every diff, reason, and approval one glance away whenever you want to look.</p>
+  <p>Building an app with Claude or Codex is fast, until the housekeeping around <strong>envs</strong>, <strong>add-ons</strong> (Stripe, Google, databases), and <strong>deployments</strong> takes over. ConfigHub handles that housekeeping quietly across <code>staging</code>, <code>preview</code>, and <code>live</code>—and keeps every derived artefact (preview URLs, exact diffs, pending approvals, saved env snapshots) easy to find and reuse whenever you want to look.</p>
 
   <div class="tablewrap" style="margin:1.15rem 0 1.4rem">
     <table>
-      <thead><tr><th>What you ask your agent</th><th>What ConfigHub handles for you</th><th>What you see when you look</th></tr></thead>
+      <thead><tr><th>What you ask your agent</th><th>What ConfigHub handles for you</th><th>What you get back (and can find later)</th></tr></thead>
       <tbody>
-        <tr><td><strong>“Set up staging and live on Vercel with my Stripe and database settings, check them, and open a preview.”</strong></td><td>Reads your app’s envs without rewriting files, flags missing or unsafe values, opens a working preview, and holds live for one approval.</td><td>Working Vercel preview with zero dashboard copy-paste; production waits for you.</td></tr>
+        <tr><td><strong>“Set up staging and live on Vercel with my Stripe and database settings, check them, and open a preview.”</strong></td><td>Reads your app’s envs without rewriting files, flags missing or unsafe values, opens a working preview, and holds live for one approval.</td><td>Clickable preview URL, exact staging-vs-live diff, and pending live order—zero dashboard copy-paste, findable in any future chat.</td></tr>
         <tr><td><strong>“Try a 30-second cache in staging and propose it for live.”</strong></td><td>Agent updates staging on its scoped key; the server physically refuses self-approval on production (not a fragile prompt rule).</td><td>Preview serves <code>max-age=30</code>, live stays <code>max-age=60</code> until you approve.</td></tr>
         <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Clones Friday’s saved live env into a fresh preview (<code>cub mini preview --from-live Friday</code>) while today’s live stays untouched.</td><td>Preview serves Friday’s banner; tomorrow’s chat finds it without the URL.</td></tr>
         <tr><td><strong>“Test 120 vs 240 batch sizes in Daytona, delete the sandbox, and keep the winner.”</strong></td><td>Saves the winning setting and its reason outside the disposable sandbox so you can preview or ship it on any host.</td><td>360 items in 2 batches instead of 3; fresh hub holds 240 in staging and 120 in live.</td></tr>
