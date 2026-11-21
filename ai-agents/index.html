@@ -199,7 +199,7 @@ footer p { max-width: none; }
 .cover .btn.primary { background: #fff; border-color: #fff; color: #142238; }
 #start .card[id] { scroll-margin-block-start: 1rem; }
 #start .card:target { outline: 2px solid var(--link); outline-offset: 3px; }
-.first-prompt-box { margin-top: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
+.first-prompt-box { margin: 0; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
 .first-prompt-box h3 { font-size: 1rem; margin-bottom: .35rem; }
 .first-prompt-box .snip { margin: .55rem 0; }
 .walk pre { max-width: 100%; padding: 1rem; border-radius: .45rem; background: var(--terminal); color: var(--terminal-ink); white-space: pre-wrap; overflow-wrap: anywhere; font: .84rem/1.6 var(--mono); }
@@ -233,11 +233,54 @@ footer p { max-width: none; }
       <p class="lead">Ask Claude or Codex to build an app, or start with one you already run. Try your next idea in a preview. Decide what goes live. When you build a second app, give it the setup that worked for the first.</p>
       <p class="lead">ConfigHub remembers which settings worked, why you chose them, and which ones each app keeps for itself. Start on your laptop. There’s no platform to build first.</p>
       <p class="buttons">
-        <a class="btn primary" href="#build-my-first-app">Build my first app</a>
-        <a class="btn" href="#try-a-change-in-my-app">Try a change in my app</a>
+        <a class="btn primary" href="#install-box">Install the plugin</a>
+        <a class="btn" href="#first-prompt">Already installed? Try the cache prompt</a>
       </p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+</section>
+
+<section id="install-box">
+  <h2>Install the plugin</h2>
+  <div class="hero">
+    <div>
+      <div class="install-card">
+        <div class="tabs" role="tablist" aria-label="Choose your coding agent">
+          <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
+          <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
+        </div>
+
+        <div class="client-pane" data-client-pane="claude">
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy>Copy</button>
+            <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
+claude plugin install confighub@confighub</code></pre>
+          </div>
+          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder.</p>
+        </div>
+
+        <div class="client-pane" data-client-pane="codex" hidden>
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy>Copy</button>
+            <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
+  "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
+          </div>
+          <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a>).</p>
+        </div>
+      </div>
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
+    </div>
+
+    <div class="first-prompt-box" id="first-prompt">
+      <h3 id="why-is-the-cache-on">First after install: remember why the cache is on</h3>
+      <p>In a test app with <code>CACHE=off</code> in <code>.env</code>, paste this into Claude Code or Codex. <a href="first-look.html#remember">Set up a sample folder</a> if you need one.</p>
+      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre></div>
+      <p>Look for <strong>ConfigHub plugin</strong> at the end of the turn. It shows <code>CACHE off → on</code> and quotes your request. Open a fresh chat in the same folder and ask:</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
+      <p>The new chat can tell you it was for Saturday’s sale, even before you commit.</p>
+      <p class="small"><a href="#try-a-change-in-my-app">Next, run a preview of your app →</a></p>
+    </div>
   </div>
 </section>
 
@@ -309,29 +352,21 @@ footer p { max-width: none; }
 </section>
 
 <section id="start">
-  <h2>What would you like to try?</h2>
-  <p>Open Claude Code or Codex in your app folder and paste a prompt. New here? <a href="#install-box">Install the plugin</a>.</p>
+  <h2>Next, try a change in a running app</h2>
+  <p>After the <a href="#first-prompt">cache example</a>, use your own app for a preview, or build a small app from scratch.</p>
   <div class="two">
-    <div class="card" id="build-my-first-app">
-      <h3>Build my first app</h3>
-      <p>Start in an empty Git folder. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
-      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
-    </div>
     <div class="card" id="try-a-change-in-my-app">
       <h3>Try a change in my app</h3>
       <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
       <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
     </div>
-  </div>
-  <div class="first-prompt-box" id="why-is-the-cache-on">
-    <h3>Why is the cache on?</h3>
-    <p>Five minutes with the plugin alone. In a sample Git folder with <code>CACHE=off</code> in <code>.env</code>, paste this in the chat.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache edit prompt">Copy</button><code>Turn the cache on in .env for next week's sale. Don't commit.</code></div>
-    <p>In a fresh chat in the same folder, ask about the change.</p>
-    <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
-    <p class="small">Look for the change from <code>off</code> to <code>on</code> and the request about next week’s sale. The plugin kept both before you committed. <a href="first-look.html#remember">Set up the sample folder</a></p>
+    <div class="card" id="build-my-first-app">
+      <h3>Build my first app</h3>
+      <p>Start in an empty Git folder. Paste this in the chat.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
+      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    </div>
   </div>
 </section>
 
@@ -360,47 +395,9 @@ footer p { max-width: none; }
   </div>
 </section>
 
-<section id="install-box">
-  <h2>Install the plugin</h2>
-  <div class="hero">
-    <div>
-      <div class="install-card">
-        <div class="tabs" role="tablist" aria-label="Choose your coding agent">
-          <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
-          <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
-        </div>
-
-        <div class="client-pane" data-client-pane="claude">
-          <div class="snip">
-            <button type="button" class="copy-btn" data-copy>Copy</button>
-            <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
-claude plugin install confighub@confighub</code></pre>
-          </div>
-          <p class="small" style="margin:.45rem 0 0">Open a fresh Claude Code chat in your app folder.</p>
-        </div>
-
-        <div class="client-pane" data-client-pane="codex" hidden>
-          <div class="snip">
-            <button type="button" class="copy-btn" data-copy>Copy</button>
-            <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
-  "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
-          </div>
-          <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a>).</p>
-        </div>
-      </div>
-
-      <div class="first-prompt-box" id="first-prompt">
-        <h3>Try it in your first chat</h3>
-        <p class="small">Ask your agent to change one setting and say why. For example, in a test app with <code>CACHE=off</code> in <code>.env</code>, paste this:</p>
-        <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre></div>
-        <p class="small">At the end of your first recorded settings edit, look for <strong>ConfigHub plugin</strong>. It shows <code>CACHE off → on</code> and quotes your request. Later, open a fresh chat and ask “Why is the cache on?”</p>
-        <p class="small" style="margin:0"><a href="first-look.html#remember">Set up the sample folder</a> · <a href="first-look.html#preview">Run a preview</a></p>
-      </div>
-
-      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
-    </div>
-
-    <div class="demo-card" id="preview">
+<section>
+  <h2>What you’ll see in your terminal</h2>
+  <div class="demo-card" id="preview">
       <div class="demo-tabs" role="tablist" aria-label="Real outputs at each stage">
         <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Remember an edit</button>
         <button type="button" role="tab" aria-selected="false" data-beat-tab="2">2. Run a preview</button>
@@ -443,7 +440,6 @@ A change to production waits for your approval: Four for the sale. It was made j
         <p class="small" style="margin:0"><strong>What these lines mean:</strong> Connecting an app automatically provisions a scoped key for the agent (here <code>bot</code>). It can update staging and propose to production, while the hub refuses self-approval until you run <code>cub</code> (ConfigHub’s CLI) in your own terminal. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#on-confighub-mini-by-hand">Quoted from Approvals</a>.</p>
       </div>
     </div>
-  </div>
 </section>
 
 <section id="how-it-runs">
