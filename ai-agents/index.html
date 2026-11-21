@@ -297,15 +297,16 @@ claude plugin install confighub@confighub</code></pre>
 
 <section id="problem">
   <h2>What basic problems ConfigHub solves</h2>
-  <p>An agent can edit your app or start a second copy. ConfigHub keeps the reason for a setting, the settings each environment uses, and which change you approved for delivery.</p>
+  <p>Your agent can build an app, and your host can deploy it. When you try a change, ConfigHub keeps track of which settings the preview uses, why they changed and what you approved for production.</p>
 
   <div class="tablewrap" style="margin:1.15rem 0 1.4rem">
     <table>
       <thead><tr><th>What you ask your agent</th><th>What ConfigHub does</th><th>What you actually see</th></tr></thead>
       <tbody>
         <tr><td><strong>“Why is the cache on?”</strong></td><td>Reads the saved edit and prompt from <code>~/.confighub</code> even before you commit.</td><td><code>CACHE off → on</code> · “for Saturday’s sale” in a fresh chat.</td></tr>
-        <tr><td><strong>“Give me a sale preview.”</strong></td><td>Creates an isolated preview env from staging while your live app stays untouched.</td><td>Both URLs side by side; a fresh chat finds the running preview without the URL.</td></tr>
+        <tr><td><strong>“Try a 30-second cache in staging. Let me decide when it goes live on Vercel.”</strong></td><td>The agent can change staging. Its scoped key cannot approve a production delivery.</td><td>The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md#testing">live shop</a> served 60 seconds while the order waited, 30 after approval and 60 again after rollback.</td></tr>
         <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Runs the current app with the settings saved for production on that hub.</td><td>The sample job queued in the preview and still finished in production.</td></tr>
+        <tr><td><strong>“Try 240 items per batch in Daytona. Keep the proposal when I delete the sandbox.”</strong></td><td>Brings back the proposed setting and its reason from the disposable sandbox.</td><td>The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md#testing">returned proposal</a> kept the reason for 240. Production settings stayed at 120.</td></tr>
         <tr><td><strong>“Use this setup for my next app.”</strong></td><td>Links your second app to the same versioned starter while keeping per-app overrides.</td><td>Both apps pick up daily support hours; the shop keeps its coral banner and the cart keeps indigo.</td></tr>
       </tbody>
     </table>
