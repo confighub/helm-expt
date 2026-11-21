@@ -16,14 +16,14 @@
       "name": "ConfigHub Plugin",
       "url": "https://confighub.github.io/helm-expt/ai-agents/plugin.html",
       "repo": "https://github.com/confighubai/confighub-mini-plugin",
-      "summary": "Local MIT-licensed plugin for Claude Code and Codex that records why every setting changed in ~/.confighub with zero background processes and no account."
+      "summary": "Local MIT-licensed plugin for Claude Code and Codex that keeps the original request with supported setting edits in ~/.confighub with zero background processes and no account."
     },
     {
       "step": 2,
       "id": "mini",
       "name": "ConfigHub Mini Hub",
       "url": "https://confighub.github.io/helm-expt/ai-agents/mini.html",
-      "repo": "https://github.com/confighubai/confighub-mini",
+      "repo": "https://github.com/confighubai/confighub-mini-plugin",
       "summary": "Free local hub on 127.0.0.1 for base, staging, and live environments, durable previews, linked starters across apps, scoped agent keys, and approved delivery."
     },
     {
@@ -32,7 +32,7 @@
       "name": "Shared ConfigHub",
       "url": "https://confighub.github.io/helm-expt/ai-agents/hub.html",
       "url_confighub": "https://confighub.github.io/helm-expt/site/confighub.html",
-      "summary": "Move the exact same setup to a shared hub when teammates or CI jobs need access to the same settings, approvals, and history."
+      "summary": "Move current settings and their reasons to a hub teammates and CI can reach. Earlier revisions and delivery connections stay on the original hub."
     }
   ],
   "pages": [
@@ -139,7 +139,7 @@
       "id": "local-preview",
       "title": "Can I see the change before I keep it?",
       "prompt": "Show me my app as it is and a local preview with the heading \"Evening collection.\" Give me both links and keep the preview running for tomorrow.",
-      "observed_result": "Both URLs ran side by side; a fresh chat the next day found the same running preview without modifying the app's normal settings.",
+      "observed_result": "Both URLs ran side by side; a fresh chat in the same app folder found the same running preview without modifying the app's normal settings.",
       "guide_url": "https://confighub.github.io/helm-expt/ai-agents/mini.html#see-both"
     },
     {
@@ -169,6 +169,29 @@
       "prompt": "Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I'll decide whether to publish it.",
       "observed_result": "Staging served 'Checkout is delayed. Your cart is saved.' while production served 'Orders ship as usual.' on the exact same image digest; production waited for approval.",
       "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md"
+    },
+    {
+      "id": "reopen-friday-production-preview",
+      "title": "Open Friday's production settings as a new preview",
+      "prompt": "Open Friday’s production settings as a new preview.",
+      "observed_result": "With published mini.29 on an attached local Node app using web and Daytona starter defaults, the historical preview queued its job after three attempts. Production kept delivering on attempt four. Both returning clients found the same running preview without its URL. Two older revision dates were seeded in the disposable hub.",
+      "guide_url": "https://confighub.github.io/helm-expt/ai-agents/mini.html#saved-production"
+    }
+  ],
+  "start_after_install": [
+    {
+      "when": "existing or partly built app",
+      "prompt": "What does ConfigHub remember about a setting we changed here, and why?",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/#in-my-app"
+    },
+    {
+      "when": "empty folder",
+      "prompt": "Build a small Node app for my neighborhood market. Give it a heading I can change in .env, run it locally and give me the link.",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/#build-my-first-app"
+    },
+    {
+      "when": "five-minute sample",
+      "url": "https://confighub.github.io/helm-expt/ai-agents/#first-prompt"
     }
   ]
 }

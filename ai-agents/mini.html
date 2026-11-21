@@ -34,13 +34,20 @@
 
 <section id="see-both">
   <h2>Can I see the change before I keep it?</h2>
-  <p>Paste either prompt into Claude Code or Codex. Say yes when the plugin offers to start Mini Hub locally on <code>127.0.0.1</code> (52 to 77 MB, ordinary user processes in <code>~/.confighub</code>).</p>
-  <div class="two">
+  <p>Pick the example that fits your app. A local preview needs a web app whose start script runs Node directly. When you ask to keep it, the plugin offers local setup.</p>
+  <div class="grid3">
     <div class="card">
       <span class="badge ok">Local preview</span>
       <h3>Keep a preview running for tomorrow</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Show me my app as it is and a local preview with the heading "Evening collection." Give me both links and keep the preview running for tomorrow.</code></div>
-      <p class="small"><strong>Observed result:</strong> Both URLs ran side by side. Tomorrow, a fresh chat in the same folder found the running preview without touching the app's normal settings. <a href="first-look.html#preview">Run a preview</a></p>
+      <p class="small"><strong>Observed result:</strong> Both URLs ran side by side. A fresh chat in the same folder found the running preview and read its response. <a href="first-look.html#preview">Run a preview</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Saved production settings</span>
+      <h3 id="saved-production">Open Friday’s live settings as a preview</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Open Friday’s production settings as a new preview.</code></div>
+      <p class="small">Mini runs today’s code using the settings this hub held at the end of the last completed Friday in your time zone. If the app joined later, its history starts then.</p>
+      <p class="small">In our local test, the web and Daytona starters supplied the settings. We dated the older revision Friday. Its preview queued the sample job after three attempts. Production kept delivering on attempt four. A new chat in each client found its original preview without the address. <a href="https://github.com/confighubai/confighub-mini-plugin/releases/tag/mini-v0.11.1-mini.29">Published package</a></p>
     </div>
     <div class="card">
       <span class="badge ok">Daytona sandbox</span>
@@ -87,7 +94,7 @@
       <h3>Ask for a preview you can reopen tomorrow</h3>
       <p class="small">In a local Node app reading <code>.env</code>, ask in plain words:</p>
       <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Try "Evening collection" as the heading. Keep the usual app as it is. I'd like to open the preview again tomorrow.</code></div>
-      <p class="small">Say yes when the plugin offers to attach the app. First use downloads the 52 to 77 MB package and starts the local hub on <code>127.0.0.1</code>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app preview guide</a>.</p>
+      <p class="small">Say yes when the plugin offers to attach the app. First use downloads the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">package for your machine</a> and starts the local hub on <code>127.0.0.1</code>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app preview guide</a>.</p>
     </div>
     <div class="card">
       <span class="badge soft">Explicit CLI</span>

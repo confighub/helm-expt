@@ -180,14 +180,14 @@ footer > a:first-child { font-weight: 650; }
     </p>
     <div class="cover">
     <div><h1>Three things to try first</h1>
-    <p class="lead">Your coding agent changes settings without committing, tries ideas on the app you actually use, and leaves you to copy what worked into the next app. Each exercise below fixes one of those problems on your laptop, in about five minutes. Production stays behind your approval throughout.</p></div>
+    <p class="lead">Your coding agent changes settings without committing, tries ideas on the app you actually use, and leaves you to copy what worked into the next app. Start with one uncommitted edit in five minutes. Add a local hub when you want a running preview or a second app to share your defaults.</p></div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
 
     <div class="arch-grid" aria-label="What runs on your computer">
       <div class="arch-card">
         <strong>1. The plugin (<code>confighub</code>) · Story 01</strong>
-        <p>Lightweight session hooks for Claude Code or Codex. Records config edits and their reasons in <code>~/.confighub</code> on your machine. No background server and no account.</p>
+        <p>Lightweight session hooks for Claude Code or Codex. Keeps the request behind supported setting edits in <code>~/.confighub</code> on your machine. No background server and no account.</p>
       </div>
       <div class="arch-card">
         <strong>2. The local hub (<code>cub mini</code>, optional) · Stories 02 &amp; 03</strong>
@@ -210,7 +210,7 @@ footer > a:first-child { font-weight: 650; }
           <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
         </div>
-        <p class="small" style="margin:.35rem 0 0">Open a fresh Claude Code chat in your app folder. <a href="./#first-prompt">Ask what a recorded setting does in your app</a>, or <a href="#remember">make a first edit in a sample</a>. Type <code>/confighub:changes</code> for the full list.</p>
+        <p class="small" style="margin:.35rem 0 0">Open a fresh Claude Code chat in your project folder. Type <code>/confighub:changes</code> for the full record.</p>
       </div>
 
       <div class="only-codex">
@@ -219,9 +219,11 @@ claude plugin install confighub@confighub</code></pre>
           <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
   "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
         </div>
-        <p class="small" style="margin:.35rem 0 0">In Codex CLI, run <code>/hooks</code>, approve the ConfigHub hooks once, then open a fresh chat in your app folder and <a href="./#first-prompt">ask what a recorded setting does in your app</a>. (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Setup &amp; removal details</a>)</p>
+        <p class="small" style="margin:.35rem 0 0">In Codex CLI, run <code>/hooks</code>, approve the ConfigHub hooks once, then open a fresh chat in your project folder. (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Setup &amp; removal details</a>)</p>
       </div>
     </div>
+
+    <p>Already installed? <a href="./#in-my-app">Ask what ConfigHub remembers about your app</a>, <a href="./#build-my-first-app">build your first app</a>, or try the five-minute sample below.</p>
 
     <ul class="jumps">
       <li><a href="#remember">Remember one setting in five minutes</a></li>

@@ -13,7 +13,11 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 
 ## First after install
 
-Open the app homepage at `index.html#first-prompt`. The first prompt for a new plugin user is “Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.” Start with CACHE=off in a test app. In a fresh chat ask “Why is the cache on?” The next option is a running preview at `index.html#try-a-change-in-my-app`.
+- Existing or partly built app: open `index.html#in-my-app`. Ask “What does ConfigHub remember about a setting we changed here, and why?” The record can be empty. Start it with one requested setting edit and its reason.
+- Empty folder: open `index.html#build-my-first-app`. Ask for the app normally. For a runnable local example: “Build a small Node app for my neighborhood market. Give it a heading I can change in .env, run it locally and give me the link.”
+- Five-minute sample: open `index.html#first-prompt`. Start with CACHE=off, change it for Saturday’s sale, then ask “Why is the cache on?” in a new chat.
+- Kept preview: open `index.html#try-a-change-in-my-app`. For a direct-start Node web app, the agent can offer local setup, run the preview after consent and find it in a new chat in the same folder. With history on this hub, ask “Open Friday’s production settings as a new preview.” The current code runs with the saved settings.
+- Reuse: open `first-look.html#starter` when the user asks for another app like the first. Introduce the shared hub when a colleague or CI needs access. An app request for Daytona uses the app starter; follow the Kubernetes door when the user actually wants cluster operations.
 
 ## Progression ladder
 
@@ -22,7 +26,7 @@ Open the app homepage at `index.html#first-prompt`. The first prompt for a new p
 2. **Step 2: Mini Hub** (`mini.html`)
    Run a free local hub on `127.0.0.1` for `base`, `staging`, and `live` settings, durable previews (local or Daytona), linked starters across apps, scoped agent keys, and approved delivery (Vercel, Fly, Unikraft, AWS SSM).
 3. **Step 3: Shared Hub** (`hub.html`)
-   Move the exact same setup to a shared hub when teammates or CI jobs need access to the same settings, approvals, and history.
+   Move current settings and their reasons to a hub teammates and CI can reach. Earlier revisions and delivery connections stay on the original hub.
 
 ## Key pages
 

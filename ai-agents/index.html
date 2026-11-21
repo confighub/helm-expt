@@ -144,6 +144,8 @@ section > :is(.two, .grid3, .tablewrap) { margin-top: 1.4rem; }
 .hero > *, .body { min-width: 0; }
 .install-card, .demo-card, .card, .tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: .65rem; }
 .install-card, .card { padding: clamp(1.05rem, 1.7vw, 1.5rem); }
+#first-prompt { margin-top: 1rem; }
+.install-card h3:not(:first-child) { margin-top: 1.3rem; }
 .install-card .snip { margin-block: .8rem; }
 .hero > div:first-child > .small { margin-inline: .15rem; }
 .buttons { margin-block: 1.15rem .65rem; gap: .6rem; max-width: none; }
@@ -234,7 +236,8 @@ footer p { max-width: none; }
       <p class="lead">ConfigHub remembers which settings worked, why you chose them, and which ones each app keeps for itself. Start on your laptop. There’s no platform to build first.</p>
       <p class="buttons">
         <a class="btn primary" href="#install-box">Install the plugin</a>
-        <a class="btn" href="#first-prompt">Already installed? Try the cache prompt</a>
+        <a class="btn" href="#in-my-app">Start in my app</a>
+        <a class="btn" href="#build-my-first-app">Build my first app</a>
       </p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -272,21 +275,42 @@ claude plugin install confighub@confighub</code></pre>
       <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
     </div>
 
-    <div class="first-prompt-box" id="first-prompt">
-      <h3 id="why-is-the-cache-on">First after install: remember why the cache is on</h3>
+    <div class="install-card">
+      <h3 id="in-my-app">Already working on an app?</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the question about my app">Copy</button><code>What does ConfigHub remember about a setting we changed here, and why?</code></div>
+      <p class="small">Look for a setting, its old and new values, and the request behind the change. If the record is empty, ask for one change you want and say why. Or <a href="#first-prompt">try the cache example</a>.</p>
+      <h3 id="build-my-first-app">Starting in an empty folder?</h3>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small Node app for my neighborhood market. Give it a heading I can change in .env, run it locally and give me the link.</code></div>
+      <p class="small">Your agent builds the app. Open its link. When you want to compare headings, <a href="#try-a-change-in-my-app">ask for a preview</a>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    </div>
+  </div>
+  <div class="first-prompt-box" id="first-prompt">
+      <h3 id="why-is-the-cache-on">Five-minute example: why is the cache on?</h3>
       <p>In a test app with <code>CACHE=off</code> in <code>.env</code>, paste this into Claude Code or Codex. <a href="first-look.html#remember">Set up a sample folder</a> if you need one.</p>
-      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the first chat prompt">Copy</button><pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre></div>
+      <div class="snip"><button type="button" class="copy-btn" data-copy aria-label="Copy the example edit">Copy</button><pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre></div>
       <p>Look for <strong>ConfigHub plugin</strong> at the end of the turn. It shows <code>CACHE off → on</code> and quotes your request. Open a fresh chat in the same folder and ask:</p>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the cache question">Copy</button><code>Why is the cache on?</code></div>
       <p>The new chat can tell you it was for Saturday’s sale, even before you commit.</p>
       <p class="small"><a href="#try-a-change-in-my-app">Next, run a preview of your app →</a></p>
-    </div>
   </div>
 </section>
 
 <section id="problem">
   <h2>What basic problems ConfigHub solves</h2>
-  <p>Five everyday app-config headaches that happen as soon as coding agents edit your settings.</p>
+  <p>An agent can edit your app or start a second copy. ConfigHub keeps the reason for a setting, the settings each environment uses, and which change you approved for delivery.</p>
+
+  <div class="tablewrap" style="margin:1.15rem 0 1.4rem">
+    <table>
+      <thead><tr><th>What you ask your agent</th><th>What ConfigHub does</th><th>What you actually see</th></tr></thead>
+      <tbody>
+        <tr><td><strong>“Why is the cache on?”</strong></td><td>Reads the saved edit and prompt from <code>~/.confighub</code> even before you commit.</td><td><code>CACHE off → on</code> · “for Saturday’s sale” in a fresh chat.</td></tr>
+        <tr><td><strong>“Give me a sale preview.”</strong></td><td>Creates an isolated preview env from staging while your live app stays untouched.</td><td>Both URLs side by side; a fresh chat finds the running preview without the URL.</td></tr>
+        <tr><td><strong>“Open Friday’s production settings as a new preview.”</strong></td><td>Runs the current app with the settings saved for production on that hub.</td><td>The sample job queued in the preview and still finished in production.</td></tr>
+        <tr><td><strong>“Use this setup for my next app.”</strong></td><td>Links your second app to the same versioned starter while keeping per-app overrides.</td><td>Both apps pick up daily support hours; the shop keeps its coral banner and the cart keeps indigo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="problems">
     <div class="card">
       <h3>1. Deploy your app cleanly</h3>
@@ -296,7 +320,7 @@ claude plugin install confighub@confighub</code></pre>
     <div class="card">
       <h3>2. Know why a setting changed</h3>
       <p class="pain">An agent edits <code>.env</code> without committing, and tomorrow nobody knows why a value is set that way.</p>
-      <p><strong>ConfigHub:</strong> Records the prompt with every edit locally so the next chat explains it before you undo it.</p>
+      <p><strong>ConfigHub:</strong> Keeps the original request with supported edits so the next chat explains it before you undo it.</p>
     </div>
     <div class="card">
       <h3>3. Try changes without breaking your app</h3>
@@ -348,24 +372,32 @@ claude plugin install confighub@confighub</code></pre>
     </div>
   </div>
 
-  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/integrations.md">See all integrations</a></p>
+  <p class="small" style="margin-top:1rem">Also integrates with Git &amp; GitHub pull-request checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails. <a href="plugins.html">See all integrations</a></p>
 </section>
 
 <section id="start">
-  <h2>Next, try a change in a running app</h2>
-  <p>After the <a href="#first-prompt">cache example</a>, use your own app for a preview, or build a small app from scratch.</p>
-  <div class="two">
+  <h2>Try a change in your app</h2>
+  <p>Already partway through building the app? Once it runs locally and reads a setting from <code>.env</code>, you can ask to try a different value.</p>
+  <div class="grid3">
     <div class="card" id="try-a-change-in-my-app">
-      <h3>Try a change in my app</h3>
-      <p>Start in a local Node web app that reads its heading from <code>.env</code>. Paste this in the chat.</p>
+      <span class="badge ok">Existing app</span>
+      <h3>Try a change in a preview</h3>
+      <p class="small">In a local web app whose start script runs Node directly and that reads its heading from <code>.env</code>, ask:</p>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the preview prompt">Copy</button><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></div>
-      <p class="small">Say yes when your agent offers local setup. Open both links to compare the headings. In a fresh chat, ask “Is my preview still running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
+      <p class="small">Say yes to local setup. Open both links and compare the headings. In a fresh chat in the same folder, ask “Where’s the preview I left running?” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Existing app guide</a></p>
     </div>
-    <div class="card" id="build-my-first-app">
-      <h3>Build my first app</h3>
-      <p>Start in an empty Git folder. Paste this in the chat.</p>
-      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and separate staging and production settings. Run it locally and show me the greeting it serves.</code></div>
-      <p class="small">Open the local address and read the greeting. The hub keeps separate staging and production settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
+    <div class="card" id="reopen-friday-env">
+      <span class="badge ok">Saved settings</span>
+      <h3>Reopen Friday’s live settings</h3>
+      <p class="small">If this hub already held production settings on Friday, try them with today’s app code.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the Friday preview prompt">Copy</button><code>Open Friday’s production settings as a new preview.</code></div>
+      <p class="small">In the batch app, the older retry limit left the job queued. Production kept delivering on attempt four. <a href="mini.html#see-both">More preview examples</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Connected production app</span>
+      <h3>Ship a change you tried</h3>
+      <p>Ask your agent to show you the setting and its current production value. Review the change yourself. After you approve, ask the agent to check what the app serves.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">See it on Vercel</a> · <a href="first-look.html#starter">Reuse the setup for your next app</a></p>
     </div>
   </div>
 </section>
@@ -377,7 +409,7 @@ claude plugin install confighub@confighub</code></pre>
     <div class="card">
       <span class="badge ok">Step 1 · Zero servers</span>
       <h3>Plugin in your app folder</h3>
-      <p class="small">MIT-licensed hooks for Claude Code and Codex. Saves why each setting changed locally in <code>~/.confighub</code> with no account.</p>
+      <p class="small">MIT-licensed hooks for Claude Code and Codex. Keeps requests for supported setting changes locally in <code>~/.confighub</code> with no account.</p>
       <p class="small"><a href="plugin.html">How the Plugin works →</a></p>
     </div>
     <div class="card">
@@ -389,7 +421,7 @@ claude plugin install confighub@confighub</code></pre>
     <div class="card">
       <span class="badge soft">Step 3 · Team &amp; CI</span>
       <h3>Shared Hub &amp; Cloud</h3>
-      <p class="small">Move the exact same setup to a shared hub when a colleague or CI job needs access to the same settings, approvals, and history.</p>
+      <p class="small">Move current settings and their reasons to a hub teammates and CI can reach. Earlier revisions stay on the original hub.</p>
       <p class="small"><a href="hub.html">How Shared Hub works →</a></p>
     </div>
   </div>
@@ -521,7 +553,7 @@ defaults:
     </div>
     <div class="card">
       <h3>Free standalone local hub binary</h3>
-      <p style="margin-top:0">The local hub package (52 to 77 MB for macOS and Linux) bundles the prebuilt ConfigHub server and PostgreSQL as a free single-machine binary—no account, license key, or network needed after download. Downloaded when you run <code>/confighub:staging</code> in Claude Code (or <code>~/.codex/confighub/bin/confighub mini get</code> in Terminal), or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">installed standalone with SHA-256 checksums</a>.</p>
+      <p style="margin-top:0">The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">macOS and Linux package</a> bundles the prebuilt ConfigHub server and PostgreSQL as a free single-machine binary—no account, license key, or network needed after download. Downloaded when you run <code>/confighub:staging</code> in Claude Code (or <code>~/.codex/confighub/bin/confighub mini get</code> in Terminal), or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">installed standalone with SHA-256 checksums</a>.</p>
     </div>
   </div>
   <p class="small" style="margin-top:.9rem">Also supports <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software shipped with a built-in hub</a>. Machine-readable indexes for agents: <a href="llms.txt">Door A llms.txt</a> · <a href="catalog.json">catalog.json</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a>.</p>
