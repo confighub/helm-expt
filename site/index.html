@@ -56,10 +56,10 @@
 
   :root {
     color-scheme: light;
-    --bg: #ffffff; --surface: #ffffff; --surface-2: #f4f6f8;
+    --bg: #f8f9fb; --surface: #ffffff; --surface-2: #eaf0f6;
     --ink: #18243a; --muted: #4e5f75; --faint: #6c7d93;
-    --line: #d8dfe8; --line-strong: #c0cad6;
-    --accent: #244896; --accent-ink: #264d9b;
+    --line: #d0d9e4; --line-strong: #c0cad6;
+    --accent: #244896; --on-accent: #ffffff; --accent-ink: #264d9b;
     --pass: #13593f; --pass-bg: #e1f4eb;
     --watch: #70460b; --watch-bg: #fff1d2;
     --blocked: #b42318; --blocked-bg: #fee4e2;
@@ -69,8 +69,30 @@
     --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #101a2a; --surface: #172337; --surface-2: #223247;
+      --ink: #f0f4fb; --muted: #becde0; --faint: #8fa3bd;
+      --line: #384961; --line-strong: #4a5e78;
+      --accent: #b3d2ff; --on-accent: #152944; --accent-ink: #9ec7ff;
+      --pass: #a1eccd; --pass-bg: #193e34;
+      --watch: #f8d791; --watch-bg: #3e3322;
+      --blocked: #ffb5ac; --blocked-bg: #442225;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #101a2a; --surface: #172337; --surface-2: #223247;
+    --ink: #f0f4fb; --muted: #becde0; --faint: #8fa3bd;
+    --line: #384961; --line-strong: #4a5e78;
+    --accent: #b3d2ff; --on-accent: #152944; --accent-ink: #9ec7ff;
+    --pass: #a1eccd; --pass-bg: #193e34;
+    --watch: #f8d791; --watch-bg: #3e3322;
+    --blocked: #ffb5ac; --blocked-bg: #442225;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; }
+  body { margin: 0; background: var(--bg); color: var(--ink); }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .page { max-width: 1280px; margin: 0 auto; padding: 0 20px 8px; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
@@ -89,6 +111,14 @@
   .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
+  .home-rail details.rail-fold { margin: 4px 0 0; }
+  .home-rail details.rail-fold > summary { cursor: pointer; list-style: none; padding: 6px 0 6px 12px; color: var(--accent-ink); font-size: var(--cw-nav); font-weight: 550; border-left: 2px solid transparent; }
+  .home-rail details.rail-fold > summary::-webkit-details-marker { display: none; }
+  .home-rail details.rail-fold > summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .home-rail details.rail-fold[open] > summary::before { transform: rotate(90deg); }
+  .prompt-drawer { margin-top: 16px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); padding: 12px 16px; }
+  .prompt-drawer > summary { cursor: pointer; font-weight: 600; font-size: .94rem; color: var(--accent-ink); }
+  .prompt-drawer[open] > summary { margin-bottom: 12px; }
   .eyebrow { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); }
   .hero-head .eyebrow a { color: var(--accent-ink, var(--ink)); text-decoration: underline; text-underline-offset: 2px; }
   h1,h2,h3 { text-wrap: balance; }
@@ -156,7 +186,7 @@
   .qtable th { color: var(--muted); font-weight: 600; font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; }
   .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
-  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
   /* The third action is a different kind of thing from the first two. They are
@@ -297,11 +327,11 @@
   .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
   .cw-content :is(p, li, td) > code { border: 0; }
   code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
-  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--paper, var(--bg, var(--surface))) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
   .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
-  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
-  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 224px minmax(0, 1fr) 216px; gap: 0 36px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 224px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
   /* The rule above would split a word across lines in a narrow table column.
      A cell breaks between words. Code, links and mono text may break anywhere,
@@ -353,41 +383,50 @@
         <a class="rail-primary" href="./journey-values-did-nothing.html">Helm ignores my values</a>
         <a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>
         <a href="./journey-before-gitops.html">My chart behaves differently in GitOps</a>
-        <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
-        <a href="./example-argo-cd-app-of-apps.html">See an Argo CD example</a>
-        <a href="./example-flux-fleet.html">See a Flux fleet example</a>
-        <a href="./ai-chaos-in-production.html">See agents run a Sveltos fleet</a>
-        <a href="https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md">See a GPU fleet with Sveltos</a>
-        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
         <a href="./eks-inference.html">Try an EKS GPU inference platform</a>
-        <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>
-        <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
-        <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
-        <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
-        <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
-        <a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <a href="./ai.html#install-skill">Set up my AI agent</a>
         <a href="./ask.html">Check my charts and values</a>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <a href="./deploy-one-thing.html">Deploy one thing</a>
         <a href="./how-it-works.html">Promotions and Pipelines</a>
+        <details class="rail-fold">
+          <summary>More demos &amp; examples</summary>
+          <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
+          <a href="./example-argo-cd-app-of-apps.html">See an Argo CD example</a>
+          <a href="./example-flux-fleet.html">See a Flux fleet example</a>
+          <a href="./ai-chaos-in-production.html">See agents run a Sveltos fleet</a>
+          <a href="https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md">See a GPU fleet with Sveltos</a>
+          <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
+          <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>
+          <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
+        </details>
+        <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
+        <details class="rail-fold">
+          <summary>Model &amp; architecture</summary>
+          <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
+          <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
+          <a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a>
+        </details>
         <p class="rail-h"><strong>Common Questions</strong></p>
-        <a href="./charts/index.html">What’s in the Config Catalog?</a>
-        <a href="./apps.html">What does an example app look like?</a>
-        <a href="./compose-a-stack.html">How do I build my own platform?</a>
-        <a href="./stack.html">How do I run a pre-tested stack?</a>
-        <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
-        <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
-        <a href="./bring-sveltos-into-confighub.html">How do I bring in my Sveltos fleet?</a>
-        <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
-        <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
-        <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
-        <a href="./d/docs/user/app-to-live-walkthrough.html">How do I put my first app into ConfigHub?</a>
-        <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
-        <a href="./guides.html">Which Guide solves my problem?</a>
-        <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
+        <details class="rail-fold">
+          <summary>14 common questions</summary>
+          <a href="./charts/index.html">What’s in the Config Catalog?</a>
+          <a href="./apps.html">What does an example app look like?</a>
+          <a href="./compose-a-stack.html">How do I build my own platform?</a>
+          <a href="./stack.html">How do I run a pre-tested stack?</a>
+          <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
+          <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
+          <a href="./bring-sveltos-into-confighub.html">How do I bring in my Sveltos fleet?</a>
+          <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
+          <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
+          <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
+          <a href="./d/docs/user/app-to-live-walkthrough.html">How do I put my first app into ConfigHub?</a>
+          <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
+          <a href="./guides.html">Which Guide solves my problem?</a>
+          <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
+        </details>
       </nav>
       <header>
         <div class="hero-head">
@@ -481,7 +520,9 @@ claude plugin install confighub@confighub</code></pre>
           <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.</aside>
           <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></pre>
           <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install cub</a>. <a href="./ai.html">Full agent guide</a>.</p>
-          <div class="what-cards" style="margin-top:18px">
+          <details class="prompt-drawer">
+            <summary>Show 5 ready-to-paste agent prompts (GPU Fleets, Sandbox, Ops, Platform, Catalog)</summary>
+            <div class="what-cards" style="margin-top:8px">
             <div class="what-card">
               <h3>Prompt 1 · GPU Fleets</h3>
               <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Check the 8-part eks-inference GPU stack locally with cub stack sandbox eks-inference and list any conflicts.</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></p>
@@ -507,7 +548,8 @@ claude plugin install confighub@confighub</code></pre>
               <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Use https://confighub.github.io/helm-expt/site/llms.txt to inspect argo-cd 10.7.0 and list its CRDs and required Secrets.</code><button type="button" class="copy-prompt" aria-label="Copy this prompt">Copy</button></p>
               <p><strong>Observed:</strong> 55 rendered objects, 3 CRDs, and the required <code>argocd-redis</code> Secret read from one listing. <a href="./charts/argo-cd-argo-cd.html">Argo CD entry</a></p>
             </div>
-          </div>
+            </div>
+          </details>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">

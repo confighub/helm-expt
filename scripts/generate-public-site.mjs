@@ -1958,16 +1958,39 @@ function styleMatrixHtml(html) {
   const themeCss = `
 :root {
   color-scheme: light;
+  --paper: #f8f9fb;
   --ink: #18243a;
   --muted: #4e5f75;
-  --line: #d8dfe8;
+  --line: #d0d9e4;
   --surface: #ffffff;
-  --surface-2: #f4f6f8;
+  --surface-2: #eaf0f6;
   --accent: #244896;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
-body { margin: 0; padding: 0; background: var(--surface); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.5; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #101a2a;
+    --surface: #172337;
+    --surface-2: #223247;
+    --ink: #f0f4fb;
+    --muted: #becde0;
+    --line: #384961;
+    --accent: #9ec7ff;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #101a2a;
+  --surface: #172337;
+  --surface-2: #223247;
+  --ink: #f0f4fb;
+  --muted: #becde0;
+  --line: #384961;
+  --accent: #9ec7ff;
+}
+body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.5; }
 .matrix-cover {
   position: relative; isolation: isolate; overflow: hidden;
   margin: 0 0 20px; padding: clamp(22px, 3vw, 34px); border-radius: 14px;
@@ -3078,11 +3101,11 @@ function siteChromeCss() {
   .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
   .cw-content :is(p, li, td) > code { border: 0; }
   code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
-  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--paper, var(--bg, var(--surface))) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
   .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
-  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
-  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 224px minmax(0, 1fr) 216px; gap: 0 36px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 224px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
   /* The rule above would split a word across lines in a narrow table column.
      A cell breaks between words. Code, links and mono text may break anywhere,
@@ -3308,10 +3331,8 @@ function injectSiteChrome(html, relPath) {
   const bodyStart = bodyOpen.index + bodyOpen[0].length;
   const inner = out.slice(bodyStart, bodyClose);
   const section = siteSectionFor(relPath);
-  const toc = siteTocHtml(inner);
-  const next = siteNextHtml(relPath, section);
   const guidePage = isGuidePage(relPath);
-  const tocRail = guidePage || ["guides.html", "apps.html", "docs.html", "catalog-docs.html"].includes(relPath) ? "" : toc + next;
+  const tocRail = "";
   const sidebar = siteSidebarHtml(relPath, section, inner);
   const layout = `\n<a class="cw-skip" href="#cw-content">Skip to content</a>\n<div class="cw-header" role="banner">${chrome}</div>\n<div class="cw-layout${tocRail ? "" : " no-toc"}${guidePage ? " cw-guide" : ""}">\n<nav class="cw-sidebar" aria-label="Sections">${sidebar}</nav>\n<div class="cw-content" id="cw-content" tabindex="-1">\n<details class="cw-mobile-nav"><summary>${guidePage ? "In this Guide" : `Browse ${escapeHtml(section ? section.label : "the site")}`}</summary>${sidebar}</details>${inner}</div>\n${tocRail ? `<nav class="cw-toc" aria-label="On this page and where next">${tocRail}</nav>\n` : ""}</div>\n`;
   return out.slice(0, bodyStart) + layout + out.slice(bodyClose);
@@ -3685,10 +3706,10 @@ ${bannerCss()}
 
   :root {
     color-scheme: light;
-    --bg: #ffffff; --surface: #ffffff; --surface-2: #f4f6f8;
+    --bg: #f8f9fb; --surface: #ffffff; --surface-2: #eaf0f6;
     --ink: #18243a; --muted: #4e5f75; --faint: #6c7d93;
-    --line: #d8dfe8; --line-strong: #c0cad6;
-    --accent: #244896; --accent-ink: #264d9b;
+    --line: #d0d9e4; --line-strong: #c0cad6;
+    --accent: #244896; --on-accent: #ffffff; --accent-ink: #264d9b;
     --pass: #13593f; --pass-bg: #e1f4eb;
     --watch: #70460b; --watch-bg: #fff1d2;
     --blocked: #b42318; --blocked-bg: #fee4e2;
@@ -3698,8 +3719,30 @@ ${bannerCss()}
     --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #101a2a; --surface: #172337; --surface-2: #223247;
+      --ink: #f0f4fb; --muted: #becde0; --faint: #8fa3bd;
+      --line: #384961; --line-strong: #4a5e78;
+      --accent: #b3d2ff; --on-accent: #152944; --accent-ink: #9ec7ff;
+      --pass: #a1eccd; --pass-bg: #193e34;
+      --watch: #f8d791; --watch-bg: #3e3322;
+      --blocked: #ffb5ac; --blocked-bg: #442225;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #101a2a; --surface: #172337; --surface-2: #223247;
+    --ink: #f0f4fb; --muted: #becde0; --faint: #8fa3bd;
+    --line: #384961; --line-strong: #4a5e78;
+    --accent: #b3d2ff; --on-accent: #152944; --accent-ink: #9ec7ff;
+    --pass: #a1eccd; --pass-bg: #193e34;
+    --watch: #f8d791; --watch-bg: #3e3322;
+    --blocked: #ffb5ac; --blocked-bg: #442225;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; }
+  body { margin: 0; background: var(--bg); color: var(--ink); }
   .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
   .page { max-width: 1280px; margin: 0 auto; padding: 0 20px 8px; display: grid; grid-template-columns: 236px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 40px; align-items: start; }
   .page > header, .page > main, .page > footer { grid-column: 2; min-width: 0; }
@@ -3718,6 +3761,14 @@ ${bannerCss()}
   .home-rail .rail-h a { font: inherit; letter-spacing: inherit; padding: 0; border: 0; color: inherit; }
   .home-rail a:hover { color: var(--ink); border-left-color: var(--accent); }
   .home-rail a.rail-primary { color: var(--ink); font-weight: 640; border-left-color: var(--accent); }
+  .home-rail details.rail-fold { margin: 4px 0 0; }
+  .home-rail details.rail-fold > summary { cursor: pointer; list-style: none; padding: 6px 0 6px 12px; color: var(--accent-ink); font-size: var(--cw-nav); font-weight: 550; border-left: 2px solid transparent; }
+  .home-rail details.rail-fold > summary::-webkit-details-marker { display: none; }
+  .home-rail details.rail-fold > summary::before { content: "›"; display: inline-block; width: 12px; transition: transform .15s; color: var(--faint); }
+  .home-rail details.rail-fold[open] > summary::before { transform: rotate(90deg); }
+  .prompt-drawer { margin-top: 16px; border: 1px solid var(--line); border-radius: 11px; background: var(--surface); padding: 12px 16px; }
+  .prompt-drawer > summary { cursor: pointer; font-weight: 600; font-size: .94rem; color: var(--accent-ink); }
+  .prompt-drawer[open] > summary { margin-bottom: 12px; }
   .eyebrow { font-family: var(--sans); font-size: var(--cw-meta); letter-spacing: 0; text-transform: none; color: var(--muted); }
   .hero-head .eyebrow a { color: var(--accent-ink, var(--ink)); text-decoration: underline; text-underline-offset: 2px; }
   h1,h2,h3 { text-wrap: balance; }
@@ -3785,7 +3836,7 @@ ${bannerCss()}
   .qtable th { color: var(--muted); font-weight: 600; font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; }
   .qtable td:first-child { font-weight: 650; white-space: nowrap; }
   .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
-  .btn.primary { background: var(--accent); color: #fff; }
+  .btn.primary { background: var(--accent); color: var(--on-accent); }
   .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
   .btn.ghost:hover { border-color: var(--accent); }
   /* The third action is a different kind of thing from the first two. They are
@@ -4111,41 +4162,50 @@ function configTestCentreHome(catalog) {
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
 ${homeJourneyLinks()}
-        <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
-        <a href="./example-argo-cd-app-of-apps.html">See an Argo CD example</a>
-        <a href="./example-flux-fleet.html">See a Flux fleet example</a>
-        <a href="./ai-chaos-in-production.html">See agents run a Sveltos fleet</a>
-        <a href="https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md">See a GPU fleet with Sveltos</a>
-        <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
         <a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a>
         <a href="./eks-inference.html">Try an EKS GPU inference platform</a>
-        <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>
-        <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
-        <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
-        <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
-        <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
-        <a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a>
         <p class="rail-h"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p>
         <a href="./ai.html#install-skill">Set up my AI agent</a>
         <a href="./ask.html">Check my charts and values</a>
         <p class="rail-h"><strong><a href="./confighub.html#start-managing">ConfigHub: Deploy and manage</a></strong></p>
         <a href="./deploy-one-thing.html">Deploy one thing</a>
         <a href="./how-it-works.html">Promotions and Pipelines</a>
+        <details class="rail-fold">
+          <summary>More demos &amp; examples</summary>
+          <a href="./apps.html#before-and-after">See a Helm, Kustomize, Argo CD or Flux config before and after</a>
+          <a href="./example-argo-cd-app-of-apps.html">See an Argo CD example</a>
+          <a href="./example-flux-fleet.html">See a Flux fleet example</a>
+          <a href="./ai-chaos-in-production.html">See agents run a Sveltos fleet</a>
+          <a href="https://github.com/confighub/sveltos-confighub/blob/a759771deda2a1031daaff530d5c031ab81fc2bc/examples/gpu-operator/README.md">See a GPU fleet with Sveltos</a>
+          <a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a>
+          <a href="./nvke.html">See GPU add-ons on NVKE clusters</a>
+          <a href="./guides.html#guides-platforms-fleets">Platforms and fleets</a>
+        </details>
+        <p class="rail-h"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p>
+        <details class="rail-fold">
+          <summary>Model &amp; architecture</summary>
+          <a href="./d/docs/user/model-and-vocabulary.html">How the model works</a>
+          <a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a>
+          <a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a>
+        </details>
         <p class="rail-h"><strong>Common Questions</strong></p>
-        <a href="./charts/index.html">What’s in the Config Catalog?</a>
-        <a href="./apps.html">What does an example app look like?</a>
-        <a href="./compose-a-stack.html">How do I build my own platform?</a>
-        <a href="./stack.html">How do I run a pre-tested stack?</a>
-        <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
-        <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
-        <a href="./bring-sveltos-into-confighub.html">How do I bring in my Sveltos fleet?</a>
-        <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
-        <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
-        <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
-        <a href="./d/docs/user/app-to-live-walkthrough.html">How do I put my first app into ConfigHub?</a>
-        <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
-        <a href="./guides.html">Which Guide solves my problem?</a>
-        <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
+        <details class="rail-fold">
+          <summary>14 common questions</summary>
+          <a href="./charts/index.html">What’s in the Config Catalog?</a>
+          <a href="./apps.html">What does an example app look like?</a>
+          <a href="./compose-a-stack.html">How do I build my own platform?</a>
+          <a href="./stack.html">How do I run a pre-tested stack?</a>
+          <a href="./bring-argo-into-confighub.html">How do I bring in my Argo CD apps?</a>
+          <a href="./bring-flux-into-confighub.html">How do I bring in my Flux fleet?</a>
+          <a href="./bring-sveltos-into-confighub.html">How do I bring in my Sveltos fleet?</a>
+          <a href="./deploy-one-thing.html">How do I deploy one thing?</a>
+          <a href="./confighub.html#start-managing">How do I deploy and promote my app?</a>
+          <a href="./d/docs/user/workshop-gpu-operator-upgrade-guide.html">What does a GPU Operator upgrade change?</a>
+          <a href="./d/docs/user/app-to-live-walkthrough.html">How do I put my first app into ConfigHub?</a>
+          <a href="./d/docs/user/workshop-review-a-change-guide.html">How do I review a change before it ships?</a>
+          <a href="./guides.html">Which Guide solves my problem?</a>
+          <a href="./guides.html#guides-helm-questions">How do I solve Helm problems?</a>
+        </details>
       </nav>
       <header>
         <div class="hero-head">
@@ -4231,7 +4291,9 @@ ${homeJourneyLinks()}
           ${agentNote(` Start at <a href="./llms.txt">llms.txt</a>. It names the five section files first, and they hold the same lists as data.`)}
           <pre class="agent-prompt prompt-pre"><code class="prompt-text">npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop</code>${copyPromptButton()}</pre>
           <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install cub</a>. <a href="./ai.html">Full agent guide</a>.</p>
-          <div class="what-cards" style="margin-top:18px">
+          <details class="prompt-drawer">
+            <summary>Show 5 ready-to-paste agent prompts (GPU Fleets, Sandbox, Ops, Platform, Catalog)</summary>
+            <div class="what-cards" style="margin-top:8px">
             <div class="what-card">
               <h3>Prompt 1 · GPU Fleets</h3>
               <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Check the 8-part eks-inference GPU stack locally with cub stack sandbox eks-inference and list any conflicts.</code>${copyPromptButton()}</p>
@@ -4257,7 +4319,8 @@ ${homeJourneyLinks()}
               <p class="agent-prompt" style="margin:6px 0"><code class="prompt-text">Use https://confighub.github.io/helm-expt/site/llms.txt to inspect argo-cd 10.7.0 and list its CRDs and required Secrets.</code>${copyPromptButton()}</p>
               <p><strong>Observed:</strong> 55 rendered objects, 3 CRDs, and the required <code>argocd-redis</code> Secret read from one listing. <a href="./charts/argo-cd-argo-cd.html">Argo CD entry</a></p>
             </div>
-          </div>
+            </div>
+          </details>
         </section>
         <div class="home-overview">
         <section class="section" id="the-catalog">
@@ -17085,23 +17148,90 @@ function siteCss() {
   return `
     :root {
       color-scheme: light;
+      --paper: #f8f9fb;
       --ink: #18243a;
       --muted: #4e5f75;
       --faint: #6c7d93;
-      --line: #d8dfe8;
+      --line: #d0d9e4;
       --line-strong: #c0cad6;
-      --panel: #f4f6f8;
-      --surface-2: #f4f6f8;
+      --panel: #eaf0f6;
+      --surface-2: #eaf0f6;
       --accent: #244896;
       --accent-ink: #264d9b;
+      --on-accent: #ffffff;
       --good: #13593f;
+      --good-bg: #e1f4eb;
+      --good-line: #9bd3b8;
       --warn: #70460b;
+      --warn-bg: #fff1d2;
+      --warn-line: #efca92;
       --bad: #b42318;
+      --bad-bg: #fee4e2;
+      --bad-line: #f0aaa4;
+      --todo-ink: #335c87;
+      --todo-bg: #f0f6fc;
+      --todo-line: #b5cbe1;
       --surface: #ffffff;
       --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
       --term: #142238;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --paper: #101a2a;
+        --surface: #172337;
+        --panel: #223247;
+        --surface-2: #223247;
+        --ink: #f0f4fb;
+        --muted: #becde0;
+        --faint: #8fa3bd;
+        --line: #384961;
+        --line-strong: #4a5e78;
+        --accent: #9ec7ff;
+        --accent-ink: #b3d2ff;
+        --on-accent: #152944;
+        --good: #a1eccd;
+        --good-bg: #193e34;
+        --good-line: #2d6b57;
+        --warn: #f8d791;
+        --warn-bg: #3e3322;
+        --warn-line: #6d5530;
+        --bad: #ffb5ac;
+        --bad-bg: #442225;
+        --bad-line: #7a3c41;
+        --todo-ink: #9ec7ff;
+        --todo-bg: #1e3148;
+        --todo-line: #3b5878;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #101a2a;
+      --surface: #172337;
+      --panel: #223247;
+      --surface-2: #223247;
+      --ink: #f0f4fb;
+      --muted: #becde0;
+      --faint: #8fa3bd;
+      --line: #384961;
+      --line-strong: #4a5e78;
+      --accent: #9ec7ff;
+      --accent-ink: #b3d2ff;
+      --on-accent: #152944;
+      --good: #a1eccd;
+      --good-bg: #193e34;
+      --good-line: #2d6b57;
+      --warn: #f8d791;
+      --warn-bg: #3e3322;
+      --warn-line: #6d5530;
+      --bad: #ffb5ac;
+      --bad-bg: #442225;
+      --bad-line: #7a3c41;
+      --todo-ink: #9ec7ff;
+      --todo-bg: #1e3148;
+      --todo-line: #3b5878;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -17110,7 +17240,7 @@ function siteCss() {
       margin: 0;
       font-family: var(--sans);
       color: var(--ink);
-      background: var(--surface);
+      background: var(--paper);
       line-height: 1.5;
       font-size: 15px;
     }
@@ -17224,10 +17354,10 @@ ${bannerCss()}
       display: inline-block;
       margin: 0 0 8px;
       padding: 8px 12px;
-      border: 1px solid #f0c36d;
+      border: 1px solid var(--warn-line);
       border-radius: 8px;
-      background: #fff8e5;
-      color: #6d4b00;
+      background: var(--warn-bg);
+      color: var(--warn);
       font-weight: 700;
       letter-spacing: 0;
     }
@@ -17279,7 +17409,7 @@ ${bannerCss()}
       letter-spacing: 0;
     }
     .button.primary {
-      color: #fff;
+      color: var(--on-accent);
       background: var(--accent);
       border-color: var(--accent);
     }
@@ -17375,7 +17505,7 @@ ${bannerCss()}
     .tier h3 { font-size: 1.06rem; }
     .tier p { font-size: .9rem; margin: 0; }
     .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
-    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.now { color: var(--good); background: var(--good-bg); border-color: var(--good-line); }
     .tier .badge.planned { color: var(--muted); background: var(--panel); }
     .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
     .card, .metric, .lane {
@@ -17402,7 +17532,7 @@ ${bannerCss()}
       gap: 10px;
       min-height: 100%;
     }
-    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-card.later { border-color: var(--warn-line); background: var(--surface); }
     .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
     .faq-head h3 { margin: 0; font-size: 1.06rem; }
     .faq-status {
@@ -17414,14 +17544,14 @@ ${bannerCss()}
       color: var(--muted);
       background: var(--panel);
     }
-    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card.later .faq-status { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
     .faq-card p { max-width: none; margin: 0; }
     .faq-links { margin-top: auto; font-size: .9rem; }
     .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
     .faq-card table { font-size: .78rem; }
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
-    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .status.good { color: var(--good); border-color: var(--good-line); background: var(--good-bg); }
+    .status.warn { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
     .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
     .matrix-row-card {
       border: 1px solid var(--line);
@@ -17467,15 +17597,15 @@ ${bannerCss()}
     }
     .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
     .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
-    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
-    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
-    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .lane-pill.yes { color: var(--good); border-color: var(--good-line); background: var(--good-bg); }
+    .lane-pill.watch { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
+    .lane-pill.no { color: var(--bad); border-color: var(--bad-line); background: var(--bad-bg); }
+    .lane-pill.todo { color: var(--todo-ink); border-color: var(--todo-line); background: var(--todo-bg); }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: var(--panel); }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
-    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar { height: 7px; border-radius: 999px; background: var(--panel); overflow: hidden; margin-top: 12px; }
     .bar span { display: block; height: 100%; background: var(--good); }
     table { border-collapse: collapse; width: 100%; font-size: .9rem; }
     th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }

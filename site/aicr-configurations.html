@@ -15,23 +15,90 @@
   <style>
     :root {
       color-scheme: light;
+      --paper: #f8f9fb;
       --ink: #18243a;
       --muted: #4e5f75;
       --faint: #6c7d93;
-      --line: #d8dfe8;
+      --line: #d0d9e4;
       --line-strong: #c0cad6;
-      --panel: #f4f6f8;
-      --surface-2: #f4f6f8;
+      --panel: #eaf0f6;
+      --surface-2: #eaf0f6;
       --accent: #244896;
       --accent-ink: #264d9b;
+      --on-accent: #ffffff;
       --good: #13593f;
+      --good-bg: #e1f4eb;
+      --good-line: #9bd3b8;
       --warn: #70460b;
+      --warn-bg: #fff1d2;
+      --warn-line: #efca92;
       --bad: #b42318;
+      --bad-bg: #fee4e2;
+      --bad-line: #f0aaa4;
+      --todo-ink: #335c87;
+      --todo-bg: #f0f6fc;
+      --todo-line: #b5cbe1;
       --surface: #ffffff;
       --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --heading: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
       --term: #142238;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --paper: #101a2a;
+        --surface: #172337;
+        --panel: #223247;
+        --surface-2: #223247;
+        --ink: #f0f4fb;
+        --muted: #becde0;
+        --faint: #8fa3bd;
+        --line: #384961;
+        --line-strong: #4a5e78;
+        --accent: #9ec7ff;
+        --accent-ink: #b3d2ff;
+        --on-accent: #152944;
+        --good: #a1eccd;
+        --good-bg: #193e34;
+        --good-line: #2d6b57;
+        --warn: #f8d791;
+        --warn-bg: #3e3322;
+        --warn-line: #6d5530;
+        --bad: #ffb5ac;
+        --bad-bg: #442225;
+        --bad-line: #7a3c41;
+        --todo-ink: #9ec7ff;
+        --todo-bg: #1e3148;
+        --todo-line: #3b5878;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #101a2a;
+      --surface: #172337;
+      --panel: #223247;
+      --surface-2: #223247;
+      --ink: #f0f4fb;
+      --muted: #becde0;
+      --faint: #8fa3bd;
+      --line: #384961;
+      --line-strong: #4a5e78;
+      --accent: #9ec7ff;
+      --accent-ink: #b3d2ff;
+      --on-accent: #152944;
+      --good: #a1eccd;
+      --good-bg: #193e34;
+      --good-line: #2d6b57;
+      --warn: #f8d791;
+      --warn-bg: #3e3322;
+      --warn-line: #6d5530;
+      --bad: #ffb5ac;
+      --bad-bg: #442225;
+      --bad-line: #7a3c41;
+      --todo-ink: #9ec7ff;
+      --todo-bg: #1e3148;
+      --todo-line: #3b5878;
     }
     * { box-sizing: border-box; }
     input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
@@ -40,7 +107,7 @@
       margin: 0;
       font-family: var(--sans);
       color: var(--ink);
-      background: var(--surface);
+      background: var(--paper);
       line-height: 1.5;
       font-size: 15px;
     }
@@ -192,10 +259,10 @@
       display: inline-block;
       margin: 0 0 8px;
       padding: 8px 12px;
-      border: 1px solid #f0c36d;
+      border: 1px solid var(--warn-line);
       border-radius: 8px;
-      background: #fff8e5;
-      color: #6d4b00;
+      background: var(--warn-bg);
+      color: var(--warn);
       font-weight: 700;
       letter-spacing: 0;
     }
@@ -247,7 +314,7 @@
       letter-spacing: 0;
     }
     .button.primary {
-      color: #fff;
+      color: var(--on-accent);
       background: var(--accent);
       border-color: var(--accent);
     }
@@ -343,7 +410,7 @@
     .tier h3 { font-size: 1.06rem; }
     .tier p { font-size: .9rem; margin: 0; }
     .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
-    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.now { color: var(--good); background: var(--good-bg); border-color: var(--good-line); }
     .tier .badge.planned { color: var(--muted); background: var(--panel); }
     .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
     .card, .metric, .lane {
@@ -370,7 +437,7 @@
       gap: 10px;
       min-height: 100%;
     }
-    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-card.later { border-color: var(--warn-line); background: var(--surface); }
     .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
     .faq-head h3 { margin: 0; font-size: 1.06rem; }
     .faq-status {
@@ -382,14 +449,14 @@
       color: var(--muted);
       background: var(--panel);
     }
-    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card.later .faq-status { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
     .faq-card p { max-width: none; margin: 0; }
     .faq-links { margin-top: auto; font-size: .9rem; }
     .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
     .faq-card table { font-size: .78rem; }
     .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
-    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .status.good { color: var(--good); border-color: var(--good-line); background: var(--good-bg); }
+    .status.warn { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
     .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
     .matrix-row-card {
       border: 1px solid var(--line);
@@ -435,15 +502,15 @@
     }
     .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
     .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
-    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
-    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
-    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .lane-pill.yes { color: var(--good); border-color: var(--good-line); background: var(--good-bg); }
+    .lane-pill.watch { color: var(--warn); border-color: var(--warn-line); background: var(--warn-bg); }
+    .lane-pill.no { color: var(--bad); border-color: var(--bad-line); background: var(--bad-bg); }
+    .lane-pill.todo { color: var(--todo-ink); border-color: var(--todo-line); background: var(--todo-bg); }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: var(--panel); }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
-    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar { height: 7px; border-radius: 999px; background: var(--panel); overflow: hidden; margin-top: 12px; }
     .bar span { display: block; height: 100%; background: var(--good); }
     table { border-collapse: collapse; width: 100%; font-size: .9rem; }
     th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
@@ -675,11 +742,11 @@
   .cw-content :is(.button, .route-help > summary, details.deep > summary) { font-size: var(--cw-body); }
   .cw-content :is(p, li, td) > code { border: 0; }
   code, pre, kbd, samp { font-family: var(--mono, "IBM Plex Mono", ui-monospace, monospace); }
-  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .cw-header { position: sticky; top: 0; z-index: 60; background: color-mix(in srgb, var(--paper, var(--bg, var(--surface))) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
   .cw-header .site-chrome { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
   .cw-header .topbar { position: static; border-bottom: 0; background: transparent; backdrop-filter: none; max-width: none; padding: 10px 0; }
-  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 236px minmax(0, 1fr) 216px; gap: 0 40px; align-items: start; }
-  .cw-layout.no-toc { grid-template-columns: 236px minmax(0, 1fr); }
+  .cw-layout { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 224px minmax(0, 1fr) 216px; gap: 0 36px; align-items: start; }
+  .cw-layout.no-toc { grid-template-columns: 224px minmax(0, 1fr); }
   .cw-content { min-width: 0; overflow-wrap: anywhere; }
   /* The rule above would split a word across lines in a narrow table column.
      A cell breaks between words. Code, links and mono text may break anywhere,
@@ -725,7 +792,7 @@
 <body class="calm-page">
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="https://confighub.github.io/helm-expt/ai-agents/">Coding Agents</a><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
-<div class="cw-layout">
+<div class="cw-layout no-toc">
 <nav class="cw-sidebar" aria-label="Sections"><p class="cw-nav-title"><strong><a href="./index.html#popular-examples">Five K8s use cases</a></strong></p><ul><li><a href="./try-aicr.html">1. GPU Fleets</a></li><li><a href="./try.html">2. AI Sandbox on K8s</a></li><li><a href="./why-did-helm-ignore-my-values.html">3. AI Operations for K8s</a></li><li><a href="./compose-a-stack.html">4. Agentic Platform</a></li><li><a href="./charts/index.html">5. Browse the Catalog</a></li></ul>
     <p class="cw-nav-title"><strong><a href="./guides.html#guides-deep-dives">Deep Dives</a></strong></p><ul><li><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a></li><li><a href="./d/docs/user/model-and-vocabulary.html#words">What our words mean</a></li><li><a href="./ai-chaos-in-production.html">Can AI fix my Sveltos fleet?</a></li></ul>
     <p class="cw-nav-title"><strong><a href="./ai.html">AI: Claude and Codex patterns</a></strong></p><ul><li><a href="./ai.html#install-skill">Set up my AI agent</a></li><li><a href="./ask.html">Check my charts and values</a></li></ul>
@@ -781,7 +848,6 @@
   </section>
   </main>
 </div>
-<nav class="cw-toc" aria-label="On this page and where next"><p class="cw-nav-title cw-next-title">Where next</p><ul><li><a href="./agents-maintain-the-catalog.html">How agents help maintain the Catalog &rarr;</a></li></ul></nav>
 </div>
 <nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./eks-inference.html">Try an EKS GPU inference platform</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
