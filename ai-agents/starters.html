@@ -245,6 +245,41 @@ wires:
   </div>
 </section>
 
+<section id="k8s-and-gpu">
+  <h2>Need Kubernetes, GitOps, or GPU stacks?</h2>
+  <p>When your app outgrows <code>.env</code> and moves into Kubernetes, GitOps fleets, or GPU clusters, the same ConfigHub model scales into the <strong>ConfigHub AI Workshop for Kubernetes</strong> (Door B)—528 pre-rendered configs, 12 checked stacks, and open-source <code>cub</code> plugins.</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Door B · 528 configs</span>
+      <h3>Helm &amp; Kustomize Catalog</h3>
+      <p class="small">Inspect exact rendered Kubernetes objects, catch Helm values that were silently ignored, and start from tested before-and-after app configs.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Use https://confighub.github.io/helm-expt/site/llms.txt to check our Helm chart and values.yaml and list any keys Helm ignores.</code></div>
+      <p class="small"><a href="../site/charts/index.html">Browse Catalog</a> · <a href="../site/why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="../site/apps.html">25 example apps</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Door B · GitOps &amp; fleets</span>
+      <h3>Argo CD, Flux &amp; Sveltos Fleets</h3>
+      <p class="small">Keep your existing Argo CD, Flux, or Sveltos controllers while ConfigHub tracks bases, variants, reasons, and production approval gates above them.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Use https://confighub.github.io/helm-expt/site/llms.txt to show how to onboard our Argo CD or Flux repo into ConfigHub without changing how it syncs.</code></div>
+      <p class="small"><a href="../site/bring-argo-into-confighub.html">Bring in Argo CD</a> · <a href="../site/bring-flux-into-confighub.html">Bring in Flux</a> · <a href="../site/bring-sveltos-into-confighub.html">Bring in Sveltos</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Door B · 138 AICR recipes</span>
+      <h3>GPU Fleets &amp; NVIDIA AICR / NIM</h3>
+      <p class="small">Compare GPU node recipes, check <code>gpu-operator</code> upgrades, and sandbox an 8-component EKS GPU inference stack offline before touching AWS.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Use https://confighub.github.io/helm-expt/site/llms.txt to inspect the eks-inference GPU stack and check for conflicts offline.</code></div>
+      <p class="small"><a href="../site/try-aicr.html">NVIDIA AICR</a> · <a href="../site/eks-inference.html">EKS GPU stack</a> · <a href="../site/nvke.html">NVKE lab</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Door B · 12 checked stacks</span>
+      <h3>Agentic Platforms &amp; Kubara Stacks</h3>
+      <p class="small">Compose multi-component platforms from tested Catalog entries and Kubara add-ons, catching CRD, namespace, and RBAC clashes before apply.</p>
+      <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>Use https://confighub.github.io/helm-expt/site/llms.txt to compose a local stack.yaml and check it for CRD or RBAC conflicts.</code></div>
+      <p class="small"><a href="../site/stack.html">12 checked stacks</a> · <a href="../site/compose-a-stack.html">Compose a stack</a> · <a href="../site/bring-kubara-into-confighub.html">Bring in Kubara</a></p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p><a href="./">Overview</a> · <a href="plugins.html">Integrations</a> · <a href="stories.html">Field stories</a> · <a href="../site/">Kubernetes Workshop</a></p>
 </footer>

@@ -272,8 +272,39 @@
   </div>
 </section>
 
+<section id="k8s-graduation">
+  <h2>Growing into Kubernetes, GitOps &amp; GPU fleets</h2>
+  <p>Already using the plugin or <code>cub mini</code> on an app? These four stories show the direct path into Helm, Argo CD, Flux, Sveltos, NVIDIA AICR, and Kubara in the <a href="../site/">Kubernetes Workshop</a>.</p>
+  <div class="two">
+    <div class="card">
+      <span class="badge ok">Mini → GitOps</span>
+      <h3>From local <code>.env</code> app to Argo CD or Flux</h3>
+      <p class="small">Keep Kustomize overlays in ConfigHub so staging reconciles automatically while production waits for owner approval—without replacing Argo CD or Flux.</p>
+      <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux starter</a> · <a href="../site/deploy-with-flux-or-argo.html">GitOps guide</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">Verified · Story 18.02</span>
+      <h3>Workshop Redis package → <code>cub mini</code> → Shared Hub</h3>
+      <p class="small">Take the tested <code>bitnami-redis</code> Catalog package through a local mini hub to a shared hub and live cluster while keeping staging reasons and two ready read replicas.</p>
+      <p class="small"><a href="../site/redis-walkthrough.html#local-to-shared">Follow the Redis handoff</a> · <a href="../site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json">Workshop listing</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">AI Ops on K8s</span>
+      <h3>Agent debugging ignored Helm values or a Sveltos fleet</h3>
+      <p class="small">Diff rendered YAML to catch misspelled Helm keys before apply, or watch an agent diagnose and repair a broken Sveltos fleet behind approvals.</p>
+      <p class="small"><a href="../site/why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="../site/ai-chaos-in-production.html">Sveltos fleet repair</a></p>
+    </div>
+    <div class="card">
+      <span class="badge ok">GPU &amp; Platform Stacks</span>
+      <h3>Scaling to GPU inference, NVIDIA AICR &amp; Kubara</h3>
+      <p class="small">Sandbox an 8-component EKS GPU inference platform offline (130 objects, 0 conflicts), match NVIDIA AICR recipes, or bring Kubara add-ons into ConfigHub.</p>
+      <p class="small"><a href="../site/eks-inference.html">EKS GPU stack</a> · <a href="../site/try-aicr.html">NVIDIA AICR</a> · <a href="../site/bring-kubara-into-confighub.html">Kubara guide</a></p>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p><a href="./">Overview</a> · <a href="starters.html">Starters &amp; recipes</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">All walkthroughs on GitHub</a></p>
+  <p><a href="./">Overview</a> · <a href="starters.html">Starters &amp; recipes</a> · <a href="starters.html#k8s-and-gpu">K8s &amp; GPU stacks</a> · <a href="../site/">Kubernetes Workshop</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/README.md">All walkthroughs on GitHub</a></p>
 </footer>
 </div>
 <script src="assets/site.js"></script>
