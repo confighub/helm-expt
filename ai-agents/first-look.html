@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en" data-client="claude">
+<html lang="en" data-client="claude" data-start-mode="new">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Three short exercises for three problems with coding agents: an uncommitted change nobody can explain, an idea you can only try on the real app, and a setting you have to copy into every new app.">
+  <meta name="description" content="Three short exercises for coding agents: remember why a setting changed, try a change or Friday’s settings in a preview, and reuse a working setup on your next app.">
   <title>Three things to try first · ConfigHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <style>
 :root {
   color-scheme: light;
@@ -52,8 +53,8 @@ body {
   width: min(100% - 2 * var(--gutter), 74rem); margin-inline: auto;
 }
 h1, h2, h3, h4, p, pre { margin: 0; }
-h1, h2, h3, h4 { text-wrap: balance; line-height: 1.16; }
-h2 { max-width: 32ch; font-size: clamp(1.7rem, 3.3vw, 2.65rem); letter-spacing: -.045em; }
+h1, h3, h4 { text-wrap: balance; line-height: 1.16; }
+h2 { line-height: 1.16; max-width: none; font-size: clamp(1.4rem, 2.2vw, 2.05rem); letter-spacing: -.035em; }
 h3 { font-size: 1.17rem; letter-spacing: -.02em; }
 p { max-width: 74ch; }
 p + p { margin-top: .72rem; }
@@ -120,20 +121,36 @@ footer { color: var(--muted); font-size: .9rem; padding-block: 1.7rem 2.6rem; li
   th, td { padding: .65rem .55rem; }
 }
 
-header { padding-top: 1rem; }
-header > .eyebrow { display: inline-flex; align-items: center; background: var(--primary); color: var(--on-primary); border-radius: .4rem; padding: .46rem .9rem; font-size: .89rem; font-weight: 600; text-decoration: none; margin-bottom: 1rem; }
-header > .eyebrow:hover { text-decoration: underline; }
-header .cover h1 { max-width: 14ch; }
-.arch-grid, .ops-grid, .story-body { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.85rem, 2vw, 1.45rem); }
+header { padding-top: 0; }
+.topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .65rem 1.25rem; padding-block: 1rem; }
+.eyebrow { display: inline-flex; align-items: center; gap: .65rem; font-size: .91rem; font-weight: 600; letter-spacing: -.015em; text-decoration: none; color: var(--ink); }
+.eyebrow::before { content: ""; width: 1.6rem; height: 1.6rem; border-radius: .42rem; background: linear-gradient(150deg, transparent 32%, #99e9ca 32% 42%, transparent 42% 52%, #9ae7cf 52% 62%, transparent 62%), #18354d; }
+.topnav { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .85rem; }
+.topnav a { display: inline-flex; align-items: center; text-decoration: none; color: var(--muted); font-size: .86rem; font-weight: 550; padding: .22rem .1rem; }
+.topnav a:hover { color: var(--link); text-decoration: underline; }
+.topnav a[aria-current="page"] { color: var(--ink); font-weight: 650; border-bottom: 2px solid var(--link); }
+header .cover h1 { max-width: 16ch; }
+.arch-grid, .ops-grid, .story-body, .next-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(.85rem, 2vw, 1.45rem); }
+.next-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 1.25rem; }
 .arch-grid { margin-top: 1.35rem; }
-.arch-card, .ops-card, .result, .setup-box { background: var(--surface); border: 1px solid var(--line); border-radius: .65rem; padding: clamp(1rem, 1.8vw, 1.55rem); min-width: 0; }
-.arch-card { border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
+.arch-card, .ops-card, .result, .setup-box, .mini-note { background: var(--surface); border: 1px solid var(--line); border-radius: .65rem; padding: clamp(1rem, 1.8vw, 1.45rem); min-width: 0; }
+.arch-card, .next-grid .ops-card { border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
 .arch-card strong { display: block; font-size: 1.06rem; }
 .arch-card p { margin-top: .4rem; color: var(--muted); font-size: .96rem; }
-.setup-box { margin-top: 1rem; }
+.mini-note { margin-top: 1.1rem; border-left: 3px solid var(--link); background: var(--soft); padding: .85rem 1.1rem; font-size: .94rem; }
+.mini-note p { max-width: none; }
+.setup-box { margin-top: 1.15rem; }
 .setup-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-bottom: .75rem; }
-.setup-title { font-weight: 650; font-size: 1.15rem; }
+.setup-title { font-weight: 650; font-size: 1.12rem; }
 html[data-client="claude"] .only-codex, html[data-client="codex"] .only-claude { display: none; }
+html[data-start-mode="new"] .only-existing, html[data-start-mode="existing"] .only-new { display: none; }
+.mode-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem .8rem; margin-bottom: .5rem; }
+.friday-box { margin-top: 1.35rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
+.friday-box h3 { font-size: 1rem; margin-bottom: .35rem; }
+.friday-box p { max-width: none; }
+.adv-details { margin-top: 1.35rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--surface); padding: .9rem 1.15rem; }
+.adv-details > summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.adv-details[open] > summary { margin-bottom: 1rem; }
 .snip { margin: .55rem 0 .7rem; }
 .snip .prompt-label { display: block; padding: .7rem 4.25rem 0 1rem; color: var(--terminal-muted); font: 600 .7rem/1.5 var(--sans); text-transform: uppercase; letter-spacing: .08em; }
 .snip .prompt-label + pre, .snip:has(.prompt-label) pre { padding: .4rem 1rem .9rem; }
@@ -162,42 +179,34 @@ footer > a:first-child { font-weight: 650; }
 .host-try summary { cursor: pointer; font-weight: 600; }
 .host-try[open] > .snip, .host-try > p { margin-top: .6rem; }
 .story > .problem + p { margin-top: .75rem; color: var(--muted); }
-@media (max-width: 48rem) { .arch-grid, .story-body, .ops-grid { grid-template-columns: 1fr; } }
+@media (max-width: 48rem) { .arch-grid, .story-body, .ops-grid, .next-grid { grid-template-columns: 1fr; } }
 @media (max-width: 32rem) { .steps > li { padding-left: 2.15rem; } .jumps { display: grid; } }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <p style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem 1.2rem;margin:0 0 1rem">
-      <a class="eyebrow" href="./">← ConfigHub for coding agents</a>
-      <span style="display:flex;flex-wrap:wrap;gap:.5rem 1rem;font-size:.88rem;font-weight:550">
+    <div class="topbar">
+      <a class="eyebrow" href="./">ConfigHub · For Claude Code and Codex</a>
+      <nav class="topnav" aria-label="Page navigation">
+        <a href="first-look.html" aria-current="page">Try first</a>
         <a href="./#why-how">How it works</a>
         <a href="starters.html">Starters</a>
         <a href="stories.html">Stories</a>
         <a href="reference.html">Docs</a>
-      </span>
-    </p>
+      </nav>
+    </div>
     <div class="cover">
-    <div><h1>Three things to try first</h1>
-    <p class="lead">Your coding agent changes settings without committing, tries ideas on the app you actually use, and leaves you to copy what worked into the next app. Start with one uncommitted edit in five minutes. Add a local hub when you want a running preview or a second app to share your defaults.</p></div>
-    <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
-  </div>
-
-    <div class="arch-grid" aria-label="What runs on your computer">
-      <div class="arch-card">
-        <strong>1. The plugin (<code>confighub</code>) · Exercise 1</strong>
-        <p>Lightweight session hooks for Claude Code or Codex. Keeps the request behind supported setting edits in <code>~/.confighub</code> on your machine. No background server and no account.</p>
+      <div>
+        <h1>Three things to try first</h1>
+        <p class="lead">Start in five minutes with one uncommitted setting—zero servers, zero accounts. Add the local hub in Exercise 2 when you want an isolated preview, Friday’s saved settings, or a second app that inherits your working defaults.</p>
       </div>
-      <div class="arch-card">
-        <strong>2. The local hub (<code>cub mini</code>, optional) · Exercises 2 and 3</strong>
-        <p>Starts the ConfigHub server and a local PostgreSQL on <code>127.0.0.1</code> only (no Docker, no account). Adds isolated previews, staging vs. production copies, and scoped agent keys.</p>
-      </div>
+      <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
     </div>
 
     <div class="setup-box" id="setup">
       <div class="setup-head">
-        <p class="setup-title">Install the plugin</p>
+        <p class="setup-title">Install the plugin (MIT · zero background processes)</p>
         <div class="tabs" role="group" aria-label="Choose your coding agent">
           <button type="button" data-set-client="claude" aria-pressed="true">Claude Code</button>
           <button type="button" data-set-client="codex" aria-pressed="false">Codex CLI</button>
@@ -210,7 +219,7 @@ footer > a:first-child { font-weight: 650; }
           <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin
 claude plugin install confighub@confighub</code></pre>
         </div>
-        <p class="small" style="margin:.35rem 0 0">Open a fresh Claude Code chat in your project folder. Type <code>/confighub:changes</code> for the full record.</p>
+        <p class="small" style="margin:.35rem 0 0">Open a fresh Claude Code chat in your project folder. Type <code>/confighub:changes</code> for the full record. Already installed? <a href="./#in-my-app">Check your own app</a> or <a href="./#build-my-first-app">build your first app</a>.</p>
       </div>
 
       <div class="only-codex">
@@ -223,21 +232,20 @@ claude plugin install confighub@confighub</code></pre>
       </div>
     </div>
 
-    <p>Already installed? <a href="./#in-my-app">Ask what ConfigHub remembers about your app</a>, <a href="./#build-my-first-app">build your first app</a>, or try the five-minute sample below.</p>
-
     <ul class="jumps">
-      <li><a href="#remember">Remember one setting in five minutes</a></li>
-      <li><a href="#preview">Run a preview of my app</a></li>
-      <li><a href="#starter">Reuse a setting in a second app</a></li>
-      <li><a href="#operations">Two things to try next</a></li>
+      <li><a href="#remember">1. Remember one setting (5 min)</a></li>
+      <li><a href="#preview">2. Run a preview (or Friday’s settings)</a></li>
+      <li><a href="#starter">3. Reuse a setup in a second app</a></li>
+      <li><a href="#hosted-tries">Try on Vercel, Daytona, Unikraft &amp; add-ons</a></li>
+      <li><a href="#operations">Where next</a></li>
     </ul>
   </header>
 
   <section class="story" id="remember">
-    <p class="tag">01 · Plugin only · No server or account</p>
+    <p class="tag">01 · Plugin only · Zero servers, zero accounts</p>
     <h2>Find out why a setting changed, a session later</h2>
-    <p class="problem">Git shows the edit. The plugin also keeps the request that prompted it, so a fresh chat can tell you why the cache is on before you decide whether to turn it off.</p>
-    <p><strong>You</strong> ask for a change, then open a fresh session in the same folder. <strong>Your agent</strong> makes the edit and later explains it from the local record.</p>
+    <p class="problem">Git shows the edit after you commit. The plugin keeps the request with supported edits in <code>~/.confighub</code> right away, so a fresh chat can tell you why the cache is on before you undo it.</p>
+    <p><strong>You</strong> ask for one uncommitted change, then open a fresh session in the same folder. <strong>Your agent</strong> makes the edit and later explains it from the local record.</p>
 
     <div class="story-body">
       <ol class="steps">
@@ -254,14 +262,14 @@ claude plugin install confighub@confighub</code></pre>
           <p><strong>Ask in Session 1</strong> (and allow the edit):</p>
           <div class="snip">
             <span class="prompt-label">Ask your agent</span>
-            <pre><code>Turn the cache on in .env for next week's sale. Don't commit.</code></pre>
+            <pre><code>Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted.</code></pre>
           </div>
         </li>
         <li>
           <p><strong>Open a fresh session</strong> in the same folder and ask:</p>
           <div class="snip">
             <span class="prompt-label">Ask in a fresh session</span>
-            <pre><code>I’m thinking of turning the cache off. Why did we turn it on? Just show me for now.</code></pre>
+            <pre><code>Why is the cache on?</code></pre>
           </div>
           <p class="small only-claude">You can also inspect the record directly in Claude Code with <code>/confighub:why CACHE</code>.</p>
           <p class="small only-codex">You can also inspect the record in Terminal with <code>~/.codex/confighub/bin/confighub mini changes</code>.</p>
@@ -272,33 +280,47 @@ claude plugin install confighub@confighub</code></pre>
         <p class="result-title">What you should see</p>
         <div class="out"><span class="dim">.env · recorded by ConfigHub plugin</span>
 CACHE: <span class="ok">off → on</span>
-asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
-        <p>Look for both the previous value (<code>off</code>) and next week’s sale. The second session can recover both before you commit anything.</p>
+asked: "Set CACHE=on in .env for Saturday’s sale. Leave it uncommitted."</div>
+        <p>Look for both the previous value (<code>off</code>) and Saturday’s sale. The second session recovers both before you commit anything.</p>
         <p class="small">Clean up anytime by deleting <code>try-confighub</code>.</p>
       </aside>
     </div>
-    <p class="story-foot">More detail: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute plugin guide</a> · <a href="#preview">Run a preview of the app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Measured runs with and without the plugin</a></p>
+    <p class="story-foot">More detail: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">Five-minute plugin guide</a> · <a href="stories.html#first-experiences">Audited first-use stories</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md">Measured runs with and without the plugin</a></p>
   </section>
 
   <section class="story" id="preview">
-    <p class="tag">02 · Local hub · Safe experimentation</p>
+    <p class="tag">02 · Local hub (cub mini) · Safe previews &amp; saved settings</p>
     <h2>Try a change in a running preview before shipping it</h2>
-    <p class="problem">You can start a second copy yourself and save its command and port. With mini, the preview has its own settings and tomorrow’s chat can find the running app for you.</p>
-    <p><strong>You</strong> choose an app and open the address your agent gives you. <strong>Your agent</strong> changes the preview setting, checks what the app serves and leaves it running.</p>
+    <p class="problem">Testing a setting or reproducing a bug usually means touching the running app you already rely on. With the local hub, previews run on their own settings and tomorrow’s chat still knows where to find them.</p>
+    <div class="mini-note">
+      <p><strong>What’s added in Exercises 2 &amp; 3:</strong> Your agent downloads <code>cub mini</code> on first use (a free local ConfigHub server + PostgreSQL on <code>127.0.0.1</code> only—no Docker, no account). It adds isolated previews, <code>base</code> / <code>staging</code> / <code>live</code> copies, and scoped agent keys.</p>
+    </div>
 
     <div class="story-body">
       <ol class="steps">
         <li>
-          <p><strong>Create a small app (or attach a local Node app):</strong> in a new Git folder (<code>mkdir greeter &amp;&amp; cd greeter &amp;&amp; git init -q</code>), ask:</p>
-          <div class="snip">
-            <span class="prompt-label">Ask your agent</span>
-            <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
+          <div class="mode-bar">
+            <p><strong>Start from a new folder or attach your app:</strong></p>
+            <div class="tabs" role="group" aria-label="Choose starting folder">
+              <button type="button" data-set-start-mode="new" aria-pressed="true">New folder</button>
+              <button type="button" data-set-start-mode="existing" aria-pressed="false">Existing Node app</button>
+            </div>
           </div>
-          <p class="small">Already have a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>)? Ask for the change in your app folder.</p>
-          <div class="snip"><span class="prompt-label">Ask in your existing app</span>
-            <pre><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></pre>
+          <div class="only-new">
+            <p class="small">In a new Git folder (<code>mkdir greeter &amp;&amp; cd greeter &amp;&amp; git init -q</code>), ask:</p>
+            <div class="snip">
+              <span class="prompt-label">Ask your agent</span>
+              <pre><code>Build a small greeting app using ConfigHub. Give it a configurable greeting and run it locally.</code></pre>
+            </div>
           </div>
-          <p class="small">Say yes to local setup. Your agent downloads mini on first use and shows the running preview in this chat. Go straight to step 3.</p>
+          <div class="only-existing">
+            <p class="small">In a local Node HTTP app (<code>node server.js</code> on <code>127.0.0.1</code> reading <code>.env</code>), ask:</p>
+            <div class="snip">
+              <span class="prompt-label">Ask in your existing app</span>
+              <pre><code>Show me my app as it is and a local preview with the heading “Evening collection.” Give me both links and keep the preview running for tomorrow.</code></pre>
+            </div>
+            <p class="small">Say yes to local setup. Your agent downloads mini on first use and shows both links—go straight to Step 3.</p>
+          </div>
         </li>
         <li>
           <p class="only-claude"><strong>For the new app, reopen Claude Code in the same folder</strong> (Step 1 wrote <code>.claude/settings.local.json</code> so sessions run on the app’s scoped agent key) and ask:</p>
@@ -309,12 +331,12 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
           </div>
         </li>
         <li>
-          <p><strong>Open the local URL</strong> your agent returns. Even if you close and reopen the session later, you can ask:</p>
+          <p><strong>Open the local URL</strong> your agent returns. Close the chat, open a fresh session in the same folder, and ask:</p>
           <div class="snip">
             <span class="prompt-label">Ask in a later session</span>
-            <pre><code>Is my preview still running? What does it serve?</code></pre>
+            <pre><code>Where’s the preview I left running? What does it serve?</code></pre>
           </div>
-          <p class="small">A fresh session in the app folder finds the running preview address and process without being given the URL. Ask your agent to stop the preview when you finish.</p>
+          <p class="small">A fresh session finds the running preview address and process without being given the URL. Ask your agent to stop the preview when you finish.</p>
         </li>
       </ol>
 
@@ -323,10 +345,18 @@ asked: "Turn the cache on in .env for next week's sale. Don't commit."</div>
         <div class="out">Preview URL:    <span class="ok">Welcome to the neighborhood!</span>
 Staging copy:   <span class="dim">Hello, world!</span>
 Production:     <span class="wait">Hello, world!</span></div>
-        <p>Your wording may differ. Read the preview URL to check the greeting. The preview leaves the app files and both hub copies as they were.</p>
-        <p class="small">The agent’s scoped key can change staging and propose for production, but the hub refuses if the agent tries to approve its own change.</p>
+        <p>Your wording may differ. The preview leaves your repo files, staging, and production untouched.</p>
+        <p class="small">The agent’s scoped key can change staging and propose for production, while the hub refuses self-approval.</p>
       </aside>
     </div>
+
+    <div class="friday-box" id="friday-preview">
+      <h3>Or reopen Friday’s production settings as a preview</h3>
+      <p>If your hub already held production settings on Friday, run today’s app code against Friday’s saved settings without touching live production:</p>
+      <div class="snip"><span class="prompt-label">Ask your agent</span><pre><code>Open Friday’s production settings as a new preview.</code></pre></div>
+      <p class="small">In the recorded run, Friday’s lower retry limit left the sample job queued in the preview while production kept delivering on attempt four. <a href="mini.html#see-both">More preview examples</a> · <a href="stories.html#first-experiences">See the published run in Stories</a></p>
+    </div>
+
     <p class="story-foot">Step-by-step guides: <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Attach an existing app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Preview &amp; second app in Codex</a></p>
   </section>
 
@@ -365,11 +395,11 @@ Production:     <span class="wait">Hello, world!</span></div>
         <p>Catalog has its own production approval. In the <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">two-app shop example</a>, changing the shared hours once gave both apps daily support while the shop kept its coral banner and the cart kept indigo.</p>
       </aside>
     </div>
-    <p class="story-foot"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md#a-second-app-from-the-first">Second app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Second app in Codex</a>. To share a logging fix across a team while keeping the shop’s own settings, try <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md#quick-start">Harden the shop</a>.</p>
+    <p class="story-foot"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md#a-second-app-from-the-first">Second app in Claude Code</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Second app in Codex</a> · <a href="starters.html#shipped">Browse all Config Starters</a> · <a href="stories.html#gallery">More multi-app stories</a>.</p>
   </section>
 
   <section class="more" id="hosted-tries">
-    <h2>Try it on your host</h2>
+    <h2>Try it on your host or with an add-on starter</h2>
     <p>Open your app folder, choose your provider, and copy the prompt. Each guide lists the sample app and sign-in you’ll need.</p>
     <details id="try-vercel" class="host-try">
       <summary>Vercel · Try a shorter cache for a sale</summary>
@@ -386,6 +416,7 @@ Production:     <span class="wait">Hello, world!</span></div>
       <div class="snip"><span class="prompt-label">Ask your agent</span><pre><code>Checkout is delayed. Show me our incident notice on Unikraft staging using the same image as production. Read both notices back to me. I’ll decide whether to publish it.</code></pre></div>
       <p>Unikraft can run two instances on one image. Mini keeps the proposed notice behind owner approval on its delivery path. In the example, staging warned of a checkout delay while production still said “Orders ship as usual.” <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft guide</a></p>
     </details>
+    <p class="story-foot">Wiring payments, database, or email? See the new <strong>Stripe</strong>, <strong>Supabase</strong>, and <strong>Resend Mail</strong> add-on starters alongside Fly, Argo CD, and Flux on <a href="starters.html#shipped">Config Starters &amp; recipes →</a></p>
   </section>
 
   <section class="more" id="same-hub">
@@ -395,30 +426,56 @@ Production:     <span class="wait">Hello, world!</span></div>
   </section>
 
   <section class="more" id="operations">
-    <h2 id="two-things-to-try-next">Two things to try next</h2>
-    <div class="ops-grid">
+    <h2 id="two-things-to-try-next">Where to go next</h2>
+    <p>Explore ready-to-use starters, 25 audited first-use stories, or integrations for your stack.</p>
+    <div class="next-grid">
       <article class="ops-card">
-        <h3>Restart a Temporal worker during a rollout</h3>
-        <p><strong>You</strong> choose the local rehearsal and ask what happens if the worker restarts while a change is waiting. You’ll need the mini package, Go, Python 3 and the Temporal CLI.</p>
-        <p><strong>Your agent</strong> runs the rehearsal and shows the retry limit before and after restart. Look for the old limit while approval is pending, one attempt after approval and a refusal if the policy differs. The rehearsal supplies its test approval. In your own rollout, you approve.</p>
-        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Run the Temporal worker rehearsal</a></p>
+        <h3>Starters &amp; add-ons</h3>
+        <p>Wire hosting and add-ons cleanly—Vercel, Fly, Daytona, Unikraft, plus <strong>Stripe</strong>, <strong>Supabase</strong>, and <strong>Resend Mail</strong>—or write your own 1-file YAML starter.</p>
+        <p><a href="starters.html">Browse Starters &amp; recipes →</a></p>
       </article>
       <article class="ops-card">
-        <h3>Find out why the cluster disagrees with Git</h3>
-        <p><strong>You</strong> choose a disposable local cluster and decide when to remove it. The guide lists the tools, including Docker, kind, kubectl and cub-scout.</p>
-        <p><strong>Your agent</strong> compares Git, the hub and the running cluster, then shows delivery returning to Git. Look for two replicas in Git, three in the hub with a reason, and four on the cluster with an extra environment variable.</p>
-        <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Compare Git, the hub and the cluster</a></p>
+        <h3>25 audited field stories</h3>
+        <p>See every first-use variation from empty folder to Friday previews, team approvals, and Workshop Redis handoffs with linked receipts.</p>
+        <p><a href="stories.html">Explore Field Stories →</a></p>
+      </article>
+      <article class="ops-card">
+        <h3>Integrations &amp; guardrails</h3>
+        <p>Connect GitHub PR checks, HashiCorp Vault, OpenTelemetry, Sigstore/SPIFFE signing, and MCP tool guardrails.</p>
+        <p><a href="plugins.html">See all Integrations →</a></p>
       </article>
     </div>
-    <p class="story-foot">Hosting a web app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a>.</p>
+
+    <details class="adv-details">
+      <summary>Advanced rehearsals: Temporal worker rollouts &amp; Kubernetes cluster drift</summary>
+      <div class="ops-grid">
+        <article class="ops-card">
+          <h3>Restart a Temporal worker during a rollout</h3>
+          <p><strong>You</strong> choose the local rehearsal and ask what happens if the worker restarts while a change is waiting. Requires mini, Go, Python 3, and the Temporal CLI.</p>
+          <p><strong>Your agent</strong> shows the old retry limit while approval is pending, one attempt after approval, and a refusal if policy differs.</p>
+          <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-temporal-worker.md#restart-the-temporal-worker-during-a-rollout">Run the Temporal worker rehearsal</a></p>
+        </article>
+        <article class="ops-card">
+          <h3>Find out why the cluster disagrees with Git</h3>
+          <p><strong>You</strong> choose a disposable local cluster (Docker, <code>kind</code>, <code>kubectl</code>, and <code>cub-scout</code>) and compare Git, the hub, and the running cluster.</p>
+          <p><strong>Your agent</strong> highlights two replicas in Git, three in the hub with a reason, and four on the cluster with an extra environment variable.</p>
+          <p><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-09-git-hub-and-running.md#quick-start">Compare Git, the hub and the cluster</a></p>
+        </article>
+      </div>
+      <p class="story-foot">Hosting a web app? <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a>.</p>
+    </details>
   </section>
 </main>
 
 <footer>
   <a href="./">Product overview</a> ·
-  <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub repository</a> ·
-  <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">What we do and don’t claim</a> ·
-  <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">Instructions for AI agents</a>
+  <a href="starters.html">Starters &amp; recipes</a> ·
+  <a href="stories.html">Field stories</a> ·
+  <a href="plugins.html">Integrations</a> ·
+  <a href="reference.html">Reference</a> ·
+  <a href="../site/">Kubernetes Workshop</a> ·
+  <a href="https://github.com/confighubai/confighub-mini-plugin">GitHub</a> ·
+  <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/limits.md">Limits</a>
 </footer>
 
 <script>
@@ -439,6 +496,18 @@ Production:     <span class="wait">Hello, world!</span></div>
     } catch (e) {}
     buttons.forEach(function (b) {
       b.addEventListener("click", function () { setClient(b.getAttribute("data-set-client")); });
+    });
+
+    var modeButtons = document.querySelectorAll("[data-set-start-mode]");
+    function setStartMode(mode) {
+      if (mode !== "new" && mode !== "existing") return;
+      root.setAttribute("data-start-mode", mode);
+      modeButtons.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-set-start-mode") === mode ? "true" : "false");
+      });
+    }
+    modeButtons.forEach(function (b) {
+      b.addEventListener("click", function () { setStartMode(b.getAttribute("data-set-start-mode")); });
     });
 
     document.querySelectorAll(".snip").forEach(function (box) {
