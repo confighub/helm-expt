@@ -54,25 +54,25 @@
 </section>
 
 <section id="what-it-records">
-  <h2>What the plugin records and what it never records</h2>
-  <p>Hooks run locally on your machine and write signed entries to <code>~/.confighub/agent-changes</code>. Nothing leaves your computer unless you opt in.</p>
+  <h2>What’s recorded, privacy &amp; how to delete it</h2>
+  <p>Hooks run locally on your machine using a prebuilt binary wrapped by the MIT-licensed plugin launcher, writing signed entries to <code>~/.confighub/agent-changes</code>. No telemetry leaves your computer unless you opt in.</p>
   <div class="two">
     <div class="card">
       <span class="badge ok">Recorded locally</span>
-      <h3>Config keys, CLI changes, and prompts</h3>
+      <h3>Config keys, prompts &amp; 30-day first-run backfill</h3>
       <ul class="tight">
-        <li>Changed keys in <code>.env</code>, Compose, Terraform, GitHub Actions, Kubernetes YAML, Helm values, and Kustomize files.</li>
-        <li>State-changing CLI commands (<code>vercel</code>, <code>fly</code>, <code>aws ssm</code>, <code>kubectl</code>, <code>helm</code>, <code>terraform</code>, <code>cub</code>) and MCP tool calls.</li>
-        <li>The prompt you gave the agent and the reason it stated, signed on disk.</li>
+        <li><strong>Supported edits:</strong> Changed keys in <code>.env</code>, Compose, Terraform, GitHub Actions, Kubernetes YAML, Helm values, and Kustomize files, plus state-changing CLI commands (<code>vercel</code>, <code>fly</code>, <code>aws ssm</code>, <code>kubectl</code>, <code>helm</code>, <code>terraform</code>, <code>cub</code>) and MCP tool calls.</li>
+        <li><strong>Quoted prompts:</strong> The request you gave the agent and the reason it stated, signed on disk.</li>
+        <li><strong>First-run 30-day transcript read (Claude Code):</strong> On first use in a folder, the plugin reads the last 30 days of local Claude Code session transcripts for that folder so your very first chat already knows why recent settings changed before you installed the plugin.</li>
       </ul>
     </div>
     <div class="card">
-      <span class="badge wait">Never recorded</span>
-      <h3>Secrets, passwords, and raw command output</h3>
+      <span class="badge wait">Redacted, skipped &amp; easy to wipe</span>
+      <h3>Credentials, off switches &amp; deletion</h3>
       <ul class="tight">
-        <li>Anything matching a password, API key, token, or credential connection string is skipped.</li>
-        <li>Full file copies and raw command stdout are not stored in the journal.</li>
-        <li>Ordinary code edits outside config files stay untouched so coding speed does not change.</li>
+        <li><strong>Credential redaction:</strong> Values matching password, API key, token, or credential connection-string patterns are redacted rather than stored in plain text (pattern-based—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md">how it works</a>).</li>
+        <li><strong>No raw dumps:</strong> Full file copies and raw command stdout are not stored; ordinary code edits outside config files are skipped.</li>
+        <li><strong>Turn off or delete anytime:</strong> Pause hooks with <code>touch ~/.confighub/halt</code>, silence hub tips with <code>CUB_MINI_TIPS=0</code>, wipe a folder’s record with <code>confighub mini changes --forget</code>, or uninstall in one command.</li>
       </ul>
     </div>
   </div>

@@ -16,7 +16,7 @@
       "name": "ConfigHub Plugin",
       "url": "https://confighub.github.io/helm-expt/ai-agents/plugin.html",
       "repo": "https://github.com/confighubai/confighub-mini-plugin",
-      "summary": "Local MIT-licensed plugin for Claude Code and Codex that keeps the original request with supported setting edits in ~/.confighub with zero background processes and no account."
+      "summary": "MIT-licensed hooks, launcher, and starters (wrapping a prebuilt local binary) for Claude Code and Codex. Keeps the request with supported setting edits in ~/.confighub (with first-run 30-day Claude transcript backfill and pattern-based credential redaction), zero background processes, and no account."
     },
     {
       "step": 2,
@@ -39,7 +39,7 @@
     {
       "path": "index.html",
       "title": "ConfigHub for Coding Agents",
-      "purpose": "Front door for Claude Code and Codex: five core problems solved, install commands, and interactive demo."
+      "purpose": "Front door for Claude Code and Codex: six core problems solved (3x2 grid + matching prompt table), Hero 1-line install, and interactive terminal demo."
     },
     {
       "path": "first-look.html",
@@ -102,12 +102,20 @@
       "summary": "Spin up an isolated Daytona preview for a Next.js app without touching the running live environment."
     },
     {
-      "id": "fly-api",
+      "id": "rails-on-fly",
       "plugins": [
         "confighub"
       ],
-      "starter": "fly-service",
-      "summary": "Manage base, staging, and live environment variables for a Fly.io service with pre-deploy validation."
+      "starter": "rails-on-fly",
+      "summary": "Share one setup across Rails apps and deliver owner-approved production settings to Fly Machines."
+    },
+    {
+      "id": "stripe-supabase-resend",
+      "plugins": [
+        "confighub"
+      ],
+      "starter": "stripe-supabase-resend",
+      "summary": "Keep Stripe test mode, Supabase pool/SSL limits, and Resend mail sandbox defaults explicit across staging and preview while gating live behind approval."
     },
     {
       "id": "aws-ssm-service",

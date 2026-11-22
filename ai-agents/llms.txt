@@ -7,10 +7,10 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 
 ## When to use this door vs Door B
 
-- Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, Unikraft, AWS SSM, Daytona, nono sandbox, or reusing working settings across apps).
-- Use **Door B (`site/`)** when the user is working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, or multi-component cluster stacks:
+- Use **Door A (`ai-agents/`)** when the user is building or deploying an app with Claude Code or Codex (envs, `.env` files, previews, Vercel, Fly, Unikraft, AWS SSM, Daytona, Stripe/Supabase/Resend add-ons, Kustomize Argo CD/Flux app starters, nono sandbox, or reusing working settings across apps).
+- Use **Door B (`site/`)** when the user is working with Helm charts, full Kubernetes clusters, NVIDIA AICR, GPU fleets, Sveltos, Kubara, or multi-component cluster stacks:
   https://confighub.github.io/helm-expt/site/llms.txt
-- For an app using the Workshop Redis package, keep its [catalog listing ID](https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json), `bitnami-redis-25-5-3-reuse-existing-secret`. The [Redis handoff](https://confighub.github.io/helm-expt/site/redis-walkthrough.html#local-to-shared) follows that package into mini and a shared hub. Workshop catalog IDs and mini story numbers identify different records.
+- Cross-door handoff: for an app using the Kubernetes Workshop Redis package, its Workshop catalog ID is `bitnami-redis-25-5-3-reuse-existing-secret` (`https://confighub.github.io/helm-expt/site/listings/bitnami-redis-25-5-3-reuse-existing-secret.json`), and the [Redis handoff](https://confighub.github.io/helm-expt/site/redis-walkthrough.html#local-to-shared) follows it into mini and a shared hub (mini Story 18.02). Workshop catalog IDs and mini story numbers identify different records.
 
 ## First after install
 
@@ -23,7 +23,7 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 ## Progression ladder
 
 1. **Step 1: Plugin** (`plugin.html`)
-   Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI. Records why supported settings changed locally in `~/.confighub`. Zero background processes, no account, works offline.
+   Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI (`curl -sSfL https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/install-codex.sh | bash`). MIT-licensed hooks, launcher, and starters wrapping a prebuilt local binary. Records why supported settings changed locally in `~/.confighub` (including a first-run 30-day Claude Code transcript read and pattern-based credential redaction). Zero background processes, no account, works offline.
 2. **Step 2: Mini Hub** (`mini.html`)
    Run a free local hub on `127.0.0.1` for `base`, `staging`, and `live` settings, durable previews (local or Daytona), linked starters across apps, scoped agent keys, and approved delivery (Vercel, Fly, Unikraft, AWS SSM).
 3. **Step 3: Shared Hub** (`hub.html`)
@@ -31,12 +31,12 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 
 ## Key pages
 
-- `index.html`: Overview, five core problems solved, install commands, and interactive walkthrough.
-- `first-look.html`: Three five-minute tasks (remember a setting, preview safely, reuse a starter across apps).
-- `plugin.html`: Local change log, `/confighub:changes`, hooks, and offline boundaries.
+- `index.html`: Overview, six core problems solved (3x2 grid + matching prompt table), Hero 1-line install, and interactive terminal demo.
+- `first-look.html`: Three five-minute tasks (remember a setting, preview safely including Friday's live settings, reuse a starter across apps).
+- `plugin.html`: Local change log, `/confighub:changes`, hooks, privacy/30-day transcript disclosure, and offline boundaries.
 - `mini.html`: Local hub workflow, env checks, previews, and scoped keys.
 - `hub.html`: Team governance, multi-app starters, and bridge to Kubernetes.
 - `plugins.html`: Integrations (ConfigHub, nono sandbox, Daytona, Vercel, Fly, Unikraft, AWS SSM).
-- `starters.html`: Interactive Plugin x Starter picker and copyable recipes (including nono + Vercel).
-- `stories.html`: 24 filterable scenarios across Plugin, Mini Hub, and Shared Hub.
+- `starters.html`: Interactive Plugin x Starter picker, Stripe/Supabase/Resend add-on starters, and K8s/GitOps/GPU graduation bridges (`#k8s-and-gpu`).
+- `stories.html`: 25 audited first-use stories, 24 filterable field walkthroughs, and K8s/GPU graduation track (`#k8s-graduation`).
 - `reference.html`: CLI commands, storage paths, and upstream repositories.
