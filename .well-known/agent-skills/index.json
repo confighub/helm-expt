@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "publisher": "ConfigHub",
+  "homepage": "https://confighub.github.io/helm-expt/",
+  "skills": [
+    {
+      "id": "confighub-coding-agents",
+      "name": "ConfigHub for Coding Agents (Door A)",
+      "description": "Apps-first durable configuration for Claude Code and Codex: remember uncommitted setting changes and their reasons, run isolated local or Daytona previews, gate production behind owner approval, and reuse versioned starters across apps.",
+      "llmsTxt": "https://confighub.github.io/helm-expt/ai-agents/llms.txt",
+      "catalogJson": "https://confighub.github.io/helm-expt/ai-agents/catalog.json",
+      "docs": "https://confighub.github.io/helm-expt/ai-agents/",
+      "install": {
+        "claudeCode": "claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub",
+        "codexCli": "curl -sSfL https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/install-codex.sh | bash"
+      }
+    },
+    {
+      "id": "config-workshop",
+      "name": "ConfigHub AI Workshop for Kubernetes (Door B)",
+      "description": "Public Kubernetes configuration catalog, 12 checked stacks, NVIDIA AICR GPU recipes, OCI bundles, and cub plugins for Helm, Timoni, Argo CD, Flux, Sveltos, and Kubara.",
+      "llmsTxt": "https://confighub.github.io/helm-expt/site/llms.txt",
+      "catalogJson": "https://confighub.github.io/helm-expt/site/catalog.json",
+      "docs": "https://confighub.github.io/helm-expt/site/",
+      "install": {
+        "npxSkills": "npx skills add https://github.com/confighub/helm-expt/tree/main/skills/config-workshop"
+      }
+    }
+  ]
+}
