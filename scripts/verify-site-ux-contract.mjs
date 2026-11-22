@@ -473,11 +473,11 @@ const failures = [];
 if (aicrEntriesFlaggedForReview === 0 && fs.readFileSync(path.join(root, "site/charts/index.html"), "utf8").includes("<strong>This entry is flagged for review.</strong>")) {
   failures.push("site/charts/index.html: shows an entry flagged for review, and no AICR listing is flagged");
 }
-// The approved palette is light by default, even on a dark-mode device.
+// All Workshop pages reuse the unified ai-agents light + dark slate-navy palette.
 for (const page of ["index", "guides", "ai", "plugins", "ai-chaos-in-production"]) {
   const html = fs.readFileSync(path.join(root, `site/${page}.html`), "utf8");
-  if (html.includes("prefers-color-scheme: dark") || !html.includes("color-scheme: light;")) {
-    failures.push(`site/${page}.html must default to the approved light palette independently of device preference`);
+  if (!html.includes("prefers-color-scheme: dark") || !html.includes("#101a2a") || !html.includes("color-scheme: light;")) {
+    failures.push(`site/${page}.html must include the unified light + dark slate-navy palette matching ai-agents/`);
   }
 }
 // Deep Dives are an extra entry point, never a replacement for topic discovery.
@@ -1427,8 +1427,8 @@ for (const file of htmlFilesUnder(path.join(root, "site"))) {
   if (/helm ops/i.test(text)) {
     failures.push(`${path.relative(root, file)}: contains the retired \"Helm Ops\" label`);
   }
-  if (text.includes("prefers-color-scheme: dark") || text.includes('data-theme="dark"') || text.includes("color-scheme: light dark")) {
-    failures.push(`${path.relative(root, file)}: can revert from the fixed Workshop light appearance to a dark theme`);
+  if (!text.includes('http-equiv="refresh"') && !text.includes("#101a2a")) {
+    failures.push(`${path.relative(root, file)}: missing unified ai-agents slate-navy dark palette (#101a2a)`);
   }
 }
 
