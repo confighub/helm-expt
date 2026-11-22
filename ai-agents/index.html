@@ -251,10 +251,10 @@ footer p { max-width: none; }
   <div class="cover">
     <div>
       <h1>Build your app with your agent. Keep it easy to change.</h1>
-      <p class="lead">Try ideas in isolated previews, remember why settings changed, gate production behind approval, and reuse working setups on your next app. Zero background processes. No platform to build first.</p>
+      <p class="lead">Try ideas in isolated previews, remember why settings changed, gate production behind approval, and reuse working setups on your next app. The plugin runs with zero background processes; add the optional local hub when you want previews or approvals.</p>
       <div class="hero-install" aria-label="Quick install">
         <div class="hero-install-top">
-          <span class="hero-install-label">Install in one step (MIT · works offline)</span>
+          <span class="hero-install-label">Install in one step (MIT hooks &amp; launcher · bundles prebuilt binary · works offline)</span>
           <div class="tabs" role="tablist" aria-label="Choose your coding agent (quick install)">
             <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
             <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
@@ -278,6 +278,7 @@ footer p { max-width: none; }
         <a class="btn" href="#in-my-app">Start in my app</a>
         <a class="btn" href="#build-my-first-app">Build my first app</a>
       </p>
+      <p class="small" style="margin-top:.85rem;color:#c7d8e8">Working with Helm charts, Kubernetes, or GPU fleets? <a href="../site/" style="color:#b5eddb">Open the Kubernetes Workshop →</a> · <a href="../" style="color:#b5eddb">Two Doors overview</a></p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
@@ -531,7 +532,7 @@ claude plugin install confighub@confighub</code></pre>
           <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Manual clone &amp; Codex setup</a>).</p>
         </div>
       </div>
-      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
+      <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed hooks, launcher &amp; starters</strong> (bundles a prebuilt local binary) · Plugin runs with zero background processes · Works offline (<a href="plugin.html#what-it-records">What’s recorded &amp; privacy</a> · <a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
     </div>
 
     <div class="install-card">
@@ -582,18 +583,18 @@ claude plugin install confighub@confighub</code></pre>
       </ul>
     </div>
   </div>
-  <p class="small" style="margin-top:.85rem">Approvals govern settings your app or delivery pipeline reads from the hub. An agent that also holds direct cloud or cluster write credentials can bypass the hub—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
+  <p class="small" style="margin-top:.85rem">Approvals govern settings your app or delivery pipeline reads from the hub. On the same machine, an agent with shell access or direct cloud/cluster credentials can still reach your local sign-ins—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>.</p>
 </section>
 
 <section id="open">
   <h2>Open source and transparent licensing</h2>
   <div class="two">
     <div class="card">
-      <h3>MIT-licensed open source</h3>
+      <h3>MIT-licensed hooks, launcher &amp; starters</h3>
       <ul class="tight">
-        <li><strong>Plugin &amp; starters (Claude Code + Codex):</strong> <a href="https://github.com/confighubai/confighub-mini-plugin">confighubai/confighub-mini-plugin</a></li>
+        <li><strong>Plugin repo (Claude Code + Codex):</strong> <a href="https://github.com/confighubai/confighub-mini-plugin">confighubai/confighub-mini-plugin</a> (MIT-licensed shell launcher, hooks, skills, and YAML starters; bundles a prebuilt local binary for macOS/Linux)</li>
         <li><strong>Web UI &amp; SDKs:</strong> <a href="https://github.com/confighub/ui">UI</a> · <a href="https://github.com/confighub/sdk">Go SDK</a> · <a href="https://github.com/confighub/js-sdk">JavaScript SDK</a></li>
-        <li><strong>Extend or contribute:</strong> <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a YAML starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
+        <li><strong>Privacy &amp; extend:</strong> <a href="plugin.html#what-it-records">What’s recorded &amp; privacy</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/write-a-starter.md">Write a YAML starter</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/CONTRIBUTING.md">Contributing</a></li>
       </ul>
     </div>
     <div class="card">
@@ -601,7 +602,7 @@ claude plugin install confighub@confighub</code></pre>
       <p style="margin-top:0">The <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">macOS and Linux package</a> bundles the prebuilt ConfigHub server and PostgreSQL as a free single-machine binary—no account, license key, or network needed after download. Downloaded when you run <code>/confighub:staging</code> in Claude Code (or <code>~/.codex/confighub/bin/confighub mini get</code> in Terminal), or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">installed standalone with SHA-256 checksums</a>.</p>
     </div>
   </div>
-  <p class="small" style="margin-top:.9rem">Also supports <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software shipped with a built-in hub</a>. Machine-readable indexes for agents: <a href="llms.txt">Door A llms.txt</a> · <a href="catalog.json">catalog.json</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a>.</p>
+  <p class="small" style="margin-top:.9rem">Also supports <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/bundled.md">software shipped with a built-in hub</a>. Machine-readable indexes for agents: <a href="llms.txt">Agent index (llms.txt)</a> · <a href="catalog.json">catalog.json</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/AGENTS.md">AGENTS.md</a>.</p>
   <p class="buttons">
     <a class="btn primary" href="first-look.html">Try 3 guided examples →</a>
     <a class="btn" href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/install-mini.md#the-current-release">Standalone local hub download</a>
