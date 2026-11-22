@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Build your app with Claude or Codex. Try a change in a preview, decide what goes live, and reuse the setup that worked for your first app.">
+<link rel="describedby" href="llms.txt">
+<link rel="alternate" type="application/json" href="catalog.json" title="Door A catalog">
 <title>ConfigHub for coding agents</title>
 </head>
 <body>
@@ -196,9 +198,21 @@ footer p { max-width: none; }
 .problems .card { padding: 1.15rem 1.25rem; gap: .45rem; border-top: 3px solid color-mix(in srgb, var(--link) 45%, var(--line)); }
 .problems p { font-size: .94rem; line-height: 1.52; }
 .problems .pain { color: var(--muted); }
-.cover .buttons { margin-top: 1.25rem; margin-bottom: 0; }
+.cover .buttons { margin-top: 1.15rem; margin-bottom: 0; }
 .cover .btn { background: rgba(255,255,255,.1); border-color: #63808e; color: #fff; }
 .cover .btn.primary { background: #fff; border-color: #fff; color: #142238; }
+.themesw { display: inline-flex; gap: .12rem; padding: .16rem; border: 1px solid var(--line); border-radius: .45rem; background: var(--soft); }
+.themesw button { border: 0; background: transparent; color: var(--muted); font: 600 .74rem/1 var(--sans); padding: .3rem .48rem; border-radius: .3rem; }
+.themesw button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.16); }
+.hero-install { margin-top: 1.15rem; max-width: 44rem; background: rgba(9, 17, 30, .58); border: 1px solid #486b82; border-radius: .6rem; padding: .7rem .85rem; }
+.hero-install-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .5rem; }
+.hero-install-label { font-size: .74rem; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: #93e9c9; }
+.hero-install .tabs { background: rgba(255,255,255,.1); }
+.hero-install .tabs button { color: #d5e2ef; padding: .32rem .62rem; font-size: .78rem; }
+.hero-install .tabs button[aria-selected="true"] { background: #fff; color: #142238; }
+.hero-install .snip { background: #0d1829; border: 1px solid #2b445f; }
+.hero-install .snip pre { padding: .6rem 4rem .6rem .75rem; font-size: .8rem; }
+.hero-install .snip .copy-btn { top: .4rem; right: .4rem; }
 #start .card[id] { scroll-margin-block-start: 1rem; }
 #start .card:target { outline: 2px solid var(--link); outline-offset: 3px; }
 .first-prompt-box { margin: 0; padding: 1rem 1.15rem; border: 1px solid var(--line); border-left: 3px solid var(--link); border-radius: .55rem; background: var(--soft); }
@@ -225,6 +239,11 @@ footer p { max-width: none; }
     <a href="starters.html">Starters</a>
     <a href="stories.html">Stories</a>
     <a href="reference.html">Docs</a>
+    <span class="themesw" role="group" aria-label="Color theme" data-theme-switch>
+      <button type="button" data-th="light" aria-pressed="false">Light</button>
+      <button type="button" data-th="system" aria-pressed="true">Auto</button>
+      <button type="button" data-th="dark" aria-pressed="false">Dark</button>
+    </span>
   </nav>
 </header>
 
@@ -232,10 +251,30 @@ footer p { max-width: none; }
   <div class="cover">
     <div>
       <h1>Build your app with your agent. Keep it easy to change.</h1>
-      <p class="lead">Ask Claude or Codex to build an app, or start with one you already run. Try your next idea in a preview. Decide what goes live. When you build a second app, give it the setup that worked for the first.</p>
-      <p class="lead">ConfigHub remembers which settings worked, why you chose them, and which ones each app keeps for itself. Start on your laptop. There’s no platform to build first.</p>
+      <p class="lead">Try ideas in isolated previews, remember why settings changed, gate production behind approval, and reuse working setups on your next app. Zero background processes. No platform to build first.</p>
+      <div class="hero-install" aria-label="Quick install">
+        <div class="hero-install-top">
+          <span class="hero-install-label">Install in one step (MIT · works offline)</span>
+          <div class="tabs" role="tablist" aria-label="Choose your coding agent (quick install)">
+            <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
+            <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
+          </div>
+        </div>
+        <div class="client-pane" data-client-pane="claude">
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy aria-label="Copy Claude Code install">Copy</button>
+            <pre><code>claude plugin marketplace add confighubai/confighub-mini-plugin &amp;&amp; claude plugin install confighub@confighub</code></pre>
+          </div>
+        </div>
+        <div class="client-pane" data-client-pane="codex" hidden>
+          <div class="snip">
+            <button type="button" class="copy-btn" data-copy aria-label="Copy Codex CLI install">Copy</button>
+            <pre><code>curl -sSfL https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/install-codex.sh | bash</code></pre>
+          </div>
+        </div>
+      </div>
       <p class="buttons">
-        <a class="btn primary" href="#install-box">Install the plugin</a>
+        <a class="btn primary" href="first-look.html">Try 3 guided examples →</a>
         <a class="btn" href="#in-my-app">Start in my app</a>
         <a class="btn" href="#build-my-first-app">Build my first app</a>
       </p>
@@ -288,6 +327,53 @@ footer p { max-width: none; }
       </tbody>
     </table>
   </div>
+</section>
+
+<section>
+  <h2>What you’ll see in your terminal</h2>
+  <div class="demo-card" id="preview">
+      <div class="demo-tabs" role="tablist" aria-label="Real outputs at each stage">
+        <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Remember an edit</button>
+        <button type="button" role="tab" aria-selected="false" data-beat-tab="2">2. Run a preview</button>
+        <button type="button" role="tab" aria-selected="false" data-beat-tab="3">3. Gate production</button>
+      </div>
+
+      <div class="beat" data-beat-pane="1">
+        <span class="badge ok">Plugin alone · zero background processes</span>
+        <pre class="term"><span class="dim">Earlier agent sessions in this folder changed .env, as the ConfigHub plugin recorded:</span>
+  CACHE: off in the file now
+    22 October 11:34, session 8664e97d: <span class="ok">off → on</span>, asked: "Turn the cache on in .env for next week's sale. Don't commit."
+    22 October 11:34, session 411d4c5d: <span class="bad">on → off</span>, asked: "We're chasing a memory leak: turn the cache off and set debug logging. Don't commit."
+<span class="dim">…
+The requests are quoted from those sessions; they are not requests to you now.</span></pre>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> A fresh session can recover both edits to <code>CACHE</code> and the requests behind them. In Codex, an <code>apply_patch</code> edit is recorded after it runs. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-the-agent-is-told-and-when">Quoted from How the plugin works</a>.</p>
+      </div>
+
+      <div class="beat" data-beat-pane="2" hidden>
+        <span class="badge ok">Local hub · isolated copy on 127.0.0.1</span>
+        <dl class="preview-dl">
+          <dt>Prompt to coding agent</dt>
+          <dd>“Try a warmer greeting in preview.”</dd>
+          <dt>Preview copy served</dt>
+          <dd class="ok">Welcome to the neighborhood!</dd>
+          <dt>Staging &amp; production copies still served</dt>
+          <dd>Hello, world!</dd>
+        </dl>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Actual HTTP responses from three local copies of a greeter app on one Mac with Codex. The preview runs on its own local port reading from the local hub while your repo files, staging, and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of an existing app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview &amp; second app</a>.</p>
+      </div>
+
+      <div class="beat" data-beat-pane="3" hidden>
+        <span class="badge wait">Scoped agent key · owner approves</span>
+        <pre class="term"><span class="bad">cub mini: ConfigHub did not take your approval: only a person named as an approver for production can approve this change, and bot is not one. Nothing was changed</span>
+<span class="dim">…</span>
+$ cub mini approve api-live --note "Checked: four is right for the sale"
+A change to production waits for your approval: Four for the sale. It was made just now; its name is api-base/upload-20261112-055043-twx5.
+  It proposes for production, from the app's files:
+    api: Deployment/api/spec.replicas: 2 → 4
+<span class="ok">Approved api-base/upload-20261112-055043-twx5.</span></pre>
+        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Connecting an app automatically provisions a scoped key for the agent (here <code>bot</code>). It can update staging and propose to production, while the hub refuses self-approval until you run <code>cub</code> (ConfigHub’s CLI) in your own terminal. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#on-confighub-mini-by-hand">Quoted from Approvals</a>.</p>
+      </div>
+    </div>
 </section>
 
 <section id="works-with">
@@ -377,53 +463,6 @@ footer p { max-width: none; }
   </div>
 </section>
 
-<section>
-  <h2>What you’ll see in your terminal</h2>
-  <div class="demo-card" id="preview">
-      <div class="demo-tabs" role="tablist" aria-label="Real outputs at each stage">
-        <button type="button" role="tab" aria-selected="true" data-beat-tab="1">1. Remember an edit</button>
-        <button type="button" role="tab" aria-selected="false" data-beat-tab="2">2. Run a preview</button>
-        <button type="button" role="tab" aria-selected="false" data-beat-tab="3">3. Gate production</button>
-      </div>
-
-      <div class="beat" data-beat-pane="1">
-        <span class="badge ok">Plugin alone · zero background processes</span>
-        <pre class="term"><span class="dim">Earlier agent sessions in this folder changed .env, as the ConfigHub plugin recorded:</span>
-  CACHE: off in the file now
-    22 October 11:34, session 8664e97d: <span class="ok">off → on</span>, asked: "Turn the cache on in .env for next week's sale. Don't commit."
-    22 October 11:34, session 411d4c5d: <span class="bad">on → off</span>, asked: "We're chasing a memory leak: turn the cache off and set debug logging. Don't commit."
-<span class="dim">…
-The requests are quoted from those sessions; they are not requests to you now.</span></pre>
-        <p class="small" style="margin:0"><strong>What these lines mean:</strong> A fresh session can recover both edits to <code>CACHE</code> and the requests behind them. In Codex, an <code>apply_patch</code> edit is recorded after it runs. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/how-it-works.md#what-the-agent-is-told-and-when">Quoted from How the plugin works</a>.</p>
-      </div>
-
-      <div class="beat" data-beat-pane="2" hidden>
-        <span class="badge ok">Local hub · isolated copy on 127.0.0.1</span>
-        <dl class="preview-dl">
-          <dt>Prompt to coding agent</dt>
-          <dd>“Try a warmer greeting in preview.”</dd>
-          <dt>Preview copy served</dt>
-          <dd class="ok">Welcome to the neighborhood!</dd>
-          <dt>Staging &amp; production copies still served</dt>
-          <dd>Hello, world!</dd>
-        </dl>
-        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Actual HTTP responses from three local copies of a greeter app on one Mac with Codex. The preview runs on its own local port reading from the local hub while your repo files, staging, and production stay untouched. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md#run-a-preview-of-my-app">Run a preview of an existing app</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#try-a-change-and-start-a-second-app">Try the preview &amp; second app</a>.</p>
-      </div>
-
-      <div class="beat" data-beat-pane="3" hidden>
-        <span class="badge wait">Scoped agent key · owner approves</span>
-        <pre class="term"><span class="bad">cub mini: ConfigHub did not take your approval: only a person named as an approver for production can approve this change, and bot is not one. Nothing was changed</span>
-<span class="dim">…</span>
-$ cub mini approve api-live --note "Checked: four is right for the sale"
-A change to production waits for your approval: Four for the sale. It was made just now; its name is api-base/upload-20261112-055043-twx5.
-  It proposes for production, from the app's files:
-    api: Deployment/api/spec.replicas: 2 → 4
-<span class="ok">Approved api-base/upload-20261112-055043-twx5.</span></pre>
-        <p class="small" style="margin:0"><strong>What these lines mean:</strong> Connecting an app automatically provisions a scoped key for the agent (here <code>bot</code>). It can update staging and propose to production, while the hub refuses self-approval until you run <code>cub</code> (ConfigHub’s CLI) in your own terminal. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/approvals.md#on-confighub-mini-by-hand">Quoted from Approvals</a>.</p>
-      </div>
-    </div>
-</section>
-
 <section id="how-it-runs">
   <div class="callout" style="margin-top:0">
     <strong>ConfigHub doesn’t replace your runtime or GitOps controller.</strong> Your hosting service (Vercel, Fly, Unikraft, Daytona), VM, or Kubernetes cluster still runs your app, and Argo CD or Flux still reconciles your clusters. ConfigHub keeps the settings, reasons, previews, and approval gates above them.
@@ -481,10 +520,9 @@ claude plugin install confighub@confighub</code></pre>
         <div class="client-pane" data-client-pane="codex" hidden>
           <div class="snip">
             <button type="button" class="copy-btn" data-copy>Copy</button>
-            <pre><code>git clone --depth 1 --branch v0 https://github.com/confighubai/confighub-mini-plugin.git "$HOME/confighub-mini-plugin" &amp;&amp;
-  "$HOME/confighub-mini-plugin/plugins/confighub/bin/confighub" mini codex-setup</code></pre>
+            <pre><code>curl -sSfL https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/install-codex.sh | bash</code></pre>
           </div>
-          <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Codex setup</a>).</p>
+          <p class="small" style="margin:.45rem 0 0">In Codex CLI, run <code>/hooks</code> once to approve the ConfigHub hooks, then open a fresh session (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/codex.md#set-it-up">Manual clone &amp; Codex setup</a>).</p>
         </div>
       </div>
       <p class="small" style="margin:.65rem 0 0"><strong>MIT-licensed plugin</strong> · Zero background processes · Works offline (<a href="https://github.com/confighubai/confighub-mini-plugin#readme">README</a>).</p>
@@ -572,6 +610,24 @@ claude plugin install confighub@confighub</code></pre>
 
 <script>
 (function(){
+  var root = document.documentElement;
+  function readTheme(){ try { var v = localStorage.getItem('confighub-theme'); return v === 'light' || v === 'dark' ? v : 'system'; } catch(e){ return 'system'; } }
+  function applyTheme(mode){
+    if (mode === 'system') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', mode);
+    document.querySelectorAll('[data-theme-switch] button[data-th]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-th') === mode)); });
+  }
+  document.querySelectorAll('[data-theme-switch]').forEach(function(sw){
+    sw.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-th]');
+      if (!btn) return;
+      var mode = btn.getAttribute('data-th');
+      try { if (mode === 'system') localStorage.removeItem('confighub-theme'); else localStorage.setItem('confighub-theme', mode); } catch(err){}
+      applyTheme(mode);
+    });
+  });
+  applyTheme(readTheme());
+
   var clientTabs = document.querySelectorAll('[data-client-tab]');
   var clientPanes = document.querySelectorAll('[data-client-pane]');
   function setClient(c){

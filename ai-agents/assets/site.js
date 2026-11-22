@@ -1,4 +1,32 @@
 (function () {
+  var root = document.documentElement;
+  function readTheme() {
+    try {
+      var v = localStorage.getItem("confighub-theme");
+      return v === "light" || v === "dark" ? v : "system";
+    } catch (e) { return "system"; }
+  }
+  function applyTheme(mode) {
+    if (mode === "system") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    document.querySelectorAll("[data-theme-switch] button[data-th]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-th") === mode));
+    });
+  }
+  document.querySelectorAll("[data-theme-switch]").forEach(function (sw) {
+    sw.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-th]");
+      if (!btn) return;
+      var mode = btn.getAttribute("data-th");
+      try {
+        if (mode === "system") localStorage.removeItem("confighub-theme");
+        else localStorage.setItem("confighub-theme", mode);
+      } catch (err) {}
+      applyTheme(mode);
+    });
+  });
+  applyTheme(readTheme());
+
   var clientTabs = document.querySelectorAll("[data-client-tab]");
   var clientPanes = document.querySelectorAll("[data-client-pane]");
   function setClient(c) {

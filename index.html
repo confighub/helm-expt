@@ -7,6 +7,7 @@
   <meta name="description" content="Choose your starting door: ConfigHub for Coding Agents (apps-first, no Kubernetes required) or ConfigHub AI Workshop for Kubernetes (GPU fleets, AI sandboxes, AI operations, agentic platforms, and the 528-entry Catalog).">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/">
   <link rel="sitemap" type="application/xml" href="https://confighub.github.io/helm-expt/site/sitemap.xml">
+  <link rel="describedby" href="https://confighub.github.io/helm-expt/ai-agents/llms.txt">
   <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/ai-agents/llms.txt" title="Door A: ConfigHub for Coding Agents LLM index">
   <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/site/llms.txt" title="Door B: ConfigHub AI Workshop for Kubernetes LLM index">
   <meta property="og:title" content="ConfigHub · Two Doors for Apps and Kubernetes">
@@ -63,9 +64,12 @@
     .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem 1.5rem; margin-bottom: 1.25rem; }
     .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 600; font-size: .95rem; color: var(--ink); text-decoration: none; }
     .brand::before { content: ""; width: 1.55rem; height: 1.55rem; border-radius: .38rem; background: linear-gradient(150deg, transparent 32%, #99e9ca 32% 42%, transparent 42% 52%, #9ae7cf 52% 62%, transparent 62%), #18354d; }
-    .topnav { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; font-size: .9rem; }
+    .topnav { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.1rem; font-size: .9rem; }
     .topnav a { color: var(--muted); text-decoration: none; font-weight: 550; }
     .topnav a:hover { color: var(--accent); text-decoration: underline; }
+    .themesw { display: inline-flex; gap: .12rem; padding: .16rem; border: 1px solid var(--line); border-radius: .45rem; background: var(--panel); }
+    .themesw button { border: 0; background: transparent; color: var(--muted); font: 600 .74rem/1 var(--sans); padding: .3rem .48rem; border-radius: .3rem; cursor: pointer; }
+    .themesw button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.16); }
     .cover {
       position: relative;
       isolation: isolate;
@@ -146,6 +150,11 @@
         <a href="site/">Door B: Kubernetes Workshop</a>
         <a href="site/charts/index.html">Catalog</a>
         <a href="ai-agents/starters.html">Starters</a>
+        <span class="themesw" role="group" aria-label="Color theme" data-theme-switch>
+          <button type="button" data-th="light" aria-pressed="false">Light</button>
+          <button type="button" data-th="system" aria-pressed="true">Auto</button>
+          <button type="button" data-th="dark" aria-pressed="false">Dark</button>
+        </span>
       </nav>
     </header>
 
@@ -198,5 +207,25 @@
       <p><a href="ai-agents/">ConfigHub for Coding Agents</a> · <a href="site/">ConfigHub AI Workshop for Kubernetes</a> · <a href="https://github.com/confighub/helm-expt">GitHub</a></p>
     </footer>
   </div>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var sw = document.querySelector("[data-theme-switch]");
+      function read() { try { var v = localStorage.getItem("confighub-theme"); return v === "light" || v === "dark" ? v : "system"; } catch (e) { return "system"; } }
+      function apply(mode) {
+        if (mode === "system") root.removeAttribute("data-theme");
+        else root.setAttribute("data-theme", mode);
+        if (sw) sw.querySelectorAll("button[data-th]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-th") === mode)); });
+      }
+      if (sw) sw.addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-th]");
+        if (!btn) return;
+        var mode = btn.getAttribute("data-th");
+        try { if (mode === "system") localStorage.removeItem("confighub-theme"); else localStorage.setItem("confighub-theme", mode); } catch (err) {}
+        apply(mode);
+      });
+      apply(read());
+    })();
+  </script>
 </body>
 </html>
