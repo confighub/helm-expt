@@ -2434,6 +2434,8 @@ function agentSkillDiscoveryIndex() {
 function buildLlmsTxt() {
   return `# ConfigHub Workshop (helm-expt)
 
+> **Two Doors:** Building an app with Claude Code or Codex (no Kubernetes required)? Start at [Door A: ConfigHub for Coding Agents](https://confighub.github.io/helm-expt/ai-agents/llms.txt) ([AGENTS.md](https://confighub.github.io/helm-expt/ai-agents/AGENTS.md)). Working with Kubernetes, Helm, NVIDIA AICR, GPU fleets, Argo CD, Flux, Sveltos, or Kubara? Stay here on **Door B** ([site/AGENTS.md](${SITE_BASE_URL}AGENTS.md)).
+
 > A public configuration catalog and test workshop. It retains exact source records, Kubernetes objects, lifecycle work, checks, and evidence for Helm, AICR, Timoni, OCI, YAML, and ConfigHub paths.
 
 ConfigHub is a hosted service that stores finished Kubernetes YAML, one object at a time, with every change and the reason for it. Argo CD or Flux pull it from ConfigHub the way they pull a chart from an OCI registry, in place of the Git folder they read today. This site, the ConfigHub Workshop, is a public set of examples for that service. Local cub checks and the Workshop Catalog are free with no account, exported bundles stay standard Kubernetes YAML and OCI with no lock-in, and ConfigHub Spaces, Targets, Triggers and Workers are created via cub CLI commands, onboarding scripts or the API rather than declarative YAML files today (see [Common questions](${SITE_BASE_URL}ask.html#faq)). [How ConfigHub works](${SITE_BASE_URL}how-confighub-works.html) says where release, promote, approve and roll back fit, and the [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) takes one component from its first upload to production.
@@ -3607,7 +3609,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="https://confighub.github.io/helm-expt/ai-agents/">Coding Agents</a><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="${base}/../ai-agents/">Coding Agents</a><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
