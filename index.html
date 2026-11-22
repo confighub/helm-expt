@@ -16,15 +16,40 @@
   <style>
     :root {
       color-scheme: light;
-      --paper: #ffffff;
+      --paper: #f8f9fb;
       --surface: #ffffff;
-      --panel: #f4f6f8;
+      --panel: #eaf0f6;
       --ink: #18243a;
       --muted: #4e5f75;
-      --line: #d8dfe8;
+      --line: #d0d9e4;
       --accent: #244896;
+      --on-accent: #ffffff;
       --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --paper: #101a2a;
+        --surface: #172337;
+        --panel: #223247;
+        --ink: #f0f4fb;
+        --muted: #becde0;
+        --line: #384961;
+        --accent: #9ec7ff;
+        --on-accent: #152944;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #101a2a;
+      --surface: #172337;
+      --panel: #223247;
+      --ink: #f0f4fb;
+      --muted: #becde0;
+      --line: #384961;
+      --accent: #9ec7ff;
+      --on-accent: #152944;
     }
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -91,7 +116,7 @@
       font-weight: 600;
       font-size: .92rem;
     }
-    .btn.primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
     .btn:hover { box-shadow: 0 2px 6px #14223822; }
     .quicklinks { font-size: .88rem; color: var(--muted); }
     .quicklinks a { color: var(--accent); text-underline-offset: .18em; }
@@ -106,7 +131,7 @@
     }
     .agents strong { color: var(--ink); }
     .agents a { color: var(--accent); }
-    .agents code { font-family: var(--mono); font-size: .88em; background: #ffffff; border: 1px solid var(--line); border-radius: 4px; padding: .05em .3em; color: var(--ink); }
+    .agents code { font-family: var(--mono); font-size: .88em; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: .05em .3em; color: var(--ink); }
     footer { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
     footer a { color: var(--accent); }
     @media (max-width: 48rem) { .doors { grid-template-columns: 1fr; } }
