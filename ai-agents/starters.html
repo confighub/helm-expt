@@ -34,7 +34,7 @@
 
 <section id="why-starters">
   <h2>Fix it once. What happens to my other app?</h2>
-  <p>A template copies settings on day one and leaves you patching every repo on day two. Try this prompt with a starter in Mini Hub:</p>
+  <p>A template copies settings on day one and leaves you patching every repo on day two. Try this prompt with a starter in a local hub:</p>
   <div class="two">
     <div class="card">
       <span class="badge ok">Paste into Claude Code or Codex</span>
@@ -71,6 +71,25 @@
       <p class="small"><strong>Observed:</strong> Staging served "Checkout is delayed. Your cart is saved." Production served "Orders ship as usual." Same image digest; production waited for approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft guide</a></p>
     </div>
   </div>
+</section>
+
+<section id="vs-platform-engineering">
+  <h2>Starters compared with platform engineering</h2>
+  <p>A platform team usually builds the platform first and fits apps to it. A starter works the other way: it begins with one app, and the platform grows out of the apps you make from it.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>Platform engineering as we know it</th><th>Starters and durable config</th></tr></thead>
+      <tbody>
+        <tr><td><strong>What comes first</strong></td><td>The platform, built by a team ahead of the apps</td><td>The app. Its setup becomes the base for the next one</td></tr>
+        <tr><td><strong>How an app gets its setup</strong></td><td>A template, copied once when the app is created</td><td>A starter the app stays linked to</td></tr>
+        <tr><td><strong>Where the knowledge lives</strong></td><td>Docs, tickets and the platform team’s heads</td><td>With each value, as its reason</td></tr>
+        <tr><td><strong>Who it is built for</strong></td><td>People: portals, forms and golden-path guides</td><td>Agents and people</td></tr>
+        <tr><td><strong>How a change spreads</strong></td><td>One pull request in each repository</td><td>One change, read across every app</td></tr>
+        <tr><td><strong>Where you can start</strong></td><td>With a platform team</td><td>With one app on your computer</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:.9rem">ConfigHub does not run your app. Your hosting service, VM or cluster still does, and Argo CD or Flux still deliver to your clusters. Starters replace the templates, the portal and the scattered settings files above them.</p>
 </section>
 
 <section id="recipes">

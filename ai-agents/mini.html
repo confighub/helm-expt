@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Step 2: run ConfigHub Mini locally on 127.0.0.1 with no Docker or account. Isolated previews, base/staging/live copies, scoped agent keys, and owner approvals.">
-<title>Step 2: Local Mini Hub · ConfigHub for coding agents</title>
+<title>Step 2: Local hub · ConfigHub for coding agents</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -53,13 +53,13 @@
       <span class="badge ok">Daytona sandbox</span>
       <h3>Throw away the sandbox. Keep what you learned.</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy>Copy</button><code>The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.</code></div>
-      <p class="small"><strong>Observed result:</strong> 360 items ran in three batches of 120, then two batches of 240 and 120. After deleting the sandbox, a fresh Mini Hub still held the reason, 240 in staging, and 120 in production waiting for approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#trying-a-larger-batch-before-shipping-it">Preview result</a></p>
+      <p class="small"><strong>Observed result:</strong> 360 items ran in three batches of 120, then two batches of 240 and 120. After deleting the sandbox, a fresh local hub still held the reason, 240 in staging, and 120 in production waiting for approval. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona guide</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/evidence.md#trying-a-larger-batch-before-shipping-it">Preview result</a></p>
     </div>
   </div>
 </section>
 
 <section id="model">
-  <h2>How one app lives in Mini Hub</h2>
+  <h2>How one app lives in a local hub</h2>
   <p>Connecting an app does not rewrite your repo files. ConfigHub creates three copies of its settings and an optional isolated preview, plus a scoped key for the agent.</p>
   <div class="grid4 accent-top">
     <div class="card">
@@ -86,7 +86,7 @@
 </section>
 
 <section id="start-mini">
-  <h2>Two ways to start using Mini Hub</h2>
+  <h2>Two ways to start using a local hub</h2>
   <p>You do not have to pre-install a server. Ask for a durable preview in your app folder, or download the standalone package directly.</p>
   <div class="two">
     <div class="card">

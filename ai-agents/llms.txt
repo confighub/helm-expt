@@ -24,7 +24,7 @@ Machine-readable catalog: https://confighub.github.io/helm-expt/ai-agents/catalo
 
 1. **Step 1: Plugin** (`plugin.html`)
    Install in Claude Code (`claude plugin marketplace add confighubai/confighub-mini-plugin && claude plugin install confighub@confighub`) or Codex CLI (`curl -sSfL https://raw.githubusercontent.com/confighubai/confighub-mini-plugin/main/install-codex.sh | bash`). MIT-licensed hooks, launcher, and starters wrapping a prebuilt local binary. Records why supported settings changed locally in `~/.confighub` (including a first-run 30-day Claude Code transcript read and pattern-based credential redaction). Zero background processes, no account, works offline.
-2. **Step 2: Mini Hub** (`mini.html`)
+2. **Step 2: Local hub** (`mini.html`)
    Run a free local hub on `127.0.0.1` for `base`, `staging`, and `live` settings, durable previews (local or Daytona), linked starters across apps, scoped agent keys, and approved delivery (Vercel, Fly, Unikraft, AWS SSM).
 3. **Step 3: Shared Hub** (`hub.html`)
    Move current settings and their reasons to a hub teammates and CI can reach. Earlier revisions and delivery connections stay on the original hub.

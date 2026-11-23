@@ -21,7 +21,7 @@
     {
       "step": 2,
       "id": "mini",
-      "name": "ConfigHub Mini Hub",
+      "name": "ConfigHub local hub",
       "url": "https://confighub.github.io/helm-expt/ai-agents/mini.html",
       "repo": "https://github.com/confighubai/confighub-mini-plugin",
       "summary": "Free local hub on 127.0.0.1 for base, staging, and live environments, durable previews, linked starters across apps, scoped agent keys, and approved delivery."
@@ -53,7 +53,7 @@
     },
     {
       "path": "mini.html",
-      "title": "Step 2: Mini Hub",
+      "title": "Step 2: Local hub",
       "purpose": "Local environments, diff and check before deploy, Daytona previews, and scoped agent access."
     },
     {
@@ -168,7 +168,7 @@
       "id": "daytona-batch-experiment",
       "title": "On Daytona, throw away the sandbox and keep the experiment",
       "prompt": "The queue spiked. In a disposable Daytona sandbox, run the same jobs at 120 and 240 per batch. Show me the difference and save the change and its reason for review before you delete the sandbox.",
-      "observed_result": "360 items ran in batches of 120, 120, 120 then 240, 120; after deleting the sandbox, a fresh Mini Hub still held the reason, 240 in staging, and 120 in production.",
+      "observed_result": "360 items ran in batches of 120, 120, 120 then 240, 120; after deleting the sandbox, a fresh local hub still held the reason, 240 in staging, and 120 in production.",
       "guide_url": "https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md"
     },
     {
