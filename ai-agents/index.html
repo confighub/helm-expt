@@ -255,7 +255,7 @@ footer p { max-width: none; }
       <p class="lead">Get easy, correct environments and previews so testing and deploying with Claude or Codex stays effortless—backed by durable config storage and approvals so teams can run safely in production.</p>
       <div class="hero-install" aria-label="Quick install">
         <div class="hero-install-top">
-          <span class="hero-install-label">Install in one step (MIT hooks &amp; launcher · bundles prebuilt binary · works offline)</span>
+          <span class="hero-install-label">Install in one step. Open source (MIT), no account, works offline.</span>
           <div class="tabs" role="tablist" aria-label="Choose your coding agent (quick install)">
             <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
             <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
@@ -286,13 +286,13 @@ footer p { max-width: none; }
 </section>
 
 <section id="problem">
-  <h2>What basic problems ConfigHub solves</h2>
+  <h2>The problems ConfigHub solves</h2>
   <p>Your agent can build an app, and your host can deploy it. When you try a change, ConfigHub keeps track of which settings the preview uses, why they changed and what you approved for production.</p>
 
   <div class="problems">
     <div class="card">
       <h3>1. Deploy your app cleanly</h3>
-      <p class="pain">Envs, pre-deploy checks, and add-ons are scattered across <code>.env</code> files and host dashboards.</p>
+      <p class="pain">Your app’s settings, the checks they need before a deploy, and the add-ons they connect to are spread across <code>.env</code> files and your host’s dashboard.</p>
       <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, wires hosts and add-ons (Vercel, Fly, Stripe, Supabase, Resend), and checks values before deploy.</p>
     </div>
     <div class="card">
@@ -458,9 +458,9 @@ A change to production waits for your approval: Four for the sale. It was made j
     </div>
     <div class="card">
       <span class="badge ok">Step 2 · Local on 127.0.0.1</span>
-      <h3>Mini Hub on your laptop</h3>
+      <h3>Local hub on your laptop</h3>
       <p class="small">Add when you want separate <code>base</code>, <code>staging</code>, and <code>live</code> copies, durable previews, linked starters, scoped agent keys, and approved delivery. Free, no Docker.</p>
-      <p class="small"><a href="mini.html">How Mini Hub works →</a></p>
+      <p class="small"><a href="mini.html">How the local hub works →</a></p>
     </div>
     <div class="card">
       <span class="badge soft">Step 3 · Team &amp; CI</span>
@@ -502,7 +502,7 @@ defaults:
       <p>When you build <code>cart</code>, it starts with version 2’s hardened defaults automatically. Upgrading <code>shop</code> applies the shared replica fix without overwriting <code>shop</code>’s custom production log level, and production still waits for owner approval.</p>
     </div></li>
   </ol>
-  <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>.</p>
+  <p class="small" style="margin-top:1rem">Run this end to end on your laptop in <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-25-alice-bob-hardened.md">Alice ships it, Bob hardens it</a>, or see <a href="first-look.html#starter">Story 03 in Three guided examples</a>. To see how starters compare with a platform team’s setup, read <a href="starters.html#vs-platform-engineering">Starters compared with platform engineering</a>.</p>
 </section>
 
 
@@ -566,9 +566,9 @@ claude plugin install confighub@confighub</code></pre>
         <li><strong>In Terminal after Codex setup (plugin only):</strong> <code>~/.codex/confighub/bin/confighub mini changes</code> prints the recorded edits and prompts for the current folder.</li>
         <li><strong>In your own Terminal (with a hub):</strong>
           <ul class="tight">
-            <li><code>$ cub mini waiting</code> — inspect pending production proposals, diffs, and each proposal’s ID (such as <code>api-base/upload-...</code>).</li>
-            <li><code>$ cub mini approve PROPOSAL_ID --note "Why"</code> (or <code>cub mini refuse</code>) — approve or reject using the exact ID printed by <code>cub mini waiting</code>.</li>
-            <li><code>$ cub mini rollback APP-live --change-order PROPOSAL_ID --reason "Why"</code> — propose an atomic rollback to the prior revision.</li>
+            <li><code>$ cub mini waiting</code> shows each production change that waits for you, with what it would change.</li>
+            <li><code>$ cub mini approve APP</code> approves the change waiting for that app. When the app is linked to Vercel or Fly, the same command puts it live there. <code>cub mini refuse APP --reason "Why"</code> turns it down, and the agent can read your reason.</li>
+            <li><code>$ cub mini rollback APP --reason "Why"</code> proposes undoing the last approved change. It waits for your approval like any other.</li>
           </ul>
         </li>
       </ul>

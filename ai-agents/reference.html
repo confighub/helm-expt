@@ -43,7 +43,7 @@
         <li><code>/confighub:inventory</code> — list what the repo deploys and how.</li>
         <li><code>/confighub:checks</code> — control MCP write checks (<code>log</code>, <code>warn</code>, <code>repeats</code>, <code>ask</code>).</li>
         <li><code>/confighub:permissions</code> — show what agents may run without asking.</li>
-        <li><code>/confighub:staging</code> — give the current app staging, live, and approvals in Mini Hub.</li>
+        <li><code>/confighub:staging</code> — give the current app staging, live, and approvals in a local hub.</li>
         <li><code>/confighub:to-hub</code> — copy local plugin records into a hub.</li>
         <li><code>/confighub:start-from APP</code> — start a new app inheriting from an existing app.</li>
       </ul>
@@ -71,7 +71,7 @@
     <table>
       <thead><tr><th>Word</th><th>What it means</th></tr></thead>
       <tbody>
-        <tr><td><strong>Hub</strong></td><td>The ConfigHub server that holds revisions, reasons, and approvals: either a free local Mini Hub on <code>127.0.0.1</code> or a shared team hub.</td></tr>
+        <tr><td><strong>Hub</strong></td><td>The ConfigHub server that holds revisions, reasons, and approvals: either a free local hub on <code>127.0.0.1</code> or a shared team hub.</td></tr>
         <tr><td><strong>Base</strong></td><td>The shared settings an app starts from. Make a shared change once in the base so staging and live inherit it cleanly.</td></tr>
         <tr><td><strong>Copy (Variant)</strong></td><td>One environment's settings (<code>preview</code>, <code>staging</code>, or <code>live</code>) derived from the base while keeping its own overrides.</td></tr>
         <tr><td><strong>Starter</strong></td><td>A versioned YAML file of team defaults, rules, and written reasons that multiple apps stay linked to.</td></tr>
