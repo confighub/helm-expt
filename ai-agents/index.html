@@ -293,7 +293,7 @@ footer p { max-width: none; }
     <div class="card">
       <h3>1. Deploy your app cleanly</h3>
       <p class="pain">Your app’s settings, the checks they need before a deploy, and the add-ons they connect to are spread across <code>.env</code> files and your host’s dashboard.</p>
-      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, wires hosts and add-ons (Vercel, Fly, Stripe, Supabase, Resend), and checks values before deploy.</p>
+      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, wires hosts and add-ons (Vercel, Fly, Heroku, Stripe, Supabase, Resend), and checks values before deploy.</p>
     </div>
     <div class="card">
       <h3>2. Know why a setting changed</h3>
@@ -394,6 +394,7 @@ A change to production waits for your approval: Four for the sale. It was made j
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-web.md">Web (<code>.env</code>)</a></h4><span class="badge ok">Local &amp; VM</span><p>Any web service reading <code>.env</code> files, with staging and production copies.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/nextjs-on-vercel.md">Next.js on Vercel</a></h4><span class="badge ok">Live delivery</span><p>Connect a linked Next.js project; approving pushes production settings to Vercel.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-vercel.md">Vercel</a></h4><span class="badge ok">Live or local stand-in</span><p>Edge cache and region defaults with production gated behind approval.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/heroku.md">Heroku</a></h4><span class="badge ok">Live delivery</span><p>Start from your app&rsquo;s config vars and its pipeline&rsquo;s staging app; approving sets the change on Heroku.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/rails-on-fly.md">Rails on Fly</a></h4><span class="badge ok">Live delivery</span><p>Share one setup across two Rails apps and deliver approved settings to a Fly Machine.</p></div>
     </div>
   </div>
@@ -540,6 +541,7 @@ claude plugin install confighub@confighub</code></pre>
       <h3 id="in-my-app">Already working on an app?</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the question about my app">Copy</button><code>What does ConfigHub remember about a setting we changed here, and why?</code></div>
       <p class="small">Look for a setting, its old and new values, and the request behind the change. If the record is empty, ask for one change you want and say why. Or <a href="#first-prompt">try the cache example</a>.</p>
+      <p class="small"><strong>Then give it staging and production.</strong> In Claude Code, in the app&rsquo;s folder, type <code>/confighub:staging</code>. Your agent then changes staging at once, and a production change waits until you run <code>cub mini approve APP</code>. On Vercel, Fly or Heroku, approving puts the change live there. For an app you run yourself, <code>cub mini preview --staging</code> runs it the way it already runs, with staging&rsquo;s settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
       <h3 id="build-my-first-app">Starting in an empty folder?</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small Node app for my neighborhood market. Give it a heading I can change in .env, run it locally and give me the link.</code></div>
       <p class="small">Your agent builds the app. Open its link. When you want to compare headings, <a href="#try-a-change-in-my-app">ask for a preview</a>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
