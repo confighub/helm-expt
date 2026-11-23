@@ -279,7 +279,7 @@ footer p { max-width: none; }
         <a class="btn" href="#in-my-app">Start in my app</a>
         <a class="btn" href="#build-my-first-app">Build my first app</a>
       </p>
-      <p class="small" style="margin-top:.85rem;color:#c7d8e8">Working with Helm charts, Kubernetes, or GPU fleets? <a href="../site/" style="color:#b5eddb">Open the Kubernetes Workshop →</a> · <a href="../" style="color:#b5eddb">Two Doors overview</a></p>
+      <p class="small" style="margin-top:.85rem;color:#c7d8e8">Run a platform team? Start read-only: <code>/confighub:inventory</code> in your GitOps repository says what deploys each chart, with no cluster or account. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-inventory.md" style="color:#b5eddb">See what your repository deploys →</a><br>Working with Helm charts, Kubernetes, or GPU fleets? <a href="../site/" style="color:#b5eddb">Open the Kubernetes Workshop →</a> · <a href="../" style="color:#b5eddb">Two Doors overview</a></p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
@@ -293,7 +293,7 @@ footer p { max-width: none; }
     <div class="card">
       <h3>1. Deploy your app cleanly</h3>
       <p class="pain">Your app’s settings, the checks they need before a deploy, and the add-ons they connect to are spread across <code>.env</code> files and your host’s dashboard.</p>
-      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, wires hosts and add-ons (Vercel, Fly, Heroku, Stripe, Supabase, Resend), and checks values before deploy.</p>
+      <p><strong>ConfigHub:</strong> Saves <code>base</code>, <code>staging</code>, and <code>live</code> in one place, wires hosts and add-ons (Vercel, Fly, Heroku, Unikraft, Stripe, Supabase, Resend), and checks values before deploy.</p>
       <p class="small"><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">Set up staging and production for your app →</a></p>
     </div>
     <div class="card">
@@ -410,6 +410,7 @@ A change to production waits for your approval: Four for the sale. It was made j
   <div class="stack-group">
     <h3>Kubernetes, cloud config &amp; workers</h3>
     <div class="grid4">
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-inventory.md">What your repository deploys</a></h4><span class="badge ok">Read-only</span><p>Each chart and overlay, the Argo CD Application or ApplicationSet that deploys it, and the values that differ between environments. No cluster, no account.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-argocd.md">Argo CD</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize overlays deployed by Argo CD from approved revisions.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-kustomize-flux.md">Flux</a></h4><span class="badge ok">Kustomize GitOps</span><p>Kustomize repository reconciled by Flux with production gating.</p></div>
       <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-parameter-store.md">AWS Parameter Store</a></h4><span class="badge ok">AWS SSM</span><p>Deliver approved settings to SSM Parameter Store (includes no-account stand-in).</p></div>
@@ -420,8 +421,8 @@ A change to production waits for your approval: Four for the sale. It was made j
   <div class="stack-group">
     <h3>Agent sandboxes &amp; cloud microVMs</h3>
     <div class="grid4">
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Disposable sandbox</span><p>Daytona runs your app. The starter lets you try a setting in a sandbox and bring the change and its reason back for review.</p></div>
-      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Unikraft Cloud</span><p>Roll out and roll back service settings on Unikraft Cloud.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-daytona.md">Daytona</a></h4><span class="badge ok">Your sandbox</span><p>Run your own app in your Daytona sandbox with staging&rsquo;s settings. Credentials stay out, and deleting the sandbox loses nothing.</p></div>
+      <div class="card"><h4><a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/starter-unikraft.md">Unikraft</a></h4><span class="badge ok">Live delivery</span><p>Connect your own Unikraft Cloud service; approving starts a new instance of the same image with the approved settings.</p></div>
     </div>
   </div>
 
@@ -549,7 +550,7 @@ claude plugin install confighub@confighub</code></pre>
       <h3 id="in-my-app">Already working on an app?</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the question about my app">Copy</button><code>What does ConfigHub remember about a setting we changed here, and why?</code></div>
       <p class="small">Look for a setting, its old and new values, and the request behind the change. If the record is empty, ask for one change you want and say why. Or <a href="#first-prompt">try the cache example</a>.</p>
-      <p class="small"><strong>Then give it staging and production.</strong> In Claude Code, in the app&rsquo;s folder, type <code>/confighub:staging</code>. Your agent then changes staging at once, and a production change waits until you run <code>cub mini approve APP</code>. On Vercel, Fly or Heroku, approving puts the change live there. For an app you run yourself, <code>cub mini preview --staging</code> runs it the way it already runs, with staging&rsquo;s settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
+      <p class="small"><strong>Then give it staging and production.</strong> In Claude Code, in the app&rsquo;s folder, type <code>/confighub:staging</code>. Your agent then changes staging at once, and a production change waits until you run <code>cub mini approve APP</code>. On Vercel, Fly, Heroku or Unikraft Cloud, approving puts the change live there. For an app you run yourself, <code>cub mini preview --staging</code> runs it the way it already runs, with staging&rsquo;s settings. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/existing-app.md">An app you already have</a></p>
       <h3 id="build-my-first-app">Starting in an empty folder?</h3>
       <div class="say"><button type="button" class="copy-btn" data-copy aria-label="Copy the first app prompt">Copy</button><code>Build a small Node app for my neighborhood market. Give it a heading I can change in .env, run it locally and give me the link.</code></div>
       <p class="small">Your agent builds the app. Open its link. When you want to compare headings, <a href="#try-a-change-in-my-app">ask for a preview</a>. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/journeys/new-app.md">New app guide</a></p>
