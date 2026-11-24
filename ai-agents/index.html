@@ -596,7 +596,7 @@ claude plugin install confighub@confighub</code></pre>
       </ul>
     </div>
   </div>
-  <p class="small" style="margin-top:.85rem">Approvals govern settings your app or delivery pipeline reads from the hub. On the same machine, an agent with shell access or direct cloud/cluster credentials can still reach your local sign-ins—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>. With the Claude plugin, an agent that tries to change production with your sign-in, such as <code>fly secrets set</code> on the production app, is stopped once before it runs and asks you first. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-27-production-waits.md">See it →</a></p>
+  <p class="small" style="margin-top:.85rem">Approvals govern settings your app or delivery pipeline reads from the hub. On the same machine, an agent with shell access or direct cloud/cluster credentials can still reach your local sign-ins—see <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/agents-that-run-for-weeks.md#limiting-what-an-agent-can-reach">limiting what an agent can reach</a>. With the Claude plugin, an agent that tries to change production with your sign-in, such as <code>fly secrets set</code>, <code>heroku config:set</code> or <code>unikraft instances run -e</code> on production, is stopped once before it runs and asks you first. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/story-27-production-waits.md">See it →</a></p>
 </section>
 
 <section id="open">
