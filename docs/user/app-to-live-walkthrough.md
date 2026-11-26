@@ -49,7 +49,7 @@ deployment.
 ## 2. Create one local cluster and target
 
 ```sh
-cub cluster up --name demo
+cub cluster up demo
 source ~/.confighub/clusters/demo.env
 cub target get demo/target
 ```
@@ -141,7 +141,7 @@ so this document does not present the old 2026-07-02 run as current proof.
 Only remove the resources created by this walkthrough:
 
 ```sh
-cub cluster down --name demo
+cub cluster down demo
 cub space delete acme-web-dev --recursive
 cub space delete acme-web-base --recursive
 ```

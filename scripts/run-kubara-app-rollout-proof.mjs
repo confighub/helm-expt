@@ -56,10 +56,10 @@ const EXPECTED = {
 const RUNBOOK = `Reproduce the live proof (operator-driven, four kind clusters):
 
   # 1. One cluster per environment. Each gets ConfigHub-owned Argo CD + argobot.
-  cub cluster up --name hx-app-dev     --space hx-app-dev
-  cub cluster up --name hx-app-staging --space hx-app-staging
-  cub cluster up --name hx-app-prod-a  --space hx-app-prod-a
-  cub cluster up --name hx-app-prod-b  --space hx-app-prod-b
+  cub cluster up hx-app-dev     --space hx-app-dev
+  cub cluster up hx-app-staging --space hx-app-staging
+  cub cluster up hx-app-prod-a  --space hx-app-prod-a
+  cub cluster up hx-app-prod-b  --space hx-app-prod-b
 
   # 2. Author the base app (one resource per Unit): Namespace, Deployment, Service.
   cub space create hx-web-base --label Component=hx-web --label Layer=App

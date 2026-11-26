@@ -834,7 +834,7 @@
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev configuration-oci-nginx-replicas-4 --target workshop/target --space-pattern &quot;template:configuration-oci-nginx-replicas-4-dev&quot;
 

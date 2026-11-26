@@ -818,7 +818,7 @@ timoni -n redis build redis oci://ghcr.io/stefanprodan/modules/redis -v 8.10.1 -
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 3 inputs that the destination must supply, so read them before you deploy.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records 3 inputs that the destination must supply, so read them before you deploy.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev timoni-redis-8-10-1-default --target workshop/target --space-pattern &quot;template:timoni-redis-8-10-1-default-dev&quot;
 

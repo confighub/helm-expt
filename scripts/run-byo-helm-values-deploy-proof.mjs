@@ -876,7 +876,7 @@ function storedData(unit) {
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports"],
+    ["cluster", "up", name, "--no-ports"],
     {
       cwd: repoRoot,
       env: cubEnv(),
@@ -894,7 +894,7 @@ function clusterUp(name) {
 function clusterDown(name) {
   const result = tryCommand(
     "cub",
-    ["cluster", "down", "--name", name, "--force"],
+    ["cluster", "down", name, "--force"],
     { timeout: 600_000, env: cubEnv(), inherit: true },
   );
   if (!result.ok && clusterPresent(name)) {

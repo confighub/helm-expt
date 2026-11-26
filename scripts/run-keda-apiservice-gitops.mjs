@@ -60,7 +60,7 @@ function runLiveWitness() {
 
   try {
     record("rig-up", () => {
-      mustUncaptured("cub", ["cluster", "up", "--name", rig], 900);
+      mustUncaptured("cub", ["cluster", "up", rig], 900);
       return `cub cluster ${rig} created`;
     });
 
@@ -191,7 +191,7 @@ function runLiveWitness() {
 
     receipt.spec.result = receipt.spec.checks.every((item) => item.result === "pass") ? "pass" : "blocked";
   } finally {
-    const teardown = runCommand("cub", ["cluster", "down", "--name", rig, "--force"], 600);
+    const teardown = runCommand("cub", ["cluster", "down", rig, "--force"], 600);
     receipt.spec.run.teardown = {
       result: teardown.status === 0 ? "pass" : "blocked",
       detail: `${teardown.stdout}\n${teardown.stderr}`.trim().slice(0, 4000),

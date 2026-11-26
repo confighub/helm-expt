@@ -728,16 +728,16 @@
         : []),
       "  ./candidate.yaml",
       "",
-      "# Provider None keeps this evidence Unit out of deployment releases.",
+      "# --unreleasable keeps this evidence Unit out of deployment releases.",
       "cub unit create --space " + space + " --allow-exists \\",
-      "  --provider None --toolchain AppConfig/YAML \\",
+      "  --unreleasable --toolchain AppConfig/YAML \\",
       "  " + reviewUnit + " ./workshop-review.json",
       ...(scanUnit
         ? [
             "",
             "# This preserves the matching local advisory receipt; ConfigHub validation remains separate.",
             "cub unit create --space " + space + " --allow-exists \\",
-            "  --provider None --toolchain AppConfig/YAML \\",
+            "  --unreleasable --toolchain AppConfig/YAML \\",
             "  " + scanUnit + " ./cub-check.json",
           ]
         : []),

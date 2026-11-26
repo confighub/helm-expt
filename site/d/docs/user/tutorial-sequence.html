@@ -1005,8 +1005,7 @@ readiness receipt.</code></pre>
 <h2 id="before-live-gitops-runs-bring-kubernetes-and-argo-cd">Before Live GitOps Runs: Bring Kubernetes And Argo CD</h2>
 <p>The live GitOps tutorial needs a Kubernetes cluster with Argo CD installed and able to pull from the ConfigHub OCI gateway.</p>
 <p>Recommended local setup:</p>
-<pre><code>cub cluster up \
-  --name helm-expt-oci-demo \
+<pre><code>cub cluster up helm-expt-oci-demo \
   --space helm-expt-oci-demo-cluster</code></pre>
 <p><code>cub cluster up</code> creates a disposable kind cluster, installs Argo CD, and writes a dedicated kubeconfig at:</p>
 <pre><code>$HOME/.confighub/clusters/helm-expt-oci-demo.kubeconfig</code></pre>

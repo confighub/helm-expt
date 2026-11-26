@@ -56,7 +56,7 @@ live-status helper, and creates two ConfigHub Spaces:
 
 ```sh
 cub auth login
-cub cluster up --name myrig
+cub cluster up myrig
 source ~/.confighub/clusters/myrig.env
 cub target get myrig/target
 ```
@@ -146,7 +146,7 @@ Flux delivery path.
 When the test is finished:
 
 ```sh
-cub cluster down --name myrig --force
+cub cluster down myrig --force
 ```
 
 ## Hooks, CRDs, and other setup work

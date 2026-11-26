@@ -260,7 +260,7 @@ function runProof() {
   let rigUp = false, publish = { ok: false, reason: "not attempted" };
   try {
     check(existsSync(join(repoRoot, FIXTURE, "workload.yaml")), `fixture missing at ${FIXTURE}`);
-    const up = tsh("cub", ["cluster", "up", "--name", rig], { timeout: 600_000 });
+    const up = tsh("cub", ["cluster", "up", rig], { timeout: 600_000 });
     rigUp = up.ok || (tsh("cub", ["cluster", "list"]).out || "").includes(rig);
     check(rigUp, `cub cluster up failed: ${up.out.slice(0, 200)}`);
     publish = publishToOci(wspace, target);
@@ -270,7 +270,7 @@ function runProof() {
       legs.cubDirect = legCubDirectOci(kctx, wspace, work);
     }
   } finally {
-    if (rigUp) tsh("cub", ["cluster", "down", "--name", rig, "--force"], { timeout: 300_000 });
+    if (rigUp) tsh("cub", ["cluster", "down", rig, "--force"], { timeout: 300_000 });
     rmSync(work, { recursive: true, force: true });
   }
   const present = Object.values(legs);

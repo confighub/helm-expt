@@ -733,7 +733,7 @@
 <p><code>cub cluster up</code> creates a temporary kind cluster, installs Argo CD and the live-status helper, and creates two ConfigHub Spaces:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>
   <pre><code>cub auth login
-cub cluster up --name myrig
+cub cluster up myrig
 source ~/.confighub/clusters/myrig.env
 cub target get myrig/target</code></pre>
 <ul><li><code>myrig</code> holds the worker and the OCI Target <code>myrig/target</code>;</li><li><code>myrig-argo-apps</code> holds the root app-of-apps and child Argo CD Application Units.</li></ul>
@@ -779,7 +779,7 @@ spec:
     name: confighub-oci</code></pre>
 <p>That object only fetches the artifact. A Flux <code>Kustomization</code> still has to consume it, and controller and workload checks remain separate. See the <a href="gitops-adopter-guide.html">GitOps adopter guide</a> before changing an existing Flux delivery path.</p>
 <p>When the test is finished:</p>
-<pre><code>cub cluster down --name myrig --force</code></pre>
+<pre><code>cub cluster down myrig --force</code></pre>
 <h2 id="hooks-crds-and-other-setup-work">Hooks, CRDs, and other setup work</h2>
 <p>Some charts need more than an ordinary apply. A CRD may need to exist before a custom resource. A setup Job may need to finish before the main workload. A webhook may need a certificate.</p>
 <p>The catalog records that work with the selected base instead of hiding it in a Helm hook annotation. Each supported delivery path must say how it performs the step, how it waits, and what receipt proves completion. Users can still use hooks and chart-specific setup; ConfigHub makes those decisions visible and repeatable.</p>

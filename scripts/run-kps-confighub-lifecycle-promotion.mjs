@@ -1368,7 +1368,7 @@ function refreshApplication(clusterName, applicationName) {
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports", "--no-k8sbot"],
+    ["cluster", "up", name, "--no-ports", "--no-k8sbot"],
     {
       cwd: repoRoot,
       env: cubEnv(),
@@ -1390,7 +1390,7 @@ function clusterUp(name) {
 
 function clusterDown(name, { nativeApprovalRun = false } = {}) {
   if (nativeApprovalRun) {
-    cubTry(["cluster", "down", "--name", name, "--force"], { timeout: 600_000, inherit: true });
+    cubTry(["cluster", "down", name, "--force"], { timeout: 600_000, inherit: true });
     if (clusterPresent(name)) {
       tryCommand("kind", ["delete", "cluster", "--name", name], { timeout: 180_000, inherit: true });
     }
@@ -1400,7 +1400,7 @@ function clusterDown(name, { nativeApprovalRun = false } = {}) {
     return;
   }
   cubTry([
-    "cluster", "down", "--name", name, "--delete-config", "--force",
+    "cluster", "down", name, "--delete-config", "--force",
   ], { timeout: 600_000, inherit: true });
   if (clusterPresent(name)) {
     tryCommand("kind", ["delete", "cluster", "--name", name], {

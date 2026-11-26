@@ -1519,7 +1519,7 @@ function summarizeScoutReceipt(path, receipt, key) {
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
-    ["cluster", "up", "--name", name, "--no-ports", "--no-k8sbot"],
+    ["cluster", "up", name, "--no-ports", "--no-k8sbot"],
     {
       cwd: repoRoot,
       env: cubEnv(),
@@ -1548,7 +1548,7 @@ function clusterUp(name) {
 function clusterDown(name) {
   const result = tryCommand(
     "cub",
-    ["cluster", "down", "--name", name, "--delete-config", "--force"],
+    ["cluster", "down", name, "--delete-config", "--force"],
     { timeout: 600_000, env: cubEnv() },
   );
   if (!result.ok && clusterPresent(name)) {
