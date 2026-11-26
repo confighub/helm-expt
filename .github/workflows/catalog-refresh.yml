@@ -23,30 +23,24 @@ name: Weekly catalog refresh
 # maintainer can regenerate reproducibly at all.
 
 on:
-  # The schedule is deliberately switched off, and the reason has changed since
-  # this comment was first written. The machinery itself is now believed sound:
-  # the derived-views step refreshes every committed view that copies
+  # The maintainer turned the schedule on: a catalog that falls behind upstream
+  # with nobody told is worse than a weekly pull request that lists what moved.
+  # The derived-views step refreshes every committed view that copies
   # latest_version out of review.csv, the guard below refuses any diff outside
-  # the refresh surface, and the pull request this job opens runs the full
-  # verify chain before it can merge, so an incomplete refresh cannot land
-  # silently. The remaining hold is a maintainer decision: the catalog is not
-  # yet current, and issue #1443 records what a full refresh run needs
-  # (regenerate to a fixpoint, never a single pass). The maintainer decides
-  # when the cron comes back.
-  #
-  #  schedule:
-  #    # Mondays, 06:00 UTC.
-  #    - cron: "0 6 * * 1"
+  # the refresh surface, and the gates run on the pull request before anyone
+  # can merge it, so an incomplete refresh cannot land silently. While one
+  # refresh pull request is open, later runs update it rather than open another.
+  schedule:
+    # Mondays, 06:00 UTC.
+    - cron: "0 6 * * 1"
   workflow_dispatch:
-    inputs:
-      acknowledge_known_gap:
-        description: "Type 'yes' to run while the schedule hold is in place"
-        required: true
-        default: "no"
 
 permissions:
   contents: write
   pull-requests: write
+  # A pull request opened with this workflow's token does not start other
+  # workflows' pull_request runs, so the job dispatches the gates itself.
+  actions: write
 
 concurrency:
   group: weekly-catalog-refresh
@@ -63,16 +57,6 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      # A manual dispatch is the only way in while the schedule is off, and it
-      # still has to be deliberate. Refusing here costs one second and keeps a
-      # curious click from opening a pull request that contradicts itself.
-      - name: Refuse an unacknowledged run
-        run: |
-          if [ "${{ inputs.acknowledge_known_gap }}" != "yes" ]; then
-            echo "::error::This lane is held while the catalog is brought current; the maintainer decides when the cron returns. The pull request it opens runs the full verify chain, so a bad refresh cannot merge silently. Dispatch with acknowledge_known_gap=yes only to test the machinery."
-            exit 1
-          fi
-
       - name: Check out helm-expt
         uses: actions/checkout@v6
         with:
@@ -179,7 +163,9 @@ jobs:
           # them. Anything else means a generator did more than this lane
           # intends, and the run stops rather than proposing it.
           allowed='^(data/latest-top20-refresh/|data/refresh-survival/|data/production-disposition/next-actions|data/README.md|data/csv-index.csv|site/)'
-          unexpected="$(git status --porcelain | awk '{print $2}' | grep -vE "$allowed" || true)"
+          # Every changed path, one per line: both sides of a rename, and a
+          # path with a space whole.
+          unexpected="$({ git diff --name-only --no-renames HEAD; git ls-files --others --exclude-standard; } | grep -vE "$allowed" || true)"
           if [ -n "$unexpected" ]; then
             echo "::error::The refresh touched paths outside its surface:"
             echo "$unexpected"
@@ -199,13 +185,24 @@ jobs:
           node scripts/verify-no-personal-names.mjs
           node scripts/verify-no-temp-paths.mjs
 
-      - name: Open a pull request
+      - name: Open or update the refresh pull request
         if: steps.detect.outputs.moved == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           date_tag="$(date -u +%Y-%m-%d)"
-          branch="bot/catalog-refresh-${date_tag}"
+          # One refresh pull request at a time: while one is open, this run
+          # replaces its branch and its description, so an unmerged refresh
+          # never turns into a near-identical pull request every Monday.
+          open_pr="$(gh pr list --state open --base main --json number,headRefName \
+            --jq '[.[] | select(.headRefName | startswith("bot/catalog-refresh-"))][0] | "\(.number) \(.headRefName)"' || true)"
+          if [ -n "$open_pr" ] && [ "$open_pr" != "null null" ]; then
+            open_number="${open_pr%% *}"
+            branch="${open_pr#* }"
+          else
+            open_number=""
+            branch="bot/catalog-refresh-${date_tag}"
+          fi
           moved="$(git diff -- data/latest-top20-refresh/review.csv | grep -E '^[+-][^+-]' || echo 'see the diff')"
 
           cat > "$RUNNER_TEMP/commit-message.txt" <<'MESSAGE_END'
@@ -219,10 +216,10 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$branch"
+          git checkout -B "$branch"
           git add -A
           git commit --file "$RUNNER_TEMP/commit-message.txt"
-          git push --set-upstream origin "$branch"
+          git push --force --set-upstream origin "$branch"
 
           {
             echo "The weekly refresh found upstream movement."
@@ -246,9 +243,20 @@ jobs:
             echo "Helm on the runner: \`$(helm version --short)\`. The committed render receipts record \`${EXPECTED_HELM_VERSION}\`, so regenerating reproducibly here: **${{ steps.toolchain.outputs.reproducible }}**."
           } > "$RUNNER_TEMP/pr-body.md"
 
-          gh pr create --base main --head "$branch" \
-            --title "chore(catalog): weekly upstream refresh for ${date_tag}" \
-            --body-file "$RUNNER_TEMP/pr-body.md"
+          if [ -n "$open_number" ]; then
+            gh pr edit "$open_number" \
+              --title "chore(catalog): weekly upstream refresh for ${date_tag}" \
+              --body-file "$RUNNER_TEMP/pr-body.md"
+          else
+            gh pr create --base main --head "$branch" \
+              --title "chore(catalog): weekly upstream refresh for ${date_tag}" \
+              --body-file "$RUNNER_TEMP/pr-body.md"
+          fi
+
+          # The gates, on the refresh branch, since this token's push starts
+          # no pull_request run. Their checks land on the pull request's head.
+          gh workflow run full-verify.yml --ref "$branch"
+          gh workflow run site-verify.yml --ref "$branch"
 
       - name: Keep the evidence either way
         if: always()

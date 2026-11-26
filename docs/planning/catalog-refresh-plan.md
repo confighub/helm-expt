@@ -2,11 +2,13 @@ EXPERIMENTAL
 
 # Plan: turning the weekly catalog refresh on
 
-The weekly refresh lane exists and is switched off. This page records why it is
-off, what has to be true before the schedule comes back, and the rules the lane
-must obey when it does run. The maintainer decides when, not the lane.
+The weekly refresh lane runs every Monday at 06:00 UTC. The maintainer turned
+the schedule on on 26 November 2026, before the preconditions below were met:
+a catalog that falls behind upstream with nobody told costs more than a weekly
+pull request that lists what moved. This page records why it was off, the
+preconditions that are still worth meeting, and the rules the lane obeys.
 
-## Why it is off
+## Why it was off
 
 The lane was merged in #1341 with its derived-view fan-out incomplete. Its
 refresh step rewrote `data/latest-top20-refresh/review.csv` without rewriting
@@ -95,29 +97,28 @@ These are already implemented and should stay true:
   and reports the answer instead.
 - It verifies the refreshed views before opening anything.
 
-## Known gaps still open in the lane
+## Gaps found in the lane, and what was done
 
-Recorded here so switching the schedule on is a decision made with open eyes.
-None of them is a reason to keep the lane broken; all of them are reasons the
-cron stays off until someone has decided about each.
+These were recorded before the schedule came back. The four below were fixed
+when it did.
 
-- **Duplicate weekly pull requests.** The branch name is date-derived and
-  detection compares against main every run, so an unmerged pull request means a
-  near-identical one opens the following week. Deriving the branch name from the
-  moved content, or looking for an open bot pull request first, fixes it.
-- **The gate does not run on the bot's own pull requests.** Pull requests opened
-  with `GITHUB_TOKEN` do not trigger `pull_request` workflows, so the site and
-  text gates added in the same change never see them.
-- **A same-day retry cannot push**, for the same date-derived branch reason.
-- **The path guard parses `git status --porcelain` with `awk '{print $2}'`**,
-  which takes the wrong field for a rename and breaks on a path containing a
-  space.
+- **Duplicate weekly pull requests.** Fixed: while a refresh pull request is
+  open, a later run replaces its branch and its description instead of opening
+  another.
+- **The gate did not run on the bot's own pull requests.** Pull requests opened
+  with `GITHUB_TOKEN` do not trigger `pull_request` workflows. Fixed: the lane
+  dispatches `full-verify.yml` and `site-verify.yml` on the refresh branch, and
+  their checks land on the pull request's head commit.
+- **A same-day retry could not push.** Fixed by the same change: the branch is
+  reset and force-pushed.
+- **The path guard parsed `git status --porcelain` with `awk '{print $2}'`.**
+  Fixed: it reads `git diff --name-only --no-renames` and the untracked files,
+  one path per line, so both sides of a rename and a path with a space are
+  checked whole.
 
-## How to turn it on
+## Still worth doing
 
-1. Bring the catalog current and let the detection view settle.
+1. Bring the catalog current, so that the weekly pull request reports a small
+   diff rather than a backlog.
 2. Fill in the role of every npm lane, and move the cheap offline ones into the
    verify chain.
-3. Decide about each known gap above.
-4. Uncomment the `schedule` block, remove the acknowledgement input and the
-   refusal step, and watch the first run.
