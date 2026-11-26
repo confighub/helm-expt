@@ -35,6 +35,7 @@ import {
   toYaml,
 } from "./lib/proof-common.mjs";
 import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
+import { installerPackageVersionProblem } from "./lib/installer-package-version.mjs";
 import {
   KUBARA_CATALOG_1_1_ADDITIONS,
   KUBARA_CATALOG_1_1_ARTIFACTS,
@@ -339,7 +340,8 @@ function verifyCandidate(item) {
   check(lock.spec?.exactArtifact?.sha256 === item.sha256, `${selectionKey(item)}: candidate exact SHA changed`);
   check(lock.spec?.packageSHA256 === item.sha256, `${selectionKey(item)}: candidate package SHA differs from exact source`);
   const installer = readYaml(join(packageRoot, "installer.yaml"));
-  check(installer.metadata?.version === item.version, `${selectionKey(item)}: installer version changed`);
+  const versionProblem = installerPackageVersionProblem(installer.metadata?.version, item.canonicalIdentity, item.version);
+  check(!versionProblem, `${selectionKey(item)}: installer version changed: ${versionProblem}`);
   check(installer.spec?.bases?.length === 1, `${selectionKey(item)}: additive completion must expose exactly one reviewed base`);
   check(installer.spec.bases[0]?.name === "default" && installer.spec.bases[0]?.default === true, `${selectionKey(item)}: default base changed`);
 }

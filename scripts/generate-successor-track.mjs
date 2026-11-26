@@ -4,6 +4,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
+import { installerPackageVersion } from "./lib/installer-package-version.mjs";
 import {
   canonicalObjectMaps,
   check,
@@ -467,7 +468,7 @@ function writePackageAndRunCub(chart, paths, releaseObjects, objects) {
   writeYaml(join(paths.packageRoot, "installer.yaml"), {
     apiVersion: "installer.confighub.com/v1alpha1",
     kind: "Package",
-    metadata: { name: `${chart.publisher}-${chart.chart}`, version: chart.version },
+    metadata: { name: `${chart.publisher}-${chart.chart}`, version: paths.packageVersion },
     spec: {
       bases: [
         {
@@ -514,7 +515,7 @@ node scripts/generate-successor-track.mjs --verify-packages
       package: {
         path: relativeRepo(paths.packageRoot),
         name: `${chart.publisher}-${chart.chart}`,
-        version: chart.version,
+        version: paths.packageVersion,
         sourceFiles,
       },
       deterministicBundle: {
@@ -1222,9 +1223,13 @@ function dossierNotes(chart, features, objectFeatures) {
 }
 
 function pathsFor(chart, options = {}) {
+  const packageRoot = options.packageRootOverride ?? join(repoRoot, "packages", chart.publisher, chart.chart, chart.version);
   return {
     proofRoot: options.proofRootOverride ?? join(repoRoot, "recipes", chart.publisher, chart.chart, chart.version),
-    packageRoot: options.packageRootOverride ?? join(repoRoot, "packages", chart.publisher, chart.chart, chart.version),
+    packageRoot,
+    // Chosen here, before generation removes the package directory, so a
+    // package that exists keeps its spelling.
+    packageVersion: installerPackageVersion(`${chart.publisher}/${chart.chart}`, chart.version, { packageRoot }),
   };
 }
 
