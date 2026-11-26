@@ -903,7 +903,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>. It applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="grafana-grafana-10-5-15-existing-secret-ingress" open>
         <summary>Helm chart, base <strong>existing-secret-ingress</strong>, version 10.5.15</summary>
         <details class="entry-inputs" data-entry-inputs="grafana-grafana-10-5-15-existing-secret-ingress" open>
@@ -925,7 +925,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 9 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o grafana-grafana-10-5-15-existing-secret-ingress.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml
 
@@ -933,7 +933,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> shasum -a 256 grafana-grafana-10-5-15-existing-secret-ingress.yaml
 04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60  grafana-grafana-10-5-15-existing-secret-ingress.yaml
 
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --non-interactive --namespace grafana</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
@@ -947,14 +947,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-grafana-10-5-15-existing-secret-ingress.yaml">Read the record that states this</a>.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-grafana-10-5-15-existing-secret-ingress.yaml">Read the record that states this</a>.</p>
           <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
           <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base existing-secret-ingress --space &lt;your-space&gt; --namespace grafana --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-grafana-10-5-15-existing-secret-ingress --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>
@@ -1017,7 +1021,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 9 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o grafana-grafana-10-5-15-static-passwords.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml
 
@@ -1025,7 +1029,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> shasum -a 256 grafana-grafana-10-5-15-static-passwords.yaml
 893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d  grafana-grafana-10-5-15-static-passwords.yaml
 
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base static-passwords --work-dir ./grafana-grafana-10-5-15-static-passwords --non-interactive --namespace grafana</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
@@ -1039,14 +1043,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-grafana-10-5-15-static-passwords.yaml">Read the record that states this</a>.</p>
+          <p>The Catalog saved this entry in ConfigHub. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-grafana-10-5-15-static-passwords.yaml">Read the record that states this</a>.</p>
           <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
           <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3 --base static-passwords --space &lt;your-space&gt; --namespace grafana --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./grafana-grafana-10-5-15-static-passwords --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>

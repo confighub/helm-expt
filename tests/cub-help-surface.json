@@ -88,6 +88,7 @@
     "oauthclient",
     "organization",
     "organization-member",
+    "package",
     "plugin",
     "release",
     "resource",
@@ -4145,6 +4146,73 @@
         "--select",
         "--verbose",
         "--where"
+      ]
+    },
+    "package": {
+      "source": "cub v0.11.23",
+      "style": "cobra",
+      "subcommands": [
+        "install",
+        "list",
+        "show"
+      ],
+      "flags": [
+        "--context",
+        "--debug",
+        "--help"
+      ]
+    },
+    "package install": {
+      "source": "cub v0.11.23",
+      "style": "cobra",
+      "subcommands": [],
+      "flags": [
+        "--base",
+        "--components",
+        "--context",
+        "--debug",
+        "--help",
+        "--input",
+        "--namespace",
+        "--non-interactive",
+        "--reuse",
+        "--select",
+        "--set-image",
+        "--space",
+        "--space-pattern",
+        "--target",
+        "--variant",
+        "--work-dir",
+        "--yes"
+      ]
+    },
+    "package list": {
+      "source": "cub v0.11.23",
+      "style": "cobra",
+      "subcommands": [],
+      "flags": [
+        "--context",
+        "--debug",
+        "--help",
+        "--no-headers",
+        "--output",
+        "--quiet",
+        "--space",
+        "--verbose"
+      ]
+    },
+    "package show": {
+      "source": "cub v0.11.23",
+      "style": "cobra",
+      "subcommands": [],
+      "flags": [
+        "--context",
+        "--debug",
+        "--help",
+        "--output",
+        "--quiet",
+        "--space",
+        "--verbose"
       ]
     },
     "plugin": {

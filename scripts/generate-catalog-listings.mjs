@@ -24,7 +24,7 @@ import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./l
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
 import { entryPageWithoutChart } from "./lib/entry-page.mjs";
-import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
+import { ENTRY_STEPS_WALK, NEXT_STEPS, PACKAGE_INSTALL_WALK, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -1357,6 +1357,19 @@ function runNextStepSelfTest(loaded) {
   const noComponent = structuredClone(published);
   commandsOf(noComponent, "upload").find(({ command }) => command.startsWith("cub installer upload")).command = "cub installer upload --work-dir ./example-1-0-0-default --space <your-space>";
   check(refuses(noComponent, withSibling, "uploads without --component"), "self-test: an upload without --component must be refused");
+  check(
+    /^cub package install oci:\/\/\S+@sha256:[0-9a-f]{64} --base \S+ --space <your-space> --namespace \S+ --non-interactive$/.test(commandsOf(published, "upload")[1].command),
+    "self-test: the upload step must show cub package install for the pinned package first",
+  );
+  const noInstall = structuredClone(published);
+  noInstall.nextSteps[2].commands = commandsOf(noInstall, "upload").filter(({ command }) => !command.startsWith("cub package install"));
+  check(refuses(noInstall, withSibling, "does not show cub package install"), "self-test: an upload step without cub package install must be refused");
+  const noTwoStep = structuredClone(published);
+  noTwoStep.nextSteps[2].commands = commandsOf(noTwoStep, "upload").filter(({ command }) => !command.startsWith("cub installer upload"));
+  check(refuses(noTwoStep, withSibling, "drops the two-step form"), "self-test: an upload step without the two-step form must be refused");
+  const unpinnedInstall = structuredClone(published);
+  commandsOf(unpinnedInstall, "upload")[1].command = commandsOf(unpinnedInstall, "upload")[1].command.replace(/@sha256:[0-9a-f]{64}/, "");
+  check(refuses(unpinnedInstall, withSibling, "installs a package the listing does not pin by digest"), "self-test: cub package install of an unpinned reference must be refused");
   for (const stepId of ["deploy", "promote"]) {
     const kept = commandsOf(published, stepId);
     check(kept.some(({ command }) => command === "cub unit delete --space <your-space>-dev installer-record"), `self-test: step ${stepId} must delete the cloned installer-record Unit`);
@@ -1371,7 +1384,11 @@ function runNextStepSelfTest(loaded) {
     delete unlinked.nextSteps.find((step) => step.id === stepId).liveWalk;
     check(refuses(unlinked, withSibling, "does not link the live walk"), `self-test: step ${stepId} without its walk link must be refused`);
   }
-  check(published.nextSteps[2].liveWalk.path === ENTRY_STEPS_WALK.path, "self-test: the upload step must link the live walk log");
+  check(published.nextSteps[2].liveWalk.path === PACKAGE_INSTALL_WALK.path, "self-test: the upload step must link the run of cub package install");
+  check(published.nextSteps[3].liveWalk.path === ENTRY_STEPS_WALK.path, "self-test: the deploy step must link the live walk log");
+  const oldUploadWalk = structuredClone(published);
+  oldUploadWalk.nextSteps[2].liveWalk = structuredClone(published.nextSteps[3].liveWalk);
+  check(refuses(oldUploadWalk, withSibling, "does not link the live walk that ran its commands"), "self-test: an upload step linking the older walk must be refused");
   const walkOnAnyStep = structuredClone(published);
   walkOnAnyStep.nextSteps[1].liveWalk = structuredClone(published.nextSteps[2].liveWalk);
   check(refuses(walkOnAnyStep, withSibling, "links the live walk, and the walk ran no command of this step"), "self-test: a walk link on a step it did not run must be refused");

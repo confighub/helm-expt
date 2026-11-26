@@ -15,6 +15,7 @@
 // The command forms are the ones the repository documents and has receipts
 // for: docs/user/variants-after-upload.md and the generated confighub.sh
 // scripts (cub installer setup, cub installer upload, cub variant promote),
+// the run of cub package install in PACKAGE_INSTALL_WALK,
 // and docs/user/cub-deployment-path.md (cub variant upload, cub variant create
 // --target, cub release publish). No plugin version is pinned here, because a
 // pin in 400 listings would go stale with every plugin release.
@@ -40,7 +41,24 @@ export const ENTRY_STEPS_WALK = {
 export const SPACE_PLACEHOLDER = "<your-space>";
 export const COMPONENT_PLACEHOLDER = "<your-component>";
 
-// A step that carries liveWalk, for an installer package.
+// One run of cub package install for an installer package, beside the
+// two-step setup and upload form, against a local ConfigHub server. The upload
+// step of an installer-package entry links it, because it ran both of that
+// step's forms; the deploy and promote steps still link ENTRY_STEPS_WALK.
+export const PACKAGE_INSTALL_WALK = {
+  date: "2026-11-26",
+  path: "docs/user/live-walk-cub-package-install-2026-11-26.md",
+  url: "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-cub-package-install-2026-11-26.md",
+  versions: "cub v0.11.23, ConfigHub server v0.11.1 and installer plugin 0.6.1",
+};
+
+// The one command that puts an installer package into a Space: it pulls,
+// renders and uploads. It has no --component flag, so the two-step form stays
+// for a reader who names the Component.
+export function packageInstallCommand(reference, base, namespace) {
+  return `cub package install ${reference} --base ${base} --space ${SPACE_PLACEHOLDER} --namespace ${namespace} --non-interactive`;
+}
+
 // One run of the printed commands for a published OCI bundle.
 export const BUNDLE_ROUTE_WALK = {
   date: "2026-11-02",
@@ -382,7 +400,7 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
     const commands = fetchCommands(id, plan, { verify: true });
     if (path.kind === "installer-package") {
       commands.push({
-        comment: "render this base from the signed package; step 3 uploads this directory",
+        comment: "render this base from the signed package; step 3 can upload this directory",
         command: `cub installer setup --pull ${path.reference} --base ${base} --work-dir ./${id} --non-interactive --namespace ${path.namespace}`,
       });
     }
@@ -392,7 +410,7 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
         ? `The Catalog ${supplied ? "retains" : "rendered this entry and retains"} its ${objectNoun(listing)} as files that one inventory lists.`
         : `The Catalog retains this entry's ${objectNoun(listing)} as files in the repository, with no single file or inventory to fetch.`;
     const countNote = path.kind === "installer-package"
-      ? noteList("An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit.")
+      ? noteList("An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.")
       : {};
     return { summary, commands, ...countNote, ...(plan.kind === "none" ? { link: listing.flattened.objectsUrl } : {}) };
   }));
@@ -456,7 +474,8 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
     if (path.kind === "installer-package") {
       commands.push(
         { comment: "sign in; steps 3 to 5 write to your ConfigHub organization", command: "cub auth login", needsAccount: true },
-        { comment: "upload step 1's directory as a Space of Units, under names you choose", command: `cub installer upload --work-dir ./${id} --space ${SPACE_PLACEHOLDER} --component ${COMPONENT_PLACEHOLDER}`, needsAccount: true, writes: true },
+        { comment: "put the signed package into a Space in one command: it pulls, renders and uploads", command: packageInstallCommand(path.reference, base, path.namespace), needsAccount: true, writes: true },
+        { comment: "or, to name the Component yourself, upload step 1's directory instead", command: `cub installer upload --work-dir ./${id} --space ${SPACE_PLACEHOLDER} --component ${COMPONENT_PLACEHOLDER}`, needsAccount: true, writes: true },
         { comment: "list the Units the upload created", command: `cub unit list --space ${SPACE_PLACEHOLDER}`, needsAccount: true },
       );
     } else if (path.kind === "literal-bundle") {
@@ -479,10 +498,11 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
       ? {
           ...noteList(
             "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
-            "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
+            "`cub package install` names the Component after the package. To choose its name, run step 1's `cub installer setup` and then `cub installer upload` with `--component`. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.",
+            "In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.",
             "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization.",
           ),
-          ...walkOf(),
+          ...walkOf(PACKAGE_INSTALL_WALK),
         }
       : {};
     if (state === "run-for-this-entry") {
@@ -676,6 +696,9 @@ export function nextStepClaimErrors(listing, { plan, related = [] }) {
       if (/\bcub installer upload\b/.test(command) && path.kind !== "installer-package") {
         errors.push(`${id}: step ${step.id} uploads an installer work directory, and the entry has no pinned installer package`);
       }
+      if (/\bcub package install\b/.test(command) && !(path.kind === "installer-package" && command.includes(` ${path.reference} `))) {
+        errors.push(`${id}: step ${step.id} installs a package the listing does not pin by digest`);
+      }
     }
     if (path.kind === "installer-package" && WALKED_STEPS.includes(step.id) && commands.length > 0) {
       // Commands the live walk ran. The Space and Component names are the
@@ -686,12 +709,22 @@ export function nextStepClaimErrors(listing, { plan, related = [] }) {
       }
       const uploadCommand = commands.find(({ command }) => /\bcub installer upload\b/.test(command));
       if (uploadCommand && !/ --component \S/.test(uploadCommand.command)) errors.push(`${id}: step ${step.id} uploads without --component`);
+      if (step.id === "upload") {
+        // The one-command form comes first, and the two-step form stays for a
+        // reader who names the Component.
+        const install = commands.findIndex(({ command }) => command === packageInstallCommand(path.reference, listing.identity.base, path.namespace));
+        const upload = commands.findIndex(({ command }) => /\bcub installer upload\b/.test(command));
+        if (install < 0) errors.push(`${id}: step ${step.id} does not show cub package install for the pinned package`);
+        else if (upload < 0) errors.push(`${id}: step ${step.id} drops the two-step form that names a Component`);
+        else if (upload < install) errors.push(`${id}: step ${step.id} shows the two-step form before cub package install`);
+      }
       if (["deploy", "promote"].includes(step.id)) {
         const removal = commands.findIndex(({ command }) => /^cub unit delete .*\binstaller-record$/.test(command));
         if (removal < 0) errors.push(`${id}: step ${step.id} does not delete the cloned installer-record Unit, and Argo CD cannot read a Release that carries it`);
         else if (!commands.slice(removal + 1).some(({ command }) => /^cub release publish /.test(command))) errors.push(`${id}: step ${step.id} does not publish after it deletes the installer-record Unit`);
       }
-      if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf().liveWalk)) errors.push(`${id}: step ${step.id} does not link the live walk that ran its commands`);
+      const walk = step.id === "upload" ? PACKAGE_INSTALL_WALK : ENTRY_STEPS_WALK;
+      if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf(walk).liveWalk)) errors.push(`${id}: step ${step.id} does not link the live walk that ran its commands`);
     } else if (path.kind === "literal-bundle" && listing.source?.format === "helm" && ["deploy", "promote"].includes(step.id) && commands.length > 0) {
       if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf(BUNDLE_ROUTE_WALK).liveWalk)) errors.push(`${id}: step ${step.id} does not link the run of the OCI bundle route`);
     } else if (step.liveWalk) {

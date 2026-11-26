@@ -27,7 +27,7 @@ import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./l
 import { eksInferencePage, EKS_INFERENCE_CHARTS, EKS_INFERENCE_CLOSURE, EKS_INFERENCE_MANIFEST, EKS_INFERENCE_PAGE_FILE, EKS_INFERENCE_PAGE_TITLE, EKS_INFERENCE_RUN_LOG } from "./lib/eks-inference-page.mjs";
 import { nvkePage, NVKE_PAGE_FILE, NVKE_PAGE_TITLE } from "./lib/nvke-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
-import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES } from "./lib/entry-next-steps.mjs";
+import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES, PACKAGE_INSTALL_WALK } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
 import { LIVE_EXAMPLES_PATH, liveExampleSectionHtml, validateLiveExamples } from "./lib/catalog-live-examples.mjs";
 import { VENDORED_DIFF_SOURCE, diffConfigFiles, vendoredDiffRecord } from "./lib/vendored-config-diff.mjs";
@@ -9245,7 +9245,7 @@ function chooseToolGuideHtml() {
     ${markdownLikeTable([
       ["Tool", "Use it when", "What you get"],
       ["<code>cub config</code>, the workshop plugin", "You want the free path on a config, an app, or a stack: check, render, publish, verify, and upload.", "The objects and what a source hides, a CHECKED or REFUSED verdict on a stack, and a verified image with <code>--out oci://…</code>. No account."],
-      ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package."],
+      ["<code>cub installer</code>", "You want a maintained catalog package with named bases, receipts, and an upgrade path.", "Render a reviewed preset and deliver it as a controller-native OCI, verified as it is pushed. Free on any catalog package. <code>cub package install</code> puts a catalog package into a ConfigHub Space in one command."],
       ["<code>cub helm</code>", "You have an arbitrary chart and want a fast render or to store it in ConfigHub.", "<code>cub helm template</code> renders locally; <code>cub helm install</code> records the source and rendered base as Units. Preparation, not a catalog entry."],
       ["The browser check", "You want to inspect rendered YAML without installing anything.", `An object review in your browser and a handoff prompt for your own AI. <a href="./ask.html">Is my configuration right?</a>`],
       ["Your own AI assistant", "You want an assistant to run the investigation and keep it tied to records.", `It renders, checks, proposes a candidate, or completes the ConfigHub handoff; you still check the files and diffs. <a href="./ai.html">Your assistant</a>`],
@@ -17054,6 +17054,8 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
   // The walk of steps 3 to 5 is a log and no receipt. A page whose steps link
   // it says so, and the older sentence about other configuration then drops.
   const walked = listings.some((listing) => (listing.nextSteps ?? []).some((step) => step.liveWalk));
+  const installRun = listings.some((listing) => (listing.nextSteps ?? []).some((step) => step.liveWalk?.path === PACKAGE_INSTALL_WALK.path));
+  const installRunHref = `${siteHref}/d/${PACKAGE_INSTALL_WALK.path.replace(/\.md$/, ".html")}`;
   const listingLinks = listings
     .map((listing) => `<a href="${listingsHref}/${escapeHtml(listing.identity.id)}.json">${escapeHtml(listing.identity.id)}.json</a>`)
     .join(", ");
@@ -17064,7 +17066,7 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
         compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
         listings.length > 1 ? `Expand any of the ${listings.length} entries below.` : "",
-        walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
+        walked && installRun ? `Command syntax for step 3 comes from a <a href="${installRunHref}">recorded run (${escapeHtml(PACKAGE_INSTALL_WALK.date)})</a>, and for steps 4 and 5 from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>. It applies to this entry only where a step badge says Run.` : walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}

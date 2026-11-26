@@ -422,6 +422,7 @@ Where to look, and how to check it yourself.
 | Document | Purpose |
 | --- | --- |
 | [live-run-log-2026-10-08.md](./user/live-run-log-2026-10-08.md) | Dated log of one live run with cub v0.8.7 against a hosted ConfigHub organization. It holds every command with its real output for upload, variants, promotion, approval, protection and diff, a gpu-operator version walk, and what went wrong. |
+| [live-walk-cub-package-install-2026-11-26.md](./user/live-walk-cub-package-install-2026-11-26.md) | Dated log of one run of `cub package install` for a Helm entry's signed installer package against a throwaway local ConfigHub server, compared with the two-step `cub installer setup` and `cub installer upload` form in a second Space. |
 | [live-walk-bundle-sample-2026-11-02.md](./user/live-walk-bundle-sample-2026-11-02.md) | Dated log of twelve randomly chosen Helm OCI bundle entries run through Argo CD, with seven delivered, one failed and four not tested, and one entry through Flux. |
 | [live-walk-plan-step-2026-11-02.md](./user/live-walk-plan-step-2026-11-02.md) | Dated log of one run that watched Argo CD carry out a CRD ordering plan step for a GPU Operator OCI bundle, and found the plan documents must stay out of a Release. |
 | [live-walk-bundle-route-2026-11-02.md](./user/live-walk-bundle-route-2026-11-02.md) | Dated log of one run of the commands a Helm entry page prints for its OCI bundle, from upload to a change that reached a local kind cluster through Argo CD. |

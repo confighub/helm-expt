@@ -1648,6 +1648,16 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
         if (installerListing && stepId === "upload" && !/cub installer upload [^\n]*--space <your-space> --component <your-component>/.test(shown)) {
           failures.push(`${file}: ${id} step upload does not show the Space and Component placeholders the reader replaces`);
         }
+        // The run of 2026-11-26 put an installer package into a Space with one
+        // command, so that line comes first and the two-step form follows it.
+        const installLine = (recorded.commands ?? []).find(({ command }) => /^cub package install /.test(command))?.command;
+        if (installerListing && stepId === "upload" && (recorded.commands ?? []).length > 0) {
+          if (!installLine || !/^cub package install oci:\/\/\S+@sha256:[0-9a-f]{64} [^\n]*--space <your-space> --namespace \S+/.test(installLine)) {
+            failures.push(`${file}: ${id} step upload does not record cub package install for the pinned package`);
+          } else if (!shown.includes(`$ ${installLine}`) || shown.indexOf(`$ ${installLine}`) > shown.indexOf("$ cub installer upload ")) {
+            failures.push(`${file}: ${id} step upload does not show cub package install before the two-step form`);
+          }
+        }
         if (installerListing && ["deploy", "promote"].includes(stepId) && (recorded.commands ?? []).length > 0) {
           if (!/\$ cub unit delete --space <your-space>-dev installer-record\n[\s\S]*\$ cub release publish <your-space>-dev\s*$/.test(shown.replace(/\n\s*\n/g, "\n"))) {
             failures.push(`${file}: ${id} step ${stepId} does not end with the installer-record delete and a publish`);
