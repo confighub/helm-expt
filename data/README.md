@@ -61,6 +61,7 @@ smallest generated surface that answers it.
 | I want to know which operating skill/playbook applies to a chart. | [chart-skills/summary.md](./chart-skills/summary.md)<br>[chart-skills/skills.csv](./chart-skills/skills.csv)<br>[chart-skills/skills.json](./chart-skills/skills.json) |
 | I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically. | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md)<br>[lifecycle-route-actions/actions.csv](./lifecycle-route-actions/actions.csv)<br>[lifecycle-route-actions/actions.json](./lifecycle-route-actions/actions.json) |
 | I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached. | [helm-render-intents/summary.md](./helm-render-intents/summary.md)<br>[helm-render-intents/intents.csv](./helm-render-intents/intents.csv)<br>[helm-render-intents/intents.json](./helm-render-intents/intents.json) |
+| I want the name `cub package install` finds each chart by. | [ghcr-packages/packages.csv](./ghcr-packages/packages.csv) |
 | I want the installer package OCI ref users should pull for each chart/version. | [installer-oci-packages/summary.md](./installer-oci-packages/summary.md)<br>[installer-oci-packages/packages.csv](./installer-oci-packages/packages.csv)<br>[installer-oci-packages/packages.json](./installer-oci-packages/packages.json) |
 | I want to follow one configuration from its source digest through ConfigHub, output OCI, delivery, and live observation. | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md)<br>[oci-evidence-chains/matrix.csv](./oci-evidence-chains/matrix.csv)<br>[oci-evidence-chains/chains.json](./oci-evidence-chains/chains.json) |
 | I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today. | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md)<br>[kind-parity-decisions/decisions.csv](./kind-parity-decisions/decisions.csv)<br>[kind-parity-decisions/decisions.json](./kind-parity-decisions/decisions.json) |
@@ -296,6 +297,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
 | `flattening-safety` | [flattening-safety/summary.md](./flattening-safety/summary.md) | per-chart flattening-safety verdicts: template-level witness scans and the receipted lane deciding render-early vs render-late |
+| `ghcr-packages` | - | the name each chart is published and installed by under ghcr.io/confighub/packages |
 | `gitops-health-residue` | [gitops-health-residue/summary.md](./gitops-health-residue/summary.md) | ConfigHub OCI/GitOps controller-health residue classification |
 | `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
@@ -418,7 +420,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 236 CSV files. Each row records the path, audience,
+It includes 237 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -1,0 +1,82 @@
+name: Publish packages
+
+# Publishes every catalog package version the registry does not have yet, as
+# oci://ghcr.io/confighub/packages/<name>:v<chart version>, signed keylessly
+# by this workflow. That is where `cub package install <name>` looks a package
+# up. A published tag is never overwritten, so a push that adds no package
+# version publishes nothing, and a merged package update publishes exactly the
+# version it added.
+#
+# The packages repository publishes its own packages into the same registry
+# path, under names this repository never takes (scripts/lib/ghcr-packages.mjs
+# keeps the list). GHCR ties each name to the repository that first pushed it.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/**
+      - scripts/publish-ghcr-packages.mjs
+      - scripts/generate-package-upstreams.mjs
+      - scripts/lib/ghcr-packages.mjs
+      - .github/workflows/packages-publish.yml
+  workflow_dispatch: {}
+
+concurrency:
+  group: packages-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  # The installer release the packages repository pins, so packages from both
+  # repositories are built and signed by the same tool.
+  INSTALLER_VERSION: "v0.6.1"
+  INSTALLER_LINUX_AMD64_SHA256: d3410876dc15eaf177bf0ba37d4676974d84697419e44d5e8ab0eacf6e46fe5d
+  COSIGN_VERSION: "3.1.3"
+  COSIGN_LINUX_AMD64_SHA256: 4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      packages: write
+      # Keyless signing: the signature names this workflow.
+      id-token: write
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Install the pinned installer and cosign
+        run: |
+          curl -fsSL "https://github.com/confighub/installer/releases/download/${INSTALLER_VERSION}/installer-linux-amd64" -o "$RUNNER_TEMP/installer"
+          echo "$INSTALLER_LINUX_AMD64_SHA256  $RUNNER_TEMP/installer" | sha256sum -c -
+          sudo install -m 0755 "$RUNNER_TEMP/installer" /usr/local/bin/installer
+          curl -fsSL "https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64" -o "$RUNNER_TEMP/cosign"
+          echo "$COSIGN_LINUX_AMD64_SHA256  $RUNNER_TEMP/cosign" | sha256sum -c -
+          sudo install -m 0755 "$RUNNER_TEMP/cosign" /usr/local/bin/cosign
+          installer version
+          cosign version
+
+      - name: Check names and upstream files
+        run: node scripts/generate-package-upstreams.mjs --verify
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | installer login ghcr.io --username "${{ github.actor }}" --password-stdin
+
+      - name: Publish
+        run: node scripts/publish-ghcr-packages.mjs --publish

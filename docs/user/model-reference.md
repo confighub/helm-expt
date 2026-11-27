@@ -432,9 +432,9 @@ AICR recipe.
 choices, run its declared tool, and link the resulting object digest to those
 inputs. That record is its recipe.
 
-**If you start with a cub installer package:** pull the package by its digest,
-choose a preset, and run `cub installer setup`. It flattens that preset into
-object files. Load them, or the published OCI bundle, into ConfigHub as a base.
+**If you start with a cub installer package:** run `cub package install` with
+the package's name and a preset. It flattens that preset and loads the objects
+into ConfigHub as a base, or you can load the published OCI bundle instead.
 
 ## Where each thing is, today
 
@@ -452,5 +452,5 @@ object files. Load them, or the published OCI bundle, into ConfigHub as a base.
 
 When you browse a ConfigHub org, you see the flattened objects as Units, derived Spaces,
 revisions, and links from F2 through F4. The source-specific intent and processing
-records remain linked from the base. A package upload also has an `installer-record`
-Unit that identifies the package that produced it.
+records remain linked from the base. A package install also writes a hidden `installer`
+Unit, the installer record, that identifies the package and the answers that produced it.

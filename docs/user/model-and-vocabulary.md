@@ -1,6 +1,8 @@
 # The configuration processing model
 
-This page explains how the Catalog treats configuration.
+This page explains how the Catalog treats configuration. If you came for
+`cub package install`, the section on [installer packages](#installer-packages)
+covers package names, where they come from and how to check them.
 [The detail page](./model-reference.md) has the full definitions of each step
 in the model.
 
@@ -66,8 +68,8 @@ Some types have no generator, because they are already objects.
 Helm and AICR have the most entries because each is one choice among many. One
 chart version with three presets is three entries, and AICR has one entry for each
 combination of criteria the Catalog keeps. The installer package row counts the one
-entry listed under that format. Almost every Helm entry is also held in an installer
-package.
+entry whose source is a package someone else wrote. The Catalog's own installer
+packages are built from Helm entries: 344 of the 345 Helm entries are held in one.
 
 ## Step 1. Flatten
 
@@ -156,10 +158,35 @@ The bundle becomes a **base**, and each object becomes one **Unit**. You then ma
 tool. Almost every Helm entry can also come in through an installer package, and both
 ways end in the same place.
 
-| Way in | Commands | Use it when |
+| Way in | Command | Use it when |
 | --- | --- | --- |
 | OCI bundle, the default | `cub variant upload` | The entry has a bundle. Any value a destination must supply is set later, in a variant. |
-| Installer package | `cub installer setup`, then `cub installer upload` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
+| Installer package | `cub package install` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
+
+```bash
+cub package install cert-manager:v1.21.0 --space cert-manager-base --namespace cert-manager
+```
+
+`cub package install` pulls the package, asks for its inputs, renders the chosen
+preset and uploads the Units. To choose the Component's name, run
+`cub installer setup` and then `cub installer upload --component`; both forms
+upload the same Units.
+
+A package install also writes the **installer record**: a hidden Unit named
+`installer` that holds the package, its version, the preset and your answers.
+`cub unit list` leaves it out, and `cub package show --space <space>` reads it.
+It is what makes an upgrade one command. Installing a newer version into the same
+Space reads the record, keeps your answers and updates the base:
+
+```bash
+cub package install cert-manager:v1.21.1 --space cert-manager-base
+```
+
+The record is never delivered. `cub variant create` does not copy it,
+`cub variant promote` brings it into a variant hidden and with no Target, and a
+Release leaves it out, so Argo CD and Flux never see it. A bundle has no record;
+to update a bundle's base, upload the newer bundle into the same Space. Either
+way, each variant then takes the new base with `cub variant promote`.
 
 [One dated run](./live-walk-bundle-route-2026-11-02.md) shows the OCI bundle way in,
 from upload to the cluster. [A random sample of twelve entries](./live-walk-bundle-sample-2026-11-02.md)
@@ -194,6 +221,73 @@ No plan step is marked automatic, so each entry page says what has run. In
 [one dated run](./live-walk-plan-step-2026-11-02.md), Argo CD carried out a CRD ordering
 step with no setup. Other steps, such as a job before an upgrade, still need someone to
 carry them out.
+
+## Installer packages
+
+ConfigHub's installer packages come from two repositories. Both use the same
+format, the same installer and the same registry, `ghcr.io/confighub/packages`,
+which is where `cub package install <name>` looks a name up. They differ in
+where a package's objects come from.
+
+| Repository | Builds packages for | Takes the objects from |
+| --- | --- | --- |
+| `confighub/packages` | Software whose project publishes its own install manifests: Argo CD, Flux, Sveltos | Those manifests, copied at each upstream release |
+| This Catalog | Software installed from a Helm chart: 124 charts, 180 chart versions | The chart, flattened once per preset |
+
+`confighub/packages` plans chart packages as its "Helm charts" milestone. This
+Catalog is where they are built.
+
+### Package names
+
+A package is named after its chart: `jetstack/cert-manager` is `cert-manager`.
+There are three exceptions:
+
+- **Shared names:** when two chart repositories publish a chart with the same
+  name, each package is named `<repository>-<chart>`, as `bitnami-redis` and
+  `cloudpirates-redis` are.
+- **Unclear names:** a chart whose name means nothing without its repository
+  gets a fuller one, such as `minio-operator` or `ack-iam-controller`.
+- **Reserved names:** a name another repository already publishes is never
+  taken.
+
+A package's version is its chart's version with a leading `v`. Without a
+version, `cub` installs the newest, and every version the Catalog keeps stays
+installable by name.
+[`data/ghcr-packages/packages.csv`](../../data/ghcr-packages/packages.csv)
+lists every name with its chart and versions. Each chart's directory also holds
+an `upstream.yaml` with the same facts, such as
+[`packages/jetstack/cert-manager/upstream.yaml`](../../packages/jetstack/cert-manager/upstream.yaml).
+
+### Argo CD comes in two packages
+
+| Package | Built from | Versioned by | Presets |
+| --- | --- | --- | --- |
+| `argocd` | Argo CD's own install manifests | Argo CD (`v3.6.3`) | cluster, namespace-only, and a high-availability version of each |
+| `argo-cd-helm` | The community argo-helm chart | The chart (`v10.7.0`) | `default`, and `no-crds` for a cluster that already has Argo CD's CRDs |
+
+Use `argocd` unless you already run Argo CD from the argo-helm chart and want a
+package that matches it.
+
+### How a package is published and checked
+
+Merging a package change to this repository's `main` branch runs the
+[publish workflow](../../.github/workflows/packages-publish.yml). It publishes
+and signs every package version the registry does not have yet. A version is
+published once and never overwritten. The signature names the workflow, so you
+can check where a package came from:
+
+```bash
+cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1 \
+  --certificate-identity-regexp '^https://github.com/confighub/helm-expt/\.github/workflows/packages-publish\.yml@refs/heads/main$' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
+
+The published package is the package directory with two fields of
+`installer.yaml` set: `metadata.name` to the package's name, which names the
+installer record, and `installerMetadata.version` to its version, which
+`cub package show` reports. Nothing else changes. The same packages were first
+published to a Google registry under names like `jetstack-cert-manager`;
+[Installer Package OCI Refs](installer-oci-packages.md) lists those copies.
 
 ## What is reproducible, and what is live
 
@@ -276,7 +370,8 @@ older names, and the last column says where a word means something else.
 
 | Word | Meaning | Don't confuse it with |
 | --- | --- | --- |
-| Installer package | One OCI artifact that holds every preset of a chart version. `cub installer` flattens one preset into files. | An OCI bundle, which holds one recipe's objects. |
+| Installer package | One OCI artifact that holds every preset of a chart version, published as `ghcr.io/confighub/packages/<name>`. `cub package install` flattens one preset and loads it. | An OCI bundle, which holds one recipe's objects. |
+| Installer record | The hidden Unit named `installer` that a package install writes beside the base: the package, its version, the preset and the answers. It is never delivered. | The installer package itself. |
 | OCI bundle | The flattened objects of one recipe, in one OCI artifact, with a plan if they need one. | AICR's **bundle**, the output of `aicr bundle`. Whether to rename either one is an open decision. |
 | Plan | The steps that objects cannot carry. Records call them routes. | `cub fleet plan` and the other `plan` commands, which preview a change. `helm-plan.yaml`, which is a Catalog record about a chart. |
 | Step | One item in a plan. | |
