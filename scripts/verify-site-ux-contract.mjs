@@ -67,6 +67,10 @@ const checks = [
     terms: ["Five cool demos", "Topic based walkthroughs", "Helm questions", "Formats", "GitOps", "Stacks and platforms", "workshop-compose-guide.html", "workshop-adapt-guide.html", "workshop-match-guide.html", "guides.json"],
   },
   {
+    file: "site/packages.html",
+    terms: ["Install a package", "A package is a Kubernetes app", "curl -fsSL https://hub.confighub.com/cub/install.sh | bash", "cub auth login", "cub package install cert-manager --space cert-manager --namespace cert-manager", "Nothing reaches a cluster until you release it", "cub package install cert-manager:v1.21.1 --space cert-manager", "cub package show --space cert-manager", 'id="look-before-you-install"', "cub installer setup --pull oci://ghcr.io/confighub/packages/cert-manager:v1.21.1", "cub plugin install confighub/installer", "cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1", "packages-publish\\.yml@refs/heads/main", "Where packages come from", "Two packages for Argo CD", 'id="every-package"', "model-and-vocabulary.html#installer-packages"],
+  },
+  {
     file: "site/plugins.html",
     terms: ["Every public cub plugin is here, marked by its state", "cub plugin install confighub/cub-workshop", "cub plugin install confighub/kubara-confighub", "Released, ", "plugins.json"],
   },
@@ -423,7 +427,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["ConfigHub AI Workshop for Kubernetes", "NVIDIA AI Cluster Runtime (AICR)", "Open ConfigHub for Coding Agents", "Start with your chart, app, or GPU recipe", "need no account", "Argo CD or Flux still delivers it using your existing setup."],
+    headerTerms: ["ConfigHub AI Workshop for Kubernetes", "Ready-made Kubernetes apps, such as cert-manager", "published as a ConfigHub package you install with one command", "cub package install cert-manager --space cert-manager --namespace cert-manager", "hands it to Argo CD or Flux to deploy", '<a class="btn primary" href="./packages.html">Install a package</a>', 'href="./packages.html#every-package"', 'href="./packages.html#look-before-you-install"'],
   },
   {
     file: "site/ask.html",
@@ -495,7 +499,7 @@ const composeAssistantTask = composeGuide.split("## A task for an AI assistant")
 for (const term of ["After the refusal", "recovered/stack.yaml", "recovered/recovery.json", "Preserve incompatible unchanged", "prior successful"] ) {
   if (!composeAssistantTask.includes(term)) failures.push(`Compose assistant task omits separate recovery requirement: ${term}`);
 }
-const expectedNavLabels = ["Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"];
+const expectedNavLabels = ["Packages", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"];
 
 function decodeBasicHtml(text) {
   return text
@@ -650,7 +654,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CATALOG", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"]) {
+  for (const term of ["ConfigHub Workshop", "UNOFFICIAL CATALOG", "Packages", "Configs", "Stacks", "Apps", "Plugins", "Guides", "Docs", "ConfigHub Server"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   let previousNavPosition = -1;
@@ -934,6 +938,19 @@ if (fs.existsSync(homePath)) {
   }
   if (!home.includes('href="./docs.html"') || !fs.readFileSync(path.join(root, "site/docs.html"), "utf8").includes('href="./ask.html#faq"')) {
     failures.push("site/index.html: Docs must remain in the main navigation and link to the FAQ");
+  }
+}
+
+// The packages page lists every package the site publishes, one row each, read
+// from the list the publish workflow publishes from.
+const packagesPagePath = path.join(root, "site/packages.html");
+if (fs.existsSync(packagesPagePath)) {
+  const packagesPage = fs.readFileSync(packagesPagePath, "utf8");
+  const packageNames = fs.readFileSync(path.join(root, "data/ghcr-packages/packages.csv"), "utf8").trim().split(/\r?\n/).slice(1).map((line) => line.split(",")[0]);
+  const rowCount = (packagesPage.match(/<span id="package-/g) ?? []).length;
+  if (rowCount !== packageNames.length) failures.push(`site/packages.html: the Every package table has ${rowCount} rows, and data/ghcr-packages/packages.csv lists ${packageNames.length} packages`);
+  for (const name of packageNames) {
+    if (!packagesPage.includes(`<code>cub package install ${name} --space ${name} --namespace ${name}</code>`)) failures.push(`site/packages.html: no install command for the package ${name}`);
   }
 }
 
