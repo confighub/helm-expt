@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0"
+spec:
+  kind: "certified-bundle"
+  record: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0:bundle-e90432f13aa9"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0@sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+  manifestDigest: "sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-aicr-eks-training-v1-0-0/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0@sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+    receipt: "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-aicr-eks-training-v1-0-0/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e90432f13aa9ec853feb2d9ff5627f9f4045ae0d1bd601cf221192d19066b2fb"
+  observedAt: "2026-11-27T19:34:56.255Z"
+status:
+  result: "pass"

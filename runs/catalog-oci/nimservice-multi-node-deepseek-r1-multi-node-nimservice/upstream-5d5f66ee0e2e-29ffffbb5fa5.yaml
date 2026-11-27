@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-multi-node-deepseek-r1-multi-node-nimservice"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-multi-node-deepseek-r1-multi-node-nimservice"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice:upstream-5d5f66ee0e2e-29ffffbb5fa5"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+  manifestDigest: "sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/multi-node-deepseek-r1-multi-node-nimservice/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-deepseek-r1-multi-node-nimservice@sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+    receipt: "runs/nimservice-variants/nimservice-multi-node-deepseek-r1-multi-node-nimservice/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:29ffffbb5fa5f61e5827003437a2221e17ec245916f74702310633b4792e39a0"
+  observedAt: "2026-11-27T19:36:24.389Z"
+status:
+  result: "pass"

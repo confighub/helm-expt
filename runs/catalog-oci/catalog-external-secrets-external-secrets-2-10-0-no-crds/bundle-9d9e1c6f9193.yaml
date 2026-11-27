@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-external-secrets-external-secrets-2-10-0-no-crds"
+spec:
+  kind: "certified-bundle"
+  record: "external-secrets-external-secrets-2-10-0-no-crds"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-external-secrets-external-secrets-2-10-0-no-crds:bundle-9d9e1c6f9193"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-external-secrets-external-secrets-2-10-0-no-crds@sha256:9d9e1c6f91936603ad70792943d49f8ce3d9947cadb742e84cd47114766eb0f4"
+  manifestDigest: "sha256:9d9e1c6f91936603ad70792943d49f8ce3d9947cadb742e84cd47114766eb0f4"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/external-secrets-2.10.0-no-crds/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-10-0-no-crds@sha256:9d9e1c6f91936603ad70792943d49f8ce3d9947cadb742e84cd47114766eb0f4"
+    receipt: "runs/certified-bundles/catalog-external-secrets-external-secrets-2-10-0-no-crds/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9d9e1c6f91936603ad70792943d49f8ce3d9947cadb742e84cd47114766eb0f4"
+  observedAt: "2026-11-27T19:35:12.702Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-adapter-5-3-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-prometheus-adapter-5-3-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-adapter-5-3-0-default:bundle-a1d0e9e9aacb"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-adapter-5-3-0-default@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+  manifestDigest: "sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default@sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:a1d0e9e9aacbc24fe372b8f0288a5f893abd60c59f76620d05ea9de4b18cb711"
+  observedAt: "2026-11-27T19:35:48.883Z"
+status:
+  result: "pass"

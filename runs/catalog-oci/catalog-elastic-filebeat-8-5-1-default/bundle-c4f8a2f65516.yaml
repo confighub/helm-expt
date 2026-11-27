@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-elastic-filebeat-8-5-1-default"
+spec:
+  kind: "certified-bundle"
+  record: "elastic-filebeat-8-5-1-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default:bundle-c4f8a2f65516"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-elastic-filebeat-8-5-1-default@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+  manifestDigest: "sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/filebeat-8.5.1-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-filebeat-8-5-1-default@sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+    receipt: "runs/certified-bundles/catalog-elastic-filebeat-8-5-1-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c4f8a2f6551641b360154312c1efac211112d05fd28211f9baeccc83eec3ba56"
+  observedAt: "2026-11-27T19:35:08.358Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-bitnami-zookeeper-13-8-7-default"
+spec:
+  kind: "certified-bundle"
+  record: "bitnami-zookeeper-13-8-7-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-zookeeper-13-8-7-default:bundle-9c156c3619ad"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-zookeeper-13-8-7-default@sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+  manifestDigest: "sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/zookeeper-13.8.7-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default@sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+    receipt: "runs/certified-bundles/catalog-bitnami-zookeeper-13-8-7-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+  observedAt: "2026-11-27T19:35:00.908Z"
+status:
+  result: "pass"

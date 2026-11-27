@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "timoni-redis-config"
+spec:
+  kind: "timoni-config"
+  record: "timoni-redis-8-10-1-default"
+  reference: "ghcr.io/confighub/configs/catalog/timoni-redis-config:8.10.1-default"
+  immutableReference: "ghcr.io/confighub/configs/catalog/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+  manifestDigest: "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+  source: "copied"
+  sourceNote: "oras stamped the manifest with its push time, which no committed file records, so the bytes recorded at runs/timoni-redis-catalog-proof/public-oci-receipt.yaml are copied at their digest"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+    receipt: "runs/timoni-redis-catalog-proof/public-oci-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65"
+  observedAt: "2026-11-27T19:36:30.451Z"
+status:
+  result: "pass"

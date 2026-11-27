@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources"
+spec:
+  kind: "certified-bundle"
+  record: "dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:bundle-003195e790eb"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+  manifestDigest: "sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-gpu-resources/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+    receipt: "runs/certified-bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a"
+  observedAt: "2026-11-27T19:35:05.685Z"
+status:
+  result: "pass"

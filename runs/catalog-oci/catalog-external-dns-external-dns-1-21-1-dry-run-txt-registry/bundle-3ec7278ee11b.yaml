@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry"
+spec:
+  kind: "certified-bundle"
+  record: "external-dns-external-dns-1-21-1-dry-run-txt-registry"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:bundle-3ec7278ee11b"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry@sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+  manifestDigest: "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/external-dns-1.21.1-dry-run-txt-registry/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry@sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+    receipt: "runs/certified-bundles/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046"
+  observedAt: "2026-11-27T19:35:10.673Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default"
+spec:
+  kind: "certified-bundle"
+  record: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default:bundle-9b5297fee45d"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default@sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+  manifestDigest: "sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default@sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+    receipt: "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9b5297fee45da02ca9dbd920cafd2a17b4a7372e4336e4f2953578bbe3c46164"
+  observedAt: "2026-11-27T19:35:29.677Z"
+status:
+  result: "pass"

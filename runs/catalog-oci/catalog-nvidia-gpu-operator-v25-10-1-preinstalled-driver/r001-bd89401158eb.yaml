@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-gpu-operator-v25-10-1-preinstalled-driver"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver:r001-bd89401158eb"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver@sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a"
+  manifestDigest: "sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/literal-config-oci.yaml and its 5 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-preinstalled-driver@sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a"
+    receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-preinstalled-driver/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bd89401158eb7f9a66e080a215a96e46f8b14e2d0c8cf434cba64840ab858c2a"
+  observedAt: "2026-11-27T19:36:00.814Z"
+status:
+  result: "pass"

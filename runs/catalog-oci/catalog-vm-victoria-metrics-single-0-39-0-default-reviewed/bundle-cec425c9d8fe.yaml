@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-vm-victoria-metrics-single-0-39-0-default-reviewed"
+spec:
+  kind: "certified-bundle"
+  record: "vm-victoria-metrics-single-0-39-0-default-reviewed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed:bundle-cec425c9d8fe"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed@sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+  manifestDigest: "sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/victoria-metrics-single-0.39.0-default-reviewed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed@sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+    receipt: "runs/certified-bundles/catalog-vm-victoria-metrics-single-0-39-0-default-reviewed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:cec425c9d8fed30c1f1ed31d412807b4f0737e21875ba9d2f213f46439bd9d15"
+  observedAt: "2026-11-27T19:35:58.502Z"
+status:
+  result: "pass"

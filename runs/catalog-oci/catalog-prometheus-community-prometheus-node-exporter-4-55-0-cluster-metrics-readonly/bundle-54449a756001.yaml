@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly:bundle-54449a756001"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly@sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+  manifestDigest: "sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/prometheus-node-exporter-4.55.0-cluster-metrics-readonly/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly@sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:54449a7560017e6ad09cec1c070499aad5ae204396c30d01ede2c959f650e7ff"
+  observedAt: "2026-11-27T19:35:50.927Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
+spec:
+  kind: "certified-bundle"
+  record: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed:bundle-d7ca2e0746bf"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed@sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+  manifestDigest: "sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/cluster-autoscaler-9.57.0-controller-default-reviewed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed@sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+    receipt: "runs/certified-bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d7ca2e0746bff5ea2a7f87548cca6acce51602276121fdbe6c6b417eb264779b"
+  observedAt: "2026-11-27T19:34:53.679Z"
+status:
+  result: "pass"

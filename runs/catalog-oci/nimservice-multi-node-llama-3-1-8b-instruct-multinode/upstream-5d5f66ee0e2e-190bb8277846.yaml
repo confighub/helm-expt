@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-multi-node-llama-3-1-8b-instruct-multinode"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-multi-node-llama-3-1-8b-instruct-multinode"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-multi-node-llama-3-1-8b-instruct-multinode:upstream-5d5f66ee0e2e-190bb8277846"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-multi-node-llama-3-1-8b-instruct-multinode@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd"
+  manifestDigest: "sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/multi-node-llama-3-1-8b-instruct-multinode/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-multi-node-llama-3-1-8b-instruct-multinode@sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd"
+    receipt: "runs/nimservice-variants/nimservice-multi-node-llama-3-1-8b-instruct-multinode/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:190bb827784681fe8f25d694f46af66ca8f0322f0fd2a24e922fd60ab5054ebd"
+  observedAt: "2026-11-27T19:36:24.982Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-lora-meta-llama-3-2-1b-instruct-llm"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-lora-meta-llama-3-2-1b-instruct-llm"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-865c27dafbcb"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-lora-meta-llama-3-2-1b-instruct-llm@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531"
+  manifestDigest: "sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/lora-meta-llama-3-2-1b-instruct-llm/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-lora-meta-llama-3-2-1b-instruct-llm@sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531"
+    receipt: "runs/nimservice-variants/nimservice-lora-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:865c27dafbcbae5abecf7e2d119be6521206fda0d997b6f516d554607192b531"
+  observedAt: "2026-11-27T19:36:22.890Z"
+status:
+  result: "pass"

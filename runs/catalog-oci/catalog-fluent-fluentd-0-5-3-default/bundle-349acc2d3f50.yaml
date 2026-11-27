@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-fluent-fluentd-0-5-3-default"
+spec:
+  kind: "certified-bundle"
+  record: "fluent-fluentd-0-5-3-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-fluent-fluentd-0-5-3-default:bundle-349acc2d3f50"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-fluent-fluentd-0-5-3-default@sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+  manifestDigest: "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/fluentd-0.5.3-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluentd-0-5-3-default@sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+    receipt: "runs/certified-bundles/catalog-fluent-fluentd-0-5-3-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:349acc2d3f5025eddb055325beff1cb28704e22fb72da5b134638cd8fb134a9e"
+  observedAt: "2026-11-27T19:35:15.221Z"
+status:
+  result: "pass"

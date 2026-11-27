@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-traefik-traefik-41-0-2-default"
+spec:
+  kind: "certified-bundle"
+  record: "traefik-traefik-41-0-2-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-0-2-default:bundle-0eea5a57e6a4"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-0-2-default@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+  manifestDigest: "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default@sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+    receipt: "runs/certified-bundles/catalog-traefik-traefik-41-0-2-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0eea5a57e6a4df4d80b3eae6c84c4471b4506a3e51eb24c4907ac578c6a2bf73"
+  observedAt: "2026-11-27T19:35:57.751Z"
+status:
+  result: "pass"

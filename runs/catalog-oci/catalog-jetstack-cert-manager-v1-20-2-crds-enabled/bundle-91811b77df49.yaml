@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-jetstack-cert-manager-v1-20-2-crds-enabled"
+spec:
+  kind: "certified-bundle"
+  record: "jetstack-cert-manager-v1-20-2-crds-enabled"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-20-2-crds-enabled:bundle-91811b77df49"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-20-2-crds-enabled@sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+  manifestDigest: "sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/cert-manager-v1.20.2-crds-enabled/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled@sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+    receipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-20-2-crds-enabled/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:91811b77df497d4dcd9db3e2e7ec5e2ea8dc87a9a5f54351439e5335ebc88713"
+  observedAt: "2026-11-27T19:35:24.728Z"
+status:
+  result: "pass"

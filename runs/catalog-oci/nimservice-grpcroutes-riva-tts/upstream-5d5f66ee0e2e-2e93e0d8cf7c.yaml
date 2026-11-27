@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-grpcroutes-riva-tts"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-grpcroutes-riva-tts"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts:upstream-5d5f66ee0e2e-2e93e0d8cf7c"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-grpcroutes-riva-tts@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  manifestDigest: "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/grpcroutes-riva-tts/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-grpcroutes-riva-tts@sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+    receipt: "runs/nimservice-variants/nimservice-grpcroutes-riva-tts/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2e93e0d8cf7c5a0f1c097c701255345d7c60b3e01ac46635d61f99767818dac9"
+  observedAt: "2026-11-27T19:36:20.402Z"
+status:
+  result: "pass"

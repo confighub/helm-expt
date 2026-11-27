@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-hashicorp-vault-0-32-0-dev-mode"
+spec:
+  kind: "certified-bundle"
+  record: "hashicorp-vault-0-32-0-dev-mode"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-hashicorp-vault-0-32-0-dev-mode:bundle-b8c80d5b59f2"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-hashicorp-vault-0-32-0-dev-mode@sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+  manifestDigest: "sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/vault-0.32.0-dev-mode/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-dev-mode@sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+    receipt: "runs/certified-bundles/catalog-hashicorp-vault-0-32-0-dev-mode/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:b8c80d5b59f2d0b311ef40bb451842b2a95cf88c2d7ece6e4c81ce7997c8add0"
+  observedAt: "2026-11-27T19:35:21.983Z"
+status:
+  result: "pass"

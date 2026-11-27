@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference"
+spec:
+  kind: "certified-bundle"
+  record: "aws-controllers-k8s-eks-chart-1-16-3-eks-inference"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:bundle-4d5f03b1278c"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference@sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+  manifestDigest: "sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/eks-chart-1.16.3-eks-inference/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference@sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+    receipt: "runs/certified-bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333"
+  observedAt: "2026-11-27T19:34:55.939Z"
+status:
+  result: "pass"

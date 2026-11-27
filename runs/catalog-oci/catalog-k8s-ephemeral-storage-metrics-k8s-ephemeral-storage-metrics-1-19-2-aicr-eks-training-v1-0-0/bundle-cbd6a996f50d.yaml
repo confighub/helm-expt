@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0"
+spec:
+  kind: "certified-bundle"
+  record: "k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0:bundle-cbd6a996f50d"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0@sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+  manifestDigest: "sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/k8s-ephemeral-storage-metrics-1.19.2-aicr-eks-training-v1-0-0/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0@sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+    receipt: "runs/certified-bundles/catalog-k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics-1-19-2-aicr-eks-training-v1-0-0/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:cbd6a996f50d1036b8051ff503f9775a4bdfcbac4e9246965892466314acea9e"
+  observedAt: "2026-11-27T19:35:29.617Z"
+status:
+  result: "pass"

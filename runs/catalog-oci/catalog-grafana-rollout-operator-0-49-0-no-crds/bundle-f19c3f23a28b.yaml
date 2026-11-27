@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-grafana-rollout-operator-0-49-0-no-crds"
+spec:
+  kind: "certified-bundle"
+  record: "grafana-rollout-operator-0-49-0-no-crds"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-grafana-rollout-operator-0-49-0-no-crds:bundle-f19c3f23a28b"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-grafana-rollout-operator-0-49-0-no-crds@sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+  manifestDigest: "sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-no-crds/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-rollout-operator-0-49-0-no-crds@sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+    receipt: "runs/certified-bundles/catalog-grafana-rollout-operator-0-49-0-no-crds/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f19c3f23a28bb378ff6baa215fab6be81326840857eb30a7ea71c5830bc3332b"
+  observedAt: "2026-11-27T19:35:19.720Z"
+status:
+  result: "pass"

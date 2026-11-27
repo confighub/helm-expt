@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-rook-release-rook-ceph-cluster-v1-19-5-default"
+spec:
+  kind: "certified-bundle"
+  record: "rook-release-rook-ceph-cluster-v1-19-5-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-rook-release-rook-ceph-cluster-v1-19-5-default:bundle-7e84b18412ba"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-rook-release-rook-ceph-cluster-v1-19-5-default@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+  manifestDigest: "sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/rook-ceph-cluster-v1.19.5-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default@sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+    receipt: "runs/certified-bundles/catalog-rook-release-rook-ceph-cluster-v1-19-5-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7e84b18412bac963460585cc474b0d215430b22becad222c926f273487df6c1b"
+  observedAt: "2026-11-27T19:35:53.222Z"
+status:
+  result: "pass"

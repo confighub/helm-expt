@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-bitnami-spark-10-0-3-default"
+spec:
+  kind: "certified-bundle"
+  record: "bitnami-spark-10-0-3-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-spark-10-0-3-default:bundle-2f0f4a28df8f"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-spark-10-0-3-default@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+  manifestDigest: "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+    receipt: "runs/certified-bundles/catalog-bitnami-spark-10-0-3-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+  observedAt: "2026-11-27T19:35:00.700Z"
+status:
+  result: "pass"

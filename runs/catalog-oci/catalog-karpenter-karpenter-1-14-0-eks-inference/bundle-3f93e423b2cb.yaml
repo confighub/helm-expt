@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1-14-0-eks-inference"
+spec:
+  kind: "certified-bundle"
+  record: "karpenter-karpenter-1-14-0-eks-inference"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-eks-inference:bundle-3f93e423b2cb"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-eks-inference@sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+  manifestDigest: "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/karpenter-1.14.0-eks-inference/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference@sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+    receipt: "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-eks-inference/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:3f93e423b2cb3bc2f22d297d54ebad5b0df13fb9bf545ef00858b7fc98c0f9fe"
+  observedAt: "2026-11-27T19:35:31.979Z"
+status:
+  result: "pass"

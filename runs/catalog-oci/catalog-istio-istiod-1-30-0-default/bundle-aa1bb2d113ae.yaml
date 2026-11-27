@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-istio-istiod-1-30-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "istio-istiod-1-30-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-istio-istiod-1-30-0-default:bundle-aa1bb2d113ae"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-istio-istiod-1-30-0-default@sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+  manifestDigest: "sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/istiod-1.30.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-istiod-1-30-0-default@sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+    receipt: "runs/certified-bundles/catalog-istio-istiod-1-30-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:aa1bb2d113aeb4255fb0663bb5cedbd5cb4207a4e2010265230ea224a3d223df"
+  observedAt: "2026-11-27T19:35:24.476Z"
+status:
+  result: "pass"

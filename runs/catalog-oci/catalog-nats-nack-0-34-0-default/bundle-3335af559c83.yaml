@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nats-nack-0-34-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "nats-nack-0-34-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nats-nack-0-34-0-default:bundle-3335af559c83"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nats-nack-0-34-0-default@sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
+  manifestDigest: "sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/nack-0.34.0-default/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default@sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
+    receipt: "runs/certified-bundles/catalog-nats-nack-0-34-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:3335af559c833968c5ac2b10b3458444ce8a358c0796590383cca0ebe06cf11a"
+  observedAt: "2026-11-27T19:35:36.828Z"
+status:
+  result: "pass"

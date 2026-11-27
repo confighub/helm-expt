@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-cd-9-5-17-default"
+spec:
+  kind: "certified-bundle"
+  record: "argo-cd-argo-cd-9-5-17-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-9-5-17-default:bundle-331e5fa8b2c0"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-9-5-17-default@sha256:331e5fa8b2c00b3c433a8f1e89cf7a726f7fe73548c10e8b148391e87adad1b9"
+  manifestDigest: "sha256:331e5fa8b2c00b3c433a8f1e89cf7a726f7fe73548c10e8b148391e87adad1b9"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/argo-cd-9.5.17-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-17-default@sha256:331e5fa8b2c00b3c433a8f1e89cf7a726f7fe73548c10e8b148391e87adad1b9"
+    receipt: "runs/certified-bundles/catalog-argo-cd-argo-cd-9-5-17-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:331e5fa8b2c00b3c433a8f1e89cf7a726f7fe73548c10e8b148391e87adad1b9"
+  observedAt: "2026-11-27T19:34:49.028Z"
+status:
+  result: "pass"

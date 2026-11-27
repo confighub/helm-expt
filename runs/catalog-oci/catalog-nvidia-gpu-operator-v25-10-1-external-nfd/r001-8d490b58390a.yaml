@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-gpu-operator-v25-10-1-external-nfd"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-gpu-operator-v25-10-1-external-nfd"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v25-10-1-external-nfd:r001-8d490b58390a"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v25-10-1-external-nfd@sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c"
+  manifestDigest: "sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/literal-config-oci.yaml and its 5 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v25-10-1-external-nfd@sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c"
+    receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v25-10-1-external-nfd/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:8d490b58390a89f1c4b01fc5ba29aa8ac92ffb50802df77b7aafa6e04295493c"
+  observedAt: "2026-11-27T19:36:00.700Z"
+status:
+  result: "pass"
