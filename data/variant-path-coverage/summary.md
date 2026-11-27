@@ -8,7 +8,7 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Path Type
 
 - base-to-base-diff: 2
-- base-variant: 344
+- base-variant: 346
 - derived-confighub-variant: 10
 - upgrade-simulation: 4
 
@@ -25,7 +25,7 @@ ConfigHub variant, or an upgrade/customization path.
 
 - blocked: 35
 - fail: 18
-- missing: 145
+- missing: 147
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2

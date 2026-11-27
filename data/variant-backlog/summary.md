@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 180
-charts needing variant work: 115
+charts: 181
+charts needing variant work: 116
 charts already variant-complete: 65
-total variants to build: 138
+total variants to build: 140
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 71 charts
+- `existing-secret`: 72 charts
 - `no-crds`: 43 charts
-- `ha`: 20 charts
+- `ha`: 21 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -29,6 +29,7 @@ total variants to build: 138
 | `aqua/trivy-operator@0.32.1` | 2 | existing-secret |
 | `argo-cd/argo-cd@10.1.3` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@10.2.1` | 2 | existing-secret, ha |
+| `argo-cd/argo-cd@10.20.0` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@10.7.0` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@9.5.15` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@9.5.17` | 2 | existing-secret, ha |

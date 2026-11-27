@@ -19,27 +19,27 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 604 |
-| Variants needing at least one live command | 241 |
-| Live commands remaining | 432 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 218 |
-| Two-cluster kind parity commands | 214 |
-| Watch/blocked/review rows | 190 |
-| Ready-to-run todo rows | 242 |
+| Matrix variant rows | 607 |
+| Variants needing at least one live command | 243 |
+| Live commands remaining | 436 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 220 |
+| Two-cluster kind parity commands | 216 |
+| Watch/blocked/review rows | 193 |
+| Ready-to-run todo rows | 243 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 214 |
-| `live-parity` | 218 |
+| `kind-parity` | 216 |
+| `live-parity` | 220 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
-| `blocked` | 68 |
-| `todo` | 308 |
+| `blocked` | 69 |
+| `todo` | 311 |
 | `watch` | 56 |
 
 ## By Run Readiness
@@ -48,9 +48,9 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 117 |
-| `ready-to-run` | 242 |
-| `review-target-first` | 55 |
+| `model-or-stage-first` | 119 |
+| `ready-to-run` | 243 |
+| `review-target-first` | 56 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -98,6 +98,7 @@ generated priority. They are good candidates for a serial live block.
 | cloudpirates/redis | 0.34.11 | reuse-existing-secret | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/redis/0.34.11 --base reuse-existing-secret |
 | argo-cd/argo-cd | 10.1.3 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.1.3 --base default |
 | argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
+| argo-cd/argo-cd | 10.20.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.20.0 --base default |
 | argo-cd/argo-cd | 10.7.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.7.0 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference |
@@ -111,7 +112,6 @@ generated priority. They are good candidates for a serial live block.
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
 | cloudnative-pg/cloudnative-pg | 0.29.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
 | cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
-| dra-driver-nvidia/dra-driver-nvidia-gpu | 0.4.1 | aicr-eks-training | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1 --base aicr-eks-training |
 
 ## Full Queue
 

@@ -6,6 +6,7 @@
 // the kit.
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "2.5.0";
@@ -25,8 +26,7 @@ const versionExpectations = {
   "2.8.0": { defaultObjects: 44, noCrdsObjects: 19, crds: 25 },
   "2.10.0": { defaultObjects: 44, noCrdsObjects: 19, crds: 25 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`external-secrets ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("external-secrets", chart.version, versionExpectations, import.meta.url);
 
 const externalSecretsCRDs = [
   "acraccesstokens.generators.external-secrets.io",

@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-10-08**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-11-27**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**43 of 180 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 92 publish none, and 45 could not be asked, mostly
+**44 of 181 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 91 publish none, and 46 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -31,7 +31,7 @@ never done it.
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
 | https://aquasecurity.github.io/helm-charts | 1 | 0 | publishes none |
-| https://argoproj.github.io/argo-helm | 9 | 9 | signs every retained chart |
+| https://argoproj.github.io/argo-helm | 10 | 10 | signs every retained chart |
 | https://aws.github.io/eks-charts | 1 | 0 | publishes none |
 | https://bitnami-labs.github.io/sealed-secrets | 1 | 0 | could not be asked |
 | https://charts.bitnami.com/bitnami | 21 | 0 | OCI-hosted, no provenance convention |
@@ -71,7 +71,7 @@ never done it.
 | https://kyverno.github.io/kyverno | 6 | 0 | publishes none |
 | https://kyverno.github.io/policy-reporter | 2 | 2 | signs every retained chart |
 | https://metallb.github.io/metallb | 1 | 0 | publishes none |
-| https://mysql.github.io/mysql-operator | 1 | 0 | publishes none |
+| https://mysql.github.io/mysql-operator | 1 | 0 | could not be asked |
 | https://nats-io.github.io/k8s/helm/charts | 3 | 0 | publishes none |
 | https://nvidia.github.io/k8s-device-plugin | 1 | 0 | publishes none |
 | https://oauth2-proxy.github.io/manifests | 1 | 0 | publishes none |
@@ -104,6 +104,7 @@ never done it.
 | `alertmanager` | 1.37.0 | https://prometheus-community.github.io/helm-charts |
 | `argo-cd` | 10.1.3 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 10.2.1 | https://argoproj.github.io/argo-helm |
+| `argo-cd` | 10.20.0 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 10.7.0 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 9.5.15 | https://argoproj.github.io/argo-helm |
 | `argo-cd` | 9.5.17 | https://argoproj.github.io/argo-helm |
@@ -162,6 +163,7 @@ check at the point they pull the chart.
 - **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
 - **21** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
+- **1** name a version the current index no longer lists.
 - **1** sit in a repository whose index could not be read.
 
 An unanswered question is not a negative answer, so none of these count as
@@ -171,7 +173,7 @@ registry-native signature rather than from this mechanism.
 
 ## When a publisher stops signing
 
-No chart has changed verdict since the previous survey. This is the first record for some of them, and a first record cannot show a change.
+Since the previous survey, 1 chart(s) changed verdict: `mysql-operator` 2.3.0 moved from unsigned to unknown.
 
 A provenance claim that quietly disappears is worse than one never made. Each
 run compares its answers against the previous snapshot and records every chart

@@ -11,6 +11,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor, repoRoot } from "./lib/proof-common.mjs";
 
 // Keep the candidate's connection checks in the existing chart self-test gate.
@@ -66,8 +67,7 @@ const versionExpectations = {
   "87.19.2": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
   "88.6.3": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`kube-prometheus-stack ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("kube-prometheus-stack", chart.version, versionExpectations, import.meta.url);
 const hasExistingSecretBase = ["87.15.1", "87.19.2", "88.6.3"].includes(chart.version);
 
 const prometheusOperatorCRDs = [

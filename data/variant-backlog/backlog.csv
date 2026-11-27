@@ -2,6 +2,7 @@ chart,current_variant_count,current_variants,applicable_dimensions,recommend_to_
 aqua/trivy-operator@0.32.1,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/aqua/trivy-operator/0.32.1
 argo-cd/argo-cd@10.1.3,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/10.1.3
 argo-cd/argo-cd@10.2.1,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/10.2.1
+argo-cd/argo-cd@10.20.0,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/10.20.0
 argo-cd/argo-cd@10.7.0,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/10.7.0
 argo-cd/argo-cd@9.5.15,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/9.5.15
 argo-cd/argo-cd@9.5.17,2,default;no-crds,existing-secret;no-crds;ha,existing-secret;ha,2,recipes/argo-cd/argo-cd/9.5.17

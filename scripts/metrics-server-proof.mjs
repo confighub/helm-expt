@@ -7,6 +7,7 @@
 //        --verify-proof|--verify-proof-self-test|--verify-package|--compare
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "3.13.0";
 const chart = {
@@ -24,8 +25,7 @@ const versionExpectations = {
   "3.13.1": { defaultObjects: 9, externalTlsObjects: 9 },
   "3.14.0": { defaultObjects: 9, externalTlsObjects: 9 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`metrics-server ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("metrics-server", chart.version, versionExpectations, import.meta.url);
 
 const variants = [
   {

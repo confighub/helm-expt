@@ -13,20 +13,20 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 1430,
+  "nonGreenCellsCovered": 1439,
   "familyCount": 21,
   "byActionType": {
-    "run-promotion": 604,
-    "stage-prereq": 596,
+    "run-promotion": 607,
+    "stage-prereq": 602,
     "record-decision": 114,
     "refresh-image": 74,
     "fix-model": 25,
     "lifecycle-observe": 17
   },
   "byOwnerLane": {
-    "Codex-live": 621,
-    "product-decision": 539,
-    "upstream-implementation": 145,
+    "Codex-live": 624,
+    "product-decision": 543,
+    "upstream-implementation": 147,
     "Claude-non-live": 125
   },
   "top10": [
@@ -34,21 +34,21 @@
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 604,
+      "affected_cell_count": 607,
       "owner_lane": "Codex-live"
     },
     {
       "action_id": "CCP-02",
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
-      "affected_cell_count": 398,
+      "affected_cell_count": 402,
       "owner_lane": "product-decision"
     },
     {
       "action_id": "CCP-03",
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
-      "affected_cell_count": 145,
+      "affected_cell_count": 147,
       "owner_lane": "upstream-implementation"
     },
     {
@@ -107,7 +107,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 604,
+      "affected_cell_count": 607,
       "lanes": [
         "promotion"
       ],
@@ -127,6 +127,9 @@
         "argo-cd/argo-cd@10.2.1/(source) [promotion]",
         "argo-cd/argo-cd@10.2.1/default [promotion]",
         "argo-cd/argo-cd@10.2.1/no-crds [promotion]",
+        "argo-cd/argo-cd@10.20.0/(source) [promotion]",
+        "argo-cd/argo-cd@10.20.0/default [promotion]",
+        "argo-cd/argo-cd@10.20.0/no-crds [promotion]",
         "argo-cd/argo-cd@10.7.0/(source) [promotion]",
         "argo-cd/argo-cd@10.7.0/default [promotion]",
         "argo-cd/argo-cd@10.7.0/no-crds [promotion]",
@@ -729,7 +732,7 @@
       "action_type": "stage-prereq",
       "sub_group": "stage-prereq-other",
       "owner_lane": "product-decision",
-      "affected_cell_count": 398,
+      "affected_cell_count": 402,
       "lanes": [
         "G",
         "K",
@@ -750,6 +753,10 @@
         "argo-cd/argo-cd@10.2.1/default [P]",
         "argo-cd/argo-cd@10.2.1/no-crds [G]",
         "argo-cd/argo-cd@10.2.1/no-crds [P]",
+        "argo-cd/argo-cd@10.20.0/default [G]",
+        "argo-cd/argo-cd@10.20.0/default [P]",
+        "argo-cd/argo-cd@10.20.0/no-crds [G]",
+        "argo-cd/argo-cd@10.20.0/no-crds [P]",
         "argo-cd/argo-cd@10.7.0/default [G]",
         "argo-cd/argo-cd@10.7.0/default [P]",
         "argo-cd/argo-cd@10.7.0/no-crds [G]",
@@ -1147,7 +1154,7 @@
       "action_type": "stage-prereq",
       "sub_group": "local-kind-apply-harness",
       "owner_lane": "upstream-implementation",
-      "affected_cell_count": 145,
+      "affected_cell_count": 147,
       "lanes": [
         "L"
       ],
@@ -1162,6 +1169,8 @@
         "argo-cd/argo-cd@10.1.3/no-crds [L]",
         "argo-cd/argo-cd@10.2.1/default [L]",
         "argo-cd/argo-cd@10.2.1/no-crds [L]",
+        "argo-cd/argo-cd@10.20.0/default [L]",
+        "argo-cd/argo-cd@10.20.0/no-crds [L]",
         "argo-cd/argo-cd@10.7.0/default [L]",
         "argo-cd/argo-cd@10.7.0/no-crds [L]",
         "aws-controllers-k8s/ec2-chart@1.18.4/default [L]",

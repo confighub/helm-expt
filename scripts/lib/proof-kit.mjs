@@ -20,6 +20,7 @@
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, relative } from "node:path";
+import { flushRecordedExpectations, isRecordedExpectation, observeExpectation } from "./reviewed-expectations.mjs";
 import {
   canonicalObjectMaps,
   check,
@@ -314,10 +315,22 @@ function generateProof(ctx) {
     mkdirSync(receiptsRoot, { recursive: true });
     write(join(renderedRoot, "release-objects.yaml"), releaseObjects);
     const objects = parseObjects(releaseObjects);
+    const docs = parseDocs(releaseObjects);
+    // A version the declaration has no reviewed counts for, rendered with
+    // HELM_EXPT_RECORD_EXPECTATIONS=1: the counts are taken from this render and
+    // written into the declaration's table for a person to review.
+    if (isRecordedExpectation(variant.expectedObjectCount)) {
+      variant.expectedObjectCount = observeExpectation(variant.expectedObjectCount, objects.length);
+    }
+    if (isRecordedExpectation(variant.expectedCRDCount)) {
+      variant.expectedCRDCount = observeExpectation(
+        variant.expectedCRDCount,
+        docs.filter((doc) => doc.kind === "CustomResourceDefinition").length,
+      );
+    }
     if (objects.length !== variant.expectedObjectCount) {
       throw new Error(`${variant.name} expected ${variant.expectedObjectCount} objects, got ${objects.length}`);
     }
-    const docs = parseDocs(releaseObjects);
     const secretCount = docs.filter((doc) => doc.kind === "Secret").length;
     const inventory = {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -526,6 +539,7 @@ function generateProof(ctx) {
     },
   });
   writeReadme(ctx, summaries);
+  flushRecordedExpectations();
   console.log(`Wrote ${relativeRepo(proofRoot)}`);
 }
 

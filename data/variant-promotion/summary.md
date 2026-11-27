@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 146 |
+| missing-confighub-proof | 148 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 146 |
+| todo | 148 |
 | watch | 17 |
 | yes | 179 |
 
@@ -68,6 +68,8 @@ show the changeset-bound path passing.
 | `argo-cd/argo-cd@10.1.3/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.2.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.2.1/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `argo-cd/argo-cd@10.20.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `argo-cd/argo-cd@10.20.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.7.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.7.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@9.5.17/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
@@ -82,8 +84,6 @@ show the changeset-bound path passing.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudnative-pg/cloudnative-pg@0.29.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `cloudpirates/nginx@0.16.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudpirates/rabbitmq@0.21.13/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudpirates/rabbitmq@0.21.13/existing-secret` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

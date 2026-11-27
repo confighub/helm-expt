@@ -23,6 +23,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { pendingPublicationRecipes } from "./lib/installer-oci-publication.mjs";
 import { resolveSourceCatalogImports } from "./lib/source-catalog-import.mjs";
 import { loadCatalogBundleBindings, findCatalogBundleBinding, findCatalogBundlePlan } from "./lib/catalog-bundle-bindings.mjs";
 import {
@@ -426,8 +427,11 @@ function buildReport() {
   const intentByName = new Map(intents.map((intent) => [intent.metadata.name, intent]));
   const minimalProfileIntent = buildMinimalProfileIntent();
   intentByName.set(minimalProfileIntent.metadata.name, minimalProfileIntent);
+  // A chart version declared pending publication has no package a user can
+  // pull yet, so it is not a Catalog record until it is published.
+  const pending = pendingPublicationRecipes();
   const records = [
-    ...intents.map(buildHelmRecord),
+    ...intents.filter((intent) => !pending.has(String(intent.spec?.renderInputs?.recipe ?? ""))).map(buildHelmRecord),
     buildMinimalProfileRecord(minimalProfileIntent),
     buildAicrRecord(),
     buildAicrArgoCdRecord(),

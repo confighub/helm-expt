@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "argo-cd-argo-cd-10.20.0"
+spec:
+  chart:
+    name: "argo-cd"
+    repository: "argo-cd"
+    version: "10.20.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/argo-cd/argo-cd/10.20.0 -o <tmp>/argo-cd-10.20.0.tgz"
+    sha256: "197f44568adb3c09886c380107e11613fa3632454b6dc03aa17719e00ecfd85b"
+  package:
+    name: "argo-cd-argo-cd"
+    path: "packages/argo-cd/argo-cd/10.20.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "e11d948442e27973561ef3106dc90c80096c40092253fa68c0cab0859af7bc64"
+        bytes: 255
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612"
+        bytes: 2129815
+      -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f"
+        bytes: 117646
+      -
+        path: "collector/target-facts.sh"
+        sha256: "b277d3619608f3466855acec1967d7e90adaa529533a4580d3884340613d341a"
+        bytes: 3976
+      -
+        path: "installer.yaml"
+        sha256: "07377e7b2cd4a768a6c701cae3a2a50cffe44e7297486523a2d3f3114c6a96b3"
+        bytes: 1665
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "53f0af9c017adf315096ae674ee1bb205e6a0851c3b0f3b2340e0b90a75140a8"
+        bytes: 1965704
+    version: "v10.20.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||argocd"
+      base: "default"
+      command: "cub installer setup --pull packages/argo-cd/argo-cd/10.20.0 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+      cubInstallObjectCountIncludingSupport: 55
+      helmReleaseObjectCount: 54
+      semanticObjectMatches: "54/54"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||argocd"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/argo-cd/argo-cd/10.20.0 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+      cubInstallObjectCountIncludingSupport: 52
+      helmReleaseObjectCount: 51
+      semanticObjectMatches: "51/51"
+      separatedSecretCount: 2
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

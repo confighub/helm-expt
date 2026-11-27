@@ -11,7 +11,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
-import { installerOciPublication } from "./lib/installer-oci-publication.mjs";
+import { installerOciPublication, isPendingPublication } from "./lib/installer-oci-publication.mjs";
 import { catalogDerivedPath, chartDossierPath } from "./lib/catalog-derived-views.mjs";
 
 const args = process.argv.slice(2);
@@ -54,10 +54,13 @@ function usage() {
   process.exit(1);
 }
 
+// A version declared pending publication has no digest to name yet, so it has
+// no catalog map until it is published.
 function recipeRoots() {
   return listFiles(join(repoRoot, "recipes"))
     .filter((file) => file.endsWith("/recipe.yaml"))
     .map((file) => dirname(file))
+    .filter((root) => !isPendingPublication(root))
     .sort();
 }
 

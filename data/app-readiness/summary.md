@@ -4,16 +4,16 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **165** default renders; **128** ship RBAC; **95** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **166** default renders; **129** ship RBAC; **96** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
-| `full-wildcard` | 13 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 90 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `full-wildcard` | 14 | a rule grants `*` verbs on `*` resources (admin-like) |
+| `secret-read` | 91 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
-| `all-resources` | 12 | a rule targets `*` resources (non-wildcard verbs) |
+| `all-resources` | 13 | a rule targets `*` resources (non-wildcard verbs) |
 
 ## Charts to review first
 
@@ -26,6 +26,7 @@ Findings across the catalog:
 | `argo-cd/argo-cd/10.7.0` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `argo-cd/argo-cd/9.5.15` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
 | `argo-cd/argo-cd/9.5.17` | 3 | 6 | 10 | `all-resources`, `full-wildcard`, `secret-read` |
+| `argo-cd/argo-cd/10.20.0` | 2 | 6 | 8 | `all-resources`, `full-wildcard`, `secret-read` |
 | `jetstack/cert-manager/v1.20.2` | 13 | 4 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.0` | 13 | 3 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.1` | 13 | 3 | 8 | `secret-read` |
@@ -43,8 +44,7 @@ Findings across the catalog:
 | `prometheus-community/kube-prometheus-stack/85.3.3` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/86.1.0` | 4 | 0 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/87.15.1` | 4 | 0 | 3 | `secret-read` |
-| `prometheus-community/kube-prometheus-stack/87.19.2` | 4 | 0 | 3 | `secret-read` |
-| _… and 70 more_ | | | | |
+| _… and 71 more_ | | | | |
 
 ## What happens after a finding
 

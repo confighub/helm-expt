@@ -11,6 +11,7 @@
 //   HELM_EXPT_CHART_ARTIFACT_SHA256=8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "0.19.3";
 const chart = {
@@ -26,8 +27,7 @@ const chart = {
 const versionExpectations = {
   "0.19.3": { defaultObjects: 5, eksInferenceObjects: 5, nfdEnabledObjects: 26 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`nvidia-device-plugin ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("nvidia-device-plugin", chart.version, versionExpectations, import.meta.url);
 
 const variants = [
   {

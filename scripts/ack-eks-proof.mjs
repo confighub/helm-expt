@@ -11,6 +11,7 @@
 //   HELM_EXPT_CHART_ARTIFACT_SHA256="3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "1.16.3";
 const chart = {
@@ -28,8 +29,7 @@ const versionExpectations = {
 };
 const artifactPackageSHA256 = "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054";
 const artifactManifestDigest = "sha256:77d88dd5a04ccc913da49bdb19dc962c83ac67579c0ae061f8c2aaf5ed12365c";
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`ack-eks ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("ack-eks", chart.version, versionExpectations, import.meta.url);
 
 // Raw values text captured verbatim from the lean entry's variants/<name>/values.yaml
 // files. The default base is a comment-only file: chart defaults, no overrides.
