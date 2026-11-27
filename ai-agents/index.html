@@ -253,10 +253,9 @@ footer p { max-width: none; }
     <div>
       <h1>Build your app with your agent. Keep it easy to change.</h1>
       <p class="lead">Get easy, correct environments and previews so testing and deploying with Claude or Codex stays effortless—backed by durable config storage and approvals so teams can run safely in production.</p>
-      <p class="small" style="margin-top:.65rem;color:#d5e2ef">A <strong>hub</strong> is a ConfigHub server and database that stores your app’s settings, the reason for each value, and who approved each change—on your laptop (the local hub, <code>confighub mini</code>), hosted on confighub.com, or self-hosted in your own cluster.</p>
       <div class="hero-install" aria-label="Quick install">
         <div class="hero-install-top">
-          <span class="hero-install-label">Install in one step. Open source (MIT), no account, works offline.</span>
+          <span class="hero-install-label">Install in one step. MIT plugin, free local hub, no account, works offline.</span>
           <div class="tabs" role="tablist" aria-label="Choose your coding agent (quick install)">
             <button type="button" role="tab" aria-selected="true" data-client-tab="claude">Claude Code</button>
             <button type="button" role="tab" aria-selected="false" data-client-tab="codex">Codex CLI</button>
@@ -280,7 +279,7 @@ footer p { max-width: none; }
         <a class="btn" href="#in-my-app">Start in my app</a>
         <a class="btn" href="#build-my-first-app">Build my first app</a>
       </p>
-      <p class="small" style="margin-top:.85rem;color:#c7d8e8">Run a platform team? Start read-only: <code>/confighub:inventory</code> in your GitOps repository says what deploys each chart, with no cluster or account, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/inventory.md#without-installing-the-plugin" style="color:#b5eddb">runs without installing the plugin</a>. Then <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/review/README.md#a-person-approves-and-argo-cd-keeps-reading-git" style="color:#b5eddb">a comment on each pull request</a> says what each cluster gets, and can <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-record-pr-hub.md" style="color:#b5eddb">record each pull request into a self-hosted hub with SSO</a> while Argo CD keeps reading Git. <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-inventory.md" style="color:#b5eddb">See what your repository deploys →</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/security.md" style="color:#b5eddb">Security review (plugin) →</a> · <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/security-hub.md" style="color:#b5eddb">Security review (hub) →</a><br>Moving off Heroku to Fly or Vercel? Run <code>cub mini deliver APP --fly FLYAPP --compare</code> (or <code>--vercel PROJECT --compare</code>) to see what’s missing and get a safe secret copy line before anything changes (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/heroku.md" style="color:#b5eddb">Heroku move guide →</a>).<br>Working with Helm charts, Kubernetes, or GPU fleets? <a href="../site/" style="color:#b5eddb">Open the Kubernetes Workshop →</a> · <a href="../" style="color:#b5eddb">Two Doors overview</a></p>
+      <p class="small" style="margin-top:.85rem;color:#c7d8e8"><strong>Platform &amp; GitOps teams:</strong> Read-only <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-inventory.md" style="color:#b5eddb">inventory</a>, <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/review/README.md" style="color:#b5eddb">PR review</a>, and <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/examples/walkthroughs/tool-record-pr-hub.md" style="color:#b5eddb">self-hosted SSO audit hub</a> · Security (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/security.md" style="color:#b5eddb">plugin</a> / <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/security-hub.md" style="color:#b5eddb">hub</a>)<br><strong>Moving off Heroku to Fly or Vercel?</strong> Zero-hub read-only <code>--compare</code> + safe secret copy line (<a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/heroku.md" style="color:#b5eddb">Heroku move guide →</a>)<br><strong>Helm, Kubernetes &amp; GPU fleets:</strong> <a href="../site/" style="color:#b5eddb">Kubernetes Workshop →</a> · <a href="../" style="color:#b5eddb">Two Doors overview</a></p>
     </div>
     <div class="layers" aria-hidden="true"><i></i><i></i><i></i></div>
   </div>
@@ -408,7 +407,7 @@ A change to production waits for your approval: Four for the sale. It was made j
 
 <section id="why-how">
   <h2>How it works</h2>
-  <p>ConfigHub implements <strong>durable config</strong> by keeping a setting’s value and the reason it changed together. A fresh chat can tell you why the cache is on, even before you commit. Start with the plugin. Add a hub when you want apps to share defaults, keep their own overrides, or require approval for production changes.</p>
+  <p>ConfigHub implements <strong>durable config</strong> by keeping a setting’s value and the reason it changed together. Start with the plugin. Add a <strong>hub</strong>—a ConfigHub server and PostgreSQL database on your laptop (<code>confighub mini</code>), on confighub.com, or self-hosted in your cluster—when you want shared defaults, overrides, or production approvals.</p>
   <div class="grid3">
     <div class="card">
       <span class="badge ok">Step 1 · Zero servers</span>
