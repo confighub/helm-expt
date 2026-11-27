@@ -1,0 +1,194 @@
+name: Nightly package updates
+
+# Keeps every chart package in packages/<repo>/<chart>/<version>/ current with
+# its upstream chart. Each night scripts/package-updates.mjs --nightly asks
+# every chart's upstream for its newest stable version and, for each chart
+# that moved and whose generator can take a new version unattended, generates
+# the new package version with that generator, runs the generator's own
+# checks, and commits it on its own. A chart whose update fails is put back as
+# it was, gets an issue, and does not stop the others. The catalog views the
+# new versions move are then regenerated in one more commit.
+#
+# Nothing here reaches main or a registry. The commits go to a
+# bot/package-updates-<date> branch and one pull request, which a person
+# merges. Merging is what publishes: the publish workflow publishes every
+# package version the registry does not have on a push to main. So the pull
+# request puts the object counts of each new version next to the previous
+# version's, and the expectations the generator recorded for review.
+#
+# This job also runs the byte-drift recheck the weekly catalog refresh ran, so
+# a publisher reusing a version string for different bytes still stops a run.
+# The weekly refresh keeps only its manual trigger, so one bot opens pull
+# requests for upstream movement.
+
+on:
+  schedule:
+    # Every day, 04:30 UTC.
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+    inputs:
+      charts:
+        description: "Only these charts (<repo>/<chart>, space separated); empty for all"
+        required: false
+        default: ""
+      max:
+        description: "At most this many new package versions in the pull request"
+        required: false
+        default: "8"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  # A pull request opened with this workflow's token does not start other
+  # workflows' pull_request runs, so the job dispatches the gates itself.
+  actions: write
+
+concurrency:
+  group: packages-nightly
+  cancel-in-progress: false
+
+env:
+  # The toolchain the committed receipts and package digests record, as
+  # full-verify.yml pins it. Assert, never assume.
+  CUB_VERSION: v0.2.1
+  INSTALLER_COMMIT: 0b553b3c35bd629bad1784e07dfe0bc77af7432c
+  HELM_VERSION: "4.1.4"
+  EXPECTED_HELM_VERSION: "v4.1.4+g05fa379"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader the generators shell out to
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.25"
+
+      - name: Install Helm
+        run: |
+          archive="$RUNNER_TEMP/helm.tar.gz"
+          curl -fsSL "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" -o "$archive"
+          tar -xzf "$archive" -C "$RUNNER_TEMP" linux-amd64/helm
+          sudo install -m 0755 "$RUNNER_TEMP/linux-amd64/helm" /usr/local/bin/helm
+          actual="$(helm version --short)"
+          if [ "$actual" != "$EXPECTED_HELM_VERSION" ]; then
+            echo "Helm build $actual is not the one the receipts record, $EXPECTED_HELM_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Install cub
+        run: |
+          mkdir -p "$HOME/.confighub/plugins"
+          export VERSION="$CUB_VERSION"
+          curl -fsSL https://hub.confighub.com/cub/install.sh | bash
+          echo "$HOME/.confighub/bin" >> "$GITHUB_PATH"
+
+      - name: Build the installer CI pins
+        # Generators reach it through scripts/run-with-pinned-installer.mjs,
+        # which builds the pinned commit with CI's Go line, so package digests
+        # are the ones the gates check.
+        run: node scripts/run-with-pinned-installer.mjs --print
+
+      - name: Index the chart repositories the catalog pins
+        run: |
+          while IFS="$(printf '\t')" read -r name url; do
+            [ -n "$name" ] || continue
+            if ! helm repo add "$name" "$url" --force-update >/dev/null 2>&1; then
+              echo "::warning::helm repo add failed for $name ($url)"
+            fi
+          done < <(node scripts/print-chart-repositories.mjs)
+          helm repo update >/dev/null
+
+      - name: Ask upstream whether the locked bytes still match
+        # A publisher can reuse a version string for different bytes, which
+        # no version comparison sees. Drift with a decision recorded in the
+        # drift lane passes; drift without one stops the run.
+        run: npm run flattening-witnesses:recheck
+
+      - name: Update the packages that moved upstream
+        id: update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHARTS: ${{ github.event.inputs.charts }}
+          MAX: ${{ github.event.inputs.max || '8' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B package-updates-work
+          status=0
+          # shellcheck disable=SC2086
+          node scripts/package-updates.mjs --nightly --open-issues --max "$MAX" \
+            --report "$RUNNER_TEMP/package-updates" $CHARTS || status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          echo "commits=$(git rev-list --count origin/main..HEAD)" >> "$GITHUB_OUTPUT"
+          cat "$RUNNER_TEMP/package-updates/pr-body.md" >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Open or update the package update pull request
+        if: steps.update.outputs.commits != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          date_tag="$(date -u +%Y-%m-%d)"
+          # One package update pull request at a time: while one is open, this
+          # run replaces its branch and its description. The run starts from
+          # main, so it carries every update the open one did, and any newer.
+          open_pr="$(gh pr list --state open --base main --json number,headRefName \
+            --jq '[.[] | select(.headRefName | startswith("bot/package-updates-"))][0] | "\(.number) \(.headRefName)"' || true)"
+          if [ -n "$open_pr" ] && [ "$open_pr" != "null null" ]; then
+            open_number="${open_pr%% *}"
+            branch="${open_pr#* }"
+          else
+            open_number=""
+            branch="bot/package-updates-${date_tag}"
+          fi
+          case "$branch" in
+            bot/package-updates-*) ;;
+            *) echo "refusing to push to $branch" >&2; exit 1 ;;
+          esac
+          git push --force origin "HEAD:refs/heads/${branch}"
+
+          title="packages: upstream updates for ${date_tag}"
+          body="$RUNNER_TEMP/package-updates/pr-body.md"
+          if [ -n "$open_number" ]; then
+            gh pr edit "$open_number" --title "$title" --body-file "$body"
+          else
+            gh pr create --base main --head "$branch" --title "$title" --body-file "$body"
+          fi
+
+          # The gates, on the update branch, since this token's push starts
+          # no pull_request run. Their checks land on the pull request's head.
+          gh workflow run full-verify.yml --ref "$branch"
+          gh workflow run site-verify.yml --ref "$branch"
+
+      - name: Keep the report either way
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: package-updates-${{ github.run_id }}
+          path: ${{ runner.temp }}/package-updates/
+          if-no-files-found: warn
+
+      - name: End red when an update failed
+        if: steps.update.outputs.status != '0'
+        run: |
+          echo "At least one chart's update failed; each has an issue. The others are in the pull request." >&2
+          exit 1

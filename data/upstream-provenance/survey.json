@@ -1,7 +1,15 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-10-08T21:02:03.731Z",
-  "changesSinceLastSurvey": [],
+  "observedAt": "2026-11-27T12:25:36.249Z",
+  "changesSinceLastSurvey": [
+    {
+      "chart": "mysql-operator",
+      "version": "2.3.0",
+      "from": "unsigned",
+      "to": "unknown",
+      "reason": "version-not-in-index"
+    }
+  ],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
   "repositories": 68,
   "charts": [
@@ -36,6 +44,18 @@
       "version": "10.2.1",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.2.1/argo-cd-10.2.1.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/argo-cd/argo-cd/10.20.0/source-lock.yaml",
+      "repositoryURL": "https://argoproj.github.io/argo-helm",
+      "chart": "argo-cd",
+      "version": "10.20.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.20.0/argo-cd-10.20.0.tgz",
       "provStatus": 200,
       "provenance": "signed",
       "reason": "provenance-file-published",
@@ -1346,10 +1366,8 @@
       "chart": "mysql-operator",
       "version": "2.3.0",
       "sourceType": "HelmChart",
-      "tarball": "https://mysql.github.io/mysql-operator/mysql-operator-2.3.0.tgz",
-      "provStatus": 404,
-      "provenance": "unsigned",
-      "reason": "no-provenance-file",
+      "provenance": "unknown",
+      "reason": "version-not-in-index",
       "detail": ""
     },
     {

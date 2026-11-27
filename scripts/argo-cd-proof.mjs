@@ -4,6 +4,7 @@
 // scripts/lib/proof-kit.mjs. CLI surface unchanged.
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
 
 const supportedChartVersion = "9.5.15";
@@ -25,9 +26,9 @@ const versionExpectations = {
   "10.1.3": { defaultObjects: 55, noCrdsObjects: 52 },
   "10.2.1": { defaultObjects: 55, noCrdsObjects: 52 },
   "10.7.0": { defaultObjects: 55, noCrdsObjects: 52 },
+  "10.20.0": { defaultObjects: 54, noCrdsObjects: 51 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`argo-cd ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("argo-cd", chart.version, versionExpectations, import.meta.url);
 
 const argoCDCRDs = [
   "applications.argoproj.io",

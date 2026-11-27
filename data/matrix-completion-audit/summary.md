@@ -18,29 +18,29 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1430 non-green cells:
+1439 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 1198 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1207 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 63 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 604 |
-| `G` | 205 |
-| `P` | 205 |
-| `L` | 196 |
+| `promotion` | 607 |
+| `G` | 207 |
+| `P` | 207 |
+| `L` | 198 |
 | `K` | 157 |
 | `lifecycle` | 63 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 534 |
-| `blocked` | 252 |
-| `not-applicable-source` | 180 |
+| `missing` | 540 |
+| `blocked` | 254 |
+| `not-applicable-source` | 181 |
 | `proven` | 179 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
@@ -118,7 +118,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@41.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (1198)
+## needs-target-or-prereq-fix (1207)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -145,6 +145,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | argo-cd/argo-cd@10.2.1 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | argo-cd/argo-cd@10.2.1 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | argo-cd/argo-cd@10.2.1 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.20.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| argo-cd/argo-cd@10.20.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| argo-cd/argo-cd@10.20.0 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argo-cd@10.20.0 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | argo-cd/argo-cd@10.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argo-cd@10.7.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | argo-cd/argo-cd@10.7.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |

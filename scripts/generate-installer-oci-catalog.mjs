@@ -5,6 +5,7 @@ import { existsSync, readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256, sha256File, write } from "./lib/proof-common.mjs";
+import { pendingPublicationRecipes } from "./lib/installer-oci-publication.mjs";
 import {
   DEFAULT_INSTALLER_OCI_REGISTRY,
   chartVersionFromPackagePath,
@@ -65,9 +66,13 @@ function buildReport() {
   const publicationReceipts = publicationReceiptMap();
   const signatureReceipts = installerPackageSignatureReceiptMap();
   if (signatureReceipts.size > 0) verifyPackageSignatureEvidence();
+  // A version declared pending publication is not in the signed index until
+  // it is published, so adding one does not invalidate the index signature.
+  const pending = pendingPublicationRecipes();
   const installerYamlPaths = listFiles(packagesRoot)
     .filter((path) => basename(path) === "installer.yaml")
     .map(relativeRepo)
+    .filter((path) => !pending.has(path.replace(/^packages\//, "recipes/").replace(/\/installer\.yaml$/, "")))
     .sort();
   const rows = installerYamlPaths.map((installerYamlPath) => {
     const packagePath = installerYamlPath.replace(/\/installer\.yaml$/, "");

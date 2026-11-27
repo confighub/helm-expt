@@ -2,11 +2,18 @@ EXPERIMENTAL
 
 # Plan: turning the weekly catalog refresh on
 
-The weekly refresh lane runs every Monday at 06:00 UTC. The maintainer turned
-the schedule on on 26 November 2026, before the preconditions below were met:
-a catalog that falls behind upstream with nobody told costs more than a weekly
-pull request that lists what moved. This page records why it was off, the
-preconditions that are still worth meeting, and the rules the lane obeys.
+The weekly refresh lane ran every Monday at 06:00 UTC once the schedule was
+turned on, before the preconditions below were met: a catalog that falls behind
+upstream with nobody told costs more than a weekly pull request that lists what
+moved. This page records why it was off, the preconditions that are still worth
+meeting, and the rules the lane obeys.
+
+The schedule now belongs to the nightly package update
+([package-updates.md](../reference/package-updates.md)), which builds the new
+package versions for the movement this lane only listed, and runs this lane's
+byte-drift recheck every night. Two scheduled bots would open two pull requests
+for one upstream release, so this lane is run by hand, for when the top-20
+review views are wanted.
 
 ## Why it was off
 

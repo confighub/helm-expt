@@ -5,6 +5,8 @@ recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/variant-revision.yaml,argo
 recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.1.3,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,default,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.20.0,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.20.0,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.7.0,default,r001,attached,matches,
 recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.7.0,no-crds,r001,attached,matches,
 recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.15,default,r001,attached,matches,

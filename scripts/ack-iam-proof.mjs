@@ -12,6 +12,7 @@
 //   HELM_EXPT_CHART_ARTIFACT_SHA256="598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "1.7.3";
 const chart = {
@@ -27,8 +28,7 @@ const chart = {
 const versionExpectations = {
   "1.7.3": { defaultObjects: 19, eksInferenceObjects: 19, crdCount: 9 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`aws-controllers-k8s/iam-chart ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("aws-controllers-k8s/iam-chart", chart.version, versionExpectations, import.meta.url);
 
 // Raw values captured byte-for-byte from the lean entry's
 // recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/<name>/values.yaml.

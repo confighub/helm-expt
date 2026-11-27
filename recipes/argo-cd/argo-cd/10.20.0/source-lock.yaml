@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "argo-cd-argo-cd-10.20.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "argo-cd"
+  repositoryURL: "https://argoproj.github.io/argo-helm"
+  chart: "argo-cd"
+  version: "10.20.0"
+  appVersion: "v3.6.3"
+  packageSHA256: "1b0a923d9deba35ea51058434c12c102ea03d6b24e6d496bf44f559b0da01dda"
+  packageBytes: 251937
+  exactArtifact:
+    url: "https://github.com/argoproj/argo-helm/releases/download/argo-cd-10.20.0/argo-cd-10.20.0.tgz"
+    sha256: "1b0a923d9deba35ea51058434c12c102ea03d6b24e6d496bf44f559b0da01dda"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

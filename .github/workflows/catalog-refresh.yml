@@ -1,11 +1,12 @@
-name: Weekly catalog refresh
+name: Catalog refresh (top-20 review views, by hand)
 
 # The catalog measures itself against what upstream publishes, and until now it
 # only noticed when somebody ran the generators on a workstation. The first
 # external consumer felt that as an unpredictable refresh rhythm, so this job
-# gives the answer an owner and a cadence: every Monday it asks each supported
-# chart's repository what the latest version is, and when something moved it
-# opens a pull request. It never pushes to main; a person still merges.
+# gives the answer an owner: it asks each supported chart's repository what the
+# latest version is, and when something moved it opens a pull request. It never
+# pushes to main; a person still merges. The cadence now belongs to the nightly
+# package update, which builds the packages for that movement (see `on:`).
 #
 # The scope rule is absolute. This job runs the affected chart lanes only, never
 # the full generator fan-out, which once produced a 2356-file diff. It runs no
@@ -23,16 +24,13 @@ name: Weekly catalog refresh
 # maintainer can regenerate reproducibly at all.
 
 on:
-  # The maintainer turned the schedule on: a catalog that falls behind upstream
-  # with nobody told is worse than a weekly pull request that lists what moved.
-  # The derived-views step refreshes every committed view that copies
-  # latest_version out of review.csv, the guard below refuses any diff outside
-  # the refresh surface, and the gates run on the pull request before anyone
-  # can merge it, so an incomplete refresh cannot land silently. While one
-  # refresh pull request is open, later runs update it rather than open another.
-  schedule:
-    # Mondays, 06:00 UTC.
-    - cron: "0 6 * * 1"
+  # The schedule moved to the nightly package update
+  # (.github/workflows/packages-nightly.yml). That job builds the new package
+  # versions for upstream movement and runs this lane's byte-drift recheck
+  # every night, so a schedule here would open a second pull request for the
+  # same upstream release. This lane stays runnable by hand, for when the
+  # top-20 review views in data/latest-top20-refresh/ are wanted. While one
+  # refresh pull request is open, a run updates it rather than open another.
   workflow_dispatch:
 
 permissions:

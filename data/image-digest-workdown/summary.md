@@ -7,15 +7,15 @@ image pinning, not a registry-resolution receipt.
 ## Current Reading
 
 ```text
-rendered image references:             1542
-rendered subjects:                     336
-image references needing resolution:   1474
-rendered subjects needing resolution:  298
+rendered image references:             1560
+rendered subjects:                     338
+image references needing resolution:   1492
+rendered subjects needing resolution:  300
 resolution receipts recorded:          24
 support policy decisions recorded:     28
-catalog-supported subjects:            98
-catalog-supported needing resolution:  73
-charts with rendered image references: 174
+catalog-supported subjects:            100
+catalog-supported needing resolution:  75
+charts with rendered image references: 175
 priority subjects listed:              30
 ```
 

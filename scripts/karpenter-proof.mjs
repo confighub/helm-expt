@@ -11,6 +11,7 @@
 //   HELM_EXPT_CHART_ARTIFACT_SHA256="d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "1.14.0";
 const chart = {
@@ -26,8 +27,7 @@ const chart = {
 const versionExpectations = {
   "1.14.0": { defaultObjects: 18, eksInferenceObjects: 18, crdsManagedObjects: 13 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`karpenter ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("karpenter", chart.version, versionExpectations, import.meta.url);
 
 const requiredCRDNames = [
   "capacitybuffers.autoscaling.x-k8s.io",

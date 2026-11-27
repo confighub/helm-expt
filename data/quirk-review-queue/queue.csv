@@ -92,10 +92,12 @@ valkey/valkey@0.11.0,extension-slots,sme,extension-slot
 velero/velero@12.0.1,extension-slots,sme,extension-slot
 vm/victoria-logs-single@0.12.5,extension-slots,sme,extension-slot
 vm/victoria-metrics-single@0.39.0,extension-slots,sme,extension-slot
+argo-cd/argo-cd@10.20.0,gitops-handoff,sme,recipe
 argo-cd/argo-cd@10.7.0,gitops-handoff,sme,recipe
 argo-cd/argo-cd@9.5.15,gitops-handoff,sme,recipe
 argo-cd/argo-cd@9.5.17,gitops-handoff,sme,recipe
 secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,platform-variant,sme,recipe
+argo-cd/argo-cd@10.20.0,tpl,sme,extension-slot
 argo-cd/argo-cd@10.7.0,tpl,sme,extension-slot
 argo-cd/argo-cd@9.5.17,tpl,sme,extension-slot
 bitnami/mongodb@19.0.9,tpl,sme,extension-slot
@@ -212,6 +214,7 @@ stakater/reloader@2.2.16,catalog-coverage,standard,recipe
 traefik/traefik@41.4.0,catalog-coverage,standard,recipe
 prometheus-community/prometheus@29.8.0,component-selection,standard,recipe
 prometheus-community/prometheus@29.9.0,component-selection,standard,recipe
+argo-cd/argo-cd@10.20.0,crd-policy,standard,recipe
 argo-cd/argo-cd@10.7.0,crd-policy,standard,recipe
 argo-cd/argo-cd@9.5.15,crd-policy,standard,recipe
 argo-cd/argo-cd@9.5.17,crd-policy,standard,recipe

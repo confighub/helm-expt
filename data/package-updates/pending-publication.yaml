@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PackagesPendingPublication"
+metadata:
+  name: "packages-pending-publication"
+spec:
+  description: >-
+    Package versions built and checked in this repository that the catalog
+    registry does not hold yet. scripts/package-updates.mjs adds each version it
+    builds. The catalog maps leave a version listed here out until its
+    publication receipt exists; an entry whose receipt exists fails the chain
+    until it is removed.
+  packages:
+    - chart: "argo-cd/argo-cd"
+      version: "10.20.0"

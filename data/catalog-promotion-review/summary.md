@@ -15,29 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 180
-machine checks pass: 180
+recipes reviewed: 181
+machine checks pass: 181
 machine checks fail: 0
 proof-grade: 110
-catalog-candidate: 50
+catalog-candidate: 51
 catalog-supported: 20
 blocked: 0
 default-only recipes: 61
-multi-variant recipes: 119
-recipes with warning gates: 163
+multi-variant recipes: 120
+recipes with warning gates: 164
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 93
+- `bespoke-top20`: 94
 - `next80-full`: 80
 - `successor-full`: 7
 
 ## Support Levels
 
 - `machine-proof-only`: 110
-- `promotion-review-needed`: 50
+- `promotion-review-needed`: 51
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -50,6 +50,7 @@ proof work.
 | --- | ---: | --- | --- |
 | `argo-cd/argo-cd@10.1.3` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@10.2.1` | 2 | warn | run human catalog promotion review |
+| `argo-cd/argo-cd@10.20.0` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@10.7.0` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 2 | warn | run human catalog promotion review |
@@ -67,7 +68,6 @@ proof work.
 | `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 3 | warn | run human catalog promotion review |
 | `eks/aws-efa-k8s-device-plugin@v0.5.29` | 2 | warn | run human catalog promotion review |
 | `external-secrets/external-secrets@2.10.0` | 2 | warn | run human catalog promotion review |
-| `external-secrets/external-secrets@2.7.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps
 

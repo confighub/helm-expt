@@ -37,6 +37,16 @@ const outputRoot = join(repoRoot, "data", "next80-full-proofs");
 const corpusPath = join(outputRoot, "corpus.yaml");
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
+// --only <chart-ref> limits --generate, --verify and --verify-packages to one
+// corpus chart. Generating one chart rewrites its recipe and package, its row
+// in the proof index and the corpus lock, and leaves every other chart's files
+// as they are, which is what a single upstream update needs.
+const onlyIndex = args.indexOf("--only");
+const only = onlyIndex === -1 ? null : args[onlyIndex + 1];
+if (onlyIndex !== -1 && (!only || only.startsWith("--"))) {
+  console.error("--only requires an exact corpus chart-ref, such as kedacore/keda");
+  process.exit(2);
+}
 const kubeVersion = "1.30.0";
 const proofTier = "next80-full";
 
@@ -52,21 +62,22 @@ if (mode === "--generate") {
   verifySelfTest();
 } else {
   console.log(`Usage:
-  node scripts/generate-next80-full-proofs.mjs --generate
+  node scripts/generate-next80-full-proofs.mjs --generate [--only <chart-ref>]
   node scripts/generate-next80-full-proofs.mjs --refresh-licenses <chart-ref>
-  node scripts/generate-next80-full-proofs.mjs --verify
-  node scripts/generate-next80-full-proofs.mjs --verify-packages
+  node scripts/generate-next80-full-proofs.mjs --verify [--only <chart-ref>]
+  node scripts/generate-next80-full-proofs.mjs --verify-packages [--only <chart-ref>]
   node scripts/generate-next80-full-proofs.mjs --self-test`);
 }
 
 function generate() {
   const corpus = loadCorpus();
   check(corpus.length === 80, `next80 corpus must contain 80 charts; found ${corpus.length}`);
+  const selected = selectCharts(corpus);
   mkdirSync(outputRoot, { recursive: true });
   const rows = [];
   const helmVersion = command("helm", ["version", "--short"]).trim();
 
-  for (const chart of corpus) {
+  for (const chart of selected) {
     console.log(`generating ${chart.rank}: ${chart.ref}@${chart.version}`);
     ensureRepo(chart);
     const paths = pathsFor(chart);
@@ -113,19 +124,78 @@ function generate() {
     }
   }
 
+  const allRows = only ? mergedRows(corpus, rows) : rows;
+  check(allRows.length === corpus.length, `proof index would hold ${allRows.length} rows for ${corpus.length} corpus charts`);
   writeCorpusLock(corpus);
-  writeIndex(rows);
-  writeSummary(rows);
+  writeIndex(allRows);
+  writeSummary(allRows);
   verifyAll({ checkPackageExecution: false });
-  console.log(`generated ${rows.length} full proof charts in recipes/ and packages/`);
+  console.log(`generated ${rows.length} full proof chart(s) in recipes/ and packages/`);
+}
+
+function selectCharts(corpus) {
+  if (!only) return corpus;
+  const selected = corpus.filter((chart) => chart.ref === only);
+  check(selected.length === 1, `--only ${only} matches no next80 corpus chart`);
+  return selected;
+}
+
+// The index rows of the charts this run did not regenerate, read back from the
+// committed index, with the rows it did regenerate in their place.
+function mergedRows(corpus, rows) {
+  const generated = new Set(rows.map((row) => row.chart));
+  const wanted = new Set(corpus.map((chart) => `${chart.ref}@${chart.version}`));
+  const kept = readIndexRows().filter((row) => wanted.has(row.chart) && !generated.has(row.chart));
+  return [...kept, ...rows].sort((left, right) => Number(left.rank) - Number(right.rank));
+}
+
+function readIndexRows() {
+  const indexPath = join(outputRoot, "proof-index.csv");
+  if (!existsSync(indexPath)) return [];
+  const numbers = ["rank", "helm_objects", "cub_objects", "scan_high", "scan_medium", "scan_low", "crds"];
+  const flags = ["uses_lookup", "uses_generated_facts", "uses_capabilities", "uses_tpl", "has_hooks", "cluster_rbac", "webhooks"];
+  return parseCsv(readFileSync(indexPath, "utf8")).map((row) => ({
+    ...row,
+    ...Object.fromEntries(numbers.map((key) => [key, Number(row[key])])),
+    ...Object.fromEntries(flags.map((key) => [key, row[key] === "true"])),
+  }));
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    if (quoted) {
+      if (char === '"' && text[index + 1] === '"') {
+        value += '"';
+        index += 1;
+      } else if (char === '"') quoted = false;
+      else value += char;
+    } else if (char === '"') quoted = true;
+    else if (char === ",") {
+      row.push(value);
+      value = "";
+    } else if (char === "\n") {
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = "";
+    } else if (char !== "\r") value += char;
+  }
+  if (value || row.length) rows.push([...row, value]);
+  const [headers, ...body] = rows.filter((item) => item.some((cell) => cell !== ""));
+  return body.map((item) => Object.fromEntries(headers.map((header, index) => [header, item[index] ?? ""])));
 }
 
 function verifyAll({ checkPackageExecution }) {
   const corpus = loadCorpus();
   check(corpus.length === 80, `next80 corpus must contain 80 charts; found ${corpus.length}`);
-  for (const chart of corpus) verifyChart(chart, { checkPackageExecution });
+  for (const chart of selectCharts(corpus)) verifyChart(chart, { checkPackageExecution });
   verifyIndex(corpus);
-  console.log(`verified ${corpus.length} next80 full proof charts${checkPackageExecution ? " with cub package/setup execution" : ""}`);
+  console.log(`verified ${only ? `${only} of ` : ""}${corpus.length} next80 full proof charts${checkPackageExecution ? " with cub package/setup execution" : ""}`);
 }
 
 function verifySelfTest() {

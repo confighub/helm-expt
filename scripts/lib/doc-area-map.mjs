@@ -213,6 +213,7 @@ const DOC_AREA = {
   "docs/reference/how-the-catalog-is-built.md": "catalog",
   "docs/reference/installer-package-signing.md": "catalog",
   "docs/reference/catalog-oci-on-ghcr.md": "catalog",
+  "docs/reference/package-updates.md": "catalog",
   "docs/reference/kube-prometheus-stack-serious-chart-review.md": "catalog",
   "docs/reference/lane-test-doctrine.md": "catalog",
   "docs/reference/master-catalog-matrix.md": "catalog",

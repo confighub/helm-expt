@@ -8,6 +8,7 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import { isPendingPublication } from "./lib/installer-oci-publication.mjs";
 import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "top500-catalog-analysis");
@@ -84,6 +85,8 @@ function currentProofIndex() {
   const allProofs = [];
   for (const recipePath of listFiles(join(repoRoot, "recipes")).filter((file) => file.endsWith("/recipe.yaml"))) {
     const root = dirname(recipePath);
+    // Not in the catalog maps until published.
+    if (isPendingPublication(root)) continue;
     const indexPath = catalogDerivedPath(root, "artifact-index.yaml");
     const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
     const helmPlanPath = join(root, "helm-plan.yaml");

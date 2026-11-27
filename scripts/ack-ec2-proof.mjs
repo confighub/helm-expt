@@ -11,6 +11,7 @@
 //   HELM_EXPT_CHART_ARTIFACT_SHA256="17c082eac9ef1f859fdf72d4e86788ab7add27876da9f2ba7cd145eeea75bc20"
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "1.18.4";
 const chart = {
@@ -29,8 +30,7 @@ const artifactPackageSHA256 = "17c082eac9ef1f859fdf72d4e86788ab7add27876da9f2ba7
 const versionExpectations = {
   "1.18.4": { defaultObjects: 32, eksInferenceObjects: 32, crdCount: 22 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`ack ec2-chart ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("ack ec2-chart", chart.version, versionExpectations, import.meta.url);
 
 // Captured verbatim from the lean entry's variants/default/values.yaml.
 // The comment-only file means chart defaults; the comment text is deliberate.

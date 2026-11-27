@@ -22,7 +22,12 @@ export function installerOciPublication(chart, version, options = {}) {
   );
 
   if (!existsSync(receiptPath)) {
-    check(!required, `${relativeRepo(receiptPath)} is missing for ${chart}@${version}`);
+    // A version declared pending publication answers "not published yet"
+    // rather than failing; anything else without a receipt still fails.
+    check(
+      !required || pendingPublicationRecipes().has(`recipes/${chart}/${version}`),
+      `${relativeRepo(receiptPath)} is missing for ${chart}@${version}`,
+    );
     return {
       published: false,
       tagRef,
@@ -69,4 +74,42 @@ export function installerOciPublication(chart, version, options = {}) {
 export function installerOciConsumerRef(chart, version, options = {}) {
   const publication = installerOciPublication(chart, version, options);
   return publication.exactRef || publication.tagRef;
+}
+
+// Package versions that exist in packages/ and recipes/ but are not yet in the
+// catalog registry, declared in data/package-updates/pending-publication.yaml.
+// The nightly package update adds a new version there: it builds and checks
+// the package, and a person merging it is what starts publication. Until the
+// publication receipt exists, the catalog maps leave the version out instead
+// of refusing it, because a catalog entry has to name a digest a user can
+// pull. The register is a ratchet: a declared version that has its receipt,
+// or no recipe, fails here until its entry is removed.
+export const PENDING_PUBLICATION_REGISTER = join(repoRoot, "data", "package-updates", "pending-publication.yaml");
+
+let pendingRecipes;
+
+export function pendingPublicationRecipes() {
+  if (pendingRecipes) return pendingRecipes;
+  pendingRecipes = new Set();
+  if (!existsSync(PENDING_PUBLICATION_REGISTER)) return pendingRecipes;
+  const register = readYaml(PENDING_PUBLICATION_REGISTER);
+  check(register?.kind === "PackagesPendingPublication", `${relativeRepo(PENDING_PUBLICATION_REGISTER)}: expected kind PackagesPendingPublication`);
+  for (const entry of register.spec?.packages ?? []) {
+    const chart = String(entry.chart ?? "");
+    const version = String(entry.version ?? "");
+    const recipe = `recipes/${chart}/${version}`;
+    check(/^[a-z0-9.-]+\/[a-z0-9.-]+$/.test(chart) && version, `${relativeRepo(PENDING_PUBLICATION_REGISTER)}: bad entry ${JSON.stringify(entry)}`);
+    check(existsSync(join(repoRoot, recipe, "recipe.yaml")), `${relativeRepo(PENDING_PUBLICATION_REGISTER)} declares ${chart}@${version}, which has no recipe`);
+    check(existsSync(join(repoRoot, "packages", chart, version, "installer.yaml")), `${relativeRepo(PENDING_PUBLICATION_REGISTER)} declares ${chart}@${version}, which has no package`);
+    check(
+      !installerOciPublication(chart, version, { required: false }).published,
+      `${chart}@${version} is published; remove it from ${relativeRepo(PENDING_PUBLICATION_REGISTER)}`,
+    );
+    pendingRecipes.add(recipe);
+  }
+  return pendingRecipes;
+}
+
+export function isPendingPublication(recipeRoot) {
+  return pendingPublicationRecipes().has(relativeRepo(recipeRoot));
 }

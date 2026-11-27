@@ -10,6 +10,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { runProofCli } from "./lib/proof-kit.mjs";
+import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor, parseDocs, readYaml, repoRoot, sha256 } from "./lib/proof-common.mjs";
 
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "v1.20.2";
@@ -28,8 +29,7 @@ const versionExpectations = {
   "v1.21.0": { defaultObjects: 40, crdsObjects: 46 },
   "v1.21.1": { defaultObjects: 40, crdsObjects: 46 },
 };
-const expected = versionExpectations[chart.version];
-if (!expected) throw new Error(`cert-manager ${chart.version} needs reviewed version-specific assertions`);
+const expected = reviewedExpectations("cert-manager", chart.version, versionExpectations, import.meta.url);
 
 const certManagerCRDs = [
   "challenges.acme.cert-manager.io",

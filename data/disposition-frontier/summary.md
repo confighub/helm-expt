@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 2064
-recorded disposition:       1318  (63.9%)
+lane cells:                 2076
+recorded disposition:       1320  (63.6%)
 + derived blocked:          9
-+ derived n/a (K covered):  57
-= verified disposition:     1384  (67.1%)
-genuine todo (named next):  146
-un-dispositioned gap:       534
++ derived n/a (K covered):  59
+= verified disposition:     1388  (66.9%)
+genuine todo (named next):  148
+un-dispositioned gap:       540
 ```
 
-**Distance to 99%:** 680 cells are not yet a
-non-todo verified disposition (32.9% of cells).
+**Distance to 99%:** 688 cells are not yet a
+non-todo verified disposition (33.1% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 344 | 344 | 0 | 0 |
-| C in_confighub | 344 | 198 | 146 | 0 |
-| L local_live | 344 | 199 | 0 | 145 |
-| G gitops_oci_live | 344 | 199 | 0 | 145 |
-| P live_helm_vs_confighub_parity | 344 | 199 | 0 | 145 |
-| K two_cluster_kind_parity | 344 | 245 | 0 | 99 |
+| R render_parity | 346 | 346 | 0 | 0 |
+| C in_confighub | 346 | 198 | 148 | 0 |
+| L local_live | 346 | 199 | 0 | 147 |
+| G gitops_oci_live | 346 | 199 | 0 | 147 |
+| P live_helm_vs_confighub_parity | 346 | 199 | 0 | 147 |
+| K two_cluster_kind_parity | 346 | 247 | 0 | 99 |
 
 ## The work to 99%, by next action
 
@@ -52,6 +52,8 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.1.3 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.2.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.2.1 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.20.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.20.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@9.5.17 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
