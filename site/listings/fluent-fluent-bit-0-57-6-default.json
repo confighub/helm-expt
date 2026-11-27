@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/fluent-bit-0.57.6-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/fluent-bit-0.57.6-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-fluent-fluent-bit-0-57-6-default:bundle-added102e3f2@sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a",
+          "manifestDigest": "sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-fluent-fluent-bit-0-57-6-default@sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

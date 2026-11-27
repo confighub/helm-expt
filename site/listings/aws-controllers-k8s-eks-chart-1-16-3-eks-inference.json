@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/eks-chart-1.16.3-eks-inference/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/eks-chart-1.16.3-eks-inference/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:bundle-4d5f03b1278c@sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333",
+          "manifestDigest": "sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference@sha256:4d5f03b1278cdefa2c9ad779098be869417b574828c00d9cac1883c8a2512333",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

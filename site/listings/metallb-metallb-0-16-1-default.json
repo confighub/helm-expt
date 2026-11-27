@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-metallb-metallb-0-16-1-default:bundle-9bbd4cf82762@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a",
+          "manifestDigest": "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-metallb-metallb-0-16-1-default@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

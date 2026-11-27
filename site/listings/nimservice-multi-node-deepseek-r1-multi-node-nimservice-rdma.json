@@ -128,7 +128,15 @@
         "receipt": "runs/nimservice-variants/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma/publication-receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma/publication-receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma:upstream-5d5f66ee0e2e-57cc38f80a51@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
+          "manifestDigest": "sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-multi-node-deepseek-r1-multi-node-nimservice-rdma@sha256:57cc38f80a5146da018f56b23b647f44bc26c8fe2824cd3f056949c4661035e3",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

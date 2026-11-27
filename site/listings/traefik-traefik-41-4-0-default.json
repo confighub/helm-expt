@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/traefik-41.4.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/traefik-41.4.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default:bundle-e0a31249abd6@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573",
+          "manifestDigest": "sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-traefik-traefik-41-4-0-default@sha256:e0a31249abd66ae5059e31abbef63e4285e5b64afd4b28fb008374f20c6e5573",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

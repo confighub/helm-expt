@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default:bundle-1be62c187476@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d",
+          "manifestDigest": "sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

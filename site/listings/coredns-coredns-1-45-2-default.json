@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/coredns-1.45.2-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/coredns-1.45.2-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-coredns-coredns-1-45-2-default:bundle-299b17449019@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2",
+          "manifestDigest": "sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-coredns-coredns-1-45-2-default@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

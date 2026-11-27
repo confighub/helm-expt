@@ -128,7 +128,15 @@
         "receipt": "runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling/publication-receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling:upstream-5d5f66ee0e2e-842c90182eb6@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+          "manifestDigest": "sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-scheduling-meta-llama-3-2-1b-instruct-scheduling@sha256:842c90182eb637abddc5be190afa89fe673a350321332ddd0f4f418a35a39b73",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

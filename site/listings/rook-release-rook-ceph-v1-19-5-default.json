@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-rook-release-rook-ceph-v1-19-5-default:bundle-67856be2e32c@sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
+          "manifestDigest": "sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-rook-release-rook-ceph-v1-19-5-default@sha256:67856be2e32ce41fb8e0e4dd87f8e5f0552477d69ead0b78a02dd1ece4f096ef",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/nack-0.34.0-no-crds/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nack-0.34.0-no-crds/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nats-nack-0-34-0-no-crds:bundle-76dd9128176b@sha256:76dd9128176b2897acdaac5956d2701cf76beb97e1f22395e77b60f906716ae4",
+          "manifestDigest": "sha256:76dd9128176b2897acdaac5956d2701cf76beb97e1f22395e77b60f906716ae4",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nats-nack-0-34-0-no-crds@sha256:76dd9128176b2897acdaac5956d2701cf76beb97e1f22395e77b60f906716ae4",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

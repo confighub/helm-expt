@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-minio-operator-operator-7-1-1-default:bundle-1a6ed65aac29@sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
+          "manifestDigest": "sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-minio-operator-operator-7-1-1-default@sha256:1a6ed65aac294ae5075255631090cd2b4864e2e586d41957486cc80ef87c9f97",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -16834,9 +16834,18 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
           "verdict": format === "helm" ? `Pull locally with <code>cub installer</code>. ${steps}` : steps,
         })[eligibility.reason] ?? steps;
   const published = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config" && bundle.state === "published" && bundle.reference);
-  const bundle = published
-    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>`
-    : "";
+  // The GHCR copy is cited once a receipt records it, with the command that
+  // checks its signature; the earlier location stays on the page. Before that
+  // the page keeps the recorded reference and says the copy is still to come.
+  const ghcr = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config")?.ghcr;
+  const workflowLink = `<a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(ghcr?.publisher ?? "")}">catalog OCI workflow</a>`;
+  const bundle = ghcr?.state === "published-signed" && published
+    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(ghcr.reference)}</code>, signed by the ${workflowLink}. Check the signature: <code>${escapeHtml(ghcr.verifyCommand)}</code></p>
+      <p><strong>Earlier location.</strong> <code>${escapeHtml(published.reference)}</code></p>`
+    : `${published ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>` : ""}${ghcr
+      ? `
+      <p><strong>GitHub registry copy.</strong> The ${workflowLink} publishes this bundle as <code>${escapeHtml(ghcr.reference)}</code> and signs it after a merge. No receipt records that copy yet${published ? ", so use the reference above" : ""}.</p>`
+      : ""}`;
   // What an install needs first. With a test script these are the steps the
   // script stops for. Without one they are the first steps of the plan.
   const firstSteps = eligibility.eligible

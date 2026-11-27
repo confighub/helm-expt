@@ -1,0 +1,114 @@
+name: Publish catalog OCI
+
+# Publishes the Catalog's configuration OCI artifacts that are not installer
+# packages (certified config bundles, NVIDIA literal bundles, NIMService
+# variants and the Timoni Redis configuration) as
+# oci://ghcr.io/confighub/configs/catalog/<name>:<tag>, and signs each manifest
+# digest keylessly as this workflow. scripts/lib/catalog-oci.mjs says how each
+# artifact is built and why its tag is what it is.
+#
+# A published tag is never overwritten, so a push that changes no artifact
+# publishes nothing, and a merged update publishes exactly the artifacts it
+# added or changed. Each new artifact is pushed by digest, signed, and only
+# then tagged, so a tag always names a signed manifest. A new GHCR package is
+# created private; the run then fails and names the setting to change.
+#
+# The receipts of what this run published are uploaded as the
+# catalog-oci-receipts artifact. Committing them under runs/catalog-oci is what
+# switches the Catalog's pages from the earlier Google location to GHCR; until
+# then the pages say the GHCR copy awaits this workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/certified-bundles/**
+      - packages/**
+      - data/nvidia-literal-bundles/**
+      - data/aicr-nim-operator-models/**
+      - runs/certified-bundles/**
+      - runs/catalog-literal-bundles/**
+      - runs/nimservice-variants/**
+      - runs/timoni-redis-catalog-proof/public-oci-receipt.yaml
+      - runs/prometheus-operator-minimal-candidate/packages/**
+      - scripts/publish-catalog-oci.mjs
+      - scripts/lib/catalog-oci.mjs
+      - scripts/lib/nvidia-literal-bundles.mjs
+      - scripts/lib/nimservice-publication.mjs
+      - scripts/lib/nimservice-entries.mjs
+      - .github/workflows/catalog-oci-publish.yml
+  workflow_dispatch: {}
+
+concurrency:
+  group: catalog-oci-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  COSIGN_VERSION: "3.1.3"
+  COSIGN_LINUX_AMD64_SHA256: 4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71
+  ORAS_VERSION: 1.3.2
+  ORAS_LINUX_AMD64_SHA256: 9229ccc6d17bb282039ad4a69abb16dcb887a5bce567c075d731d9b3c7ad8eaf
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      packages: write
+      # Keyless signing: the signature names this workflow.
+      id-token: write
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Install pinned oras and cosign
+        run: |
+          archive="$RUNNER_TEMP/oras.tar.gz"
+          curl -fsSL "https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz" -o "$archive"
+          echo "$ORAS_LINUX_AMD64_SHA256  $archive" | sha256sum -c -
+          tar -xzf "$archive" -C "$RUNNER_TEMP" oras
+          sudo install -m 0755 "$RUNNER_TEMP/oras" /usr/local/bin/oras
+          curl -fsSL "https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign-linux-amd64" -o "$RUNNER_TEMP/cosign"
+          echo "$COSIGN_LINUX_AMD64_SHA256  $RUNNER_TEMP/cosign" | sha256sum -c -
+          sudo install -m 0755 "$RUNNER_TEMP/cosign" /usr/local/bin/cosign
+          oras version
+          cosign version
+
+      # Every artifact published before is rebuilt to the digest its receipt
+      # records, or copied at that digest; this refuses anything else before
+      # a byte is pushed.
+      - name: Check the artifacts against their committed records
+        run: |
+          node scripts/publish-catalog-oci.mjs --self-test
+          node scripts/publish-catalog-oci.mjs --verify
+
+      - name: Log in to GHCR
+        run: echo "${{ github.token }}" | oras login ghcr.io --username "${{ github.actor }}" --password-stdin
+
+      - name: Publish and sign
+        env:
+          RECEIPTS_DIR: ${{ runner.temp }}/catalog-oci-receipts
+        run: node scripts/publish-catalog-oci.mjs --publish
+
+      - name: Keep the receipts of this run
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: catalog-oci-receipts
+          path: ${{ runner.temp }}/catalog-oci-receipts
+          if-no-files-found: ignore

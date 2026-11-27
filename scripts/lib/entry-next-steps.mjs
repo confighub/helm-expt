@@ -154,7 +154,10 @@ export function uploadPath(listing) {
   const validNamespace = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/.test(namespace);
   const literal = bundle(listing, "literal-config");
   if (literal.state === "published" && literal.referenceState === "published" && String(literal.reference).startsWith("oci://")) {
-    return { kind: "literal-bundle", reference: literal.reference, ...(validNamespace ? { namespace } : {}) };
+    // The signed GHCR copy once a receipt records it; the recorded location
+    // until then, because a copy that has not been observed is not an address.
+    const reference = literal.ghcr?.state === "published-signed" ? literal.ghcr.reference : literal.reference;
+    return { kind: "literal-bundle", reference, ...(validNamespace ? { namespace } : {}) };
   }
   if (format === "helm" && /@sha256:[0-9a-f]{64}$/.test(ociRef) && validNamespace) {
     return { kind: "installer-package", reference: ociRef, namespace };

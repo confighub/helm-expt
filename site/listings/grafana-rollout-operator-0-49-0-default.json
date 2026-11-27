@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/rollout-operator-0.49.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-grafana-rollout-operator-0-49-0-default:bundle-de2a58a4f592@sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648",
+          "manifestDigest": "sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-grafana-rollout-operator-0-49-0-default@sha256:de2a58a4f5927e8602fc46af395ca74a94f5d5cd3525845055b74ae99cba6648",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

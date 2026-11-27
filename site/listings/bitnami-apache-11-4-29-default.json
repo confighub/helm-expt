@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/apache-11.4.29-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/apache-11.4.29-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-apache-11-4-29-default:bundle-a9ed53af3fbb@sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6",
+          "manifestDigest": "sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-apache-11-4-29-default@sha256:a9ed53af3fbb62b21dcf0da7f0443a66772f81dff4de0c65cc3798e24538bec6",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

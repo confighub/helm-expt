@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/karpenter-1.14.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/karpenter-1.14.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default:bundle-efbac1ddc87f@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
+          "manifestDigest": "sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

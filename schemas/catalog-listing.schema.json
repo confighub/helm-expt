@@ -433,6 +433,58 @@
               },
               "note": {
                 "type": "string"
+              },
+              "ghcr": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "reference",
+                  "manifestDigest",
+                  "state",
+                  "publisher",
+                  "verifyCommand"
+                ],
+                "description": "Where the catalog OCI workflow publishes this literal configuration bundle on GitHub's registry, signed keylessly as that workflow. Present on a literal-config bundle the workflow publishes. state says whether a committed receipt records the GHCR copy: until it does, cite reference, the earlier location, rather than this one.",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "pattern": "^oci://ghcr\\.io/",
+                    "description": "The GHCR reference with its tag and manifest digest."
+                  },
+                  "manifestDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{64}$"
+                  },
+                  "state": {
+                    "enum": [
+                      "awaits-workflow-publication",
+                      "published-signed"
+                    ],
+                    "description": "awaits-workflow-publication until a committed receipt records an anonymous pull of the tag at this digest and a signature verified against the workflow identity; published-signed after."
+                  },
+                  "receipt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "receiptUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The workflow that publishes and signs it."
+                  },
+                  "verifyCommand": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The cosign verify command that checks the signature against the workflow identity."
+                  },
+                  "sameDigestAsEarlier": {
+                    "type": "boolean",
+                    "description": "Whether the GHCR copy is the same manifest as the earlier location the reference names."
+                  }
+                }
               }
             }
           }

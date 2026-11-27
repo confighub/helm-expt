@@ -271,6 +271,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `blast-radius-fleet` | [blast-radius-fleet/summary.md](./blast-radius-fleet/summary.md) | supporting generated evidence |
 | `capability-profile-witnesses` | - | supporting generated evidence |
 | `catalog-images` | [catalog-images/summary.md](./catalog-images/summary.md) | the container images each catalog entry's retained objects name, and whether each is pinned by digest; read offline from the committed renders and resolving nothing |
+| `catalog-oci` | [catalog-oci/summary.md](./catalog-oci/summary.md) | every configuration OCI artifact that is not an installer package, where the catalog OCI workflow publishes and signs it on GitHub's registry, its earlier Google location, and whether a receipt records the GitHub copy yet |
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
 | `certified-bundles` | [certified-bundles/summary.md](./certified-bundles/summary.md) | shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes |
@@ -420,7 +421,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 237 CSV files. Each row records the path, audience,
+It includes 238 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

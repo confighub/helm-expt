@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/vertical-pod-autoscaler-0.9.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default:bundle-44018558020b@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+          "manifestDigest": "sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-autoscaler-vertical-pod-autoscaler-0-9-0-default@sha256:44018558020bb3c4b52802617789273f5c16a04fb21b3d370f346e3e97b735c7",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

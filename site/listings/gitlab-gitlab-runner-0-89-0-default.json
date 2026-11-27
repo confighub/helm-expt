@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-gitlab-gitlab-runner-0-89-0-default:bundle-0f4e3172af8e@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710",
+          "manifestDigest": "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-gitlab-gitlab-runner-0-89-0-default@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

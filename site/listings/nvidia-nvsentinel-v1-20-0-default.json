@@ -140,7 +140,15 @@
         "receipt": "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-default/publication-receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-nvsentinel-v1-20-0-default/publication-receipt.yaml",
         "referenceField": "observedReference",
-        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nvsentinel-v1-20-0-default:r001-d157be9fa5bc@sha256:d157be9fa5bc944ec5c966e550385141a61b6df31ddfac9dfd4ddbe0d2b355c4",
+          "manifestDigest": "sha256:d157be9fa5bc944ec5c966e550385141a61b6df31ddfac9dfd4ddbe0d2b355c4",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-nvsentinel-v1-20-0-default@sha256:d157be9fa5bc944ec5c966e550385141a61b6df31ddfac9dfd4ddbe0d2b355c4",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

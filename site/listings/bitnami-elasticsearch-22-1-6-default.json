@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default:bundle-d241c2e048d1@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+          "manifestDigest": "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

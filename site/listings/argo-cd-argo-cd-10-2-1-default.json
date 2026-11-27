@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/argo-cd-10.2.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/argo-cd-10.2.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-10-2-1-default:bundle-c4d1b297d17b@sha256:c4d1b297d17bbcb0d786d698fa4ac0166019fa34fba1109c642c2d4f7c4066d0",
+          "manifestDigest": "sha256:c4d1b297d17bbcb0d786d698fa4ac0166019fa34fba1109c642c2d4f7c4066d0",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-10-2-1-default@sha256:c4d1b297d17bbcb0d786d698fa4ac0166019fa34fba1109c642c2d4f7c4066d0",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

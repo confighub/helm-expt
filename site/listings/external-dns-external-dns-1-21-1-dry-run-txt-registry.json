@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/external-dns-1.21.1-dry-run-txt-registry/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/external-dns-1.21.1-dry-run-txt-registry/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry:bundle-3ec7278ee11b@sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046",
+          "manifestDigest": "sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-external-dns-external-dns-1-21-1-dry-run-txt-registry@sha256:3ec7278ee11b267bdba347de127378fa2dae46292cec2ae899213c747a453046",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-27 (commit `6eac39470b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-27 (commit `770c096f32`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,9 +23,9 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 498 |
-| Fresh (no linked source newer than the doc) | 75 |
-| **Review-due** | 88 |
+| Authored docs tracked | 499 |
+| Fresh (no linked source newer than the doc) | 77 |
+| **Review-due** | 87 |
 | No linked evidence sources (cannot auto-trigger) | 335 |
 
 ## Review queue
@@ -108,7 +108,6 @@ most recently changed triggers.
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/demo/kubara/platform-evidence.md](../../docs/demo/kubara/platform-evidence.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-platform-matrix/summary.md (2026-10-26)` |
 | [docs/demo/kubara/single-platform.md](../../docs/demo/kubara/single-platform.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-release-acceptance/contract.yaml (2026-10-26)` |
-| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-11-02 | 25 | `data/ghcr-packages/packages.csv (2026-11-27)`<br>`packages/jetstack/cert-manager/upstream.yaml (2026-11-27)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 12 | `data/certified-bundles/summary.md (2026-10-11)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-28 | 11 | `data/flattening-safety/summary.md (2026-10-09)` |

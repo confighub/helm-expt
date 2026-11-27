@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-no-crds/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-no-crds/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds:bundle-140fb28905b8@sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb",
+          "manifestDigest": "sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-strimzi-strimzi-kafka-operator-1-0-0-no-crds@sha256:140fb28905b8dc0db729ecbcebe8fb25b5c7498d64b19f415d5fd451c01438fb",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",
