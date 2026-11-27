@@ -153,6 +153,14 @@
   @media (max-width: 560px) { .hero-search { flex-direction: column; } }
   .hero-picks { font-size: .88rem; color: #c7d8e8; margin: 12px 0 0; }
   .hero-picks a { color: #b5eddb; text-decoration: underline; text-underline-offset: 2px; }
+  /* The first screen: one command, one line on what ConfigHub does, three links. */
+  .hero-start { padding: 20px 0 4px; max-width: 860px; }
+  .hero-start .home-cmd { margin: 0 0 12px; white-space: pre; }
+  .hero-start .home-cmd code { background: none; padding: 0; font-size: inherit; }
+  .hero-start-line { font-size: 1rem; line-height: 1.58; color: var(--ink); margin: 0 0 16px; max-width: 72ch; }
+  .hero-start .cta-row { margin-bottom: 0; }
+  #more-you-can-do > p { color: var(--muted); font-size: .94rem; max-width: 72ch; margin: 0 0 10px; }
+  #more-you-can-do > p a { color: var(--accent-ink); }
   .hero > div:first-child > p { color: var(--muted); font-size: .94rem; line-height: 1.58; margin: 0 0 16px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 16px; max-width: 52ch; }
   .what-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
@@ -376,7 +384,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./../ai-agents/">Coding Agents</a><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
+    <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="./packages.html">Packages</a><a href="./../ai-agents/">Coding Agents</a><a href="./charts/index.html">Configs</a><a href="./stack.html">Stacks</a><a href="./apps.html">Apps</a><a href="./plugins.html">Plugins</a><a href="./guides.html">Guides</a><a href="./docs.html">Docs</a><a class="nav-cta" href="./confighub.html">ConfigHub Server</a></span></nav></div></div>
     <div class="page">
       <nav class="home-rail" aria-label="Getting Started Demos">
         <p class="rail-h"><strong>Getting Started Demos</strong></p>
@@ -430,14 +438,28 @@
       </nav>
       <header>
         <div class="hero-head">
-          <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>ConfigHub AI Workshop for Kubernetes</h1>
-          <p class="lead">Pre-rendered Kubernetes YAML, NVIDIA AI Cluster Runtime (AICR) GPU recipes, OCI bundles, and cub plugins for humans and AI agents.</p>
-          <p class="hero-door-note">Working on a regular app without Kubernetes? <a href="../ai-agents/">Open ConfigHub for Coding Agents</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">remember one setting in five minutes</a> (<a href="#app-plugin-install">install the app plugin</a>).</p>
-          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
-          <p class="hero-picks">Quick starts: <a href="./eks-inference.html">GPU fleets</a> · <a href="./why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./compose-a-stack.html">Agentic platform</a> · <a href="./ai.html">Agent setup</a></p>
+          <p class="lead">Ready-made Kubernetes apps, such as cert-manager, ingress-nginx, Argo CD and Redis, each tested and published as a ConfigHub package you install with one command.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search the Catalog, e.g. cert-manager, ingress-nginx, redis"><button class="btn primary" type="submit">Search the Catalog</button></form>
         </div>
-        <div class="hero">
+        <div class="hero-start">
+          <pre class="home-cmd"><code>cub package install cert-manager --space cert-manager --namespace cert-manager</code></pre>
+          <p class="hero-start-line">ConfigHub keeps your Kubernetes configuration with its history, lets you review, change and approve it, and hands it to Argo CD or Flux to deploy.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="./packages.html">Install a package</a>
+            <a class="btn ghost" href="./packages.html#every-package">Browse every package</a>
+            <a class="btn ghost" href="./packages.html#look-before-you-install">Look first, no account</a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="more-you-can-do">
+          <h2>More you can do</h2>
+          <p class="more-formats">Besides packages, the Workshop holds pre-rendered Kubernetes YAML, NVIDIA AI Cluster Runtime (AICR) GPU recipes, OCI bundles, and cub plugins for humans and AI agents. It covers <a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a>.</p>
+          <p class="more-door-note">Working on a regular app without Kubernetes? <a href="../ai-agents/">Open ConfigHub for Coding Agents</a> or <a href="https://github.com/confighubai/confighub-mini-plugin/blob/main/docs/try-the-plugin.md#try-it-in-five-minutes">remember one setting in five minutes</a> (<a href="#app-plugin-install">install the app plugin</a>).</p>
+          <p class="more-picks">Quick starts: <a href="./eks-inference.html">GPU fleets</a> · <a href="./why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./compose-a-stack.html">Agentic platform</a> · <a href="./ai.html">Agent setup</a></p>
+          <div class="hero">
           <div>
             <p class="lead">Start with your chart, app, or GPU recipe. Local browser checks and open-source <code>cub</code> plugins need no account.</p>
             <div class="cta-row">
@@ -470,9 +492,7 @@
           </div>
           </div>
         </div>
-      </header>
-
-      <main>
+        </section>
         <section class="section" id="popular-examples">
           <span class="eyebrow">Five ways to use the Workshop</span>
           <h2>Choose your Kubernetes outcome</h2>
@@ -600,6 +620,6 @@ claude plugin install confighub@confighub</code></pre>
     });
   }
 })();</script>
-<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./eks-inference.html">Try an EKS GPU inference platform</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
+<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner"><div class="sf-group"><span class="sf-h">Packages</span><a href="./packages.html">Install a package</a><a href="./packages.html#every-package">Every package</a><a href="./packages.html#look-before-you-install">Look first, no account</a></div><div class="sf-group"><span class="sf-h">Configs</span><a href="./d/docs/user/model-and-vocabulary.html">How the model works</a><a href="./charts/index.html">Find a configuration</a><a href="./did-this-chart-version-change.html">Did a version change?</a><a href="./did-your-bitnami-chart-stop-pulling.html">Did a chart stop pulling?</a></div><div class="sf-group"><span class="sf-h">Stacks</span><a href="./stack.html">Every stack</a><a href="./compose-a-stack.html">Compose and check a stack</a><a href="./eks-inference.html">Try an EKS GPU inference platform</a><a href="./try-aicr.html">Try NVIDIA AICR for GPUs</a><a href="./d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html">One AICR v1.0.0 recipe</a></div><div class="sf-group"><span class="sf-h">Apps</span><a href="./apps.html">Every app</a><a href="./put-an-app-on-a-platform.html">Put an app on a platform</a><a href="./testing.html">Find a starting configuration</a></div><div class="sf-group"><span class="sf-h">Plugins</span><a href="./plugins.html">Every cub plugin</a><a href="./bring-kubara-into-confighub.html">Kubara platforms</a></div><div class="sf-group"><span class="sf-h">Guides</span><a href="./guides.html">Every Guide</a><a href="./d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy the GPU Operator</a><a href="./try.html">Try it: Redis in ten minutes</a><a href="./demo.html">The ten-minute demo</a><a href="./ai.html">Use with your AI</a><a href="./ask.html">Check my config</a><a href="./promote.html">Promote my config</a></div><div class="sf-group"><span class="sf-h">Docs</span><a href="./docs.html">Docs</a><a href="./config.html">How configuration works</a><a href="./proof.html">Why trust it</a><a href="./known-gaps.html">Known gaps</a><a href="./d/docs/user/what-config-workshop-is.html">What ConfigHub Workshop is</a><a href="./offering.html">Offering</a></div><div class="sf-group sf-cta"><span class="sf-h">ConfigHub</span><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=footer">Upload a result into ConfigHub</a><a href="./confighub.html">ConfigHub Server</a></div></div></nav>
 </body>
 </html>

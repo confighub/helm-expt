@@ -97,6 +97,8 @@ const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const guidesPath = join(siteRoot, "guides.html");
 const pluginsPath = join(siteRoot, "plugins.html");
+const packagesPath = join(siteRoot, "packages.html");
+const ghcrPackagesCsvPath = join(repoRoot, "data", "ghcr-packages", "packages.csv");
 const composeStackPath = join(siteRoot, "compose-a-stack.html");
 const appGuidePath = join(siteRoot, "put-an-app-on-a-platform.html");
 const firstAppExamplePath = join(siteRoot, "examples", "acme-web.yaml");
@@ -887,6 +889,7 @@ const SITE_PAGE_RELPATHS = {
   operationsHtml: "operations.html",
   guidesHtml: "guides.html",
   pluginsHtml: "plugins.html",
+  packagesHtml: "packages.html",
   composeStackGuideHtml: "compose-a-stack.html",
   appGuideHtml: "put-an-app-on-a-platform.html",
   kubaraGuideHtml: "bring-kubara-into-confighub.html",
@@ -970,6 +973,7 @@ const PAGE_DESCRIPTIONS = {
   "put-an-app-on-a-platform.html": "Check what an app needs, check it on a platform, take it into ConfigHub, or bring an app that already runs.",
   "compose-a-stack.html": "Get a stack, check it for conflicts and missing needs before anything runs, then run and govern it in ConfigHub.",
   "plugins.html": "Every public cub plugin, marked by its state, with the one line that installs it.",
+  "packages.html": "Install a Kubernetes app from the Catalog, such as cert-manager, into ConfigHub with one command, look at it first with no account, and check that it is genuine.",
   "guides.html": "Every Guide, a known path an agent walks with a person beside it, grouped by where you start. The five journeys come first.",
   "apps.html": "Every worked example app, with its repository, how it is delivered, and the commit at which it was last checked.",
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
@@ -1068,6 +1072,7 @@ if (mode === "--generate") {
   write(operationsPath, site.operationsHtml);
   write(guidesPath, site.guidesHtml);
   write(pluginsPath, site.pluginsHtml);
+  write(packagesPath, site.packagesHtml);
   write(composeStackPath, site.composeStackGuideHtml);
   write(appGuidePath, site.appGuideHtml);
   write(firstAppExamplePath, firstAppExampleYaml);
@@ -1236,6 +1241,8 @@ if (mode === "--generate") {
   check(readFileSync(guidesPath, "utf8") === site.guidesHtml, "site/guides.html is stale");
   for (const name of AI_CHAOS_IMAGES) check(readFileSync(join(siteRoot, "assets/ai-chaos", name)).equals(readFileSync(join(repoRoot, "scripts/assets/ai-chaos", name))), `site/assets/ai-chaos/${name} is stale`);
   check(readFileSync(pluginsPath, "utf8") === site.pluginsHtml, "site/plugins.html is stale");
+  check(existsSync(packagesPath), "site/packages.html is missing; run npm run site:generate");
+  check(readFileSync(packagesPath, "utf8") === site.packagesHtml, "site/packages.html is stale");
   check(readFileSync(composeStackPath, "utf8") === site.composeStackGuideHtml, "site/compose-a-stack.html is stale");
   check(readFileSync(appGuidePath, "utf8") === site.appGuideHtml, "site/put-an-app-on-a-platform.html is stale");
   check(readFileSync(firstAppExamplePath, "utf8") === firstAppExampleYaml, "site/examples/acme-web.yaml is stale");
@@ -1910,6 +1917,7 @@ function buildSite(generatedAt) {
     operationsHtml: calmPage(operationsHtml(catalog)),
     guidesHtml: calmPage(guidesHtml()),
     pluginsHtml: calmPage(pluginsHtml()),
+    packagesHtml: calmPage(packagesHtml()),
     composeStackGuideHtml: calmPage(composeStackGuideHtml()),
     askHtml: calmPage(askHtml(catalog)),
     promoteHtml: calmPage(promoteHtml()),
@@ -2445,6 +2453,7 @@ ConfigHub is a hosted service that stores finished Kubernetes YAML, one object a
 - [Apps](${SITE_BASE_URL}apps.json): the Apps section, one row per worked example app with its delivery, its default-branch address and the commit it was last checked at. Schema: ${SITE_BASE_URL}apps.schema.json.
 - [Plugins](${SITE_BASE_URL}plugins.json): the Plugins section, one row per public cub plugin with its state, latest release and install command. Schema: ${SITE_BASE_URL}plugins.schema.json.
 - [Guides](${SITE_BASE_URL}guides.json): the Guides section, one row per known path an agent walks with a person, grouped by where the reader starts, the five journeys first. Schema: ${SITE_BASE_URL}guides.schema.json.
+- [Install a package](${SITE_BASE_URL}packages.html): every chart in the Catalog is published as a signed ConfigHub package at ghcr.io/confighub/packages/<name>. \`cub package install cert-manager --space cert-manager --namespace cert-manager\` installs one into a ConfigHub Space after \`cub auth login\`. The page also shows how to render a package locally with no account, how to verify its signature with cosign, and a table of every package with its install command; [data/ghcr-packages/packages.csv](${GITHUB_BLOB_BASE_URL}data/ghcr-packages/packages.csv) holds the same list as data.
 - [Remember one setting in five minutes](${REMEMBER_SETTING_GUIDE_URL}): install the confighubai/confighub-mini-plugin app plugin for Claude Code or Codex to remember the reason for an uncommitted .env edit. For local app previews, staging and production approvals, and full setup, read the [public plugin README](https://github.com/confighubai/confighub-mini-plugin#readme), [Door A product overview](https://confighub.github.io/helm-expt/ai-agents/), [Door A llms.txt](https://confighub.github.io/helm-expt/ai-agents/llms.txt), or [Door A catalog.json](https://confighub.github.io/helm-expt/ai-agents/catalog.json).
 - [ConfigHub Workshop agent skill](${SITE_BASE_URL}.well-known/agent-skills/config-workshop/SKILL.md): installable instructions for resolving exact Catalog entries, checking user configuration, reviewing promotions, and keeping checks and limits visible.
 - [AI fleet repair and prevention](${SITE_BASE_URL}ai-chaos-in-production.html): recorded kind-fleet demonstration, agent refusal and a separate deterministic parity check. Read the [pinned demo README](${AI_CHAOS_SOURCE}/README.md) and [agent contract](${AI_CHAOS_SOURCE}/agents/README.md) before execution; requires dedicated resources and approval.
@@ -3016,6 +3025,7 @@ function siteFooterNav(relPath) {
   const a = (path, label) => `<a href="${base}/${path}">${label}</a>`;
   const group = (heading, links) => `<div class="sf-group"><span class="sf-h">${heading}</span>${links.join("")}</div>`;
   return `<nav class="site-footer" aria-label="More of ConfigHub Workshop"><div class="site-footer-inner">`
+    + group("Packages", [a("packages.html", "Install a package"), a("packages.html#every-package", "Every package"), a("packages.html#look-before-you-install", "Look first, no account")])
     + group("Configs", [a("d/docs/user/model-and-vocabulary.html", "How the model works"), a("charts/index.html", "Find a configuration"), a("did-this-chart-version-change.html", "Did a version change?"), a("did-your-bitnami-chart-stop-pulling.html", "Did a chart stop pulling?")])
     + group("Stacks", [a("stack.html", "Every stack"), a("compose-a-stack.html", "Compose and check a stack"), a("eks-inference.html", "Try an EKS GPU inference platform"), a("try-aicr.html", "Try NVIDIA AICR for GPUs"), a("d/docs/demo/aicr/eks-h100-training-kubeflow-v1-0-0.html", "One AICR v1.0.0 recipe")])
     + group("Apps", [a("apps.html", "Every app"), a("put-an-app-on-a-platform.html", "Put an app on a platform"), a("testing.html", "Find a starting configuration")])
@@ -3043,6 +3053,9 @@ function injectSiteFooterNav(html, relPath) {
 // and a contents column on long pages. Every page inherits it here.
 function siteSections() {
   return [
+  { label: "Packages", hub: "packages.html", pages: [
+    ["packages.html", "Install a package"], ["packages.html#every-package", "Every package"],
+  ] },
   { label: "Configs", hub: "charts/index.html", pages: [
     ["d/docs/user/model-and-vocabulary.html", "How the model works"],
     ["charts/index.html", "Find a configuration"], ["did-this-chart-version-change.html", "Did a version change?"],
@@ -3164,6 +3177,15 @@ function siteSectionFor(relPath) {
 // Hub questions route readers to existing Guides; deeper pages retain the section tree.
 function sectionStartingQuestions(label) {
   return {
+    Packages: [
+      ["packages.html#install", "How do I install cert-manager?"],
+      ["packages.html#look-before-you-install", "Can I see what it installs without an account?"],
+      ["packages.html#upgrade", "How do I upgrade a package?"],
+      ["packages.html#check-genuine", "How do I know a package is genuine?"],
+      ["packages.html#every-package", "Which apps are published?"],
+      ["packages.html#two-argo-cd-packages", "Which Argo CD package do I want?"],
+      ["d/docs/user/model-and-vocabulary.html#installer-packages", "How are packages named and built?"],
+    ],
     Configs: [
       ["d/docs/user/model-and-vocabulary.html", "How our model for config works"],
       ["config.html", "How does Helm become configuration as data?"],
@@ -3609,7 +3631,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="${base}/../ai-agents/">Coding Agents</a><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="${link("packages.html")}">Packages</a><a href="${base}/../ai-agents/">Coding Agents</a><a href="${link("charts/index.html")}">Configs</a><a href="${link("stack.html")}">Stacks</a><a href="${link("apps.html")}">Apps</a><a href="${link("plugins.html")}">Plugins</a><a href="${link("guides.html")}">Guides</a><a href="${link("docs.html")}">Docs</a><a class="nav-cta" href="${link("confighub.html")}">ConfigHub Server</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -3805,6 +3827,14 @@ ${bannerCss()}
   @media (max-width: 560px) { .hero-search { flex-direction: column; } }
   .hero-picks { font-size: .88rem; color: #c7d8e8; margin: 12px 0 0; }
   .hero-picks a { color: #b5eddb; text-decoration: underline; text-underline-offset: 2px; }
+  /* The first screen: one command, one line on what ConfigHub does, three links. */
+  .hero-start { padding: 20px 0 4px; max-width: 860px; }
+  .hero-start .home-cmd { margin: 0 0 12px; white-space: pre; }
+  .hero-start .home-cmd code { background: none; padding: 0; font-size: inherit; }
+  .hero-start-line { font-size: 1rem; line-height: 1.58; color: var(--ink); margin: 0 0 16px; max-width: 72ch; }
+  .hero-start .cta-row { margin-bottom: 0; }
+  #more-you-can-do > p { color: var(--muted); font-size: .94rem; max-width: 72ch; margin: 0 0 10px; }
+  #more-you-can-do > p a { color: var(--accent-ink); }
   .hero > div:first-child > p { color: var(--muted); font-size: .94rem; line-height: 1.58; margin: 0 0 16px; }
   .hero .lead { font-size: .95rem; color: var(--muted); margin: 0 0 16px; max-width: 52ch; }
   .what-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 12px 0 18px; }
@@ -4211,14 +4241,28 @@ ${homeJourneyLinks()}
       </nav>
       <header>
         <div class="hero-head">
-          <span class="eyebrow"><a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a></span>
           <h1>ConfigHub AI Workshop for Kubernetes</h1>
-          <p class="lead">Pre-rendered Kubernetes YAML, NVIDIA AI Cluster Runtime (AICR) GPU recipes, OCI bundles, and cub plugins for humans and AI agents.</p>
-          <p class="hero-door-note">Working on a regular app without Kubernetes? <a href="../ai-agents/">Open ConfigHub for Coding Agents</a> or <a href="${REMEMBER_SETTING_GUIDE_URL}">remember one setting in five minutes</a> (<a href="#app-plugin-install">install the app plugin</a>).</p>
-          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search Helm charts, NVIDIA AICR recipes &amp; configs, e.g. cert-manager, gpu-operator, eks-inference"><button class="btn primary" type="submit">Search the Catalog</button></form>
-          <p class="hero-picks">Quick starts: <a href="./eks-inference.html">GPU fleets</a> · <a href="./why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./compose-a-stack.html">Agentic platform</a> · <a href="./ai.html">Agent setup</a></p>
+          <p class="lead">Ready-made Kubernetes apps, such as cert-manager, ingress-nginx, Argo CD and Redis, each tested and published as a ConfigHub package you install with one command.</p>
+          <form class="hero-search" id="catalog-search" role="search" action="./charts/index.html" method="get"><input type="search" name="q" aria-label="Search the Catalog" placeholder="Search the Catalog, e.g. cert-manager, ingress-nginx, redis"><button class="btn primary" type="submit">Search the Catalog</button></form>
         </div>
-        <div class="hero">
+        <div class="hero-start">
+          <pre class="home-cmd"><code>${escapeHtml(packageInstallCommand("cert-manager"))}</code></pre>
+          <p class="hero-start-line">ConfigHub keeps your Kubernetes configuration with its history, lets you review, change and approve it, and hands it to Argo CD or Flux to deploy.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="./packages.html">Install a package</a>
+            <a class="btn ghost" href="./packages.html#every-package">Browse every package</a>
+            <a class="btn ghost" href="./packages.html#look-before-you-install">Look first, no account</a>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="more-you-can-do">
+          <h2>More you can do</h2>
+          <p class="more-formats">Besides packages, the Workshop holds pre-rendered Kubernetes YAML, NVIDIA AI Cluster Runtime (AICR) GPU recipes, OCI bundles, and cub plugins for humans and AI agents. It covers <a href="./config.html">Helm</a>, <a href="./try-aicr.html">AICR</a>, <a href="./oci.html">OCI</a>, <a href="./formats.html">YAML</a>, <a href="./bring-argo-into-confighub.html">Argo</a>, <a href="./bring-flux-into-confighub.html">Flux</a>, <a href="./bring-sveltos-into-confighub.html">Sveltos</a> and <a href="./formats.html">more</a>.</p>
+          <p class="more-door-note">Working on a regular app without Kubernetes? <a href="../ai-agents/">Open ConfigHub for Coding Agents</a> or <a href="${REMEMBER_SETTING_GUIDE_URL}">remember one setting in five minutes</a> (<a href="#app-plugin-install">install the app plugin</a>).</p>
+          <p class="more-picks">Quick starts: <a href="./eks-inference.html">GPU fleets</a> · <a href="./why-did-helm-ignore-my-values.html">Ignored Helm values</a> · <a href="./try-aicr.html">NVIDIA AICR</a> · <a href="./compose-a-stack.html">Agentic platform</a> · <a href="./ai.html">Agent setup</a></p>
+          <div class="hero">
           <div>
             <p class="lead">Start with your chart, app, or GPU recipe. Local browser checks and open-source <code>cub</code> plugins need no account.</p>
             <div class="cta-row">
@@ -4251,9 +4295,7 @@ ${homeJourneyLinks()}
           </div>
           </div>
         </div>
-      </header>
-
-      <main>
+        </section>
         <section class="section" id="popular-examples">
           <span class="eyebrow">Five ways to use the Workshop</span>
           <h2>Choose your Kubernetes outcome</h2>
@@ -7972,6 +8014,121 @@ function pluginsHtml() {
       <p>Prefer a visual starting point? <a href="./see-what-is-running.html">Explore your cluster with Scout</a> or <a href="./view-and-change-config-with-uis.html">browse saved configuration with ConfigHub UIs</a>.</p>
       <p>Already running Argo CD or Flux? Start with its assessment Guide below. Bring your controller version, source revision, release and namespace, Secret ownership, and storage constraints. The first plan changes no cluster; review it before generating or running a handover.</p>
       ${markdownLikeTable([["Plugin", "What it does", "State", "Install"], ...tableRows], { rawColumns: [0, 1, 2, 3] })}
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+// The packages this site publishes to ghcr.io/confighub/packages, one row per
+// package name, read from the list the publish workflow publishes from.
+function ghcrPackageRows() {
+  const rows = parseCsv(readFileSync(ghcrPackagesCsvPath, "utf8"));
+  check(rows.length > 0, "data/ghcr-packages/packages.csv lists no packages");
+  for (const row of rows) check(row.name && row.chart && row.newest_tag, `data/ghcr-packages/packages.csv: a row lacks its name, chart or newest tag: ${JSON.stringify(row)}`);
+  return rows.sort((left, right) => (left.name < right.name ? -1 : left.name > right.name ? 1 : 0));
+}
+
+function packageInstallCommand(name) {
+  return `cub package install ${name} --space ${name} --namespace ${name}`;
+}
+
+function packagesHtml() {
+  const rows = ghcrPackageRows();
+  const versionCount = rows.reduce((sum, row) => sum + String(row.tags ?? "").split(/\s+/).filter(Boolean).length, 0);
+  const chartPages = new Map(chartPageModels.map((model) => [model.chart, model.fileName]));
+  const certManager = rows.find((row) => row.name === "cert-manager");
+  check(certManager, "packages.html: its examples use cert-manager, and data/ghcr-packages/packages.csv has no cert-manager row");
+  check(String(certManager.tags).split(/\s+/).includes("v1.21.1"), "packages.html: its examples were checked with cert-manager v1.21.1, which data/ghcr-packages/packages.csv no longer lists");
+  const tableRows = rows.map((row) => [
+    `<span id="package-${escapeHtml(row.name)}"></span><strong>${escapeHtml(row.name)}</strong>`,
+    escapeHtml(row.chart),
+    escapeHtml(row.newest_tag),
+    `<code>${escapeHtml(packageInstallCommand(row.name))}</code>`,
+    chartPages.has(row.chart) ? `<a href="./charts/${escapeHtml(chartPages.get(row.chart))}" aria-label="${escapeHtml(row.chart)} chart page">Chart page</a>` : "",
+  ]);
+  const cosignCommand = [
+    "cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1 \\",
+    "  --certificate-identity-regexp '^https://github.com/confighub/helm-expt/\\.github/workflows/packages-publish\\.yml@refs/heads/main$' \\",
+    "  --certificate-oidc-issuer https://token.actions.githubusercontent.com",
+  ].join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install a package · ConfigHub Workshop</title>
+  <style>${siteCss()}
+    [aria-labelledby="every-package"] > .card { overflow-x: auto; }
+    [aria-labelledby="every-package"] table { display: table; min-width: 52rem; white-space: normal; }
+    [aria-labelledby="every-package"] td code, [aria-labelledby="every-package"] td a { overflow-wrap: normal; }
+    [aria-labelledby="every-package"] :is(th, td):nth-child(3), [aria-labelledby="every-package"] :is(th, td):nth-child(5) { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero hub-cover">
+    ${topNav(".")}
+    <h1>Install a package</h1>
+    <p class="lead">A package is a Kubernetes app, such as cert-manager, made ready for ConfigHub: all the Kubernetes objects it needs, the options it offers (for example a version without CRDs), and the questions it asks when you install it (for example which namespace). This site publishes one for every chart in its <a href="./charts/index.html">Catalog</a>.</p>
+    <p>ConfigHub keeps your Kubernetes configuration with its history, lets you review, change and approve it, and hands it to Argo CD or Flux to deploy. Four steps put cert-manager there. To see what a package holds first, with no account, <a href="#look-before-you-install">look before you install</a>.</p>
+    ${agentNote(`The same list as data: <a href="${GITHUB_BLOB_BASE_URL}data/ghcr-packages/packages.csv">data/ghcr-packages/packages.csv</a>, one row per package with its chart, every published version and its registry address.`)}
+  </header>
+  <main>
+    <section aria-labelledby="install-cub">
+      <h2 id="install-cub">1. Install cub, ConfigHub's command-line tool</h2>
+      <pre><code>${CUB_CLI_INSTALL_COMMAND}
+export PATH="$HOME/.confighub/bin:$PATH"</code></pre>
+      <p>If cub is already installed, run <code>cub upgrade</code> first.</p>
+    </section>
+    <section aria-labelledby="sign-in">
+      <h2 id="sign-in">2. Sign in</h2>
+      <pre><code>cub auth login</code></pre>
+      <p>This opens your browser to sign in to ConfigHub. No account yet? ${signupLink("packages", "Create one")}.</p>
+    </section>
+    <section aria-labelledby="install">
+      <h2 id="install">3. Install</h2>
+      <pre><code>${escapeHtml(packageInstallCommand("cert-manager"))}</code></pre>
+      <p>This creates the Space cert-manager if it does not exist (a Space is a folder for configuration in ConfigHub), works out every object cert-manager needs, and stores each one there as a Unit you can read, change and approve. Nothing reaches a cluster until you release it.</p>
+      <p>If the package asks a question the command does not answer, cub asks it. Kubernetes Secrets the package would create are never uploaded to ConfigHub.</p>
+    </section>
+    <section aria-labelledby="upgrade">
+      <h2 id="upgrade">4. Upgrade later</h2>
+      <pre><code>cub package install cert-manager:v1.21.1 --space cert-manager
+cub package show --space cert-manager</code></pre>
+      <p>A version is written after the name, as <code>cert-manager:v1.21.1</code>; without one, cub installs the newest. Installing a newer version into the same Space upgrades it and keeps the answers you gave the first time. <code>cub package show</code> says what is installed in the Space.</p>
+    </section>
+    <section aria-labelledby="look-before-you-install">
+      <h2 id="look-before-you-install">Look before you install (no account needed)</h2>
+      <p>This writes every object the package would install as a file on your computer. It needs no account and no cluster, and it changes nothing in ConfigHub.</p>
+      <pre><code>cub installer setup --pull oci://ghcr.io/confighub/packages/cert-manager:v1.21.1 --namespace cert-manager --non-interactive --work-dir cert-manager
+ls cert-manager/out/manifests</code></pre>
+      <p>For cert-manager v1.21.1 that is 41 files, one per Kubernetes object.</p>
+      <p class="install-cub-note installer-command-note">${escapeHtml(INSTALLER_COMMAND_NOTE)} If cub says it does not know <code>installer</code>, run <code>${escapeHtml(INSTALLER_PLUGIN_INSTALL_COMMAND)}</code> first.</p>
+    </section>
+    <section aria-labelledby="check-genuine">
+      <h2 id="check-genuine">Check that a package is genuine</h2>
+      <p>Each package is signed when it is published. <a href="https://github.com/sigstore/cosign">cosign</a>, the Sigstore signing tool, checks the signature:</p>
+      <pre><code>${escapeHtml(cosignCommand)}</code></pre>
+      <p>This checks the package was built and signed by this repository's <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/packages-publish.yml">publish workflow</a>, and by nothing else.</p>
+    </section>
+    <section aria-labelledby="where-packages-come-from">
+      <h2 id="where-packages-come-from">Where packages come from</h2>
+      <p>Each package is built in this repository from the chart's own upstream release. Its objects are checked against what Helm renders from the same chart, and it is then published to <code>ghcr.io/confighub/packages/&lt;name&gt;</code>. A published version is never overwritten, and older versions stay published.</p>
+      <p>Every night a job checks each chart for a new upstream release. For each chart it can update on its own, it builds and checks the new package and adds it to one pull request; merging that pull request publishes the new version. A chart it cannot update is listed in an issue for a person. <a href="./d/docs/reference/package-updates.html">Nightly package updates</a> says what a night does.</p>
+    </section>
+    <section aria-labelledby="two-argo-cd-packages">
+      <h2 id="two-argo-cd-packages">Two packages for Argo CD</h2>
+      <ul>
+        <li><code>argocd</code> is Argo CD's own install manifests. It is published by ConfigHub's packages repository, <a href="https://github.com/confighub/packages">github.com/confighub/packages</a>, alongside <code>flux</code> and <code>sveltos</code>.</li>
+        <li><code>argo-cd-helm</code> is Argo CD's Helm chart, published from this site.</li>
+      </ul>
+      <p>Both install with <code>cub package install</code>. Use <code>argocd</code> unless you already run Argo CD from its Helm chart.</p>
+    </section>
+    <section aria-labelledby="every-package">
+      <h2 id="every-package">Every package</h2>
+      <p>This site publishes ${rows.length} packages, ${versionCount} versions in all. Each command installs the newest version into a Space and namespace named after the package; change either name to suit you. The last column links to the chart's page in the Catalog. <a href="./d/docs/user/model-and-vocabulary.html#installer-packages">Installer packages</a> explains how packages are named, versioned and checked.</p>
+      ${markdownLikeTable([["Package", "Chart", "Newest version", "Install command", "Chart page"], ...tableRows], { rawColumns: [0, 1, 2, 3, 4] })}
     </section>
   </main>
 </body>
