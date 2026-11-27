@@ -164,7 +164,7 @@ ways end in the same place.
 | Installer package | `cub package install` | The verdict forbids a bundle, or the package asks for inputs or cluster facts. |
 
 ```bash
-cub package install cert-manager:v1.21.0 --space cert-manager-base --namespace cert-manager
+cub package install cert-manager:v1.21.0 --space cert-manager --namespace cert-manager
 ```
 
 `cub package install` pulls the package, asks for its inputs, renders the chosen
@@ -179,7 +179,7 @@ It is what makes an upgrade one command. Installing a newer version into the sam
 Space reads the record, keeps your answers and updates the base:
 
 ```bash
-cub package install cert-manager:v1.21.1 --space cert-manager-base
+cub package install cert-manager:v1.21.1 --space cert-manager
 ```
 
 The record is never delivered. `cub variant create` does not copy it,
