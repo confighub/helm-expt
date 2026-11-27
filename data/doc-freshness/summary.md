@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-27 (commit `bd1798731b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-27 (commit `fdb62ae680`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 497 |
-| Fresh (no linked source newer than the doc) | 74 |
-| **Review-due** | 88 |
-| No linked evidence sources (cannot auto-trigger) | 335 |
+| Authored docs tracked | 498 |
+| Fresh (no linked source newer than the doc) | 75 |
+| **Review-due** | 87 |
+| No linked evidence sources (cannot auto-trigger) | 336 |
 
 ## Review queue
 
@@ -117,7 +117,6 @@ most recently changed triggers.
 | [docs/demo/aicr/cpu-starter.md](../../docs/demo/aicr/cpu-starter.md) | demo | 2026-08-21 | 2 | `data/aicr-ordering-parity/summary.md (2026-08-22)`<br>`data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) | demo | 2026-08-24 | 2 | `data/kps-public-package-proof/summary.md (2026-08-26)`<br>`data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml (2026-08-25)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-08-24 | 2 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-08-26)` |
-| [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) | user | 2026-10-08 | 2 | `data/master-catalog-matrix/summary.md (2026-10-09)` |
 | [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md) | planning | 2026-08-21 | 1 | `data/aicr-platform-variant/summary.md (2026-08-21)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
@@ -432,6 +431,7 @@ into this freshness model.
 - [docs/user/live-walk-bundle-sample-2026-11-02.md](../../docs/user/live-walk-bundle-sample-2026-11-02.md)
 - [docs/user/live-walk-change-review-2026-10-09.md](../../docs/user/live-walk-change-review-2026-10-09.md)
 - [docs/user/live-walk-cub-package-install-2026-11-26.md](../../docs/user/live-walk-cub-package-install-2026-11-26.md)
+- [docs/user/live-walk-entry-deploy-promote-2026-11-27.md](../../docs/user/live-walk-entry-deploy-promote-2026-11-27.md)
 - [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)
 - [docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md](../../docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md)
