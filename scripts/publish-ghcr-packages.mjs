@@ -159,4 +159,5 @@ if (process.env.GITHUB_STEP_SUMMARY) {
     `${lines.join("\n")}\n\n${summary.published.map((ref) => `- ${ref}`).join("\n")}\n`,
   );
 }
-process.exit(summary.failed.length > 0 ? 1 : 0);
+// exitCode, not exit(): exit() drops stdout still queued for a pipe.
+process.exitCode = summary.failed.length > 0 ? 1 : 0;

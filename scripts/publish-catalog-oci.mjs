@@ -229,7 +229,7 @@ async function registryModes() {
         `plan: ${artifacts.length} artifact(s) for ${registry}: ${Object.entries(tally).map(([key, value]) => `${value} ${key}`).join(", ")}.`,
         `${artifacts.filter((artifact) => artifact.source === "rebuilt").length} rebuilt from committed files, ${artifacts.filter((artifact) => artifact.source === "copied").length} copied at their recorded digest. Nothing was written.`,
       ]);
-      if (states.some((state) => ["conflict", "failed"].includes(state.status))) process.exit(1);
+      if (states.some((state) => ["conflict", "failed"].includes(state.status))) process.exitCode = 1;
       return;
     }
     const worker = mode === "--publish" ? publishOne : observeOne;
@@ -248,7 +248,9 @@ async function registryModes() {
       `${mode.slice(2)}: ${artifacts.length} artifact(s) in ${registry}: ${Object.entries(tally).map(([key, value]) => `${value} ${key}`).join(", ")}${sign ? "" : " (SIGN=false: nothing was signed)"}.`,
       ...failures,
     ]);
-    if (failures.length > 0) process.exit(1);
+    // exitCode, not exit(): exit() drops stdout still queued for a pipe, which
+    // is how a failed run in Actions lost the lines naming what failed.
+    if (failures.length > 0) process.exitCode = 1;
   } finally {
     cleanDir(work);
   }
