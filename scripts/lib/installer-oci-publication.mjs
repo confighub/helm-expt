@@ -5,8 +5,8 @@ import { check, readYaml, relativeRepo, repoRoot } from "./proof-common.mjs";
 import {
   installerOciDigestRef,
   installerOciName,
+  installerOciPackageTag,
   installerOciRef,
-  installerOciTag,
 } from "./installer-oci.mjs";
 
 export function installerOciPublication(chart, version, options = {}) {
@@ -17,7 +17,7 @@ export function installerOciPublication(chart, version, options = {}) {
     "runs",
     "installer-oci",
     installerOciName(chart),
-    installerOciTag(version),
+    installerOciPackageTag(chart, version),
     "installer-package-publication-receipt.yaml",
   );
 

@@ -7,7 +7,8 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 
 import { check, cubEnv, listFiles, normalizeTempPaths, readYaml, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
-import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
+import { chartVersionFromPackagePath, installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
+import { installerPackageVersionProblem } from "./lib/installer-package-version.mjs";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -18,12 +19,14 @@ const limit = limitArg ? Number.parseInt(limitArg, 10) : undefined;
 
 if (args.includes("--help")) {
   console.log(`Usage:
-  node scripts/publish-installer-oci-packages.mjs [--package packages/<repo>/<chart>/<version>] [--limit N] [--dry-run] [--idempotent]
+  node scripts/publish-installer-oci-packages.mjs [--package packages/<repo>/<chart>/<chart version>] [--limit N] [--dry-run] [--idempotent]
   node scripts/publish-installer-oci-packages.mjs --reobserve
   node scripts/publish-installer-oci-packages.mjs --self-test
 
 Publishes installer package source directories to their assigned OCI refs and
 writes runs/installer-oci/<slug>/<tag>/installer-package-publication-receipt.yaml.
+The tag is the package's version: the chart version with a leading v, or, for a
+package made before that rule, the spelling it was published under.
 
 Requires registry credentials with package write permission for the configured
 installer OCI registry. --reobserve only reads, so it needs no write permission.
@@ -75,6 +78,11 @@ function selectPackagePaths() {
 
 function publishPackage(packagePath) {
   const packageRoot = join(repoRoot, packagePath);
+  // The tag is the package's version. A package that was never published must
+  // carry the chart version with a leading v before it gets one.
+  const { chart, version } = chartVersionFromPackagePath(packagePath);
+  const versionProblem = installerPackageVersionProblem(readYaml(join(packageRoot, "installer.yaml"))?.metadata?.version, chart, version);
+  check(!versionProblem, `refusing to publish ${packagePath}: ${versionProblem}`);
   const ociRef = installerOciRefForPackagePath(packagePath);
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-installer-oci-"));
   try {

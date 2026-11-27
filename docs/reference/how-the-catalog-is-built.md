@@ -30,6 +30,31 @@ rewrite old packages. If a legal or factual correction is required, the package
 must be marked and the reason recorded. A correction must never look like an
 ordinary refresh.
 
+## Package versions
+
+A package's version is its chart's version with a leading `v`, the rule
+ConfigHub uses for all of its installer packages. A chart that writes its
+versions without the `v` gets one added: a new package of
+`traefik/traefik` 42.0.0 is written as `metadata.version: v42.0.0` in
+`installer.yaml` and published with the tag `v42.0.0`. A chart that already
+writes the `v`, such as `jetstack/cert-manager` v1.21.1, keeps it, and never
+gets a second one.
+
+Packages made before this rule keep the version they were published under,
+with no `v` added. Their tags, digests, signatures and receipts are public, and
+renaming them would break every pinned reference. So `traefik/traefik` 41.4.0
+stays `41.4.0`.
+
+The package directory is still named by the chart version,
+`packages/<repo>/<chart>/<chart version>/`, for old and new packages alike. Only
+`metadata.version` and the registry tag carry the `v`. The generators and the
+publisher choose the version with `installerPackageVersion` in
+`scripts/lib/installer-package-version.mjs`, which returns the published
+spelling for a package that exists and the `v` rule for anything new.
+`tests/installer-package-version.test.mjs` checks every package in the
+repository against the rule, and the publisher refuses a new package that does
+not follow it.
+
 ## The matrix taxonomy
 
 The master matrix keeps one row per chart, version, and base. Layer marks the

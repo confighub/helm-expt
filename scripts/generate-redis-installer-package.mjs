@@ -13,6 +13,8 @@ import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { installerPackageVersion } from "./lib/installer-package-version.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const defaultChartVersion = "25.5.3";
@@ -28,6 +30,9 @@ const packageRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
   : join(repoRoot, "packages", "bitnami", "redis", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relative(repoRoot, packageRoot);
+// Chosen before the package directory is removed below, so a package that
+// exists keeps its spelling.
+const packageVersion = installerPackageVersion("bitnami/redis", chartVersion, { packageRoot });
 
 const variants = [
   {
@@ -72,7 +77,7 @@ write(
 kind: Package
 metadata:
   name: bitnami-redis
-  version: "${chartVersion}"
+  version: "${packageVersion}"
 spec:
   bases:
     - name: default
@@ -251,7 +256,7 @@ spec:
   package:
     path: ${packageRelative}
     name: bitnami-redis
-    version: ${chartVersion}
+    version: ${packageVersion}
     sourceFiles:
 ${files.map((file) => `      - path: ${file.path}\n        sha256: ${file.sha256}\n        bytes: ${file.bytes}`).join("\n")}
   deterministicBundle:

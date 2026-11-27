@@ -1,3 +1,5 @@
+import { installerPackageVersion } from "./installer-package-version.mjs";
+
 export const DEFAULT_INSTALLER_OCI_REGISTRY =
   process.env.HELM_EXPT_INSTALLER_OCI_REGISTRY ||
   "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
@@ -16,9 +18,16 @@ export function installerOciTag(version) {
   return tag || "latest";
 }
 
-export function installerOciRef(chart, version, registry = DEFAULT_INSTALLER_OCI_REGISTRY) {
+// The registry tag of the package for a chart version: the package's version,
+// which is the chart version with a leading v unless the package was made
+// before that rule (installer-package-version.mjs).
+export function installerOciPackageTag(chart, version, options = {}) {
+  return installerOciTag(installerPackageVersion(chart, version, options));
+}
+
+export function installerOciRef(chart, version, registry = DEFAULT_INSTALLER_OCI_REGISTRY, options = {}) {
   const base = String(registry || DEFAULT_INSTALLER_OCI_REGISTRY).replace(/\/+$/, "");
-  return `${base}/${installerOciName(chart)}:${installerOciTag(version)}`;
+  return `${base}/${installerOciName(chart)}:${installerOciPackageTag(chart, version, options)}`;
 }
 
 export function installerOciDigestRef(ref, manifestDigest) {
@@ -45,5 +54,5 @@ export function chartVersionFromPackagePath(packagePath) {
 
 export function installerOciRefForPackagePath(packagePath, registry = DEFAULT_INSTALLER_OCI_REGISTRY) {
   const { chart, version } = chartVersionFromPackagePath(packagePath);
-  return installerOciRef(chart, version, registry);
+  return installerOciRef(chart, version, registry, { packageRoot: packagePath });
 }

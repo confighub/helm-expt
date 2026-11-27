@@ -49,6 +49,7 @@ import {
   writeYaml,
 } from "./proof-common.mjs";
 import { verifyEffectiveValuesBinding } from "./effective-values-binding.mjs";
+import { installerPackageVersion } from "./installer-package-version.mjs";
 import { testEffectiveValuesBinding } from "../../tests/effective-values-binding.test.mjs";
 
 const DEFAULT_RENDER_FLAGS = ["--include-crds", "--skip-tests", "--no-hooks"];
@@ -134,6 +135,9 @@ function makeContext(spec) {
     proofRoot,
     packageRoot,
     packageRelative: relativeRepo(packageRoot),
+    // Chosen before generation removes the package directory, so a package
+    // that exists keeps its spelling.
+    packageVersion: installerPackageVersion(`${chart.repository}/${chart.name}`, chart.version, { packageRoot }),
     receiptPath: join(
       proofRoot,
       offlineCandidate ? "evaluation" : "publication",
@@ -533,7 +537,7 @@ function generatePackage(ctx) {
   writeYaml(join(packageRoot, "installer.yaml"), {
     apiVersion: "installer.confighub.com/v1alpha1",
     kind: "Package",
-    metadata: { name: ctx.packageName, version: chart.version },
+    metadata: { name: ctx.packageName, version: ctx.packageVersion },
     spec: {
       bases: variants.map((variant, index) => ({
         name: variant.base,
@@ -631,7 +635,7 @@ ${proofCommands(ctx)}
         package: {
           path: packageRelative,
           name: ctx.packageName,
-          version: chart.version,
+          version: ctx.packageVersion,
           sourceFiles: files,
         },
         deterministicBundle: {

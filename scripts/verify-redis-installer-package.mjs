@@ -11,6 +11,8 @@ import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { installerPackageVersionProblem } from "./lib/installer-package-version.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 const defaultChartVersion = "25.5.3";
@@ -74,7 +76,8 @@ function verifyPackage() {
   const receipt = parseYamlFile(receiptPath);
   check(installer.kind === "Package", "installer.yaml must be a Package");
   check(installer.metadata?.name === "bitnami-redis", "package metadata.name must be bitnami-redis");
-  check(String(installer.metadata?.version) === chartVersion, `package metadata.version must be ${chartVersion}`);
+  const versionProblem = installerPackageVersionProblem(installer.metadata?.version, "bitnami/redis", chartVersion);
+  check(!versionProblem, versionProblem);
   check(installer.spec?.collector?.command === "/bin/sh", "package must declare the Redis target-facts collector");
   check(
     JSON.stringify(installer.spec?.collector?.args ?? []) === JSON.stringify(["collector/target-facts.sh"]),
