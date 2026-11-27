@@ -5,7 +5,7 @@
 These are the catalog's earlier package references, in a Google registry. The
 same packages are now published under `ghcr.io/confighub/packages`, where
 `cub package install <name>` finds them; see
-[Packages and the catalog](packages-and-the-catalog.md).
+[installer packages](model-and-vocabulary.md#installer-packages).
 
 The catalog should let a user try a chart without cloning this repo. That is
 why each chart version now has an installer package OCI ref.

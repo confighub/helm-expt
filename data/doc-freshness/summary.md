@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-27 (commit `d9d1f7f0df`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-27 (commit `6eac39470b`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 499 |
-| Fresh (no linked source newer than the doc) | 76 |
-| **Review-due** | 87 |
-| No linked evidence sources (cannot auto-trigger) | 336 |
+| Authored docs tracked | 498 |
+| Fresh (no linked source newer than the doc) | 75 |
+| **Review-due** | 88 |
+| No linked evidence sources (cannot auto-trigger) | 335 |
 
 ## Review queue
 
@@ -35,8 +35,8 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 169 | `data/README.md (2026-11-27)`<br>`data/csv-index.csv (2026-11-27)`<br>`CATALOG.md (2026-10-09)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 122 | `data/top100-user-readiness/summary.md (2026-10-10)`<br>`data/hook-lifecycle/summary.md (2026-10-09)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 122 | `data/README.md (2026-10-11)`<br>`CATALOG.md (2026-10-09)`<br>`data/attack-plan-workdown/summary.md (2026-10-09)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 121 | `data/outcome-coverage/base-outcomes.csv (2026-10-09)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-10-09)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 121 | `data/chart-use-guide/summary.md (2026-10-09)`<br>`data/hook-lifecycle/summary.md (2026-10-09)`<br>`data/outcome-coverage/base-outcomes.csv (2026-10-09)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 121 | `data/quirk-coverage/summary.md (2026-10-09)`<br>`data/top100-coverage/summary.md (2026-10-09)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)` |
@@ -108,6 +108,7 @@ most recently changed triggers.
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-09-03 | 29 | `tests/README.md (2026-10-02)` |
 | [docs/demo/kubara/platform-evidence.md](../../docs/demo/kubara/platform-evidence.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-platform-matrix/summary.md (2026-10-26)` |
 | [docs/demo/kubara/single-platform.md](../../docs/demo/kubara/single-platform.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-release-acceptance/contract.yaml (2026-10-26)` |
+| [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md) | user | 2026-11-02 | 25 | `data/ghcr-packages/packages.csv (2026-11-27)`<br>`packages/jetstack/cert-manager/upstream.yaml (2026-11-27)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
 | [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 12 | `data/certified-bundles/summary.md (2026-10-11)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-28 | 11 | `data/flattening-safety/summary.md (2026-10-09)` |
@@ -440,7 +441,6 @@ into this freshness model.
 - [docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md](../../docs/user/live-walk-test-a-plan-gpu-operator-2026-10-10.md)
 - [docs/user/live-walk-test-plain-objects-2026-10-11.md](../../docs/user/live-walk-test-plain-objects-2026-10-11.md)
 - [docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md)
-- [docs/user/model-and-vocabulary.md](../../docs/user/model-and-vocabulary.md)
 - [docs/user/nim-coverage.md](../../docs/user/nim-coverage.md)
 - [docs/user/prometheus-overlay-promotion-example.md](../../docs/user/prometheus-overlay-promotion-example.md)
 - [docs/user/real-human-trial-protocol.md](../../docs/user/real-human-trial-protocol.md)
