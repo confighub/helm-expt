@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:bundle-6246d9f3a8b2@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
+          "manifestDigest": "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

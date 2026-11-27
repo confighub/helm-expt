@@ -746,6 +746,7 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/examples/timoni/redis-8-10-1/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/entries/timoni-redis-8-10-1-default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/timoni-redis-config@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65</code></p>
+      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/timoni-redis-config:8.10.1-default@sha256:375bc7dee05f4629d3b297f05628ee52c104d7a6ced03a2c16b198c819b7ae65</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
     </section>
     <article class="doc-body">
 <p>This is the first Timoni source retained in the ConfigHub Workshop Catalog. It exists so a user can compare a typed Timoni module with the Helm Redis configurations already in the Catalog without pretending that the two sources have the same inputs or lifecycle.</p>

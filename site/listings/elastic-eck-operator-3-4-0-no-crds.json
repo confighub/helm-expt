@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-elastic-eck-operator-3-4-0-no-crds:bundle-82c154310a8b@sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c",
+          "manifestDigest": "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-elastic-eck-operator-3-4-0-no-crds@sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

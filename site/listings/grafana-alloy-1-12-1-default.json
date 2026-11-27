@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/alloy-1.12.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/alloy-1.12.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-grafana-alloy-1-12-1-default:bundle-0c484cee50c5@sha256:0c484cee50c5b8cc8a3ac428adfc7471dc812601a1224468b075b5afd9d6cb1a",
+          "manifestDigest": "sha256:0c484cee50c5b8cc8a3ac428adfc7471dc812601a1224468b075b5afd9d6cb1a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-grafana-alloy-1-12-1-default@sha256:0c484cee50c5b8cc8a3ac428adfc7471dc812601a1224468b075b5afd9d6cb1a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

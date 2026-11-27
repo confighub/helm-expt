@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-spark-10-0-3-default:bundle-2f0f4a28df8f@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d",
+          "manifestDigest": "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-spark-10-0-3-default@sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

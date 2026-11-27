@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/cert-manager-csi-driver-v0.14.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cert-manager-csi-driver-v0.14.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-csi-driver-v0-14-0-default:bundle-1ef6e2d9d555@sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2",
+          "manifestDigest": "sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-csi-driver-v0-14-0-default@sha256:1ef6e2d9d555c29dd198b7090db0c579bac40e96ffd32dbcd55801dd48bd7ed2",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

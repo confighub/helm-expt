@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/trust-manager-v0.22.1-no-crds/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/trust-manager-v0.22.1-no-crds/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-trust-manager-v0-22-1-no-crds:bundle-d089a3cece6a@sha256:d089a3cece6a7b366cb903fd88148353c564ba361b4da2be590f329501c3c667",
+          "manifestDigest": "sha256:d089a3cece6a7b366cb903fd88148353c564ba361b4da2be590f329501c3c667",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jetstack-trust-manager-v0-22-1-no-crds@sha256:d089a3cece6a7b366cb903fd88148353c564ba361b4da2be590f329501c3c667",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

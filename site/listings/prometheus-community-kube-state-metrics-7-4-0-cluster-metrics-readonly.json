@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/kube-state-metrics-7.4.0-cluster-metrics-readonly/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kube-state-metrics-7.4.0-cluster-metrics-readonly/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly:bundle-0657ae53d7f2@sha256:0657ae53d7f22d99f529be45b5ad6e71cff91840a5d826bd98f54d6df80845b6",
+          "manifestDigest": "sha256:0657ae53d7f22d99f529be45b5ad6e71cff91840a5d826bd98f54d6df80845b6",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly@sha256:0657ae53d7f22d99f529be45b5ad6e71cff91840a5d826bd98f54d6df80845b6",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

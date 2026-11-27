@@ -144,7 +144,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-gpu-resources/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/dra-driver-nvidia-gpu-0.4.1-gpu-resources/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources:bundle-003195e790eb@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a",
+          "manifestDigest": "sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources@sha256:003195e790eb0bffd126122bacb50fbfc846254b690033e09be8ffab9a19f36a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

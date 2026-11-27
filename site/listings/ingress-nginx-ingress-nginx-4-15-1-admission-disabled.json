@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-admission-disabled/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/ingress-nginx-4.15.1-admission-disabled/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled:bundle-c3b1d771af6a@sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a",
+          "manifestDigest": "sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-ingress-nginx-ingress-nginx-4-15-1-admission-disabled@sha256:c3b1d771af6a47ed62943038984cf1d796baf0da340deb3449d55a7bef92849a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

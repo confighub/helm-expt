@@ -144,7 +144,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default:bundle-77c54084c317@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+          "manifestDigest": "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

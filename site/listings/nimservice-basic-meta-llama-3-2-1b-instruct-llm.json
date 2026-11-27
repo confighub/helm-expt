@@ -128,7 +128,15 @@
         "receipt": "runs/nimservice-variants/nimservice-basic-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/nimservice-variants/nimservice-basic-meta-llama-3-2-1b-instruct-llm/publication-receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it."
+        "note": "The artifact holds the exact objects and the two route files, and an anonymous pull returned them. No route has been executed, and no NVIDIA image or weight is in it.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm:upstream-5d5f66ee0e2e-c7ac7f7b13a3@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
+          "manifestDigest": "sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/nimservice-basic-meta-llama-3-2-1b-instruct-llm@sha256:c7ac7f7b13a3950a4c8f3ef52c4592fec4fd5a32bcd5e2e8bbf8e044e43c1f09",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

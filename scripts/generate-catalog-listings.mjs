@@ -22,6 +22,7 @@ import { join } from "node:path";
 
 import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./lib/proof-common.mjs";
 
+import { CATALOG_OCI_WORKFLOW, readCatalogOciIndex } from "./lib/catalog-oci.mjs";
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
 import { entryPageWithoutChart } from "./lib/entry-page.mjs";
 import { DEPLOY_WALK, NEXT_STEPS, PACKAGE_INSTALL_WALK, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
@@ -667,6 +668,10 @@ function buildOci(id, spec) {
     }
     if (referenceField) bundle.referenceField = referenceField;
     if (leg.note) bundle.note = leg.note;
+    if (role === "literal-config") {
+      const ghcr = ghcrCopy(id, bundle);
+      if (ghcr) bundle.ghcr = ghcr;
+    }
     bundles.push(bundle);
   }
 
@@ -688,6 +693,41 @@ function buildOci(id, spec) {
     if (url) result.receiptUrl = url;
   }
   return result;
+}
+
+// Where the catalog OCI workflow publishes this entry's literal configuration
+// bundle on GHCR (data/catalog-oci/artifacts.csv). The bundle keeps its
+// recorded reference: until a committed receipt records the GHCR copy, that
+// copy is a destination rather than an address, and its state says so. A row
+// whose earlier location is not the digest this record cites is refused,
+// because the two would be describing different bytes.
+function ghcrCopy(id, bundle) {
+  // Read once, on first use: top-level code calls this before a module-level
+  // binding below its call site would be initialized.
+  ghcrCopy.rows ??= readCatalogOciIndex();
+  const row = ghcrCopy.rows.get(id);
+  if (!row) return null;
+  if (row.earlier_reference) {
+    const earlierDigest = row.earlier_reference.split("@").pop();
+    check(
+      bundle.digests.some((digest) => digest.value === earlierDigest),
+      `${id}: data/catalog-oci/artifacts.csv copies ${row.earlier_reference}, and the record cites no such digest; run npm run catalog-oci:generate`,
+    );
+  }
+  const ghcr = {
+    reference: `oci://${row.ghcr_reference}@${row.manifest_digest}`,
+    manifestDigest: row.manifest_digest,
+    state: row.ghcr_state,
+  };
+  if (row.ghcr_receipt) {
+    ghcr.receipt = row.ghcr_receipt;
+    const url = blobUrl(row.ghcr_receipt);
+    if (url) ghcr.receiptUrl = url;
+  }
+  ghcr.publisher = CATALOG_OCI_WORKFLOW;
+  ghcr.verifyCommand = row.verify_command;
+  if (row.same_digest_as_earlier) ghcr.sameDigestAsEarlier = row.same_digest_as_earlier === "true";
+  return ghcr;
 }
 
 // A reference on a bundle the catalog has not published names where the bundle

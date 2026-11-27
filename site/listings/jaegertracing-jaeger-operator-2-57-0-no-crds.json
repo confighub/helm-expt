@@ -132,7 +132,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/jaeger-operator-2.57.0-no-crds/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/jaeger-operator-2.57.0-no-crds/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds:bundle-a21817c66cf5@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
+          "manifestDigest": "sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jaegertracing-jaeger-operator-2-57-0-no-crds@sha256:a21817c66cf5ef5eb89ab40b7a3fd3028736f9700f7c7b0ab5b82b9b929b3487",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/memcached-8.5.5-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/memcached-8.5.5-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-bitnami-memcached-8-5-5-default:bundle-87e0248d1428@sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc",
+          "manifestDigest": "sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-bitnami-memcached-8-5-5-default@sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

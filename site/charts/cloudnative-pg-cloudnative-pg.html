@@ -768,6 +768,7 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-29-0/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default:latest@sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f</code></p>
+      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-29-0-default:bundle-9683e15d52ff@sha256:9683e15d52ffa2fd9bef63add4befb29e1d3426a9bea5fefc8843b0c1fa9089f</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">

@@ -754,6 +754,7 @@
       <p><strong>Needs first.</strong> The destination must provide the recorded topology before apply. replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes. Plan below lists 2 more.</p>
       <p><strong>Install it.</strong> <a href="#use-in-confighub">Five steps below</a>.</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d</code></p>
+      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default:bundle-efbac1ddc87f@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">

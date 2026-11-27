@@ -15,6 +15,7 @@ import { dirname, join, relative } from "node:path";
 import {
   check,
   listFiles,
+  listTrackedFiles,
   readYaml,
   readYamlFiles,
   relativeRepo,
@@ -1179,8 +1180,10 @@ function buildObservedLifecycleRoute({ name, observationRel, hookDocCount, verdi
 // and it is deliberately not "every entry": publication is gated on a decided
 // lane, so this grows as theme 1 does. A base whose render carries hook objects
 // is absent until an observation exists to route them, which is why nvidia's
-// nfd-enabled base is not here.
-const CATALOG_BUNDLES = [
+// nfd-enabled base is not here. The bases listed here carry notes or
+// adjudications of their own; a base decided later that needs none joins the
+// list by discovery (discoveredCatalogBundles below).
+const LISTED_CATALOG_BUNDLES = [
   { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "aicr-eks-training-v0-20-0" },
   { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "aicr-eks-training-v1-0-0" },
   { repo: "aws-ebs-csi-driver", chart: "aws-ebs-csi-driver", version: "2.59.0", base: "default" },
@@ -1434,6 +1437,61 @@ const CATALOG_BUNDLES_HELD = [
 ];
 
 const catalogBundleName = (entry) => `catalog-${entry.repo}-${entry.chart}-${entry.version}-${entry.base}`;
+
+// The bases buildAll builds with their own arguments rather than from the list.
+const HAND_BUILT_CATALOG_BUNDLES = [
+  { repo: "traefik", chart: "traefik", version: "41.0.2", base: "default" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.21.0", base: "crds-enabled" },
+  { repo: "gatekeeper", chart: "gatekeeper", version: "3.22.2", base: "default" },
+  { repo: "projectcalico", chart: "tigera-operator", version: "v3.32.0", base: "default" },
+];
+
+// What a render can owe that nothing committed supplies without a person:
+// a Secret with data (a credential, or configuration someone has to
+// adjudicate), and hook objects no recorded observation routes.
+const COMPANIONS_A_PERSON_SUPPLIES = new Set(["external-secret-reference", "lifecycle-job"]);
+
+// A base decided after the list above was written still gets its bundle. A
+// tracked render, a package base and a flattening verdict whose lane permits
+// flattening are what put a base on the list, so every base that has them and
+// is not listed, held or built by hand joins it, in name order. A new chart
+// package version therefore gets its bundles from `npm run certified-bundles`
+// with no edit here, and the catalog OCI workflow publishes them on merge.
+// A base whose render owes a companion only a person can supply is left out
+// and named on every run, until it is listed with its adjudication or held.
+function discoveredCatalogBundles() {
+  const known = new Set([...LISTED_CATALOG_BUNDLES, ...CATALOG_BUNDLES_HELD, ...HAND_BUILT_CATALOG_BUNDLES].map(catalogBundleName));
+  const renders = listTrackedFiles(repoPath("recipes"))
+    .map((path) => relativeRepo(path))
+    .map((rel) => /^recipes\/([^/]+)\/([^/]+)\/([^/]+)\/revisions\/([^/]+)\/r001\/rendered\/release-objects\.yaml$/.exec(rel))
+    .filter(Boolean)
+    .map(([, repo, chart, version, base]) => ({ repo, chart, version, base }));
+  const discovered = [];
+  for (const entry of renders) {
+    if (known.has(catalogBundleName(entry))) continue;
+    if (NVIDIA_LITERAL_BUNDLE_CHARTS.includes(`${entry.repo}/${entry.chart}`)) continue;
+    const recipe = `recipes/${entry.repo}/${entry.chart}/${entry.version}`;
+    if (!existsSync(repoPath(`packages/${entry.repo}/${entry.chart}/${entry.version}/bases/${entry.base}/upstream.yaml`))) continue;
+    const verdictRel = `${recipe}/publication/${verdictFileFor(recipe, entry.base)}`;
+    if (!existsSync(repoPath(verdictRel))) continue;
+    const verdict = readFileSync(repoPath(verdictRel), "utf8");
+    const lane = grab(verdict, /\n {4}lane:\s*"([a-z-]+)"/, `${verdictRel} lane`);
+    if (!["safe-to-flatten", "flatten-with-routes"].includes(lane)) continue;
+    if (verdictFileFor(recipe, entry.base) === "flattening-safety-verdict.yaml" && !verdict.includes(`auditedBase: "${entry.base}"`)) continue;
+    const scan = scanRendered(readFileSync(repoPath(`${recipe}/revisions/${entry.base}/r001/rendered/release-objects.yaml`), "utf8"));
+    const owed = scanDispositions(scan, { renderScope: "the render", templateEvidence: "" })
+      .map((row) => row.companionRequired)
+      .filter((companion) => COMPANIONS_A_PERSON_SUPPLIES.has(companion));
+    if (owed.length > 0) {
+      console.log(`${catalogBundleName(entry)} is decided ${lane} and gets no bundle until it is listed or held: its render owes ${[...new Set(owed)].join(" and ")}`);
+      continue;
+    }
+    discovered.push(entry);
+  }
+  return discovered.sort((left, right) => (catalogBundleName(left) < catalogBundleName(right) ? -1 : 1));
+}
+
+const CATALOG_BUNDLES = [...LISTED_CATALOG_BUNDLES, ...discoveredCatalogBundles()];
 
 function checkHeldCatalogBundles() {
   const listed = new Set(CATALOG_BUNDLES.map(catalogBundleName));

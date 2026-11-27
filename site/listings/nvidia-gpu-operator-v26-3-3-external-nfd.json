@@ -140,7 +140,15 @@
         "receipt": "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/publication-receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-literal-bundles/nvidia-gpu-operator-v26-3-3-external-nfd/publication-receipt.yaml",
         "referenceField": "observedReference",
-        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table."
+        "note": "An anonymous pull returned the exact objects and their companion files. No route has been run, nothing was uploaded to ConfigHub, and this bundle is not a row in the certified-bundle table.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-3-3-external-nfd:r001-eccf5cc23175@sha256:eccf5cc231753db9b686fe4f37b2dbedadb066794c8b4b0d8447bd26fd7b48b7",
+          "manifestDigest": "sha256:eccf5cc231753db9b686fe4f37b2dbedadb066794c8b4b0d8447bd26fd7b48b7",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-3-3-external-nfd@sha256:eccf5cc231753db9b686fe4f37b2dbedadb066794c8b4b0d8447bd26fd7b48b7",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-14-1-default:bundle-f891d16770a4@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830",
+          "manifestDigest": "sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-14-1-default@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

@@ -144,7 +144,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-default:bundle-bf7146fc654f@sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e",
+          "manifestDigest": "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-default@sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

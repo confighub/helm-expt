@@ -144,7 +144,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kube-prometheus-stack-87.19.2-minimal/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal:bundle-194fa0207e19@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "manifestDigest": "sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-prometheus-stack-87-19-2-minimal@sha256:194fa0207e199e7f5b834583ac06495d05cd3d84c1ed5dc0fc5936d854975bb1",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

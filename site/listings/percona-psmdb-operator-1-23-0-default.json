@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/psmdb-operator-1.23.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/psmdb-operator-1.23.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-percona-psmdb-operator-1-23-0-default:bundle-8e4cce889425@sha256:8e4cce8894256eaa1fa653a29624ae086e50973c8f2640969f87987955f09ff8",
+          "manifestDigest": "sha256:8e4cce8894256eaa1fa653a29624ae086e50973c8f2640969f87987955f09ff8",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-percona-psmdb-operator-1-23-0-default@sha256:8e4cce8894256eaa1fa653a29624ae086e50973c8f2640969f87987955f09ff8",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

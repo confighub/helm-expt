@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/gateway-1.30.0-controller-default-reviewed/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/gateway-1.30.0-controller-default-reviewed/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-istio-gateway-1-30-0-controller-default-reviewed:bundle-f53e67adbc84@sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a",
+          "manifestDigest": "sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-istio-gateway-1-30-0-controller-default-reviewed@sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

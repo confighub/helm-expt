@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/kai-scheduler-v0.16.9-aicr-eks-training/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training:bundle-cca656174af2@sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69",
+          "manifestDigest": "sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training@sha256:cca656174af2d82ea86fb5c555387c4fed341260b8b29d81cfff44468b282a69",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

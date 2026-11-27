@@ -133,7 +133,15 @@
         "receipt": "data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml",
         "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/data/certified-bundles/receipts/catalog/nodewright-v0.19.0-default/receipt.yaml",
         "referenceField": "observedReference",
-        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution."
+        "note": "The receipt and publication receipt declare these route files; this binding does not prove a remote pullback or route execution.",
+        "ghcr": {
+          "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-default:bundle-b5de5d26d390@sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c",
+          "manifestDigest": "sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c",
+          "state": "awaits-workflow-publication",
+          "publisher": ".github/workflows/catalog-oci-publish.yml",
+          "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-default@sha256:b5de5d26d39008c01262754429053128d668f75de4e72cad607c0365d638414c",
+          "sameDigestAsEarlier": true
+        }
       },
       {
         "role": "confighub-upload",

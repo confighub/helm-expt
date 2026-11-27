@@ -754,6 +754,7 @@
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
       <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/nvidia-nvidia-device-plugin-0-19-3/default/try-objects.sh">cluster test script</a>)</p>
       <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default:latest@sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745</code></p>
+      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nvidia-device-plugin-0-19-3-default:bundle-7c21ec3d5d19@sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
