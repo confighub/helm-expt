@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-11-02 (commit `b686fd95ce`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-11-26 (commit `099578949b`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 496 |
-| Fresh (no linked source newer than the doc) | 73 |
-| **Review-due** | 89 |
-| No linked evidence sources (cannot auto-trigger) | 334 |
+| Authored docs tracked | 497 |
+| Fresh (no linked source newer than the doc) | 74 |
+| **Review-due** | 88 |
+| No linked evidence sources (cannot auto-trigger) | 335 |
 
 ## Review queue
 
@@ -72,6 +72,7 @@ most recently changed triggers.
 | [docs/reference/variant-promotion-closeout.md](../../docs/reference/variant-promotion-closeout.md) | reference | 2026-08-02 | 68 | `data/variant-promotion-closeout/summary.md (2026-10-09)`<br>`data/variant-promotion/status.csv (2026-10-09)` |
 | [docs/reference/what-hook-support-means.md](../../docs/reference/what-hook-support-means.md) | reference | 2026-08-02 | 68 | `data/hook-lifecycle/summary.md (2026-10-09)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-08-02 | 68 | `data/lifecycle-route-actions/summary.md (2026-10-09)`<br>`data/per-chart-hooks/summary.md (2026-10-09)`<br>`data/kps-lifecycle-route-proof/summary.md (2026-08-25)` |
+| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 67 | `data/credential-boundary/summary.md (2026-11-12)`<br>`data/receipt-aging/summary.md (2026-10-12)`<br>`tests/doctrine.md (2026-10-12)` |
 | [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 65 | `data/aicr-claim-integrity/summary.md (2026-10-12)`<br>`data/aicr-entry-naming/summary.md (2026-10-11)` |
 | [docs/planning/certified-bundle-track-conclusion.md](../../docs/planning/certified-bundle-track-conclusion.md) | planning | 2026-08-09 | 65 | `tests/doctrine.md (2026-10-12)` |
 | [docs/planning/nim-ngc-license-read.md](../../docs/planning/nim-ngc-license-read.md) | planning | 2026-08-08 | 65 | `tests/doctrine.md (2026-10-12)`<br>`data/gated-artifacts/summary.md (2026-08-25)` |
@@ -98,7 +99,6 @@ most recently changed triggers.
 | [docs/planning/certified-bundle-track-backlog.md](../../docs/planning/certified-bundle-track-backlog.md) | planning | 2026-09-03 | 39 | `tests/doctrine.md (2026-10-12)` |
 | [docs/planning/composition-certification.md](../../docs/planning/composition-certification.md) | planning | 2026-09-03 | 39 | `tests/doctrine.md (2026-10-12)` |
 | [docs/planning/eks-inf-replica-plan.md](../../docs/planning/eks-inf-replica-plan.md) | planning | 2026-09-03 | 39 | `data/certified-bundles/summary.md (2026-10-11)` |
-| [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md) | planning | 2026-09-07 | 36 | `data/receipt-aging/summary.md (2026-10-12)`<br>`tests/doctrine.md (2026-10-12)`<br>`data/upstream-provenance/summary.md (2026-10-09)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-09-03 | 36 | `data/chart-use-guide/summary.md (2026-10-09)`<br>`data/lifecycle-boundary/summary.md (2026-10-09)`<br>`data/master-catalog-matrix/matrix.html (2026-10-09)` |
 | [docs/reference/installer-package-signing.md](../../docs/reference/installer-package-signing.md) | reference | 2026-09-03 | 36 | `data/installer-package-signatures/summary.md (2026-10-09)` |
 | [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-09-07 | 33 | `data/chart-skills/summary.md (2026-10-09)` |
@@ -109,7 +109,6 @@ most recently changed triggers.
 | [docs/demo/kubara/platform-evidence.md](../../docs/demo/kubara/platform-evidence.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-platform-matrix/summary.md (2026-10-26)` |
 | [docs/demo/kubara/single-platform.md](../../docs/demo/kubara/single-platform.md) | demo | 2026-09-30 | 26 | `data/kubara-platform-matrix/matrix.html (2026-10-26)`<br>`data/kubara-release-acceptance/contract.yaml (2026-10-26)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-08-02 | 20 | `data/default-credential-check/summary.md (2026-08-21)` |
-| [README.md](../../README.md) | root | 2026-09-26 | 13 | `CATALOG.md (2026-10-09)` |
 | [docs/planning/workshop-execution-plan.md](../../docs/planning/workshop-execution-plan.md) | planning | 2026-09-30 | 12 | `data/certified-bundles/summary.md (2026-10-11)` |
 | [docs/reference/flattening-alignment.md](../../docs/reference/flattening-alignment.md) | reference | 2026-09-28 | 11 | `data/flattening-safety/summary.md (2026-10-09)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-09-29 | 11 | `data/confighub-example-guides/summary.md (2026-10-09)` |
@@ -432,6 +431,7 @@ into this freshness model.
 - [docs/user/live-walk-bundle-route-2026-11-02.md](../../docs/user/live-walk-bundle-route-2026-11-02.md)
 - [docs/user/live-walk-bundle-sample-2026-11-02.md](../../docs/user/live-walk-bundle-sample-2026-11-02.md)
 - [docs/user/live-walk-change-review-2026-10-09.md](../../docs/user/live-walk-change-review-2026-10-09.md)
+- [docs/user/live-walk-cub-package-install-2026-11-26.md](../../docs/user/live-walk-cub-package-install-2026-11-26.md)
 - [docs/user/live-walk-entry-steps-2026-10-08.md](../../docs/user/live-walk-entry-steps-2026-10-08.md)
 - [docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md](../../docs/user/live-walk-gpu-operator-dev-qa-2026-10-09.md)
 - [docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md](../../docs/user/live-walk-gpu-operator-upgrade-delete-2026-10-11.md)

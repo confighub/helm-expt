@@ -872,13 +872,17 @@ Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged</code></pre>
       <pre class="terminal-body"><code><span class="term-comment"># sign in to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload the rendered directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># save the signed package as a Space of Units in one command</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67 --base http-clusterip --space &lt;your-space&gt; --namespace nginx --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload the directory rendered above</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-nginx-24-0-2-http-clusterip --space &lt;your-space&gt; --component &lt;your-component&gt;
 
-<span class="term-comment"># list the Units the upload created</span>
+<span class="term-comment"># list the Units in the Space</span>
 <span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
-      <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-      <p>In the walk the upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
+      <p>Run the second command or the third, not both. Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+      <p>The walk of 2026-10-08 ran the upload, and the rest of this page follows it. The upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
+      <p>A <a href="./d/docs/user/live-walk-cub-package-install-2026-11-26.html">run on 2026-11-26</a> ran both forms with a newer cub, and each made the same 7 Units. There the seventh Unit was named <code>installer</code>, and <code>cub unit list</code> did not show it. That run did not release either Space.</p>
       <p>You can stop here. The entry is saved in ConfigHub and nothing is on a cluster.</p>
       <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
       <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>workshop/target</code>.</p>

@@ -903,7 +903,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 3 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>. It applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="kubeflow-kubeflow-trainer-2-2-0-default" open>
         <summary>Helm chart, base <strong>default</strong>, version 2.2.0</summary>
         <p class="entry-steps-flag"><strong>This entry is flagged for review.</strong> Two webhook certificate Secrets render with empty data and the controllers fill them in at run time, so does a delivery that applies the base again overwrite the certificates the controllers wrote?</p>
@@ -929,7 +929,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 28 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o kubeflow-kubeflow-trainer-2-2-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/default/r001/rendered/release-objects.yaml
 
@@ -937,7 +937,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> shasum -a 256 kubeflow-kubeflow-trainer-2-2-0-default.yaml
 517fb09d2f16a0a4c83b9859ec82b4fddc8ce4c74eb552608c1789df0252b616  kubeflow-kubeflow-trainer-2-2-0-default.yaml
 
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base default --work-dir ./kubeflow-kubeflow-trainer-2-2-0-default --non-interactive --namespace kubeflow</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
@@ -951,14 +951,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
-          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
+          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a>.</p>
           <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
           <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base default --space &lt;your-space&gt; --namespace kubeflow --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./kubeflow-kubeflow-trainer-2-2-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>
@@ -1027,7 +1031,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 28 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v0-20-0/r001/rendered/release-objects.yaml
 
@@ -1035,7 +1039,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> shasum -a 256 kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.yaml
 9dd7efd3ae87560f2a396d4ed3a13db830d8a5b0856da5992e377026a92f2fcc  kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0.yaml
 
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v0-20-0 --work-dir ./kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0 --non-interactive --namespace kubeflow</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
@@ -1049,14 +1053,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
-          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
+          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a>.</p>
           <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
           <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v0-20-0 --space &lt;your-space&gt; --namespace kubeflow --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v0-20-0 --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>
@@ -1125,7 +1133,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
           <p>The Catalog rendered this entry and retains its 28 objects in one file.</p>
-          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an <code>installer-record</code> Unit.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
 <span class="term-prompt">$</span> curl -fsSL -o kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/kubeflow/kubeflow-trainer/2.2.0/revisions/aicr-eks-training-v1-0-0/r001/rendered/release-objects.yaml
 
@@ -1133,7 +1141,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 <span class="term-prompt">$</span> shasum -a 256 kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml
 6d3b2103eec83a3ae10f1ced2dc4b30178068013ee0b688527581d2abe5619aa  kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0.yaml
 
-<span class="term-comment"># render this base from the signed package; step 3 uploads this directory</span>
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v1-0-0 --work-dir ./kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0 --non-interactive --namespace kubeflow</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
@@ -1147,14 +1155,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         </div>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
-          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
+          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a>.</p>
           <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-          <p>In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The <code>--component</code> flag sets the Component label the upload writes on the Space, which is the package name when you omit it.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
           <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># upload step 1's directory as a Space of Units, under names you choose</span>
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v1-0-0 --space &lt;your-space&gt; --namespace kubeflow --non-interactive
+
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./kubeflow-kubeflow-trainer-2-2-0-aicr-eks-training-v1-0-0 --space &lt;your-space&gt; --component &lt;your-component&gt;
 
 <span class="term-comment"># list the Units the upload created</span>

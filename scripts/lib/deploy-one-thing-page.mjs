@@ -128,7 +128,8 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
   }));
   const getObjects = step("get-objects", 3);
   const compare = step("compare", 4);
-  const upload = step("upload", 3);
+  const upload = step("upload", 4);
+  check(upload.liveWalk?.date && upload.liveWalk.date !== WALK_DATE, `site/listings/${id}.json links no run of cub package install from its upload step, and the Guide cites one`);
   const deploy = step("deploy", 4);
   const promote = step("promote", 4);
 
@@ -198,11 +199,13 @@ export function deployOneThingGuide({ listing, walkLog, check, commandBlock, mar
       <p>A <strong>Space</strong> groups related Units, such as one base or one environment. A <strong>Unit</strong> is one versioned piece of configuration, and the upload makes one for each rendered object.</p>
       ${commandBlock(rows(upload.commands, [
         "sign in to your ConfigHub organization",
-        "upload the rendered directory as a Space of Units, under names you choose",
-        "list the Units the upload created",
+        "save the signed package as a Space of Units in one command",
+        "or, to name the Component yourself, upload the directory rendered above",
+        "list the Units in the Space",
       ]))}
-      <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-      <p>In the walk the upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
+      <p>Run the second command or the third, not both. Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+      <p>The walk of ${WALK_DATE} ran the upload, and the rest of this page follows it. The upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
+      <p>A <a href="./d/${upload.liveWalk.path.replace(/\.md$/, ".html")}">run on ${upload.liveWalk.date}</a> ran both forms with a newer cub, and each made the same 7 Units. There the seventh Unit was named <code>installer</code>, and <code>cub unit list</code> did not show it. That run did not release either Space.</p>
       <p>You can stop here. The entry is saved in ConfigHub and nothing is on a cluster.</p>
       <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
       <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>${CLUSTER}/target</code>.</p>

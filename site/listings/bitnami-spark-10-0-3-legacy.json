@@ -450,12 +450,12 @@
           "expect": "05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373  bitnami-spark-10-0-3-legacy.yaml"
         },
         {
-          "comment": "render this base from the signed package; step 3 uploads this directory",
+          "comment": "render this base from the signed package; step 3 can upload this directory",
           "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8 --base legacy --work-dir ./bitnami-spark-10-0-3-legacy --non-interactive --namespace default"
         }
       ],
       "notes": [
-        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds an `installer-record` Unit."
+        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record."
       ]
     },
     {
@@ -514,7 +514,13 @@
           "needsAccount": true
         },
         {
-          "comment": "upload step 1's directory as a Space of Units, under names you choose",
+          "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
+          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3@sha256:2a4082e995d3f9a1573a9db34b55487982a621afbdf6c45bc58ab12666a6b0a8 --base legacy --space <your-space> --namespace default --non-interactive",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "or, to name the Component yourself, upload step 1's directory instead",
           "command": "cub installer upload --work-dir ./bitnami-spark-10-0-3-legacy --space <your-space> --component <your-component>",
           "needsAccount": true,
           "writes": true
@@ -527,14 +533,15 @@
       ],
       "notes": [
         "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
-        "In the live walk, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names. The `--component` flag sets the Component label the upload writes on the Space, which is the package name when you omit it.",
+        "`cub package install` names the Component after the package. To choose its name, run step 1's `cub installer setup` and then `cub installer upload` with `--component`. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.",
+        "In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.",
         "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization."
       ],
       "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+        "date": "2026-11-26",
+        "path": "docs/user/live-walk-cub-package-install-2026-11-26.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-cub-package-install-2026-11-26.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1 and installer plugin 0.6.1"
       }
     },
     {
