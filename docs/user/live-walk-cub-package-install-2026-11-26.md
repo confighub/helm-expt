@@ -182,7 +182,7 @@ walk-nginx-two-step    bitnami-nginx    24.0.2     nginx        oci://europe-wes
 ## Notes
 
 1. **`cub package install` has no `--component` flag.** It names the Component after the package. To choose the Component's name, the two-step form with `cub installer upload --component` is the one that does it.
-2. **The installer record is now a hidden Unit named `installer`.** In the [walk of 2026-10-08](./live-walk-entry-steps-2026-10-08.md) it was a visible Unit named `installer-record`. The deploy and promote steps on the entry pages still delete `installer-record`. This run did not deploy or promote, so it did not test those steps.
+2. **The installer record is now a hidden Unit named `installer`.** In the [walk of 2026-10-08](./live-walk-entry-steps-2026-10-08.md) it was a visible Unit named `installer-record`. The deploy and promote steps on the entry pages still delete `installer-record`. This run did not deploy or promote, so it did not test those steps. The [run of 2026-11-27](./live-walk-entry-deploy-promote-2026-11-27.md) tested them and found the delete no longer needed.
 3. **Both forms now create a Component.** In the walk of 2026-10-08, with installer plugin 0.1.0, the upload wrote a `Component` label and created no Component.
 4. **`cub installer setup` printed `Loaded prior install state from confighub.`** So it contacted the hub, which held one install of the same package by then. This run did not check what it read.
 5. **`cub package install` printed no summary line and no revert command.** `cub installer upload` printed both.

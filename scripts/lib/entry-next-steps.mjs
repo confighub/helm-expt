@@ -22,12 +22,11 @@
 
 export const NEXT_STEPS_HEADING = "Use this entry in ConfigHub";
 
-// The dated log of the one live walk of steps 3 to 5. It ran the command forms
-// below for the two entries named here, with cub v0.8.7, a ConfigHub server at
-// v0.8.9, installer plugin 0.1.0, kind v0.31.0 and Argo CD v3.5.4. It is a log,
-// not a receipt, so no state in this module reads from it. A step carries it as
-// liveWalk so a reader can see which forms were run. The delete line in steps 4
-// and 5 and the placeholder names in steps 3 to 5 come from what it found.
+// The dated log of the first live walk of steps 3 to 5. It ran the command
+// forms of the time for the two entries named here, with cub v0.8.7, a
+// ConfigHub server at v0.8.9, installer plugin 0.1.0, kind v0.31.0 and Argo CD
+// v3.5.4. It is a log, not a receipt, so no state in this module reads from it.
+// The placeholder names in steps 3 to 5 come from what it found.
 export const ENTRY_STEPS_WALK = {
   date: "2026-10-08",
   path: "docs/user/live-walk-entry-steps-2026-10-08.md",
@@ -44,7 +43,7 @@ export const COMPONENT_PLACEHOLDER = "<your-component>";
 // One run of cub package install for an installer package, beside the
 // two-step setup and upload form, against a local ConfigHub server. The upload
 // step of an installer-package entry links it, because it ran both of that
-// step's forms; the deploy and promote steps still link ENTRY_STEPS_WALK.
+// step's forms.
 export const PACKAGE_INSTALL_WALK = {
   date: "2026-11-26",
   path: "docs/user/live-walk-cub-package-install-2026-11-26.md",
@@ -59,6 +58,19 @@ export function packageInstallCommand(reference, base, namespace) {
   return `cub package install ${reference} --base ${base} --space ${SPACE_PLACEHOLDER} --namespace ${namespace} --non-interactive`;
 }
 
+// One run of the deploy and promote steps of an installer-package entry, as
+// printed, against a local ConfigHub server and a kind cluster with Argo CD.
+// The upload's record of the package is a hidden Unit named installer. The
+// variant does not clone it, and the promotion adds it back without a Target,
+// so the Release leaves it out. The run found the delete line the first walk
+// needed no longer needed, and the two steps carry none.
+export const DEPLOY_WALK = {
+  date: "2026-11-27",
+  path: "docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+  url: "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+  versions: "cub v0.11.23, ConfigHub server v0.11.1, installer plugin 0.6.1 and kind v0.31.0",
+};
+
 // One run of the printed commands for a published OCI bundle.
 export const BUNDLE_ROUTE_WALK = {
   date: "2026-11-02",
@@ -68,7 +80,6 @@ export const BUNDLE_ROUTE_WALK = {
 };
 
 const WALKED_STEPS = ["upload", "deploy", "promote"];
-const INSTALLER_RECORD = "installer-record";
 
 export const NEXT_STEPS = [
   { id: "get-objects", label: "Get the exact objects" },
@@ -532,10 +543,6 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
       { comment: "clone the base onto a Target as a dev variant", command: `cub variant create dev ${spaceArg} --target ${NEXT_STEPS_TARGET} --space-pattern "template:${spaceArg}-dev"`, needsAccount: true, writes: true },
       ...planRemoval,
       { comment: installer ? "publish the Release that the cluster's Argo CD pulls" : "publish the Release that Argo CD or Flux pulls", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
-      ...(installer ? [
-        { comment: "delete the installer record, which Argo CD cannot read", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
-        { comment: "publish again without it", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
-      ] : []),
     ];
     const runtimes = runtimeSentence(listing);
     const earlier = [
@@ -570,13 +577,11 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
     const deployNotes = installer && commands.length > 0
       ? {
           ...noteList(
-            "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
-            "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
-            "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
-            "Make the cluster with `cub cluster up --no-k8sbot`, a flag cub v0.8.7 called no-argobot when the walk ran. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
-            "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.",
+            "Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named `installer`. The variant does not clone it, so one publish deploys the rendered objects.",
+            "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.",
+            "Make the cluster with `cub cluster up --name workshop --no-k8sbot`. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it.",
           ),
-          ...walkOf(),
+          ...walkOf(DEPLOY_WALK),
         }
       : commands.length > 0 && path.kind === "literal-bundle" && listing.source?.format === "helm"
         ? {
@@ -596,19 +601,17 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
     const commands = path.kind === "none" || state === "blocked-for-this-entry" ? [] : [
       { comment: "preview what the dev variant would take from the base", command: `cub variant promote ${spaceArg}-dev --dry-run -o mutations`, needsAccount: true },
       { comment: "promote once you have read the preview", command: `cub variant promote ${spaceArg}-dev --change-desc "Pull the reviewed base forward"`, needsAccount: true, writes: true },
-      ...(installer ? [
-        { comment: "delete the installer record that the promotion adds back", command: `cub unit delete --space ${spaceArg}-dev ${INSTALLER_RECORD}`, needsAccount: true, writes: true },
-      ] : planDocumentRemoval(listing, path, spaceArg)),
+      ...(installer ? [] : planDocumentRemoval(listing, path, spaceArg)),
       // A promotion changes the Space and publishes nothing, on either route.
       { comment: "publish the Release that carries the change", command: `cub release publish ${spaceArg}-dev`, needsAccount: true, writes: true },
     ];
     const promoteNotes = installer && commands.length > 0
       ? {
           ...noteList(
-            "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
-            "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.",
+            "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden `installer` Unit to the dev Space, without a Target, and the Release leaves it out.",
+            "The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record.",
           ),
-          ...walkOf(),
+          ...walkOf(DEPLOY_WALK),
         }
       : commands.length > 0 && path.kind === "literal-bundle" && listing.source?.format === "helm"
         ? {
@@ -627,7 +630,7 @@ export function buildNextSteps(listing, { plan, related = [], missingDefinitions
     }
     const route = promotion.path ? ` It followed ${String(promotion.path).replaceAll(" -> ", " to ")}.` : "";
     const proven = ["pass", "proven"].includes(promotion.state);
-    const unrecorded = installer ? " It ran the preview and the promote. The delete and the publish below have no recorded run for this entry." : " It ran the preview and the promote. The publish below has no recorded run for this entry.";
+    const unrecorded = " It ran the preview and the promote. The publish below has no recorded run for this entry.";
     const lead = state === "run-for-this-entry"
       ? `A promotion ran for this entry.${route}`
       : state === "partly-run-for-this-entry"
@@ -702,8 +705,8 @@ export function nextStepClaimErrors(listing, { plan, related = [] }) {
     }
     if (path.kind === "installer-package" && WALKED_STEPS.includes(step.id) && commands.length > 0) {
       // Commands the live walk ran. The Space and Component names are the
-      // reader's, the deploy and promote steps delete the cloned record before
-      // they publish, and the step links the log that ran those forms.
+      // reader's, the deploy and promote steps end with a publish and delete
+      // no installer record, and the step links the log that ran those forms.
       for (const { command } of commands) {
         if (command.replace(`./${id}`, "").includes(id)) errors.push(`${id}: step ${step.id} uses the entry id as a Space name, and the walk found that name already taken`);
       }
@@ -719,11 +722,10 @@ export function nextStepClaimErrors(listing, { plan, related = [] }) {
         else if (upload < install) errors.push(`${id}: step ${step.id} shows the two-step form before cub package install`);
       }
       if (["deploy", "promote"].includes(step.id)) {
-        const removal = commands.findIndex(({ command }) => /^cub unit delete .*\binstaller-record$/.test(command));
-        if (removal < 0) errors.push(`${id}: step ${step.id} does not delete the cloned installer-record Unit, and Argo CD cannot read a Release that carries it`);
-        else if (!commands.slice(removal + 1).some(({ command }) => /^cub release publish /.test(command))) errors.push(`${id}: step ${step.id} does not publish after it deletes the installer-record Unit`);
+        if (commands.some(({ command }) => /^cub unit delete .*\binstaller(-record)?$/.test(command))) errors.push(`${id}: step ${step.id} deletes the installer record, and the walk found the Release leaves it out`);
+        if (!/^cub release publish /.test(commands.at(-1).command)) errors.push(`${id}: step ${step.id} does not end with a publish`);
       }
-      const walk = step.id === "upload" ? PACKAGE_INSTALL_WALK : ENTRY_STEPS_WALK;
+      const walk = step.id === "upload" ? PACKAGE_INSTALL_WALK : DEPLOY_WALK;
       if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf(walk).liveWalk)) errors.push(`${id}: step ${step.id} does not link the live walk that ran its commands`);
     } else if (path.kind === "literal-bundle" && listing.source?.format === "helm" && ["deploy", "promote"].includes(step.id) && commands.length > 0) {
       if (JSON.stringify(step.liveWalk ?? null) !== JSON.stringify(walkOf(BUNDLE_ROUTE_WALK).liveWalk)) errors.push(`${id}: step ${step.id} does not link the run of the OCI bundle route`);

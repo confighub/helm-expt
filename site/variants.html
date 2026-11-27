@@ -890,7 +890,7 @@ Variants:
       <h2 id="fields">2. Tell what set a field</h2>
       <p>Use these steps to trace which layer actually set a field you are looking at.</p>
       <ul>
-        <li>Open the base Space's <code>installer-record</code> Unit to see which package was uploaded. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li>
+        <li>Run <code>cub package show --space &lt;base-space&gt;</code> to see which package was uploaded. It reads the hidden <code>installer</code> Unit. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li>
         <li>Open the package's Helm render-intent record to see which Helm values and render settings produced the starting objects.</li>
         <li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li>
         <li>Open the derived Space's upstream link to see which base it started from.</li>

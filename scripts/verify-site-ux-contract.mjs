@@ -309,11 +309,11 @@ const checks = [
     terms: ["Choose a tool and start", "1. Choose a tool and start", "Why this is more than a fast render command", "Three public jobs", "A graduation path, not a day-one choice", "When your chart is not in the catalog"],
   },
   // The landing Guide for one deployment. Its commands are the nginx entry's
-  // nextSteps and the walk log's, so the terms here are its sections, the
-  // placeholder names, the known defect and the limits of the dated run.
+  // nextSteps and the dated logs', so the terms here are its sections, the
+  // placeholder names, the hidden package record and the limits of the runs.
   {
     file: "site/deploy-one-thing.html",
-    terms: ["Deploy one thing, and look before you do", "1. Choose what to deploy", "2. Look first at what it installs and what it needs", "3. Save it and release it", "4. See what success looked like", "5. Know what this run did not cover", "6. Go back", "bitnami-nginx-24-0-2-http-clusterip", "--space &lt;your-space&gt; --component &lt;your-component&gt;", "cub unit delete --space &lt;your-space&gt;-dev installer-record", "work around a known defect", "Argo CD v3.5.4 cannot read it", "cub v0.8.7 and server v0.8.9", "Read the Sync column, because Healthy alone is not a pass", "it is not a receipt for the entry", "It created no staging variant and no production variant", "Deleting the ConfigHub side did not remove the workload", "./journey-preserve-my-fixes.html", "./charts/bitnami-nginx-24-0-2.html#use-in-confighub", "./listings/bitnami-nginx-24-0-2-http-clusterip.json"],
+    terms: ["Deploy one thing, and look before you do", "1. Choose what to deploy", "2. Look first at what it installs and what it needs", "3. Save it and release it", "4. See what success looked like", "5. Know what this run did not cover", "6. Go back", "bitnami-nginx-24-0-2-http-clusterip", "--space &lt;your-space&gt; --component &lt;your-component&gt;", "It does not copy the hidden <code>installer</code> Unit, so one publish deploys the entry", "found that no longer needed", "./d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html", "Read the Sync column, because Healthy alone is not a pass", "it is not a receipt for the entry", "They created no staging variant and no production variant", "Deleting the ConfigHub side did not remove the workload", "./journey-preserve-my-fixes.html", "./charts/bitnami-nginx-24-0-2.html#use-in-confighub", "./listings/bitnami-nginx-24-0-2-http-clusterip.json"],
   },
   // Site IA phase 4, step 8: explanation sections became agent docs.
   {
@@ -1638,11 +1638,12 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
         if (commandLines !== (recorded.commands ?? []).length) {
           failures.push(`${file}: ${id} step ${stepId} shows ${commandLines} command(s), and its listing records ${(recorded.commands ?? []).length}`);
         }
-        // The live walk of 2026-10-08 changed the installer-package commands:
-        // the reader names the Space and Component, the deploy and promote
-        // steps delete the cloned installer-record Unit before they publish,
-        // and a step links the log that ran them. The page must show each of
-        // those, and a delivery that ran other commands may not read as run.
+        // The live walks changed the installer-package commands: the reader
+        // names the Space and Component, the deploy and promote steps end with
+        // a publish and delete no package record (the run of 2026-11-27 found
+        // the Release leaves it out), and a step links the log that ran them.
+        // The page must show each of those, and a delivery that ran other
+        // commands may not read as run.
         const shown = decodeBasicHtml(body.replace(/<[^>]+>/g, ""));
         const installerListing = (listing.nextSteps ?? []).some((other) => (other.commands ?? []).some(({ command }) => /^cub installer upload /.test(command)));
         if (installerListing && stepId === "upload" && !/cub installer upload [^\n]*--space <your-space> --component <your-component>/.test(shown)) {
@@ -1659,8 +1660,11 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
           }
         }
         if (installerListing && ["deploy", "promote"].includes(stepId) && (recorded.commands ?? []).length > 0) {
-          if (!/\$ cub unit delete --space <your-space>-dev installer-record\n[\s\S]*\$ cub release publish <your-space>-dev\s*$/.test(shown.replace(/\n\s*\n/g, "\n"))) {
-            failures.push(`${file}: ${id} step ${stepId} does not end with the installer-record delete and a publish`);
+          if (/\$ cub unit delete [^\n]*\binstaller(-record)?\n/.test(`${shown}\n`)) {
+            failures.push(`${file}: ${id} step ${stepId} deletes the package record, and the Release leaves it out`);
+          }
+          if (!/\$ cub release publish <your-space>-dev\s*$/.test(shown)) {
+            failures.push(`${file}: ${id} step ${stepId} does not end with a publish`);
           }
         }
         if (recorded.liveWalk && !body.includes(`d/${recorded.liveWalk.path.replace(/\.md$/, ".html")}`)) {
