@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "ack-ec2-controller"
+spec:
+  chart: "aws-controllers-k8s/ec2-chart"
+  version: "1.18.4"
+  packagePath: "packages/aws-controllers-k8s/ec2-chart/1.18.4"
+  tag: "v1.18.4"
+  reference: "ghcr.io/confighub/packages/ack-ec2-controller:v1.18.4"
+  immutableReference: "ghcr.io/confighub/packages/ack-ec2-controller@sha256:d1a98ef10b928570c75431a89a256abb0eb553dfbb646a877254660d77a708c3"
+  manifestDigest: "sha256:d1a98ef10b928570c75431a89a256abb0eb553dfbb646a877254660d77a708c3"
+  layerDigest: "sha256:7039fb49d878f8053f453fc0add8b943e044bd433829731d261b3d4b966e3173"
+  installCommand: "cub package install ack-ec2-controller:v1.18.4 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d1a98ef10b928570c75431a89a256abb0eb553dfbb646a877254660d77a708c3"
+  observedAt: "2026-11-27T19:42:51.454Z"
+status:
+  result: "pass"

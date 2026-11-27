@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "mysql-operator"
+spec:
+  chart: "mysql/mysql-operator"
+  version: "2.3.0"
+  packagePath: "packages/mysql/mysql-operator/2.3.0"
+  tag: "v2.3.0"
+  reference: "ghcr.io/confighub/packages/mysql-operator:v2.3.0"
+  immutableReference: "ghcr.io/confighub/packages/mysql-operator@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+  manifestDigest: "sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+  layerDigest: "sha256:1c8012a0dc831062d6fa06ed23cbcf693739456eab334a11f16d9b45a9aa353e"
+  installCommand: "cub package install mysql-operator:v2.3.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6"
+  observedAt: "2026-11-27T19:43:36.924Z"
+status:
+  result: "pass"

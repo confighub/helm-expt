@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "argo-events"
+spec:
+  chart: "argo-cd/argo-events"
+  version: "2.4.21"
+  packagePath: "packages/argo-cd/argo-events/2.4.21"
+  tag: "v2.4.21"
+  reference: "ghcr.io/confighub/packages/argo-events:v2.4.21"
+  immutableReference: "ghcr.io/confighub/packages/argo-events@sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db"
+  manifestDigest: "sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db"
+  layerDigest: "sha256:ed1c3e53b6ac99bcfcec5fd7311540ff92d21e49051627db97cb9bb7f00a3778"
+  installCommand: "cub package install argo-events:v2.4.21 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db"
+  observedAt: "2026-11-27T19:42:48.692Z"
+status:
+  result: "pass"

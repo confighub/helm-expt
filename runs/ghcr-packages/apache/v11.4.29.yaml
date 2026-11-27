@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "apache"
+spec:
+  chart: "bitnami/apache"
+  version: "11.4.29"
+  packagePath: "packages/bitnami/apache/11.4.29"
+  tag: "v11.4.29"
+  reference: "ghcr.io/confighub/packages/apache:v11.4.29"
+  immutableReference: "ghcr.io/confighub/packages/apache@sha256:7a033772c5d89d24427d23a9b230c05a5523d537b523f2a7f3471515a024a7c3"
+  manifestDigest: "sha256:7a033772c5d89d24427d23a9b230c05a5523d537b523f2a7f3471515a024a7c3"
+  layerDigest: "sha256:a58881d50d9713a24115868aa43233bfa24c94201234c606d22964cac44429ee"
+  installCommand: "cub package install apache:v11.4.29 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7a033772c5d89d24427d23a9b230c05a5523d537b523f2a7f3471515a024a7c3"
+  observedAt: "2026-11-27T19:42:53.878Z"
+status:
+  result: "pass"

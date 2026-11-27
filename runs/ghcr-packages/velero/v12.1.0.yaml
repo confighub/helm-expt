@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "velero"
+spec:
+  chart: "velero/velero"
+  version: "12.1.0"
+  packagePath: "packages/velero/velero/12.1.0"
+  tag: "v12.1.0"
+  reference: "ghcr.io/confighub/packages/velero:v12.1.0"
+  immutableReference: "ghcr.io/confighub/packages/velero@sha256:68ff855f40f1d44e3cc8336c673a927196b3a70f65df463bd5522ec79a095109"
+  manifestDigest: "sha256:68ff855f40f1d44e3cc8336c673a927196b3a70f65df463bd5522ec79a095109"
+  layerDigest: "sha256:ae3d4dee771d4abd12cc8fb6c99deda580225019a1a887d5f9fc2080f4bc4022"
+  installCommand: "cub package install velero:v12.1.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:68ff855f40f1d44e3cc8336c673a927196b3a70f65df463bd5522ec79a095109"
+  observedAt: "2026-11-27T19:44:05.076Z"
+status:
+  result: "pass"

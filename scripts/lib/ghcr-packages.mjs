@@ -7,12 +7,17 @@
 // repository, named by its chart name, with one tag per version: the chart
 // version with a leading "v", as every ConfigHub package version is written.
 
-import { cpSync, existsSync, readdirSync, statSync } from "node:fs";
+import { cpSync, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-import { readYaml, repoRoot, writeYaml } from "./proof-common.mjs";
+import { readYaml, readYamlText, repoRoot, trackedExists, writeYaml } from "./proof-common.mjs";
 
 export const GHCR_PACKAGES_REGISTRY = "ghcr.io/confighub/packages";
+export const GHCR_PACKAGES_WORKFLOW = ".github/workflows/packages-publish.yml";
+export const GHCR_PACKAGES_IDENTITY_REGEXP = "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$";
+export const GHCR_PACKAGES_OIDC_ISSUER = "https://token.actions.githubusercontent.com";
+export const GHCR_PACKAGES_RECEIPT_ROOT = "runs/ghcr-packages";
+export const GHCR_PACKAGES_RECEIPT_KIND = "GhcrPackagePublicationReceipt";
 
 // Names other repositories already publish under ghcr.io/confighub/packages.
 // GHCR ties a package name to the repository that first pushed it and refuses a
@@ -146,4 +151,107 @@ export function stagePackage(source, dest, { name, tag }) {
     ...rest,
   });
   return path;
+}
+
+// --- publication receipts ------------------------------------------------------
+//
+// A receipt under runs/ghcr-packages/<name>/<tag>.yaml records that the tag
+// was read with no credentials at a manifest digest, and that the digest's
+// signature verifies as the publish workflow on main. A version with a
+// committed receipt is published: the Catalog names it by that digest. The
+// receipt is written by `node scripts/publish-ghcr-packages.mjs --observe`,
+// which needs no credential, so the nightly package job commits the receipts
+// of whatever the publish workflow published since its last run.
+
+export const ghcrPackageReceiptRel = (name, tag) => `${GHCR_PACKAGES_RECEIPT_ROOT}/${name}/${tag}.yaml`;
+
+export function ghcrPackageInstallCommand(name, tag, space = "<space>") {
+  return `cub package install ${name}:${tag} --space ${space}`;
+}
+
+export function ghcrPackageVerifyCommand(immutableReference) {
+  return `cosign verify --certificate-identity-regexp '${GHCR_PACKAGES_IDENTITY_REGEXP}' --certificate-oidc-issuer ${GHCR_PACKAGES_OIDC_ISSUER} ${String(immutableReference).replace(/^oci:\/\//, "")}`;
+}
+
+let namesByChart;
+
+// Where a chart version is published on GHCR, whether or not it is yet.
+export function ghcrPackageIdentity(chartRef, version) {
+  namesByChart ??= shortNames(catalogCharts());
+  const name = namesByChart.get(chartRef);
+  if (!name) return null;
+  const tag = ghcrTag(version);
+  const repository = `${GHCR_PACKAGES_REGISTRY}/${name}`;
+  return { chart: chartRef, version: String(version), name, tag, repository, reference: `${repository}:${tag}`, packagePath: `packages/${chartRef}/${version}` };
+}
+
+export function ghcrPackageReceiptDoc(identity, { manifestDigest, layerDigest, observedAt, signature, anonymousPull }) {
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: GHCR_PACKAGES_RECEIPT_KIND,
+    metadata: { name: identity.name },
+    spec: {
+      chart: identity.chart,
+      version: identity.version,
+      packagePath: identity.packagePath,
+      tag: identity.tag,
+      reference: identity.reference,
+      immutableReference: `${identity.repository}@${manifestDigest}`,
+      manifestDigest,
+      layerDigest,
+      installCommand: ghcrPackageInstallCommand(identity.name, identity.tag),
+      publisher: GHCR_PACKAGES_WORKFLOW,
+      signature,
+      anonymousPull,
+      observedAt,
+    },
+    status: { result: "pass" },
+  };
+}
+
+const DIGEST = /^sha256:[0-9a-f]{64}$/;
+
+// Why a receipt is not the receipt of this chart version. Empty when it is.
+export function ghcrPackageReceiptProblems(receipt, identity) {
+  const problems = [];
+  const expect = (condition, message) => { if (!condition) problems.push(message); };
+  const spec = receipt?.spec ?? {};
+  expect(receipt?.kind === GHCR_PACKAGES_RECEIPT_KIND, `it is a ${receipt?.kind ?? "nothing"}, not a ${GHCR_PACKAGES_RECEIPT_KIND}`);
+  expect(receipt?.metadata?.name === identity.name, `it names ${receipt?.metadata?.name}, and the package is ${identity.name}`);
+  expect(spec.chart === identity.chart && String(spec.version) === identity.version, `it records ${spec.chart}@${spec.version}`);
+  expect(spec.packagePath === identity.packagePath, `it records the package ${spec.packagePath}`);
+  expect(spec.reference === identity.reference, `it records ${spec.reference}, and the package is ${identity.reference}`);
+  expect(DIGEST.test(String(spec.manifestDigest ?? "")), "it records no valid manifest digest");
+  expect(DIGEST.test(String(spec.layerDigest ?? "")), "it records no valid layer digest");
+  expect(spec.immutableReference === `${identity.repository}@${spec.manifestDigest}`, "its immutable reference is not the repository at its manifest digest");
+  expect(spec.anonymousPull?.result === "pass" && spec.anonymousPull?.digest === spec.manifestDigest, "it records no anonymous pull of that digest");
+  expect(spec.signature?.result === "verified", "it records no verified signature");
+  expect(spec.signature?.identityRegexp === GHCR_PACKAGES_IDENTITY_REGEXP && spec.signature?.issuer === GHCR_PACKAGES_OIDC_ISSUER, "its signature was not checked against the publish workflow identity");
+  return problems;
+}
+
+// The GHCR publication of a chart version, read from its committed receipt,
+// or null when none is committed. A receipt that is not this version's fails.
+export function ghcrPackagePublication(chartRef, version, { root = repoRoot } = {}) {
+  const identity = ghcrPackageIdentity(chartRef, version);
+  if (!identity) return null;
+  const rel = ghcrPackageReceiptRel(identity.name, identity.tag);
+  const path = join(root, rel);
+  if (!existsSync(path) || !trackedExists(path)) return null;
+  const receipt = readYamlText(readFileSync(path, "utf8"));
+  const problems = ghcrPackageReceiptProblems(receipt, identity);
+  if (problems.length > 0) throw new Error(`${rel} is not a receipt of ${identity.reference}: ${problems.join("; ")}`);
+  const { manifestDigest, layerDigest, immutableReference, observedAt } = receipt.spec;
+  return {
+    ...identity,
+    tagRef: `oci://${identity.reference}`,
+    exactRef: `oci://${identity.reference}@${manifestDigest}`,
+    immutableReference,
+    manifestDigest,
+    layerDigest,
+    receiptPath: rel,
+    observedAt: String(observedAt ?? ""),
+    installCommand: ghcrPackageInstallCommand(identity.name, identity.tag),
+    verifyCommand: ghcrPackageVerifyCommand(immutableReference),
+  };
 }

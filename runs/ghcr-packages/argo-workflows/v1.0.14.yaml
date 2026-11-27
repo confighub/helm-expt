@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "argo-workflows"
+spec:
+  chart: "argo-cd/argo-workflows"
+  version: "1.0.14"
+  packagePath: "packages/argo-cd/argo-workflows/1.0.14"
+  tag: "v1.0.14"
+  reference: "ghcr.io/confighub/packages/argo-workflows:v1.0.14"
+  immutableReference: "ghcr.io/confighub/packages/argo-workflows@sha256:f6a22eb8cc16af1f13603058f5d55e5f4c798b1b1107e20550b3761facb5e8e4"
+  manifestDigest: "sha256:f6a22eb8cc16af1f13603058f5d55e5f4c798b1b1107e20550b3761facb5e8e4"
+  layerDigest: "sha256:3bd7dc159bbe787a7332a12de45606e3a3ae39fb49817c1252a05d019b284142"
+  installCommand: "cub package install argo-workflows:v1.0.14 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f6a22eb8cc16af1f13603058f5d55e5f4c798b1b1107e20550b3761facb5e8e4"
+  observedAt: "2026-11-27T19:42:48.359Z"
+status:
+  result: "pass"

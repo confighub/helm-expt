@@ -628,7 +628,7 @@ const PROMETHEUS_INSTALLER_PINNED_OCI_REF = installerOciDigestRef(
   PROMETHEUS_INSTALLER_MANIFEST_DIGEST,
 );
 const INSTALLER_OCI_AUTH_NOTE =
-  "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
+  "Catalog packages are published on GitHub's registry, ghcr.io/confighub/packages, with anonymous read access. Installing one into a Space needs a ConfigHub sign-in; the local setup path needs no account and no registry login.";
 const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
 const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_BLOG_URL = "https://confighub.com/blog/";
@@ -1538,6 +1538,14 @@ function buildSite(generatedAt) {
         installer_oci_signature_verification_command: installerOci?.signature_verification_command ?? "",
         installer_oci_default_base: installerOci?.default_base ?? startVariant,
         installer_oci_bases: installerOci?.bases ?? "",
+        package_name: installerOci?.package_name ?? "",
+        package_tag: installerOci?.package_tag ?? "",
+        install_command: installerOci?.install_command ?? "",
+        ghcr_status: installerOci?.ghcr_status ?? "not-published",
+        ghcr_ref: installerOci?.ghcr_ref ?? "",
+        ghcr_digest_pinned_ref: installerOci?.ghcr_digest_pinned_ref ?? "",
+        ghcr_receipt: installerOci?.ghcr_receipt ?? "",
+        ghcr_verify_command: installerOci?.ghcr_verify_command ?? "",
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
       };
     });
@@ -1590,7 +1598,7 @@ function buildSite(generatedAt) {
     .map((row) => row.publication_receipt)
     .filter(Boolean);
   check(
-    new Set(installerOciPackages.map((row) => row.installer_oci_ref)).size === installerOciPackages.length
+    new Set(installerOciPackages.map((row) => row.ghcr_ref || row.installer_oci_ref)).size === installerOciPackages.length
       && new Set(publicationReceipts).size === publicationReceipts.length,
     "every retained Catalog version must have a unique OCI ref, and every publication receipt must belong to one version",
   );
@@ -2228,11 +2236,13 @@ function coverageQuestionTable(coverageEntry) {
 }
 
 function buildRetentionSummary(catalog) {
+  // A version is published when a receipt records it on GHCR or in the
+  // earlier registry; its date is the first publication's.
   const publishedRows = (catalog.installerOciPackages ?? []).filter(
-    (row) => row.publication_status === "published-receipt" && row.publication_receipt,
+    (row) => (row.publication_status === "published-receipt" && row.publication_receipt) || row.ghcr_receipt,
   );
   const publicationDates = publishedRows.map((row) => {
-    const receiptPath = join(repoRoot, row.publication_receipt);
+    const receiptPath = join(repoRoot, row.publication_status === "published-receipt" && row.publication_receipt ? row.publication_receipt : row.ghcr_receipt);
     check(existsSync(receiptPath), `${row.chart}@${row.version}: publication receipt is missing`);
     const observedAt = readYaml(receiptPath)?.spec?.observedAt;
     check(observedAt && !Number.isNaN(Date.parse(observedAt)), `${row.chart}@${row.version}: publication receipt has no valid observedAt`);
@@ -2300,13 +2310,13 @@ function buildChangesEntries(catalog) {
         chart: row.chart,
         version: row.version,
         aliases: CHART_ALIASES[row.chart] ?? [],
-        digest: row.published_digest || (row.rendered_yaml_sha256s ?? "").split(";")[0] || "",
+        digest: row.published_digest || String(row.ghcr_layer_digest ?? "").replace(/^sha256:/, "") || (row.rendered_yaml_sha256s ?? "").split(";")[0] || "",
         canonical_url: canonical,
-        package_oci_ref: row.installer_oci_ref,
+        package_oci_ref: row.ghcr_ref || row.installer_oci_ref,
         coverage: {
           retained_package: coverageItem(
-            row.publication_status === "published-receipt" && row.publication_receipt ? "checked" : "not_checked",
-            [row.publication_receipt],
+            row.ghcr_receipt || (row.publication_status === "published-receipt" && row.publication_receipt) ? "checked" : "not_checked",
+            [row.ghcr_receipt || row.publication_receipt],
             canonical,
           ),
           chart_analysis: coverageItem(chartAnalysisStatus, [router?.coverage_evidence], proofSection),
@@ -10526,8 +10536,8 @@ function ociHtml(catalog) {
 
   <section aria-labelledby="signing">
     <h2 id="signing">3. See what a signature actually proves</h2>
-    <p>Every currently published installer package has a committed publication receipt, and the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. <a href="./d/docs/user/installer-oci-packages.html#public-pull-access">Read the full access note</a>.</p>
-    <p>A user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs with no Google Cloud credentials. Write access stays private, so maintainers still need registry credentials to publish or replace a package.</p>
+    <p>Every catalog package is published on GitHub's registry, <code>ghcr.io/confighub/packages</code>, by the package publish workflow after a merge, and signed keylessly as that workflow. A committed receipt records each one, read with no credentials and with its signature verified. <a href="./d/docs/reference/installer-package-signing.html">Read how signing works</a>.</p>
+    <p>A user can run <code>cub package install</code>, <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against those packages with no registry login. Nobody pushes them by hand: only the workflow can publish. The copies first published to a Google Artifact Registry repository stay readable there as the earlier location, signed by a Google service account.</p>
     <p>A successful <code>cosign verify</code> proves four things. The named service account signed the exact OCI manifest digest. The signed payload records the expected package path and package SHA-256. The registry served the signature with no credentials when the receipt was written, and Sigstore recorded the signing event. <a href="./d/docs/reference/installer-package-signing.html#what-a-valid-signature-shows">Read the full list</a>.</p>
     <p>It does not show that a selected preset is suitable for a particular cluster. It also does not prove that a hook, CRD, Secret, or later rollout will succeed.</p>
     <h3 id="signing-coverage">What is signed today</h3>
@@ -12091,6 +12101,27 @@ function verifyRetainedCatalogPackage(row) {
   check(row.package_path === `packages/${row.chart}/${row.version}`, `${row.chart}@${row.version}: package path is not canonical`);
   check(row.installer_yaml === `${row.package_path}/installer.yaml`, `${row.chart}@${row.version}: installer path is not canonical`);
   check(existsSync(join(repoRoot, row.installer_yaml)), `${row.chart}@${row.version}: retained installer package is missing`);
+  const onGhcr = verifyRetainedGhcrPackage(row);
+  // A version published only on GHCR has no earlier registry copy, and its
+  // earlier-location columns claim nothing.
+  if (row.publication_status === "not-in-earlier-registry") {
+    check(
+      onGhcr
+        && !row.installer_oci_ref
+        && !row.publication_receipt
+        && !row.published_digest
+        && !row.manifest_digest
+        && !row.layer_digest
+        && !row.digest_pinned_ref
+        && row.signature_status === "unsigned"
+        && !row.signature_receipt
+        && !row.signature_bundle
+        && !row.signature_verification_command,
+      `${row.chart}@${row.version}: a version not in the earlier registry must be on GHCR and claim no earlier publication`,
+    );
+    verifyRetainedCatalogConfigurations(row);
+    return;
+  }
   check(
     (row.publication_status === "published-receipt" || row.publication_status === "assigned-ref")
       && /^oci:\/\/[^\s/@]+(?:\/[^\s/@]+)+:[^\s/@:]+$/.test(row.installer_oci_ref)
@@ -12103,7 +12134,8 @@ function verifyRetainedCatalogPackage(row) {
   // words. Everything below applies to versions that do claim publication.
   if (row.publication_status === "assigned-ref") {
     check(
-      !row.publication_receipt
+      !onGhcr
+        && !row.publication_receipt
         && !row.published_digest
         && !row.manifest_digest
         && !row.layer_digest
@@ -12144,12 +12176,13 @@ function verifyRetainedCatalogPackage(row) {
     row.digest_pinned_ref === installerOciDigestRef(row.installer_oci_ref, manifestDigest),
     `${row.chart}@${row.version}: catalog exact OCI ref differs from its receipt`,
   );
+  const pullRef = onGhcr ? row.ghcr_digest_pinned_ref : row.digest_pinned_ref;
   check(
-    row.setup_command.includes(`--pull ${row.digest_pinned_ref} `),
+    row.setup_command.includes(`--pull ${pullRef} `),
     `${row.chart}@${row.version}: published setup command uses a mutable OCI ref`,
   );
   check(
-    row.inspect_command === `cub installer inspect ${row.digest_pinned_ref} --json`
+    row.inspect_command === `cub installer inspect ${pullRef} --json`
       && row.verify_command === row.inspect_command,
     `${row.chart}@${row.version}: published verification command is incomplete`,
   );
@@ -12174,6 +12207,31 @@ function verifyRetainedCatalogPackage(row) {
   check(signatureReceipt.spec?.subject?.manifestDigest === manifestDigest, `${row.chart}@${row.version}: signature receipt manifest differs`);
   check(signatureReceipt.spec?.verification?.command === row.signature_verification_command, `${row.chart}@${row.version}: signature verification command differs`);
   verifyRetainedCatalogConfigurations(row);
+}
+
+// A row that names a GHCR package names the one its committed receipt records.
+function verifyRetainedGhcrPackage(row) {
+  if (row.ghcr_status !== "published-signed") {
+    check(
+      row.ghcr_status === "not-published" && !row.ghcr_digest_pinned_ref && !row.ghcr_receipt && !row.install_command,
+      `${row.chart}@${row.version}: a version not on GHCR must claim no GHCR publication`,
+    );
+    return false;
+  }
+  check(
+    row.ghcr_receipt === `runs/ghcr-packages/${row.package_name}/${row.package_tag}.yaml` && existsSync(join(repoRoot, row.ghcr_receipt)),
+    `${row.chart}@${row.version}: GHCR publication receipt path is unsafe or missing`,
+  );
+  const receipt = readYaml(join(repoRoot, row.ghcr_receipt));
+  check(receipt.kind === "GhcrPackagePublicationReceipt", `${row.chart}@${row.version}: GHCR receipt kind drifted`);
+  check(`oci://${receipt.spec?.reference}` === row.ghcr_ref && receipt.spec?.packagePath === row.package_path, `${row.chart}@${row.version}: GHCR receipt names another package`);
+  check(
+    receipt.spec?.manifestDigest === row.ghcr_manifest_digest && row.ghcr_digest_pinned_ref === `${row.ghcr_ref}@${row.ghcr_manifest_digest}`,
+    `${row.chart}@${row.version}: catalog GHCR ref differs from its receipt`,
+  );
+  check(receipt.spec?.signature?.result === "verified" && row.ghcr_verify_command.endsWith(` ${receipt.spec.immutableReference}`), `${row.chart}@${row.version}: GHCR signature is not verified, or its command checks another digest`);
+  check(row.install_command === `cub package install ${row.package_name}:${row.package_tag} --space <space>`, `${row.chart}@${row.version}: install command does not name the GHCR package`);
+  return true;
 }
 
 function verifyRetainedCatalogConfigurations(row) {
@@ -12218,9 +12276,9 @@ function retainedCatalogVersionCell(catalog, entry) {
   check(rows.length > 0, `${entry.chart}: retained installer package inventory is empty`);
   return rows.map((row) => {
     const href = `./${chartPageFileName(row)}`;
-    const receiptHref = `https://github.com/confighub/helm-expt/blob/main/${row.publication_receipt}`;
+    const receiptHref = `https://github.com/confighub/helm-expt/blob/main/${row.ghcr_receipt || row.publication_receipt}`;
     const identity = `${row.chart}@${row.version}`;
-    const title = `retained published package; ${row.installer_oci_ref}`;
+    const title = `retained published package; ${row.ghcr_ref || row.installer_oci_ref}`;
     const label = row.version === entry.version
       ? `<strong>${escapeHtml(row.version)}</strong>`
       : escapeHtml(row.version);
@@ -12319,22 +12377,77 @@ function flatteningVerdictCell(catalog, entry) {
   return `<span data-flattening="decided">${lines}</span>`;
 }
 
+// A package published on GHCR is named there; the Google registry copy, when
+// there is one, is the earlier location.
 function installerOciRefForEntry(entry) {
+  if (entry.ghcr_status === "published-signed") return entry.ghcr_ref;
   return entry.installer_oci_ref || installerOciRef(entry.chart, entry.version);
 }
 
 function installerOciPullRefForEntry(entry) {
+  if (entry.ghcr_status === "published-signed") return entry.ghcr_digest_pinned_ref;
   return entry.installer_oci_digest_pinned_ref || installerOciRefForEntry(entry);
 }
 
 function installerOciStatusText(entry) {
+  if (entry.ghcr_status === "published-signed") return "published on GitHub's registry; publication receipt recorded";
   if (entry.installer_oci_publication_status === "published-receipt") return "publication receipt recorded";
   return "assigned public ref; publication receipt not committed yet";
 }
 
 function installerOciSignatureStatusText(entry) {
+  if (entry.ghcr_status === "published-signed") return "signed by the package publish workflow, verified";
   if (entry.installer_oci_signature_status === "signed-receipt") return "publisher signature recorded and verified";
   return "publisher signature not recorded";
+}
+
+// The GHCR package of a chart version, from the installer OCI package catalog,
+// or null when it is not published there.
+function ghcrPackageRow(chart, version) {
+  ghcrPackageRow.rows ??= new Map(
+    parseCsv(readFileSync(installerOciCatalogPath, "utf8"))
+      .filter((row) => row.ghcr_status === "published-signed")
+      .map((row) => [`${row.chart}|${row.version}`, row]),
+  );
+  return ghcrPackageRow.rows.get(`${chart}|${version}`) ?? null;
+}
+
+// The namespace an entry's own upload step uses, or "" when none does.
+function listingNamespace(listing) {
+  return (listing?.nextSteps ?? [])
+    .flatMap((step) => step.commands ?? [])
+    .map((item) => String(item.command ?? "").match(/--namespace (\S+)/)?.[1])
+    .find(Boolean) ?? "";
+}
+
+// The command that installs a package into a Space named after it.
+function versionInstallCommand(row, { base = "", namespace = "" } = {}) {
+  return `cub package install ${row.package_name}:${row.package_tag} --space ${row.package_name}${base && base !== row.default_base ? ` --base ${base}` : ""}${namespace ? ` --namespace ${namespace}` : ""}`;
+}
+
+// How a GHCR package is installed into ConfigHub, said once per page.
+function packageInstallNoteHtml(siteHref, { brief = false } = {}) {
+  const base = siteHref ? `${siteHref}/` : SITE_BASE_URL;
+  const release = `Nothing reaches a cluster until you <a href="${base}packages.html#run-it">release it</a>.`;
+  const link = `<a href="${base}packages.html">How packages work</a>.`;
+  if (brief) return `Needs a ConfigHub sign-in (<code>cub auth login</code>). ${release} ${link}`;
+  return `Needs a ConfigHub sign-in (<code>cub auth login</code>). ${release} <code>cub package install</code> is part of cub, with no plugin to add. ${link}`;
+}
+
+// The signature of a GHCR package, checked against the publish workflow, and
+// the Google registry copy as the earlier location.
+function ghcrPackageSignatureHtml(row, { siteHref = ".." } = {}) {
+  const earlier = row.publication_status === "published-receipt" && row.digest_pinned_ref
+    ? `<p><strong>Earlier location.</strong> <code>${escapeHtml(row.digest_pinned_ref)}</code>, the Google registry copy this package was first published to${row.signature_receipt ? `, signed by a Google service account (<a href="${siteHref}/../${escapeHtml(row.signature_receipt)}">signature receipt</a>)` : ""}. It stays readable; the package above is the one the Catalog names.</p>`
+    : "";
+  return `<details>
+        <summary><strong>Verify the package publisher</strong></summary>
+        <p>Run this command with <code>cosign</code>. It checks that the package publish workflow on <code>main</code> of this repository signed this exact manifest digest.</p>
+        <pre><code>${escapeHtml(row.ghcr_verify_command)}</code></pre>
+        <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
+        <p><a href="${siteHref}/../${escapeHtml(row.ghcr_receipt)}">Publication receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/packages-publish.yml">Publish workflow</a></p>
+      </details>
+      ${earlier}`;
 }
 
 function installerPackageSignatureHtml({ status, command, receipt, bundle }) {
@@ -12512,7 +12625,7 @@ function chartIndexHtml(catalog) {
         entry.not_yet_enabled,
         catalog.licensesByChartVersion?.get(`${entry.chart}|${entry.version}`)?.chart?.spdx
           ?? catalog.chartLicenseByChart?.get(entry.chart)?.spdx,
-        ...retainedRows.flatMap((row) => [row.version, row.bases, row.installer_oci_ref]),
+        ...retainedRows.flatMap((row) => [row.version, row.bases, row.ghcr_ref || row.installer_oci_ref]),
         // So a reader can filter by the answer as well as read it: searching
         // "flatten-with-routes" or "safe-to-flatten" narrows the table.
         flatteningVerdictSearchText(catalog, entry),
@@ -14113,21 +14226,27 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
   const assessmentRecord = baseVariantRecordFor(row.chart, row.version, row.default_base);
   const kpsManagedPromotion = identity === "prometheus-community/kube-prometheus-stack@86.1.0";
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
-  const published = row.publication_status === "published-receipt";
-  const receipt = published ? readYaml(join(repoRoot, row.publication_receipt)) : null;
+  const onGhcr = row.ghcr_status === "published-signed";
+  const earlierPublished = row.publication_status === "published-receipt";
+  const published = earlierPublished || onGhcr;
+  const receipt = earlierPublished ? readYaml(join(repoRoot, row.publication_receipt)) : null;
   const pushOutput = String(receipt?.spec?.outputs?.push ?? "");
   const manifestDigest = receipt?.spec?.outputs?.manifestDigest
     ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
-  const layerDigest = row.layer_digest || (published ? `sha256:${row.published_digest}` : "");
-  const digestPinnedRef = row.digest_pinned_ref
-    || (published && manifestDigest ? installerOciDigestRef(row.installer_oci_ref, manifestDigest) : "");
-  const packageSignatureHtml = installerPackageSignatureHtml({
-    status: row.signature_status,
-    command: row.signature_verification_command,
-    receipt: row.signature_receipt,
-    bundle: row.signature_bundle,
-  });
+  const layerDigest = row.layer_digest || (earlierPublished ? `sha256:${row.published_digest}` : "");
+  const earlierDigestPinnedRef = row.digest_pinned_ref
+    || (earlierPublished && manifestDigest ? installerOciDigestRef(row.installer_oci_ref, manifestDigest) : "");
+  const digestPinnedRef = onGhcr ? row.ghcr_digest_pinned_ref : earlierDigestPinnedRef;
+  const versionTagRef = onGhcr ? row.ghcr_ref : row.installer_oci_ref;
+  const packageSignatureHtml = onGhcr
+    ? ghcrPackageSignatureHtml(row)
+    : installerPackageSignatureHtml({
+      status: row.signature_status,
+      command: row.signature_verification_command,
+      receipt: row.signature_receipt,
+      bundle: row.signature_bundle,
+    });
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
   const evidenceVersionNote = evidenceEntry
@@ -14211,7 +14330,11 @@ function retainedVersionPageHtml(catalog, row, coverageEntry) {
     ${assessmentQuestionsHtml(assessmentRecord)}
 
     <section aria-labelledby="try-retained-chart">
-      <h2 id="try-retained-chart">Try This Chart</h2>${chartGuideHtml(row.chart, "../")}
+      <h2 id="try-retained-chart">Try This Chart</h2>${chartGuideHtml(row.chart, "../")}${onGhcr ? `
+      <h3>Install it into ConfigHub</h3>
+      <pre><code>${escapeHtml(versionInstallCommand(row, { namespace: String(row.setup_command).match(/--namespace (\S+)/)?.[1] ?? listingNamespace(entryStepsForChartPage(chartPageFileName(row), row.default_base)[0]) }))}</code></pre>
+      <p>${packageInstallNoteHtml("..")}</p>
+      <h3>Or render it locally</h3>` : ""}
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <pre><code>${escapeHtml(row.verify_command || row.inspect_command)}
 ${escapeHtml(row.setup_command)}</code></pre>
@@ -14219,7 +14342,7 @@ ${escapeHtml(row.setup_command)}</code></pre>
       <pre><code>${CHECK_PLUGIN_INSTALL_COMMAND}
 cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
       <p>The check is advisory and does not apply anything.</p>
-      <p>Version tag: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
+      <p>Version tag: <code>${escapeHtml(versionTagRef)}</code></p>
       ${digestPinnedRef ? `<p>Exact package: <code>${escapeHtml(digestPinnedRef)}</code></p>
       <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>` : ""}
       ${packageSignatureHtml}
@@ -14243,7 +14366,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
       <p>Choose the question you care about. <strong>Not checked</strong> means this catalog has no version-specific result; it is not a pass.</p>
       ${coverageQuestionTable(coverageEntry)}
       <p>${published
-        ? `The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.`
+        ? `${onGhcr ? `A committed receipt records the package on GitHub's registry at manifest <code>${escapeHtml(row.ghcr_manifest_digest)}</code>, pulled with no credentials and signed by the publish workflow.${earlierPublished ? " " : ""}` : ""}${earlierPublished ? `The ${onGhcr ? "earlier location's " : "committed "}publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.` : ""}`
         : "Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository."}</p>
       ${published
         ? `<p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>`
@@ -14273,13 +14396,22 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
           ([label, path]) => [label, `<a href="../../${escapeHtml(path)}">${escapeHtml(path)}</a>`],
         ),
         ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
-        ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
-        ["Publisher signature", `<a href="../../${escapeHtml(row.signature_receipt)}">${escapeHtml(row.signature_receipt)}</a>`],
-        ["Sigstore bundle", `<a href="../../${escapeHtml(row.signature_bundle)}">${escapeHtml(row.signature_bundle)}</a>`],
-        ["Version tag", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
-        ["Exact OCI ref", `<code>${escapeHtml(digestPinnedRef)}</code>`],
-        ["Layer digest", `<code>${escapeHtml(layerDigest)}</code>`],
-        ["Manifest digest", `<code>${escapeHtml(manifestDigest)}</code>`],
+        ...(onGhcr ? [
+          ["Publication receipt", `<a href="../../${escapeHtml(row.ghcr_receipt)}">${escapeHtml(row.ghcr_receipt)}</a>`],
+          ["Version tag", `<code>${escapeHtml(row.ghcr_ref)}</code>`],
+          ["Exact OCI ref", `<code>${escapeHtml(row.ghcr_digest_pinned_ref)}</code>`],
+          ["Layer digest", `<code>${escapeHtml(row.ghcr_layer_digest)}</code>`],
+          ["Manifest digest", `<code>${escapeHtml(row.ghcr_manifest_digest)}</code>`],
+        ] : []),
+        ...(earlierPublished ? [
+          [onGhcr ? "Earlier location: publication receipt" : "Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
+          [onGhcr ? "Earlier location: publisher signature" : "Publisher signature", `<a href="../../${escapeHtml(row.signature_receipt)}">${escapeHtml(row.signature_receipt)}</a>`],
+          [onGhcr ? "Earlier location: Sigstore bundle" : "Sigstore bundle", `<a href="../../${escapeHtml(row.signature_bundle)}">${escapeHtml(row.signature_bundle)}</a>`],
+          [onGhcr ? "Earlier location: version tag" : "Version tag", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
+          [onGhcr ? "Earlier location: exact OCI ref" : "Exact OCI ref", `<code>${escapeHtml(earlierDigestPinnedRef)}</code>`],
+          [onGhcr ? "Earlier location: layer digest" : "Layer digest", `<code>${escapeHtml(layerDigest)}</code>`],
+          [onGhcr ? "Earlier location: manifest digest" : "Manifest digest", `<code>${escapeHtml(manifestDigest)}</code>`],
+        ] : []),
       ], { rawSecondColumn: true })}
     </section>
   </main>
@@ -14400,18 +14532,24 @@ function chartPageHtml(catalog, entry, coverageEntry) {
   const entryManifestDigest = entryPublicationReceipt?.spec?.outputs?.manifestDigest
     ?? String(entryPublicationReceipt?.spec?.outputs?.push ?? "").match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
-  const entryDigestPinnedRef = entry.installer_oci_digest_pinned_ref
-    || (entryManifestDigest ? installerOciDigestRef(installerPackageOciRef, entryManifestDigest) : "");
+  const entryDigestPinnedRef = entry.ghcr_status === "published-signed"
+    ? entry.ghcr_digest_pinned_ref
+    : entry.installer_oci_digest_pinned_ref
+      || (entryManifestDigest ? installerOciDigestRef(installerPackageOciRef, entryManifestDigest) : "");
   const installerPackagePullRef = entryDigestPinnedRef || installerPackageOciRef;
-  const installerPublicationReceiptLink = entry.installer_oci_publication_receipt
-    ? `<a href="../../${escapeHtml(entry.installer_oci_publication_receipt)}">open the exact publication receipt</a>`
+  const entryPublicationReceiptPath = entry.ghcr_status === "published-signed" ? entry.ghcr_receipt : entry.installer_oci_publication_receipt;
+  const installerPublicationReceiptLink = entryPublicationReceiptPath
+    ? `<a href="../../${escapeHtml(entryPublicationReceiptPath)}">open the exact publication receipt</a>`
     : "no publication receipt is committed";
-  const installerPackageSignature = installerPackageSignatureHtml({
-    status: entry.installer_oci_signature_status,
-    command: entry.installer_oci_signature_verification_command,
-    receipt: entry.installer_oci_signature_receipt,
-    bundle: entry.installer_oci_signature_bundle,
-  });
+  const entryGhcrPackage = ghcrPackageRow(entry.chart, entry.version);
+  const installerPackageSignature = entryGhcrPackage
+    ? ghcrPackageSignatureHtml(entryGhcrPackage)
+    : installerPackageSignatureHtml({
+      status: entry.installer_oci_signature_status,
+      command: entry.installer_oci_signature_verification_command,
+      receipt: entry.installer_oci_signature_receipt,
+      bundle: entry.installer_oci_signature_bundle,
+    });
   const firstRunnableReason = cleanPageActionText(
     firstRunnableRow?.active_proof_reason ||
     firstRunnableRow?.variant_promotion_reason ||
@@ -14751,6 +14889,10 @@ function chartPageHtml(catalog, entry, coverageEntry) {
       <h2 id="run-this">Try This Chart</h2>${chartGuideHtml(entry.chart, "../")}
       <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
+        ${entryGhcrPackage ? `<h3>Install it into ConfigHub</h3>
+        <pre><code>${escapeHtml(versionInstallCommand(entryGhcrPackage, { base: entry.start_variant, namespace: entry.namespace }))}</code></pre>
+        <p>${packageInstallNoteHtml("..")}</p>
+        <p>The rest of this card renders the same package on your machine, without a Space.</p>` : ""}
         <h3>Package image</h3>
         <p><strong>Exact package:</strong> <code>${escapeHtml(installerPackagePullRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
         ${entryDigestPinnedRef ? `<p>Readable version tag: <code>${escapeHtml(installerPackageOciRef)}</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
@@ -15982,9 +16124,10 @@ function chartOverviewJson(model, liveExample) {
       page: `${SITE_BASE_URL}charts/${version.pageFile}`,
       defaultBase: version.defaultBase,
       package: {
-        published: version.row.publication_status === "published-receipt",
-        signed: version.row.signature_status === "signed-receipt",
-        ociRef: version.row.digest_pinned_ref || version.row.installer_oci_ref,
+        published: version.row.ghcr_status === "published-signed" || version.row.publication_status === "published-receipt",
+        signed: version.row.ghcr_status === "published-signed" || version.row.signature_status === "signed-receipt",
+        ociRef: version.row.ghcr_digest_pinned_ref || version.row.digest_pinned_ref || version.row.installer_oci_ref,
+        ...(version.row.install_command ? { installCommand: version.row.install_command } : {}),
       },
       bases: version.bases.map((base) => {
         const retained = base.listing?.flattened?.retainedObjects ?? null;
@@ -16987,10 +17130,19 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       <p><strong>Inspect YAML.</strong> <a href="${escapeHtml(objectsUrl)}">Read rendered YAML on GitHub</a> (zero install)${walkthroughInline}.</p>`
     : "";
   const eligibility = retainedObjectsScriptEligibility(listing);
+  // A Helm entry whose package is on GHCR is installed into ConfigHub by name.
+  // The namespace is the one the entry's own upload step uses.
+  const ghcrPackage = format === "helm" ? ghcrPackageRow(name, version) : null;
+  const entryNamespace = listingNamespace(listing);
+  const packageHtml = ghcrPackage
+    ? `
+      <p><strong>Install ${escapeHtml(ghcrPackage.package_name)} into ConfigHub.</strong> <code>${escapeHtml(versionInstallCommand(ghcrPackage, { base, namespace: entryNamespace }))}</code></p>
+      <p>${packageInstallNoteHtml(siteHref, { brief: true })}</p>`
+    : "";
   const steps = `<a href="#${ENTRY_STEPS_ANCHOR}">Five steps below</a>.`;
   const scriptUrl = eligibility.eligible ? `${SITE_BASE_URL}${retainedObjectsScriptDir(listing)}/${OBJECTS_SCRIPT_NAME}` : "";
   const install = eligibility.eligible && objectsUrl
-    ? `Download YAML and dry-run locally: <code>curl -fsSLO ${escapeHtml(objectsUrl)} &amp;&amp; kubectl apply --dry-run=client -f ${escapeHtml(objectsUrl.split("/").pop())}</code> (<a href="${escapeHtml(scriptUrl)}">cluster test script</a>)`
+    ? `<code>curl -fsSLO ${escapeHtml(objectsUrl)} &amp;&amp; kubectl apply --dry-run=client -f ${escapeHtml(objectsUrl.split("/").pop())}</code> (<a href="${escapeHtml(scriptUrl)}">cluster test script</a>)`
     : eligibility.eligible
       ? `<a href="${escapeHtml(scriptUrl)}">Inspect script</a>, then test in a throwaway cluster: <code>curl -fsSL -o try-objects.sh ${scriptUrl}</code>`
       : isAicr
@@ -17005,8 +17157,21 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
   // the page keeps the recorded reference and says the copy is still to come.
   const ghcr = (listing.oci?.bundles ?? []).find((bundle) => bundle.role === "literal-config")?.ghcr;
   const workflowLink = `<a href="${GITHUB_BLOB_BASE_URL}${escapeHtml(ghcr?.publisher ?? "")}">catalog OCI workflow</a>`;
+  const checkLabel = eligibility.eligible
+    ? "Check it locally (no account, nothing is installed)."
+    : ghcrPackage && eligibility.reason === "verdict" ? "Render it locally (no account)." : "Install it.";
+  // Up to three things on one page can look like an install. Say which is which.
+  const kinds = [
+    ghcrPackage ? "package to install into ConfigHub" : "",
+    published || ghcr?.state === "published-signed" ? "bundle for <code>cub variant upload</code>, Argo CD or Flux" : "",
+    objectsUrl ? "YAML to read or apply by hand" : "",
+  ].filter(Boolean);
+  const whichHtml = kinds.length > 1
+    ? `
+      <p><strong>Which to use.</strong> ${kinds.join("; ").replace(/^./, (first) => first.toUpperCase())}.</p>`
+    : "";
   const bundle = ghcr?.state === "published-signed" && published
-    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(ghcr.reference)}</code>, signed by the ${workflowLink}. Check the signature: <code>${escapeHtml(ghcr.verifyCommand)}</code></p>
+    ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(ghcr.reference)}</code>, signed by the ${workflowLink}: <code>${escapeHtml(ghcr.verifyCommand)}</code></p>
       <p><strong>Earlier location.</strong> <code>${escapeHtml(published.reference)}</code></p>`
     : `${published ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>` : ""}${ghcr
       ? `
@@ -17033,10 +17198,10 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
       ? (eligibility.eligible ? "Nothing. Standard Kubernetes objects apply directly." : "")
       : `${escapeHtml(asSentence(readerPlanStepBrief(firstSteps[0])))}${firstSteps.length > 1 ? ` Plan below lists ${firstSteps.length - 1} more.` : ""}`;
   return `<section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> ${what}</p>${readYamlHtml}${needs ? `
+      <p><strong>What it is.</strong> ${what}</p>${packageHtml}${readYamlHtml}${needs ? `
       <p><strong>Needs first.</strong> ${needs}</p>` : ""}
-      <p><strong>Install it.</strong> ${install}</p>
-      ${bundle}${doorsHtml}
+      <p><strong>${checkLabel}</strong> ${install}</p>
+      ${bundle}${whichHtml}${doorsHtml}
     </section>`;
 }
 
@@ -17240,7 +17405,7 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
       <p>${[
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
-        compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
+        compares ? `Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
         listings.length > 1 ? `Expand any of the ${listings.length} entries below.` : "",
         walked && installRun ? `Command syntax for step 3 comes from a <a href="${installRunHref}">recorded run (${escapeHtml(PACKAGE_INSTALL_WALK.date)})</a>, and for steps 4 and 5 from a <a href="${entryWalkHref(siteHref, DEPLOY_WALK)}">recorded run (${escapeHtml(DEPLOY_WALK.date)})</a>. It applies to this entry only where a step badge says Run.` : walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,

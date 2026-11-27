@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "metrics-server"
+spec:
+  chart: "metrics-server/metrics-server"
+  version: "3.14.0"
+  packagePath: "packages/metrics-server/metrics-server/3.14.0"
+  tag: "v3.14.0"
+  reference: "ghcr.io/confighub/packages/metrics-server:v3.14.0"
+  immutableReference: "ghcr.io/confighub/packages/metrics-server@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+  manifestDigest: "sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+  layerDigest: "sha256:9120089d196bc3096757bdbf57f5842bbf7d47909261f596a887ed2b9b2bc149"
+  installCommand: "cub package install metrics-server:v3.14.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+  observedAt: "2026-11-27T19:43:35.610Z"
+status:
+  result: "pass"

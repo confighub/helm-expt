@@ -205,6 +205,22 @@ function buildChartCatalog(root, context) {
         manifestDigest: packagePublication.manifestDigest,
         layerDigest: packagePublication.layerDigest,
         publicationReceipt: packagePublication.receiptPath,
+        ...(packagePublication.installCommand
+          ? {
+            name: packagePublication.packageName,
+            tag: packagePublication.packageTag,
+            installCommand: packagePublication.installCommand,
+            signatureVerifyCommand: packagePublication.verifyCommand,
+          }
+          : {}),
+        ...(packagePublication.earlier
+          ? {
+            earlierLocation: {
+              ociRef: packagePublication.earlier.exactRef,
+              publicationReceipt: packagePublication.earlier.receiptPath,
+            },
+          }
+          : {}),
         installer: relativeRepo(installerPath),
         receipt: relativeRepo(join(root, "publication", "installer-package-receipt.yaml")),
         deterministicBundleSHA256: packageReceipt.spec?.deterministicBundle?.sha256 ?? "",
@@ -474,8 +490,8 @@ for exact base-variant evidence.
 ${recipe.operationsGuide ? `| Plain-English operations guide | ${linkFrom(root, recipe.operationsGuide)} |\n` : ""}| Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
 ${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root, recipeRoot)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
-${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package OCI | \`${packageInfo.ociRef}\` |
-| Installer package source | ${linkFrom(root, packageInfo.path)} |
+${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}${packageInfo.installCommand ? `| Install into a Space | \`${packageInfo.installCommand}\` |\n` : ""}| Installer package OCI | \`${packageInfo.ociRef}\` |
+${packageInfo.publicationReceipt ? `| Installer package publication | ${linkFrom(root, packageInfo.publicationReceipt)} |\n` : ""}${packageInfo.earlierLocation ? `| Earlier location | \`${packageInfo.earlierLocation.ociRef}\` |\n` : ""}| Installer package source | ${linkFrom(root, packageInfo.path)} |
 | Installer package receipt | ${linkFrom(root, packageInfo.receipt)} |
 | Machine index | ${linkFrom(root, relativeRepo(catalogDerivedPath(recipeRoot, "artifact-index.yaml")))} |
 
@@ -493,12 +509,22 @@ ${receiptTable(root, variants)}
 
 ## Current Install Shape
 
+${packageInfo.installCommand ? `Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 \`\`\`sh
+${packageInfo.installCommand.replace("<space>", `${packageInfo.name} --base <variant> --namespace <namespace>`)}
+\`\`\`
+
+Or render it locally from the exact package bytes, with no Space:
+
+` : ""}\`\`\`sh
 cub installer setup --pull ${packageInfo.ociRef} --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 \`\`\`
 
 Use the variant table above to choose the package base. The \`oci://\` ref is
-the public package users pull; the \`packages/...\` path is the repo source path
+the public package users pull${packageInfo.installCommand ? `, signed by the package publish workflow; check it with
+\`${packageInfo.signatureVerifyCommand}\`` : ""}. The \`packages/...\` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real \`cub installer setup\` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

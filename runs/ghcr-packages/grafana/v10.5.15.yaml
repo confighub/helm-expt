@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "grafana"
+spec:
+  chart: "grafana/grafana"
+  version: "10.5.15"
+  packagePath: "packages/grafana/grafana/10.5.15"
+  tag: "v10.5.15"
+  reference: "ghcr.io/confighub/packages/grafana:v10.5.15"
+  immutableReference: "ghcr.io/confighub/packages/grafana@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+  manifestDigest: "sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+  layerDigest: "sha256:de477a9ecc23444a2fdff9232587703d1aad2f21bc162f1eabb957b2100825d1"
+  installCommand: "cub package install grafana:v10.5.15 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3"
+  observedAt: "2026-11-27T19:43:18.572Z"
+status:
+  result: "pass"

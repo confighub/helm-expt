@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "aws-ebs-csi-driver"
+spec:
+  chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  version: "2.59.0"
+  packagePath: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0"
+  tag: "v2.59.0"
+  reference: "ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0"
+  immutableReference: "ghcr.io/confighub/packages/aws-ebs-csi-driver@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+  manifestDigest: "sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+  layerDigest: "sha256:2e6c823e7f41466e40a42aa1b0287c1d1751fc38ad85083d3b4acb43c2ad2dfa"
+  installCommand: "cub package install aws-ebs-csi-driver:v2.59.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+  observedAt: "2026-11-27T19:42:51.392Z"
+status:
+  result: "pass"

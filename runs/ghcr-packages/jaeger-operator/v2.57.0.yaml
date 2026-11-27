@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "jaeger-operator"
+spec:
+  chart: "jaegertracing/jaeger-operator"
+  version: "2.57.0"
+  packagePath: "packages/jaegertracing/jaeger-operator/2.57.0"
+  tag: "v2.57.0"
+  reference: "ghcr.io/confighub/packages/jaeger-operator:v2.57.0"
+  immutableReference: "ghcr.io/confighub/packages/jaeger-operator@sha256:745fc9d4ed67cb2774bc045a9ee675bb09d715a76f4c112da73ae9e308c1fed7"
+  manifestDigest: "sha256:745fc9d4ed67cb2774bc045a9ee675bb09d715a76f4c112da73ae9e308c1fed7"
+  layerDigest: "sha256:bb9f1a3689f642cd58dc0a8c061fe6d98e5d05b83c6183f6b5f545c8846294b4"
+  installCommand: "cub package install jaeger-operator:v2.57.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:745fc9d4ed67cb2774bc045a9ee675bb09d715a76f4c112da73ae9e308c1fed7"
+  observedAt: "2026-11-27T19:43:25.138Z"
+status:
+  result: "pass"

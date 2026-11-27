@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "gpu-operator"
+spec:
+  chart: "nvidia/gpu-operator"
+  version: "v26.7.1"
+  packagePath: "packages/nvidia/gpu-operator/v26.7.1"
+  tag: "v26.7.1"
+  reference: "ghcr.io/confighub/packages/gpu-operator:v26.7.1"
+  immutableReference: "ghcr.io/confighub/packages/gpu-operator@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+  manifestDigest: "sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+  layerDigest: "sha256:cb9594bec78b1f14ae20d503e7071d301760fe7e71bb6bcc7039c65f3fe7ad58"
+  installCommand: "cub package install gpu-operator:v26.7.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25"
+  observedAt: "2026-11-27T19:43:41.293Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "consul"
+spec:
+  chart: "hashicorp/consul"
+  version: "2.0.0"
+  packagePath: "packages/hashicorp/consul/2.0.0"
+  tag: "v2.0.0"
+  reference: "ghcr.io/confighub/packages/consul:v2.0.0"
+  immutableReference: "ghcr.io/confighub/packages/consul@sha256:cd9acaf54da1520129fbdc6690916d711467184a9b5fd298480b5a5a31ca7a3e"
+  manifestDigest: "sha256:cd9acaf54da1520129fbdc6690916d711467184a9b5fd298480b5a5a31ca7a3e"
+  layerDigest: "sha256:12178d5673277a878dd4f155fe52aae37d6a35cba0850e512681b0ab96fee15d"
+  installCommand: "cub package install consul:v2.0.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:cd9acaf54da1520129fbdc6690916d711467184a9b5fd298480b5a5a31ca7a3e"
+  observedAt: "2026-11-27T19:43:22.000Z"
+status:
+  result: "pass"

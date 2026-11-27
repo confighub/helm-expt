@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "psmdb-operator"
+spec:
+  chart: "percona/psmdb-operator"
+  version: "1.23.0"
+  packagePath: "packages/percona/psmdb-operator/1.23.0"
+  tag: "v1.23.0"
+  reference: "ghcr.io/confighub/packages/psmdb-operator:v1.23.0"
+  immutableReference: "ghcr.io/confighub/packages/psmdb-operator@sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+  manifestDigest: "sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+  layerDigest: "sha256:a996cd82692ab8b64c786c2d6e5e7be17d1f6a0c2aeb09b0e1c2b8beb27acbf2"
+  installCommand: "cub package install psmdb-operator:v1.23.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e32fcfcf5d611c7307968ecbd0301ee0106ad2305e0010cf99c3328a2102b4f2"
+  observedAt: "2026-11-27T19:43:48.484Z"
+status:
+  result: "pass"

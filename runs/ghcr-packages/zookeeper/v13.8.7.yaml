@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "zookeeper"
+spec:
+  chart: "bitnami/zookeeper"
+  version: "13.8.7"
+  packagePath: "packages/bitnami/zookeeper/13.8.7"
+  tag: "v13.8.7"
+  reference: "ghcr.io/confighub/packages/zookeeper:v13.8.7"
+  immutableReference: "ghcr.io/confighub/packages/zookeeper@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b"
+  manifestDigest: "sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b"
+  layerDigest: "sha256:214f6176afc25444e0e6ac75e9d7b110d99924ea4c26f7a6a602a0665cdfc823"
+  installCommand: "cub package install zookeeper:v13.8.7 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b"
+  observedAt: "2026-11-27T19:43:02.463Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cloudpirates-redis"
+spec:
+  chart: "cloudpirates/redis"
+  version: "0.34.11"
+  packagePath: "packages/cloudpirates/redis/0.34.11"
+  tag: "v0.34.11"
+  reference: "ghcr.io/confighub/packages/cloudpirates-redis:v0.34.11"
+  immutableReference: "ghcr.io/confighub/packages/cloudpirates-redis@sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+  manifestDigest: "sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+  layerDigest: "sha256:1e208ec68557132a53902fed2a95d3bde12ac696e2da47fb35328de9b888fa5b"
+  installCommand: "cub package install cloudpirates-redis:v0.34.11 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:71421fdfe6d7fd137c7014449150967d2ba6278927749786c95367e408fbfb6e"
+  observedAt: "2026-11-27T19:43:04.951Z"
+status:
+  result: "pass"

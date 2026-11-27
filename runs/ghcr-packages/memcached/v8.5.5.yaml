@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "memcached"
+spec:
+  chart: "bitnami/memcached"
+  version: "8.5.5"
+  packagePath: "packages/bitnami/memcached/8.5.5"
+  tag: "v8.5.5"
+  reference: "ghcr.io/confighub/packages/memcached:v8.5.5"
+  immutableReference: "ghcr.io/confighub/packages/memcached@sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157"
+  manifestDigest: "sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157"
+  layerDigest: "sha256:6f1ed65775824b2994faa3fed19646ca5d1e6ae7faa388963155ef1b84bc7321"
+  installCommand: "cub package install memcached:v8.5.5 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157"
+  observedAt: "2026-11-27T19:42:54.116Z"
+status:
+  result: "pass"

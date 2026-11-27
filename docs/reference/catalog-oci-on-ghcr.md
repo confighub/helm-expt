@@ -113,23 +113,26 @@ For each artifact:
 runs the same steps against a registry of your own, unsigned, and writes no
 receipt into the repository.
 
-## When the pages switch to GitHub
+## How the pages name GitHub
 
-Nothing is on GitHub until the first workflow run after the merge that adds
-this, so the Catalog does not say otherwise. Each entry page keeps its Google
-reference and says the GitHub copy is published and signed by the workflow
-after a merge, with no receipt yet.
+An entry page names the GitHub copy once a receipt under
+`runs/catalog-oci/<name>/<tag>.yaml` records it: the page cites the GitHub
+reference, its digest and the `cosign verify` command, its upload commands use
+the GitHub reference, and the Google reference is shown as the earlier
+location. All 265 artifacts have a committed receipt. Until an artifact has
+one, its page keeps its recorded reference and says the GitHub copy is
+published and signed by the workflow after a merge, with no receipt yet.
 
-The workflow uploads the receipts of what it published as the
-`catalog-oci-receipts` artifact of the run, and `npm run catalog-oci:observe`
-writes the same receipts for everything already on GitHub, with no credential,
-under `runs/catalog-oci/<name>/<tag>.yaml`. Once a receipt is committed with
-`git add -f` and `npm run catalog-oci:generate` is rerun, the entry page cites
-the GitHub reference, its digest and the `cosign verify` command, its upload
-commands use the GitHub reference, and the Google reference is shown as the
-earlier location. Committing receipts is the one step a person or the package
-refresh job still takes, because the workflow can read the repository but not
-write to it.
+The workflow can read the repository but not write to it, so it cannot commit
+the receipts of what it publishes. It uploads them as the
+`catalog-oci-receipts` artifact of the run, and the
+[nightly package job](package-updates.md#recording-publications) commits them:
+at the start of each run it calls `npm run catalog-oci:observe -- --missing`,
+which reads every artifact on GitHub that has no receipt, with no credential,
+verifies its signature against the workflow identity, and writes its receipt.
+The receipts go into that night's pull request with the views they change, so
+a bundle merged one day is named on GitHub once the next nightly pull request
+merges, with no person involved.
 
 ## Kept current
 
@@ -151,9 +154,14 @@ What still needs a person:
 - A certified bundle published earlier whose committed files change is not
   published again; the workflow keeps copying the recorded bytes, because the
   records still cite that digest.
-- Receipts are committed by hand, as above.
 
 ## Left where they are
+
+- The installer package hand publishers (`scripts/publish-installer-oci-packages.mjs`,
+  and the Kubara and NVIDIA GPU stack lanes that call it) still publish to the
+  Google location and write its receipts. Every package version they publish
+  there is also published to `ghcr.io/confighub/packages` by the package
+  publish workflow once merged, and the Catalog names that copy.
 
 - The AICR mirror artifacts are planned and were never published. Their
   Applications name source packages at the Google location, so moving them

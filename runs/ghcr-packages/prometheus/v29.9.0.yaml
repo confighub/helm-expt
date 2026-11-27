@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "prometheus"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.9.0"
+  packagePath: "packages/prometheus-community/prometheus/29.9.0"
+  tag: "v29.9.0"
+  reference: "ghcr.io/confighub/packages/prometheus:v29.9.0"
+  immutableReference: "ghcr.io/confighub/packages/prometheus@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746"
+  manifestDigest: "sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746"
+  layerDigest: "sha256:031ad109bc04888d56bed5733de843de967f64b7f2cfdd9c904359c22506ae32"
+  installCommand: "cub package install prometheus:v29.9.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746"
+  observedAt: "2026-11-27T19:43:54.643Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "logstash"
+spec:
+  chart: "elastic/logstash"
+  version: "8.5.1"
+  packagePath: "packages/elastic/logstash/8.5.1"
+  tag: "v8.5.1"
+  reference: "ghcr.io/confighub/packages/logstash:v8.5.1"
+  immutableReference: "ghcr.io/confighub/packages/logstash@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+  manifestDigest: "sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+  layerDigest: "sha256:99f13315b2ef63db4a8fab6bc5678de28525defb9cc9876c980b44daf5b66349"
+  installCommand: "cub package install logstash:v8.5.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+  observedAt: "2026-11-27T19:43:10.447Z"
+status:
+  result: "pass"

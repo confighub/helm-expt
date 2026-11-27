@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "prometheus-operator-crds"
+spec:
+  chart: "prometheus-community/prometheus-operator-crds"
+  version: "29.0.0"
+  packagePath: "packages/prometheus-community/prometheus-operator-crds/29.0.0"
+  tag: "v29.0.0"
+  reference: "ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0"
+  immutableReference: "ghcr.io/confighub/packages/prometheus-operator-crds@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+  manifestDigest: "sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+  layerDigest: "sha256:c4fb94ebbbd399430bf73bfc9c80b87d037ecbc946a2741e319f8795f3ef726e"
+  installCommand: "cub package install prometheus-operator-crds:v29.0.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd"
+  observedAt: "2026-11-27T19:43:58.170Z"
+status:
+  result: "pass"

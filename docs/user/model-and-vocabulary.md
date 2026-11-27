@@ -56,7 +56,7 @@ Some types have no generator, because they are already objects.
 
 | Type of config | Generator | What you choose | What the Catalog keeps | Entries |
 | --- | --- | --- | --- | --- |
-| Helm chart | `helm template` | A version and values | Plain objects, for each preset | 345 |
+| Helm chart | `helm template` | A version and values | Plain objects, for each preset | 347 |
 | NVIDIA AICR recipe | `aicr`, then `helm template` | Five criteria: service, accelerator, OS, intent and platform | Argo CD Applications. Most still name a chart that Argo CD renders later. | 138 |
 | Plain YAML | None | Which file | The objects as they are | 39 |
 | Timoni module | `timoni build` | A version and values | Plain objects | 2 |
@@ -232,7 +232,7 @@ where a package's objects come from.
 | Repository | Builds packages for | Takes the objects from |
 | --- | --- | --- |
 | `confighub/packages` | Software whose project publishes its own install manifests: Argo CD, Flux, Sveltos | Those manifests, copied at each upstream release |
-| This Catalog | Software installed from a Helm chart: 124 charts, 180 chart versions | The chart, flattened once per preset |
+| This Catalog | Software installed from a Helm chart: 124 charts, 181 chart versions | The chart, flattened once per preset |
 
 `confighub/packages` plans chart packages as its "Helm charts" milestone. This
 Catalog is where they are built.
@@ -285,9 +285,28 @@ cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1 \
 The published package is the package directory with two fields of
 `installer.yaml` set: `metadata.name` to the package's name, which names the
 installer record, and `installerMetadata.version` to its version, which
-`cub package show` reports. Nothing else changes. The same packages were first
-published to a Google registry under names like `jetstack-cert-manager`;
-[Installer Package OCI Refs](installer-oci-packages.md) lists those copies.
+`cub package show` reports. Nothing else changes.
+
+Each published version has a receipt under `runs/ghcr-packages/<name>/<tag>.yaml`
+recording its manifest digest, read with no credentials, and its signature,
+verified against the workflow. The nightly package job writes those receipts
+for whatever was published since its last run and carries them in its pull
+request, so no person commits them. Every Catalog page, chart map and record
+names a version by its GHCR package, with `cub package install <name>:<tag>`
+as the command and the digest-pinned reference for anyone who wants exact
+bytes:
+
+```bash
+cub package install cert-manager:v1.21.1 --space cert-manager --namespace cert-manager
+cub installer inspect oci://ghcr.io/confighub/packages/cert-manager:v1.21.1@sha256:<manifest digest> --json
+```
+
+The same packages were first published to a Google registry,
+`europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt`, under names like
+`jetstack-cert-manager` and signed by a Google service account. Those copies
+stay readable there, and pages show them as the earlier location; they are
+different bytes, because they lack the two fields above.
+[Installer Package OCI Refs](installer-oci-packages.md) lists them.
 
 ## What is reproducible, and what is live
 

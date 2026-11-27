@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "secrets-store-csi-driver"
+spec:
+  chart: "secrets-store-csi-driver/secrets-store-csi-driver"
+  version: "1.6.0"
+  packagePath: "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0"
+  tag: "v1.6.0"
+  reference: "ghcr.io/confighub/packages/secrets-store-csi-driver:v1.6.0"
+  immutableReference: "ghcr.io/confighub/packages/secrets-store-csi-driver@sha256:211ddeff91a62d8477c5c740421bc9db8dd897b10a7295d1f3c2860e70ed8e2a"
+  manifestDigest: "sha256:211ddeff91a62d8477c5c740421bc9db8dd897b10a7295d1f3c2860e70ed8e2a"
+  layerDigest: "sha256:3b926edfd3c9adad988cf3b2ac5c42903ca9568afc4f89e315b50a21dde08a2a"
+  installCommand: "cub package install secrets-store-csi-driver:v1.6.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:211ddeff91a62d8477c5c740421bc9db8dd897b10a7295d1f3c2860e70ed8e2a"
+  observedAt: "2026-11-27T19:44:00.884Z"
+status:
+  result: "pass"

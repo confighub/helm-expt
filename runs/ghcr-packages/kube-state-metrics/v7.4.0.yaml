@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kube-state-metrics"
+spec:
+  chart: "prometheus-community/kube-state-metrics"
+  version: "7.4.0"
+  packagePath: "packages/prometheus-community/kube-state-metrics/7.4.0"
+  tag: "v7.4.0"
+  reference: "ghcr.io/confighub/packages/kube-state-metrics:v7.4.0"
+  immutableReference: "ghcr.io/confighub/packages/kube-state-metrics@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+  manifestDigest: "sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+  layerDigest: "sha256:d5c0403be799354e5e50592bb4d17b7800d312e90ef562dfabcdc03a4f6f5d36"
+  installCommand: "cub package install kube-state-metrics:v7.4.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+  observedAt: "2026-11-27T19:43:53.738Z"
+status:
+  result: "pass"

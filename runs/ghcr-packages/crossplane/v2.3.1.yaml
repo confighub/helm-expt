@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "crossplane"
+spec:
+  chart: "crossplane-stable/crossplane"
+  version: "2.3.1"
+  packagePath: "packages/crossplane-stable/crossplane/2.3.1"
+  tag: "v2.3.1"
+  reference: "ghcr.io/confighub/packages/crossplane:v2.3.1"
+  immutableReference: "ghcr.io/confighub/packages/crossplane@sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+  manifestDigest: "sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+  layerDigest: "sha256:c5ca25523a9566ab0441921e91a13d6528c94baa1b8ef7c6fd58a1673f6f9873"
+  installCommand: "cub package install crossplane:v2.3.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+  observedAt: "2026-11-27T19:43:05.158Z"
+status:
+  result: "pass"

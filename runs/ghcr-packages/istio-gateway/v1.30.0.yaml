@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "istio-gateway"
+spec:
+  chart: "istio/gateway"
+  version: "1.30.0"
+  packagePath: "packages/istio/gateway/1.30.0"
+  tag: "v1.30.0"
+  reference: "ghcr.io/confighub/packages/istio-gateway:v1.30.0"
+  immutableReference: "ghcr.io/confighub/packages/istio-gateway@sha256:6373981fb286500f919e0705dea6aad383812c279ce7098f23d5dee7a12e8353"
+  manifestDigest: "sha256:6373981fb286500f919e0705dea6aad383812c279ce7098f23d5dee7a12e8353"
+  layerDigest: "sha256:b8365d64270054c0c8a3da72b54d6828e2ec515fcf15cf7c52d2ee33dd22db9d"
+  installCommand: "cub package install istio-gateway:v1.30.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6373981fb286500f919e0705dea6aad383812c279ce7098f23d5dee7a12e8353"
+  observedAt: "2026-11-27T19:43:24.003Z"
+status:
+  result: "pass"

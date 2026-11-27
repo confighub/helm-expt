@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nvsentinel"
+spec:
+  chart: "nvidia/nvsentinel"
+  version: "v1.9.0"
+  packagePath: "packages/nvidia/nvsentinel/v1.9.0"
+  tag: "v1.9.0"
+  reference: "ghcr.io/confighub/packages/nvsentinel:v1.9.0"
+  immutableReference: "ghcr.io/confighub/packages/nvsentinel@sha256:28a31f4888eb6839fa4b840382cf6ea6ad51a08195dfc573d69ac7f1f9826107"
+  manifestDigest: "sha256:28a31f4888eb6839fa4b840382cf6ea6ad51a08195dfc573d69ac7f1f9826107"
+  layerDigest: "sha256:099f3852e37c9977d19f5796d4f40c6004cace89069c400c32ead9ce5069f7ef"
+  installCommand: "cub package install nvsentinel:v1.9.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:28a31f4888eb6839fa4b840382cf6ea6ad51a08195dfc573d69ac7f1f9826107"
+  observedAt: "2026-11-27T19:43:44.185Z"
+status:
+  result: "pass"

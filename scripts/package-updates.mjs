@@ -16,6 +16,7 @@
 //   node scripts/package-updates.mjs --update <repo>/<chart> [<version>]
 //   node scripts/package-updates.mjs --verify-update <repo>/<chart> <version>
 //   node scripts/package-updates.mjs --nightly [--report <dir>] [--open-issues] [<repo>/<chart>...]
+//   node scripts/package-updates.mjs --record-publications
 //   node scripts/package-updates.mjs --self-test
 //
 // --latest prints, per chart, the newest packaged version, the newest upstream
@@ -32,8 +33,20 @@
 // own: the new package keeps every base the previous version has, and its
 // installer.yaml carries the version the package will be published under.
 //
-// --nightly does --update and --verify-update for every chart that moved and
-// commits each one on its own. --report <dir> writes report.json and the pull
+// --record-publications records what the publish workflows put on GHCR since
+// the last run: for every package version and configuration artifact the
+// registry serves and no committed receipt records, it reads the tag with no
+// credentials, verifies its signature against the workflow that published it,
+// and writes the receipt (scripts/publish-ghcr-packages.mjs and
+// scripts/publish-catalog-oci.mjs, --observe --missing). A package version
+// that now has a receipt comes off the pending-publication register. Nothing
+// here needs a registry credential.
+//
+// --nightly first records publications as above and commits the receipts on
+// their own, so a package version merged one night is published by the merge
+// and named by the Catalog after the next night's pull request. It then does
+// --update and --verify-update for every chart that moved and commits each one
+// on its own. --report <dir> writes report.json and the pull
 // request body there. --open-issues opens an issue for each failed chart, and
 // keeps one issue listing the charts that moved but need a person, each found
 // by its title so a second night does not open a second issue.
@@ -56,6 +69,7 @@ import { availableParallelism, tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { check, repoRoot, sha256File } from "./lib/proof-common.mjs";
+import { ghcrPackageIdentity, ghcrPackageReceiptRel } from "./lib/ghcr-packages.mjs";
 import { insertTableEntry } from "./lib/reviewed-expectations.mjs";
 import { requiredInstallerPackageVersion } from "./lib/installer-package-version.mjs";
 
@@ -77,6 +91,9 @@ const DERIVED_PATHS = [];
 // Where a new version is declared as built here and not yet in the catalog
 // registry (see scripts/lib/installer-oci-publication.mjs).
 const PENDING_REGISTER = "data/package-updates/pending-publication.yaml";
+
+// Where the receipts of GHCR publications are committed.
+const RECEIPT_ROOTS = ["runs/ghcr-packages", "runs/catalog-oci"];
 
 // The batch lanes a newest package's README can name, in the order they are
 // tried. A README that names none of them falls through to the proof
@@ -189,6 +206,7 @@ function usage() {
   node scripts/package-updates.mjs --update <repo>/<chart> [<version>]
   node scripts/package-updates.mjs --verify-update <repo>/<chart> <version>
   node scripts/package-updates.mjs --nightly [--report <dir>] [--open-issues] [<repo>/<chart>...]
+  node scripts/package-updates.mjs --record-publications
   node scripts/package-updates.mjs --self-test`);
   process.exit(2);
 }
@@ -566,6 +584,53 @@ export function declarePending(chart, version, path = join(repoRoot, PENDING_REG
   writeFileSync(path, next);
 }
 
+// Removes from the register every version that has a receipt now. A receipt
+// is found on disk, because it is recorded in this run and committed after.
+export function clearPublished(isPublished, path = join(repoRoot, PENDING_REGISTER)) {
+  const text = readFileSync(path, "utf8");
+  const cleared = [];
+  let next = text.replace(/    - chart: ("[^"\n]+")\n      version: ("[^"\n]+")\n/g, (entry, chart, version) => {
+    if (!isPublished(JSON.parse(chart), JSON.parse(version))) return entry;
+    cleared.push(`${JSON.parse(chart)}@${JSON.parse(version)}`);
+    return "";
+  });
+  next = next.replace(/\n  packages:\n?$/, "\n  packages: []\n");
+  if (next !== text) writeFileSync(path, next);
+  return cleared;
+}
+
+function hasPublicationReceipt(chartRef, version) {
+  const identity = ghcrPackageIdentity(chartRef, version);
+  return Boolean(identity) && existsSync(join(repoRoot, ghcrPackageReceiptRel(identity.name, identity.tag)));
+}
+
+// Records the GHCR publications no committed receipt records yet, and takes
+// each newly published package version off the pending register. Returns
+// the receipts written and the versions cleared.
+function recordPublications() {
+  const before = new Set(RECEIPT_ROOTS.flatMap((root) => git(["ls-files", "--", root]).split("\n").filter(Boolean)));
+  for (const argv of [
+    ["scripts/publish-ghcr-packages.mjs", "--observe", "--missing"],
+    ["scripts/publish-catalog-oci.mjs", "--observe", "--missing"],
+  ]) {
+    const result = spawnSync(process.execPath, argv, { cwd: repoRoot, encoding: "utf8", maxBuffer: 1024 * 1024 * 64 });
+    process.stdout.write(result.stdout.split("\n").filter((line) => !line.startsWith("- observed")).join("\n"));
+    check(result.status === 0, `${argv.join(" ")} failed:\n${result.stderr || result.stdout}`);
+  }
+  const receipts = RECEIPT_ROOTS
+    .flatMap((root) => (existsSync(join(repoRoot, root)) ? git(["ls-files", "--others", "--ignored", "--exclude-standard", "--", root]).split("\n").filter(Boolean) : []))
+    .filter((path) => !before.has(path))
+    .sort();
+  const cleared = clearPublished(hasPublicationReceipt);
+  return { receipts, cleared };
+}
+
+function recordPublicationsMode() {
+  const { receipts, cleared } = recordPublications();
+  if (receipts.length) git(["add", "-f", "--", ...receipts]);
+  console.log(`${receipts.length} new GHCR receipt(s) staged; ${cleared.length} version(s) taken off the pending register${cleared.length ? `: ${cleared.join(", ")}` : ""}. Run --refresh-views next.`);
+}
+
 // Why the nightly cannot update this chart unattended, or "" when it can.
 export function blockedReason(chart) {
   const family = FAMILIES[chart.family];
@@ -860,6 +925,22 @@ async function nightlyMode(refs) {
   const dirty = changedPaths().filter((path) => within(path, ["packages", "recipes", "scripts", "data"]));
   check(!dirty.length, `the working tree has changes the nightly could commit by mistake: ${dirty.slice(0, 5).join(", ")}`);
   const reportDir = flagValue("--report");
+  // What the publish workflows published since the last run is recorded
+  // first, so this pull request carries the receipts and the Catalog names
+  // those versions once it is merged.
+  const recorded = { receipts: [], cleared: [], error: "" };
+  try {
+    Object.assign(recorded, recordPublications());
+    if (recorded.receipts.length || recorded.cleared.length) {
+      git(["add", "-f", "--", ...recorded.receipts]);
+      git(["add", "--", PENDING_REGISTER]);
+      git(["commit", "--quiet", "-m", publicationsCommitMessage(recorded)]);
+    }
+  } catch (error) {
+    restore(changedPaths().filter((path) => within(path, [...RECEIPT_ROOTS, PENDING_REGISTER])));
+    for (const root of RECEIPT_ROOTS) spawnSync("git", ["clean", "--quiet", "-fdX", "--", root], { cwd: repoRoot });
+    recorded.error = error.message;
+  }
   const rows = await latestRows(refs);
   const max = flagValue("--max") === null ? Number.POSITIVE_INFINITY : Number(flagValue("--max"));
   check(max > 0, "--max needs a positive number");
@@ -917,7 +998,7 @@ async function nightlyMode(refs) {
     }
   }
   let views = "";
-  if (updated.length) {
+  if (updated.length || recorded.receipts.length || recorded.cleared.length) {
     try {
       await refreshViews();
       const evidence = changedPaths().filter((path) => path.startsWith("packages/") || /^recipes\/.*\/(revisions|publication|variants)\//.test(path) || /^recipes\/.*\/source-lock\.yaml$/.test(path));
@@ -933,15 +1014,29 @@ async function nightlyMode(refs) {
       failed.push({ chart: "catalog views", version: "the new package versions", family: "views", log: error.message });
     }
   }
-  const report = { helm: execFileSync("helm", ["version", "--short"], { encoding: "utf8" }).trim(), max: Number.isFinite(max) ? max : null, updated, failed, waiting, deferred, views };
+  if (recorded.error) failed.push({ chart: "GHCR publication receipts", version: "the publications since the last run", family: "receipts", log: recorded.error });
+  const report = { helm: execFileSync("helm", ["version", "--short"], { encoding: "utf8" }).trim(), max: Number.isFinite(max) ? max : null, recorded, updated, failed, waiting, deferred, views };
   if (args.includes("--open-issues")) openIssues(report);
   if (reportDir) {
     mkdirSync(reportDir, { recursive: true });
     writeFileSync(join(reportDir, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
     writeFileSync(join(reportDir, "pr-body.md"), pullRequestBody(report));
   }
-  console.log(`\n${updated.length} updated, ${failed.length} failed, ${deferred.length} left for a later run, ${waiting.length} moved and need a person; catalog views ${views || "not touched"}`);
+  console.log(`\n${recorded.receipts.length} GHCR receipt(s) recorded, ${updated.length} updated, ${failed.length} failed, ${deferred.length} left for a later run, ${waiting.length} moved and need a person; catalog views ${views || "not touched"}`);
   if (failed.length) process.exit(1);
+}
+
+function publicationsCommitMessage({ receipts, cleared }) {
+  const packages = receipts.filter((path) => path.startsWith("runs/ghcr-packages/")).length;
+  return `${[
+    "packages: record the GHCR publications since the last run",
+    "",
+    `Observed with no credentials by scripts/package-updates.mjs: ${packages} package version(s) and ${receipts.length - packages} configuration artifact(s)`,
+    "that the publish workflows put on GHCR and no committed receipt recorded. Each tag",
+    "reads anonymously at its digest, and its signature verifies against the workflow",
+    "that published it.",
+    ...(cleared.length ? ["", `Published, so off the pending-publication register: ${cleared.join(", ")}.`] : []),
+  ].join("\n")}\n`;
 }
 
 function builtBy(chart) {
@@ -973,9 +1068,15 @@ export function pullRequestBody(report) {
     `The nightly package update found ${report.updated.length + report.failed.length + report.waiting.length} chart(s) that moved upstream. ` +
       `This pull request carries ${report.updated.length} new package version(s), one commit each.`,
     "",
+    ...(report.recorded?.receipts?.length || report.recorded?.cleared?.length
+      ? [
+        `It also records ${report.recorded.receipts.length} GHCR publication receipt(s) for what the publish workflows published since the last run, in a commit of their own${report.recorded.cleared.length ? `, and takes ${report.recorded.cleared.map((entry) => `\`${entry}\``).join(", ")} off the pending-publication register` : ""}. Once merged, the Catalog names those versions and artifacts on GHCR.`,
+        "",
+      ]
+      : []),
     "**Merging publishes.** On a push to main, the publish workflow publishes every package version the registry does not have yet, so each version below becomes a public, signed package when this is merged. Review it as a release.",
     "",
-    "Each new version is also listed in `data/package-updates/pending-publication.yaml`, so the catalog maps and the site leave it out until its catalog-registry publication receipt exists; the last commit regenerates the catalog views the new versions move.",
+    "Each new version is also listed in `data/package-updates/pending-publication.yaml`, so the catalog maps and the site leave it out until its publication receipt exists. The next nightly run records the GHCR receipt and takes it off the list. The last commit regenerates the catalog views the new versions move.",
     "",
   );
   if (report.updated.length) {
@@ -1103,6 +1204,11 @@ function selfTest() {
       readFileSync(register, "utf8") === 'kind: "PackagesPendingPublication"\nspec:\n  packages:\n    - chart: "a/b"\n      version: "1.1.0"\n    - chart: "c/d"\n      version: "v2.0.0"\n',
       "the pending-publication register was not appended as expected",
     );
+    // A version with a receipt comes off the register, and an emptied register reads [].
+    check(JSON.stringify(clearPublished((chart) => chart === "a/b", register)) === '["a/b@1.1.0"]', "a published version was not cleared");
+    check(readFileSync(register, "utf8").endsWith('  packages:\n    - chart: "c/d"\n      version: "v2.0.0"\n'), "clearing a version removed another");
+    clearPublished(() => true, register);
+    check(readFileSync(register, "utf8") === 'kind: "PackagesPendingPublication"\nspec:\n  packages: []\n', "an emptied register is not packages: []");
   } finally {
     rmSync(temp, { recursive: true, force: true });
   }
@@ -1141,6 +1247,7 @@ if (isMain) {
     else if (mode === "--verify-update") verifyUpdateMode(positional());
     else if (mode === "--nightly") await nightlyMode(positional());
     else if (mode === "--refresh-views") await refreshViews();
+    else if (mode === "--record-publications") recordPublicationsMode();
     else if (mode === "--self-test") selfTest();
     else usage();
   } catch (error) {

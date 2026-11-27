@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "prometheus-blackbox-exporter"
+spec:
+  chart: "prometheus-community/prometheus-blackbox-exporter"
+  version: "11.15.1"
+  packagePath: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1"
+  tag: "v11.15.1"
+  reference: "ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1"
+  immutableReference: "ghcr.io/confighub/packages/prometheus-blackbox-exporter@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+  manifestDigest: "sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+  layerDigest: "sha256:7603daa433689eec47934ba49d725592aaa8b4227a2ed50b0b9edc5cbd622872"
+  installCommand: "cub package install prometheus-blackbox-exporter:v11.15.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
+  observedAt: "2026-11-27T19:43:56.275Z"
+status:
+  result: "pass"

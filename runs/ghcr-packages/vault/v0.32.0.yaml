@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "vault"
+spec:
+  chart: "hashicorp/vault"
+  version: "0.32.0"
+  packagePath: "packages/hashicorp/vault/0.32.0"
+  tag: "v0.32.0"
+  reference: "ghcr.io/confighub/packages/vault:v0.32.0"
+  immutableReference: "ghcr.io/confighub/packages/vault@sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a"
+  manifestDigest: "sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a"
+  layerDigest: "sha256:dfaf75f0bff74b2a385d7c4e0dce515f9eca7cda60be16a5bd6465bb77114b29"
+  installCommand: "cub package install vault:v0.32.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:92ff740422b96797f9258841952df40f8627517f2a07ac0ca6669e7fc206c45a"
+  observedAt: "2026-11-27T19:43:22.168Z"
+status:
+  result: "pass"

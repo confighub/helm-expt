@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "prometheus-pushgateway"
+spec:
+  chart: "prometheus-community/prometheus-pushgateway"
+  version: "3.6.0"
+  packagePath: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
+  tag: "v3.6.0"
+  reference: "ghcr.io/confighub/packages/prometheus-pushgateway:v3.6.0"
+  immutableReference: "ghcr.io/confighub/packages/prometheus-pushgateway@sha256:7d6a4625094fa584ff3211cd73824448ae6aa1ca738064d39ad17b5e056e34af"
+  manifestDigest: "sha256:7d6a4625094fa584ff3211cd73824448ae6aa1ca738064d39ad17b5e056e34af"
+  layerDigest: "sha256:8a27ff5daee7e1e0baabbb2f591ab8ea9ac7d7a2495d7614c7c856c2142c24bf"
+  installCommand: "cub package install prometheus-pushgateway:v3.6.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7d6a4625094fa584ff3211cd73824448ae6aa1ca738064d39ad17b5e056e34af"
+  observedAt: "2026-11-27T19:43:58.996Z"
+status:
+  result: "pass"

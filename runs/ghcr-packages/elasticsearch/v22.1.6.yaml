@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "elasticsearch"
+spec:
+  chart: "bitnami/elasticsearch"
+  version: "22.1.6"
+  packagePath: "packages/bitnami/elasticsearch/22.1.6"
+  tag: "v22.1.6"
+  reference: "ghcr.io/confighub/packages/elasticsearch:v22.1.6"
+  immutableReference: "ghcr.io/confighub/packages/elasticsearch@sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763"
+  manifestDigest: "sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763"
+  layerDigest: "sha256:8e3af13ede793b2ae3f3602689bc2682503abeae75e9ca88051f8e51e4ff3a09"
+  installCommand: "cub package install elasticsearch:v22.1.6 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763"
+  observedAt: "2026-11-27T19:42:53.920Z"
+status:
+  result: "pass"

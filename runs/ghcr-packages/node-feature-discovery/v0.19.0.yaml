@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "node-feature-discovery"
+spec:
+  chart: "node-feature-discovery/node-feature-discovery"
+  version: "0.19.0"
+  packagePath: "packages/node-feature-discovery/node-feature-discovery/0.19.0"
+  tag: "v0.19.0"
+  reference: "ghcr.io/confighub/packages/node-feature-discovery:v0.19.0"
+  immutableReference: "ghcr.io/confighub/packages/node-feature-discovery@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+  manifestDigest: "sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+  layerDigest: "sha256:19494f7bac02cb09b9a27f95c84504d10e36c86ef45a8da6a0c766a9ecf506b0"
+  installCommand: "cub package install node-feature-discovery:v0.19.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d"
+  observedAt: "2026-11-27T19:43:39.027Z"
+status:
+  result: "pass"

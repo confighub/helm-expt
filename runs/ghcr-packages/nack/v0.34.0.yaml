@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nack"
+spec:
+  chart: "nats/nack"
+  version: "0.34.0"
+  packagePath: "packages/nats/nack/0.34.0"
+  tag: "v0.34.0"
+  reference: "ghcr.io/confighub/packages/nack:v0.34.0"
+  immutableReference: "ghcr.io/confighub/packages/nack@sha256:9a15421b580106dadf497e3983ff747fcf398545706c73477e4d52fefa472da0"
+  manifestDigest: "sha256:9a15421b580106dadf497e3983ff747fcf398545706c73477e4d52fefa472da0"
+  layerDigest: "sha256:71bab4a1b2de24f2a7c9b45268bb9f7f5706afed0b9531a48f6aa262e32b663a"
+  installCommand: "cub package install nack:v0.34.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9a15421b580106dadf497e3983ff747fcf398545706c73477e4d52fefa472da0"
+  observedAt: "2026-11-27T19:43:37.544Z"
+status:
+  result: "pass"

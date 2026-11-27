@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "falcosidekick"
+spec:
+  chart: "falcosecurity/falcosidekick"
+  version: "0.13.1"
+  packagePath: "packages/falcosecurity/falcosidekick/0.13.1"
+  tag: "v0.13.1"
+  reference: "ghcr.io/confighub/packages/falcosidekick:v0.13.1"
+  immutableReference: "ghcr.io/confighub/packages/falcosidekick@sha256:f82e3aa2b97813bfbc01425fd46b7d14f7724b0ea5f3db89478400f9790f28da"
+  manifestDigest: "sha256:f82e3aa2b97813bfbc01425fd46b7d14f7724b0ea5f3db89478400f9790f28da"
+  layerDigest: "sha256:638abd6097af428b7302742c9ded92851fe9155af7787d1d9828bbc86752f703"
+  installCommand: "cub package install falcosidekick:v0.13.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f82e3aa2b97813bfbc01425fd46b7d14f7724b0ea5f3db89478400f9790f28da"
+  observedAt: "2026-11-27T19:43:14.068Z"
+status:
+  result: "pass"

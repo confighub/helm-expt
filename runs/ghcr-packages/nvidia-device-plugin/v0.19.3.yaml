@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nvidia-device-plugin"
+spec:
+  chart: "nvidia/nvidia-device-plugin"
+  version: "0.19.3"
+  packagePath: "packages/nvidia/nvidia-device-plugin/0.19.3"
+  tag: "v0.19.3"
+  reference: "ghcr.io/confighub/packages/nvidia-device-plugin:v0.19.3"
+  immutableReference: "ghcr.io/confighub/packages/nvidia-device-plugin@sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+  manifestDigest: "sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+  layerDigest: "sha256:98e632df412a6613a92247cb4120f4ccf81a6cc083fb2cb53b49230b017250a7"
+  installCommand: "cub package install nvidia-device-plugin:v0.19.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:8b8b53ef42b75acd08a25bcae6df592c53096dc0177e02d393821ef97ba8c4f3"
+  observedAt: "2026-11-27T19:43:43.980Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "valkey"
+spec:
+  chart: "valkey/valkey"
+  version: "0.11.0"
+  packagePath: "packages/valkey/valkey/0.11.0"
+  tag: "v0.11.0"
+  reference: "ghcr.io/confighub/packages/valkey:v0.11.0"
+  immutableReference: "ghcr.io/confighub/packages/valkey@sha256:fb1551e069fa6248ce85abfec11aed5fa67ccab580ffb20ef328abf5c79224cb"
+  manifestDigest: "sha256:fb1551e069fa6248ce85abfec11aed5fa67ccab580ffb20ef328abf5c79224cb"
+  layerDigest: "sha256:a616bb4adb5f2e16414a199baef2c1f220cc8088450af29b25bbaaa289ac8349"
+  installCommand: "cub package install valkey:v0.11.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:fb1551e069fa6248ce85abfec11aed5fa67ccab580ffb20ef328abf5c79224cb"
+  observedAt: "2026-11-27T19:44:04.433Z"
+status:
+  result: "pass"

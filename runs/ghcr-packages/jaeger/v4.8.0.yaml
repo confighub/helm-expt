@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "jaeger"
+spec:
+  chart: "jaegertracing/jaeger"
+  version: "4.8.0"
+  packagePath: "packages/jaegertracing/jaeger/4.8.0"
+  tag: "v4.8.0"
+  reference: "ghcr.io/confighub/packages/jaeger:v4.8.0"
+  immutableReference: "ghcr.io/confighub/packages/jaeger@sha256:a5898edd3f5a1492c289bb729ecbc7bd22afbfc2180d25a67a85693deb51fcb8"
+  manifestDigest: "sha256:a5898edd3f5a1492c289bb729ecbc7bd22afbfc2180d25a67a85693deb51fcb8"
+  layerDigest: "sha256:7d2a135ddb9691e5968183c9693cded8452a942a7496afd74ec8f34d86da3de1"
+  installCommand: "cub package install jaeger:v4.8.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:a5898edd3f5a1492c289bb729ecbc7bd22afbfc2180d25a67a85693deb51fcb8"
+  observedAt: "2026-11-27T19:43:24.674Z"
+status:
+  result: "pass"

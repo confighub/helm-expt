@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kai-scheduler"
+spec:
+  chart: "kai-scheduler/kai-scheduler"
+  version: "v0.14.1"
+  packagePath: "packages/kai-scheduler/kai-scheduler/v0.14.1"
+  tag: "v0.14.1"
+  reference: "ghcr.io/confighub/packages/kai-scheduler:v0.14.1"
+  immutableReference: "ghcr.io/confighub/packages/kai-scheduler@sha256:154b4d44ff1fb860a2bd12dc255b255c37d904a9ba0a1c95c71e5ce6b04740e0"
+  manifestDigest: "sha256:154b4d44ff1fb860a2bd12dc255b255c37d904a9ba0a1c95c71e5ce6b04740e0"
+  layerDigest: "sha256:b36277e40b2271d1894ef7e92aa138f957b53ebc25d50788e79e5be32bcf5738"
+  installCommand: "cub package install kai-scheduler:v0.14.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:154b4d44ff1fb860a2bd12dc255b255c37d904a9ba0a1c95c71e5ce6b04740e0"
+  observedAt: "2026-11-27T19:43:27.324Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "pg-operator"
+spec:
+  chart: "percona/pg-operator"
+  version: "3.0.0"
+  packagePath: "packages/percona/pg-operator/3.0.0"
+  tag: "v3.0.0"
+  reference: "ghcr.io/confighub/packages/pg-operator:v3.0.0"
+  immutableReference: "ghcr.io/confighub/packages/pg-operator@sha256:d4a8211c8be599f062d12fe369a54d3e11df2be5d1a3e73ef62e09415745148b"
+  manifestDigest: "sha256:d4a8211c8be599f062d12fe369a54d3e11df2be5d1a3e73ef62e09415745148b"
+  layerDigest: "sha256:def29c61cb0d9e6db5ca22aa368381e6eab20948e7223b0febd7eceb559b37aa"
+  installCommand: "cub package install pg-operator:v3.0.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d4a8211c8be599f062d12fe369a54d3e11df2be5d1a3e73ef62e09415745148b"
+  observedAt: "2026-11-27T19:43:47.726Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cert-manager"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.21.1"
+  packagePath: "packages/jetstack/cert-manager/v1.21.1"
+  tag: "v1.21.1"
+  reference: "ghcr.io/confighub/packages/cert-manager:v1.21.1"
+  immutableReference: "ghcr.io/confighub/packages/cert-manager@sha256:4fb4f934a1791d6bccf34cd316f5bdacd01448da67f1bc1339a9ccddf74b723c"
+  manifestDigest: "sha256:4fb4f934a1791d6bccf34cd316f5bdacd01448da67f1bc1339a9ccddf74b723c"
+  layerDigest: "sha256:fdfae3d2ab36502b6634386808079bb504011b37d13a7739995433a0fb20c3c6"
+  installCommand: "cub package install cert-manager:v1.21.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4fb4f934a1791d6bccf34cd316f5bdacd01448da67f1bc1339a9ccddf74b723c"
+  observedAt: "2026-11-27T19:42:40.271Z"
+status:
+  result: "pass"

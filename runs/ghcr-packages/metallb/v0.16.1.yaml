@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "metallb"
+spec:
+  chart: "metallb/metallb"
+  version: "0.16.1"
+  packagePath: "packages/metallb/metallb/0.16.1"
+  tag: "v0.16.1"
+  reference: "ghcr.io/confighub/packages/metallb:v0.16.1"
+  immutableReference: "ghcr.io/confighub/packages/metallb@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+  manifestDigest: "sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+  layerDigest: "sha256:feb07282e6f7ab37a9f3764f26f7a8db9ce5a9587beeda57e1b06c19c13e4f63"
+  installCommand: "cub package install metallb:v0.16.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+  observedAt: "2026-11-27T19:43:33.904Z"
+status:
+  result: "pass"

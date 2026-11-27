@@ -105,11 +105,12 @@ check(
 );
 check(feed.entries.length === (catalog.installerOciPackages ?? []).length, "feed must contain every retained package version");
 
+// Published on GHCR or in the earlier registry; dated by the first publication.
 const publishedRows = (catalog.installerOciPackages ?? []).filter(
-  (row) => row.publication_status === "published-receipt" && row.publication_receipt,
+  (row) => (row.publication_status === "published-receipt" && row.publication_receipt) || row.ghcr_receipt,
 );
 const publicationDates = publishedRows.map((row) => {
-  const text = readFileSync(join(repoRoot, row.publication_receipt), "utf8");
+  const text = readFileSync(join(repoRoot, row.publication_status === "published-receipt" && row.publication_receipt ? row.publication_receipt : row.ghcr_receipt), "utf8");
   const observedAt = text.match(/^  observedAt: "([^"]+)"$/m)?.[1];
   check(observedAt && !Number.isNaN(Date.parse(observedAt)), `${row.chart}@${row.version}: publication receipt has no valid observedAt`);
   return observedAt;
@@ -125,7 +126,7 @@ for (const row of catalog.installerOciPackages ?? []) {
   const entry = resolveEntry(feed, row.chart, row.version);
   check(entry, `${row.chart}@${row.version}: feed entry is missing`);
   check(entry.chart === row.chart, `${row.chart}@${row.version}: canonical resolution changed chart identity`);
-  check(entry.digest === row.published_digest, `${row.chart}@${row.version}: feed digest differs from catalog.json`);
+  check(entry.digest === (row.published_digest || String(row.ghcr_layer_digest ?? "").replace(/^sha256:/, "")), `${row.chart}@${row.version}: feed digest differs from catalog.json`);
 }
 
 const redis = resolveEntry(feed, "bitnami/redis", "25.5.3");

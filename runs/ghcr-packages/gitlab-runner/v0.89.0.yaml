@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "gitlab-runner"
+spec:
+  chart: "gitlab/gitlab-runner"
+  version: "0.89.0"
+  packagePath: "packages/gitlab/gitlab-runner/0.89.0"
+  tag: "v0.89.0"
+  reference: "ghcr.io/confighub/packages/gitlab-runner:v0.89.0"
+  immutableReference: "ghcr.io/confighub/packages/gitlab-runner@sha256:c7e2dd82b911ec8f3510b0b179835df8cf196a5d809ce25b1ef0333d54863d4a"
+  manifestDigest: "sha256:c7e2dd82b911ec8f3510b0b179835df8cf196a5d809ce25b1ef0333d54863d4a"
+  layerDigest: "sha256:52df87cf8348ff971fce513edc7ac61c2f7b3a0722e175901a2d268cc7700199"
+  installCommand: "cub package install gitlab-runner:v0.89.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c7e2dd82b911ec8f3510b0b179835df8cf196a5d809ce25b1ef0333d54863d4a"
+  observedAt: "2026-11-27T19:43:16.237Z"
+status:
+  result: "pass"

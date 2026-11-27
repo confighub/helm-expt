@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "bitnami-nginx"
+spec:
+  chart: "bitnami/nginx"
+  version: "24.0.4"
+  packagePath: "packages/bitnami/nginx/24.0.4"
+  tag: "v24.0.4"
+  reference: "ghcr.io/confighub/packages/bitnami-nginx:v24.0.4"
+  immutableReference: "ghcr.io/confighub/packages/bitnami-nginx@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+  manifestDigest: "sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+  layerDigest: "sha256:d915c4392205de801fc90cc4dfe6848d76874d6629a1c13285a62b9d6e410125"
+  installCommand: "cub package install bitnami-nginx:v24.0.4 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+  observedAt: "2026-11-27T19:42:57.105Z"
+status:
+  result: "pass"

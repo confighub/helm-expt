@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kube-prometheus-stack"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "87.19.2"
+  packagePath: "packages/prometheus-community/kube-prometheus-stack/87.19.2"
+  tag: "v87.19.2"
+  reference: "ghcr.io/confighub/packages/kube-prometheus-stack:v87.19.2"
+  immutableReference: "ghcr.io/confighub/packages/kube-prometheus-stack@sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297"
+  manifestDigest: "sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297"
+  layerDigest: "sha256:5ba9b69742dada28f1a32910b581d6285406aece2896ec4c702d999c42413153"
+  installCommand: "cub package install kube-prometheus-stack:v87.19.2 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297"
+  observedAt: "2026-11-27T19:43:53.111Z"
+status:
+  result: "pass"

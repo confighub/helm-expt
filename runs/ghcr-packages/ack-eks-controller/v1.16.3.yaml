@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "ack-eks-controller"
+spec:
+  chart: "aws-controllers-k8s/eks-chart"
+  version: "1.16.3"
+  packagePath: "packages/aws-controllers-k8s/eks-chart/1.16.3"
+  tag: "v1.16.3"
+  reference: "ghcr.io/confighub/packages/ack-eks-controller:v1.16.3"
+  immutableReference: "ghcr.io/confighub/packages/ack-eks-controller@sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc"
+  manifestDigest: "sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc"
+  layerDigest: "sha256:7e20f31dbae3d97c2710b7b131d9cb86ed9c7c042e128d7d6d357050d7d20635"
+  installCommand: "cub package install ack-eks-controller:v1.16.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6fd7021a0cf4e145dde449f4d877f4d4ecfbb919d2c0f8a7fc3a48ddab8265bc"
+  observedAt: "2026-11-27T19:42:51.178Z"
+status:
+  result: "pass"

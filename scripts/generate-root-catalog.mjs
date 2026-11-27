@@ -152,6 +152,8 @@ function buildEntry(indexPath, readinessByKey) {
     helmPainReport: spec.recipe?.helmPainReport ?? "",
     package: spec.installerPackage?.path ?? "",
     packageOciRef: spec.installerPackage?.ociRef ?? installerOciConsumerRef(chart, version),
+    packageName: spec.installerPackage?.name ?? "",
+    packageTag: spec.installerPackage?.tag ?? "",
     status: spec.catalogStatus?.status ?? "",
     supportLevel: spec.catalogStatus?.supportLevel ?? "",
     productionReadiness: spec.catalogStatus?.productionReadiness ?? "",
@@ -180,6 +182,13 @@ function chartSection(entry) {
     "Start here:",
     "",
     "```sh",
+    ...(entry.packageName
+      ? [
+        "# install into a ConfigHub Space",
+        `cub package install ${entry.packageName}:${entry.packageTag} --space ${entry.packageName} --base ${entry.startVariant} --namespace ${entry.namespace}`,
+        "# or render locally from the exact package, with no Space",
+      ]
+      : []),
     `cub installer setup --pull ${entry.packageOciRef} --base ${entry.startVariant} --work-dir <tmp> --non-interactive --namespace ${entry.namespace}`,
     "```",
     "",

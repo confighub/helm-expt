@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "opencost"
+spec:
+  chart: "opencost/opencost"
+  version: "2.5.21"
+  packagePath: "packages/opencost/opencost/2.5.21"
+  tag: "v2.5.21"
+  reference: "ghcr.io/confighub/packages/opencost:v2.5.21"
+  immutableReference: "ghcr.io/confighub/packages/opencost@sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+  manifestDigest: "sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+  layerDigest: "sha256:5e68743a0bfc6c303c0e9787eb1211a63ef64a422d619dcee3f96850adef9f77"
+  installCommand: "cub package install opencost:v2.5.21 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:731ef4b3c87942176abf364f71b33133c6f318f0805dee084102657ef9dcbf2d"
+  observedAt: "2026-11-27T19:43:46.857Z"
+status:
+  result: "pass"

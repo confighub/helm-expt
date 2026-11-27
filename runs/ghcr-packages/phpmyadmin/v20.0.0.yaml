@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "phpmyadmin"
+spec:
+  chart: "bitnami/phpmyadmin"
+  version: "20.0.0"
+  packagePath: "packages/bitnami/phpmyadmin/20.0.0"
+  tag: "v20.0.0"
+  reference: "ghcr.io/confighub/packages/phpmyadmin:v20.0.0"
+  immutableReference: "ghcr.io/confighub/packages/phpmyadmin@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f"
+  manifestDigest: "sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f"
+  layerDigest: "sha256:87eb7b4c63abf76dcba88dea8ed1d55c3a4c8ff1c6e51e4fc7183947cc6eee3d"
+  installCommand: "cub package install phpmyadmin:v20.0.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f"
+  observedAt: "2026-11-27T19:42:59.332Z"
+status:
+  result: "pass"

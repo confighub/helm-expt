@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "dra-driver-nvidia-gpu"
+spec:
+  chart: "dra-driver-nvidia/dra-driver-nvidia-gpu"
+  version: "0.4.1"
+  packagePath: "packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1"
+  tag: "v0.4.1"
+  reference: "ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1"
+  immutableReference: "ghcr.io/confighub/packages/dra-driver-nvidia-gpu@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98"
+  manifestDigest: "sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98"
+  layerDigest: "sha256:7f295534a1152011966cf566f49e39a240bad6d24f20dcc0516dad6a58b8dda6"
+  installCommand: "cub package install dra-driver-nvidia-gpu:v0.4.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98"
+  observedAt: "2026-11-27T19:43:08.125Z"
+status:
+  result: "pass"

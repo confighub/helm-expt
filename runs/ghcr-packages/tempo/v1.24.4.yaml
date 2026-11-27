@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "tempo"
+spec:
+  chart: "grafana/tempo"
+  version: "1.24.4"
+  packagePath: "packages/grafana/tempo/1.24.4"
+  tag: "v1.24.4"
+  reference: "ghcr.io/confighub/packages/tempo:v1.24.4"
+  immutableReference: "ghcr.io/confighub/packages/tempo@sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707"
+  manifestDigest: "sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707"
+  layerDigest: "sha256:78bd5fef71c75b12f187ee20255b9d1b486bf23298429af65f40ca7a3fd38c21"
+  installCommand: "cub package install tempo:v1.24.4 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:5c5e9597520f79c574b455cd79e70c87d23fb3fd087a5aa14f8df43932f1f707"
+  observedAt: "2026-11-27T19:43:21.319Z"
+status:
+  result: "pass"
