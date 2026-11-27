@@ -770,32 +770,18 @@
           "command": "cub release publish <your-space>-dev",
           "needsAccount": true,
           "writes": true
-        },
-        {
-          "comment": "delete the installer record, which Argo CD cannot read",
-          "command": "cub unit delete --space <your-space>-dev installer-record",
-          "needsAccount": true,
-          "writes": true
-        },
-        {
-          "comment": "publish again without it",
-          "command": "cub release publish <your-space>-dev",
-          "needsAccount": true,
-          "writes": true
         }
       ],
       "notes": [
-        "Use the Space name you chose in step 3. The delete command is needed because the cloned `installer-record` Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.",
-        "Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.",
-        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.",
-        "Make the cluster with `cub cluster up --no-k8sbot`, a flag cub v0.8.7 called no-argobot when the walk ran. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.",
-        "Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune."
+        "Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named `installer`. The variant does not clone it, so one publish deploys the rendered objects.",
+        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.",
+        "Make the cluster with `cub cluster up --name workshop --no-k8sbot`. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it."
       ],
       "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+        "date": "2026-11-27",
+        "path": "docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1, installer plugin 0.6.1 and kind v0.31.0"
       },
       "alsoRecorded": "The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads."
     },
@@ -803,7 +789,7 @@
       "id": "promote",
       "label": "Promote a change",
       "state": "partly-run-for-this-entry",
-      "summary": "A promotion ran for this entry. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry.",
+      "summary": "A promotion ran for this entry. It ran the preview and the promote. The publish below has no recorded run for this entry.",
       "basis": [
         "lifecycle.promotion"
       ],
@@ -820,12 +806,6 @@
           "writes": true
         },
         {
-          "comment": "delete the installer record that the promotion adds back",
-          "command": "cub unit delete --space <your-space>-dev installer-record",
-          "needsAccount": true,
-          "writes": true
-        },
-        {
           "comment": "publish the Release that carries the change",
           "command": "cub release publish <your-space>-dev",
           "needsAccount": true,
@@ -833,14 +813,14 @@
         }
       ],
       "notes": [
-        "The promotion changes the dev Space and publishes nothing. It also adds the `installer-record` Unit back with the Target. The change reaches the cluster only after the delete and the publish.",
-        "The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record."
+        "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden `installer` Unit to the dev Space, without a Target, and the Release leaves it out.",
+        "The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record."
       ],
       "liveWalk": {
-        "date": "2026-10-08",
-        "path": "docs/user/live-walk-entry-steps-2026-10-08.md",
-        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-steps-2026-10-08.md",
-        "versions": "cub v0.8.7, ConfigHub server v0.8.9, installer plugin 0.1.0 and Argo CD v3.5.4"
+        "date": "2026-11-27",
+        "path": "docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1, installer plugin 0.6.1 and kind v0.31.0"
       }
     }
   ]

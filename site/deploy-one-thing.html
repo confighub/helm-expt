@@ -812,7 +812,7 @@
     <h1>Deploy one thing, and look before you do</h1>
     <p class="lead">Pick one Catalog entry and read the exact Kubernetes objects it installs. Then save it in ConfigHub, release it to a cluster, and compare your result with one dated run.</p>
     <p><strong>Who this is for.</strong> You want to deploy one app or package, and you want to see what it installs before anything runs.</p>
-    <p><strong>What you get.</strong> You get the exact objects for one Catalog entry, the commands that saved and released it, and the end state that one dated run reached.</p>
+    <p><strong>What you get.</strong> You get the exact objects for one Catalog entry, the commands that saved and released it, and the end state that dated runs reached.</p>
     <p><strong>What each part needs.</strong> Looking needs <code>curl</code>, <code>shasum</code>, <code>kustomize</code> and <code>cub</code> with the installer plugin, and it needs no account and no cluster. Comparing two bases also needs the workshop plugin. Saving needs a ConfigHub account. Releasing and promoting need that account, Docker, kind and kubectl. One command then creates a local kind cluster and installs Argo CD on it.</p>
     <p><strong>Where you can stop.</strong> Stop after the look, and nothing is saved anywhere. Stop after the save, and the entry is in ConfigHub with nothing on a cluster.</p>
 
@@ -834,8 +834,8 @@
       </style>
       <p>The steps on this page come from the five steps that chart pages and AICR entry pages carry. Stacks and apps have their own checks, so this page does not describe one path for every kind.</p>
       <p>Each entry page says what the Catalog has run for that entry. A step with a missing precondition gives no command there.</p>
-      <p>This page follows one entry, <code>bitnami-nginx-24-0-2-http-clusterip</code>, because a dated walk delivered it. It is the <code>http-clusterip</code> base of bitnami/nginx 24.0.2, and <a href="./charts/bitnami-nginx-24-0-2.html#use-in-confighub">its entry page</a> holds the full steps.</p>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same steps as data at <a href="./listings/bitnami-nginx-24-0-2-http-clusterip.json">listings/bitnami-nginx-24-0-2-http-clusterip.json</a>, in the <code>nextSteps</code> array. A command marked <code>needsAccount</code> there contacts ConfigHub, and one marked <code>writes</code> changes it. The dated log is <code>docs/user/live-walk-entry-steps-2026-10-08.md</code>, and it is no receipt.</aside>
+      <p>This page follows one entry, <code>bitnami-nginx-24-0-2-http-clusterip</code>, because dated runs delivered it. It is the <code>http-clusterip</code> base of bitnami/nginx 24.0.2, and <a href="./charts/bitnami-nginx-24-0-2.html#use-in-confighub">its entry page</a> holds the full steps.</p>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span>Read the same steps as data at <a href="./listings/bitnami-nginx-24-0-2-http-clusterip.json">listings/bitnami-nginx-24-0-2-http-clusterip.json</a>, in the <code>nextSteps</code> array. A command marked <code>needsAccount</code> there contacts ConfigHub, and one marked <code>writes</code> changes it. The dated logs are <code>docs/user/live-walk-entry-steps-2026-10-08.md</code> and <code>docs/user/live-walk-entry-deploy-promote-2026-11-27.md</code>, and neither is a receipt.</aside>
     </section>
     <section aria-labelledby="look-first">
       <h2 id="look-first">2. Look first at what it installs and what it needs</h2>
@@ -881,15 +881,15 @@ Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged</code></pre>
 <span class="term-comment"># list the Units in the Space</span>
 <span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
       <p>Run the second command or the third, not both. Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
-      <p>The walk of 2026-10-08 ran the upload, and the rest of this page follows it. The upload created one Space with 7 Units. Six are the rendered objects, and the seventh is <code>installer-record</code>, which the upload adds.</p>
-      <p>A <a href="./d/docs/user/live-walk-cub-package-install-2026-11-26.html">run on 2026-11-26</a> ran both forms with a newer cub, and each made the same 7 Units. There the seventh Unit was named <code>installer</code>, and <code>cub unit list</code> did not show it. That run did not release either Space.</p>
+      <p>A <a href="./d/docs/user/live-walk-cub-package-install-2026-11-26.html">run on 2026-11-26</a> ran both forms, and each made the same 7 Units. Six are the rendered objects. The seventh is a hidden Unit named <code>installer</code> that records the package, so <code>cub unit list</code> shows six. <code>cub package show</code> reads the record back.</p>
       <p>You can stop here. The entry is saved in ConfigHub and nothing is on a cluster.</p>
       <h3 id="cluster">Create a local cluster, with Docker and kind</h3>
       <p>A <strong>Target</strong> defines where ConfigHub delivers the Units in a Space. This command creates a kind cluster, installs Argo CD on it, and creates the Target <code>workshop/target</code>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># create the cluster, its Argo CD and its Target</span>
 <span class="term-prompt">$</span> cub cluster up --name workshop --no-k8sbot</code></pre>
-      <p>The walk ran this command with a cluster name of its own and with <code>--no-argobot</code>, which cub v0.9.0 renamed <code>--no-k8sbot</code>. Without that flag the command also installs argobot. In a <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md">run on 2026-11-02</a> that install failed.</p>
-      <p>The command changes your machine and your organization. It creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
+      <p>The <a href="./d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">run on 2026-11-27</a> ran this command as printed. Without <code>--no-k8sbot</code> the command also installs k8sbot. In a <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-bundle-route-2026-11-02.md">run on 2026-11-02</a> that install failed.</p>
+      <p>The command changes your machine and your organization. It creates two Spaces, a Target, a service account and a Trigger. It opens ten ports on the machine, 30000 to 30009 in that run, and installs Argo CD from an unpinned upstream manifest.</p>
+      <p>Argo CD in the cluster pulls each Release from ConfigHub, so the cluster has to reach it. A cluster that pulls from a hosted ConfigHub organization does. In that run the server listened on the machine only, and the first cluster could not reach it until it was made again.</p>
       <p>It also prints the Argo CD admin password to the terminal.</p>
       <h3 id="release">Release it to that cluster</h3>
       <p>A <strong>Release</strong> is the published set of a Space's Units, and the cluster's Argo CD pulls it. The first command copies the base into a <code>dev</code> variant, which is a Space for one environment.</p>
@@ -897,65 +897,55 @@ Configuration diff: 1 added, 0 removed, 1 changed, 4 unchanged</code></pre>
 <span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
 <span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
-      <p>The delete and the second publish work around a known defect. The cloned <code>installer-record</code> Unit carries the Target, and Argo CD v3.5.4 cannot read it. The walk saw this on cub v0.8.7 and server v0.8.9.</p>
-      <p>Without the delete the walk deployed nothing, and every <code>cub</code> command still exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
+      <p>The variant copies the six rendered objects. It does not copy the hidden <code>installer</code> Unit, so one publish deploys the entry. The walk of 2026-10-08 also had to delete the record and publish again, and the run of 2026-11-27 found that no longer needed.</p>
       <h3 id="promote">Promote a change to dev</h3>
-      <p>Promotion carries a change in the base to the <code>dev</code> variant. In the walk the change was one replica to two on the Deployment Unit in the base, and <a href="./d/docs/user/live-walk-entry-steps-2026-10-08.html#entry-a-bitnami-nginx-24-0-2-http-clusterip">its log</a> holds that command.</p>
+      <p>Promotion carries a change in the base to the <code>dev</code> variant. In the run of 2026-11-27 the change was one replica to two on the Deployment Unit in the base, and <a href="./d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">its log</a> holds that command.</p>
       <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
 
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
-      <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
+      <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The preview lists the whole package record as added, and the promotion adds the hidden <code>installer</code> Unit to the dev Space with no Target. The Release leaves it out.</p>
     </section>
     <section aria-labelledby="success">
       <h2 id="success">4. See what success looked like</h2>
-      <p>This is what the walk of 2026-10-08 printed after the second publish. Its names start with <code>cwwalk-1008-</code>, the prefix that session put on everything it created.</p>
+      <p>This is what the run of 2026-11-27 printed after the publish in the release step. Its base Space was named <code>walk-nginx</code>.</p>
       <pre class="terminal-body"><code><span class="term-comment"># the Argo CD Application, with its sync and its health</span>
 <span class="term-prompt">$</span> kubectl -n argocd get applications.argoproj.io
-NAME                                                  SYNC STATUS   HEALTH STATUS
-cwwalk-1008-bitnami-nginx-24-0-2-http-clusterip-dev   Synced        Healthy
-cwwalk-1008-kind-argo-apps                            Synced        Healthy
+NAME                 SYNC STATUS   HEALTH STATUS
+walk-nginx-dev       Synced        Healthy
+workshop-argo-apps   Synced        Healthy
 
 <span class="term-comment"># the workload on the cluster</span>
 <span class="term-prompt">$</span> kubectl -n nginx get deployment,service,pods,networkpolicy,pdb
-deployment.apps/nginx   1/1     1            1           38s
-service/nginx   ClusterIP   10.96.194.125   &lt;none&gt;        80/TCP,443/TCP   38s
-pod/nginx-d9699d4ff-ps556   1/1     Running   0          37s
-networkpolicy.networking.k8s.io/nginx   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx   38s
-poddisruptionbudget.policy/nginx   N/A             1                 1                     38s</code></pre>
-      <p>Read the Sync column, because Healthy alone is not a pass. Before the delete, the same command showed <code>Unknown</code> and <code>Healthy</code>, and nothing from the entry was on the cluster.</p>
-      <p>ConfigHub shows nothing when Argo CD fails to read a Release, so this command is the check. Argo CD took between 18 seconds and about 5 minutes to read a Release on that cluster.</p>
-      <p>After the promotion, the delete and one more publish, the walk ended with the Application <code>Synced</code> and <code>Healthy</code> and two of two replicas running.</p>
-      <p>This is a dated record of one run, on one disposable local kind cluster with Argo CD. <a href="./d/docs/user/live-walk-entry-steps-2026-10-08.html#entry-a-bitnami-nginx-24-0-2-http-clusterip">The log</a> says it is not a receipt for the entry, so no Catalog state rests on it.</p>
+deployment.apps/nginx   1/1     1            1           19s
+service/nginx   ClusterIP   10.96.11.253   &lt;none&gt;        80/TCP,443/TCP   19s
+pod/nginx-d9699d4ff-pv4cx   1/1     Running   0          19s
+networkpolicy.networking.k8s.io/nginx   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx   19s
+poddisruptionbudget.policy/nginx   N/A             1                 1                     19s</code></pre>
+      <p>Read the Sync column, because Healthy alone is not a pass. While the first cluster could not reach the server, the same command showed the root Application <code>Unknown</code> and <code>Healthy</code>, and every <code>cub</code> command had exited 0.</p>
+      <p>ConfigHub shows nothing when Argo CD fails to read a Release, so this command is the check. On a cluster made without k8sbot, the Application was <code>Synced</code> and <code>Healthy</code> about 4.5 minutes after the publish.</p>
+      <p>After the promotion and one more publish, the run ended with the Application <code>Synced</code> and <code>Healthy</code> and two replicas running. Argo CD listed the six objects and no package record.</p>
+      <p>This is a dated record of one run, on one disposable local kind cluster with Argo CD. <a href="./d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">The log</a> says it is not a receipt for the entry, so no Catalog state rests on it.</p>
     </section>
     <section aria-labelledby="not-covered">
       <h2 id="not-covered">5. Know what this run did not cover</h2>
       <ul>
-        <li>The walk created the <code>dev</code> variant only. It created no staging variant and no production variant, so this page prints no command for either.</li>
-        <li>The walk did not run <code>cub auth login</code>, because the session used an existing login.</li>
-        <li>The walk did not try Flux or plain kubectl delivery.</li>
-        <li>The cluster ran without argobot, so the walk did not observe the result with argobot.</li>
-        <li>The Catalog's own delivery record for this entry ran other commands. The four release commands above have no recorded run, and they rest on the dated log alone.</li>
+        <li>The runs created the <code>dev</code> variant only. They created no staging variant and no production variant, so this page prints no command for either.</li>
+        <li>The run of 2026-11-27 used a local ConfigHub server and did not run <code>cub auth login</code>. The walk of 2026-10-08 used an existing login.</li>
+        <li>Neither tried Flux or plain kubectl delivery.</li>
+        <li>The cluster ran without k8sbot, so the runs did not observe the result with k8sbot.</li>
+        <li>The Catalog's own delivery record for this entry ran other commands. The release commands above have no recorded run for the entry, and they rest on the dated logs alone.</li>
       </ul>
       <p>To see whether your change survives a refresh from upstream, follow <a href="./journey-preserve-my-fixes.html">AI overwrites my fixes</a>. For every step and every caution, open <a href="./charts/bitnami-nginx-24-0-2.html#use-in-confighub">the entry page</a>.</p>
     </section>
     <section aria-labelledby="go-back">
       <h2 id="go-back">6. Go back</h2>
-      <p>The walk removed this entry from ConfigHub with the first four commands, and it removed the cluster with the fifth. They delete what the earlier commands created, so run them only on names you chose.</p>
+      <p><a href="./d/docs/user/live-walk-entry-steps-2026-10-08.html#entry-a-bitnami-nginx-24-0-2-http-clusterip">The walk of 2026-10-08</a> removed this entry from ConfigHub with the first four commands, and it removed the cluster with the fifth. They delete what the earlier commands created, so run them only on names you chose.</p>
       <pre class="terminal-body"><code><span class="term-comment"># remove the Argo CD Application Unit from the cluster's apps Space</span>
 <span class="term-prompt">$</span> cub unit delete --space workshop-argo-apps &lt;your-space&gt;-dev
 

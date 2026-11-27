@@ -23,6 +23,13 @@ before upload. `cub installer upload` stores the rendered Kubernetes objects
 and an untargeted `installer-record` Unit. The source package, chart, and
 templates remain in the package OCI; ConfigHub does not rerender them.
 
+With installer plugin 0.6.1 and cub v0.11.23, the record is a hidden Unit
+named `installer` instead. `cub unit list` does not show it, and `cub package
+show --space <space>` reads it back. A variant does not clone it, and a
+Release leaves it out, so the deploy and promote steps on an entry page
+delete nothing before they publish. The
+[run of 2026-11-27](./live-walk-entry-deploy-promote-2026-11-27.md) shows both.
+
 ## Choose The Right Kind Of Variant
 
 - If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with `--base`.

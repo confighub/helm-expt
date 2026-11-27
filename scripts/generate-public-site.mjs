@@ -23,11 +23,11 @@ import { appLearningPathsHtml } from "./lib/app-learning-paths.mjs";
 import { BEFORE_AFTER_PAGES, beforeAfterAssets, beforeAfterGalleryHtml, beforeAfterPage, GPU_ENTRY, SIMPLE_PAGES, simpleBeforeAfterPage } from "./lib/before-after-pages.mjs";
 import { gitopsOnboardingGuide, sveltosOnboardingGuide } from "./lib/gitops-onboarding-pages.mjs";
 import { upstreamObservation } from "./lib/upstream-availability.mjs";
-import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
+import { deployOneThingGuide, DEPLOY_ONE_ENTRY, DEPLOY_ONE_RELEASE_WALK_PATH, DEPLOY_ONE_WALK_PATH } from "./lib/deploy-one-thing-page.mjs";
 import { eksInferencePage, EKS_INFERENCE_CHARTS, EKS_INFERENCE_CLOSURE, EKS_INFERENCE_MANIFEST, EKS_INFERENCE_PAGE_FILE, EKS_INFERENCE_PAGE_TITLE, EKS_INFERENCE_RUN_LOG } from "./lib/eks-inference-page.mjs";
 import { nvkePage, NVKE_PAGE_FILE, NVKE_PAGE_TITLE } from "./lib/nvke-page.mjs";
 import { AREAS, AREA_LABELS, areaForDoc, isContributorDoc } from "./lib/doc-area-map.mjs";
-import { ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES, PACKAGE_INSTALL_WALK } from "./lib/entry-next-steps.mjs";
+import { DEPLOY_WALK, ENTRY_STEPS_WALK, NEXT_STEPS, NEXT_STEPS_HEADING, NEXT_STEPS_TARGET, NEXT_STEP_STATES, PACKAGE_INSTALL_WALK } from "./lib/entry-next-steps.mjs";
 import { chartCompareCommands, chartDiffSummaryLine, chartPageSlug, compareChartVersions } from "./lib/catalog-chart-pages.mjs";
 import { LIVE_EXAMPLES_PATH, liveExampleSectionHtml, validateLiveExamples } from "./lib/catalog-live-examples.mjs";
 import { VENDORED_DIFF_SOURCE, diffConfigFiles, vendoredDiffRecord } from "./lib/vendored-config-diff.mjs";
@@ -8516,11 +8516,12 @@ function gitopsOnboardingHtml(kind) {
 }
 
 // The Guide that follows one Catalog entry from its exact objects to a release.
-// Its commands come from the entry's listing and from the dated walk log.
+// Its commands come from the entry's listing and from two dated logs.
 function deployOneThingHtml() {
   return splitGuideHtml(deployOneThingGuide({
     listing: readListingFile(DEPLOY_ONE_ENTRY),
     walkLog: readFileSync(join(repoRoot, DEPLOY_ONE_WALK_PATH), "utf8"),
+    releaseLog: readFileSync(join(repoRoot, DEPLOY_ONE_RELEASE_WALK_PATH), "utf8"),
     check,
     commandBlock,
     markdownLikeTable,
@@ -8746,7 +8747,7 @@ Needs a cluster or external system -> target fact, plan step, or setup step.</co
       -> upload -> base Space
       -> derived variants (staging, production) -> promote</code></pre>
       <p>A base variant is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret. A derived variant is a ConfigHub Space cloned from your uploaded base for an environment; it never re-renders Helm.</p>
-      <p>The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates stay in the package OCI; ConfigHub does not rerender them.</p>
+      <p>The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects, and a record of the package as a hidden Unit named <code>installer</code>. The source package, chart, and templates stay in the package OCI; ConfigHub does not rerender them.</p>
     </section>
     <section aria-labelledby="flow">
       <h2 id="flow">4. Run the commands</h2>
@@ -10159,7 +10160,7 @@ Variants:
       <h2 id="fields">5. Tell what set a field</h2>
       <p>Use these steps to trace which layer actually set a field you are looking at.</p>
       <ul>
-        <li>Open the base Space's <code>installer-record</code> Unit to see which package was uploaded. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li>
+        <li>Run <code>cub package show --space &lt;base-space&gt;</code> to see which package was uploaded. It reads the hidden <code>installer</code> Unit. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li>
         <li>Open the package's Helm render-intent record to see which Helm values and render settings produced the starting objects.</li>
         <li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li>
         <li>Open the derived Space's upstream link to see which base it started from.</li>
@@ -16594,9 +16595,9 @@ function entryNoteHtml(text) {
   return escapeHtml(text).replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
-// The rendered page of the live walk log, relative to the page that links it.
-function entryWalkHref(siteHref) {
-  return `${siteHref}/d/${ENTRY_STEPS_WALK.path.replace(/\.md$/, ".html")}`;
+// The rendered page of a live walk log, relative to the page that links it.
+function entryWalkHref(siteHref, walk = ENTRY_STEPS_WALK) {
+  return `${siteHref}/d/${walk.path.replace(/\.md$/, ".html")}`;
 }
 
 function entryStepHtml(step, index, listing, siteHref) {
@@ -17066,7 +17067,7 @@ function entryStepsSectionHtml(listings, { siteHref, note = "" }) {
         usesCub ? `<a href="${siteHref}/try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands.` : "",
         compares ? `Step 2 uses <code>cub config diff</code> from <code>${escapeHtml(WORKSHOP_PLUGIN_INSTALL)}</code>.` : "",
         listings.length > 1 ? `Expand any of the ${listings.length} entries below.` : "",
-        walked && installRun ? `Command syntax for step 3 comes from a <a href="${installRunHref}">recorded run (${escapeHtml(PACKAGE_INSTALL_WALK.date)})</a>, and for steps 4 and 5 from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>. It applies to this entry only where a step badge says Run.` : walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
+        walked && installRun ? `Command syntax for step 3 comes from a <a href="${installRunHref}">recorded run (${escapeHtml(PACKAGE_INSTALL_WALK.date)})</a>, and for steps 4 and 5 from a <a href="${entryWalkHref(siteHref, DEPLOY_WALK)}">recorded run (${escapeHtml(DEPLOY_WALK.date)})</a>. It applies to this entry only where a step badge says Run.` : walked ? `Command syntax for steps 3 to 5 comes from a <a href="${entryWalkHref(siteHref)}">recorded CLI walkthrough (${escapeHtml(ENTRY_STEPS_WALK.date)})</a>, and applies to this entry only where a step badge says Run.` : usesVariant ? `Command syntax for <code>cub variant</code> comes from a <a href="${siteHref}/d/docs/user/${ENTRY_STEPS_RUN_LOG}">recorded CLI log (2026-10-08)</a>, not a live run of this entry.` : "",
         note,
       ].filter(Boolean).join(" ")}</p>
       ${body}

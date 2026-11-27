@@ -24,7 +24,7 @@ import { check, relativeRepo, repoRoot, sha256, trackedExists, write } from "./l
 
 import { loadRoleAssignments, discoveryFor, testRoleAssignments } from "./lib/catalog-roles.mjs";
 import { entryPageWithoutChart } from "./lib/entry-page.mjs";
-import { ENTRY_STEPS_WALK, NEXT_STEPS, PACKAGE_INSTALL_WALK, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
+import { DEPLOY_WALK, NEXT_STEPS, PACKAGE_INSTALL_WALK, NEXT_STEP_STATES, buildNextSteps, customResourcesWithoutDefinition, compareVersions, deliveryRanOtherCommands, deriveStepState, nextStepClaimErrors, uploadPath } from "./lib/entry-next-steps.mjs";
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BLOB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
@@ -1372,20 +1372,22 @@ function runNextStepSelfTest(loaded) {
   check(refuses(unpinnedInstall, withSibling, "installs a package the listing does not pin by digest"), "self-test: cub package install of an unpinned reference must be refused");
   for (const stepId of ["deploy", "promote"]) {
     const kept = commandsOf(published, stepId);
-    check(kept.some(({ command }) => command === "cub unit delete --space <your-space>-dev installer-record"), `self-test: step ${stepId} must delete the cloned installer-record Unit`);
+    check(!kept.some(({ command }) => /^cub unit delete /.test(command)), `self-test: step ${stepId} must delete no Unit`);
     check(/^cub release publish /.test(kept.at(-1).command), `self-test: step ${stepId} must end with a publish`);
-    const undeleted = structuredClone(published);
-    undeleted.nextSteps.find((step) => step.id === stepId).commands = kept.filter(({ command }) => !command.includes("installer-record"));
-    check(refuses(undeleted, withSibling, "does not delete the cloned installer-record Unit"), `self-test: step ${stepId} without the delete line must be refused`);
+    for (const record of ["installer", "installer-record"]) {
+      const deleting = structuredClone(published);
+      deleting.nextSteps.find((step) => step.id === stepId).commands.push({ command: `cub unit delete --space <your-space>-dev ${record}` }, { command: "cub release publish <your-space>-dev" });
+      check(refuses(deleting, withSibling, "deletes the installer record"), `self-test: step ${stepId} that deletes ${record} must be refused`);
+    }
     const unpublished2 = structuredClone(published);
     unpublished2.nextSteps.find((step) => step.id === stepId).commands = kept.slice(0, -1);
-    check(refuses(unpublished2, withSibling, "does not publish after it deletes"), `self-test: step ${stepId} that stops after the delete must be refused`);
+    check(refuses(unpublished2, withSibling, "does not end with a publish"), `self-test: step ${stepId} that stops before the publish must be refused`);
     const unlinked = structuredClone(published);
     delete unlinked.nextSteps.find((step) => step.id === stepId).liveWalk;
     check(refuses(unlinked, withSibling, "does not link the live walk"), `self-test: step ${stepId} without its walk link must be refused`);
   }
   check(published.nextSteps[2].liveWalk.path === PACKAGE_INSTALL_WALK.path, "self-test: the upload step must link the run of cub package install");
-  check(published.nextSteps[3].liveWalk.path === ENTRY_STEPS_WALK.path, "self-test: the deploy step must link the live walk log");
+  check(published.nextSteps[3].liveWalk.path === DEPLOY_WALK.path, "self-test: the deploy step must link the walk of the deploy and promote steps");
   const oldUploadWalk = structuredClone(published);
   oldUploadWalk.nextSteps[2].liveWalk = structuredClone(published.nextSteps[3].liveWalk);
   check(refuses(oldUploadWalk, withSibling, "does not link the live walk that ran its commands"), "self-test: an upload step linking the older walk must be refused");

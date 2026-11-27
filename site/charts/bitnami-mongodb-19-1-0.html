@@ -795,7 +795,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>. It applies to this entry only where a step badge says Run.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="bitnami-mongodb-19-1-0-existing-secret-replicaset" open>
         <summary>Helm chart, base <strong>existing-secret-replicaset</strong>, version 19.1.0</summary>
         <details class="entry-inputs" data-entry-inputs="bitnami-mongodb-19-1-0-existing-secret-replicaset" open>
@@ -864,37 +864,26 @@ b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongod
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy. The coverage lanes record a local Kubernetes run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
-          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
-          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
-          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
-          <p>Make the cluster with <code>cub cluster up --no-k8sbot</code>, a flag cub v0.8.7 called no-argobot when the walk ran. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
-          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy. The coverage lanes record a local Kubernetes run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a>.</p>
+          <p>Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named <code>installer</code>. The variant does not clone it, so one publish deploys the rendered objects.</p>
+          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.</p>
+          <p>Make the cluster with <code>cub cluster up --name workshop --no-k8sbot</code>. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
 <span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-1-0-existing-secret-replicaset.yaml">Read the record that states this</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
-          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
+          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The publish below has no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-1-0-existing-secret-replicaset.yaml">Read the record that states this</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden <code>installer</code> Unit to the dev Space, without a Target, and the Release leaves it out.</p>
+          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
@@ -966,37 +955,26 @@ b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongod
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a>.</p>
-          <p>Use the Space name you chose in step 3. The delete command is needed because the cloned <code>installer-record</code> Unit carries the Target and Argo CD v3.5.4 cannot read it, a defect seen on cub v0.8.7 and server v0.8.9.</p>
-          <p>Without that line the walk deployed nothing and Argo CD showed Unknown, while every cub command exited 0. The walk ran the four commands in this order and did not try them without the first publish.</p>
-          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. Argo CD took between 18 seconds and about 5 minutes to read a Release on a cluster made without argobot.</p>
-          <p>Make the cluster with <code>cub cluster up --no-k8sbot</code>, a flag cub v0.8.7 called no-argobot when the walk ran. That command creates two Spaces, a Worker, a Target and a Trigger, opens ports 30010 to 30019 on the machine, and installs Argo CD from an unpinned upstream manifest.</p>
-          <p>Removing the ConfigHub side does not remove the workload. In the walk, deleting the Application Unit and the Spaces left the Application and its pods running, because the root Application does not prune.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The coverage lanes record a local Kubernetes run and a GitOps OCI run for this base. They are separate from the delivery record this step reads. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a>.</p>
+          <p>Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named <code>installer</code>. The variant does not clone it, so one publish deploys the rendered objects.</p>
+          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.</p>
+          <p>Make the cluster with <code>cub cluster up --name workshop --no-k8sbot</code>. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
 <span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
 <span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
-<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev
-
-<span class="term-comment"># delete the installer record, which Argo CD cannot read</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
-
-<span class="term-comment"># publish again without it</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
         <div class="entry-step" data-step="promote" data-state="partly-run-for-this-entry">
           <h3>5. Promote a change <span class="status warn">Partly run for this entry</span></h3>
-          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The delete and the publish below have no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">Read the log of the live walk on 2026-10-08</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-1-0-static-passwords.yaml">Read the record that states this</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. It also adds the <code>installer-record</code> Unit back with the Target. The change reaches the cluster only after the delete and the publish.</p>
-          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-label change to gpu-operator ran to 405 lines, and about 400 of them were that record.</p>
+          <p>A promotion ran for this entry and left a limit to review. It ran the preview and the promote. The publish below has no recorded run for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a> · <a href="https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-mongodb-19-1-0-static-passwords.yaml">Read the record that states this</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden <code>installer</code> Unit to the dev Space, without a Target, and the Release leaves it out.</p>
+          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
 <span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># delete the installer record that the promotion adds back</span>
-<span class="term-prompt">$</span> cub unit delete --space &lt;your-space&gt;-dev installer-record
 
 <span class="term-comment"># publish the Release that carries the change</span>
 <span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>

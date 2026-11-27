@@ -119,6 +119,7 @@ const DOC_AREA = {
   "docs/user/live-run-log-2026-10-08.md": "operate",
   "docs/user/live-walk-entry-steps-2026-10-08.md": "operate",
   "docs/user/live-walk-cub-package-install-2026-11-26.md": "operate",
+  "docs/user/live-walk-entry-deploy-promote-2026-11-27.md": "operate",
   "docs/user/live-walk-bundle-route-2026-11-02.md": "operate",
   "docs/user/live-walk-plan-step-2026-11-02.md": "operate",
   "docs/user/live-walk-bundle-sample-2026-11-02.md": "operate",

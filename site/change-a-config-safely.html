@@ -907,7 +907,7 @@ Needs a cluster or external system -> target fact, plan step, or setup step.</co
       -> upload -> base Space
       -> derived variants (staging, production) -> promote</code></pre>
       <p>A base variant is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret. A derived variant is a ConfigHub Space cloned from your uploaded base for an environment; it never re-renders Helm.</p>
-      <p>The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates stay in the package OCI; ConfigHub does not rerender them.</p>
+      <p>The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects, and a record of the package as a hidden Unit named <code>installer</code>. The source package, chart, and templates stay in the package OCI; ConfigHub does not rerender them.</p>
     </section>
     <section aria-labelledby="flow">
       <h2 id="flow">3. Run the commands</h2>
