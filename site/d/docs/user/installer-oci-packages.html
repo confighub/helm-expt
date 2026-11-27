@@ -715,12 +715,13 @@
   <header class="hero human-hero">
     
     <h1>Installer Package OCI Refs</h1>
-    <p class="lead">The catalog should let a user try a chart without cloning this repo. That is why each chart version now has an installer package OCI ref. You can also <a href="../../../../docs/user/installer-oci-packages.md">view this as a markdown file</a>.</p>
+    <p class="lead">These are the catalog's earlier package references, in a Google registry. The same packages are now published under <code>ghcr.io/confighub/packages</code>, where <code>cub package install &lt;name&gt;</code> finds them; see <a href="packages-and-the-catalog.html">Packages and the catalog</a>. You can also <a href="../../../../docs/user/installer-oci-packages.md">view this as a markdown file</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
+<p>The catalog should let a user try a chart without cloning this repo. That is why each chart version now has an installer package OCI ref.</p>
 <p>The generated package index lists every current and retained package version. Published refs are in Google Artifact Registry with public read access. The local setup path does not require a ConfigHub account, a Google registry login, or a clone of this repo.</p>
 <p>The user-facing command is:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. Public catalog packages pull and render anonymously, and you sign in only once a command saves or changes ConfigHub data.</p>

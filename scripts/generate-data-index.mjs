@@ -95,6 +95,7 @@ function readme(rows) {
     ["I want to know which operating skill/playbook applies to a chart.", "data/chart-skills/summary.md; data/chart-skills/skills.csv; data/chart-skills/skills.json"],
     ["I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.", "data/lifecycle-route-actions/summary.md; data/lifecycle-route-actions/actions.csv; data/lifecycle-route-actions/actions.json"],
     ["I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached.", "data/helm-render-intents/summary.md; data/helm-render-intents/intents.csv; data/helm-render-intents/intents.json"],
+    ["I want the name `cub package install` finds each chart by.", "data/ghcr-packages/packages.csv"],
     ["I want the installer package OCI ref users should pull for each chart/version.", "data/installer-oci-packages/summary.md; data/installer-oci-packages/packages.csv; data/installer-oci-packages/packages.json"],
     ["I want to follow one configuration from its source digest through ConfigHub, output OCI, delivery, and live observation.", "data/oci-evidence-chains/summary.md; data/oci-evidence-chains/matrix.csv; data/oci-evidence-chains/chains.json"],
     ["I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/kind-parity-decisions/summary.md; data/kind-parity-decisions/decisions.csv; data/kind-parity-decisions/decisions.json"],
@@ -361,6 +362,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/helm-render-intents/")) return "user/front-door";
   if (path.startsWith("data/installer-oci-packages/")) return "user/front-door";
+  if (path.startsWith("data/ghcr-packages/")) return "user/front-door";
   if (path.startsWith("data/kubara-platform-matrix/")) return "user/front-door";
   if (path.startsWith("data/kubara-wiring/")) return "user/front-door";
   if (path.startsWith("data/oci-evidence-chains/")) return "user/front-door";
@@ -484,6 +486,7 @@ function roleFor(path) {
   if (path === "data/chart-skills/skills.csv") return "one row per chart: which docs/skills/ operating playbooks apply (advisory), the top skill, and the matched chart-fact signals";
   if (path === "data/lifecycle-route-actions/actions.csv") return "one row per hook/lifecycle route projected into an action packet: lifecycle phase, action kind, disposition, required target facts, evidence required, and whether the product runs it automatically (false today)";
   if (path === "data/helm-render-intents/intents.csv") return "one row per real base variant with chart/version/base, render inputs, evidence lanes, lifecycle route status, target-prerequisite action count, and source repository URL";
+  if (path === "data/ghcr-packages/packages.csv") return "one row per chart: the name cub package install finds it by, its source, and every tag published under ghcr.io/confighub/packages";
   if (path === "data/installer-oci-packages/packages.csv") return "one row per installer package with chart/version, package path, public package OCI ref, bases, setup command, and publication receipt status";
   if (path.startsWith("data/kubara-platform-matrix/")) return "Kubara component-by-cluster selection, exact version, sync state, and departure matrix; current v0.13 is primary and v0.12 is retained historical evidence";
   if (path.startsWith("data/kubara-wiring/")) return "deterministically extracted Kubara needs/provides wiring edges, unresolved needs, and provider candidates; current v0.13 is primary and v0.12 is retained historical evidence";
@@ -568,6 +571,7 @@ function familyRole(family) {
     "chart-skills": "advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why",
     "lifecycle-route-actions": "hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag",
     "helm-render-intents": "ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached",
+    "ghcr-packages": "the name each chart is published and installed by under ghcr.io/confighub/packages",
     "installer-oci-packages": "public installer package OCI refs and consumer setup commands for chart packages",
     "oci-evidence-chains": "source-neutral records linking source digest, reviewed configuration, ConfigHub record, output OCI, delivery, and observation",
     "kind-parity-decisions": "product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action",
@@ -710,6 +714,7 @@ function commandMap() {
     "chart-skills": { generate: "npm run chart-skills", verify: "npm run chart-skills:verify" },
     "lifecycle-route-actions": { generate: "npm run lifecycle:route-actions", verify: "npm run lifecycle:route-actions:verify" },
     "helm-render-intents": { generate: "npm run helm-render-intents", verify: "npm run helm-render-intents:verify" },
+    "ghcr-packages": { generate: "npm run packages:upstreams", verify: "npm run packages:upstreams:verify" },
     "installer-oci-packages": { generate: "npm run installer-oci:catalog", verify: "npm run installer-oci:catalog:verify" },
     "oci-evidence-chains": { generate: "npm run oci-evidence:generate", verify: "npm run oci-evidence:verify" },
     "kind-parity-decisions": { generate: "npm run kind-parity:decisions", verify: "npm run kind-parity:decisions:verify" },

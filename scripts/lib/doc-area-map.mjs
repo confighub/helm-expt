@@ -113,6 +113,7 @@ const DOC_AREA = {
   "docs/user/image-registry-migration.md": "operate",
   "docs/user/inspect-oci-package.md": "config",
   "docs/user/installer-oci-packages.md": "config",
+  "docs/user/packages-and-the-catalog.md": "config",
   "docs/user/introduction-to-the-harness.md": "config",
   "docs/user/known-gaps-we-surface.md": "catalog",
   "docs/user/large-config-operations.md": "operate",

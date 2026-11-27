@@ -1,0 +1,125 @@
+name,chart,repository,newest_tag,tags,reference
+ack-ec2-controller,aws-controllers-k8s/ec2-chart,oci://public.ecr.aws/aws-controllers-k8s,v1.18.4,v1.18.4,oci://ghcr.io/confighub/packages/ack-ec2-controller
+ack-eks-controller,aws-controllers-k8s/eks-chart,oci://public.ecr.aws/aws-controllers-k8s,v1.16.3,v1.16.3,oci://ghcr.io/confighub/packages/ack-eks-controller
+ack-iam-controller,aws-controllers-k8s/iam-chart,oci://public.ecr.aws/aws-controllers-k8s,v1.7.3,v1.7.3,oci://ghcr.io/confighub/packages/ack-iam-controller
+alertmanager,prometheus-community/alertmanager,https://prometheus-community.github.io/helm-charts,v1.37.0,v1.37.0,oci://ghcr.io/confighub/packages/alertmanager
+alloy,grafana/alloy,https://grafana.github.io/helm-charts,v1.12.1,v1.8.2 v1.11.0 v1.12.1,oci://ghcr.io/confighub/packages/alloy
+apache,bitnami/apache,https://charts.bitnami.com/bitnami,v11.4.29,v11.4.29,oci://ghcr.io/confighub/packages/apache
+argo-cd-helm,argo-cd/argo-cd,https://argoproj.github.io/argo-helm,v10.7.0,v9.5.15 v9.5.17 v10.1.3 v10.2.1 v10.7.0,oci://ghcr.io/confighub/packages/argo-cd-helm
+argo-events,argo-cd/argo-events,https://argoproj.github.io/argo-helm,v2.4.21,v2.4.21,oci://ghcr.io/confighub/packages/argo-events
+argo-rollouts,argo-cd/argo-rollouts,https://argoproj.github.io/argo-helm,v2.40.9,v2.40.9,oci://ghcr.io/confighub/packages/argo-rollouts
+argo-workflows,argo-cd/argo-workflows,https://argoproj.github.io/argo-helm,v1.0.14,v1.0.14,oci://ghcr.io/confighub/packages/argo-workflows
+argocd-image-updater,argo-cd/argocd-image-updater,https://argoproj.github.io/argo-helm,v1.2.2,v1.2.2,oci://ghcr.io/confighub/packages/argocd-image-updater
+aws-ebs-csi-driver,aws-ebs-csi-driver/aws-ebs-csi-driver,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,v2.60.1,v2.59.0 v2.60.1,oci://ghcr.io/confighub/packages/aws-ebs-csi-driver
+aws-efa-k8s-device-plugin,eks/aws-efa-k8s-device-plugin,https://aws.github.io/eks-charts,v0.5.29,v0.5.29,oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin
+bitnami-nginx,bitnami/nginx,https://charts.bitnami.com/bitnami,v25.0.0,v24.0.2 v24.0.4 v25.0.0,oci://ghcr.io/confighub/packages/bitnami-nginx
+bitnami-rabbitmq,bitnami/rabbitmq,https://charts.bitnami.com/bitnami,v16.0.14,v16.0.14,oci://ghcr.io/confighub/packages/bitnami-rabbitmq
+bitnami-redis,bitnami/redis,https://charts.bitnami.com/bitnami,v27.0.0,v25.5.3 v27.0.0,oci://ghcr.io/confighub/packages/bitnami-redis
+cert-manager,jetstack/cert-manager,https://charts.jetstack.io,v1.21.1,v1.20.2 v1.21.0 v1.21.1,oci://ghcr.io/confighub/packages/cert-manager
+cert-manager-csi-driver,jetstack/cert-manager-csi-driver,https://charts.jetstack.io,v0.14.0,v0.14.0,oci://ghcr.io/confighub/packages/cert-manager-csi-driver
+cloudnative-pg,cloudnative-pg/cloudnative-pg,https://cloudnative-pg.github.io/charts,v0.29.0,v0.28.2 v0.29.0,oci://ghcr.io/confighub/packages/cloudnative-pg
+cloudpirates-nginx,cloudpirates/nginx,oci://registry-1.docker.io/cloudpirates/nginx,v0.16.1,v0.16.1,oci://ghcr.io/confighub/packages/cloudpirates-nginx
+cloudpirates-rabbitmq,cloudpirates/rabbitmq,oci://registry-1.docker.io/cloudpirates/rabbitmq,v0.21.13,v0.21.13,oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq
+cloudpirates-redis,cloudpirates/redis,oci://registry-1.docker.io/cloudpirates/redis,v0.34.11,v0.34.11,oci://ghcr.io/confighub/packages/cloudpirates-redis
+cluster-autoscaler,autoscaler/cluster-autoscaler,https://kubernetes.github.io/autoscaler,v9.57.0,v9.57.0,oci://ghcr.io/confighub/packages/cluster-autoscaler
+cluster-readiness-engine,nvidia/cluster-readiness-engine,oci://ghcr.io/nvidia,v0.6.0,v0.6.0,oci://ghcr.io/confighub/packages/cluster-readiness-engine
+consul,hashicorp/consul,https://helm.releases.hashicorp.com,v2.0.0,v2.0.0,oci://ghcr.io/confighub/packages/consul
+contour,bitnami/contour,https://charts.bitnami.com/bitnami,v21.1.4,v21.1.4,oci://ghcr.io/confighub/packages/contour
+coredns,coredns/coredns,https://coredns.github.io/helm,v1.45.2,v1.45.2,oci://ghcr.io/confighub/packages/coredns
+crossplane,crossplane-stable/crossplane,https://charts.crossplane.io/stable,v2.3.1,v2.3.1,oci://ghcr.io/confighub/packages/crossplane
+descheduler,descheduler/descheduler,https://kubernetes-sigs.github.io/descheduler/,v0.36.0,v0.36.0,oci://ghcr.io/confighub/packages/descheduler
+dex,dex/dex,https://charts.dexidp.io,v0.24.0,v0.24.0,oci://ghcr.io/confighub/packages/dex
+dra-driver-nvidia-gpu,dra-driver-nvidia/dra-driver-nvidia-gpu,oci://registry.k8s.io/dra-driver-nvidia/charts,v0.5.0,v0.4.1 v0.5.0,oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu
+eck-operator,elastic/eck-operator,https://helm.elastic.co,v3.4.0,v3.4.0,oci://ghcr.io/confighub/packages/eck-operator
+elasticsearch,bitnami/elasticsearch,https://charts.bitnami.com/bitnami,v22.1.6,v22.1.6,oci://ghcr.io/confighub/packages/elasticsearch
+external-dns,external-dns/external-dns,https://kubernetes-sigs.github.io/external-dns/,v1.21.1,v1.21.1,oci://ghcr.io/confighub/packages/external-dns
+external-secrets,external-secrets/external-secrets,https://charts.external-secrets.io,v2.10.0,v2.5.0 v2.7.0 v2.8.0 v2.10.0,oci://ghcr.io/confighub/packages/external-secrets
+fairwinds-vpa,fairwinds-stable/vpa,https://charts.fairwinds.com/stable,v4.11.0,v4.11.0,oci://ghcr.io/confighub/packages/fairwinds-vpa
+falco,falcosecurity/falco,https://falcosecurity.github.io/charts,v9.0.0,v9.0.0,oci://ghcr.io/confighub/packages/falco
+falcosidekick,falcosecurity/falcosidekick,https://falcosecurity.github.io/charts,v0.13.1,v0.13.1,oci://ghcr.io/confighub/packages/falcosidekick
+filebeat,elastic/filebeat,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/filebeat
+fluent-bit,fluent/fluent-bit,https://fluent.github.io/helm-charts,v0.57.6,v0.57.6,oci://ghcr.io/confighub/packages/fluent-bit
+fluentd,fluent/fluentd,https://fluent.github.io/helm-charts,v0.5.3,v0.5.3,oci://ghcr.io/confighub/packages/fluentd
+gatekeeper,gatekeeper/gatekeeper,https://open-policy-agent.github.io/gatekeeper/charts,v3.22.2,v3.22.2,oci://ghcr.io/confighub/packages/gatekeeper
+gitlab-runner,gitlab/gitlab-runner,https://charts.gitlab.io,v0.89.0,v0.89.0,oci://ghcr.io/confighub/packages/gitlab-runner
+goldilocks,fairwinds-stable/goldilocks,https://charts.fairwinds.com/stable,v10.3.0,v10.3.0,oci://ghcr.io/confighub/packages/goldilocks
+gpu-operator,nvidia/gpu-operator,https://helm.ngc.nvidia.com/nvidia,v26.7.1,v25.10.1 v26.3.2 v26.3.3 v26.7.1,oci://ghcr.io/confighub/packages/gpu-operator
+grafana,grafana/grafana,https://grafana.github.io/helm-charts,v10.5.15,v10.5.15,oci://ghcr.io/confighub/packages/grafana
+hashicorp-terraform,hashicorp/terraform,https://helm.releases.hashicorp.com,v1.1.2,v1.1.2,oci://ghcr.io/confighub/packages/hashicorp-terraform
+ingress-nginx,ingress-nginx/ingress-nginx,https://kubernetes.github.io/ingress-nginx,v4.15.1,v4.15.1,oci://ghcr.io/confighub/packages/ingress-nginx
+istio-gateway,istio/gateway,https://istio-release.storage.googleapis.com/charts,v1.30.0,v1.30.0,oci://ghcr.io/confighub/packages/istio-gateway
+istiod,istio/istiod,https://istio-release.storage.googleapis.com/charts,v1.30.0,v1.30.0,oci://ghcr.io/confighub/packages/istiod
+jaeger,jaegertracing/jaeger,https://jaegertracing.github.io/helm-charts,v4.8.0,v4.8.0,oci://ghcr.io/confighub/packages/jaeger
+jaeger-operator,jaegertracing/jaeger-operator,https://jaegertracing.github.io/helm-charts,v2.57.0,v2.57.0,oci://ghcr.io/confighub/packages/jaeger-operator
+k8s-ephemeral-storage-metrics,k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics,https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart,v1.19.2,v1.19.2,oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics
+k8s-nim-operator,nvidia/k8s-nim-operator,https://helm.ngc.nvidia.com/nvidia,v3.1.2,v3.1.0 v3.1.2,oci://ghcr.io/confighub/packages/k8s-nim-operator
+kai-scheduler,kai-scheduler/kai-scheduler,oci://ghcr.io/kai-scheduler/kai-scheduler,v0.16.9,v0.14.1 v0.16.9,oci://ghcr.io/confighub/packages/kai-scheduler
+karpenter,karpenter/karpenter,oci://public.ecr.aws/karpenter,v1.14.0,v1.14.0,oci://ghcr.io/confighub/packages/karpenter
+keda,kedacore/keda,https://kedacore.github.io/charts,v2.19.0,v2.19.0,oci://ghcr.io/confighub/packages/keda
+kibana,elastic/kibana,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/kibana
+kube-prometheus-stack,prometheus-community/kube-prometheus-stack,https://prometheus-community.github.io/helm-charts,v88.6.3,v84.4.0 v85.3.3 v86.1.0 v87.15.1 v87.19.2 v88.6.3,oci://ghcr.io/confighub/packages/kube-prometheus-stack
+kube-state-metrics,prometheus-community/kube-state-metrics,https://prometheus-community.github.io/helm-charts,v7.4.0,v7.4.0,oci://ghcr.io/confighub/packages/kube-state-metrics
+kubeflow-trainer,kubeflow/kubeflow-trainer,oci://ghcr.io/kubeflow/charts,v2.2.0,v2.2.0,oci://ghcr.io/confighub/packages/kubeflow-trainer
+kubernetes-ingress,haproxytech/kubernetes-ingress,https://haproxytech.github.io/helm-charts,v1.52.0,v1.52.0,oci://ghcr.io/confighub/packages/kubernetes-ingress
+kyverno,kyverno/kyverno,https://kyverno.github.io/kyverno,v3.9.0,v3.8.1 v3.8.2 v3.9.0,oci://ghcr.io/confighub/packages/kyverno
+kyverno-policies,kyverno/kyverno-policies,https://kyverno.github.io/kyverno,v3.9.0,v3.8.0 v3.8.2 v3.9.0,oci://ghcr.io/confighub/packages/kyverno-policies
+linkerd-crds,linkerd/linkerd-crds,https://helm.linkerd.io/stable,v1.8.0,v1.8.0,oci://ghcr.io/confighub/packages/linkerd-crds
+logstash,elastic/logstash,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/logstash
+loki,grafana/loki,https://grafana.github.io/helm-charts,v7.3.0,v7.0.0 v7.1.0 v7.3.0,oci://ghcr.io/confighub/packages/loki
+longhorn,longhorn/longhorn,https://charts.longhorn.io,v1.12.1,v1.11.2 v1.12.0 v1.12.1,oci://ghcr.io/confighub/packages/longhorn
+memcached,bitnami/memcached,https://charts.bitnami.com/bitnami,v8.5.5,v8.5.5,oci://ghcr.io/confighub/packages/memcached
+metallb,metallb/metallb,https://metallb.github.io/metallb,v0.16.1,v0.16.1,oci://ghcr.io/confighub/packages/metallb
+metricbeat,elastic/metricbeat,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/metricbeat
+metrics-server,metrics-server/metrics-server,https://kubernetes-sigs.github.io/metrics-server/,v3.14.0,v3.13.0 v3.13.1 v3.14.0,oci://ghcr.io/confighub/packages/metrics-server
+minio-operator,minio-operator/operator,https://operator.min.io,v7.1.1,v7.1.1,oci://ghcr.io/confighub/packages/minio-operator
+minio-tenant,minio-operator/tenant,https://operator.min.io,v7.1.1,v7.1.1,oci://ghcr.io/confighub/packages/minio-tenant
+mongodb,bitnami/mongodb,https://charts.bitnami.com/bitnami,v19.1.0,v19.0.7 v19.0.9 v19.1.0,oci://ghcr.io/confighub/packages/mongodb
+mysql,bitnami/mysql,https://charts.bitnami.com/bitnami,v14.0.3,v14.0.3,oci://ghcr.io/confighub/packages/mysql
+mysql-operator,mysql/mysql-operator,https://mysql.github.io/mysql-operator/,v2.3.0,v2.3.0,oci://ghcr.io/confighub/packages/mysql-operator
+nack,nats/nack,https://nats-io.github.io/k8s/helm/charts/,v0.34.0,v0.34.0,oci://ghcr.io/confighub/packages/nack
+nats,nats/nats,https://nats-io.github.io/k8s/helm/charts/,v2.14.0,v2.14.0,oci://ghcr.io/confighub/packages/nats
+nats-surveyor,nats/surveyor,https://nats-io.github.io/k8s/helm/charts/,v0.20.9,v0.20.9,oci://ghcr.io/confighub/packages/nats-surveyor
+nfs-subdir-external-provisioner,nfs-subdir-external-provisioner/nfs-subdir-external-provisioner,https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/,v4.0.18,v4.0.18,oci://ghcr.io/confighub/packages/nfs-subdir-external-provisioner
+node-feature-discovery,node-feature-discovery/node-feature-discovery,https://kubernetes-sigs.github.io/node-feature-discovery/charts,v0.19.0,v0.19.0,oci://ghcr.io/confighub/packages/node-feature-discovery
+nodewright,nvidia/nodewright,oci://ghcr.io/nvidia/nodewright/charts,v0.19.0,v0.17.1 v0.19.0,oci://ghcr.io/confighub/packages/nodewright
+nvidia-device-plugin,nvidia/nvidia-device-plugin,https://nvidia.github.io/k8s-device-plugin,v0.19.3,v0.19.3,oci://ghcr.io/confighub/packages/nvidia-device-plugin
+nvsentinel,nvidia/nvsentinel,oci://ghcr.io/nvidia,v1.26.0,v1.9.0 v1.20.0 v1.25.0 v1.26.0,oci://ghcr.io/confighub/packages/nvsentinel
+oauth2-proxy,oauth2-proxy/oauth2-proxy,https://oauth2-proxy.github.io/manifests,v10.7.0,v10.7.0,oci://ghcr.io/confighub/packages/oauth2-proxy
+opencost,opencost/opencost,https://opencost.github.io/opencost-helm-chart,v2.5.21,v2.5.21,oci://ghcr.io/confighub/packages/opencost
+opensearch,bitnami/opensearch,https://charts.bitnami.com/bitnami,v2.0.10,v2.0.10,oci://ghcr.io/confighub/packages/opensearch
+opentelemetry-operator,open-telemetry/opentelemetry-operator,https://open-telemetry.github.io/opentelemetry-helm-charts,v0.114.0,v0.114.0,oci://ghcr.io/confighub/packages/opentelemetry-operator
+pg-operator,percona/pg-operator,https://percona.github.io/percona-helm-charts/,v3.0.0,v3.0.0,oci://ghcr.io/confighub/packages/pg-operator
+pgadmin4,runix/pgadmin4,https://helm.runix.net,v1.62.0,v1.62.0,oci://ghcr.io/confighub/packages/pgadmin4
+phpmyadmin,bitnami/phpmyadmin,https://charts.bitnami.com/bitnami,v20.0.0,v20.0.0,oci://ghcr.io/confighub/packages/phpmyadmin
+policy-reporter,policy-reporter/policy-reporter,https://kyverno.github.io/policy-reporter,v3.10.0,v3.9.1 v3.10.0,oci://ghcr.io/confighub/packages/policy-reporter
+postgresql,bitnami/postgresql,https://charts.bitnami.com/bitnami,v18.7.0,v18.6.7 v18.6.10 v18.7.0,oci://ghcr.io/confighub/packages/postgresql
+prometheus,prometheus-community/prometheus,https://prometheus-community.github.io/helm-charts,v29.9.0,v29.8.0 v29.9.0,oci://ghcr.io/confighub/packages/prometheus
+prometheus-adapter,prometheus-community/prometheus-adapter,https://prometheus-community.github.io/helm-charts,v5.3.0,v5.3.0,oci://ghcr.io/confighub/packages/prometheus-adapter
+prometheus-blackbox-exporter,prometheus-community/prometheus-blackbox-exporter,https://prometheus-community.github.io/helm-charts,v11.18.0,v11.10.0 v11.15.1 v11.18.0,oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter
+prometheus-node-exporter,prometheus-community/prometheus-node-exporter,https://prometheus-community.github.io/helm-charts,v4.55.0,v4.55.0,oci://ghcr.io/confighub/packages/prometheus-node-exporter
+prometheus-operator-crds,prometheus-community/prometheus-operator-crds,https://prometheus-community.github.io/helm-charts,v29.0.0,v28.0.1 v29.0.0,oci://ghcr.io/confighub/packages/prometheus-operator-crds
+prometheus-pushgateway,prometheus-community/prometheus-pushgateway,https://prometheus-community.github.io/helm-charts,v3.6.0,v3.6.0,oci://ghcr.io/confighub/packages/prometheus-pushgateway
+promtail,grafana/promtail,https://grafana.github.io/helm-charts,v6.17.1,v6.17.1,oci://ghcr.io/confighub/packages/promtail
+psmdb-operator,percona/psmdb-operator,https://percona.github.io/percona-helm-charts/,v1.23.0,v1.22.0 v1.23.0,oci://ghcr.io/confighub/packages/psmdb-operator
+pxc-operator,percona/pxc-operator,https://percona.github.io/percona-helm-charts/,v1.19.1,v1.19.1,oci://ghcr.io/confighub/packages/pxc-operator
+pyroscope,grafana/pyroscope,https://grafana.github.io/helm-charts,v2.0.2,v2.0.2,oci://ghcr.io/confighub/packages/pyroscope
+reloader,stakater/reloader,https://stakater.github.io/stakater-charts,v2.2.16,v2.2.12 v2.2.14 v2.2.16,oci://ghcr.io/confighub/packages/reloader
+rollout-operator,grafana/rollout-operator,https://grafana.github.io/helm-charts,v0.49.0,v0.49.0,oci://ghcr.io/confighub/packages/rollout-operator
+rook-ceph,rook-release/rook-ceph,https://charts.rook.io/release,v1.19.5,v1.19.5,oci://ghcr.io/confighub/packages/rook-ceph
+rook-ceph-cluster,rook-release/rook-ceph-cluster,https://charts.rook.io/release,v1.19.5,v1.19.5,oci://ghcr.io/confighub/packages/rook-ceph-cluster
+sealed-secrets,sealed-secrets/sealed-secrets,https://bitnami-labs.github.io/sealed-secrets,v2.18.6,v2.18.6,oci://ghcr.io/confighub/packages/sealed-secrets
+secrets-store-csi-driver,secrets-store-csi-driver/secrets-store-csi-driver,https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts,v1.6.0,v1.6.0,oci://ghcr.io/confighub/packages/secrets-store-csi-driver
+spark,bitnami/spark,https://charts.bitnami.com/bitnami,v10.0.3,v10.0.3,oci://ghcr.io/confighub/packages/spark
+strimzi-kafka-operator,strimzi/strimzi-kafka-operator,https://strimzi.io/charts/,v1.0.0,v1.0.0,oci://ghcr.io/confighub/packages/strimzi-kafka-operator
+tempo,grafana/tempo,https://grafana.github.io/helm-charts,v1.24.4,v1.24.4,oci://ghcr.io/confighub/packages/tempo
+tigera-operator,projectcalico/tigera-operator,https://docs.tigera.io/calico/charts,v3.32.0,v3.32.0,oci://ghcr.io/confighub/packages/tigera-operator
+traefik,traefik/traefik,oci://ghcr.io/traefik/helm,v41.4.0,v40.2.0 v41.0.2 v41.4.0,oci://ghcr.io/confighub/packages/traefik
+trivy-operator,aqua/trivy-operator,https://aquasecurity.github.io/helm-charts/,v0.32.1,v0.32.1,oci://ghcr.io/confighub/packages/trivy-operator
+trust-manager,jetstack/trust-manager,https://charts.jetstack.io,v0.22.1,v0.22.1,oci://ghcr.io/confighub/packages/trust-manager
+valkey,valkey/valkey,https://valkey.io/valkey-helm/,v0.11.0,v0.11.0,oci://ghcr.io/confighub/packages/valkey
+vault,hashicorp/vault,https://helm.releases.hashicorp.com,v0.32.0,v0.32.0,oci://ghcr.io/confighub/packages/vault
+velero,velero/velero,https://vmware-tanzu.github.io/helm-charts,v12.1.0,v12.0.1 v12.1.0,oci://ghcr.io/confighub/packages/velero
+vertical-pod-autoscaler,autoscaler/vertical-pod-autoscaler,https://kubernetes.github.io/autoscaler,v0.9.0,v0.9.0,oci://ghcr.io/confighub/packages/vertical-pod-autoscaler
+victoria-logs-single,vm/victoria-logs-single,https://victoriametrics.github.io/helm-charts,v0.12.5,v0.12.5,oci://ghcr.io/confighub/packages/victoria-logs-single
+victoria-metrics-single,vm/victoria-metrics-single,https://victoriametrics.github.io/helm-charts,v0.39.0,v0.39.0,oci://ghcr.io/confighub/packages/victoria-metrics-single
+zookeeper,bitnami/zookeeper,https://charts.bitnami.com/bitnami,v13.8.7,v13.8.7,oci://ghcr.io/confighub/packages/zookeeper
