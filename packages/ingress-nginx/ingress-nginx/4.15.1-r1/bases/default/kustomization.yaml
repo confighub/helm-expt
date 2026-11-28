@@ -1,0 +1,15 @@
+apiVersion: "kustomize.config.k8s.io/v1beta1"
+kind: "Kustomization"
+resources:
+  - "upstream.yaml"
+patches:
+  -
+    target:
+      kind: "(ServiceAccount|Role|RoleBinding|ClusterRole|ClusterRoleBinding)"
+      name: "ingress-nginx-admission"
+    patch: "- op: remove\n  path: /metadata/annotations/helm.sh~1hook\n- op: remove\n  path: /metadata/annotations/helm.sh~1hook-delete-policy\n"
+  -
+    target:
+      kind: "Job"
+      name: "(ingress-nginx-admission-create|ingress-nginx-admission-patch)"
+    patch: "- op: remove\n  path: /metadata/annotations/helm.sh~1hook\n- op: remove\n  path: /metadata/annotations/helm.sh~1hook-delete-policy\n- op: add\n  path: /metadata/annotations/argocd.argoproj.io~1hook\n  value: Sync\n- op: add\n  path: /metadata/annotations/argocd.argoproj.io~1hook-delete-policy\n  value: BeforeHookCreation\n- op: remove\n  path: /spec/ttlSecondsAfterFinished\n"

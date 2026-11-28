@@ -11,4 +11,10 @@ spec:
     each version published since its last run and removes the version from
     this list; an entry whose receipt exists fails the chain until it is
     removed.
-  packages: []
+  packages:
+    - chart: "jetstack/cert-manager"
+      version: "v1.21.3"
+    - chart: "external-secrets/external-secrets"
+      version: "2.15.0"
+    - chart: "ingress-nginx/ingress-nginx"
+      version: "4.15.1-r1"

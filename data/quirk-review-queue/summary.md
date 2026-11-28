@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 304
-charts affected: 151
-  standard (confirm a catalog-wide home): 128
+flagged quirks: 310
+charts affected: 154
+  standard (confirm a catalog-wide home): 131
   build    (build a variant, then handle):  21
-  sme      (genuine per-chart human call):   155
+  sme      (genuine per-chart human call):   158
 ```
 
 ## Work it down in this order
@@ -25,7 +25,7 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | --- | ---: | ---: |
 | `crds` | 35 | 35 |
 | `catalog-coverage` | 33 | 33 |
-| `crd-policy` | 16 | 16 |
+| `crd-policy` | 18 | 18 |
 | `stateful-storage` | 14 | 14 |
 | `apiservice` | 4 | 4 |
 | `operator-managed-operands` | 4 | 4 |
@@ -42,6 +42,7 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | `mesh-gateway-policy` | 1 | 1 |
 | `service-exposure` | 1 | 1 |
 | `operate-policy` | 1 | 1 |
+| `package-base-patch` | 1 | 1 |
 | `provider-integration` | 1 | 1 |
 
 ### 2. Build — needs a concrete variant first
@@ -63,7 +64,7 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 | --- | ---: | ---: |
 | `extension-slots` | 70 | 70 |
 | `tpl-extension-slots` | 67 | 67 |
-| `tpl` | 11 | 11 |
+| `tpl` | 14 | 14 |
 | `gitops-handoff` | 4 | 4 |
 | `chart-deprecation` | 2 | 2 |
 | `platform-variant` | 1 | 1 |

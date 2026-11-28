@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
+metadata:
+  name: "jetstack-cert-manager-v1.21.3"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.21.3"
+  status: "catalog-candidate"
+  supportLevel: "promotion-review-needed"
+  supportedScopes:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  supportedVariants:
+    []
+  candidateVariants:
+    - "default"
+    - "crds-enabled"
+    - "no-crds"
+  deferredVariants: []
+  review:
+    lastReviewed: null
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; human product review must confirm the supported variants and production dispositions."

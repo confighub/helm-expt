@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 148 |
+| missing-confighub-proof | 156 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 148 |
+| todo | 156 |
 | watch | 17 |
 | yes | 179 |
 

@@ -1086,6 +1086,28 @@
     },
     {
       "chart": "external-secrets/external-secrets",
+      "version": "2.15.0",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
+      "chart": "external-secrets/external-secrets",
       "version": "2.5.0",
       "top_skill": "serious-chart-playbooks",
       "matched_signals": [
@@ -1784,6 +1806,13 @@
       ]
     },
     {
+      "chart": "ingress-nginx/ingress-nginx",
+      "version": "4.15.1-r1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "istio/gateway",
       "version": "1.30.0",
       "top_skill": "none",
@@ -1940,6 +1969,28 @@
     {
       "chart": "jetstack/cert-manager",
       "version": "v1.21.1",
+      "top_skill": "serious-chart-playbooks",
+      "matched_signals": [
+        "named-serious"
+      ],
+      "applicable": [
+        {
+          "slug": "serious-chart-playbooks",
+          "title": "Serious Chart Playbooks",
+          "doc": "docs/skills/serious-chart-playbooks.md",
+          "why": "a named hard chart, or one that combines CRDs and admission webhooks"
+        },
+        {
+          "slug": "large-app-evidence-funnel",
+          "title": "Large App Evidence Funnel",
+          "doc": "docs/skills/large-app-evidence-funnel.md",
+          "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        }
+      ]
+    },
+    {
+      "chart": "jetstack/cert-manager",
+      "version": "v1.21.3",
       "top_skill": "serious-chart-playbooks",
       "matched_signals": [
         "named-serious"

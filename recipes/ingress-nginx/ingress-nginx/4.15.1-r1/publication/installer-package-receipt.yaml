@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-r1"
+spec:
+  chart:
+    repository: "ingress-nginx"
+    name: "ingress-nginx"
+    version: "4.15.1"
+  package:
+    path: "packages/ingress-nginx/ingress-nginx/4.15.1-r1"
+    name: "ingress-nginx-ingress-nginx"
+    version: "v4.15.1-r1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "9ef4fa6a983a445783a2d5bfd365f3fbc81c20b569b2420ca5f30b83abf5c281"
+        bytes: 961
+      -
+        path: "bases/admission-disabled/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/admission-disabled/upstream.yaml"
+        sha256: "ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e"
+        bytes: 10600
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "3e49bdace257ebc0c80406506530c694371e6b48ef32aaa419ce4147d7d48d30"
+        bytes: 889
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "bd8eaecf1947090d776de86bef2ab4fbff9d29db799ac462cfbca53591da62cf"
+        bytes: 21583
+      -
+        path: "bases/internal-clusterip/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/internal-clusterip/upstream.yaml"
+        sha256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+        bytes: 10597
+      -
+        path: "installer.yaml"
+        sha256: "151ab86fe0e638269bb01564ebae308f3d0446fc7c2aa10fee5c620c2d00bbd2"
+        bytes: 983
+  deterministicBundle:
+    command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1-r1 -o <tmp>/ingress-nginx-4.15.1-r1.tgz"
+    sha256: "0cbaded32c55bc4e98b197e4fa91e3318d5d83766c49b0b8683ac543552fcdbc"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1-r1 --base default --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"
+    -
+      variant: "admission-disabled"
+      base: "admission-disabled"
+      command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1-r1 --base admission-disabled --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"
+    -
+      variant: "internal-clusterip"
+      base: "internal-clusterip"
+      command: "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1-r1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
+      semanticObjectMatches: "9/9"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ingress-nginx"

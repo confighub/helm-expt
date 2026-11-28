@@ -14,8 +14,8 @@ top-20 production rows:            20
 top-100 runtime/GitOps rows:       122
 top-100 rows with local runtime:   20
 latest top-20 candidates:          7
-rendered image rows reviewed:      1560
-rendered subjects with mutable/floating images: 300
+rendered image rows reviewed:      1582
+rendered subjects with mutable/floating images: 305
 ```
 
 ## Files

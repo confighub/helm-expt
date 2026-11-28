@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 2076
-recorded disposition:       1320  (63.6%)
+lane cells:                 2124
+recorded disposition:       1328  (62.5%)
 + derived blocked:          9
-+ derived n/a (K covered):  59
-= verified disposition:     1388  (66.9%)
-genuine todo (named next):  148
-un-dispositioned gap:       540
++ derived n/a (K covered):  66
+= verified disposition:     1403  (66.1%)
+genuine todo (named next):  156
+un-dispositioned gap:       565
 ```
 
-**Distance to 99%:** 688 cells are not yet a
-non-todo verified disposition (33.1% of cells).
+**Distance to 99%:** 721 cells are not yet a
+non-todo verified disposition (33.9% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 346 | 346 | 0 | 0 |
-| C in_confighub | 346 | 198 | 148 | 0 |
-| L local_live | 346 | 199 | 0 | 147 |
-| G gitops_oci_live | 346 | 199 | 0 | 147 |
-| P live_helm_vs_confighub_parity | 346 | 199 | 0 | 147 |
-| K two_cluster_kind_parity | 346 | 247 | 0 | 99 |
+| R render_parity | 354 | 354 | 0 | 0 |
+| C in_confighub | 354 | 198 | 156 | 0 |
+| L local_live | 354 | 199 | 0 | 155 |
+| G gitops_oci_live | 354 | 199 | 0 | 155 |
+| P live_helm_vs_confighub_parity | 354 | 199 | 0 | 155 |
+| K two_cluster_kind_parity | 354 | 254 | 0 | 100 |
 
 ## The work to 99%, by next action
 
@@ -82,6 +82,8 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for eks/aws-efa-k8s-device-plugin@v0.5.29 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.10.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.15.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.15.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.7.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.8.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
@@ -90,10 +92,16 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for grafana/alloy@1.12.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for grafana/loki@7.1.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for grafana/loki@7.3.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 admission-disabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 internal-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.0 crds-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.1 crds-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 crds-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 aicr-eks-training-v0-20-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 aicr-eks-training-v1-0-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |

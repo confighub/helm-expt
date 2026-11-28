@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "external-secrets-external-secrets-2.15.0"
+spec:
+  checkedValues:
+    -
+      path: "installCRDs"
+      variant: "default"
+      disposition: "crds-included"
+      reason: "chart defaults render all external-secrets CRDs"
+    -
+      path: "installCRDs"
+      variant: "no-crds"
+      disposition: "crds-excluded"
+      reason: "omits CRDs from the rendered revision for clusters that manage CRDs separately"
+    -
+      path: "crds.*"
+      variant: "all"
+      disposition: "crd-selection-controls"
+      reason: "controls which external-secrets CRDs are rendered when installCRDs is enabled"
+    -
+      path: "webhook.certManager.enabled"
+      variant: "all"
+      disposition: "built-in-cert-controller"
+      reason: "defaults to built-in cert-controller and an empty webhook Secret rather than cert-manager Certificate objects"
+    -
+      path: "extraObjects"
+      variant: "all"
+      disposition: "webhook-secret-init-job"
+      reason: "renders a ServiceAccount, Role, RoleBinding, ConfigMap, and Job that create the empty webhook Secret in the cluster, because ConfigHub never uploads rendered Secrets"
+    -
+      path: "crds.annotations"
+      variant: "default"
+      disposition: "server-side-apply-crds"
+      reason: "marks the CRDs for Argo CD server-side apply, because clustersecretstores and secretstores are too large for client-side apply"
+    -
+      path: "bitwarden-sdk-server.enabled"
+      variant: "all"
+      disposition: "disabled-dependency"
+      reason: "chart declares and locks this dependency, but promoted variants keep it disabled"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

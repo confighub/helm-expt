@@ -23542,6 +23542,1308 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "external-secrets-external-secrets-2-15-0-default",
+        "labels": {
+          "component": "external-secrets/external-secrets",
+          "chart": "external-secrets/external-secrets",
+          "version": "2.15.0",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "external-secrets/external-secrets",
+        "chart": {
+          "name": "external-secrets/external-secrets",
+          "version": "2.15.0",
+          "sourceRepository": "https://charts.external-secrets.io",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/external-secrets/external-secrets/2.15.0",
+          "variant": "recipes/external-secrets/external-secrets/2.15.0/variants/default/variant.yaml",
+          "revision": "recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/external-secrets/external-secrets/2.15.0/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/external-secrets/external-secrets/2.15.0/source-lock.yaml",
+          "namespace": "external-secrets",
+          "releaseName": "external-secrets",
+          "valuesProfile": "recipes/external-secrets/external-secrets/2.15.0/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/external-secrets/external-secrets/2.15.0/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "no",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/external-secrets/external-secrets/2.15.0/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/external-secrets/external-secrets/2.15.0",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/external-secrets/external-secrets/2.15.0/bases/default",
+          "fullModelPath": [
+            "chart/version: external-secrets/external-secrets@2.15.0",
+            "recipe: recipes/external-secrets/external-secrets/2.15.0",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/external-secrets-external-secrets-2-15-0-default.yaml",
+            "rendered revision: recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/external-secrets/external-secrets/2.15.0/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/external-secrets/external-secrets/2.15.0/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "external-secrets-external-secrets-2-15-0-no-crds",
+        "labels": {
+          "component": "external-secrets/external-secrets",
+          "chart": "external-secrets/external-secrets",
+          "version": "2.15.0",
+          "base": "no-crds",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "external-secrets/external-secrets",
+        "chart": {
+          "name": "external-secrets/external-secrets",
+          "version": "2.15.0",
+          "sourceRepository": "https://charts.external-secrets.io",
+          "sourceContent": ""
+        },
+        "baseVariant": "no-crds",
+        "renderInputs": {
+          "recipe": "recipes/external-secrets/external-secrets/2.15.0",
+          "variant": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+          "revision": "recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/variant-revision.yaml",
+          "packageBase": "packages/external-secrets/external-secrets/2.15.0/bases/no-crds",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/external-secrets/external-secrets/2.15.0/source-lock.yaml",
+          "namespace": "external-secrets",
+          "releaseName": "external-secrets",
+          "valuesProfile": "recipes/external-secrets/external-secrets/2.15.0/effective-values-no-crds.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/variant-revision.yaml",
+          "packageBase": "packages/external-secrets/external-secrets/2.15.0/bases/no-crds"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "no",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "acraccesstokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "cloudsmithaccesstokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clusterexternalsecrets.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clustergenerators.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clusterpushsecrets.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clustersecretstores.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "ecrauthorizationtokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "externalsecrets.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "fakes.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "gcraccesstokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "generatorstates.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "githubaccesstokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "gitlabdeploytokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "grafanas.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "mfas.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "passwords.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "pushsecrets.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "quayaccesstokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "secretstores.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "sshkeys.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "stssessiontokens.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "uuids.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "vaultdynamicsecrets.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "webhooks.generators.external-secrets.io",
+                "purpose": "External Secrets CRD managed outside this no-crds base",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "acraccesstokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "cloudsmithaccesstokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clusterexternalsecrets.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clustergenerators.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clusterpushsecrets.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clustersecretstores.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "ecrauthorizationtokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "externalsecrets.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "fakes.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "gcraccesstokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "generatorstates.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "githubaccesstokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "gitlabdeploytokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "grafanas.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "mfas.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "passwords.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "pushsecrets.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "quayaccesstokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "secretstores.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "sshkeys.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "stssessiontokens.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "uuids.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "vaultdynamicsecrets.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "webhooks.generators.external-secrets.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "External Secrets CRD managed outside this no-crds base",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+                "packages/external-secrets/external-secrets/2.15.0/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "25 target prerequisites declared by this base.",
+            "declarationSource": "recipes/external-secrets/external-secrets/2.15.0/variants/no-crds/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/external-secrets/external-secrets/2.15.0/effective-values-no-crds.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 25,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/external-secrets/external-secrets/2.15.0",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/external-secrets/external-secrets/2.15.0/bases/no-crds",
+          "fullModelPath": [
+            "chart/version: external-secrets/external-secrets@2.15.0",
+            "recipe: recipes/external-secrets/external-secrets/2.15.0",
+            "base variant: no-crds",
+            "render intent: data/helm-render-intents/intents/external-secrets-external-secrets-2-15-0-no-crds.yaml",
+            "rendered revision: recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/external-secrets/external-secrets/2.15.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/external-secrets/external-secrets/2.15.0/bases/no-crds",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "external-secrets-external-secrets-2-5-0-default",
         "labels": {
           "component": "external-secrets/external-secrets",
@@ -35247,6 +36549,453 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "ingress-nginx-ingress-nginx-4-15-1-r1-admission-disabled",
+        "labels": {
+          "component": "ingress-nginx/ingress-nginx",
+          "chart": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "base": "admission-disabled",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "ingress-nginx/ingress-nginx",
+        "chart": {
+          "name": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "sourceRepository": "https://kubernetes.github.io/ingress-nginx",
+          "sourceContent": ""
+        },
+        "baseVariant": "admission-disabled",
+        "renderInputs": {
+          "recipe": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "variant": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/variants/admission-disabled/variant.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/admission-disabled",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/source-lock.yaml",
+          "namespace": "ingress-nginx",
+          "releaseName": "ingress-nginx",
+          "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values-admission-disabled.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/admission-disabled"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "watch",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values-admission-disabled.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/admission-disabled",
+          "fullModelPath": [
+            "chart/version: ingress-nginx/ingress-nginx@4.15.1-r1",
+            "recipe: recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+            "base variant: admission-disabled",
+            "render intent: data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-r1-admission-disabled.yaml",
+            "rendered revision: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/admission-disabled/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/admission-disabled",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "ingress-nginx-ingress-nginx-4-15-1-r1-default",
+        "labels": {
+          "component": "ingress-nginx/ingress-nginx",
+          "chart": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "ingress-nginx/ingress-nginx",
+        "chart": {
+          "name": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "sourceRepository": "https://kubernetes.github.io/ingress-nginx",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "variant": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/variants/default/variant.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/source-lock.yaml",
+          "namespace": "ingress-nginx",
+          "releaseName": "ingress-nginx",
+          "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "keep-admission-jobs-as-argo-sync-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/default",
+          "fullModelPath": [
+            "chart/version: ingress-nginx/ingress-nginx@4.15.1-r1",
+            "recipe: recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-r1-default.yaml",
+            "rendered revision: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "ingress-nginx-ingress-nginx-4-15-1-r1-internal-clusterip",
+        "labels": {
+          "component": "ingress-nginx/ingress-nginx",
+          "chart": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "base": "internal-clusterip",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "ingress-nginx/ingress-nginx",
+        "chart": {
+          "name": "ingress-nginx/ingress-nginx",
+          "version": "4.15.1-r1",
+          "sourceRepository": "https://kubernetes.github.io/ingress-nginx",
+          "sourceContent": ""
+        },
+        "baseVariant": "internal-clusterip",
+        "renderInputs": {
+          "recipe": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "variant": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/variants/internal-clusterip/variant.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/internal-clusterip",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/source-lock.yaml",
+          "namespace": "ingress-nginx",
+          "releaseName": "ingress-nginx",
+          "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values-internal-clusterip.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/variant-revision.yaml",
+          "packageBase": "packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/internal-clusterip"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "yes",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/effective-values-internal-clusterip.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/internal-clusterip",
+          "fullModelPath": [
+            "chart/version: ingress-nginx/ingress-nginx@4.15.1-r1",
+            "recipe: recipes/ingress-nginx/ingress-nginx/4.15.1-r1",
+            "base variant: internal-clusterip",
+            "render intent: data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-r1-internal-clusterip.yaml",
+            "rendered revision: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/ingress-nginx/ingress-nginx/4.15.1-r1/revisions/internal-clusterip/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/ingress-nginx/ingress-nginx/4.15.1-r1/bases/internal-clusterip",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "istio-gateway-1-30-0-controller-default-reviewed",
         "labels": {
           "component": "istio/gateway",
@@ -38238,6 +39987,709 @@
             "full rendered YAML: recipes/jetstack/cert-manager/v1.21.1/revisions/default/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://ghcr.io/confighub/packages/cert-manager:v1.21.1@sha256:4fb4f934a1791d6bccf34cd316f5bdacd01448da67f1bc1339a9ccddf74b723c",
             "package base: packages/jetstack/cert-manager/v1.21.1/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "jetstack-cert-manager-v1-21-3-crds-enabled",
+        "labels": {
+          "component": "jetstack/cert-manager",
+          "chart": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "base": "crds-enabled",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "jetstack/cert-manager",
+        "chart": {
+          "name": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "sourceRepository": "https://charts.jetstack.io",
+          "sourceContent": ""
+        },
+        "baseVariant": "crds-enabled",
+        "renderInputs": {
+          "recipe": "recipes/jetstack/cert-manager/v1.21.3",
+          "variant": "recipes/jetstack/cert-manager/v1.21.3/variants/crds-enabled/variant.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/crds-enabled",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/jetstack/cert-manager/v1.21.3/source-lock.yaml",
+          "namespace": "cert-manager",
+          "releaseName": "cert-manager",
+          "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values-crds-enabled.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/crds-enabled"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values-crds-enabled.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.21.3",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.21.3/bases/crds-enabled",
+          "fullModelPath": [
+            "chart/version: jetstack/cert-manager@v1.21.3",
+            "recipe: recipes/jetstack/cert-manager/v1.21.3",
+            "base variant: crds-enabled",
+            "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-21-3-crds-enabled.yaml",
+            "rendered revision: recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/jetstack/cert-manager/v1.21.3/revisions/crds-enabled/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/jetstack/cert-manager/v1.21.3/bases/crds-enabled",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "jetstack-cert-manager-v1-21-3-default",
+        "labels": {
+          "component": "jetstack/cert-manager",
+          "chart": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "jetstack/cert-manager",
+        "chart": {
+          "name": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "sourceRepository": "https://charts.jetstack.io",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/jetstack/cert-manager/v1.21.3",
+          "variant": "recipes/jetstack/cert-manager/v1.21.3/variants/default/variant.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/jetstack/cert-manager/v1.21.3/source-lock.yaml",
+          "namespace": "cert-manager",
+          "releaseName": "cert-manager",
+          "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.21.3",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.21.3/bases/default",
+          "fullModelPath": [
+            "chart/version: jetstack/cert-manager@v1.21.3",
+            "recipe: recipes/jetstack/cert-manager/v1.21.3",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-21-3-default.yaml",
+            "rendered revision: recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/jetstack/cert-manager/v1.21.3/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/jetstack/cert-manager/v1.21.3/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "jetstack-cert-manager-v1-21-3-no-crds",
+        "labels": {
+          "component": "jetstack/cert-manager",
+          "chart": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "base": "no-crds",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "jetstack/cert-manager",
+        "chart": {
+          "name": "jetstack/cert-manager",
+          "version": "v1.21.3",
+          "sourceRepository": "https://charts.jetstack.io",
+          "sourceContent": ""
+        },
+        "baseVariant": "no-crds",
+        "renderInputs": {
+          "recipe": "recipes/jetstack/cert-manager/v1.21.3",
+          "variant": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/no-crds",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/jetstack/cert-manager/v1.21.3/source-lock.yaml",
+          "namespace": "cert-manager",
+          "releaseName": "cert-manager",
+          "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values-no-crds.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/variant-revision.yaml",
+          "packageBase": "packages/jetstack/cert-manager/v1.21.3/bases/no-crds"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "challenges.acme.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "orders.acme.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "certificaterequests.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "certificates.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clusterissuers.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              },
+              {
+                "applyMode": "server-side",
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "issuers.cert-manager.io",
+                "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+                "sourceVariant": "default",
+                "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+                "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "challenges.acme.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "orders.acme.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "certificaterequests.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "certificates.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clusterissuers.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "issuers.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "cert-manager CRD staged before the default chart and its startup API check",
+              "check": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packageSource": "package://prerequisites/target-facts/no-crds-crds.yaml",
+              "packagePath": "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml",
+              "declarationPath": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "applyMode": "server-side",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+                "packages/jetstack/cert-manager/v1.21.3/prerequisites/target-facts/no-crds-crds.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "6 target prerequisites declared by this base.",
+            "declarationSource": "recipes/jetstack/cert-manager/v1.21.3/variants/no-crds/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/jetstack/cert-manager/v1.21.3/effective-values-no-crds.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 6,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.21.3",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.21.3/bases/no-crds",
+          "fullModelPath": [
+            "chart/version: jetstack/cert-manager@v1.21.3",
+            "recipe: recipes/jetstack/cert-manager/v1.21.3",
+            "base variant: no-crds",
+            "render intent: data/helm-render-intents/intents/jetstack-cert-manager-v1-21-3-no-crds.yaml",
+            "rendered revision: recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/jetstack/cert-manager/v1.21.3/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/jetstack/cert-manager/v1.21.3/bases/no-crds",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"

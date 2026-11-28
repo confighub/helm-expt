@@ -4,14 +4,14 @@ This report checks the rendered default configuration for every catalog chart an
 
 Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
-Scanned **166** default renders; **129** ship RBAC; **96** contain at least one broad/risky rule by these conservative heuristics.
+Scanned **169** default renders; **132** ship RBAC; **99** contain at least one broad/risky rule by these conservative heuristics.
 
 Findings across the catalog:
 
 | Finding | Charts | Meaning |
 | --- | ---: | --- |
 | `full-wildcard` | 14 | a rule grants `*` verbs on `*` resources (admin-like) |
-| `secret-read` | 91 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
+| `secret-read` | 94 | a rule can read Secrets (`get`/`list`/`watch` or `*`) |
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
 | `all-resources` | 13 | a rule targets `*` resources (non-wildcard verbs) |
 
@@ -30,6 +30,7 @@ Findings across the catalog:
 | `jetstack/cert-manager/v1.20.2` | 13 | 4 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.0` | 13 | 3 | 8 | `secret-read` |
 | `jetstack/cert-manager/v1.21.1` | 13 | 3 | 8 | `secret-read` |
+| `jetstack/cert-manager/v1.21.3` | 13 | 3 | 8 | `secret-read` |
 | `istio/istiod/1.30.0` | 3 | 1 | 6 | `all-resources`, `secret-read` |
 | `mysql/mysql-operator/2.3.0` | 3 | 0 | 5 | `all-resources`, `full-wildcard`, `secret-read` |
 | `metallb/metallb/0.16.1` | 3 | 4 | 5 | `secret-read` |
@@ -40,11 +41,10 @@ Findings across the catalog:
 | `haproxytech/kubernetes-ingress/1.52.0` | 1 | 0 | 3 | `all-resources`, `secret-read` |
 | `kedacore/keda/2.19.0` | 4 | 1 | 3 | `all-resources`, `secret-read` |
 | `minio-operator/operator/7.1.1` | 1 | 0 | 3 | `full-wildcard`, `secret-read` |
+| `external-secrets/external-secrets/2.15.0` | 5 | 2 | 3 | `secret-read` |
+| `ingress-nginx/ingress-nginx/4.15.1-r1` | 2 | 2 | 3 | `secret-read` |
 | `prometheus-community/kube-prometheus-stack/84.4.0` | 4 | 1 | 3 | `secret-read` |
-| `prometheus-community/kube-prometheus-stack/85.3.3` | 4 | 0 | 3 | `secret-read` |
-| `prometheus-community/kube-prometheus-stack/86.1.0` | 4 | 0 | 3 | `secret-read` |
-| `prometheus-community/kube-prometheus-stack/87.15.1` | 4 | 0 | 3 | `secret-read` |
-| _… and 71 more_ | | | | |
+| _… and 74 more_ | | | | |
 
 ## What happens after a finding
 

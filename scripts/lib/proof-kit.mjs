@@ -110,7 +110,23 @@ function makeContext(spec) {
   // Multi-version proof harness overrides (run-latest-top20-candidates.mjs):
   // HELM_EXPT_CHART_VERSION re-targets the version; HELM_EXPT_PROOF_OUTPUT_ROOT writes
   // proof/package trees under a scratch root. Both unset -> identical to before.
-  const chart = { ...spec.chart, version: process.env.HELM_EXPT_CHART_VERSION ?? spec.chart.version };
+  //
+  // A package revision corrects a package version that is already published,
+  // since a published tag is never overwritten. Revision n of chart version V
+  // is rendered from the same chart archive and kept beside it as its own
+  // catalog version, V-rn, in packages/ and recipes/, and published as vV-rn.
+  // chart.version is that catalog version everywhere the catalog names a
+  // package, the source lock's version included; chart.chartVersion is the
+  // upstream version, used to fetch and check the archive and recorded in the
+  // source lock as chartVersion and in the dependency lock.
+  const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? spec.chart.version;
+  const packageRevision = Number(spec.packageRevision ?? 0);
+  check(Number.isInteger(packageRevision) && packageRevision >= 0, "spec.packageRevision must be a whole number");
+  const chart = {
+    ...spec.chart,
+    chartVersion,
+    version: packageRevision ? `${chartVersion}-r${packageRevision}` : chartVersion,
+  };
   const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
     ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
     : repoRoot;
@@ -151,6 +167,7 @@ function makeContext(spec) {
     receiptSlug: spec.receiptSlug ?? chart.name, // short name used in receipt metadata.name
     scriptPrefix: process.env.HELM_EXPT_PROOF_SCRIPT_PREFIX ?? spec.scriptPrefix ?? chart.name,
     proofCommands: process.env.HELM_EXPT_PROOF_COMMANDS ?? "",
+    packageRevision,
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
     hookPolicy: spec.hookPolicy ?? "no-hooks",
     expectedDependencyCount: spec.expectedDependencyCount ?? 0,
@@ -210,6 +227,7 @@ function generateProof(ctx) {
       repositoryURL: chart.repositoryURL,
       chart: chart.name,
       version: chart.version,
+      ...(ctx.packageRevision ? { chartVersion: chart.chartVersion, packageRevision: ctx.packageRevision } : {}),
       appVersion: source.appVersion,
       // Charts that record the upstream Chart.yaml deprecation marker opt in via recordDeprecated.
       ...(ctx.recordDeprecated ? { deprecated: Boolean(source.deprecated) } : {}),
@@ -246,7 +264,7 @@ function generateProof(ctx) {
     metadata: { name: lockName },
     spec: {
       chart: ctx.dependencyLockChart,
-      version: chart.version,
+      version: chart.chartVersion,
       dependencies: source.dependencies,
       // Charts on the bitnami dependency-lock template always record provenance,
       // even when the packaged chart has dependencies but no Chart.lock file.
@@ -557,7 +575,7 @@ function generatePackage(ctx) {
         name: variant.base,
         path: `bases/${variant.base}`,
         default: index === 0 ? true : undefined,
-        description: `${chart.name} ${variant.displayName} variant rendered from ${ctx.chartRef}@${chart.version}`,
+        description: `${chart.name} ${variant.displayName} variant rendered from ${ctx.chartRef}@${chart.chartVersion}`,
         externalRequires: externalRequiresForVariant(variant),
       })),
       ...(ctx.spec.packageInputs?.length ? { inputs: ctx.spec.packageInputs } : {}),
@@ -615,6 +633,7 @@ ${proofCommands(ctx)}
       apiVersion: "kustomize.config.k8s.io/v1beta1",
       kind: "Kustomization",
       resources: ["upstream.yaml"],
+      ...(variant.basePatches?.length ? { patches: variant.basePatches } : {}),
     });
     write(
       join(baseRoot, "upstream.yaml"),
@@ -645,7 +664,7 @@ ${proofCommands(ctx)}
       ...(ctx.spec.receiptRecordedAt ? { recordedAt: ctx.spec.receiptRecordedAt } : {}),
       metadata: { name: ctx.lockName },
       spec: {
-        chart: { repository: chart.repository, name: chart.name, version: chart.version },
+        chart: { repository: chart.repository, name: chart.name, version: chart.chartVersion },
         package: {
           path: packageRelative,
           name: ctx.packageName,
@@ -721,6 +740,8 @@ function verifyProof(ctx, root = ctx.proofRoot) {
   check(sourceLock.spec.repositoryName === chart.repository, "source repository mismatch");
   check(sourceLock.spec.chart === chart.name, "source chart mismatch");
   check(sourceLock.spec.version === chart.version, "source version mismatch");
+  check((sourceLock.spec.chartVersion ?? sourceLock.spec.version) === chart.chartVersion, "source chart version mismatch");
+  check((sourceLock.spec.packageRevision ?? 0) === ctx.packageRevision, "source package revision mismatch");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
   if (ctx.offlineCandidate) {
     const evidencePath = sourceLock.spec.evidence?.candidateRenderReceipt;
@@ -874,6 +895,15 @@ function verifyPackage(ctx) {
     const base = bases.find((item) => item.name === variant.base);
     check(Boolean(base), `missing base ${variant.base}`);
     check(base.path === `bases/${variant.base}`, `${variant.name} base path mismatch`);
+    const kustomization = readYaml(join(packageRoot, base.path, "kustomization.yaml"));
+    check(
+      stableJson(kustomization.patches ?? []) === stableJson(variant.basePatches ?? []),
+      `${variant.name} base kustomization patches must match the proof spec`,
+    );
+    check(
+      !variant.basePatches?.length || typeof ctx.spec.allowedSemanticDiff === "function",
+      `${variant.name} declares base patches, so the declaration must say which differences from Helm they make (allowedSemanticDiff)`,
+    );
     check(
       readFileSync(join(packageRoot, base.path, "upstream.yaml"), "utf8") ===
         readFileSync(join(revisionRoot(ctx, variant.name), "rendered", "release-objects.yaml"), "utf8"),
@@ -1052,19 +1082,19 @@ function pullSource(ctx) {
     const matchingChartYamlPaths = chartYamlPaths.filter((path) => {
       const metadata = readYaml(path);
       return metadata.name === chart.name
-        && String(metadata.version) === String(chart.version);
+        && String(metadata.version) === String(chart.chartVersion);
     });
     check(
       matchingChartYamlPaths.length === 1,
-      `chart archive for ${ctx.chartRef}@${chart.version} contained ${matchingChartYamlPaths.length} matching Chart.yaml files among ${chartYamlPaths.length} total`,
+      `chart archive for ${ctx.chartRef}@${chart.chartVersion} contained ${matchingChartYamlPaths.length} matching Chart.yaml files among ${chartYamlPaths.length} total`,
     );
     const [chartYamlPath] = matchingChartYamlPaths;
     const chartRoot = dirname(chartYamlPath);
     const chartYaml = readYaml(join(chartRoot, "Chart.yaml"));
     check(chartYaml.name === chart.name, `chart archive name ${chartYaml.name} does not match ${chart.name}`);
     check(
-      String(chartYaml.version) === String(chart.version),
-      `chart archive version ${chartYaml.version} does not match ${chart.version}`,
+      String(chartYaml.version) === String(chart.chartVersion),
+      `chart archive version ${chartYaml.version} does not match ${chart.chartVersion}`,
     );
     const chartLockPath = join(chartRoot, "Chart.lock");
     const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
@@ -1104,7 +1134,7 @@ function renderVariant(ctx, variant) {
       chart.kubeVersion,
       ...(variant.renderFlags ?? ctx.renderFlags),
     ];
-    if (!ctx.artifactURL) args.splice(3, 0, "--version", chart.version);
+    if (!ctx.artifactURL) args.splice(3, 0, "--version", chart.chartVersion);
     if (variant.valuesText) {
       const valuesPath = join(tempRoot, "values.yaml");
       write(valuesPath, variant.valuesText);
@@ -1124,25 +1154,25 @@ function renderVariant(ctx, variant) {
 function materializeChartPackage(ctx, tempRoot) {
   const { chart } = ctx;
   if (!ctx.artifactURL) {
-    command("helm", ["pull", ctx.helmChartRef, "--version", chart.version, "--destination", tempRoot]);
+    command("helm", ["pull", ctx.helmChartRef, "--version", chart.chartVersion, "--destination", tempRoot]);
   } else if (/^https?:\/\//.test(ctx.artifactURL)) {
-    const destination = join(tempRoot, `${chart.name}-${chart.version}.tgz`);
+    const destination = join(tempRoot, `${chart.name}-${chart.chartVersion}.tgz`);
     command("curl", ["--fail", "--location", "--retry", "3", "--silent", "--show-error", "--output", destination, ctx.artifactURL]);
   } else if (ctx.artifactURL.startsWith("oci://")) {
-    const versionSuffix = `:${chart.version}`;
+    const versionSuffix = `:${chart.chartVersion}`;
     const artifactRef = ctx.artifactURL.endsWith(versionSuffix)
       ? ctx.artifactURL.slice(0, -versionSuffix.length)
       : ctx.artifactURL;
-    command("helm", ["pull", artifactRef, "--version", chart.version, "--destination", tempRoot]);
+    command("helm", ["pull", artifactRef, "--version", chart.chartVersion, "--destination", tempRoot]);
   } else {
     throw new Error(`unsupported exact chart artifact URL ${ctx.artifactURL}`);
   }
   const packagePath = listFiles(tempRoot).find((path) => path.endsWith(".tgz"));
-  check(Boolean(packagePath), `chart artifact retrieval produced no archive for ${ctx.chartRef}@${chart.version}`);
+  check(Boolean(packagePath), `chart artifact retrieval produced no archive for ${ctx.chartRef}@${chart.chartVersion}`);
   if (ctx.artifactSHA256) {
     check(
       sha256File(packagePath) === ctx.artifactSHA256,
-      `chart artifact SHA mismatch for ${ctx.chartRef}@${chart.version}`,
+      `chart artifact SHA mismatch for ${ctx.chartRef}@${chart.chartVersion}`,
     );
   }
   return packagePath;
@@ -1186,7 +1216,7 @@ function variantDocFor(ctx, variant) {
       releaseName: chart.releaseName,
       valuesProfile: `../../${variant.valuesFile}`,
       capabilityProfile: { kubeVersion: chart.kubeVersion, apiVersions: variant.apiVersions ?? [] },
-      hookPolicy: ctx.hookPolicy,
+      hookPolicy: variant.hookPolicy ?? ctx.hookPolicy,
     },
   };
   if (variant.targetFacts) doc.spec.targetFacts = variant.targetFacts;

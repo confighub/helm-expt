@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-123 of 181 charts have at least one applicable skill. A chart
+125 of 184 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -24,8 +24,8 @@ with none is a plain chart that needs no special playbook.
 | [Live Parity](../../docs/skills/live-parity.md) | 97 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 58 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 49 |
-| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 35 |
-| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 25 |
+| [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 37 |
+| [Serious Chart Playbooks](../../docs/skills/serious-chart-playbooks.md) | 27 |
 
 ## How To Read One Row
 
@@ -97,6 +97,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | elastic/metricbeat@8.5.1 | 1 | target-facts-and-lifecycle | stateful-storage |
 | external-dns/external-dns@1.21.1 | 3 | target-facts-and-lifecycle | crds; live |
 | external-secrets/external-secrets@2.10.0 | 2 | serious-chart-playbooks | named-serious |
+| external-secrets/external-secrets@2.15.0 | 2 | serious-chart-playbooks | named-serious |
 | external-secrets/external-secrets@2.5.0 | 3 | serious-chart-playbooks | named-serious; live |
 | external-secrets/external-secrets@2.7.0 | 2 | serious-chart-playbooks | named-serious |
 | external-secrets/external-secrets@2.8.0 | 2 | serious-chart-playbooks | named-serious |
@@ -124,6 +125,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | hashicorp/terraform@1.1.2 | 2 | target-facts-and-lifecycle | crds |
 | hashicorp/vault@0.32.0 | 3 | hook-and-secret-lifecycle | webhooks; stateful-storage; live |
 | ingress-nginx/ingress-nginx@4.15.1 | 3 | hook-and-secret-lifecycle | webhooks; live |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | 0 | none | — |
 | istio/gateway@1.30.0 | 0 | none | — |
 | istio/istiod@1.30.0 | 0 | none | — |
 | jaegertracing/jaeger-operator@2.57.0 | 5 | serious-chart-playbooks | crds+webhooks; webhooks; crds; live |
@@ -132,6 +134,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | jetstack/cert-manager@v1.20.2 | 3 | serious-chart-playbooks | named-serious; live |
 | jetstack/cert-manager@v1.21.0 | 2 | serious-chart-playbooks | named-serious |
 | jetstack/cert-manager@v1.21.1 | 2 | serious-chart-playbooks | named-serious |
+| jetstack/cert-manager@v1.21.3 | 2 | serious-chart-playbooks | named-serious |
 | jetstack/trust-manager@v0.22.1 | 1 | live-parity | live |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2 | 0 | none | — |
 | kai-scheduler/kai-scheduler@v0.14.1 | 0 | none | — |

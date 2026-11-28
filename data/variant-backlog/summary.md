@@ -8,15 +8,15 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 181
-charts needing variant work: 116
-charts already variant-complete: 65
-total variants to build: 140
+charts: 184
+charts needing variant work: 117
+charts already variant-complete: 67
+total variants to build: 141
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 72 charts
+- `existing-secret`: 73 charts
 - `no-crds`: 43 charts
 - `ha`: 21 charts
 - `ingress-tls`: 3 charts
@@ -66,6 +66,7 @@ total variants to build: 140
 | `elastic/eck-operator@3.4.0` | 3 | existing-secret |
 | `external-dns/external-dns@1.21.1` | 3 | existing-secret |
 | `external-secrets/external-secrets@2.10.0` | 2 | existing-secret |
+| `external-secrets/external-secrets@2.15.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.5.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.7.0` | 2 | existing-secret |
 | `external-secrets/external-secrets@2.8.0` | 2 | existing-secret |

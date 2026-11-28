@@ -105,7 +105,10 @@ bitnami/mongodb@19.1.0,tpl,sme,extension-slot
 bitnami/postgresql@18.6.10,tpl,sme,extension-slot
 bitnami/postgresql@18.7.0,tpl,sme,extension-slot
 external-secrets/external-secrets@2.10.0,tpl,sme,extension-slot
+external-secrets/external-secrets@2.15.0,tpl,sme,extension-slot
+ingress-nginx/ingress-nginx@4.15.1-r1,tpl,sme,extension-slot
 jetstack/cert-manager@v1.21.1,tpl,sme,extension-slot
+jetstack/cert-manager@v1.21.3,tpl,sme,extension-slot
 prometheus-community/kube-prometheus-stack@86.1.0,tpl,sme,extension-slot
 prometheus-community/kube-prometheus-stack@88.6.3,tpl,sme,extension-slot
 aqua/trivy-operator@0.32.1,tpl-extension-slots,sme,extension-slot
@@ -221,9 +224,11 @@ argo-cd/argo-cd@9.5.17,crd-policy,standard,recipe
 aws-controllers-k8s/eks-chart@1.16.3,crd-policy,standard,recipe
 aws-controllers-k8s/iam-chart@1.7.3,crd-policy,standard,recipe
 external-secrets/external-secrets@2.10.0,crd-policy,standard,recipe
+external-secrets/external-secrets@2.15.0,crd-policy,standard,recipe
 external-secrets/external-secrets@2.5.0,crd-policy,standard,recipe
 jetstack/cert-manager@v1.20.2,crd-policy,standard,recipe
 jetstack/cert-manager@v1.21.1,crd-policy,standard,recipe
+jetstack/cert-manager@v1.21.3,crd-policy,standard,recipe
 karpenter/karpenter@1.14.0,crd-policy,standard,recipe
 longhorn/longhorn@1.11.2,crd-policy,standard,recipe
 nvidia/nvidia-device-plugin@0.19.3,crd-policy,standard,recipe
@@ -277,6 +282,7 @@ nvidia/gpu-operator@v25.10.1,operator-managed-operands,standard,recipe
 nvidia/gpu-operator@v26.3.2,operator-managed-operands,standard,recipe
 nvidia/gpu-operator@v26.3.3,operator-managed-operands,standard,recipe
 nvidia/gpu-operator@v26.7.1,operator-managed-operands,standard,recipe
+ingress-nginx/ingress-nginx@4.15.1-r1,package-base-patch,standard,recipe
 secrets-store-csi-driver/secrets-store-csi-driver@1.6.0,provider-integration,standard,recipe
 grafana/tempo@1.24.4,query-ingress-policy,standard,recipe
 bitnami/mongodb@19.0.7,replicaset-topology,standard,recipe

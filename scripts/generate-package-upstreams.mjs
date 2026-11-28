@@ -46,10 +46,18 @@ function upstreamText(entry) {
     `repository: ${lock.repositoryURL}`,
     `chart: ${lock.chart}`,
     "# The newest chart version packaged here.",
-    `version: ${lock.version}`,
+    `version: ${lock.chartVersion ?? lock.version}`,
     "# The name cub finds it by:",
     `#   cub package install ${entry.name} --space <space>`,
     `# which pulls oci://${GHCR_PACKAGES_REGISTRY}/${entry.name}:<tag>.`,
+    // cub takes the highest vX.Y.Z tag when no version is named, and a package
+    // revision's tag is not of that form.
+    ...(lock.packageRevision
+      ? [
+          `# The newest package is revision ${lock.packageRevision} of ${lock.chartVersion}, which cub installs`,
+          `# only when it is named: cub package install ${entry.name}:${ghcrTag(entry.newest)} --space <space>`,
+        ]
+      : []),
     `name: ${entry.name}`,
     "# Every version packaged here: its directory, and the tag it is published as.",
     "versions:",

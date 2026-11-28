@@ -15,7 +15,7 @@ aws-efa-k8s-device-plugin,eks/aws-efa-k8s-device-plugin,https://aws.github.io/ek
 bitnami-nginx,bitnami/nginx,https://charts.bitnami.com/bitnami,v25.0.0,v24.0.2 v24.0.4 v25.0.0,oci://ghcr.io/confighub/packages/bitnami-nginx
 bitnami-rabbitmq,bitnami/rabbitmq,https://charts.bitnami.com/bitnami,v16.0.14,v16.0.14,oci://ghcr.io/confighub/packages/bitnami-rabbitmq
 bitnami-redis,bitnami/redis,https://charts.bitnami.com/bitnami,v27.0.0,v25.5.3 v27.0.0,oci://ghcr.io/confighub/packages/bitnami-redis
-cert-manager,jetstack/cert-manager,https://charts.jetstack.io,v1.21.1,v1.20.2 v1.21.0 v1.21.1,oci://ghcr.io/confighub/packages/cert-manager
+cert-manager,jetstack/cert-manager,https://charts.jetstack.io,v1.21.3,v1.20.2 v1.21.0 v1.21.1 v1.21.3,oci://ghcr.io/confighub/packages/cert-manager
 cert-manager-csi-driver,jetstack/cert-manager-csi-driver,https://charts.jetstack.io,v0.14.0,v0.14.0,oci://ghcr.io/confighub/packages/cert-manager-csi-driver
 cloudnative-pg,cloudnative-pg/cloudnative-pg,https://cloudnative-pg.github.io/charts,v0.29.0,v0.28.2 v0.29.0,oci://ghcr.io/confighub/packages/cloudnative-pg
 cloudpirates-nginx,cloudpirates/nginx,oci://registry-1.docker.io/cloudpirates/nginx,v0.16.1,v0.16.1,oci://ghcr.io/confighub/packages/cloudpirates-nginx
@@ -33,7 +33,7 @@ dra-driver-nvidia-gpu,dra-driver-nvidia/dra-driver-nvidia-gpu,oci://registry.k8s
 eck-operator,elastic/eck-operator,https://helm.elastic.co,v3.4.0,v3.4.0,oci://ghcr.io/confighub/packages/eck-operator
 elasticsearch,bitnami/elasticsearch,https://charts.bitnami.com/bitnami,v22.1.6,v22.1.6,oci://ghcr.io/confighub/packages/elasticsearch
 external-dns,external-dns/external-dns,https://kubernetes-sigs.github.io/external-dns/,v1.21.1,v1.21.1,oci://ghcr.io/confighub/packages/external-dns
-external-secrets,external-secrets/external-secrets,https://charts.external-secrets.io,v2.10.0,v2.5.0 v2.7.0 v2.8.0 v2.10.0,oci://ghcr.io/confighub/packages/external-secrets
+external-secrets,external-secrets/external-secrets,https://charts.external-secrets.io,v2.15.0,v2.5.0 v2.7.0 v2.8.0 v2.10.0 v2.15.0,oci://ghcr.io/confighub/packages/external-secrets
 fairwinds-vpa,fairwinds-stable/vpa,https://charts.fairwinds.com/stable,v4.11.0,v4.11.0,oci://ghcr.io/confighub/packages/fairwinds-vpa
 falco,falcosecurity/falco,https://falcosecurity.github.io/charts,v9.0.0,v9.0.0,oci://ghcr.io/confighub/packages/falco
 falcosidekick,falcosecurity/falcosidekick,https://falcosecurity.github.io/charts,v0.13.1,v0.13.1,oci://ghcr.io/confighub/packages/falcosidekick
@@ -46,7 +46,7 @@ goldilocks,fairwinds-stable/goldilocks,https://charts.fairwinds.com/stable,v10.3
 gpu-operator,nvidia/gpu-operator,https://helm.ngc.nvidia.com/nvidia,v26.7.1,v25.10.1 v26.3.2 v26.3.3 v26.7.1,oci://ghcr.io/confighub/packages/gpu-operator
 grafana,grafana/grafana,https://grafana.github.io/helm-charts,v10.5.15,v10.5.15,oci://ghcr.io/confighub/packages/grafana
 hashicorp-terraform,hashicorp/terraform,https://helm.releases.hashicorp.com,v1.1.2,v1.1.2,oci://ghcr.io/confighub/packages/hashicorp-terraform
-ingress-nginx,ingress-nginx/ingress-nginx,https://kubernetes.github.io/ingress-nginx,v4.15.1,v4.15.1,oci://ghcr.io/confighub/packages/ingress-nginx
+ingress-nginx,ingress-nginx/ingress-nginx,https://kubernetes.github.io/ingress-nginx,v4.15.1-r1,v4.15.1 v4.15.1-r1,oci://ghcr.io/confighub/packages/ingress-nginx
 istio-gateway,istio/gateway,https://istio-release.storage.googleapis.com/charts,v1.30.0,v1.30.0,oci://ghcr.io/confighub/packages/istio-gateway
 istiod,istio/istiod,https://istio-release.storage.googleapis.com/charts,v1.30.0,v1.30.0,oci://ghcr.io/confighub/packages/istiod
 jaeger,jaegertracing/jaeger,https://jaegertracing.github.io/helm-charts,v4.8.0,v4.8.0,oci://ghcr.io/confighub/packages/jaeger

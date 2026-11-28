@@ -9,6 +9,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { compareVersions } from "./lib/ghcr-packages.mjs";
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor, parseDocs, readYaml, repoRoot, sha256 } from "./lib/proof-common.mjs";
@@ -28,8 +29,17 @@ const versionExpectations = {
   "v1.20.2": { defaultObjects: 42, crdsObjects: 48 },
   "v1.21.0": { defaultObjects: 40, crdsObjects: 46 },
   "v1.21.1": { defaultObjects: 40, crdsObjects: 46 },
+  "v1.21.3": { defaultObjects: 46, crdsObjects: 46, noCrdsObjects: 40 },
 };
 const expected = reviewedExpectations("cert-manager", chart.version, versionExpectations, import.meta.url);
+
+// From v1.21.3 the default base renders the six CRDs. Installing the default
+// base on an empty cluster is the common case, and without the CRDs the
+// controller starts, reports Healthy, and cannot reconcile a Certificate. The
+// no-crds base keeps the chart's own default for clusters that already have
+// the CRDs; crds-enabled stays, the same as default, so an install that chose
+// it keeps upgrading. Earlier versions keep the layout they were published with.
+const crdsInDefault = compareVersions(chart.version, "v1.21.3") >= 0;
 
 const certManagerCRDs = [
   "challenges.acme.cert-manager.io",
@@ -127,41 +137,83 @@ function verifyV121DefaultLifecycleContract() {
 verifyV121DefaultLifecycleContract();
 verifyV121PassingAttempt();
 
-const variants = [
-  {
-    name: "default",
-    base: "default",
-    displayName: "default",
-    valuesFile: "effective-values.yaml",
-    valuesText: "",
-    valuesSummary: "chart defaults",
-    expectedObjectCount: expected.defaultObjects,
-    expectedCRDCount: 0,
-    targetFacts: {
-      requiredCRDs: certManagerCRDs.map((name) => ({
-        name,
-        sourceVariant: "crds-enabled",
-        purpose: "cert-manager CRD staged before the default chart and its startup API check",
-        deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
-        applyMode: "server-side",
-      })),
-    },
-    targetFactNote: "requires the six cert-manager CRDs from the reviewed crds-enabled base before applying webhook objects; excludes the Helm startup API check hook Job from the rendered revision",
-  },
-  {
-    name: "crds-enabled",
-    base: "crds-enabled",
-    displayName: "CRDs enabled",
-    valuesFile: "effective-values-crds-enabled.yaml",
-    valuesText: `crds:
+const crdsEnabledValues = `crds:
   enabled: true
-`,
-    valuesSummary: "cert-manager CRDs included",
-    expectedObjectCount: expected.crdsObjects,
-    expectedCRDCount: 6,
-    targetFactNote: "adds the six cert-manager CRDs to the rendered revision",
-  },
-];
+`;
+
+const requiredCRDsFrom = (sourceVariant) =>
+  certManagerCRDs.map((name) => ({
+    name,
+    sourceVariant,
+    purpose: "cert-manager CRD staged before the default chart and its startup API check",
+    deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+    applyMode: "server-side",
+  }));
+
+const variants = crdsInDefault
+  ? [
+      {
+        name: "default",
+        base: "default",
+        displayName: "default",
+        valuesFile: "effective-values.yaml",
+        valuesText: crdsEnabledValues,
+        valuesSummary: "cert-manager CRDs included",
+        expectedObjectCount: expected.defaultObjects,
+        expectedCRDCount: 6,
+        targetFactNote: "renders the six cert-manager CRDs with the controller, so a first install on an empty cluster can reconcile Certificates; excludes the Helm startup API check hook Job from the rendered revision",
+      },
+      {
+        name: "crds-enabled",
+        base: "crds-enabled",
+        displayName: "CRDs enabled",
+        valuesFile: "effective-values-crds-enabled.yaml",
+        valuesText: crdsEnabledValues,
+        valuesSummary: "cert-manager CRDs included, the same as default",
+        expectedObjectCount: expected.crdsObjects,
+        expectedCRDCount: 6,
+        targetFactNote: "the same objects as the default base; kept so an install that chose this base keeps upgrading",
+      },
+      {
+        name: "no-crds",
+        base: "no-crds",
+        displayName: "CRDs disabled",
+        valuesFile: "effective-values-no-crds.yaml",
+        valuesText: "",
+        valuesSummary: "chart defaults, which leave the CRDs out",
+        expectedObjectCount: expected.noCrdsObjects,
+        expectedCRDCount: 0,
+        targetFacts: { requiredCRDs: requiredCRDsFrom("default") },
+        targetFactNote: "requires the six cert-manager CRDs to be installed before applying webhook objects, for clusters that manage them outside this package; excludes the Helm startup API check hook Job from the rendered revision",
+      },
+    ]
+  : [
+      {
+        name: "default",
+        base: "default",
+        displayName: "default",
+        valuesFile: "effective-values.yaml",
+        valuesText: "",
+        valuesSummary: "chart defaults",
+        expectedObjectCount: expected.defaultObjects,
+        expectedCRDCount: 0,
+        targetFacts: { requiredCRDs: requiredCRDsFrom("crds-enabled") },
+        targetFactNote: "requires the six cert-manager CRDs from the reviewed crds-enabled base before applying webhook objects; excludes the Helm startup API check hook Job from the rendered revision",
+      },
+      {
+        name: "crds-enabled",
+        base: "crds-enabled",
+        displayName: "CRDs enabled",
+        valuesFile: "effective-values-crds-enabled.yaml",
+        valuesText: crdsEnabledValues,
+        valuesSummary: "cert-manager CRDs included",
+        expectedObjectCount: expected.crdsObjects,
+        expectedCRDCount: 6,
+        targetFactNote: "adds the six cert-manager CRDs to the rendered revision",
+      },
+    ];
+
+const crdCounts = Object.fromEntries(variants.map((variant) => [variant.name, variant.expectedCRDCount]));
 
 const scanPolicy = {
   scanner: "helm-expt-local-rendered-object-scan",
@@ -214,18 +266,41 @@ runProofCli({
   expectedDependencyCount: 0,
   valueModel: {
     checkedValues: [
-      {
-        path: "crds.enabled",
-        variant: "default",
-        disposition: "crds-excluded",
-        reason: "chart defaults do not render cert-manager CRDs",
-      },
-      {
-        path: "crds.enabled",
-        variant: "crds-enabled",
-        disposition: "crds-included",
-        reason: "renders the six cert-manager CRDs as part of the approved revision",
-      },
+      ...(crdsInDefault
+        ? [
+            {
+              path: "crds.enabled",
+              variant: "default",
+              disposition: "crds-included",
+              reason: "renders the six cert-manager CRDs so a first install on an empty cluster works",
+            },
+            {
+              path: "crds.enabled",
+              variant: "crds-enabled",
+              disposition: "crds-included",
+              reason: "renders the six cert-manager CRDs, the same as default",
+            },
+            {
+              path: "crds.enabled",
+              variant: "no-crds",
+              disposition: "crds-excluded",
+              reason: "chart defaults do not render cert-manager CRDs; the cluster must already have them",
+            },
+          ]
+        : [
+            {
+              path: "crds.enabled",
+              variant: "default",
+              disposition: "crds-excluded",
+              reason: "chart defaults do not render cert-manager CRDs",
+            },
+            {
+              path: "crds.enabled",
+              variant: "crds-enabled",
+              disposition: "crds-included",
+              reason: "renders the six cert-manager CRDs as part of the approved revision",
+            },
+          ]),
       {
         path: "installCRDs",
         variant: "all",
@@ -264,8 +339,10 @@ runProofCli({
     {
       category: "crd-policy",
       status: "variant-controlled",
-      variants: { default: 0, "crds-enabled": 6 },
-      note: "CRDs are ordinary rendered objects only in the crds-enabled variant and still need lifecycle/upgrade policy.",
+      variants: crdCounts,
+      note: crdsInDefault
+        ? "CRDs are ordinary rendered objects in the default and crds-enabled variants and still need lifecycle/upgrade policy; the no-crds variant requires them as target facts."
+        : "CRDs are ordinary rendered objects only in the crds-enabled variant and still need lifecycle/upgrade policy.",
     },
     {
       category: "hook-policy",
@@ -287,8 +364,16 @@ runProofCli({
   ],
   dossier: {
     maintainedNotes: [
-      "Default chart does not render CRDs because crds.enabled defaults to false.",
-      "crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects.",
+      ...(crdsInDefault
+        ? [
+            "The default variant sets crds.enabled so the six cert-manager CRDs are rendered; the chart's own default leaves them out.",
+            "crds-enabled variant renders the same objects as default and is kept so installs that chose it keep upgrading.",
+            "no-crds variant keeps the chart's own default and records the six CRDs as target facts.",
+          ]
+        : [
+            "Default chart does not render CRDs because crds.enabled defaults to false.",
+            "crds-enabled variant renders six cert-manager CRDs as ordinary rendered objects.",
+          ]),
       "startup API check is a Helm post-install hook and is excluded from the rendered revision by --no-hooks.",
       "Mutating and validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.",
       "extraObjects is a tpl-powered extension slot; promoted variants keep it empty.",
@@ -312,7 +397,9 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render is deterministic under the pinned Kubernetes capability profile;",
-      "the crds-enabled variant deliberately adds the six cert-manager CRDs;",
+      crdsInDefault
+        ? "the default and crds-enabled variants render the six cert-manager CRDs, and the no-crds variant leaves them out;"
+        : "the crds-enabled variant deliberately adds the six cert-manager CRDs;",
       "CRD lifecycle, admission webhook, Helm hook lifecycle, and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
@@ -391,10 +478,9 @@ runProofCli({
         `${variant.name} ValidatingWebhookConfiguration missing`,
       );
       check(scan.spec.findingCounts.medium >= 4, `${variant.name} scan must flag CRD/admission/hook/RBAC review`);
-      if (variant.name === "default") {
-        check(!crdIdentities.length, "default must not render CRDs");
-      }
-      if (variant.name === "crds-enabled") {
+      if (variant.expectedCRDCount === 0) {
+        check(!crdIdentities.length, `${variant.name} must not render CRDs`);
+      } else {
         const requiredCRDs = [
           "apiextensions.k8s.io/v1|CustomResourceDefinition||certificaterequests.cert-manager.io",
           "apiextensions.k8s.io/v1|CustomResourceDefinition||certificates.cert-manager.io",

@@ -11,7 +11,10 @@ version: 4.15.1
 # The name cub finds it by:
 #   cub package install ingress-nginx --space <space>
 # which pulls oci://ghcr.io/confighub/packages/ingress-nginx:<tag>.
+# The newest package is revision 1 of 4.15.1, which cub installs
+# only when it is named: cub package install ingress-nginx:v4.15.1-r1 --space <space>
 name: ingress-nginx
 # Every version packaged here: its directory, and the tag it is published as.
 versions:
   - {directory: 4.15.1, tag: v4.15.1}
+  - {directory: 4.15.1-r1, tag: v4.15.1-r1}

@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-r1"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "ingress-nginx/ingress-nginx"
+    version: "4.15.1-r1"
+    variants:
+      - "default"
+      - "admission-disabled"
+      - "internal-clusterip"
+    helmObjectsByVariant:
+      default: 18
+      admission-disabled: 9
+      internal-clusterip: 9
+    cubInstallObjectsByVariant:
+      default: 19
+      admission-disabled: 10
+      internal-clusterip: 10
+    helmMatchByVariant:
+      default: "18/18"
+      admission-disabled: "9/9"
+      internal-clusterip: "9/9"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after admission webhook lifecycle/observation policy and cluster RBAC review are satisfied"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/admission-disabled/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/render-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/scan-receipt.yaml"
+    - "revisions/admission-disabled/r001/receipts/install-gate.yaml"
+    - "revisions/internal-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/render-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/scan-receipt.yaml"
+    - "revisions/internal-clusterip/r001/receipts/install-gate.yaml"

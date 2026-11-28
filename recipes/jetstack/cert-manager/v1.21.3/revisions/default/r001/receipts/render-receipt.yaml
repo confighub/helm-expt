@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "cert-manager-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "ee150a7cb8200d6fc9de7eb59ca3ba21263a70fec317aa2368eaf94b4b824daf"
+    dependencyLockSHA256: "7ab857aa93590bc801652ecd12320c7fe58a4d6fc231b4c9255e219349590b10"
+    effectiveValuesSHA256: "593fac4c270d4d8ed0256b6436a83d31a3ad2dc4d2f886581455a045f95761b3"
+  outputs:
+    renderedObjectSetSHA256: "22946a4e11320dd935739d4376af70e0a86c0973726702aac1fee611d1d7a9a6"
+    renderedObjectInventorySHA256: "6287f2f5ccdc85c69d11cfd0dbee27ade337a5775a80979b8bf022700969820e"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 46
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

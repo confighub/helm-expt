@@ -1,0 +1,21 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "jetstack-cert-manager-v1.21.3"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.21.3"
+  maintainedNotes:
+    - "The default variant sets crds.enabled so the six cert-manager CRDs are rendered; the chart's own default leaves them out."
+    - "crds-enabled variant renders the same objects as default and is kept so installs that chose it keep upgrading."
+    - "no-crds variant keeps the chart's own default and records the six CRDs as target facts."
+    - "startup API check is a Helm post-install hook and is excluded from the rendered revision by --no-hooks."
+    - "Mutating and validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
+    - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
+  knownControlPoints:
+    - "capability-profile"
+    - "crd-lifecycle-policy"
+    - "hook-lifecycle-policy"
+    - "admission-webhook-observation"
+    - "cluster-rbac-scan"
+    - "tpl-extension-slot"
