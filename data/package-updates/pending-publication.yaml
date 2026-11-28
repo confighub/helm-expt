@@ -11,4 +11,6 @@ spec:
     each version published since its last run and removes the version from
     this list; an entry whose receipt exists fails the chain until it is
     removed.
-  packages: []
+  packages:
+    - chart: "argo-cd/argocd-image-updater"
+      version: "1.5.0"

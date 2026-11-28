@@ -9,7 +9,7 @@ argo-cd-helm,argo-cd/argo-cd,https://argoproj.github.io/argo-helm,v10.20.0,v9.5.
 argo-events,argo-cd/argo-events,https://argoproj.github.io/argo-helm,v2.4.21,v2.4.21,oci://ghcr.io/confighub/packages/argo-events
 argo-rollouts,argo-cd/argo-rollouts,https://argoproj.github.io/argo-helm,v2.40.9,v2.40.9,oci://ghcr.io/confighub/packages/argo-rollouts
 argo-workflows,argo-cd/argo-workflows,https://argoproj.github.io/argo-helm,v1.0.14,v1.0.14,oci://ghcr.io/confighub/packages/argo-workflows
-argocd-image-updater,argo-cd/argocd-image-updater,https://argoproj.github.io/argo-helm,v1.2.2,v1.2.2,oci://ghcr.io/confighub/packages/argocd-image-updater
+argocd-image-updater,argo-cd/argocd-image-updater,https://argoproj.github.io/argo-helm,v1.5.0,v1.2.2 v1.5.0,oci://ghcr.io/confighub/packages/argocd-image-updater
 aws-ebs-csi-driver,aws-ebs-csi-driver/aws-ebs-csi-driver,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,v2.60.1,v2.59.0 v2.60.1,oci://ghcr.io/confighub/packages/aws-ebs-csi-driver
 aws-efa-k8s-device-plugin,eks/aws-efa-k8s-device-plugin,https://aws.github.io/eks-charts,v0.5.29,v0.5.29,oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin
 bitnami-nginx,bitnami/nginx,https://charts.bitnami.com/bitnami,v25.0.0,v24.0.2 v24.0.4 v25.0.0,oci://ghcr.io/confighub/packages/bitnami-nginx

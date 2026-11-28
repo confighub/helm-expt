@@ -328,9 +328,9 @@ spec:
     -
       rank: 74
       ref: "argo-cd/argocd-image-updater"
-      version: "1.2.2"
-      recipe: "recipes/argo-cd/argocd-image-updater/1.2.2"
-      package: "packages/argo-cd/argocd-image-updater/1.2.2"
+      version: "1.5.0"
+      recipe: "recipes/argo-cd/argocd-image-updater/1.5.0"
+      package: "packages/argo-cd/argocd-image-updater/1.5.0"
     -
       rank: 75
       ref: "hashicorp/terraform"

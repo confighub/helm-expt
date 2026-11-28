@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "argo-cd-argocd-image-updater-1-5-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argocd-image-updater"
+    confighub.io/chart-version: "1.5.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "8e1a70dfa4371028a933215b92d777a7d55d7c77ac4246678993f36cae4ed59b"
+    dependencyLockSHA256: "7c369e280f668a0efafcd0cabb0d188e9ee13bdad6e4b13bf9e5bd5ecfaa6e62"
+    effectiveValuesSHA256: "7b393acb4845835238f3af1eaa035a7ef04ea0ecd531dc5ccc29f0499c864ec4"
+  outputs:
+    renderedObjectSetSHA256: "d35bf05ae6d584af7eb435612de3ac8c788b0c7b3095e85bdfa9d36497994009"
+    renderedObjectInventorySHA256: "e0980261a3e842eb7f0114f437441e6dacd28d4c6c25ca53d9a9c2d6f1ec255d"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 11
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

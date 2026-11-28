@@ -7,7 +7,7 @@ type: helm
 repository: https://argoproj.github.io/argo-helm
 chart: argocd-image-updater
 # The newest chart version packaged here.
-version: 1.2.2
+version: 1.5.0
 # The name cub finds it by:
 #   cub package install argocd-image-updater --space <space>
 # which pulls oci://ghcr.io/confighub/packages/argocd-image-updater:<tag>.
@@ -15,3 +15,4 @@ name: argocd-image-updater
 # Every version packaged here: its directory, and the tag it is published as.
 versions:
   - {directory: 1.2.2, tag: v1.2.2}
+  - {directory: 1.5.0, tag: v1.5.0}

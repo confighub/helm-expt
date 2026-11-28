@@ -389,7 +389,7 @@ spec:
       repositoryURL: "https://argoproj.github.io/argo-helm"
       chart: "argocd-image-updater"
       ref: "argo-cd/argocd-image-updater"
-      version: "1.2.2"
+      version: "1.5.0"
       proofFocus: "GitOps companion controller, RBAC, Secret/config"
     - rank: 75
       repository: "hashicorp"
