@@ -992,7 +992,7 @@ function preflightCurrentWorkflowBindings(approvalSpaces) {
     // exact native contract. Do not retrofit an existing Component whose
     // owners or workflow history cannot be proven from this input.
     if (!workflow
-      || component.ChangeWorkflowRequired !== true
+      || component.RequireChangeWorkflow !== true
       || !sameStringSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID])) {
       throw new Error("native approval Component already exists without this exact ChangeWorkflow contract");
     }
@@ -1020,14 +1020,14 @@ function configureCurrentWorkflowApproval(approvalSpaces) {
   if (!preflight.component) {
     cub([
       "component", "create", CURRENT_POLICY_COMPONENT,
-      "--change-workflow-required",
+      "--require-change-workflow",
       "--allowed-change-workflow", CURRENT_POLICY_WORKFLOW_REF,
       "--quiet",
     ]);
   }
   const component = readCurrentComponent();
   if (!UUID_PATTERN.test(component.ComponentID ?? "")) throw new Error("native approval Component has no ComponentID after configuration");
-  if (component.ChangeWorkflowRequired !== true || !sameStringSet(component.AllowedChangeWorkflowIDs, [workflow.ChangeWorkflowID])) {
+  if (component.RequireChangeWorkflow !== true || !sameStringSet(component.AllowedChangeWorkflowIDs, [workflow.ChangeWorkflowID])) {
     throw new Error("native approval Component does not allow exactly the configured workflow");
   }
   for (const space of approvalSpaces) {
@@ -1093,7 +1093,7 @@ function collectCurrentPolicyState() {
   }
   if (component && workflow) {
     if (!UUID_PATTERN.test(component.ComponentID ?? "")) findings.push("native approval Component has no ComponentID");
-    if (component.ChangeWorkflowRequired !== true || !sameStringSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID])) {
+    if (component.RequireChangeWorkflow !== true || !sameStringSet(component.AllowedChangeWorkflowIDs ?? [], [workflow.ChangeWorkflowID])) {
       findings.push("native approval Component does not allow exactly the configured workflow");
     }
   }
@@ -1129,7 +1129,7 @@ function collectCurrentPolicyState() {
       component: component ? {
         id: component.ComponentID,
         slug: CURRENT_POLICY_COMPONENT,
-        changeWorkflowRequired: component.ChangeWorkflowRequired === true,
+        changeWorkflowRequired: component.RequireChangeWorkflow === true,
         allowedChangeWorkflowIDs: component.AllowedChangeWorkflowIDs ?? [],
       } : null,
       approvalSpaces: approvalRows.map((space) => ({
@@ -1212,7 +1212,7 @@ function selfTestPolicySyncConflictWithFakeCub() {
   const fakeComponent = {
     ComponentID: componentID,
     Slug: CURRENT_POLICY_COMPONENT,
-    ChangeWorkflowRequired: true,
+    RequireChangeWorkflow: true,
     AllowedChangeWorkflowIDs: [workflowID],
   };
   const fakeRows = [{

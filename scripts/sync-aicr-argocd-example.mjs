@@ -2492,11 +2492,11 @@ function syncCurrentV020PersistentPromotion(uploadReceipt, versions) {
   check(componentBefore?.ComponentID === componentID,
     "AICR persistent component readback differs from the variant chain");
   cub([
-    "component", "update", "--patch", componentSlug, "--change-workflow-required",
+    "component", "update", "--patch", componentSlug, "--require-change-workflow",
     "--allowed-change-workflow", `${developmentSpaceSlug}/${workflowSlug}`, "--quiet",
   ]);
   const component = cubJson(["component", "get", componentSlug, "-o", "json"]).Component;
-  check(component?.ComponentID === componentID && component.ChangeWorkflowRequired === true
+  check(component?.ComponentID === componentID && component.RequireChangeWorkflow === true
     && (component.AllowedChangeWorkflowIDs ?? []).includes(workflow.ChangeWorkflowID),
   "AICR persistent Component did not retain the native ChangeWorkflow binding");
 
@@ -2777,7 +2777,7 @@ function verifyCurrentV020PromotionLive(receipt, uploadReceipt) {
     "live persistent ChangeWorkflow ID differs from the receipt");
   const component = cubJson(["component", "get", componentSlug, "-o", "json"]).Component;
   check(component?.ComponentID === receipt.spec.component.id
-    && component.ChangeWorkflowRequired === true
+    && component.RequireChangeWorkflow === true
     && (component.AllowedChangeWorkflowIDs ?? []).includes(workflow.ChangeWorkflowID),
   "live AICR Component binding does not retain the receipt's required ChangeWorkflow");
   const order = cubJson(["changeorder", "get", "--space", developmentSpaceSlug,
@@ -2894,7 +2894,7 @@ function fakeCurrentPromotionCli({ approvalShape = "exact", refusal = null, upst
   const attestation = { AttestationID: "approval", ChangeOrderID: "order", SpaceID: "production", Type: "Approval", Result: "Pass" };
   const release = { ReleaseID: "release", ManifestDigest: `sha256:${"b".repeat(64)}`,
     Digest: `sha256:${"c".repeat(64)}`, UnitCount: 2 };
-  const component = { ComponentID: "component", Slug: componentSlug, ChangeWorkflowRequired: false, AllowedChangeWorkflowIDs: [] };
+  const component = { ComponentID: "component", Slug: componentSlug, RequireChangeWorkflow: false, AllowedChangeWorkflowIDs: [] };
   const json = (value) => ({ status: 0, stdout: `${JSON.stringify(value)}\n`, stderr: "" });
   const text = (value = "") => ({ status: 0, stdout: value, stderr: "" });
   const failure = (message) => ({ status: 1, stdout: "", stderr: message });
@@ -2932,7 +2932,7 @@ function fakeCurrentPromotionCli({ approvalShape = "exact", refusal = null, upst
     if (group === "changeworkflow" && verb === "get") return json({ ChangeWorkflow: workflow });
     if (group === "component" && verb === "get") return json({ Component: component });
     if (group === "component" && verb === "update") {
-      component.ChangeWorkflowRequired = true;
+      component.RequireChangeWorkflow = true;
       component.AllowedChangeWorkflowIDs = ["workflow"];
       return text();
     }

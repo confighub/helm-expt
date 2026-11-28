@@ -226,7 +226,7 @@ Component that every change must go through that workflow.
 
 ```sh
 cub changeworkflow create --space $APP-base $WORKFLOW --stage dev --stage prod --attestation-prerequisite approved --attestation-prerequisite-count approved=1 --attestation-prerequisite-allow-authors approved=true --attestation-prerequisite-description approved="One approval of the change as it stands in dev" --stage-prerequisites prod=approved
-cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --change-workflow-required
+cub component update --patch $APP --allowed-change-workflow $APP-base/$WORKFLOW --require-change-workflow
 ```
 
 A separate approver is the default. Leave out
