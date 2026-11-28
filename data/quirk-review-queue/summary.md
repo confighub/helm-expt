@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 304
-charts affected: 151
-  standard (confirm a catalog-wide home): 128
+flagged quirks: 319
+charts affected: 159
+  standard (confirm a catalog-wide home): 132
   build    (build a variant, then handle):  21
-  sme      (genuine per-chart human call):   155
+  sme      (genuine per-chart human call):   166
 ```
 
 ## Work it down in this order
@@ -23,14 +23,14 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `crds` | 35 | 35 |
+| `crds` | 37 | 37 |
 | `catalog-coverage` | 33 | 33 |
 | `crd-policy` | 16 | 16 |
 | `stateful-storage` | 14 | 14 |
+| `replicaset-topology` | 4 | 4 |
+| `edge-ingress-policy` | 4 | 4 |
 | `apiservice` | 4 | 4 |
 | `operator-managed-operands` | 4 | 4 |
-| `replicaset-topology` | 3 | 3 |
-| `edge-ingress-policy` | 3 | 3 |
 | `ui-ingress-policy` | 3 | 3 |
 | `storage-retention` | 2 | 2 |
 | `component-selection` | 2 | 2 |
@@ -61,9 +61,9 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 
 | Category | Flags | Charts |
 | --- | ---: | ---: |
-| `extension-slots` | 70 | 70 |
-| `tpl-extension-slots` | 67 | 67 |
-| `tpl` | 11 | 11 |
+| `extension-slots` | 74 | 74 |
+| `tpl-extension-slots` | 72 | 72 |
+| `tpl` | 13 | 13 |
 | `gitops-handoff` | 4 | 4 |
 | `chart-deprecation` | 2 | 2 |
 | `platform-variant` | 1 | 1 |

@@ -21,6 +21,7 @@ recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001
 recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml,argo-cd/argo-workflows/1.0.14,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml,argo-cd/argo-workflows/1.0.14,minimal-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/variant-revision.yaml,argo-cd/argocd-image-updater/1.2.2,default,r001,attached,matches,
+recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/variant-revision.yaml,argo-cd/argocd-image-updater/1.5.0,default,r001,attached,matches,
 recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml,autoscaler/cluster-autoscaler/9.57.0,controller-default-reviewed,r001,attached,matches,
 recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml,autoscaler/cluster-autoscaler/9.57.0,default,r001,attached,matches,
 recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml,autoscaler/vertical-pod-autoscaler/0.9.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
@@ -35,6 +36,7 @@ recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training
 recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/aicr-eks-training-v1-0-0/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0,aicr-eks-training-v1-0-0,r001,attached,matches,
 recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0,default,r001,attached,matches,
 recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1,default,r001,attached,matches,
+recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1,default,r001,attached,matches,
 recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml,bitnami/apache/11.4.29,default,r001,attached,matches,
 recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml,bitnami/apache/11.4.29,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml,bitnami/contour/21.1.4,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
@@ -44,12 +46,15 @@ recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yam
 recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml,bitnami/elasticsearch/22.1.6,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/variant-revision.yaml,bitnami/elasticsearch/22.1.6,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml,bitnami/memcached/8.5.5,default,r001,attached,matches,
+recipes/bitnami/memcached/8.8.8/revisions/default/r001/variant-revision.yaml,bitnami/memcached/8.8.8,default,r001,attached,matches,
 recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.0.7,existing-secret-replicaset,r001,attached,matches,
 recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.0.7,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.0.9,existing-secret-replicaset,r001,attached,matches,
 recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.0.9,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.1.0,existing-secret-replicaset,r001,attached,matches,
 recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.1.0,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/20.0.23,existing-secret-replicaset,r001,attached,matches,
+recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/20.0.23,static-passwords,r001,attached,matches,
 recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml,bitnami/mysql/14.0.3,existing-secret,r001,attached,matches,
 recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mysql/14.0.3,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/24.0.2,existing-tls-ingress,r001,attached,matches,
@@ -58,11 +63,15 @@ recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revisio
 recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/24.0.4,http-clusterip,r001,attached,matches,
 recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/25.0.0,existing-tls-ingress,r001,attached,matches,
 recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/25.0.0,http-clusterip,r001,attached,matches,
+recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/25.2.19,existing-tls-ingress,r001,attached,matches,
+recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/25.2.19,http-clusterip,r001,attached,matches,
 recipes/bitnami/opensearch/2.0.10/revisions/default/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,default,r001,attached,matches,
 recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/variant-revision.yaml,bitnami/phpmyadmin/20.0.0,default,r001,attached,matches,
 recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml,bitnami/phpmyadmin/20.0.0,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.12.28,existing-secret,r001,attached,matches,
+recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/variant-revision.yaml,bitnami/postgresql/18.12.28,static-passwords,r001,attached,matches,
 recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.6.10,existing-secret,r001,attached,matches,
 recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml,bitnami/postgresql/18.6.10,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
 recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.6.7,existing-secret,r001,attached,matches,
@@ -84,12 +93,14 @@ recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml,bit
 recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,default,r001,attached,matches,
 recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
 recipes/cloudnative-pg/cloudnative-pg/0.29.0/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.29.0,default,r001,attached,matches,
+recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.29.2,default,r001,attached,matches,
 recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml,cloudpirates/nginx/0.16.1,default,r001,attached,matches,
 recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml,cloudpirates/rabbitmq/0.21.13,default,r001,attached,matches,
 recipes/cloudpirates/rabbitmq/0.21.13/revisions/existing-secret/r001/variant-revision.yaml,cloudpirates/rabbitmq/0.21.13,existing-secret,r001,attached,matches,
 recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,default,r001,attached,matches,
 recipes/cloudpirates/redis/0.34.11/revisions/reuse-existing-secret/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,reuse-existing-secret,r001,attached,matches,
 recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml,coredns/coredns/1.45.2,default,r001,attached,matches,
+recipes/coredns/coredns/1.50.8/revisions/default/r001/variant-revision.yaml,coredns/coredns/1.50.8,default,r001,attached,matches,
 recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml,crossplane-stable/crossplane/2.3.1,default,r001,attached,matches,
 recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml,descheduler/descheduler/0.36.0,default,r001,attached,matches,
 recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml,dex/dex/0.24.0,default,r001,attached,matches,

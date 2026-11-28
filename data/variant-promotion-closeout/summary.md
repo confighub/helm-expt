@@ -18,21 +18,21 @@ Source of record: [variant-promotion/status.csv](../variant-promotion/status.csv
 
 | Owner class | Variants | Meaning |
 | --- | ---: | --- |
-| `run-proof` | 167 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
+| `run-proof` | 178 | A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI. |
 | `catalog-modeling` | 0 | Needs catalog/model work before promotion is meaningful. |
 | `not-applicable-if-any` | 179 | Promotion does not apply to this variant. |
 
 | Readiness | Variants |
 | --- | ---: |
 | `promotion-proven` | 179 |
-| `blocked-needs-confighub-proof` | 148 |
+| `blocked-needs-confighub-proof` | 159 |
 | `watch-grade` | 17 |
 | `blocked-proof-failed` | 2 |
 
 | Promotion state | Variants |
 | --- | ---: |
 | `yes` | 179 |
-| `todo` | 148 |
+| `todo` | 159 |
 | `watch` | 17 |
 | `no` | 2 |
 
@@ -74,7 +74,7 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | grafana/grafana@10.5.15 | static-passwords | runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml |
 
-## Blocked — needs the ConfigHub proof first (148)
+## Blocked — needs the ConfigHub proof first (159)
 
 No ConfigHub upload proof exists yet, so there is no clone to promote.
 
@@ -89,6 +89,7 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | argo-cd/argo-cd@10.7.0 | default | run the ConfigHub proof lane first |
 | argo-cd/argo-cd@10.7.0 | no-crds | run the ConfigHub proof lane first |
 | argo-cd/argo-cd@9.5.17 | no-crds | run the ConfigHub proof lane first |
+| argo-cd/argocd-image-updater@1.5.0 | default | run the ConfigHub proof lane first |
 | aws-controllers-k8s/ec2-chart@1.18.4 | default | run the ConfigHub proof lane first |
 | aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | run the ConfigHub proof lane first |
 | aws-controllers-k8s/eks-chart@1.16.3 | default | run the ConfigHub proof lane first |
@@ -98,12 +99,22 @@ No ConfigHub upload proof exists yet, so there is no clone to promote.
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v0-20-0 | run the ConfigHub proof lane first |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | aicr-eks-training-v1-0-0 | run the ConfigHub proof lane first |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | default | run the ConfigHub proof lane first |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | run the ConfigHub proof lane first |
+| bitnami/memcached@8.8.8 | default | run the ConfigHub proof lane first |
+| bitnami/mongodb@20.0.23 | existing-secret-replicaset | run the ConfigHub proof lane first |
+| bitnami/mongodb@20.0.23 | static-passwords | run the ConfigHub proof lane first |
+| bitnami/nginx@25.2.19 | existing-tls-ingress | run the ConfigHub proof lane first |
+| bitnami/nginx@25.2.19 | http-clusterip | run the ConfigHub proof lane first |
+| bitnami/postgresql@18.12.28 | existing-secret | run the ConfigHub proof lane first |
+| bitnami/postgresql@18.12.28 | static-passwords | run the ConfigHub proof lane first |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | run the ConfigHub proof lane first |
+| cloudnative-pg/cloudnative-pg@0.29.2 | default | run the ConfigHub proof lane first |
 | cloudpirates/nginx@0.16.1 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | default | run the ConfigHub proof lane first |
 | cloudpirates/rabbitmq@0.21.13 | existing-secret | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | default | run the ConfigHub proof lane first |
 | cloudpirates/redis@0.34.11 | reuse-existing-secret | run the ConfigHub proof lane first |
+| coredns/coredns@1.50.8 | default | run the ConfigHub proof lane first |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | aicr-eks-training | run the ConfigHub proof lane first |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | default | run the ConfigHub proof lane first |
 | dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 | gpu-resources | run the ConfigHub proof lane first |

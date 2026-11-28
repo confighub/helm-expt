@@ -15,29 +15,29 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 181
-machine checks pass: 181
+recipes reviewed: 189
+machine checks pass: 189
 machine checks fail: 0
-proof-grade: 110
-catalog-candidate: 51
+proof-grade: 115
+catalog-candidate: 54
 catalog-supported: 20
 blocked: 0
-default-only recipes: 61
-multi-variant recipes: 120
-recipes with warning gates: 164
+default-only recipes: 66
+multi-variant recipes: 123
+recipes with warning gates: 172
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 94
-- `next80-full`: 80
-- `successor-full`: 7
+- `bespoke-top20`: 97
+- `next80-full`: 84
+- `successor-full`: 8
 
 ## Support Levels
 
-- `machine-proof-only`: 110
-- `promotion-review-needed`: 51
+- `machine-proof-only`: 115
+- `promotion-review-needed`: 54
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -59,15 +59,15 @@ proof work.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0` | 3 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.1.0` | 2 | warn | run human catalog promotion review |
+| `bitnami/mongodb@20.0.23` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@25.0.0` | 2 | warn | run human catalog promotion review |
+| `bitnami/nginx@25.2.19` | 2 | warn | run human catalog promotion review |
+| `bitnami/postgresql@18.12.28` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.7.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
 | `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 3 | warn | run human catalog promotion review |
-| `dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0` | 3 | warn | run human catalog promotion review |
-| `eks/aws-efa-k8s-device-plugin@v0.5.29` | 2 | warn | run human catalog promotion review |
-| `external-secrets/external-secrets@2.10.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps
 

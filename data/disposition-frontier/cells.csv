@@ -131,6 +131,12 @@ argo-cd/argocd-image-updater@1.2.2,default,local_live,L,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,gitops_oci_live,G,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 argo-cd/argocd-image-updater@1.2.2,default,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+argo-cd/argocd-image-updater@1.5.0,default,render_parity,R,pass,pass,no,,,
+argo-cd/argocd-image-updater@1.5.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for argo-cd/argocd-image-updater@1.5.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+argo-cd/argocd-image-updater@1.5.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argocd-image-updater@1.5.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argocd-image-updater@1.5.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+argo-cd/argocd-image-updater@1.5.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.2.2 (pass) — runs/live-kind-parity/argo-cd-argocd-image-updater-default/receipt.yaml,"none — the variant is proven on 1.2.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,render_parity,R,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,in_confighub,C,pass,pass,no,,,
 autoscaler/cluster-autoscaler@9.57.0,controller-default-reviewed,local_live,L,pass,pass,no,,,
@@ -215,6 +221,12 @@ aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,local_live,L,fail,fail,no,,
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,gitops_oci_live,G,watch,watch,no,,,
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1,default,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,render_parity,R,pass,pass,no,,,
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1,default,two_cluster_kind_parity,K,missing,blocked,yes,"variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 2.60.1 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml","resolve the variant's K blocker on 2.60.1; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt",kind-parity
 bitnami/apache@11.4.29,default,render_parity,R,pass,pass,no,,,
 bitnami/apache@11.4.29,default,in_confighub,C,pass,pass,no,,,
 bitnami/apache@11.4.29,default,local_live,L,blocked,blocked,no,,,
@@ -269,6 +281,12 @@ bitnami/memcached@8.5.5,default,local_live,L,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,gitops_oci_live,G,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/memcached@8.5.5,default,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+bitnami/memcached@8.8.8,default,render_parity,R,pass,pass,no,,,
+bitnami/memcached@8.8.8,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/memcached@8.8.8 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/memcached@8.8.8,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/memcached@8.8.8,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/memcached@8.8.8,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/memcached@8.8.8,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 8.5.5 (pass) — runs/live-kind-parity/bitnami-memcached-default/receipt.yaml,"none — the variant is proven on 8.5.5; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mongodb@19.0.7,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
 bitnami/mongodb@19.0.7,existing-secret-replicaset,in_confighub,C,pass,pass,no,,,
 bitnami/mongodb@19.0.7,existing-secret-replicaset,local_live,L,pass,pass,no,,,
@@ -305,6 +323,18 @@ bitnami/mongodb@19.1.0,static-passwords,local_live,L,pass,pass,no,,,
 bitnami/mongodb@19.1.0,static-passwords,gitops_oci_live,G,pass,pass,no,,,
 bitnami/mongodb@19.1.0,static-passwords,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/mongodb@19.1.0,static-passwords,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+bitnami/mongodb@20.0.23,existing-secret-replicaset,render_parity,R,pass,pass,no,,,
+bitnami/mongodb@20.0.23,existing-secret-replicaset,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@20.0.23 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@20.0.23,existing-secret-replicaset,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,existing-secret-replicaset,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,existing-secret-replicaset,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,existing-secret-replicaset,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+bitnami/mongodb@20.0.23,static-passwords,render_parity,R,pass,pass,no,,,
+bitnami/mongodb@20.0.23,static-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@20.0.23 static-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/mongodb@20.0.23,static-passwords,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,static-passwords,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,static-passwords,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/mongodb@20.0.23,static-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 19.1.0 (pass) — runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml,"none — the variant is proven on 19.1.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/mysql@14.0.3,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/mysql@14.0.3,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/mysql@14.0.3,existing-secret,local_live,L,pass,pass,no,,,
@@ -353,6 +383,18 @@ bitnami/nginx@25.0.0,http-clusterip,local_live,L,pass,pass,no,,,
 bitnami/nginx@25.0.0,http-clusterip,gitops_oci_live,G,pass,pass,no,,,
 bitnami/nginx@25.0.0,http-clusterip,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 bitnami/nginx@25.0.0,http-clusterip,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+bitnami/nginx@25.2.19,existing-tls-ingress,render_parity,R,pass,pass,no,,,
+bitnami/nginx@25.2.19,existing-tls-ingress,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.2.19 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@25.2.19,existing-tls-ingress,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,existing-tls-ingress,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,existing-tls-ingress,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,existing-tls-ingress,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+bitnami/nginx@25.2.19,http-clusterip,render_parity,R,pass,pass,no,,,
+bitnami/nginx@25.2.19,http-clusterip,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.2.19 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/nginx@25.2.19,http-clusterip,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,http-clusterip,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,http-clusterip,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/nginx@25.2.19,http-clusterip,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 25.0.0 (pass) — runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml,"none — the variant is proven on 25.0.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/opensearch@2.0.10,default,render_parity,R,pass,pass,no,,,
 bitnami/opensearch@2.0.10,default,in_confighub,C,pass,pass,no,,,
 bitnami/opensearch@2.0.10,default,local_live,L,fail,fail,no,,,
@@ -383,6 +425,18 @@ bitnami/phpmyadmin@20.0.0,legacy,local_live,L,pass,pass,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,gitops_oci_live,G,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 bitnami/phpmyadmin@20.0.0,legacy,two_cluster_kind_parity,K,blocked,blocked,no,parity: semantic object diff,,kind-parity
+bitnami/postgresql@18.12.28,existing-secret,render_parity,R,pass,pass,no,,,
+bitnami/postgresql@18.12.28,existing-secret,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.12.28 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.12.28,existing-secret,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,existing-secret,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,existing-secret,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,existing-secret,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+bitnami/postgresql@18.12.28,static-passwords,render_parity,R,pass,pass,no,,,
+bitnami/postgresql@18.12.28,static-passwords,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.12.28 static-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+bitnami/postgresql@18.12.28,static-passwords,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,static-passwords,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,static-passwords,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+bitnami/postgresql@18.12.28,static-passwords,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 18.7.0 (pass) — runs/live-kind-parity/bitnami-postgresql-static-passwords/receipt.yaml,"none — the variant is proven on 18.7.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 bitnami/postgresql@18.6.10,existing-secret,render_parity,R,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,in_confighub,C,pass,pass,no,,,
 bitnami/postgresql@18.6.10,existing-secret,local_live,L,pass,pass,no,,,
@@ -509,6 +563,12 @@ cloudnative-pg/cloudnative-pg@0.29.0,default,local_live,L,missing,missing,no,no 
 cloudnative-pg/cloudnative-pg@0.29.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudnative-pg/cloudnative-pg@0.29.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 cloudnative-pg/cloudnative-pg@0.29.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 0.28.2 (pass) — runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml,"none — the variant is proven on 0.28.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+cloudnative-pg/cloudnative-pg@0.29.2,default,render_parity,R,pass,pass,no,,,
+cloudnative-pg/cloudnative-pg@0.29.2,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudnative-pg/cloudnative-pg@0.29.2 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+cloudnative-pg/cloudnative-pg@0.29.2,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.2,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.2,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+cloudnative-pg/cloudnative-pg@0.29.2,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 0.28.2 (pass) — runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml,"none — the variant is proven on 0.28.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 cloudpirates/nginx@0.16.1,default,render_parity,R,pass,pass,no,,,
 cloudpirates/nginx@0.16.1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for cloudpirates/nginx@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
 cloudpirates/nginx@0.16.1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
@@ -545,6 +605,12 @@ coredns/coredns@1.45.2,default,local_live,L,pass,pass,no,,,
 coredns/coredns@1.45.2,default,gitops_oci_live,G,pass,pass,no,,,
 coredns/coredns@1.45.2,default,live_helm_vs_confighub_parity,P,pass,pass,no,,,
 coredns/coredns@1.45.2,default,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+coredns/coredns@1.50.8,default,render_parity,R,pass,pass,no,,,
+coredns/coredns@1.50.8,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for coredns/coredns@1.50.8 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+coredns/coredns@1.50.8,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+coredns/coredns@1.50.8,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+coredns/coredns@1.50.8,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+coredns/coredns@1.50.8,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 1.45.2 (pass) — runs/live-kind-parity/coredns-coredns-default/receipt.yaml,"none — the variant is proven on 1.45.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 crossplane-stable/crossplane@2.3.1,default,render_parity,R,pass,pass,no,,,
 crossplane-stable/crossplane@2.3.1,default,in_confighub,C,pass,pass,no,,,
 crossplane-stable/crossplane@2.3.1,default,local_live,L,pass,pass,no,,,

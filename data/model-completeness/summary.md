@@ -14,30 +14,39 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 181
+charts: 189
 supported (Level 2, all 6): 176
-not yet supported: 5
-variant-rich (enhancement, >1 variant): 120
+not yet supported: 13
+variant-rich (enhancement, >1 variant): 123
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 181/181
-- `behaviorally_complete`: 176/181
-- `readable`: 181/181
-- `usable`: 181/181
-- `verifiable`: 181/181
-- `honestly_scoped`: 181/181
-- _enhancement_ `variant_complete`: 120/181  (not a support criterion)
+- `render_equivalent`: 189/189
+- `behaviorally_complete`: 184/189
+- `readable`: 181/189
+- `usable`: 189/189
+- `verifiable`: 189/189
+- `honestly_scoped`: 189/189
+- _enhancement_ `variant_complete`: 123/189  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 
+- `readable`: 8
 - `behaviorally_complete`: 5
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
+| `argo-cd/argocd-image-updater@1.5.0` | 5/6 | readable |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1` | 5/6 | readable |
+| `bitnami/memcached@8.8.8` | 5/6 | readable |
+| `bitnami/mongodb@20.0.23` | 5/6 | readable |
+| `bitnami/nginx@25.2.19` | 5/6 | readable |
+| `bitnami/postgresql@18.12.28` | 5/6 | readable |
+| `cloudnative-pg/cloudnative-pg@0.29.2` | 5/6 | readable |
+| `coredns/coredns@1.50.8` | 5/6 | readable |
 | `external-secrets/external-secrets@2.10.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |

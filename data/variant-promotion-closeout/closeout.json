@@ -7,14 +7,14 @@
     "data/master-catalog-matrix/matrix.csv"
   ],
   "changesetBug": "https://github.com/confighub/helm-expt/issues/682",
-  "variantCount": 346,
+  "variantCount": 357,
   "byOwnerClass": {
     "not-applicable-if-any": 179,
-    "run-proof": 167
+    "run-proof": 178
   },
   "byReadiness": {
     "promotion-proven": 179,
-    "blocked-needs-confighub-proof": 148,
+    "blocked-needs-confighub-proof": 159,
     "watch-grade": 17,
     "blocked-proof-failed": 2
   },
@@ -328,6 +328,20 @@
       "reason": "server-side promotion receipt passed"
     },
     {
+      "chart": "argo-cd/argocd-image-updater",
+      "version": "1.5.0",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "base": "controller-default-reviewed",
@@ -524,6 +538,20 @@
       "reason": "server-side promotion receipt passed"
     },
     {
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.68.1",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "bitnami/apache",
       "version": "11.4.29",
       "base": "default",
@@ -650,6 +678,20 @@
       "reason": "server-side promotion receipt passed"
     },
     {
+      "chart": "bitnami/memcached",
+      "version": "8.8.8",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
       "base": "existing-secret-replicaset",
@@ -732,6 +774,34 @@
       "evidence_receipt": "runs/cl-mongodb-19-1-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "20.0.23",
+      "base": "existing-secret-replicaset",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "20.0.23",
+      "base": "static-passwords",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "bitnami/mysql",
@@ -846,6 +916,34 @@
       "reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback"
     },
     {
+      "chart": "bitnami/nginx",
+      "version": "25.2.19",
+      "base": "existing-tls-ingress",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "bitnami/nginx",
+      "version": "25.2.19",
+      "base": "http-clusterip",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "base": "default",
@@ -914,6 +1012,34 @@
       "evidence_receipt": "runs/cl-phpmyadmin-20-0-0-legacy-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.12.28",
+      "base": "existing-secret",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.12.28",
+      "base": "static-passwords",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "bitnami/postgresql",
@@ -1210,6 +1336,20 @@
       "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.2",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
+    },
+    {
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "base": "default",
@@ -1292,6 +1432,20 @@
       "evidence_receipt": "runs/coredns-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "next_action": "keep receipt fresh when the upstream base changes",
       "reason": "server-side promotion receipt passed"
+    },
+    {
+      "chart": "coredns/coredns",
+      "version": "1.50.8",
+      "base": "default",
+      "promotion_state": "todo",
+      "promotion_status": "missing-confighub-proof",
+      "server_clone_exists": "no",
+      "promote_readiness": "blocked-needs-confighub-proof",
+      "owner_class": "run-proof",
+      "blocked_by": "",
+      "evidence_receipt": "",
+      "next_action": "run the ConfigHub proof lane first",
+      "reason": "promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing"
     },
     {
       "chart": "crossplane-stable/crossplane",

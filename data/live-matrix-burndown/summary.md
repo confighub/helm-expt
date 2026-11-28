@@ -19,27 +19,27 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 607 |
-| Variants needing at least one live command | 243 |
-| Live commands remaining | 436 |
-| GitOps/OCI + live Helm-vs-ConfigHub commands | 220 |
-| Two-cluster kind parity commands | 216 |
-| Watch/blocked/review rows | 193 |
-| Ready-to-run todo rows | 243 |
+| Matrix variant rows | 626 |
+| Variants needing at least one live command | 254 |
+| Live commands remaining | 458 |
+| GitOps/OCI + live Helm-vs-ConfigHub commands | 231 |
+| Two-cluster kind parity commands | 227 |
+| Watch/blocked/review rows | 204 |
+| Ready-to-run todo rows | 254 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 216 |
-| `live-parity` | 220 |
+| `kind-parity` | 227 |
+| `live-parity` | 231 |
 
 ## By Current Status
 
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 69 |
-| `todo` | 311 |
+| `todo` | 333 |
 | `watch` | 56 |
 
 ## By Run Readiness
@@ -48,8 +48,8 @@ For the cell-level completion count, use
 | --- | ---: |
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
-| `model-or-stage-first` | 119 |
-| `ready-to-run` | 243 |
+| `model-or-stage-first` | 130 |
+| `ready-to-run` | 254 |
 | `review-target-first` | 56 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
@@ -100,6 +100,7 @@ generated priority. They are good candidates for a serial live block.
 | argo-cd/argo-cd | 10.2.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.2.1 --base default |
 | argo-cd/argo-cd | 10.20.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.20.0 --base default |
 | argo-cd/argo-cd | 10.7.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/10.7.0 --base default |
+| argo-cd/argocd-image-updater | 1.5.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/argo-cd/argocd-image-updater/1.5.0 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base default |
 | aws-controllers-k8s/ec2-chart | 1.18.4 | eks-inference | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/ec2-chart/1.18.4 --base eks-inference |
 | aws-controllers-k8s/eks-chart | 1.16.3 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-controllers-k8s/eks-chart/1.16.3 --base default |
@@ -109,9 +110,8 @@ generated priority. They are good candidates for a serial live block.
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v0-20-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v0-20-0 |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | aicr-eks-training-v1-0-0 | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base aicr-eks-training-v1-0-0 |
 | aws-ebs-csi-driver/aws-ebs-csi-driver | 2.59.0 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default |
-| bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
-| cloudnative-pg/cloudnative-pg | 0.29.0 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default |
-| cloudpirates/nginx | 0.16.1 | default | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/cloudpirates/nginx/0.16.1 --base default |
+| aws-ebs-csi-driver/aws-ebs-csi-driver | 2.68.1 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1 --base default |
+| bitnami/memcached | 8.8.8 | default | uncategorized | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/memcached/8.8.8 --base default |
 
 ## Full Queue
 

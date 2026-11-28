@@ -14,8 +14,10 @@ argo-events,2.4.21,https://argoproj.github.io/argo-helm,signed,provenance-file-p
 argo-rollouts,2.40.9,https://argoproj.github.io/argo-helm,signed,provenance-file-published
 argo-workflows,1.0.14,https://argoproj.github.io/argo-helm,signed,provenance-file-published
 argocd-image-updater,1.2.2,https://argoproj.github.io/argo-helm,signed,provenance-file-published
+argocd-image-updater,1.5.0,https://argoproj.github.io/argo-helm,signed,provenance-file-published
 aws-ebs-csi-driver,2.59.0,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,unsigned,no-provenance-file
 aws-ebs-csi-driver,2.60.1,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,unsigned,no-provenance-file
+aws-ebs-csi-driver,2.68.1,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,unsigned,no-provenance-file
 aws-efa-k8s-device-plugin,v0.5.29,https://aws.github.io/eks-charts,unsigned,no-provenance-file
 cert-manager,v1.20.2,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager,v1.21.0,https://charts.jetstack.io,signed,provenance-file-published
@@ -23,11 +25,13 @@ cert-manager,v1.21.1,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager-csi-driver,v0.14.0,https://charts.jetstack.io,unsigned,no-provenance-file
 cloudnative-pg,0.28.2,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cloudnative-pg,0.29.0,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
+cloudnative-pg,0.29.2,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cluster-autoscaler,9.57.0,https://kubernetes.github.io/autoscaler,unsigned,no-provenance-file
 cluster-readiness-engine,v0.6.0,oci://ghcr.io/nvidia,unknown,oci
 consul,2.0.0,https://helm.releases.hashicorp.com,signed,provenance-file-published
 contour,21.1.4,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 coredns,1.45.2,https://coredns.github.io/helm,unsigned,no-provenance-file
+coredns,1.50.8,https://coredns.github.io/helm,unsigned,no-provenance-file
 crossplane,2.3.1,https://charts.crossplane.io/stable,unsigned,no-provenance-file
 descheduler,0.36.0,https://kubernetes-sigs.github.io/descheduler,unsigned,no-provenance-file
 dex,0.24.0,https://charts.dexidp.io,unsigned,no-provenance-file
@@ -93,6 +97,7 @@ longhorn,1.11.2,https://charts.longhorn.io,unsigned,no-provenance-file
 longhorn,1.12.0,https://charts.longhorn.io,unsigned,no-provenance-file
 longhorn,1.12.1,https://charts.longhorn.io,unsigned,no-provenance-file
 memcached,8.5.5,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
+memcached,8.8.8,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 metallb,0.16.1,https://metallb.github.io/metallb,unsigned,no-provenance-file
 metricbeat,8.5.1,https://helm.elastic.co,unsigned,no-provenance-file
 metrics-server,3.13.0,https://kubernetes-sigs.github.io/metrics-server,unsigned,no-provenance-file
@@ -101,6 +106,7 @@ metrics-server,3.14.0,https://kubernetes-sigs.github.io/metrics-server,unsigned,
 mongodb,19.0.7,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mongodb,19.0.9,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mongodb,19.1.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
+mongodb,20.0.23,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mysql,14.0.3,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 mysql-operator,2.3.0,https://mysql.github.io/mysql-operator,unknown,version-not-in-index
 nack,0.34.0,https://nats-io.github.io/k8s/helm/charts,unsigned,no-provenance-file
@@ -110,6 +116,7 @@ nginx,0.16.1,oci://registry-1.docker.io/cloudpirates/nginx,unknown,oci
 nginx,24.0.2,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 nginx,24.0.4,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 nginx,25.0.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
+nginx,25.2.19,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 node-feature-discovery,0.19.0,https://kubernetes-sigs.github.io/node-feature-discovery/charts,signed,provenance-file-published
 nodewright,v0.17.1,oci://ghcr.io/nvidia/nodewright/charts,unknown,oci
 nodewright,v0.19.0,oci://ghcr.io/nvidia/nodewright/charts,unknown,oci
@@ -128,6 +135,7 @@ pgadmin4,1.62.0,https://helm.runix.net,unsigned,no-provenance-file
 phpmyadmin,20.0.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 policy-reporter,3.10.0,https://kyverno.github.io/policy-reporter,signed,provenance-file-published
 policy-reporter,3.9.1,https://kyverno.github.io/policy-reporter,signed,provenance-file-published
+postgresql,18.12.28,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 postgresql,18.6.10,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 postgresql,18.6.7,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 postgresql,18.7.0,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
