@@ -339,7 +339,7 @@ spec:
       repositoryURL: "https://charts.bitnami.com/bitnami"
       chart: "memcached"
       ref: "bitnami/memcached"
-      version: "8.5.5"
+      version: "8.8.8"
       proofFocus: "cache workload, Service, simple scale knobs"
     - rank: 68
       repository: "bitnami"

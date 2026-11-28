@@ -16,3 +16,5 @@ spec:
       version: "1.5.0"
     - chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
       version: "2.68.1"
+    - chart: "bitnami/memcached"
+      version: "8.8.8"

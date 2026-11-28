@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.bitnami.com/bitnami
 chart: memcached
 # The newest chart version packaged here.
-version: 8.5.5
+version: 8.8.8
 # The name cub finds it by:
 #   cub package install memcached --space <space>
 # which pulls oci://ghcr.io/confighub/packages/memcached:<tag>.
@@ -15,3 +15,4 @@ name: memcached
 # Every version packaged here: its directory, and the tag it is published as.
 versions:
   - {directory: 8.5.5, tag: v8.5.5}
+  - {directory: 8.8.8, tag: v8.8.8}

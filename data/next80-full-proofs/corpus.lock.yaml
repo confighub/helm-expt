@@ -286,9 +286,9 @@ spec:
     -
       rank: 67
       ref: "bitnami/memcached"
-      version: "8.5.5"
-      recipe: "recipes/bitnami/memcached/8.5.5"
-      package: "packages/bitnami/memcached/8.5.5"
+      version: "8.8.8"
+      recipe: "recipes/bitnami/memcached/8.8.8"
+      package: "packages/bitnami/memcached/8.8.8"
     -
       rank: 68
       ref: "bitnami/phpmyadmin"

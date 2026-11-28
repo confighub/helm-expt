@@ -67,7 +67,7 @@ linkerd-crds,linkerd/linkerd-crds,https://helm.linkerd.io/stable,v1.8.0,v1.8.0,o
 logstash,elastic/logstash,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/logstash
 loki,grafana/loki,https://grafana.github.io/helm-charts,v7.3.0,v7.0.0 v7.1.0 v7.3.0,oci://ghcr.io/confighub/packages/loki
 longhorn,longhorn/longhorn,https://charts.longhorn.io,v1.12.1,v1.11.2 v1.12.0 v1.12.1,oci://ghcr.io/confighub/packages/longhorn
-memcached,bitnami/memcached,https://charts.bitnami.com/bitnami,v8.5.5,v8.5.5,oci://ghcr.io/confighub/packages/memcached
+memcached,bitnami/memcached,https://charts.bitnami.com/bitnami,v8.8.8,v8.5.5 v8.8.8,oci://ghcr.io/confighub/packages/memcached
 metallb,metallb/metallb,https://metallb.github.io/metallb,v0.16.1,v0.16.1,oci://ghcr.io/confighub/packages/metallb
 metricbeat,elastic/metricbeat,https://helm.elastic.co,v8.5.1,v8.5.1,oci://ghcr.io/confighub/packages/metricbeat
 metrics-server,metrics-server/metrics-server,https://kubernetes-sigs.github.io/metrics-server/,v3.14.0,v3.13.0 v3.13.1 v3.14.0,oci://ghcr.io/confighub/packages/metrics-server
