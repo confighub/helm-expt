@@ -5638,6 +5638,155 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "argo-cd-argocd-image-updater-1-5-0-default",
+        "labels": {
+          "component": "argo-cd/argocd-image-updater",
+          "chart": "argo-cd/argocd-image-updater",
+          "version": "1.5.0",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "argo-cd/argocd-image-updater",
+        "chart": {
+          "name": "argo-cd/argocd-image-updater",
+          "version": "1.5.0",
+          "sourceRepository": "https://argoproj.github.io/argo-helm",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/argo-cd/argocd-image-updater/1.5.0",
+          "variant": "recipes/argo-cd/argocd-image-updater/1.5.0/variants/default/variant.yaml",
+          "revision": "recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/argo-cd/argocd-image-updater/1.5.0/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/argo-cd/argocd-image-updater/1.5.0/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "argocd-image-updater",
+          "valuesProfile": "recipes/argo-cd/argocd-image-updater/1.5.0/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/argo-cd/argocd-image-updater/1.5.0/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/argo-cd/argocd-image-updater/1.5.0/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argocd-image-updater/1.5.0",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argocd-image-updater/1.5.0/bases/default",
+          "fullModelPath": [
+            "chart/version: argo-cd/argocd-image-updater@1.5.0",
+            "recipe: recipes/argo-cd/argocd-image-updater/1.5.0",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-5-0-default.yaml",
+            "rendered revision: recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/argo-cd/argocd-image-updater/1.5.0/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/argo-cd/argocd-image-updater/1.5.0/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed",
         "labels": {
           "component": "autoscaler/cluster-autoscaler",
@@ -8092,6 +8241,155 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "aws-ebs-csi-driver-aws-ebs-csi-driver-2-68-1-default",
+        "labels": {
+          "component": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+          "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+          "version": "2.68.1",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+        "chart": {
+          "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+          "version": "2.68.1",
+          "sourceRepository": "https://kubernetes-sigs.github.io/aws-ebs-csi-driver",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1",
+          "variant": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/variants/default/variant.yaml",
+          "revision": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "aws-ebs-csi-driver",
+          "valuesProfile": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/bases/default",
+          "fullModelPath": [
+            "chart/version: aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1",
+            "recipe: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-68-1-default.yaml",
+            "rendered revision: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "bitnami-apache-11-4-29-default",
         "labels": {
           "component": "bitnami/apache",
@@ -9739,6 +10037,155 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "bitnami-memcached-8-8-8-default",
+        "labels": {
+          "component": "bitnami/memcached",
+          "chart": "bitnami/memcached",
+          "version": "8.8.8",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "bitnami/memcached",
+        "chart": {
+          "name": "bitnami/memcached",
+          "version": "8.8.8",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/memcached/8.8.8",
+          "variant": "recipes/bitnami/memcached/8.8.8/variants/default/variant.yaml",
+          "revision": "recipes/bitnami/memcached/8.8.8/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/memcached/8.8.8/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/memcached/8.8.8/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "memcached",
+          "valuesProfile": "recipes/bitnami/memcached/8.8.8/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/memcached/8.8.8/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/memcached/8.8.8/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/memcached/8.8.8/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/memcached/8.8.8/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/memcached/8.8.8/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/memcached/8.8.8",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/memcached/8.8.8/bases/default",
+          "fullModelPath": [
+            "chart/version: bitnami/memcached@8.8.8",
+            "recipe: recipes/bitnami/memcached/8.8.8",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/bitnami-memcached-8-8-8-default.yaml",
+            "rendered revision: recipes/bitnami/memcached/8.8.8/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/memcached/8.8.8/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/memcached/8.8.8/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "bitnami-mongodb-19-0-7-existing-secret-replicaset",
         "labels": {
           "component": "bitnami/mongodb",
@@ -10714,6 +11161,336 @@
             "full rendered YAML: recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://ghcr.io/confighub/packages/mongodb:v19.1.0@sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136",
             "package base: packages/bitnami/mongodb/19.1.0/bases/static-passwords",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "bitnami-mongodb-20-0-23-existing-secret-replicaset",
+        "labels": {
+          "component": "bitnami/mongodb",
+          "chart": "bitnami/mongodb",
+          "version": "20.0.23",
+          "base": "existing-secret-replicaset",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/mongodb",
+        "chart": {
+          "name": "bitnami/mongodb",
+          "version": "20.0.23",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "existing-secret-replicaset",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/mongodb/20.0.23",
+          "variant": "recipes/bitnami/mongodb/20.0.23/variants/existing-secret-replicaset/variant.yaml",
+          "revision": "recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/20.0.23/bases/existing-secret-replicaset",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/mongodb/20.0.23/source-lock.yaml",
+          "namespace": "mongodb",
+          "releaseName": "mongodb",
+          "valuesProfile": "recipes/bitnami/mongodb/20.0.23/effective-values-existing-secret-replicaset.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/20.0.23/bases/existing-secret-replicaset"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "keys": [
+                  "mongodb-root-password",
+                  "mongodb-replica-set-key"
+                ],
+                "name": "mongodb-auth",
+                "namespace": "mongodb",
+                "purpose": "MongoDB root password and MongoDB-valid replica-set key"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "mongodb/mongodb-auth",
+              "namespace": "mongodb",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "MongoDB root password and MongoDB-valid replica-set key",
+              "check": "",
+              "declarationPath": "recipes/bitnami/mongodb/20.0.23/variants/existing-secret-replicaset/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/bitnami/mongodb/20.0.23/variants/existing-secret-replicaset/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "1 target prerequisite declared by this base.",
+            "declarationSource": "recipes/bitnami/mongodb/20.0.23/variants/existing-secret-replicaset/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/mongodb/20.0.23/effective-values-existing-secret-replicaset.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 1,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/20.0.23",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/20.0.23/bases/existing-secret-replicaset",
+          "fullModelPath": [
+            "chart/version: bitnami/mongodb@20.0.23",
+            "recipe: recipes/bitnami/mongodb/20.0.23",
+            "base variant: existing-secret-replicaset",
+            "render intent: data/helm-render-intents/intents/bitnami-mongodb-20-0-23-existing-secret-replicaset.yaml",
+            "rendered revision: recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mongodb/20.0.23/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/mongodb/20.0.23/bases/existing-secret-replicaset",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "bitnami-mongodb-20-0-23-static-passwords",
+        "labels": {
+          "component": "bitnami/mongodb",
+          "chart": "bitnami/mongodb",
+          "version": "20.0.23",
+          "base": "static-passwords",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/mongodb",
+        "chart": {
+          "name": "bitnami/mongodb",
+          "version": "20.0.23",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "static-passwords",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/mongodb/20.0.23",
+          "variant": "recipes/bitnami/mongodb/20.0.23/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/20.0.23/bases/static-passwords",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/mongodb/20.0.23/source-lock.yaml",
+          "namespace": "mongodb",
+          "releaseName": "mongodb",
+          "valuesProfile": "recipes/bitnami/mongodb/20.0.23/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/20.0.23/bases/static-passwords"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/mongodb/20.0.23/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/20.0.23",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/20.0.23/bases/static-passwords",
+          "fullModelPath": [
+            "chart/version: bitnami/mongodb@20.0.23",
+            "recipe: recipes/bitnami/mongodb/20.0.23",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-mongodb-20-0-23-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mongodb/20.0.23/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/mongodb/20.0.23/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -12149,6 +12926,365 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "bitnami-nginx-25-2-19-existing-tls-ingress",
+        "labels": {
+          "component": "bitnami/nginx",
+          "chart": "bitnami/nginx",
+          "version": "25.2.19",
+          "base": "existing-tls-ingress",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/nginx",
+        "chart": {
+          "name": "bitnami/nginx",
+          "version": "25.2.19",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "existing-tls-ingress",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/nginx/25.2.19",
+          "variant": "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml",
+          "revision": "recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/nginx/25.2.19/bases/existing-tls-ingress",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/nginx/25.2.19/source-lock.yaml",
+          "namespace": "nginx",
+          "releaseName": "nginx",
+          "valuesProfile": "recipes/bitnami/nginx/25.2.19/effective-values-existing-tls-ingress.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/nginx/25.2.19/bases/existing-tls-ingress"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "keys": [
+                  "tls.crt",
+                  "tls.key",
+                  "ca.crt"
+                ],
+                "name": "nginx-backend-tls",
+                "namespace": "nginx",
+                "purpose": "TLS certificate material mounted by the NGINX pod"
+              },
+              {
+                "keys": [
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "nginx-ingress-tls",
+                "namespace": "nginx",
+                "purpose": "TLS certificate material referenced by the Ingress"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "nginx/nginx-backend-tls",
+              "namespace": "nginx",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "TLS certificate material mounted by the NGINX pod",
+              "check": "",
+              "declarationPath": "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "nginx/nginx-ingress-tls",
+              "namespace": "nginx",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "TLS certificate material referenced by the Ingress",
+              "check": "",
+              "declarationPath": "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "2 target prerequisites declared by this base.",
+            "declarationSource": "recipes/bitnami/nginx/25.2.19/variants/existing-tls-ingress/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/nginx/25.2.19/effective-values-existing-tls-ingress.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 2,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/nginx/25.2.19",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/25.2.19/bases/existing-tls-ingress",
+          "fullModelPath": [
+            "chart/version: bitnami/nginx@25.2.19",
+            "recipe: recipes/bitnami/nginx/25.2.19",
+            "base variant: existing-tls-ingress",
+            "render intent: data/helm-render-intents/intents/bitnami-nginx-25-2-19-existing-tls-ingress.yaml",
+            "rendered revision: recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/nginx/25.2.19/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/nginx/25.2.19/bases/existing-tls-ingress",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "bitnami-nginx-25-2-19-http-clusterip",
+        "labels": {
+          "component": "bitnami/nginx",
+          "chart": "bitnami/nginx",
+          "version": "25.2.19",
+          "base": "http-clusterip",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/nginx",
+        "chart": {
+          "name": "bitnami/nginx",
+          "version": "25.2.19",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "http-clusterip",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/nginx/25.2.19",
+          "variant": "recipes/bitnami/nginx/25.2.19/variants/http-clusterip/variant.yaml",
+          "revision": "recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/nginx/25.2.19/bases/http-clusterip",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/nginx/25.2.19/source-lock.yaml",
+          "namespace": "nginx",
+          "releaseName": "nginx",
+          "valuesProfile": "recipes/bitnami/nginx/25.2.19/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/nginx/25.2.19/bases/http-clusterip"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "yes",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/nginx/25.2.19/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/nginx/25.2.19",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/25.2.19/bases/http-clusterip",
+          "fullModelPath": [
+            "chart/version: bitnami/nginx@25.2.19",
+            "recipe: recipes/bitnami/nginx/25.2.19",
+            "base variant: http-clusterip",
+            "render intent: data/helm-render-intents/intents/bitnami-nginx-25-2-19-http-clusterip.yaml",
+            "rendered revision: recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/nginx/25.2.19/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/nginx/25.2.19/bases/http-clusterip",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "bitnami-opensearch-2-0-10-default",
         "labels": {
           "component": "bitnami/opensearch",
@@ -12873,6 +14009,335 @@
             "full rendered YAML: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f",
             "package base: packages/bitnami/phpmyadmin/20.0.0/bases/legacy",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "bitnami-postgresql-18-12-28-existing-secret",
+        "labels": {
+          "component": "bitnami/postgresql",
+          "chart": "bitnami/postgresql",
+          "version": "18.12.28",
+          "base": "existing-secret",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/postgresql",
+        "chart": {
+          "name": "bitnami/postgresql",
+          "version": "18.12.28",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "existing-secret",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/postgresql/18.12.28",
+          "variant": "recipes/bitnami/postgresql/18.12.28/variants/existing-secret/variant.yaml",
+          "revision": "recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.12.28/bases/existing-secret",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/postgresql/18.12.28/source-lock.yaml",
+          "namespace": "postgresql",
+          "releaseName": "postgresql",
+          "valuesProfile": "recipes/bitnami/postgresql/18.12.28/effective-values-existing-secret.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.12.28/bases/existing-secret"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "yes",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "keys": [
+                  "postgres-password"
+                ],
+                "name": "postgresql-auth",
+                "namespace": "postgresql",
+                "purpose": "PostgreSQL administrator password"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "postgresql/postgresql-auth",
+              "namespace": "postgresql",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PostgreSQL administrator password",
+              "check": "",
+              "declarationPath": "recipes/bitnami/postgresql/18.12.28/variants/existing-secret/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [],
+              "evidence": [
+                "recipes/bitnami/postgresql/18.12.28/variants/existing-secret/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "attached",
+            "reason": "1 target prerequisite declared by this base.",
+            "declarationSource": "recipes/bitnami/postgresql/18.12.28/variants/existing-secret/variant.yaml",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/postgresql/18.12.28/effective-values-existing-secret.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "recorded",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 1,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.12.28",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.12.28/bases/existing-secret",
+          "fullModelPath": [
+            "chart/version: bitnami/postgresql@18.12.28",
+            "recipe: recipes/bitnami/postgresql/18.12.28",
+            "base variant: existing-secret",
+            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-12-28-existing-secret.yaml",
+            "rendered revision: recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/postgresql/18.12.28/revisions/existing-secret/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/postgresql/18.12.28/bases/existing-secret",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "bitnami-postgresql-18-12-28-static-passwords",
+        "labels": {
+          "component": "bitnami/postgresql",
+          "chart": "bitnami/postgresql",
+          "version": "18.12.28",
+          "base": "static-passwords",
+          "catalogLayer": "F2b"
+        }
+      },
+      "spec": {
+        "component": "bitnami/postgresql",
+        "chart": {
+          "name": "bitnami/postgresql",
+          "version": "18.12.28",
+          "sourceRepository": "https://charts.bitnami.com/bitnami",
+          "sourceContent": ""
+        },
+        "baseVariant": "static-passwords",
+        "renderInputs": {
+          "recipe": "recipes/bitnami/postgresql/18.12.28",
+          "variant": "recipes/bitnami/postgresql/18.12.28/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.12.28/bases/static-passwords",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/bitnami/postgresql/18.12.28/source-lock.yaml",
+          "namespace": "postgresql",
+          "releaseName": "postgresql",
+          "valuesProfile": "recipes/bitnami/postgresql/18.12.28/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.12.28/bases/static-passwords"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/bitnami/postgresql/18.12.28/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2b",
+          "customizationLayer": "F2b rendered standard fork",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.12.28",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.12.28/bases/static-passwords",
+          "fullModelPath": [
+            "chart/version: bitnami/postgresql@18.12.28",
+            "recipe: recipes/bitnami/postgresql/18.12.28",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-12-28-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/postgresql/18.12.28/revisions/static-passwords/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/bitnami/postgresql/18.12.28/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -16709,6 +18174,155 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
+        "name": "cloudnative-pg-cloudnative-pg-0-29-2-default",
+        "labels": {
+          "component": "cloudnative-pg/cloudnative-pg",
+          "chart": "cloudnative-pg/cloudnative-pg",
+          "version": "0.29.2",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "cloudnative-pg/cloudnative-pg",
+        "chart": {
+          "name": "cloudnative-pg/cloudnative-pg",
+          "version": "0.29.2",
+          "sourceRepository": "https://cloudnative-pg.github.io/charts",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/cloudnative-pg/cloudnative-pg/0.29.2",
+          "variant": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/variants/default/variant.yaml",
+          "revision": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudnative-pg/cloudnative-pg/0.29.2/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/source-lock.yaml",
+          "namespace": "cnpg-system",
+          "releaseName": "cloudnative-pg",
+          "valuesProfile": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/cloudnative-pg/cloudnative-pg/0.29.2/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/cloudnative-pg/cloudnative-pg/0.29.2",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.29.2/bases/default",
+          "fullModelPath": [
+            "chart/version: cloudnative-pg/cloudnative-pg@0.29.2",
+            "recipe: recipes/cloudnative-pg/cloudnative-pg/0.29.2",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-29-2-default.yaml",
+            "rendered revision: recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/cloudnative-pg/cloudnative-pg/0.29.2/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/cloudnative-pg/cloudnative-pg/0.29.2/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
         "name": "cloudpirates-nginx-0-16-1-default",
         "labels": {
           "component": "cloudpirates/nginx",
@@ -17645,6 +19259,155 @@
             "full rendered YAML: recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b",
             "package base: packages/coredns/coredns/1.45.2/bases/default",
+            "ConfigHub Units: created when the package is uploaded",
+            "managed variants: created after upload with cub variant create/promote",
+            "targets and observations: recorded by the live lanes when run"
+          ]
+        }
+      },
+      "status": {
+        "disposition": "real-base-render-intent",
+        "claim": "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
+        "limits": [
+          "Candidate and custom-discussion rows are not emitted as runnable render intents.",
+          "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+          "Missing lifecycle route data is not treated as proof that no route is needed.",
+          "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."
+        ]
+      }
+    },
+    {
+      "apiVersion": "helm-expt.confighub.com/v1alpha1",
+      "kind": "HelmRenderIntent",
+      "metadata": {
+        "name": "coredns-coredns-1-50-8-default",
+        "labels": {
+          "component": "coredns/coredns",
+          "chart": "coredns/coredns",
+          "version": "1.50.8",
+          "base": "default",
+          "catalogLayer": "F2a"
+        }
+      },
+      "spec": {
+        "component": "coredns/coredns",
+        "chart": {
+          "name": "coredns/coredns",
+          "version": "1.50.8",
+          "sourceRepository": "https://coredns.github.io/helm",
+          "sourceContent": ""
+        },
+        "baseVariant": "default",
+        "renderInputs": {
+          "recipe": "recipes/coredns/coredns/1.50.8",
+          "variant": "recipes/coredns/coredns/1.50.8/variants/default/variant.yaml",
+          "revision": "recipes/coredns/coredns/1.50.8/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/coredns/coredns/1.50.8/bases/default",
+          "installerPackageOciRef": "",
+          "sourceLock": "recipes/coredns/coredns/1.50.8/source-lock.yaml",
+          "namespace": "default",
+          "releaseName": "coredns",
+          "valuesProfile": "recipes/coredns/coredns/1.50.8/effective-values.yaml",
+          "capabilityProfile": {
+            "apiVersions": [],
+            "kubeVersion": "1.30.0"
+          },
+          "hookPolicy": "no-hooks"
+        },
+        "renderOutput": {
+          "renderedObjects": "recipes/coredns/coredns/1.50.8/revisions/default/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/coredns/coredns/1.50.8/revisions/default/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/coredns/coredns/1.50.8/revisions/default/r001/variant-revision.yaml",
+          "packageBase": "packages/coredns/coredns/1.50.8/bases/default"
+        },
+        "evidence": {
+          "renderParity": "yes",
+          "confighubScanOps": "todo",
+          "localKind": "todo",
+          "lifecycleObserved": "n/a",
+          "gitopsOciLive": "todo",
+          "liveDualParity": "todo",
+          "twoClusterKind": "todo",
+          "variantPromotion": "missing-confighub-proof"
+        },
+        "lifecycle": {
+          "routeContract": "n/a",
+          "routeCount": "0",
+          "dispositions": "n/a",
+          "executionModes": "n/a",
+          "safeAutomatic": "n/a",
+          "contractPath": "",
+          "jsonPath": "",
+          "variantRoutes": [],
+          "coverage": {
+            "state": "no-route-required",
+            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
+            "evidence": [],
+            "nextAction": ""
+          }
+        },
+        "targetFacts": {
+          "status": "none-declared-or-observed",
+          "declared": {},
+          "requirements": [],
+          "actions": [],
+          "review": {
+            "status": "not-recorded",
+            "decision": "not-reviewed",
+            "scope": "",
+            "evidence": []
+          },
+          "coverage": {
+            "state": "actionable-gap",
+            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+            "declarationSource": "",
+            "evidence": [],
+            "nextAction": "Review the base and record its target prerequisites. When none are required, add an explicit no-prerequisite decision with its checked scope and evidence."
+          }
+        },
+        "settingSources": {
+          "helmValues": {
+            "status": "recorded",
+            "valuesProfile": "recipes/coredns/coredns/1.50.8/effective-values.yaml",
+            "controls": "base-render"
+          },
+          "configHubChanges": {
+            "status": "none-in-catalog-base",
+            "controls": "post-render-fields",
+            "recordsAfterUpload": [
+              "Unit revisions",
+              "derived variants",
+              "promotion receipts"
+            ]
+          },
+          "installWork": {
+            "status": "review-required",
+            "controls": "prerequisites-and-lifecycle",
+            "targetRequirementCount": 0,
+            "lifecycleRouteCount": 0
+          },
+          "liveCluster": {
+            "status": "observation-only",
+            "controls": "observed-state"
+          },
+          "overlapPolicy": "review-required"
+        },
+        "provenance": {
+          "matrixRowKind": "base",
+          "catalogLayer": "F2a",
+          "customizationLayer": "F2a honest default base",
+          "rowStatus": "real",
+          "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/coredns/coredns/1.50.8",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/coredns/coredns/1.50.8/bases/default",
+          "fullModelPath": [
+            "chart/version: coredns/coredns@1.50.8",
+            "recipe: recipes/coredns/coredns/1.50.8",
+            "base variant: default",
+            "render intent: data/helm-render-intents/intents/coredns-coredns-1-50-8-default.yaml",
+            "rendered revision: recipes/coredns/coredns/1.50.8/revisions/default/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/coredns/coredns/1.50.8/revisions/default/r001/rendered/release-objects.yaml",
+            "installer package OCI: ",
+            "package base: packages/coredns/coredns/1.50.8/bases/default",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"

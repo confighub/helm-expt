@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-memcached-8-8-8"
+spec:
+  chart: "bitnami/memcached"
+  version: "8.8.8"
+  dependencies:
+    -
+      name: "common"
+      version: "2.41.0"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
+  chartLockProvenance:
+    status: "source-derived-from-packaged-chart-yaml"
+    packageSHA256: "1d2a4f87782350117744d874d13464888664b1e463146d5cbf60fedf52963687"
+    packageContainsChartLock: false
+    dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml"

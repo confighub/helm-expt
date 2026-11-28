@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-68-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.68.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "0dcbe3887309e0264eabad909b199564891a866b684d260894e97c604a9c56c4"
+    dependencyLockSHA256: "ec2c41b7265dfb6189e42a95969a2de22995b768d851e5cfef8ebe97760eb6bd"
+    effectiveValuesSHA256: "bd080dd566989426cf27b476d6eca95b6e64d9303e70d8d26d9ae0b0a3338684"
+  outputs:
+    renderedObjectSetSHA256: "5bcd714e56c4544da0b2179c24df84a49ae3677295d54476457f58254dbe31b0"
+    renderedObjectInventorySHA256: "bd71ad36eb3ac68c23ff9c4d6b82c9018c3328c7a141bbc6fb66bf7d233366a1"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 21
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

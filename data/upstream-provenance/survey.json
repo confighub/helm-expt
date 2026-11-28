@@ -1,15 +1,7 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-11-27T12:25:36.249Z",
-  "changesSinceLastSurvey": [
-    {
-      "chart": "mysql-operator",
-      "version": "2.3.0",
-      "from": "unsigned",
-      "to": "unknown",
-      "reason": "version-not-in-index"
-    }
-  ],
+  "observedAt": "2026-11-28T14:15:39.727Z",
+  "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
   "repositories": 68,
   "charts": [
@@ -146,6 +138,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/argo-cd/argocd-image-updater/1.5.0/source-lock.yaml",
+      "repositoryURL": "https://argoproj.github.io/argo-helm",
+      "chart": "argocd-image-updater",
+      "version": "1.5.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/argoproj/argo-helm/releases/download/argocd-image-updater-1.5.0/argocd-image-updater-1.5.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/autoscaler/cluster-autoscaler/9.57.0/source-lock.yaml",
       "repositoryURL": "https://kubernetes.github.io/autoscaler",
       "chart": "cluster-autoscaler",
@@ -224,6 +228,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1/source-lock.yaml",
+      "repositoryURL": "https://kubernetes-sigs.github.io/aws-ebs-csi-driver",
+      "chart": "aws-ebs-csi-driver",
+      "version": "2.68.1",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/kubernetes-sigs/aws-ebs-csi-driver/releases/download/helm-chart-aws-ebs-csi-driver-2.68.1/aws-ebs-csi-driver-2.68.1.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
       "lock": "recipes/bitnami/apache/11.4.29/source-lock.yaml",
       "repositoryURL": "https://charts.bitnami.com/bitnami",
       "chart": "apache",
@@ -268,6 +284,17 @@
       "detail": ""
     },
     {
+      "lock": "recipes/bitnami/memcached/8.8.8/source-lock.yaml",
+      "repositoryURL": "https://charts.bitnami.com/bitnami",
+      "chart": "memcached",
+      "version": "8.8.8",
+      "sourceType": "HelmChart",
+      "tarball": "oci://registry-1.docker.io/bitnamicharts/memcached:8.8.8",
+      "provenance": "unknown",
+      "reason": "oci-hosted-chart",
+      "detail": ""
+    },
+    {
       "lock": "recipes/bitnami/mongodb/19.0.7/source-lock.yaml",
       "repositoryURL": "https://charts.bitnami.com/bitnami",
       "chart": "mongodb",
@@ -296,6 +323,17 @@
       "version": "19.1.0",
       "sourceType": "HelmChart",
       "tarball": "oci://registry-1.docker.io/bitnamicharts/mongodb:19.1.0",
+      "provenance": "unknown",
+      "reason": "oci-hosted-chart",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/bitnami/mongodb/20.0.23/source-lock.yaml",
+      "repositoryURL": "https://charts.bitnami.com/bitnami",
+      "chart": "mongodb",
+      "version": "20.0.23",
+      "sourceType": "HelmChart",
+      "tarball": "oci://registry-1.docker.io/bitnamicharts/mongodb:20.0.23",
       "provenance": "unknown",
       "reason": "oci-hosted-chart",
       "detail": ""
@@ -345,6 +383,17 @@
       "detail": ""
     },
     {
+      "lock": "recipes/bitnami/nginx/25.2.19/source-lock.yaml",
+      "repositoryURL": "https://charts.bitnami.com/bitnami",
+      "chart": "nginx",
+      "version": "25.2.19",
+      "sourceType": "HelmChart",
+      "tarball": "oci://registry-1.docker.io/bitnamicharts/nginx:25.2.19",
+      "provenance": "unknown",
+      "reason": "oci-hosted-chart",
+      "detail": ""
+    },
+    {
       "lock": "recipes/bitnami/opensearch/2.0.10/source-lock.yaml",
       "repositoryURL": "https://charts.bitnami.com/bitnami",
       "chart": "opensearch",
@@ -362,6 +411,17 @@
       "version": "20.0.0",
       "sourceType": "HelmChart",
       "tarball": "oci://registry-1.docker.io/bitnamicharts/phpmyadmin:20.0.0",
+      "provenance": "unknown",
+      "reason": "oci-hosted-chart",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/bitnami/postgresql/18.12.28/source-lock.yaml",
+      "repositoryURL": "https://charts.bitnami.com/bitnami",
+      "chart": "postgresql",
+      "version": "18.12.28",
+      "sourceType": "HelmChart",
+      "tarball": "oci://registry-1.docker.io/bitnamicharts/postgresql:18.12.28",
       "provenance": "unknown",
       "reason": "oci-hosted-chart",
       "detail": ""
@@ -479,6 +539,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/cloudnative-pg/cloudnative-pg/0.29.2/source-lock.yaml",
+      "repositoryURL": "https://cloudnative-pg.github.io/charts",
+      "chart": "cloudnative-pg",
+      "version": "0.29.2",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/cloudnative-pg/charts/releases/download/cloudnative-pg-v0.29.2/cloudnative-pg-0.29.2.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/cloudpirates/nginx/0.16.1/source-lock.yaml",
       "repositoryURL": "oci://registry-1.docker.io/cloudpirates/nginx",
       "chart": "nginx",
@@ -515,6 +587,18 @@
       "version": "1.45.2",
       "sourceType": "HelmChart",
       "tarball": "https://github.com/coredns/helm/releases/download/coredns-1.45.2/coredns-1.45.2.tgz",
+      "provStatus": 404,
+      "provenance": "unsigned",
+      "reason": "no-provenance-file",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/coredns/coredns/1.50.8/source-lock.yaml",
+      "repositoryURL": "https://coredns.github.io/helm",
+      "chart": "coredns",
+      "version": "1.50.8",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/coredns/helm/releases/download/coredns-1.50.8/coredns-1.50.8.tgz",
       "provStatus": 404,
       "provenance": "unsigned",
       "reason": "no-provenance-file",

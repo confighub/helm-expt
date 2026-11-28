@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.bitnami.com/bitnami
 chart: nginx
 # The newest chart version packaged here.
-version: 25.0.0
+version: 25.2.19
 # The name cub finds it by:
 #   cub package install bitnami-nginx --space <space>
 # which pulls oci://ghcr.io/confighub/packages/bitnami-nginx:<tag>.
@@ -17,3 +17,4 @@ versions:
   - {directory: 24.0.2, tag: v24.0.2}
   - {directory: 24.0.4, tag: v24.0.4}
   - {directory: 25.0.0, tag: v25.0.0}
+  - {directory: 25.2.19, tag: v25.2.19}

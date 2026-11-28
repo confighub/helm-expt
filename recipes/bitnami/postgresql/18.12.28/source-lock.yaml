@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-postgresql-18.12.28"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "postgresql"
+  version: "18.12.28"
+  appVersion: "18.7.0"
+  packageSHA256: "79674c60404d05c67c8dc89dd904ec1622ed223861e230af619fc892f39bdad0"
+  packageBytes: 91247
+  exactArtifact:
+    url: "oci://registry-1.docker.io/bitnamicharts/postgresql:18.12.28"
+    sha256: "79674c60404d05c67c8dc89dd904ec1622ed223861e230af619fc892f39bdad0"
+    resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/static-passwords/r001/receipts/render-receipt.yaml"

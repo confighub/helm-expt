@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.bitnami.com/bitnami
 chart: postgresql
 # The newest chart version packaged here.
-version: 18.7.0
+version: 18.12.28
 # The name cub finds it by:
 #   cub package install postgresql --space <space>
 # which pulls oci://ghcr.io/confighub/packages/postgresql:<tag>.
@@ -17,3 +17,4 @@ versions:
   - {directory: 18.6.7, tag: v18.6.7}
   - {directory: 18.6.10, tag: v18.6.10}
   - {directory: 18.7.0, tag: v18.7.0}
+  - {directory: 18.12.28, tag: v18.12.28}

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-68-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "aws-ebs-csi-driver"
+  repositoryURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+  chart: "aws-ebs-csi-driver"
+  ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+  version: "2.68.1"
+  appVersion: "1.68.1"
+  packageSHA256: "5c70af27126ec8f207baa15df630032c8cb70e4ccecbe753947f4be39543b732"
+  packageBytes: 35728
+  capturedAt: "generated-by-next80-full-proof-harness"

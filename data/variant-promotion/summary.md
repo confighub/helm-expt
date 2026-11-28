@@ -23,7 +23,7 @@ Status values:
 | Status | Rows |
 | --- | ---: |
 | blocked | 2 |
-| missing-confighub-proof | 148 |
+| missing-confighub-proof | 159 |
 | proven | 179 |
 | proven-with-watch | 17 |
 
@@ -32,7 +32,7 @@ Matrix values:
 | Matrix value | Rows |
 | --- | ---: |
 | no | 2 |
-| todo | 148 |
+| todo | 159 |
 | watch | 17 |
 | yes | 179 |
 
@@ -73,6 +73,7 @@ show the changeset-bound path passing.
 | `argo-cd/argo-cd@10.7.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@10.7.0/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `argo-cd/argo-cd@9.5.17/no-crds` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `argo-cd/argocd-image-updater@1.5.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/ec2-chart@1.18.4/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/ec2-chart@1.18.4/eks-inference` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-controllers-k8s/eks-chart@1.16.3/default` | missing-confighub-proof | run the ConfigHub proof lane first |
@@ -82,8 +83,7 @@ show the changeset-bound path passing.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/aicr-eks-training-v0-20-0` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/aicr-eks-training-v1-0-0` | missing-confighub-proof | run the ConfigHub proof lane first |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudnative-pg/cloudnative-pg@0.29.0/default` | missing-confighub-proof | run the ConfigHub proof lane first |
-| `cloudpirates/nginx@0.16.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1/default` | missing-confighub-proof | run the ConfigHub proof lane first |
 
 ## Regenerate
 

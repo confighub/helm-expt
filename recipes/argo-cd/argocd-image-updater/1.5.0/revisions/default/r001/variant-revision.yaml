@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "argo-cd/argocd-image-updater"
+    confighub.io/chart-version: "1.5.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "e0eaed084122708ad701261966690086da135835667bcad0ea6af58ed6367f13"
+  digestInputs:
+    recipeSHA256: "7d77b77ad078fb7ac1bd47d2619cb8ec5b71e51d94b900dc7dfa328020262e8c"
+    variantSHA256: "bbd302d3c001bcfaeb80e967743c56143675f8ad86af364f23b76b712a9a02d0"
+    effectiveValuesSHA256: "7b393acb4845835238f3af1eaa035a7ef04ea0ecd531dc5ccc29f0499c864ec4"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "d35bf05ae6d584af7eb435612de3ac8c788b0c7b3095e85bdfa9d36497994009"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 11

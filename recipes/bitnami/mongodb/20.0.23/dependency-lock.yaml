@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-mongodb-20.0.23"
+spec:
+  chart: "bitnami/mongodb"
+  version: "20.0.23"
+  dependencies:
+    -
+      name: "common"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
+      version: "2.41.0"
+  chartLockDigest: null
+  chartLockProvenance:
+    status: "source-derived-from-packaged-chart-yaml"
+    packageSHA256: "f5f95b56730e8d53ef541465618acd3734794093d83ba95e2e3235531ea97175"
+    packageContainsChartLock: false
+    dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml"

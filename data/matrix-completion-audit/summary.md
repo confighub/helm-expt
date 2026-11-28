@@ -18,29 +18,29 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1439 non-green cells:
+1492 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 1207 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1260 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 63 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 607 |
-| `G` | 207 |
-| `P` | 207 |
-| `L` | 198 |
-| `K` | 157 |
+| `promotion` | 626 |
+| `G` | 218 |
+| `P` | 218 |
+| `L` | 209 |
+| `K` | 158 |
 | `lifecycle` | 63 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 540 |
-| `blocked` | 254 |
-| `not-applicable-source` | 181 |
+| `missing` | 573 |
+| `blocked` | 266 |
+| `not-applicable-source` | 189 |
 | `proven` | 179 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
@@ -118,7 +118,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@41.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (1207)
+## needs-target-or-prereq-fix (1260)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -184,6 +184,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argocd-image-updater@1.2.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argocd-image-updater@1.2.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| argo-cd/argocd-image-updater@1.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| argo-cd/argocd-image-updater@1.5.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argocd-image-updater@1.5.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argocd-image-updater@1.5.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| argo-cd/argocd-image-updater@1.5.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | autoscaler/cluster-autoscaler@9.57.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | autoscaler/cluster-autoscaler@9.57.0 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
@@ -244,6 +249,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default + topology | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | L | fail | local-live fail: cloud-or-provider-prerequisite: daemonset/ebs-csi-node: not-ready (ebs-csi-controller-8d8878fb7-24jf4[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=tru) | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | K | blocked | variant-keyed K rig: the chart-variant's only two-cluster kind parity receipt is on 2.60.1 and is blocked (parity: semantic object diff), so no version has a passing K proof — runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml | resolve the variant's K blocker on 2.60.1; the K rig keys receipts by chart-variant, so re-running this version would overwrite that receipt |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | bitnami/apache@11.4.29 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/apache@11.4.29 | default | L | blocked | local-live blocked: target-prerequisite: deployment/apache: prerequisite-blocked (stuck creating: missing mount/secret/config) (apache-5fdf47cb6-f4p8z[PodInitializing ready=false restarts=0;] node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] scan-vulnerabilityreport-56d95) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | bitnami/apache@11.4.29 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -265,11 +276,25 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/memcached@8.5.5 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/memcached@8.5.5 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/memcached@8.5.5 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| bitnami/memcached@8.8.8 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/memcached@8.8.8 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/memcached@8.8.8 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/memcached@8.8.8 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/memcached@8.8.8 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | bitnami/mongodb@19.0.7 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/mongodb@19.0.9 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mongodb@19.0.9 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/mongodb@19.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/mongodb@20.0.23 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/mongodb@20.0.23 | existing-secret-replicaset | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | existing-secret-replicaset | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | existing-secret-replicaset | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | existing-secret-replicaset | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| bitnami/mongodb@20.0.23 | static-passwords | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | static-passwords | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | static-passwords | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/mongodb@20.0.23 | static-passwords | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | bitnami/mysql@14.0.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mysql@14.0.3 | existing-secret | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/nginx@24.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -279,6 +304,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/nginx@24.0.2 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | bitnami/nginx@24.0.4 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/nginx@25.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/nginx@25.2.19 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/nginx@25.2.19 | existing-tls-ingress | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | existing-tls-ingress | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | existing-tls-ingress | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | existing-tls-ingress | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| bitnami/nginx@25.2.19 | http-clusterip | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | http-clusterip | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | http-clusterip | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/nginx@25.2.19 | http-clusterip | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | bitnami/opensearch@2.0.10 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/opensearch@2.0.10 | default | L | fail | local-live fail: runtime-readiness: statefulset/opensearch-coordinating: not-ready (opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodIniti) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | bitnami/opensearch@2.0.10 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -290,6 +324,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/phpmyadmin@20.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/phpmyadmin@20.0.0 | legacy | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/phpmyadmin@20.0.0 | web-ui-existing-secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| bitnami/postgresql@18.12.28 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| bitnami/postgresql@18.12.28 | existing-secret | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | existing-secret | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | existing-secret | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | existing-secret | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| bitnami/postgresql@18.12.28 | static-passwords | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | static-passwords | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | static-passwords | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| bitnami/postgresql@18.12.28 | static-passwords | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | bitnami/postgresql@18.6.10 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/postgresql@18.6.10 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/postgresql@18.6.7 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -324,6 +367,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudnative-pg/cloudnative-pg@0.29.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| cloudnative-pg/cloudnative-pg@0.29.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| cloudnative-pg/cloudnative-pg@0.29.2 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.2 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.2 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| cloudnative-pg/cloudnative-pg@0.29.2 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | cloudpirates/nginx@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | cloudpirates/nginx@0.16.1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | cloudpirates/nginx@0.16.1 | default | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
@@ -355,6 +403,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | coredns/coredns@1.45.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | coredns/coredns@1.45.2 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | coredns/coredns@1.45.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| coredns/coredns@1.50.8 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| coredns/coredns@1.50.8 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| coredns/coredns@1.50.8 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| coredns/coredns@1.50.8 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| coredns/coredns@1.50.8 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | crossplane-stable/crossplane@2.3.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | crossplane-stable/crossplane@2.3.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | descheduler/descheduler@0.36.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |

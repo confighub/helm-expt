@@ -7,7 +7,7 @@ type: helm
 repository: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 chart: aws-ebs-csi-driver
 # The newest chart version packaged here.
-version: 2.60.1
+version: 2.68.1
 # The name cub finds it by:
 #   cub package install aws-ebs-csi-driver --space <space>
 # which pulls oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:<tag>.
@@ -16,3 +16,4 @@ name: aws-ebs-csi-driver
 versions:
   - {directory: 2.59.0, tag: v2.59.0}
   - {directory: 2.60.1, tag: v2.60.1}
+  - {directory: 2.68.1, tag: v2.68.1}

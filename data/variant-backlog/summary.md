@@ -8,17 +8,17 @@ bespoke per chart — see `data/catalog-promotion-wave2/variant-work-orders.yaml
 ## Headline
 
 ```text
-charts: 181
-charts needing variant work: 116
-charts already variant-complete: 65
-total variants to build: 140
+charts: 189
+charts needing variant work: 122
+charts already variant-complete: 67
+total variants to build: 148
 ```
 
 ## Build volume by dimension (highest-leverage first)
 
-- `existing-secret`: 72 charts
-- `no-crds`: 43 charts
-- `ha`: 21 charts
+- `existing-secret`: 77 charts
+- `no-crds`: 45 charts
+- `ha`: 22 charts
 - `ingress-tls`: 3 charts
 - `tls`: 1 charts
 
@@ -34,6 +34,7 @@ total variants to build: 140
 | `argo-cd/argo-cd@9.5.15` | 2 | existing-secret, ha |
 | `argo-cd/argo-cd@9.5.17` | 2 | existing-secret, ha |
 | `argo-cd/argocd-image-updater@1.2.2` | 1 | existing-secret, no-crds |
+| `argo-cd/argocd-image-updater@1.5.0` | 1 | existing-secret, no-crds |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | 2 | existing-secret |
 | `aws-controllers-k8s/ec2-chart@1.18.4` | 2 | existing-secret, no-crds |
 | `aws-controllers-k8s/eks-chart@1.16.3` | 2 | existing-secret, no-crds |
@@ -42,12 +43,15 @@ total variants to build: 140
 | `bitnami/contour@21.1.4` | 3 | existing-secret |
 | `bitnami/elasticsearch@22.1.6` | 3 | existing-secret |
 | `bitnami/memcached@8.5.5` | 1 | existing-secret |
+| `bitnami/memcached@8.8.8` | 1 | existing-secret |
 | `bitnami/mysql@14.0.3` | 2 | ha |
 | `bitnami/nginx@24.0.2` | 2 | existing-secret |
 | `bitnami/nginx@24.0.4` | 2 | existing-secret |
 | `bitnami/nginx@25.0.0` | 2 | existing-secret |
+| `bitnami/nginx@25.2.19` | 2 | existing-secret |
 | `bitnami/opensearch@2.0.10` | 3 | existing-secret |
 | `bitnami/phpmyadmin@20.0.0` | 2 | existing-secret |
+| `bitnami/postgresql@18.12.28` | 2 | ha |
 | `bitnami/postgresql@18.6.10` | 2 | ha |
 | `bitnami/postgresql@18.6.7` | 2 | ha |
 | `bitnami/postgresql@18.7.0` | 2 | ha |
@@ -56,9 +60,11 @@ total variants to build: 140
 | `bitnami/zookeeper@13.8.7` | 3 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | 2 | existing-secret |
 | `cloudnative-pg/cloudnative-pg@0.29.0` | 1 | existing-secret, no-crds |
+| `cloudnative-pg/cloudnative-pg@0.29.2` | 1 | existing-secret, no-crds |
 | `cloudpirates/rabbitmq@0.21.13` | 2 | ha |
 | `cloudpirates/redis@0.34.11` | 2 | ha |
 | `coredns/coredns@1.45.2` | 1 | existing-secret |
+| `coredns/coredns@1.50.8` | 1 | existing-secret |
 | `crossplane-stable/crossplane@2.3.1` | 1 | existing-secret |
 | `dex/dex@0.24.0` | 1 | existing-secret |
 | `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1` | 3 | no-crds |

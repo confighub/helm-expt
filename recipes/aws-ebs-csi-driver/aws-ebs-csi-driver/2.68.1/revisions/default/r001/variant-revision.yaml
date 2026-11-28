@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.68.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "0cb21f783dc901c5032fc4afb773b455e50a6a47bf88f46f249d7047061c4d93"
+  digestInputs:
+    recipeSHA256: "35ebce696d08637ca2b5e0da7953737b9a3d181abe13e1b210647389f1d2c5fd"
+    variantSHA256: "91cde45c15246ab6cbd441520e747501711c4c9f74cbf6189946e787a27a60bc"
+    effectiveValuesSHA256: "bd080dd566989426cf27b476d6eca95b6e64d9303e70d8d26d9ae0b0a3338684"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "5bcd714e56c4544da0b2179c24df84a49ae3677295d54476457f58254dbe31b0"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 21

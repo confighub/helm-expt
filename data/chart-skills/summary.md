@@ -16,7 +16,7 @@ Two forms: [skills.csv](./skills.csv) (spreadsheet) and
 
 ## Coverage
 
-123 of 181 charts have at least one applicable skill. A chart
+123 of 189 charts have at least one applicable skill. A chart
 with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
@@ -50,6 +50,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | argo-cd/argo-rollouts@2.40.9 | 1 | live-parity | live |
 | argo-cd/argo-workflows@1.0.14 | 2 | hook-and-secret-lifecycle | hooks:1; live |
 | argo-cd/argocd-image-updater@1.2.2 | 1 | live-parity | live |
+| argo-cd/argocd-image-updater@1.5.0 | 0 | none | — |
 | autoscaler/cluster-autoscaler@9.57.0 | 1 | live-parity | live |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | 1 | live-parity | live |
 | aws-controllers-k8s/ec2-chart@1.18.4 | 0 | none | — |
@@ -57,19 +58,24 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | aws-controllers-k8s/iam-chart@1.7.3 | 0 | none | — |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 | 0 | none | — |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | 0 | none | — |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 | 0 | none | — |
 | bitnami/apache@11.4.29 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | bitnami/contour@21.1.4 | 4 | hook-and-secret-lifecycle | hooks:1; generated-facts; crds; lookup; live |
 | bitnami/elasticsearch@22.1.6 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/memcached@8.5.5 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
+| bitnami/memcached@8.8.8 | 0 | none | — |
 | bitnami/mongodb@19.0.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/mongodb@19.0.9 | 1 | live-parity | live |
 | bitnami/mongodb@19.1.0 | 1 | live-parity | live |
+| bitnami/mongodb@20.0.23 | 0 | none | — |
 | bitnami/mysql@14.0.3 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/nginx@24.0.2 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
 | bitnami/nginx@24.0.4 | 1 | live-parity | live |
 | bitnami/nginx@25.0.0 | 1 | live-parity | live |
+| bitnami/nginx@25.2.19 | 0 | none | — |
 | bitnami/opensearch@2.0.10 | 1 | live-parity | live |
 | bitnami/phpmyadmin@20.0.0 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
+| bitnami/postgresql@18.12.28 | 0 | none | — |
 | bitnami/postgresql@18.6.10 | 1 | live-parity | live |
 | bitnami/postgresql@18.6.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/postgresql@18.7.0 | 1 | live-parity | live |
@@ -80,10 +86,12 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | bitnami/zookeeper@13.8.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | 1 | live-parity | live |
 | cloudnative-pg/cloudnative-pg@0.29.0 | 4 | serious-chart-playbooks | crds+webhooks; generated-facts; webhooks; crds |
+| cloudnative-pg/cloudnative-pg@0.29.2 | 0 | none | — |
 | cloudpirates/nginx@0.16.1 | 0 | none | — |
 | cloudpirates/rabbitmq@0.21.13 | 0 | none | — |
 | cloudpirates/redis@0.34.11 | 0 | none | — |
 | coredns/coredns@1.45.2 | 3 | hook-and-secret-lifecycle | generated-facts; live |
+| coredns/coredns@1.50.8 | 0 | none | — |
 | crossplane-stable/crossplane@2.3.1 | 1 | live-parity | live |
 | descheduler/descheduler@0.36.0 | 1 | live-parity | live |
 | dex/dex@0.24.0 | 0 | none | — |

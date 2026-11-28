@@ -17,14 +17,15 @@ These are the same for all 124 charts, so they are stated once here rather than 
 
 ## Per-chart caveats (these vary by chart)
 
-**4/124 charts** still bake a shared placeholder password in their default setup; **58/124 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 124 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
+**5/124 charts** still bake a shared placeholder password in their default setup; **58/124 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 124 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
 
-### Shared placeholder password (#1012) — 4 charts
+### Shared placeholder password (#1012) — 5 charts
 
 If a chart appears here, its default base bakes a password Secret that is **the same for everyone**. The safer package shape is an existing-Secret base: create or supply the Secret before apply, keep the Secret material outside the rendered chart, and make any fixed-password demo base explicit.
 
 | Chart | Default base | Password keys | Fix |
 | --- | --- | --- | --- |
+| bitnami/mongodb | `static-passwords` | 1 | use the `existing-secret-replicaset` base → `kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>` |
 | cloudpirates/rabbitmq | `default` | 1 | use the `existing-secret` base → `kubectl -n default create secret generic rabbitmq-consolidated --from-literal=rabbitmq-erlang-cookie=<value> --from-literal=rabbitmq-password=<value>` |
 | cloudpirates/redis | `default` | 1 | use the `reuse-existing-secret` base → `kubectl -n default create secret generic redis-existing-secret --from-literal=redis-password=<value>` |
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |

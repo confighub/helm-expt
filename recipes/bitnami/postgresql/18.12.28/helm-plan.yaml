@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "bitnami-postgresql-18.12.28"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "bitnami/postgresql"
+    version: "18.12.28"
+    variants:
+      - "static-passwords"
+      - "existing-secret"
+    helmObjectsByVariant:
+      static-passwords: 7
+      existing-secret: 6
+    cubInstallObjectsByVariant:
+      static-passwords: 8
+      existing-secret: 7
+    helmMatchByVariant:
+      static-passwords: "7/7"
+      existing-secret: "6/6"
+    scanGate: "warn-production-blocked"
+    nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied"
+  receipts:
+    - "revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/render-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+    - "revisions/existing-secret/r001/receipts/install-gate.yaml"

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "existing-secret-replicaset"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "mongodb"
+  releaseName: "mongodb"
+  valuesProfile: "../../effective-values-existing-secret-replicaset.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "mongodb"
+        name: "mongodb-auth"
+        keys:
+          - "mongodb-root-password"
+          - "mongodb-replica-set-key"
+        purpose: "MongoDB root password and MongoDB-valid replica-set key"

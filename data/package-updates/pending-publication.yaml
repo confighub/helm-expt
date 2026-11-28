@@ -11,4 +11,20 @@ spec:
     each version published since its last run and removes the version from
     this list; an entry whose receipt exists fails the chain until it is
     removed.
-  packages: []
+  packages:
+    - chart: "argo-cd/argocd-image-updater"
+      version: "1.5.0"
+    - chart: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+      version: "2.68.1"
+    - chart: "bitnami/memcached"
+      version: "8.8.8"
+    - chart: "bitnami/mongodb"
+      version: "20.0.23"
+    - chart: "bitnami/nginx"
+      version: "25.2.19"
+    - chart: "bitnami/postgresql"
+      version: "18.12.28"
+    - chart: "cloudnative-pg/cloudnative-pg"
+      version: "0.29.2"
+    - chart: "coredns/coredns"
+      version: "1.50.8"

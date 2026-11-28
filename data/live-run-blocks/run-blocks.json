@@ -9,8 +9,8 @@
     "recipes/<chart>/<version>/ support artifacts"
   ],
   "maxBlockSize": 5,
-  "readyRowCount": 243,
-  "blockCount": 49,
+  "readyRowCount": 254,
+  "blockCount": 51,
   "blocks": [
     {
       "block_id": "GP-01",
@@ -895,7 +895,7 @@
       "predicted_residue_families": [
         "gitops-runtime"
       ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime (argo-cd/argo-cd@10.1.3, argo-cd/argo-cd@10.2.1, argo-cd/argo-cd@10.20.0, argo-cd/argo-cd@10.7.0, grafana/grafana@10.5.15); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime (argo-cd/argo-cd@10.1.3, argo-cd/argo-cd@10.2.1, argo-cd/argo-cd@10.20.0, argo-cd/argo-cd@10.7.0, argo-cd/argocd-image-updater@1.5.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -968,6 +968,103 @@
         },
         {
           "work_type": "live-parity",
+          "chart": "argo-cd/argocd-image-updater",
+          "version": "1.5.0",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/argo-cd/argocd-image-updater/1.5.0 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "gitops-runtime",
+          "predicted_target_profile": "vanilla kind proof rig with ConfigHub OCI/Argo — expect a controller-health residue to explain",
+          "prediction_basis": "family pattern — argo-cd: 1/1 classified rows are gitops-runtime",
+          "confidence": "medium",
+          "serial_safety_notes": "light controller — safe within a block"
+        }
+      ]
+    },
+    {
+      "block_id": "GP-11",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "gitops-runtime"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted gitops-runtime (bitnami/mongodb@20.0.23, bitnami/nginx@25.2.19, grafana/grafana@10.5.15); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/mongodb",
+          "version": "20.0.23",
+          "base": "existing-secret-replicaset",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/mongodb/20.0.23 --base existing-secret-replicaset",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "gitops-runtime",
+          "predicted_target_profile": "vanilla kind proof rig with ConfigHub OCI/Argo — expect a controller-health residue to explain",
+          "prediction_basis": "sibling receipt — bitnami/mongodb already classified gitops-runtime (runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/mongodb",
+          "version": "20.0.23",
+          "base": "static-passwords",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/mongodb/20.0.23 --base static-passwords",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "gitops-runtime",
+          "predicted_target_profile": "vanilla kind proof rig with ConfigHub OCI/Argo — expect a controller-health residue to explain",
+          "prediction_basis": "sibling receipt — bitnami/mongodb already classified gitops-runtime (runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/nginx",
+          "version": "25.2.19",
+          "base": "existing-tls-ingress",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.2.19 --base existing-tls-ingress",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "gitops-runtime",
+          "predicted_target_profile": "vanilla kind proof rig with ConfigHub OCI/Argo — expect a controller-health residue to explain",
+          "prediction_basis": "sibling receipt — bitnami/nginx already classified gitops-runtime (runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/nginx",
+          "version": "25.2.19",
+          "base": "http-clusterip",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/nginx/25.2.19 --base http-clusterip",
+          "current_status": "todo",
+          "lane_cells": "G=yes;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "gitops-runtime",
+          "predicted_target_profile": "vanilla kind proof rig with ConfigHub OCI/Argo — expect a controller-health residue to explain",
+          "prediction_basis": "sibling receipt — bitnami/nginx already classified gitops-runtime (runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
           "chart": "grafana/grafana",
           "version": "10.5.15",
           "base": "customer-acme-prod",
@@ -986,7 +1083,7 @@
       ]
     },
     {
-      "block_id": "GP-11",
+      "block_id": "GP-12",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -1084,7 +1181,7 @@
       ]
     },
     {
-      "block_id": "GP-12",
+      "block_id": "GP-13",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -1181,7 +1278,7 @@
       ]
     },
     {
-      "block_id": "GP-13",
+      "block_id": "GP-14",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
@@ -1278,16 +1375,14 @@
       ]
     },
     {
-      "block_id": "GP-14",
+      "block_id": "GP-15",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
         "operate-policy",
-        "remote-image",
-        "render-input",
-        "target-fit"
+        "remote-image"
       ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted operate-policy / remote-image / render-input / target-fit (hashicorp/vault@0.32.0, bitnami/redis@25.5.3, velero/velero@12.1.0, aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted operate-policy / remote-image (hashicorp/vault@0.32.0, bitnami/memcached@8.8.8, bitnami/postgresql@18.12.28); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -1324,6 +1419,71 @@
           "confidence": "high",
           "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
         },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/memcached",
+          "version": "8.8.8",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/memcached/8.8.8 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "remote-image",
+          "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
+          "prediction_basis": "family pattern — bitnami: 26/41 classified rows are remote-image",
+          "confidence": "medium",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/postgresql",
+          "version": "18.12.28",
+          "base": "existing-secret",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/postgresql/18.12.28 --base existing-secret",
+          "current_status": "todo",
+          "lane_cells": "G=yes;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "remote-image",
+          "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
+          "prediction_basis": "family pattern — bitnami: 26/41 classified rows are remote-image",
+          "confidence": "medium",
+          "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "bitnami/postgresql",
+          "version": "18.12.28",
+          "base": "static-passwords",
+          "command": "npm run live-parity:run -- --recipe recipes/bitnami/postgresql/18.12.28 --base static-passwords",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "remote-image",
+          "predicted_target_profile": "vanilla kind proof rig — image must be pullable on the target",
+          "prediction_basis": "family pattern — bitnami: 26/41 classified rows are remote-image",
+          "confidence": "medium",
+          "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
+        }
+      ]
+    },
+    {
+      "block_id": "GP-16",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "remote-image",
+        "render-input",
+        "target-fit"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted remote-image / render-input / target-fit (bitnami/redis@25.5.3, velero/velero@12.1.0, aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "bitnami/redis",
@@ -1374,20 +1534,7 @@
           "prediction_basis": "sibling receipt — aws-ebs-csi-driver/aws-ebs-csi-driver already classified target-fit (runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml)",
           "confidence": "high",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-15",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "target-fit",
-        "target-prerequisite"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted target-fit / target-prerequisite (aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0, metrics-server/metrics-server@3.13.1, metrics-server/metrics-server@3.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
@@ -1411,6 +1558,36 @@
           "version": "2.59.0",
           "base": "default",
           "command": "npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "derived",
+          "predicted_residue_family": "target-fit",
+          "predicted_target_profile": "non-vanilla target profile — a platform identity/capability the chart needs",
+          "prediction_basis": "sibling receipt — aws-ebs-csi-driver/aws-ebs-csi-driver already classified target-fit (runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml)",
+          "confidence": "high",
+          "serial_safety_notes": "light controller — safe within a block"
+        }
+      ]
+    },
+    {
+      "block_id": "GP-17",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "target-fit",
+        "target-prerequisite"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted target-fit / target-prerequisite (aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1, metrics-server/metrics-server@3.13.1, metrics-server/metrics-server@3.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
+        {
+          "work_type": "live-parity",
+          "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+          "version": "2.68.1",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1 --base default",
           "current_status": "todo",
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
@@ -1472,20 +1649,7 @@
           "prediction_basis": "recipe artifact recipes/metrics-server/metrics-server/3.13.1/target-prerequisite-plan.yaml",
           "confidence": "medium",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-16",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "target-prerequisite",
-        "target-runtime"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted target-prerequisite / target-runtime (metrics-server/metrics-server@3.14.0, grafana/alloy@1.11.0, grafana/alloy@1.12.1, grafana/loki@7.1.0, grafana/loki@7.3.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "metrics-server/metrics-server",
@@ -1502,7 +1666,20 @@
           "prediction_basis": "recipe artifact recipes/metrics-server/metrics-server/3.14.0/target-prerequisite-plan.yaml",
           "confidence": "medium",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-18",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "target-runtime",
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with predicted target-runtime / unknown (grafana/alloy@1.11.0, grafana/alloy@1.12.1, grafana/loki@7.1.0, grafana/loki@7.3.0, aws-controllers-k8s/ec2-chart@1.18.4); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "grafana/alloy",
@@ -1570,19 +1747,7 @@
           "prediction_basis": "family pattern — grafana: 3/5 classified rows are target-runtime",
           "confidence": "medium",
           "serial_safety_notes": "stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-17",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "aws-controllers-k8s/ec2-chart",
@@ -1599,7 +1764,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-19",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/ec2-chart@1.18.4, aws-controllers-k8s/eks-chart@1.16.3, aws-controllers-k8s/iam-chart@1.7.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "aws-controllers-k8s/ec2-chart",
@@ -1667,19 +1844,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-18",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (aws-controllers-k8s/iam-chart@1.7.3, cloudnative-pg/cloudnative-pg@0.29.0, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "aws-controllers-k8s/iam-chart",
@@ -1696,13 +1861,42 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-20",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudnative-pg/cloudnative-pg@0.29.0, cloudnative-pg/cloudnative-pg@0.29.2, cloudpirates/nginx@0.16.1, cloudpirates/rabbitmq@0.21.13); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "cloudnative-pg/cloudnative-pg",
           "version": "0.29.0",
           "base": "default",
           "command": "npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.0 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
+          "chart": "cloudnative-pg/cloudnative-pg",
+          "version": "0.29.2",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/cloudnative-pg/cloudnative-pg/0.29.2 --base default",
           "current_status": "todo",
           "lane_cells": "G=todo;P=todo",
           "support_artifact": "",
@@ -1768,13 +1962,13 @@
       ]
     },
     {
-      "block_id": "GP-19",
+      "block_id": "GP-21",
       "partition": "G/P",
       "hardness": "app",
       "predicted_residue_families": [
         "unknown"
       ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (cloudpirates/redis@0.34.11, coredns/coredns@1.50.8, dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
       "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
       "rows": [
         {
@@ -1813,6 +2007,23 @@
         },
         {
           "work_type": "live-parity",
+          "chart": "coredns/coredns",
+          "version": "1.50.8",
+          "base": "default",
+          "command": "npm run live-parity:run -- --recipe recipes/coredns/coredns/1.50.8 --base default",
+          "current_status": "todo",
+          "lane_cells": "G=todo;P=todo",
+          "support_artifact": "",
+          "receipt": "",
+          "prediction_status": "unknown",
+          "predicted_residue_family": "unknown",
+          "predicted_target_profile": "unknown",
+          "prediction_basis": "",
+          "confidence": "unknown",
+          "serial_safety_notes": "light controller — safe within a block"
+        },
+        {
+          "work_type": "live-parity",
           "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
           "version": "0.4.1",
           "base": "aicr-eks-training",
@@ -1844,7 +2055,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-22",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, eks/aws-efa-k8s-device-plugin@v0.5.29); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
@@ -1861,19 +2084,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-20",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (dra-driver-nvidia/dra-driver-nvidia-gpu@0.5.0, dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1, eks/aws-efa-k8s-device-plugin@v0.5.29); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "dra-driver-nvidia/dra-driver-nvidia-gpu",
@@ -1941,7 +2152,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-23",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (eks/aws-efa-k8s-device-plugin@v0.5.29, k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "eks/aws-efa-k8s-device-plugin",
@@ -1958,19 +2181,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-21",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2, kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics",
@@ -2038,7 +2249,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-24",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.16.9, kai-scheduler/kai-scheduler@v0.14.1, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -2055,19 +2278,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-22",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kai-scheduler/kai-scheduler@v0.14.1, kai-scheduler/kai-scheduler@v0.16.9, karpenter/karpenter@1.14.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "kai-scheduler/kai-scheduler",
@@ -2135,7 +2346,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-25",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (karpenter/karpenter@1.14.0, kubeflow/kubeflow-trainer@2.2.0, longhorn/longhorn@1.12.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "karpenter/karpenter",
@@ -2152,19 +2375,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-23",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (kubeflow/kubeflow-trainer@2.2.0, longhorn/longhorn@1.12.0, longhorn/longhorn@1.12.1); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "kubeflow/kubeflow-trainer",
@@ -2232,7 +2443,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-26",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (longhorn/longhorn@1.12.1, metallb/metallb@0.16.1, node-feature-discovery/node-feature-discovery@0.19.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "longhorn/longhorn",
@@ -2249,19 +2472,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-24",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (metallb/metallb@0.16.1, node-feature-discovery/node-feature-discovery@0.19.0, nvidia/cluster-readiness-engine@v0.6.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "metallb/metallb",
@@ -2329,7 +2540,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-27",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/cluster-readiness-engine@v0.6.0, nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "nvidia/cluster-readiness-engine",
@@ -2346,19 +2569,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-25",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nodewright@v0.17.1, nvidia/nodewright@v0.19.0, nvidia/nvidia-device-plugin@0.19.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "nvidia/nodewright",
@@ -2426,7 +2637,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-28",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvidia-device-plugin",
@@ -2443,19 +2666,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-26",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvidia-device-plugin@0.19.3, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.9.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvidia-device-plugin",
@@ -2523,7 +2734,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-29",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.9.0, nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvsentinel",
@@ -2540,19 +2763,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-27",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvsentinel",
@@ -2620,7 +2831,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-30",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.20.0, nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0, oauth2-proxy/oauth2-proxy@10.7.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvsentinel",
@@ -2637,19 +2860,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-28",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (nvidia/nvsentinel@v1.25.0, nvidia/nvsentinel@v1.26.0, nvidia/nvsentinel@v1.9.0, oauth2-proxy/oauth2-proxy@10.7.0, policy-reporter/policy-reporter@3.10.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "nvidia/nvsentinel",
@@ -2717,7 +2928,19 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        },
+        }
+      ]
+    },
+    {
+      "block_id": "GP-31",
+      "partition": "G/P",
+      "hardness": "app",
+      "predicted_residue_families": [
+        "unknown"
+      ],
+      "block_goal": "G/P: run the 5 ready live-parity row(s) with no prior residue signal (first observation) (policy-reporter/policy-reporter@3.10.0, policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, stakater/reloader@2.2.16, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
+      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
+      "rows": [
         {
           "work_type": "live-parity",
           "chart": "policy-reporter/policy-reporter",
@@ -2734,19 +2957,7 @@
           "prediction_basis": "",
           "confidence": "unknown",
           "serial_safety_notes": "light controller — safe within a block"
-        }
-      ]
-    },
-    {
-      "block_id": "GP-29",
-      "partition": "G/P",
-      "hardness": "app",
-      "predicted_residue_families": [
-        "unknown"
-      ],
-      "block_goal": "G/P: run the 4 ready live-parity row(s) with no prior residue signal (first observation) (policy-reporter/policy-reporter@3.9.1, stakater/reloader@2.2.14, stakater/reloader@2.2.16, valkey/valkey@0.11.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.",
-      "stop_condition": "Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.",
-      "rows": [
+        },
         {
           "work_type": "live-parity",
           "chart": "policy-reporter/policy-reporter",

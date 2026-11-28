@@ -136,9 +136,9 @@ spec:
     -
       rank: 42
       ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
-      version: "2.60.1"
-      recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
-      package: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+      version: "2.68.1"
+      recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1"
+      package: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1"
     -
       rank: 43
       ref: "autoscaler/cluster-autoscaler"
@@ -286,9 +286,9 @@ spec:
     -
       rank: 67
       ref: "bitnami/memcached"
-      version: "8.5.5"
-      recipe: "recipes/bitnami/memcached/8.5.5"
-      package: "packages/bitnami/memcached/8.5.5"
+      version: "8.8.8"
+      recipe: "recipes/bitnami/memcached/8.8.8"
+      package: "packages/bitnami/memcached/8.8.8"
     -
       rank: 68
       ref: "bitnami/phpmyadmin"
@@ -328,9 +328,9 @@ spec:
     -
       rank: 74
       ref: "argo-cd/argocd-image-updater"
-      version: "1.2.2"
-      recipe: "recipes/argo-cd/argocd-image-updater/1.2.2"
-      package: "packages/argo-cd/argocd-image-updater/1.2.2"
+      version: "1.5.0"
+      recipe: "recipes/argo-cd/argocd-image-updater/1.5.0"
+      package: "packages/argo-cd/argocd-image-updater/1.5.0"
     -
       rank: 75
       ref: "hashicorp/terraform"
@@ -382,9 +382,9 @@ spec:
     -
       rank: 83
       ref: "coredns/coredns"
-      version: "1.45.2"
-      recipe: "recipes/coredns/coredns/1.45.2"
-      package: "packages/coredns/coredns/1.45.2"
+      version: "1.50.8"
+      recipe: "recipes/coredns/coredns/1.50.8"
+      package: "packages/coredns/coredns/1.50.8"
     -
       rank: 84
       ref: "descheduler/descheduler"

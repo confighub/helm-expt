@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "postgresql-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "bf1a8d143b163b684cfd3135fc34909d4bce9712882b15eb4df5810eaad55e89"
+    dependencyLockSHA256: "348c8d64cd2fb466861abbcc2736bb54cc779626c17bb8a4b44f85351f033058"
+    effectiveValuesSHA256: "f11a1cbb476d61625822154619b0776d83417bd44fb7b00170f0a1768f13f370"
+  outputs:
+    renderedObjectSetSHA256: "0b2376a77b07524f8f78e0c1e48f1c41ecd55887c7a67f1d569268d615bf976c"
+    renderedObjectInventorySHA256: "2eda1dde8d1b536491a39b6b623a5a7218dd02aa95ce860cea65a0ec63bd6299"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 7
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

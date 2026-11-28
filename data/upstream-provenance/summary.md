@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-11-27**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-11-28**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**44 of 181 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 91 publish none, and 46 could not be asked, mostly
+**46 of 189 retained charts** publish a Helm provenance file, which is
+24% of the catalog. 93 publish none, and 50 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -31,10 +31,10 @@ never done it.
 | Repository | Retained charts | Signed | Verdict |
 | --- | --- | --- | --- |
 | https://aquasecurity.github.io/helm-charts | 1 | 0 | publishes none |
-| https://argoproj.github.io/argo-helm | 10 | 10 | signs every retained chart |
+| https://argoproj.github.io/argo-helm | 11 | 11 | signs every retained chart |
 | https://aws.github.io/eks-charts | 1 | 0 | publishes none |
 | https://bitnami-labs.github.io/sealed-secrets | 1 | 0 | could not be asked |
-| https://charts.bitnami.com/bitnami | 21 | 0 | OCI-hosted, no provenance convention |
+| https://charts.bitnami.com/bitnami | 25 | 0 | OCI-hosted, no provenance convention |
 | https://charts.crossplane.io/stable | 1 | 0 | publishes none |
 | https://charts.dexidp.io | 1 | 0 | publishes none |
 | https://charts.external-secrets.io | 4 | 4 | signs every retained chart |
@@ -43,8 +43,8 @@ never done it.
 | https://charts.jetstack.io | 5 | 3 | signs some |
 | https://charts.longhorn.io | 3 | 0 | publishes none |
 | https://charts.rook.io/release | 2 | 0 | publishes none |
-| https://cloudnative-pg.github.io/charts | 2 | 2 | signs every retained chart |
-| https://coredns.github.io/helm | 1 | 0 | publishes none |
+| https://cloudnative-pg.github.io/charts | 3 | 3 | signs every retained chart |
+| https://coredns.github.io/helm | 2 | 0 | publishes none |
 | https://docs.tigera.io/calico/charts | 1 | 0 | publishes none |
 | https://falcosecurity.github.io/charts | 2 | 0 | publishes none |
 | https://fluent.github.io/helm-charts | 2 | 0 | publishes none |
@@ -59,7 +59,7 @@ never done it.
 | https://jaegertracing.github.io/helm-charts | 2 | 0 | publishes none |
 | https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart | 1 | 0 | publishes none |
 | https://kedacore.github.io/charts | 1 | 0 | publishes none |
-| https://kubernetes-sigs.github.io/aws-ebs-csi-driver | 2 | 0 | publishes none |
+| https://kubernetes-sigs.github.io/aws-ebs-csi-driver | 3 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/descheduler | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/external-dns | 1 | 0 | publishes none |
 | https://kubernetes-sigs.github.io/metrics-server | 3 | 0 | publishes none |
@@ -112,11 +112,13 @@ never done it.
 | `argo-rollouts` | 2.40.9 | https://argoproj.github.io/argo-helm |
 | `argo-workflows` | 1.0.14 | https://argoproj.github.io/argo-helm |
 | `argocd-image-updater` | 1.2.2 | https://argoproj.github.io/argo-helm |
+| `argocd-image-updater` | 1.5.0 | https://argoproj.github.io/argo-helm |
 | `cert-manager` | v1.20.2 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.0 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.1 | https://charts.jetstack.io |
 | `cloudnative-pg` | 0.28.2 | https://cloudnative-pg.github.io/charts |
 | `cloudnative-pg` | 0.29.0 | https://cloudnative-pg.github.io/charts |
+| `cloudnative-pg` | 0.29.2 | https://cloudnative-pg.github.io/charts |
 | `consul` | 2.0.0 | https://helm.releases.hashicorp.com |
 | `external-secrets` | 2.10.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.5.0 | https://charts.external-secrets.io |
@@ -160,7 +162,7 @@ check at the point they pull the chart.
 
 ## Why the rest could not be asked
 
-- **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
+- **25** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
 - **21** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
 - **1** name a version the current index no longer lists.
@@ -173,7 +175,7 @@ registry-native signature rather than from this mechanism.
 
 ## When a publisher stops signing
 
-Since the previous survey, 1 chart(s) changed verdict: `mysql-operator` 2.3.0 moved from unsigned to unknown.
+No chart has changed verdict since the previous survey. This is the first record for some of them, and a first record cannot show a change.
 
 A provenance claim that quietly disappears is worse than one never made. Each
 run compares its answers against the previous snapshot and records every chart

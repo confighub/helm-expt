@@ -185,6 +185,13 @@
       ]
     },
     {
+      "chart": "argo-cd/argocd-image-updater",
+      "version": "1.5.0",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "autoscaler/cluster-autoscaler",
       "version": "9.57.0",
       "top_skill": "live-parity",
@@ -247,6 +254,13 @@
     {
       "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
       "version": "2.60.1",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
+      "chart": "aws-ebs-csi-driver/aws-ebs-csi-driver",
+      "version": "2.68.1",
       "top_skill": "none",
       "matched_signals": [],
       "applicable": []
@@ -382,6 +396,13 @@
       ]
     },
     {
+      "chart": "bitnami/memcached",
+      "version": "8.8.8",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
       "top_skill": "hook-and-secret-lifecycle",
@@ -443,6 +464,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "bitnami/mongodb",
+      "version": "20.0.23",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "bitnami/mysql",
@@ -538,6 +566,13 @@
       ]
     },
     {
+      "chart": "bitnami/nginx",
+      "version": "25.2.19",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "bitnami/opensearch",
       "version": "2.0.10",
       "top_skill": "live-parity",
@@ -583,6 +618,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "bitnami/postgresql",
+      "version": "18.12.28",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "bitnami/postgresql",
@@ -841,6 +883,13 @@
       ]
     },
     {
+      "chart": "cloudnative-pg/cloudnative-pg",
+      "version": "0.29.2",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
+    },
+    {
       "chart": "cloudpirates/nginx",
       "version": "0.16.1",
       "top_skill": "none",
@@ -889,6 +938,13 @@
           "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
+    },
+    {
+      "chart": "coredns/coredns",
+      "version": "1.50.8",
+      "top_skill": "none",
+      "matched_signals": [],
+      "applicable": []
     },
     {
       "chart": "crossplane-stable/crossplane",

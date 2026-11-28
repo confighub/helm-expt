@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "static-passwords-r001"
+spec:
+  variant: "../../../variants/static-passwords/variant.yaml"
+  revision: "r001"
+  digest: "4103d68a45edd3404593041cfdf5889aba8960d37dc2c08f8113c883106c215e"
+  digestInputs:
+    recipeSHA256: "07bcabe30840cdc8568280c878dbab14dccf399403d830ed6bc6279c742d02d5"
+    variantSHA256: "d88f809484d12f372517a148aad33d371c8898d36d0b64e2a8886657d2e27609"
+    effectiveValuesSHA256: "f11a1cbb476d61625822154619b0776d83417bd44fb7b00170f0a1768f13f370"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "0b2376a77b07524f8f78e0c1e48f1c41ecd55887c7a67f1d569268d615bf976c"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 7

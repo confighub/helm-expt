@@ -18,29 +18,29 @@ proposes; it does not mutate `base-outcomes`. Nearest views:
 ## Headline
 
 ```text
-lane cells:                 2076
-recorded disposition:       1320  (63.6%)
-+ derived blocked:          9
-+ derived n/a (K covered):  59
-= verified disposition:     1388  (66.9%)
-genuine todo (named next):  148
-un-dispositioned gap:       540
+lane cells:                 2142
+recorded disposition:       1331  (62.1%)
++ derived blocked:          10
++ derived n/a (K covered):  69
+= verified disposition:     1410  (65.8%)
+genuine todo (named next):  159
+un-dispositioned gap:       573
 ```
 
-**Distance to 99%:** 688 cells are not yet a
-non-todo verified disposition (33.1% of cells).
+**Distance to 99%:** 732 cells are not yet a
+non-todo verified disposition (34.2% of cells).
 Every one carries a named next action below — none is a silent gap.
 
 ## By lane
 
 | Lane | Cells | Verified disposition | Genuine todo | Un-dispositioned |
 | --- | ---: | ---: | ---: | ---: |
-| R render_parity | 346 | 346 | 0 | 0 |
-| C in_confighub | 346 | 198 | 148 | 0 |
-| L local_live | 346 | 199 | 0 | 147 |
-| G gitops_oci_live | 346 | 199 | 0 | 147 |
-| P live_helm_vs_confighub_parity | 346 | 199 | 0 | 147 |
-| K two_cluster_kind_parity | 346 | 247 | 0 | 99 |
+| R render_parity | 357 | 357 | 0 | 0 |
+| C in_confighub | 357 | 198 | 159 | 0 |
+| L local_live | 357 | 199 | 0 | 158 |
+| G gitops_oci_live | 357 | 199 | 0 | 158 |
+| P live_helm_vs_confighub_parity | 357 | 199 | 0 | 158 |
+| K two_cluster_kind_parity | 357 | 258 | 0 | 99 |
 
 ## The work to 99%, by next action
 
@@ -57,6 +57,7 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@10.7.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argo-cd@9.5.17 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for argo-cd/argocd-image-updater@1.5.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/ec2-chart@1.18.4 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/ec2-chart@1.18.4 eks-inference (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-controllers-k8s/eks-chart@1.16.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
@@ -66,12 +67,22 @@ Each genuine `todo` cell, grouped by what closes it.
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 aicr-eks-training-v0-20-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 aicr-eks-training-v1-0-0 (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/memcached@8.8.8 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@20.0.23 existing-secret-replicaset (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/mongodb@20.0.23 static-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.2.19 existing-tls-ingress (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/nginx@25.2.19 http-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.12.28 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for bitnami/postgresql@18.12.28 static-passwords (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudnative-pg/cloudnative-pg@0.29.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for cloudnative-pg/cloudnative-pg@0.29.2 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/nginx@0.16.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/rabbitmq@0.21.13 existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for cloudpirates/redis@0.34.11 reuse-existing-secret (loop's bitnami/prometheus-community/elastic candidate pipeline) |
+| 1 | run scripts/run-top20-confighub-proof.mjs for coredns/coredns@1.50.8 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 aicr-eks-training (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 default (loop's bitnami/prometheus-community/elastic candidate pipeline) |
 | 1 | run scripts/run-top20-confighub-proof.mjs for dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1 gpu-resources (loop's bitnami/prometheus-community/elastic candidate pipeline) |

@@ -7,7 +7,7 @@ type: helm
 repository: https://coredns.github.io/helm
 chart: coredns
 # The newest chart version packaged here.
-version: 1.45.2
+version: 1.50.8
 # The name cub finds it by:
 #   cub package install coredns --space <space>
 # which pulls oci://ghcr.io/confighub/packages/coredns:<tag>.
@@ -15,3 +15,4 @@ name: coredns
 # Every version packaged here: its directory, and the tag it is published as.
 versions:
   - {directory: 1.45.2, tag: v1.45.2}
+  - {directory: 1.50.8, tag: v1.50.8}

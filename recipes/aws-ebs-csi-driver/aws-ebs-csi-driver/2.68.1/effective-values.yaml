@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-68-1-default"
+  labels:
+    confighub.io/chart-ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
+    confighub.io/chart-version: "2.68.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "4cc8025546f3e5ec8eb33284694ca1ac48ac320e0078688e419d2499220f90cf"
+  mergedValuesCaptured: false
+  values:
+    {}

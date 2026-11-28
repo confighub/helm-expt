@@ -42,23 +42,23 @@ from a different chart version's disposition row.
 
 | Metric | Value |
 | --- | ---: |
-| Chart versions | 181 |
-| Matrix rows | 607 |
-| F1 source / F2 base / candidate / F4 derived rows | 181 / 346 / 67 / 13 |
-| Layer rows | F1:181 / F2a:166 / F2b:180 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1143 / 107 / 129 / 807 / 2063 |
+| Chart versions | 189 |
+| Matrix rows | 626 |
+| F1 source / F2 base / candidate / F4 derived rows | 189 / 357 / 67 / 13 |
+| Layer rows | F1:189 / F2a:171 / F2b:186 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 1156 / 107 / 129 / 860 / 2130 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 148 / 2 / 261 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 27 / 0 / 1 / 579 |
-| Render-intent lifecycle records (attached / gap / no separate route) | 12 / 17 / 317 |
-| Render-intent prerequisite records (attached / gap / none explicitly required) | 167 / 167 / 12 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 159 / 2 / 269 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 27 / 0 / 1 / 598 |
+| Render-intent lifecycle records (attached / gap / no separate route) | 12 / 17 / 328 |
+| Render-intent prerequisite records (attached / gap / none explicitly required) | 170 / 175 / 12 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
 | Cells with deferred accepted disposition | 114 |
 
-Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.20.0`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.28.2`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `kai-scheduler/kai-scheduler@v0.14.1`, `kyverno/kyverno-policies@3.8.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno@3.8.1`, `kyverno/kyverno@3.8.2`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v25.10.1`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/k8s-nim-operator@3.1.0`, `nvidia/nodewright@v0.17.1`, `nvidia/nvsentinel@v1.20.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.22.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.10.0`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.12`, `stakater/reloader@2.2.14`, `traefik/traefik@40.2.0`, `traefik/traefik@41.0.2`, `velero/velero@12.1.0`.
+Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@10.1.3`, `argo-cd/argo-cd@10.2.1`, `argo-cd/argo-cd@10.20.0`, `argo-cd/argo-cd@10.7.0`, `argo-cd/argo-cd@9.5.17`, `argo-cd/argocd-image-updater@1.5.0`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1`, `bitnami/memcached@8.8.8`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/mongodb@20.0.23`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/nginx@25.2.19`, `bitnami/postgresql@18.12.28`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `cloudnative-pg/cloudnative-pg@0.28.2`, `cloudnative-pg/cloudnative-pg@0.29.2`, `coredns/coredns@1.50.8`, `dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1`, `external-secrets/external-secrets@2.10.0`, `external-secrets/external-secrets@2.7.0`, `external-secrets/external-secrets@2.8.0`, `grafana/alloy@1.11.0`, `grafana/alloy@1.8.2`, `grafana/loki@7.1.0`, `grafana/loki@7.3.0`, `jetstack/cert-manager@v1.21.0`, `jetstack/cert-manager@v1.21.1`, `kai-scheduler/kai-scheduler@v0.14.1`, `kyverno/kyverno-policies@3.8.0`, `kyverno/kyverno-policies@3.8.2`, `kyverno/kyverno@3.8.1`, `kyverno/kyverno@3.8.2`, `longhorn/longhorn@1.12.0`, `longhorn/longhorn@1.12.1`, `metallb/metallb@0.16.1`, `metrics-server/metrics-server@3.13.1`, `metrics-server/metrics-server@3.14.0`, `nvidia/gpu-operator@v25.10.1`, `nvidia/gpu-operator@v26.3.2`, `nvidia/gpu-operator@v26.3.3`, `nvidia/k8s-nim-operator@3.1.0`, `nvidia/nodewright@v0.17.1`, `nvidia/nvsentinel@v1.20.0`, `nvidia/nvsentinel@v1.25.0`, `nvidia/nvsentinel@v1.9.0`, `oauth2-proxy/oauth2-proxy@10.7.0`, `percona/psmdb-operator@1.22.0`, `policy-reporter/policy-reporter@3.9.1`, `prometheus-community/kube-prometheus-stack@84.4.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/kube-prometheus-stack@87.15.1`, `prometheus-community/kube-prometheus-stack@87.19.2`, `prometheus-community/kube-prometheus-stack@88.6.3`, `prometheus-community/prometheus-blackbox-exporter@11.10.0`, `prometheus-community/prometheus-blackbox-exporter@11.15.1`, `prometheus-community/prometheus-operator-crds@28.0.1`, `prometheus-community/prometheus@29.9.0`, `stakater/reloader@2.2.12`, `stakater/reloader@2.2.14`, `traefik/traefik@40.2.0`, `traefik/traefik@41.0.2`, `velero/velero@12.1.0`.
 
 ## How To Use This Sheet
 
@@ -87,18 +87,18 @@ otherwise.
 
 | Queue | Rows | Meaning | Examples |
 | --- | ---: | --- | --- |
-| F1 source charts | 181 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
+| F1 source charts | 189 | Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen. | `aqua/trivy-operator@0.32.1/(source)`, `argo-cd/argo-cd@9.5.15/(source)`, `argo-cd/argo-cd@9.5.17/(source)` |
 | Public catalog rows | 42 | Reviewed top-20 catalog rows. Use base-readiness or the per-chart catalog page to choose the easiest first base. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `bitnami/mongodb@19.0.7/existing-secret-replicaset` |
 | Promote after review | 72 | Proof-grade rows that need catalog/product review before becoming public starting points. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-events@2.4.21/default` |
 | Design a more useful base | 46 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/memcached@8.5.5/default` |
 | Decide a limitation first | 19 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/apache@11.4.29/default`, `bitnami/apache@11.4.29/legacy`, `bitnami/contour@21.1.4/default` |
-| Complete the core proof lane | 228 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
+| Complete the core proof lane | 239 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
 | Active proof queue | 74 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
 | Deferred accepted dispositions | 33 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
 | Candidate rows | 67 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/contour@21.1.4/legacy + review` |
 | Custom-discussion candidates | 56 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/contour@21.1.4/legacy + review`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
-| Decide target run scope | 333 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
+| Decide target run scope | 344 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
 | Investigate hard gaps | 111 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
 ## Sources joined, and what this view compresses
@@ -175,6 +175,8 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | minimal-crds | next80 | - | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
+| `argo-cd/argocd-image-updater@1.5.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | controller-default-reviewed | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
@@ -198,6 +200,8 @@ when you want the user/product view with those columns visible.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | F1 | source | (source) | next80 | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | model | in-confighub | ⬜ |
 |  | F3 | candidate | default + topology | candidate | `tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.68.1` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `bitnami/apache@11.4.29` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | legacy | next80 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | local-live | ⬜ |
@@ -213,6 +217,8 @@ when you want the user/product view with those columns visible.
 | `bitnami/memcached@8.5.5` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2c | candidate review | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+| `bitnami/memcached@8.8.8` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `bitnami/mongodb@19.0.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | run | live-parity | ✅ |
@@ -222,6 +228,9 @@ when you want the user/product view with those columns visible.
 | `bitnami/mongodb@19.1.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | run | two-cluster-kind-parity | ⬜ |
 |  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
+| `bitnami/mongodb@20.0.23` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2b | base | existing-secret-replicaset | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `bitnami/mysql@14.0.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ✅ |
@@ -236,6 +245,9 @@ when you want the user/product view with those columns visible.
 | `bitnami/nginx@25.0.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-tls-ingress | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | run | two-cluster-kind-parity | ⬜ |
 |  | F2b | base | http-clusterip | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
+| `bitnami/nginx@25.2.19` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2b | base | existing-tls-ingress | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | http-clusterip | - | - | - | - | ✅ | ⬜ | ⬜ | - | ✅ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `bitnami/opensearch@2.0.10` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
 |  | F2b | base | ha | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ❌ | ✅ | image | in-confighub | ⬜ |
@@ -253,6 +265,9 @@ when you want the user/product view with those columns visible.
 | `bitnami/postgresql@18.7.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 |  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
+| `bitnami/postgresql@18.12.28` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2b | base | existing-secret | - | - | - | - | ✅ | ⬜ | ⬜ | - | ✅ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `bitnami/rabbitmq@16.0.14` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ✅ |
@@ -277,6 +292,8 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | - | - | - | - | ✅ | ✅ | ❌ | - | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.29.0` | F1 | source | (source) | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | - | - | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
+| `cloudnative-pg/cloudnative-pg@0.29.2` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `cloudpirates/nginx@0.16.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `cloudpirates/rabbitmq@0.21.13` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
@@ -288,6 +305,8 @@ when you want the user/product view with those columns visible.
 | `coredns/coredns@1.45.2` | F1 | source | (source) | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2c | candidate review | controller-default-reviewed | candidate | `generated-facts;tpl;capabilities;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
+| `coredns/coredns@1.50.8` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | - | - | - | - | ✅ | ⬜ | ⬜ | - | ⬜ | ⬜ | ⬜ | ⬜ | stage | render-parity | ⬜ |
 | `crossplane-stable/crossplane@2.3.1` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `descheduler/descheduler@0.36.0` | F1 | source | (source) | next80 | `tpl;cluster-rbac` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

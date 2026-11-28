@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-mongodb-20.0.23"
+spec:
+  chart:
+    name: "mongodb"
+    repository: "bitnami"
+    version: "20.0.23"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/mongodb/20.0.23 -o <tmp>/mongodb-20.0.23.tgz"
+    sha256: "893fb5f04206e40522ebd470c4f4e85b66bd0e98ebd58c3d2418b1209671d426"
+  package:
+    name: "bitnami-mongodb"
+    path: "packages/bitnami/mongodb/20.0.23"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "d5735cfeaedc15497016398e1fc26b6da6c4495fd0f4dcfbb2311a0df31c7fa0"
+        bytes: 255
+      -
+        path: "bases/existing-secret-replicaset/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/existing-secret-replicaset/upstream.yaml"
+        sha256: "d0e85709f4d06edfcd6a001a5f87d6e1d311172931a5ae0131d0efa921f24e31"
+        bytes: 22617
+      -
+        path: "bases/static-passwords/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/static-passwords/upstream.yaml"
+        sha256: "e2166c58b0354eff7cd78daa6c41aacf9ac47e61b9532091914e6f99fd516cf6"
+        bytes: 11266
+      -
+        path: "collector/target-facts.sh"
+        sha256: "91068d028cdfd0c28c1efb04de96a92fd86728708be0b9448df44fb743e5758a"
+        bytes: 2456
+      -
+        path: "installer.yaml"
+        sha256: "183b753fe5e951a77083206433b2d478074fd8b6d8e1441f27e71a9d2ebc2ff3"
+        bytes: 1331
+    version: "v20.0.23"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||mongodb"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/bitnami/mongodb/20.0.23 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+      cubInstallObjectCountIncludingSupport: 9
+      helmReleaseObjectCount: 8
+      semanticObjectMatches: "8/8"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "static-passwords"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||mongodb"
+      base: "existing-secret-replicaset"
+      command: "cub installer setup --pull packages/bitnami/mongodb/20.0.23 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "existing-secret-replicaset"

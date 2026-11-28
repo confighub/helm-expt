@@ -164,7 +164,7 @@ spec:
       repositoryURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
       chart: "aws-ebs-csi-driver"
       ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
-      version: "2.60.1"
+      version: "2.68.1"
       proofFocus: "CSI driver, DaemonSet, RBAC, storage lifecycle"
     - rank: 43
       repository: "autoscaler"
@@ -339,7 +339,7 @@ spec:
       repositoryURL: "https://charts.bitnami.com/bitnami"
       chart: "memcached"
       ref: "bitnami/memcached"
-      version: "8.5.5"
+      version: "8.8.8"
       proofFocus: "cache workload, Service, simple scale knobs"
     - rank: 68
       repository: "bitnami"
@@ -389,7 +389,7 @@ spec:
       repositoryURL: "https://argoproj.github.io/argo-helm"
       chart: "argocd-image-updater"
       ref: "argo-cd/argocd-image-updater"
-      version: "1.2.2"
+      version: "1.5.0"
       proofFocus: "GitOps companion controller, RBAC, Secret/config"
     - rank: 75
       repository: "hashicorp"
@@ -452,7 +452,7 @@ spec:
       repositoryURL: "https://coredns.github.io/helm"
       chart: "coredns"
       ref: "coredns/coredns"
-      version: "1.45.2"
+      version: "1.50.8"
       proofFocus: "DNS deployment, Service, config"
     - rank: 84
       repository: "descheduler"
