@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0-29-2"
+spec:
+  chart:
+    repository: "cloudnative-pg"
+    name: "cloudnative-pg"
+    version: "0.29.2"
+  package:
+    path: "packages/cloudnative-pg/cloudnative-pg/0.29.2"
+    name: "cloudnative-pg-cloudnative-pg"
+    version: "v0.29.2"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "2f5e8f920154955aa378b8d70b78b8f8cdffa32201cde06785ba8954c0c13831"
+        bytes: 306
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "b97596c9b148427c22e15c86348f8c32f3ace35b78b540f288fe8796b0c177ef"
+        bytes: 1308050
+      -
+        path: "installer.yaml"
+        sha256: "8c8734fd4b322faa4694d1c121d50d43a9dbe9d09a04f04a818eb30a43cf8698"
+        bytes: 343
+  deterministicBundle:
+    command: "cub installer package packages/cloudnative-pg/cloudnative-pg/0.29.2 -o <tmp>/cloudnative-pg-cloudnative-pg-0-29-2.tgz"
+    sha256: "6d347fe0a1dfe9446e6492ae4bb85f318eaa5dd4d551f8195a0e3ab35a607cb8"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.29.2 --base default --work-dir <tmp> --non-interactive --namespace cnpg-system"
+      helmReleaseObjectCount: 22
+      cubInstallObjectCountIncludingSupport: 23
+      semanticObjectMatches: "22/22"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||cnpg-system"

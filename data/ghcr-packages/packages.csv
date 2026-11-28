@@ -17,7 +17,7 @@ bitnami-rabbitmq,bitnami/rabbitmq,https://charts.bitnami.com/bitnami,v16.0.14,v1
 bitnami-redis,bitnami/redis,https://charts.bitnami.com/bitnami,v27.0.0,v25.5.3 v27.0.0,oci://ghcr.io/confighub/packages/bitnami-redis
 cert-manager,jetstack/cert-manager,https://charts.jetstack.io,v1.21.1,v1.20.2 v1.21.0 v1.21.1,oci://ghcr.io/confighub/packages/cert-manager
 cert-manager-csi-driver,jetstack/cert-manager-csi-driver,https://charts.jetstack.io,v0.14.0,v0.14.0,oci://ghcr.io/confighub/packages/cert-manager-csi-driver
-cloudnative-pg,cloudnative-pg/cloudnative-pg,https://cloudnative-pg.github.io/charts,v0.29.0,v0.28.2 v0.29.0,oci://ghcr.io/confighub/packages/cloudnative-pg
+cloudnative-pg,cloudnative-pg/cloudnative-pg,https://cloudnative-pg.github.io/charts,v0.29.2,v0.28.2 v0.29.0 v0.29.2,oci://ghcr.io/confighub/packages/cloudnative-pg
 cloudpirates-nginx,cloudpirates/nginx,oci://registry-1.docker.io/cloudpirates/nginx,v0.16.1,v0.16.1,oci://ghcr.io/confighub/packages/cloudpirates-nginx
 cloudpirates-rabbitmq,cloudpirates/rabbitmq,oci://registry-1.docker.io/cloudpirates/rabbitmq,v0.21.13,v0.21.13,oci://ghcr.io/confighub/packages/cloudpirates-rabbitmq
 cloudpirates-redis,cloudpirates/redis,oci://registry-1.docker.io/cloudpirates/redis,v0.34.11,v0.34.11,oci://ghcr.io/confighub/packages/cloudpirates-redis
