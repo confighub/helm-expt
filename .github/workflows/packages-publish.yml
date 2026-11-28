@@ -75,6 +75,17 @@ jobs:
       - name: Check names and upstream files
         run: node scripts/generate-package-upstreams.mjs --verify
 
+      # Names any package another repository has started publishing that the
+      # catalog does not list yet. GitHub's token may not be allowed to list
+      # every organization package, so a failure here is reported and does not
+      # stop publishing: GHCR refuses a push under another repository's name in
+      # any case.
+      - name: Check the list of packages built elsewhere
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/refresh-registry-packages.mjs --check
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | installer login ghcr.io --username "${{ github.actor }}" --password-stdin
 

@@ -30,6 +30,31 @@ The canonical
 [business purpose and user journey](./docs/reference/config-catalog-doctrine.md#business-purpose-and-user-journey)
 live in the catalog doctrine. All contents are experimental and unofficial.
 
+## Install a Package
+
+Every ConfigHub package is in one list on
+[Install a package](https://confighub.github.io/helm-expt/site/packages.html):
+one for every chart in the Catalog, built here, and the ones other ConfigHub
+repositories build, such as Argo CD, Flux and Sveltos. One command installs any
+of them into ConfigHub:
+
+```bash
+cub package install cert-manager --space cert-manager --namespace cert-manager
+```
+
+How this repository builds and publishes them:
+
+- `packages/<repo>/<chart>/<version>/` holds each package, and
+  `recipes/<repo>/<chart>/<version>/` the chart source and choices that rebuild
+  it from the chart's upstream release.
+- A nightly workflow checks every chart for a new release, builds and checks the
+  new package, and opens a pull request. Merging it publishes the package to
+  `ghcr.io/confighub/packages/<name>`, signed by the publish workflow. Published
+  versions are never overwritten or removed.
+- [Nightly package updates](./docs/reference/package-updates.md) and
+  [Installer packages](./docs/user/model-and-vocabulary.md#installer-packages)
+  explain the details.
+
 ## Start Here
 
 The site has six sections, matching its top navigation, in the order a

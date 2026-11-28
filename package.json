@@ -790,6 +790,7 @@
     "packages:upstreams:self-test": "node scripts/generate-package-upstreams.mjs --self-test",
     "packages:ghcr:plan": "node scripts/publish-ghcr-packages.mjs --plan",
     "packages:ghcr:publish": "node scripts/publish-ghcr-packages.mjs --publish",
+    "packages:registry:check": "node scripts/refresh-registry-packages.mjs --check",
     "packages:ghcr:observe": "node scripts/publish-ghcr-packages.mjs --observe",
     "installer-package-companions": "node scripts/generate-installer-package-companions.mjs --generate",
     "installer-package-companions:sync-receipts": "node scripts/resync-package-receipts.mjs --all-source-files",

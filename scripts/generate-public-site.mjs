@@ -4,6 +4,7 @@ import { join, posix } from "node:path";
 import { check, listFiles, readYaml, repoRoot, sha256, write } from "./lib/proof-common.mjs";
 import { lookupCatalogRecord } from "./lib/catalog-record-lookup.mjs";
 import { installerOciDigestRef, installerOciRef } from "./lib/installer-oci.mjs";
+import { builtElsewhere } from "./lib/ghcr-packages.mjs";
 import { evaluateKubaraSiteLiveEvidence, kubaraEvidencePill, kubaraEvidenceState, kubaraLiveProofLogs, kubaraRecordedMonth, readKubaraProofStatus } from "./lib/kubara-site-live-evidence.mjs";
 import {
   AICR_CPU_STARTER_LOCAL_OCI_DIGEST,
@@ -8040,8 +8041,8 @@ function ghcrPackageRows() {
   return rows.sort((left, right) => (left.name < right.name ? -1 : left.name > right.name ? 1 : 0));
 }
 
-function packageInstallCommand(name) {
-  return `cub package install ${name} --space ${name} --namespace ${name}`;
+function packageInstallCommand(name, namespace = name) {
+  return `cub package install ${name} --space ${name} --namespace ${namespace}`;
 }
 
 function packagesHtml() {
@@ -8051,13 +8052,30 @@ function packagesHtml() {
   const certManager = rows.find((row) => row.name === "cert-manager");
   check(certManager, "packages.html: its examples use cert-manager, and data/ghcr-packages/packages.csv has no cert-manager row");
   check(String(certManager.tags).split(/\s+/).includes("v1.21.1"), "packages.html: its examples were checked with cert-manager v1.21.1, which data/ghcr-packages/packages.csv no longer lists");
-  const tableRows = rows.map((row) => [
-    `<span id="package-${escapeHtml(row.name)}"></span><strong>${escapeHtml(row.name)}</strong>`,
-    escapeHtml(row.chart),
-    escapeHtml(row.newest_tag),
-    `<code>${escapeHtml(packageInstallCommand(row.name))}</code>`,
-    chartPages.has(row.chart) ? `<a href="./charts/${escapeHtml(chartPages.get(row.chart))}" aria-label="${escapeHtml(row.chart)} chart page">Chart page</a>` : "",
-  ]);
+  const elsewhere = builtElsewhere();
+  const ourRows = rows.map((row) => ({
+    name: row.name,
+    cells: [
+      `<span id="package-${escapeHtml(row.name)}"></span><strong>${escapeHtml(row.name)}</strong>`,
+      `Helm chart ${escapeHtml(row.chart)}`,
+      escapeHtml(row.newest_tag),
+      `<code>${escapeHtml(packageInstallCommand(row.name))}</code>`,
+      chartPages.has(row.chart) ? `<a href="./charts/${escapeHtml(chartPages.get(row.chart))}" aria-label="${escapeHtml(row.chart)} chart page">Chart page</a>` : "",
+    ],
+  }));
+  const elsewhereRows = elsewhere.map((entry) => ({
+    name: entry.name,
+    cells: [
+      `<span id="package-${escapeHtml(entry.name)}"></span><strong>${escapeHtml(entry.name)}</strong>`,
+      `${escapeHtml(entry.what)} Built by <a href="https://github.com/${escapeHtml(entry.builtBy)}">${escapeHtml(entry.builtBy)}</a>.`,
+      "the newest",
+      `<code>${escapeHtml(packageInstallCommand(entry.name, entry.namespace))}</code>`,
+      "",
+    ],
+  }));
+  const tableRows = [...ourRows, ...elsewhereRows]
+    .sort((left, right) => (left.name < right.name ? -1 : left.name > right.name ? 1 : 0))
+    .map((row) => row.cells);
   const cosignCommand = [
     "cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1 \\",
     "  --certificate-identity-regexp '^https://github.com/confighub/helm-expt/\\.github/workflows/packages-publish\\.yml@refs/heads/main$' \\",
@@ -8080,7 +8098,7 @@ function packagesHtml() {
   <header class="hero human-hero hub-cover">
     ${topNav(".")}
     <h1>Install a package</h1>
-    <p class="lead">A package is a Kubernetes app, such as cert-manager, made ready for ConfigHub: all the Kubernetes objects it needs, the options it offers (for example a version without CRDs), and the questions it asks when you install it (for example which namespace). This site publishes one for every chart in its <a href="./charts/index.html">Catalog</a>.</p>
+    <p class="lead">A package is a Kubernetes app, such as cert-manager, made ready for ConfigHub: all the Kubernetes objects it needs, the options it offers (for example a version without CRDs), and the questions it asks when you install it (for example which namespace). Every ConfigHub package is listed here: one for every chart in this site's <a href="./charts/index.html">Catalog</a>, and the ones other ConfigHub repositories build, such as Argo CD, Flux and Sveltos from their own manifests.</p>
     <p>ConfigHub keeps your Kubernetes configuration with its history, lets you review, change and approve it, and hands it to Argo CD or Flux to deploy. Five steps take cert-manager from here to a running cluster.</p>
     <ul>
       <li>To see what a package holds first, with no account and no cluster: <a href="#look-before-you-install">look before you install</a>.</li>
@@ -8146,8 +8164,8 @@ ls cert-manager/out/manifests</code></pre>
     </section>
     <section aria-labelledby="every-package">
       <h2 id="every-package">Every package</h2>
-      <p>This site publishes ${rows.length} packages, ${versionCount} versions in all. Each command installs the newest version into a Space and namespace named after the package; change either name to suit you. The last column links to the chart's page in the Catalog. <a href="./d/docs/user/model-and-vocabulary.html#installer-packages">Installer packages</a> explains how packages are named, versioned and checked.</p>
-      ${markdownLikeTable([["Package", "Chart", "Newest version", "Install command", "Chart page"], ...tableRows], { rawColumns: [0, 1, 2, 3, 4] })}
+      <p>All ${rows.length + elsewhere.length} packages in <code>ghcr.io/confighub/packages</code>: ${rows.length} built by this site from Helm charts (${versionCount} versions in all), and ${elsewhere.length} built by other ConfigHub repositories, each named in its row. Each command installs the newest version into a Space named after the package; change the Space or namespace to suit you. The last column links to the chart's page in the Catalog. <a href="./d/docs/user/model-and-vocabulary.html#installer-packages">Installer packages</a> explains how packages are named, versioned and checked.</p>
+      ${markdownLikeTable([["Package", "What it is", "Newest version", "Install command", "Chart page"], ...tableRows], { rawColumns: [0, 1, 2, 3, 4] })}
     </section>
   </main>
 </body>

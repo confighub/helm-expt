@@ -19,10 +19,25 @@ export const GHCR_PACKAGES_OIDC_ISSUER = "https://token.actions.githubuserconten
 export const GHCR_PACKAGES_RECEIPT_ROOT = "runs/ghcr-packages";
 export const GHCR_PACKAGES_RECEIPT_KIND = "GhcrPackagePublicationReceipt";
 
-// Names other repositories already publish under ghcr.io/confighub/packages.
-// GHCR ties a package name to the repository that first pushed it and refuses a
-// push from any other repository, so a chart may never take one of these.
-export const RESERVED_NAMES = new Set(["argobot", "argocd", "confighub", "flux", "k8sbot", "registrybot", "sveltos"]);
+// Packages other repositories build and publish under ghcr.io/confighub/packages,
+// listed in data/ghcr-packages/built-elsewhere.yaml. The catalog lists them
+// beside its own, and a chart may never take one of their names: GHCR ties a
+// package name to the repository that first pushed it and refuses a push from
+// any other repository.
+export const BUILT_ELSEWHERE_PATH = join(repoRoot, "data", "ghcr-packages", "built-elsewhere.yaml");
+
+export function builtElsewhere(path = BUILT_ELSEWHERE_PATH) {
+  const doc = readYaml(path);
+  const packages = doc?.packages ?? [];
+  for (const entry of packages) {
+    if (!entry?.name || !entry?.builtBy || !entry?.namespace || !entry?.what) {
+      throw new Error(`${path}: every package needs name, builtBy, namespace and what: ${JSON.stringify(entry)}`);
+    }
+  }
+  return packages;
+}
+
+export const RESERVED_NAMES = new Set(builtElsewhere().map((entry) => entry.name));
 
 // Names chosen by hand where the chart's own name would mislead in a registry
 // shared by every ConfigHub package. Argo CD from the argo-helm chart sits
