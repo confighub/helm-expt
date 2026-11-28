@@ -17172,7 +17172,7 @@ function entryAtAGlanceHtml(listings, siteHref = "") {
     : "";
   const bundle = ghcr?.state === "published-signed" && published
     ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(ghcr.reference)}</code>, signed by the ${workflowLink}: <code>${escapeHtml(ghcr.verifyCommand)}</code></p>
-      <p><strong>Earlier location.</strong> <code>${escapeHtml(published.reference)}</code></p>`
+      <p><strong>Earlier location.</strong> <code>${escapeHtml(published.reference.replace(/:latest@sha256:/, "@sha256:"))}</code></p>`
     : `${published ? `<p><strong>OCI bundle.</strong> <code>${escapeHtml(published.reference)}</code></p>` : ""}${ghcr
       ? `
       <p><strong>GitHub registry copy.</strong> The ${workflowLink} publishes this bundle as <code>${escapeHtml(ghcr.reference)}</code> and signs it after a merge. No receipt records that copy yet${published ? ", so use the reference above" : ""}.</p>`
