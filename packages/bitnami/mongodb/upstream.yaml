@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.bitnami.com/bitnami
 chart: mongodb
 # The newest chart version packaged here.
-version: 19.1.0
+version: 20.0.23
 # The name cub finds it by:
 #   cub package install mongodb --space <space>
 # which pulls oci://ghcr.io/confighub/packages/mongodb:<tag>.
@@ -17,3 +17,4 @@ versions:
   - {directory: 19.0.7, tag: v19.0.7}
   - {directory: 19.0.9, tag: v19.0.9}
   - {directory: 19.1.0, tag: v19.1.0}
+  - {directory: 20.0.23, tag: v20.0.23}

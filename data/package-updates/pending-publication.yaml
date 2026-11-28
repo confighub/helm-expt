@@ -18,3 +18,5 @@ spec:
       version: "2.68.1"
     - chart: "bitnami/memcached"
       version: "8.8.8"
+    - chart: "bitnami/mongodb"
+      version: "20.0.23"
