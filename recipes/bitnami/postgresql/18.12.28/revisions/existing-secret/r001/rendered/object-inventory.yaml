@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-postgresql-18.12.28-existing-secret-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "b7942ee83ef89100204111d2d213f42715c865044ddc4957b2220c6ef94bab04"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|postgresql|postgresql"
+      kind: "StatefulSet"
+      name: "postgresql"
+      namespace: "postgresql"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|postgresql|postgresql"
+      kind: "NetworkPolicy"
+      name: "postgresql"
+      namespace: "postgresql"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|postgresql|postgresql"
+      kind: "PodDisruptionBudget"
+      name: "postgresql"
+      namespace: "postgresql"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|postgresql|postgresql"
+      kind: "ServiceAccount"
+      name: "postgresql"
+      namespace: "postgresql"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|postgresql|postgresql"
+      kind: "Service"
+      name: "postgresql"
+      namespace: "postgresql"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|postgresql|postgresql-hl"
+      kind: "Service"
+      name: "postgresql-hl"
+      namespace: "postgresql"

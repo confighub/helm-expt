@@ -22,3 +22,5 @@ spec:
       version: "20.0.23"
     - chart: "bitnami/nginx"
       version: "25.2.19"
+    - chart: "bitnami/postgresql"
+      version: "18.12.28"

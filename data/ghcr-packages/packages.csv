@@ -92,7 +92,7 @@ pg-operator,percona/pg-operator,https://percona.github.io/percona-helm-charts/,v
 pgadmin4,runix/pgadmin4,https://helm.runix.net,v1.62.0,v1.62.0,oci://ghcr.io/confighub/packages/pgadmin4
 phpmyadmin,bitnami/phpmyadmin,https://charts.bitnami.com/bitnami,v20.0.0,v20.0.0,oci://ghcr.io/confighub/packages/phpmyadmin
 policy-reporter,policy-reporter/policy-reporter,https://kyverno.github.io/policy-reporter,v3.10.0,v3.9.1 v3.10.0,oci://ghcr.io/confighub/packages/policy-reporter
-postgresql,bitnami/postgresql,https://charts.bitnami.com/bitnami,v18.7.0,v18.6.7 v18.6.10 v18.7.0,oci://ghcr.io/confighub/packages/postgresql
+postgresql,bitnami/postgresql,https://charts.bitnami.com/bitnami,v18.12.28,v18.6.7 v18.6.10 v18.7.0 v18.12.28,oci://ghcr.io/confighub/packages/postgresql
 prometheus,prometheus-community/prometheus,https://prometheus-community.github.io/helm-charts,v29.9.0,v29.8.0 v29.9.0,oci://ghcr.io/confighub/packages/prometheus
 prometheus-adapter,prometheus-community/prometheus-adapter,https://prometheus-community.github.io/helm-charts,v5.3.0,v5.3.0,oci://ghcr.io/confighub/packages/prometheus-adapter
 prometheus-blackbox-exporter,prometheus-community/prometheus-blackbox-exporter,https://prometheus-community.github.io/helm-charts,v11.18.0,v11.10.0 v11.15.1 v11.18.0,oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter

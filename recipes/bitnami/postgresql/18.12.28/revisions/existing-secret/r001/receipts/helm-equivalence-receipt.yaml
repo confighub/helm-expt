@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "postgresql-existing-secret-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "b7942ee83ef89100204111d2d213f42715c865044ddc4957b2220c6ef94bab04"
+    objectCount: 6
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 7
+    uploadedManifestFiles: 7
+    separatedSecretFiles: 0
+    semanticObjectMatches: "6/6"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||postgresql"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run postgresql:compare"
