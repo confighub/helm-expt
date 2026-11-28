@@ -136,9 +136,9 @@ spec:
     -
       rank: 42
       ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
-      version: "2.60.1"
-      recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
-      package: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1"
+      version: "2.68.1"
+      recipe: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1"
+      package: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.68.1"
     -
       rank: 43
       ref: "autoscaler/cluster-autoscaler"

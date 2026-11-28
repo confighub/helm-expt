@@ -25,7 +25,7 @@ Summary:
 
 ```text
 charts: 80
-rendered Helm objects: 1090
+rendered Helm objects: 1092
 CRDs: 223
 charts with cluster RBAC: 48
 charts with webhooks: 11

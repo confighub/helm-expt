@@ -164,7 +164,7 @@ spec:
       repositoryURL: "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
       chart: "aws-ebs-csi-driver"
       ref: "aws-ebs-csi-driver/aws-ebs-csi-driver"
-      version: "2.60.1"
+      version: "2.68.1"
       proofFocus: "CSI driver, DaemonSet, RBAC, storage lifecycle"
     - rank: 43
       repository: "autoscaler"
