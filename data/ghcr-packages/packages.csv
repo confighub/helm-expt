@@ -25,7 +25,7 @@ cluster-autoscaler,autoscaler/cluster-autoscaler,https://kubernetes.github.io/au
 cluster-readiness-engine,nvidia/cluster-readiness-engine,oci://ghcr.io/nvidia,v0.6.0,v0.6.0,oci://ghcr.io/confighub/packages/cluster-readiness-engine
 consul,hashicorp/consul,https://helm.releases.hashicorp.com,v2.0.0,v2.0.0,oci://ghcr.io/confighub/packages/consul
 contour,bitnami/contour,https://charts.bitnami.com/bitnami,v21.1.4,v21.1.4,oci://ghcr.io/confighub/packages/contour
-coredns,coredns/coredns,https://coredns.github.io/helm,v1.45.2,v1.45.2,oci://ghcr.io/confighub/packages/coredns
+coredns,coredns/coredns,https://coredns.github.io/helm,v1.50.8,v1.45.2 v1.50.8,oci://ghcr.io/confighub/packages/coredns
 crossplane,crossplane-stable/crossplane,https://charts.crossplane.io/stable,v2.3.1,v2.3.1,oci://ghcr.io/confighub/packages/crossplane
 descheduler,descheduler/descheduler,https://kubernetes-sigs.github.io/descheduler/,v0.36.0,v0.36.0,oci://ghcr.io/confighub/packages/descheduler
 dex,dex/dex,https://charts.dexidp.io,v0.24.0,v0.24.0,oci://ghcr.io/confighub/packages/dex

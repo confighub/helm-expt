@@ -382,9 +382,9 @@ spec:
     -
       rank: 83
       ref: "coredns/coredns"
-      version: "1.45.2"
-      recipe: "recipes/coredns/coredns/1.45.2"
-      package: "packages/coredns/coredns/1.45.2"
+      version: "1.50.8"
+      recipe: "recipes/coredns/coredns/1.50.8"
+      package: "packages/coredns/coredns/1.50.8"
     -
       rank: 84
       ref: "descheduler/descheduler"

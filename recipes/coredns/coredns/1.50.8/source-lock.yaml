@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "coredns-coredns-1-50-8"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "coredns"
+  repositoryURL: "https://coredns.github.io/helm"
+  chart: "coredns"
+  ref: "coredns/coredns"
+  version: "1.50.8"
+  appVersion: "1.14.7"
+  packageSHA256: "3df3528d6826a60b3f049e87c1a119ad3d73de98deee4d3f540692406899b221"
+  packageBytes: 26577
+  capturedAt: "generated-by-next80-full-proof-harness"

@@ -26,3 +26,5 @@ spec:
       version: "18.12.28"
     - chart: "cloudnative-pg/cloudnative-pg"
       version: "0.29.2"
+    - chart: "coredns/coredns"
+      version: "1.50.8"

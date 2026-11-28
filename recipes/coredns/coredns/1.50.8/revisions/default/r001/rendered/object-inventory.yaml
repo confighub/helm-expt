@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "coredns-coredns-1-50-8-default-r001"
+  labels:
+    confighub.io/chart-ref: "coredns/coredns"
+    confighub.io/chart-version: "1.50.8"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "bac037f1d4392f9620f016d1d45f9e9bd9427137caf1544b467711f53e7344b4"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|coredns"
+      kind: "Deployment"
+      name: "coredns"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||coredns"
+      kind: "ClusterRoleBinding"
+      name: "coredns"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||coredns"
+      kind: "ClusterRole"
+      name: "coredns"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|coredns"
+      kind: "ConfigMap"
+      name: "coredns"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|coredns"
+      kind: "ServiceAccount"
+      name: "coredns"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|coredns"
+      kind: "Service"
+      name: "coredns"
+      namespace: "default"

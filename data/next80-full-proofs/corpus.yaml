@@ -452,7 +452,7 @@ spec:
       repositoryURL: "https://coredns.github.io/helm"
       chart: "coredns"
       ref: "coredns/coredns"
-      version: "1.45.2"
+      version: "1.50.8"
       proofFocus: "DNS deployment, Service, config"
     - rank: 84
       repository: "descheduler"
