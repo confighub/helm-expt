@@ -704,6 +704,12 @@ async function refreshViews({ jobs = defaultJobs(), maxPasses = 6 } = {}) {
     for (const command of [...commands, "npm run site:generate"]) {
       const result = spawnSync("sh", ["-c", command], { cwd: repoRoot, env: { ...process.env, ...env }, encoding: "utf8", maxBuffer: 1024 * 1024 * 200 });
       console.log(`  ${result.status === 0 ? "ok  " : "FAIL"} ${command}`);
+      // A generator that fails every pass leaves its view stale, and its own
+      // error is the only place that says why.
+      if (result.status !== 0) {
+        const why = `${result.stderr ?? ""}\n${result.stdout ?? ""}`.trim().split("\n").filter(Boolean).slice(-5);
+        for (const line of why) console.log(`       ${line}`);
+      }
     }
   }
   throw new Error(`catalog views were still stale after ${maxPasses} passes`);
