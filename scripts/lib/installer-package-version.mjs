@@ -14,7 +14,8 @@
 // Only installer.yaml metadata.version and the registry tag carry the v. The
 // package directory stays named by the chart version,
 // packages/<repo>/<chart>/<chart version>, because recipes, receipts and
-// verifiers all find a package by its chart version.
+// verifiers all find a package by its chart version. A package revision is
+// named <chart version>-r<n> in the directory, metadata.version and tag alike.
 
 import { existsSync, readFileSync } from "node:fs";
 import { isAbsolute, join } from "node:path";

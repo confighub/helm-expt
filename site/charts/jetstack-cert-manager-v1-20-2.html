@@ -1248,7 +1248,7 @@ e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0  jetstack-cert-
       <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       <div class="card"><table>
         <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
-        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 6 CRD object(s) are recorded. Follow the base's recorded plan: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base when one is available.</td></tr></tbody>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 6 CRD object(s) are recorded. Follow the base's recorded plan: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base <code>no-crds</code>.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

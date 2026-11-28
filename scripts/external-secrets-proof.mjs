@@ -5,6 +5,7 @@
 // harness env overrides (HELM_EXPT_CHART_VERSION / HELM_EXPT_PROOF_OUTPUT_ROOT) via
 // the kit.
 
+import { compareVersions } from "./lib/ghcr-packages.mjs";
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { reviewedExpectations } from "./lib/reviewed-expectations.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
@@ -25,12 +26,157 @@ const versionExpectations = {
   "2.7.0": { defaultObjects: 43, noCrdsObjects: 19, crds: 24 },
   "2.8.0": { defaultObjects: 44, noCrdsObjects: 19, crds: 25 },
   "2.10.0": { defaultObjects: 44, noCrdsObjects: 19, crds: 25 },
+  "2.15.0": { defaultObjects: 49, noCrdsObjects: 24, crds: 25 },
 };
 const expected = reviewedExpectations("external-secrets", chart.version, versionExpectations, import.meta.url);
+const atLeast = (version) => compareVersions(chart.version, version) >= 0;
+
+// The webhook mounts the Secret external-secrets-webhook, which the chart
+// renders empty for the cert-controller to fill. The cert-controller fills it
+// but never creates it, and ConfigHub never uploads a rendered Secret, so a
+// ConfigHub install waits forever for it. From 2.15.0 both bases add, through
+// the chart's extraObjects, a Job that creates the empty Secret in the cluster
+// with server-side apply, which leaves the certificate the cert-controller
+// writes alone. Argo CD runs it as a Sync hook on every sync; other tools run
+// it once. The bases also mark the CRDs for server-side apply, because two of
+// them are too large for the annotation client-side apply records. Earlier
+// versions keep the layout they were published with.
+const createsWebhookSecret = atLeast("2.15.0");
+const webhookSecretInit = "external-secrets-webhook-secret-init";
+const kubectlImage =
+  "registry.k8s.io/kubectl:v1.35.0@sha256:0bb95b2a450875fc8ceaea2f9987a99fe27c228846e2e00b93b65ebb0d59034e";
+const webhookSecretValues = `extraObjects:
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: ${webhookSecretInit}
+      namespace: "{{ .Release.Namespace }}"
+      labels:
+        app.kubernetes.io/name: ${webhookSecretInit}
+        app.kubernetes.io/instance: external-secrets
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: Role
+    metadata:
+      name: ${webhookSecretInit}
+      namespace: "{{ .Release.Namespace }}"
+      labels:
+        app.kubernetes.io/name: ${webhookSecretInit}
+        app.kubernetes.io/instance: external-secrets
+    rules:
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["create"]
+      - apiGroups: [""]
+        resources: ["secrets"]
+        resourceNames: ["external-secrets-webhook"]
+        verbs: ["get", "patch"]
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: ${webhookSecretInit}
+      namespace: "{{ .Release.Namespace }}"
+      labels:
+        app.kubernetes.io/name: ${webhookSecretInit}
+        app.kubernetes.io/instance: external-secrets
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: Role
+      name: ${webhookSecretInit}
+    subjects:
+      - kind: ServiceAccount
+        name: ${webhookSecretInit}
+        namespace: "{{ .Release.Namespace }}"
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: ${webhookSecretInit}
+      namespace: "{{ .Release.Namespace }}"
+      labels:
+        app.kubernetes.io/name: ${webhookSecretInit}
+        app.kubernetes.io/instance: external-secrets
+    data:
+      secret.yaml: |
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: external-secrets-webhook
+          labels:
+            app.kubernetes.io/name: external-secrets-webhook
+            app.kubernetes.io/instance: external-secrets
+            external-secrets.io/component: webhook
+  - apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: ${webhookSecretInit}
+      namespace: "{{ .Release.Namespace }}"
+      labels:
+        app.kubernetes.io/name: ${webhookSecretInit}
+        app.kubernetes.io/instance: external-secrets
+      annotations:
+        argocd.argoproj.io/hook: Sync
+        argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    spec:
+      backoffLimit: 6
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: ${webhookSecretInit}
+            app.kubernetes.io/instance: external-secrets
+        spec:
+          serviceAccountName: ${webhookSecretInit}
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: kubectl
+              image: ${kubectlImage}
+              args:
+                - apply
+                - --server-side
+                - --field-manager=${webhookSecretInit}
+                - --filename=/manifests/secret.yaml
+              env:
+                - name: HOME
+                  value: /tmp
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              volumeMounts:
+                - name: manifests
+                  mountPath: /manifests
+                  readOnly: true
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            - name: manifests
+              configMap:
+                name: ${webhookSecretInit}
+            - name: tmp
+              emptyDir: {}
+`;
+const serverSideCRDValues = `crds:
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
+`;
+
+const webhookSecretTargetFact = {
+  namespace: "external-secrets",
+  name: "external-secrets-webhook",
+  keys: [],
+  sourceVariant: "default",
+  purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply",
+  deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+  suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
+};
 
 const externalSecretsCRDs = [
   "acraccesstokens.generators.external-secrets.io",
-  ...(["2.7.0", "2.8.0", "2.10.0"].includes(chart.version)
+  ...(atLeast("2.7.0")
     ? ["beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io"]
     : []),
   "cloudsmithaccesstokens.generators.external-secrets.io",
@@ -44,7 +190,7 @@ const externalSecretsCRDs = [
   "gcraccesstokens.generators.external-secrets.io",
   "generatorstates.generators.external-secrets.io",
   "githubaccesstokens.generators.external-secrets.io",
-  ...(["2.8.0", "2.10.0"].includes(chart.version)
+  ...(atLeast("2.8.0")
     ? ["gitlabdeploytokens.generators.external-secrets.io"]
     : []),
   "grafanas.generators.external-secrets.io",
@@ -66,26 +212,17 @@ const variants = [
     base: "default",
     displayName: "default",
     valuesFile: "effective-values.yaml",
-    valuesText: "",
-    valuesSummary: "chart defaults",
+    valuesText: createsWebhookSecret ? `${serverSideCRDValues}${webhookSecretValues}` : "",
+    valuesSummary: createsWebhookSecret
+      ? "chart defaults, CRDs marked for server-side apply, and a Job that creates the webhook Secret"
+      : "chart defaults",
     expectedObjectCount: expected.defaultObjects,
     expectedCRDCount: expected.crds,
     expectedSecretCount: 1,
-    targetFacts: {
-      requiredSecrets: [
-        {
-          namespace: "external-secrets",
-          name: "external-secrets-webhook",
-          keys: [],
-          sourceVariant: "default",
-          purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply",
-          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
-          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
-        },
-      ],
-    },
-    targetFactNote:
-      "includes external-secrets CRDs and renders an empty webhook Secret that installer separates; ConfigHub/GitOps lanes must stage that Secret before sync so the cert-controller can populate it",
+    ...(createsWebhookSecret ? {} : { targetFacts: { requiredSecrets: [webhookSecretTargetFact] } }),
+    targetFactNote: createsWebhookSecret
+      ? "includes external-secrets CRDs and a Job that creates the empty webhook Secret in the cluster for the cert-controller to fill; the chart's own empty Secret is still separated by installer and need not be applied"
+      : "includes external-secrets CRDs and renders an empty webhook Secret that installer separates; ConfigHub/GitOps lanes must stage that Secret before sync so the cert-controller can populate it",
   },
   {
     name: "no-crds",
@@ -93,23 +230,15 @@ const variants = [
     displayName: "CRDs disabled",
     valuesFile: "effective-values-no-crds.yaml",
     valuesText: `installCRDs: false
-`,
-    valuesSummary: "external-secrets CRDs disabled",
+${createsWebhookSecret ? webhookSecretValues : ""}`,
+    valuesSummary: createsWebhookSecret
+      ? "external-secrets CRDs disabled, with a Job that creates the webhook Secret"
+      : "external-secrets CRDs disabled",
     expectedObjectCount: expected.noCrdsObjects,
     expectedCRDCount: 0,
     expectedSecretCount: 1,
     targetFacts: {
-      requiredSecrets: [
-        {
-          namespace: "external-secrets",
-          name: "external-secrets-webhook",
-          keys: [],
-          sourceVariant: "default",
-          purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply",
-          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
-          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
-        },
-      ],
+      ...(createsWebhookSecret ? {} : { requiredSecrets: [webhookSecretTargetFact] }),
       requiredCRDs: externalSecretsCRDs.map((name) => ({
         name,
         sourceVariant: "default",
@@ -117,8 +246,9 @@ const variants = [
         deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
       })),
     },
-    targetFactNote:
-      "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs and the separated webhook Secret must be staged before sync",
+    targetFactNote: createsWebhookSecret
+      ? "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs, and a Job creates the webhook Secret"
+      : "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs and the separated webhook Secret must be staged before sync",
   },
 ];
 
@@ -203,12 +333,29 @@ runProofCli({
         disposition: "built-in-cert-controller",
         reason: "defaults to built-in cert-controller and an empty webhook Secret rather than cert-manager Certificate objects",
       },
-      {
-        path: "extraObjects",
-        variant: "all",
-        disposition: "empty-extension-slot",
-        reason: "chart exposes a tpl-powered extension slot; promoted variants keep it empty",
-      },
+      createsWebhookSecret
+        ? {
+            path: "extraObjects",
+            variant: "all",
+            disposition: "webhook-secret-init-job",
+            reason: "renders a ServiceAccount, Role, RoleBinding, ConfigMap, and Job that create the empty webhook Secret in the cluster, because ConfigHub never uploads rendered Secrets",
+          }
+        : {
+            path: "extraObjects",
+            variant: "all",
+            disposition: "empty-extension-slot",
+            reason: "chart exposes a tpl-powered extension slot; promoted variants keep it empty",
+          },
+      ...(createsWebhookSecret
+        ? [
+            {
+              path: "crds.annotations",
+              variant: "default",
+              disposition: "server-side-apply-crds",
+              reason: "marks the CRDs for Argo CD server-side apply, because clustersecretstores and secretstores are too large for client-side apply",
+            },
+          ]
+        : []),
       {
         path: "bitwarden-sdk-server.enabled",
         variant: "all",
@@ -298,14 +445,23 @@ runProofCli({
         "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||secretstore-validate",
       ],
     },
-    {
-      category: "webhook-secret",
-      status: "target-fact-and-observe",
-      object: "v1|Secret|external-secrets|external-secrets-webhook",
-      note: "rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later.",
-    },
+    createsWebhookSecret
+      ? {
+          category: "webhook-secret",
+          status: "created-in-cluster-and-observe",
+          object: "v1|Secret|external-secrets|external-secrets-webhook",
+          note: "rendered Secret is separated by installer and not needed: the external-secrets-webhook-secret-init Job creates it empty with server-side apply, and cert-controller populates certificate material later.",
+        }
+      : {
+          category: "webhook-secret",
+          status: "target-fact-and-observe",
+          object: "v1|Secret|external-secrets|external-secrets-webhook",
+          note: "rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later.",
+        },
     { category: "cluster-rbac", status: "scan-and-review", evidence: "scan receipts" },
-    { category: "tpl", status: "controlled-by-empty-defaults", note: "extraObjects uses tpl; promoted variants do not set that value." },
+    createsWebhookSecret
+      ? { category: "tpl", status: "reviewed-extra-objects", note: "extraObjects uses tpl; promoted variants set it only to the reviewed webhook Secret Job and its RBAC." }
+      : { category: "tpl", status: "controlled-by-empty-defaults", note: "extraObjects uses tpl; promoted variants do not set that value." },
     { category: "installer-support-object", status: "handled", object: "v1|Namespace||external-secrets" },
   ],
   dossier: {
@@ -314,9 +470,16 @@ runProofCli({
       "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
       "Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml.",
       "Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.",
-      "The rendered webhook Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material after apply.",
+      createsWebhookSecret
+        ? "The rendered webhook Secret is separated by installer and not uploaded; the external-secrets-webhook-secret-init Job creates it empty in the cluster, and cert-controller populates certificate material after apply."
+        : "The rendered webhook Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material after apply.",
       "A stricter cub-scout live witness on kind Kubernetes 1.30 found that the rendered ExternalSecret CRD contains spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile.",
-      "extraObjects is a tpl-powered extension slot; promoted variants keep it empty.",
+      createsWebhookSecret
+        ? "extraObjects is a tpl-powered extension slot; promoted variants use it only for the webhook Secret Job and its RBAC."
+        : "extraObjects is a tpl-powered extension slot; promoted variants keep it empty.",
+      ...(createsWebhookSecret
+        ? ["The CRDs carry the Argo CD ServerSideApply=true sync option, because clustersecretstores and secretstores are too large for client-side apply."]
+        : []),
     ],
     knownControlPoints: [
       "capability-profile",

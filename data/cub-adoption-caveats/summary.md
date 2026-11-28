@@ -60,7 +60,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | hashicorp/consul | `default-control-plane` | 28 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | hashicorp/terraform | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jaegertracing/jaeger-operator | `default` | 3 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| jetstack/cert-manager | `default` | 6 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| jetstack/cert-manager | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jetstack/trust-manager | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kai-scheduler/kai-scheduler | `default` | 6 | apply CRDs first + wait, or use a controller (#1015/#1019) |

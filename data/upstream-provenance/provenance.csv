@@ -20,6 +20,7 @@ aws-efa-k8s-device-plugin,v0.5.29,https://aws.github.io/eks-charts,unsigned,no-p
 cert-manager,v1.20.2,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager,v1.21.0,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager,v1.21.1,https://charts.jetstack.io,signed,provenance-file-published
+cert-manager,v1.21.3,https://charts.jetstack.io,signed,provenance-file-published
 cert-manager-csi-driver,v0.14.0,https://charts.jetstack.io,unsigned,no-provenance-file
 cloudnative-pg,0.28.2,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
 cloudnative-pg,0.29.0,https://cloudnative-pg.github.io/charts,signed,provenance-file-published
@@ -39,6 +40,7 @@ eks-chart,1.16.3,oci://public.ecr.aws/aws-controllers-k8s,unknown,oci
 elasticsearch,22.1.6,https://charts.bitnami.com/bitnami,unknown,oci-hosted-chart
 external-dns,1.21.1,https://kubernetes-sigs.github.io/external-dns,unsigned,no-provenance-file
 external-secrets,2.10.0,https://charts.external-secrets.io,signed,provenance-file-published
+external-secrets,2.15.0,https://charts.external-secrets.io,signed,provenance-file-published
 external-secrets,2.5.0,https://charts.external-secrets.io,signed,provenance-file-published
 external-secrets,2.7.0,https://charts.external-secrets.io,signed,provenance-file-published
 external-secrets,2.8.0,https://charts.external-secrets.io,signed,provenance-file-published
@@ -58,6 +60,7 @@ gpu-operator,v26.7.1,https://helm.ngc.nvidia.com/nvidia,unsigned,no-provenance-f
 grafana,10.5.15,https://grafana.github.io/helm-charts,unsigned,no-provenance-file
 iam-chart,1.7.3,oci://public.ecr.aws/aws-controllers-k8s,unknown,oci
 ingress-nginx,4.15.1,https://kubernetes.github.io/ingress-nginx,unsigned,no-provenance-file
+ingress-nginx,4.15.1-r1,https://kubernetes.github.io/ingress-nginx,unknown,version-not-in-index
 istiod,1.30.0,https://istio-release.storage.googleapis.com/charts,unsigned,no-provenance-file
 jaeger,4.8.0,https://jaegertracing.github.io/helm-charts,unsigned,no-provenance-file
 jaeger-operator,2.57.0,https://jaegertracing.github.io/helm-charts,unsigned,no-provenance-file

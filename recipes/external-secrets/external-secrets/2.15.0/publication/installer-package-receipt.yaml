@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "external-secrets-external-secrets-2.15.0"
+spec:
+  chart:
+    name: "external-secrets"
+    repository: "external-secrets"
+    version: "2.15.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/external-secrets/external-secrets/2.15.0 -o <tmp>/external-secrets-2.15.0.tgz"
+    sha256: "9969c288aea17cbdafdbb8c5b85b80d5b15b0aeeaee7e9dbbae74be6210643c3"
+  package:
+    name: "external-secrets-external-secrets"
+    path: "packages/external-secrets/external-secrets/2.15.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "c33fb1081a31e60b7cf8f04d0005bb5a65f9009f87e762af537b1d02dbd3cedd"
+        bytes: 315
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "34a7a83602b0c3f83d584f5a5c8f0e7d6b26f4f3c4f6806797ce740981e9f271"
+        bytes: 2051351
+      -
+        path: "bases/no-crds/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/no-crds/upstream.yaml"
+        sha256: "281080bf2613190099636859de76cbaf8109499a4dc9c3d85bd47e7dcab4a886"
+        bytes: 26127
+      -
+        path: "collector/target-facts.sh"
+        sha256: "fe5b72a99418717c0b01e5acbf1ba61f8f73c08723948419a4994c0ad9e399f0"
+        bytes: 10315
+      -
+        path: "installer.yaml"
+        sha256: "af5c0cf5b830d398112a362410f68f24d955143b21df58a53b8192b803d2d2da"
+        bytes: 7448
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "9694824b4473f0b1c21a08effede961ba84609f464cd5fdb6d96e979aa24809b"
+        bytes: 1876755
+    version: "v2.15.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||external-secrets"
+      base: "default"
+      command: "cub installer setup --pull packages/external-secrets/external-secrets/2.15.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+      cubInstallObjectCountIncludingSupport: 50
+      helmReleaseObjectCount: 49
+      semanticObjectMatches: "49/49"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||external-secrets"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/external-secrets/external-secrets/2.15.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+      cubInstallObjectCountIncludingSupport: 25
+      helmReleaseObjectCount: 24
+      semanticObjectMatches: "24/24"
+      separatedSecretCount: 1
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

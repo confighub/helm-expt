@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ingress-nginx-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "bd8eaecf1947090d776de86bef2ab4fbff9d29db799ac462cfbca53591da62cf"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "Admission webhook availability needs a fresh observation receipt after apply"
+    - "Admission certificate Jobs run as Argo CD Sync hooks; the webhook caBundle needs observation after apply"
+    - "Cluster-scoped RBAC needs production review"
+    - "keeps the admission webhook objects and the chart's certificate Jobs, which create the admission Secret and patch the webhook's CA in the cluster; Argo CD runs the Jobs as Sync hooks"

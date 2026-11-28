@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "external-secrets-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "34a7a83602b0c3f83d584f5a5c8f0e7d6b26f4f3c4f6806797ce740981e9f271"
+    objectCount: 49
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 50
+    uploadedManifestFiles: 50
+    separatedSecretFiles: 1
+    semanticObjectMatches: "49/49"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||external-secrets"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run external-secrets:compare"

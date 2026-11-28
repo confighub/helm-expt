@@ -68,6 +68,7 @@ import { createRequire } from "node:module";
 import { availableParallelism, tmpdir } from "node:os";
 import { join } from "node:path";
 
+import { compareVersions as compareCatalogVersions } from "./lib/ghcr-packages.mjs";
 import { check, repoRoot, sha256File } from "./lib/proof-common.mjs";
 import { ghcrPackageIdentity, ghcrPackageReceiptRel } from "./lib/ghcr-packages.mjs";
 import { insertTableEntry } from "./lib/reviewed-expectations.mjs";
@@ -214,22 +215,10 @@ function usage() {
 // ---------------------------------------------------------------- catalog
 
 // Versions compare by their numeric parts, without a leading v; a prerelease
-// sorts before its release.
+// sorts before its release, and a package revision after the version it
+// corrects. The order is the publisher's (scripts/lib/ghcr-packages.mjs).
 export function compareVersions(left, right) {
-  const parse = (value) => {
-    const [core, pre = ""] = String(value).replace(/^v/, "").split("+")[0].split(/-(.*)/s);
-    return { parts: core.split(".").map((part) => Number.parseInt(part, 10) || 0), pre };
-  };
-  const a = parse(left);
-  const b = parse(right);
-  for (let index = 0; index < Math.max(a.parts.length, b.parts.length); index += 1) {
-    const diff = (a.parts[index] ?? 0) - (b.parts[index] ?? 0);
-    if (diff) return Math.sign(diff);
-  }
-  if (a.pre === b.pre) return 0;
-  if (!a.pre) return 1;
-  if (!b.pre) return -1;
-  return a.pre < b.pre ? -1 : 1;
+  return Math.sign(compareCatalogVersions(left, right));
 }
 
 export function isStableVersion(version) {
@@ -508,7 +497,14 @@ function verifyProofKit(chart, version, log) {
     sha256: lock.match(/exactArtifact:\s*\n\s*url:[^\n]*\n\s*sha256:\s*"?([0-9a-f]{64})"?/)?.[1] ?? "",
   };
   check(artifact.url && artifact.sha256, `recipes/${chart.ref}/${version}/source-lock.yaml has no exact artifact`);
-  const env = proofKitEnv(chart, version, artifact);
+  // A package revision is rendered from the chart version its lock records,
+  // and its declaration builds it when asked for that revision.
+  const revision = lock.match(/\n\s*packageRevision:\s*(\d+)/)?.[1];
+  const chartVersion = revision ? lock.match(/\n\s*chartVersion:\s*"?([^"\n]+)"?/)?.[1] : version;
+  const env = {
+    ...proofKitEnv(chart, chartVersion, artifact),
+    ...(revision ? { HELM_EXPT_PACKAGE_REVISION: revision } : {}),
+  };
   for (const flag of ["--verify-proof", "--verify-proof-self-test", "--verify-package"]) {
     run(["node", chart.declaration, flag], { env, pinned: true, log });
   }

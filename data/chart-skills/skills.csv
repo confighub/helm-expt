@@ -57,6 +57,7 @@ elastic/logstash,8.5.1,target-facts-and-lifecycle; live-parity,2,target-facts-an
 elastic/metricbeat,8.5.1,target-facts-and-lifecycle,1,target-facts-and-lifecycle,stateful-storage,docs/skills/target-facts-and-lifecycle.md
 external-dns/external-dns,1.21.1,target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,3,target-facts-and-lifecycle,crds; live,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 external-secrets/external-secrets,2.10.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
+external-secrets/external-secrets,2.15.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 external-secrets/external-secrets,2.5.0,serious-chart-playbooks; large-app-evidence-funnel; live-parity,3,serious-chart-playbooks,named-serious; live,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 external-secrets/external-secrets,2.7.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 external-secrets/external-secrets,2.8.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
@@ -84,6 +85,7 @@ hashicorp/consul,2.0.0,serious-chart-playbooks; hook-and-secret-lifecycle; targe
 hashicorp/terraform,1.1.2,target-facts-and-lifecycle; large-app-evidence-funnel,2,target-facts-and-lifecycle,crds,docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md
 hashicorp/vault,0.32.0,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,webhooks; stateful-storage; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
 ingress-nginx/ingress-nginx,4.15.1,hook-and-secret-lifecycle; target-facts-and-lifecycle; live-parity,3,hook-and-secret-lifecycle,webhooks; live,docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md
+ingress-nginx/ingress-nginx,4.15.1-r1,,0,none,,
 istio/gateway,1.30.0,,0,none,,
 istio/istiod,1.30.0,,0,none,,
 jaegertracing/jaeger-operator,2.57.0,serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity,5,serious-chart-playbooks,crds+webhooks; webhooks; crds; live,docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
@@ -92,6 +94,7 @@ jetstack/cert-manager-csi-driver,v0.14.0,live-parity,1,live-parity,live,docs/ski
 jetstack/cert-manager,v1.20.2,serious-chart-playbooks; large-app-evidence-funnel; live-parity,3,serious-chart-playbooks,named-serious; live,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md
 jetstack/cert-manager,v1.21.0,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 jetstack/cert-manager,v1.21.1,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
+jetstack/cert-manager,v1.21.3,serious-chart-playbooks; large-app-evidence-funnel,2,serious-chart-playbooks,named-serious,docs/skills/serious-chart-playbooks.md; docs/skills/large-app-evidence-funnel.md
 jetstack/trust-manager,v0.22.1,live-parity,1,live-parity,live,docs/skills/live-parity.md
 k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics,1.19.2,,0,none,,
 kai-scheduler/kai-scheduler,v0.14.1,,0,none,,

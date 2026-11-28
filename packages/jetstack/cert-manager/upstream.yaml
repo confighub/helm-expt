@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.jetstack.io
 chart: cert-manager
 # The newest chart version packaged here.
-version: v1.21.1
+version: v1.21.3
 # The name cub finds it by:
 #   cub package install cert-manager --space <space>
 # which pulls oci://ghcr.io/confighub/packages/cert-manager:<tag>.
@@ -17,3 +17,4 @@ versions:
   - {directory: v1.20.2, tag: v1.20.2}
   - {directory: v1.21.0, tag: v1.21.0}
   - {directory: v1.21.1, tag: v1.21.1}
+  - {directory: v1.21.3, tag: v1.21.3}

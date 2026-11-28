@@ -1,0 +1,30 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "ingress-nginx-ingress-nginx"
+  version: "v4.15.1-r1"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+    -
+      name: "admission-disabled"
+      path: "bases/admission-disabled"
+      description: "ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+    -
+      name: "internal-clusterip"
+      path: "bases/internal-clusterip"
+      description: "ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1"
+  transformers:
+    -
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"

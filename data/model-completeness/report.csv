@@ -57,6 +57,7 @@ elastic/logstash@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-rev
 elastic/metricbeat@8.5.1,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/elastic/metricbeat/8.5.1
 external-dns/external-dns@1.21.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,proof-grade,not-reviewed-for-production,none,recipes/external-dns/external-dns/1.21.1
 external-secrets/external-secrets@2.10.0,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,behaviorally_complete,recipes/external-secrets/external-secrets/2.10.0
+external-secrets/external-secrets@2.15.0,no,4/6,yes,no,no,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,behaviorally_complete;readable,recipes/external-secrets/external-secrets/2.15.0
 external-secrets/external-secrets@2.5.0,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,behaviorally_complete,recipes/external-secrets/external-secrets/2.5.0
 external-secrets/external-secrets@2.7.0,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,behaviorally_complete,recipes/external-secrets/external-secrets/2.7.0
 external-secrets/external-secrets@2.8.0,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,behaviorally_complete,recipes/external-secrets/external-secrets/2.8.0
@@ -84,6 +85,7 @@ hashicorp/consul@2.0.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,p
 hashicorp/terraform@1.1.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/hashicorp/terraform/1.1.2
 hashicorp/vault@0.32.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-supported,production-review-ready,none,recipes/hashicorp/vault/0.32.0
 ingress-nginx/ingress-nginx@4.15.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-supported,production-review-ready,none,recipes/ingress-nginx/ingress-nginx/4.15.1
+ingress-nginx/ingress-nginx@4.15.1-r1,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/ingress-nginx/ingress-nginx/4.15.1-r1
 istio/gateway@1.30.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/istio/gateway/1.30.0
 istio/istiod@1.30.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/istio/istiod/1.30.0
 jaegertracing/jaeger-operator@2.57.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/jaegertracing/jaeger-operator/2.57.0
@@ -92,6 +94,7 @@ jetstack/cert-manager-csi-driver@v0.14.0,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,pr
 jetstack/cert-manager@v1.20.2,no,5/6,yes,no,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,behaviorally_complete,recipes/jetstack/cert-manager/v1.20.2
 jetstack/cert-manager@v1.21.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/jetstack/cert-manager/v1.21.0
 jetstack/cert-manager@v1.21.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/jetstack/cert-manager/v1.21.1
+jetstack/cert-manager@v1.21.3,no,5/6,yes,yes,no,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,readable,recipes/jetstack/cert-manager/v1.21.3
 jetstack/trust-manager@v0.22.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,not-reviewed-for-production,none,recipes/jetstack/trust-manager/v0.22.1
 k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,3,catalog-candidate,not-reviewed-for-production,none,recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2
 kai-scheduler/kai-scheduler@v0.14.1,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/kai-scheduler/kai-scheduler/v0.14.1

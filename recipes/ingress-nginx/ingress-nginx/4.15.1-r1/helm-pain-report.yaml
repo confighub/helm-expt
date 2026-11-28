@@ -1,0 +1,135 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPainReport"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-r1"
+spec:
+  chart:
+    name: "ingress-nginx/ingress-nginx"
+    version: "4.15.1-r1"
+    source: "https://kubernetes.github.io/ingress-nginx"
+    digest: "3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c"
+  supportedScopeStatus: "no-unhandled-pain-points-for-supported-scopes"
+  supportedScopes:
+    []
+  supportedVariants:
+    []
+  productionReadiness: "not-reviewed-for-production"
+  notes:
+    - "Default chart renders an admission Service and ValidatingWebhookConfiguration."
+    - "The default base keeps the admission certificate create/patch Jobs, which Argo CD runs as Sync hooks; the published 4.15.1 left them out, and its controller waited for the Secret they create."
+    - "The default base's kustomization makes the Jobs' RBAC ordinary resources and removes ttlSecondsAfterFinished from the Jobs; nothing else differs from the Helm render."
+    - "admission-disabled variant removes the admission Service and ValidatingWebhookConfiguration from the rendered revision."
+    - "internal-clusterip variant also changes the controller Service from LoadBalancer to ClusterIP for local/internal targets."
+    - "Admission webhook readiness must be observed after apply because a rendered object alone does not prove webhook health."
+  painPoints:
+    -
+      id: "source-lock"
+      detectedPainPoint: "source-lock requires source-lock.yaml"
+      evidence:
+        - "source-lock.yaml"
+      configHubHome: "source-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "source-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "dependency-lock"
+      detectedPainPoint: "chart has no subchart dependencies"
+      evidence:
+        - "dependency-lock.yaml"
+      configHubHome: "dependency-lock"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "dependency-lock.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "capability-profile"
+      detectedPainPoint: "service appProtocol and autoscaling branches are bound to the named Kubernetes capability profile."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "capability-profile"
+      disposition: "handled-by-capability-profile"
+      linkedReceipt: "revisions/default/r001/receipts/render-receipt.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "hook-policy"
+      detectedPainPoint: "the default base keeps the admission certificate Jobs and their RBAC; its kustomization makes the RBAC ordinary resources and the Jobs Argo CD Sync hooks. admission-disabled and internal-clusterip render without hooks."
+      evidence:
+        - "keep-admission-jobs-as-argo-sync-hooks"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-lifecycle-policy"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "package-base-patch"
+      detectedPainPoint: "the only differences from the Helm render are the hook annotations and ttlSecondsAfterFinished of the seven admission hook objects; the package check compares every other field with Helm."
+      evidence:
+        - "bases/default/kustomization.yaml in the package"
+      configHubHome: "recipe"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "reviewed"
+    -
+      id: "target-facts"
+      detectedPainPoint: "the default base's create Job makes the admission Secret in the cluster, so nothing is staged before sync."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "not-required"
+    -
+      id: "admission-webhook"
+      detectedPainPoint: "admission-webhook affects admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"
+      evidence:
+        - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"
+      configHubHome: "lifecycle-policy"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "variant-controlled"
+    -
+      id: "cluster-rbac"
+      detectedPainPoint: "cluster-rbac requires scan receipts"
+      evidence:
+        - "scan receipts"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/scan-receipt.yaml"
+      supportedVariantStatus: "scan-and-review"
+    -
+      id: "tpl"
+      detectedPainPoint: "chart has tpl extension points; promoted variants do not set those values."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "extension-slot"
+      disposition: "needs-operator-decision"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "controlled-by-empty-defaults"
+    -
+      id: "installer-support-object"
+      detectedPainPoint: "installer-support-object affects v1|Namespace||ingress-nginx"
+      evidence:
+        - "v1|Namespace||ingress-nginx"
+      configHubHome: "recipe"
+      disposition: "absorbed-into-recipe"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "handled"
+    -
+      id: "scan-gate"
+      detectedPainPoint: "Current scan gate is warn-production-blocked"
+      evidence:
+        - "helm-plan.yaml"
+        - "scan receipts"
+        - "install gates"
+      configHubHome: "scan-gate"
+      disposition: "handled-by-scan-or-gate"
+      linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
+      supportedVariantStatus: "warn-production-blocked"
+    -
+      id: "value-model-diagnostics"
+      detectedPainPoint: "Helm values can be unknown, dead, misspelled, shadowed, or ignored unless the values model records the analysis boundary."
+      evidence:
+        - "value-model.yaml"
+      configHubHome: "value-model"
+      disposition: "absorbed-into-value-model"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
+  answerForSkepticalHelmUser: "ingress-nginx/ingress-nginx@4.15.1-r1 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, lifecycle-policy, recipe, target-fact-requirement, scan-gate, extension-slot, value-model. No supported scopes are declared; production readiness remains not-reviewed-for-production."

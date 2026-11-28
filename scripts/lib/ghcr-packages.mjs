@@ -6,6 +6,8 @@
 // packages/<repo>/<chart>/<version>/. Each chart is published as one OCI
 // repository, named by its chart name, with one tag per version: the chart
 // version with a leading "v", as every ConfigHub package version is written.
+// A package revision, packages/<repo>/<chart>/<version>-r<n>/, is tagged the
+// same way, v<version>-r<n>.
 
 import { cpSync, existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
@@ -53,11 +55,18 @@ function isDir(path) {
 }
 
 // compareVersions orders chart versions as SemVer does, ignoring a leading "v".
-// A prerelease sorts below its release.
+// A prerelease sorts below its release. A package revision, <version>-r<n>
+// (docs/reference/how-the-catalog-is-built.md), sorts above the version it
+// corrects and below the next one.
 export function compareVersions(left, right) {
   const parse = (value) => {
-    const [core, pre = ""] = String(value).replace(/^v/, "").split("+")[0].split(/-(.*)/s);
-    return { parts: core.split(".").map((part) => Number.parseInt(part, 10) || 0), pre };
+    const [core, suffix = ""] = String(value).replace(/^v/, "").split("+")[0].split(/-(.*)/s);
+    const revision = /^r([1-9][0-9]*)$/.exec(suffix);
+    return {
+      parts: core.split(".").map((part) => Number.parseInt(part, 10) || 0),
+      pre: revision ? "" : suffix,
+      revision: revision ? Number(revision[1]) : 0,
+    };
   };
   const a = parse(left);
   const b = parse(right);
@@ -65,6 +74,7 @@ export function compareVersions(left, right) {
     const diff = (a.parts[i] ?? 0) - (b.parts[i] ?? 0);
     if (diff !== 0) return diff;
   }
+  if (a.revision !== b.revision) return a.revision - b.revision;
   if (a.pre === b.pre) return 0;
   if (a.pre === "") return 1;
   if (b.pre === "") return -1;

@@ -1,0 +1,144 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "external-secrets-external-secrets-2.15.0-default"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "8fa9feb283428f1bf9489b3091320acc638fc253303d569ebecee04abf9b2455"
+  mergedValuesCaptured: false
+  values:
+    crds:
+      annotations:
+        argocd.argoproj.io/sync-options: "ServerSideApply=true"
+    extraObjects:
+      -
+        apiVersion: "v1"
+        kind: "ServiceAccount"
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "external-secrets"
+            app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+          name: "external-secrets-webhook-secret-init"
+          namespace: "{{ .Release.Namespace }}"
+      -
+        apiVersion: "rbac.authorization.k8s.io/v1"
+        kind: "Role"
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "external-secrets"
+            app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+          name: "external-secrets-webhook-secret-init"
+          namespace: "{{ .Release.Namespace }}"
+        rules:
+          -
+            apiGroups:
+              - ""
+            resources:
+              - "secrets"
+            verbs:
+              - "create"
+          -
+            apiGroups:
+              - ""
+            resourceNames:
+              - "external-secrets-webhook"
+            resources:
+              - "secrets"
+            verbs:
+              - "get"
+              - "patch"
+      -
+        apiVersion: "rbac.authorization.k8s.io/v1"
+        kind: "RoleBinding"
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "external-secrets"
+            app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+          name: "external-secrets-webhook-secret-init"
+          namespace: "{{ .Release.Namespace }}"
+        roleRef:
+          apiGroup: "rbac.authorization.k8s.io"
+          kind: "Role"
+          name: "external-secrets-webhook-secret-init"
+        subjects:
+          -
+            kind: "ServiceAccount"
+            name: "external-secrets-webhook-secret-init"
+            namespace: "{{ .Release.Namespace }}"
+      -
+        apiVersion: "v1"
+        data:
+          secret.yaml: "apiVersion: v1\nkind: Secret\nmetadata:\n  name: external-secrets-webhook\n  labels:\n    app.kubernetes.io/name: external-secrets-webhook\n    app.kubernetes.io/instance: external-secrets\n    external-secrets.io/component: webhook\n"
+        kind: "ConfigMap"
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "external-secrets"
+            app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+          name: "external-secrets-webhook-secret-init"
+          namespace: "{{ .Release.Namespace }}"
+      -
+        apiVersion: "batch/v1"
+        kind: "Job"
+        metadata:
+          annotations:
+            argocd.argoproj.io/hook: "Sync"
+            argocd.argoproj.io/hook-delete-policy: "BeforeHookCreation"
+          labels:
+            app.kubernetes.io/instance: "external-secrets"
+            app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+          name: "external-secrets-webhook-secret-init"
+          namespace: "{{ .Release.Namespace }}"
+        spec:
+          backoffLimit: 6
+          template:
+            metadata:
+              labels:
+                app.kubernetes.io/instance: "external-secrets"
+                app.kubernetes.io/name: "external-secrets-webhook-secret-init"
+            spec:
+              containers:
+                -
+                  args:
+                    - "apply"
+                    - "--server-side"
+                    - "--field-manager=external-secrets-webhook-secret-init"
+                    - "--filename=/manifests/secret.yaml"
+                  env:
+                    -
+                      name: "HOME"
+                      value: "/tmp"
+                  image: "registry.k8s.io/kubectl:v1.35.0@sha256:0bb95b2a450875fc8ceaea2f9987a99fe27c228846e2e00b93b65ebb0d59034e"
+                  name: "kubectl"
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                      drop:
+                        - "ALL"
+                    readOnlyRootFilesystem: true
+                  volumeMounts:
+                    -
+                      mountPath: "/manifests"
+                      name: "manifests"
+                      readOnly: true
+                    -
+                      mountPath: "/tmp"
+                      name: "tmp"
+              restartPolicy: "OnFailure"
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 65532
+                seccompProfile:
+                  type: "RuntimeDefault"
+              serviceAccountName: "external-secrets-webhook-secret-init"
+              volumes:
+                -
+                  configMap:
+                    name: "external-secrets-webhook-secret-init"
+                  name: "manifests"
+                -
+                  emptyDir:
+                    {}
+                  name: "tmp"

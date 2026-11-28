@@ -57,6 +57,7 @@ elastic/logstash@8.5.1,2,default;ha,ha,none,0,recipes/elastic/logstash/8.5.1
 elastic/metricbeat@8.5.1,1,default,,none,0,recipes/elastic/metricbeat/8.5.1
 external-dns/external-dns@1.21.1,3,default;no-crds;dry-run-txt-registry,existing-secret;no-crds,existing-secret,1,recipes/external-dns/external-dns/1.21.1
 external-secrets/external-secrets@2.10.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/external-secrets/external-secrets/2.10.0
+external-secrets/external-secrets@2.15.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/external-secrets/external-secrets/2.15.0
 external-secrets/external-secrets@2.5.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/external-secrets/external-secrets/2.5.0
 external-secrets/external-secrets@2.7.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/external-secrets/external-secrets/2.7.0
 external-secrets/external-secrets@2.8.0,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/external-secrets/external-secrets/2.8.0
@@ -84,6 +85,7 @@ hashicorp/consul@2.0.0,2,default-control-plane;secure-mesh-existing-secrets,no-c
 hashicorp/terraform@1.1.2,2,default;no-crds,no-crds,none,0,recipes/hashicorp/terraform/1.1.2
 hashicorp/vault@0.32.0,3,dev-mode;default;ha-raft-ui,ha;ingress-tls;tls,ingress-tls;tls,2,recipes/hashicorp/vault/0.32.0
 ingress-nginx/ingress-nginx@4.15.1,3,default;admission-disabled;internal-clusterip,,none,0,recipes/ingress-nginx/ingress-nginx/4.15.1
+ingress-nginx/ingress-nginx@4.15.1-r1,3,default;admission-disabled;internal-clusterip,,none,0,recipes/ingress-nginx/ingress-nginx/4.15.1-r1
 istio/gateway@1.30.0,2,default;controller-default-reviewed,,none,0,recipes/istio/gateway/1.30.0
 istio/istiod@1.30.0,1,default,existing-secret,existing-secret,1,recipes/istio/istiod/1.30.0
 jaegertracing/jaeger-operator@2.57.0,2,default;no-crds,no-crds,none,0,recipes/jaegertracing/jaeger-operator/2.57.0
@@ -92,6 +94,7 @@ jetstack/cert-manager-csi-driver@v0.14.0,1,default,,none,0,recipes/jetstack/cert
 jetstack/cert-manager@v1.20.2,2,default;crds-enabled,no-crds,none,0,recipes/jetstack/cert-manager/v1.20.2
 jetstack/cert-manager@v1.21.0,2,default;crds-enabled,no-crds,none,0,recipes/jetstack/cert-manager/v1.21.0
 jetstack/cert-manager@v1.21.1,2,default;crds-enabled,no-crds,none,0,recipes/jetstack/cert-manager/v1.21.1
+jetstack/cert-manager@v1.21.3,3,default;crds-enabled;no-crds,no-crds,none,0,recipes/jetstack/cert-manager/v1.21.3
 jetstack/trust-manager@v0.22.1,2,default;no-crds,existing-secret;no-crds,existing-secret,1,recipes/jetstack/trust-manager/v0.22.1
 k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2,3,default;aicr-eks-training-v0-20-0;aicr-eks-training-v1-0-0,,none,0,recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2
 kai-scheduler/kai-scheduler@v0.14.1,2,default;aicr-eks-training,no-crds,no-crds,1,recipes/kai-scheduler/kai-scheduler/v0.14.1

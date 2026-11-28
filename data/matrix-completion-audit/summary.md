@@ -18,29 +18,29 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-1439 non-green cells:
+1475 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 1207 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 1243 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 63 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 607 |
-| `G` | 207 |
-| `P` | 207 |
-| `L` | 198 |
-| `K` | 157 |
+| `promotion` | 618 |
+| `G` | 215 |
+| `P` | 215 |
+| `L` | 206 |
+| `K` | 158 |
 | `lifecycle` | 63 |
 
 | State | Cells |
 | --- | ---: |
-| `missing` | 540 |
-| `blocked` | 254 |
-| `not-applicable-source` | 181 |
+| `missing` | 565 |
+| `blocked` | 262 |
+| `not-applicable-source` | 184 |
 | `proven` | 179 |
 | `watch` | 124 |
 | `not-applicable-candidate` | 67 |
@@ -118,7 +118,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@41.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (1207)
+## needs-target-or-prereq-fix (1243)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -456,6 +456,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | external-secrets/external-secrets@2.10.0 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | external-secrets/external-secrets@2.10.0 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | external-secrets/external-secrets@2.10.0 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.15.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| external-secrets/external-secrets@2.15.0 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| external-secrets/external-secrets@2.15.0 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| external-secrets/external-secrets@2.15.0 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | external-secrets/external-secrets@2.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | external-secrets/external-secrets@2.5.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-secrets/external-secrets@2.5.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -577,6 +586,19 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | hashicorp/vault@0.32.0 | ha-raft-ui | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/vault@0.32.0 | regulated-prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | hashicorp/vault@0.32.0 | staging-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | admission-disabled | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | admission-disabled | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | admission-disabled | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | admission-disabled | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | internal-clusterip | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | internal-clusterip | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | internal-clusterip | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| ingress-nginx/ingress-nginx@4.15.1-r1 | internal-clusterip | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | ingress-nginx/ingress-nginx@4.15.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | ingress-nginx/ingress-nginx@4.15.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -632,6 +654,20 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/cert-manager@v1.21.1 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | jetstack/cert-manager@v1.21.1 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
 | jetstack/cert-manager@v1.21.1 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| jetstack/cert-manager@v1.21.3 | crds-enabled | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | crds-enabled | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | crds-enabled | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | crds-enabled | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.3 | default | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | default | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | default | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | default | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
+| jetstack/cert-manager@v1.21.3 | no-crds | G | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | no-crds | K | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | no-crds | L | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | no-crds | P | missing | no recorded disposition and no rule applies yet | record this lane or declare it n/a/refused |
+| jetstack/cert-manager@v1.21.3 | no-crds | promotion | blocked | promotion depends on upstream and downstream ConfigHub Spaces; the ConfigHub proof lane is missing | run the ConfigHub proof lane first |
 | jetstack/trust-manager@v0.22.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/trust-manager@v0.22.1 | default | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | jetstack/trust-manager@v0.22.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |

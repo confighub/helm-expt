@@ -11,12 +11,12 @@ offline against pinned trust material, bound to bytes this repository holds.
 The obvious next question is how far that can reach, and nobody had asked it.
 This asks once per retained chart.
 
-Surveyed **2026-11-27**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
+Surveyed **2026-11-28**. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.
 
 ## The answer
 
-**44 of 181 retained charts** publish a Helm provenance file, which is
-24% of the catalog. 91 publish none, and 46 could not be asked, mostly
+**46 of 184 retained charts** publish a Helm provenance file, which is
+25% of the catalog. 91 publish none, and 47 could not be asked, mostly
 because their charts are hosted in a way this convention does not cover.
 
 That number is the ceiling on any provenance claim the catalog could make by
@@ -37,10 +37,10 @@ never done it.
 | https://charts.bitnami.com/bitnami | 21 | 0 | OCI-hosted, no provenance convention |
 | https://charts.crossplane.io/stable | 1 | 0 | publishes none |
 | https://charts.dexidp.io | 1 | 0 | publishes none |
-| https://charts.external-secrets.io | 4 | 4 | signs every retained chart |
+| https://charts.external-secrets.io | 5 | 5 | signs every retained chart |
 | https://charts.fairwinds.com/stable | 2 | 0 | could not be asked |
 | https://charts.gitlab.io | 1 | 1 | signs every retained chart |
-| https://charts.jetstack.io | 5 | 3 | signs some |
+| https://charts.jetstack.io | 6 | 4 | signs some |
 | https://charts.longhorn.io | 3 | 0 | publishes none |
 | https://charts.rook.io/release | 2 | 0 | publishes none |
 | https://cloudnative-pg.github.io/charts | 2 | 2 | signs every retained chart |
@@ -67,7 +67,7 @@ never done it.
 | https://kubernetes-sigs.github.io/node-feature-discovery/charts | 1 | 1 | signs every retained chart |
 | https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts | 1 | 0 | publishes none |
 | https://kubernetes.github.io/autoscaler | 2 | 0 | publishes none |
-| https://kubernetes.github.io/ingress-nginx | 1 | 0 | publishes none |
+| https://kubernetes.github.io/ingress-nginx | 2 | 0 | publishes none |
 | https://kyverno.github.io/kyverno | 6 | 0 | publishes none |
 | https://kyverno.github.io/policy-reporter | 2 | 2 | signs every retained chart |
 | https://metallb.github.io/metallb | 1 | 0 | publishes none |
@@ -115,10 +115,12 @@ never done it.
 | `cert-manager` | v1.20.2 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.0 | https://charts.jetstack.io |
 | `cert-manager` | v1.21.1 | https://charts.jetstack.io |
+| `cert-manager` | v1.21.3 | https://charts.jetstack.io |
 | `cloudnative-pg` | 0.28.2 | https://cloudnative-pg.github.io/charts |
 | `cloudnative-pg` | 0.29.0 | https://cloudnative-pg.github.io/charts |
 | `consul` | 2.0.0 | https://helm.releases.hashicorp.com |
 | `external-secrets` | 2.10.0 | https://charts.external-secrets.io |
+| `external-secrets` | 2.15.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.5.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.7.0 | https://charts.external-secrets.io |
 | `external-secrets` | 2.8.0 | https://charts.external-secrets.io |
@@ -163,7 +165,7 @@ check at the point they pull the chart.
 - **21** are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.
 - **21** sit in an OCI repository, which has no index and no provenance convention.
 - **2** answered with a refusal rather than an answer.
-- **1** name a version the current index no longer lists.
+- **2** name a version the current index no longer lists.
 - **1** sit in a repository whose index could not be read.
 
 An unanswered question is not a negative answer, so none of these count as
@@ -173,7 +175,7 @@ registry-native signature rather than from this mechanism.
 
 ## When a publisher stops signing
 
-Since the previous survey, 1 chart(s) changed verdict: `mysql-operator` 2.3.0 moved from unsigned to unknown.
+No chart has changed verdict since the previous survey. This is the first record for some of them, and a first record cannot show a change.
 
 A provenance claim that quietly disappears is worse than one never made. Each
 run compares its answers against the previous snapshot and records every chart

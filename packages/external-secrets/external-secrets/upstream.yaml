@@ -7,7 +7,7 @@ type: helm
 repository: https://charts.external-secrets.io
 chart: external-secrets
 # The newest chart version packaged here.
-version: 2.10.0
+version: 2.15.0
 # The name cub finds it by:
 #   cub package install external-secrets --space <space>
 # which pulls oci://ghcr.io/confighub/packages/external-secrets:<tag>.
@@ -18,3 +18,4 @@ versions:
   - {directory: 2.7.0, tag: v2.7.0}
   - {directory: 2.8.0, tag: v2.8.0}
   - {directory: 2.10.0, tag: v2.10.0}
+  - {directory: 2.15.0, tag: v2.15.0}

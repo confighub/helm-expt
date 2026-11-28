@@ -61,12 +61,12 @@ haproxytech/kubernetes-ingress,1.52.0,default,no,,,,no,0,,customize;prune;ssa-co
 hashicorp/consul,2.0.0,default-control-plane,no,,,,yes,28,,customize;prune;ssa-conflict
 hashicorp/terraform,1.1.2,default,no,,,,yes,1,,customize;prune;ssa-conflict
 hashicorp/vault,0.32.0,dev-mode,no,,,,no,0,,customize;prune;ssa-conflict
-ingress-nginx/ingress-nginx,4.15.1,default,no,,default,kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>,no,0,,customize;prune;ssa-conflict
+ingress-nginx/ingress-nginx,4.15.1-r1,default,no,,,,no,0,,customize;prune;ssa-conflict
 istio/gateway,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 istio/istiod,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jaegertracing/jaeger,4.8.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jaegertracing/jaeger-operator,2.57.0,default,no,,,,yes,3,,customize;prune;ssa-conflict
-jetstack/cert-manager,v1.21.1,default,no,,,,yes,6,,customize;prune;ssa-conflict
+jetstack/cert-manager,v1.21.3,default,no,,,,yes,6,no-crds,customize;prune;ssa-conflict
 jetstack/cert-manager-csi-driver,v0.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jetstack/trust-manager,v0.22.1,default,no,,default,kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,3,no-crds,customize;prune;ssa-conflict
 k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics,1.19.2,default,no,,,,yes,1,,customize;prune;ssa-conflict

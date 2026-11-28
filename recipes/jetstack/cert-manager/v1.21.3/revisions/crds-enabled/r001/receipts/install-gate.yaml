@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "cert-manager-crds-enabled-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "22946a4e11320dd935739d4376af70e0a86c0973726702aac1fee611d1d7a9a6"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for crds-enabled"
+    - "CRD install/upgrade behavior needs explicit lifecycle policy before production"
+    - "Admission webhook availability needs a fresh observation receipt after apply"
+    - "Helm startup API check hook Job needs explicit lifecycle policy before production"
+    - "Cluster-scoped RBAC needs production review"
+    - "the same objects as the default base; kept so an install that chose this base keeps upgrading"

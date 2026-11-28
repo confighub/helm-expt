@@ -1,0 +1,58 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "ingress-nginx-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "bd8eaecf1947090d776de86bef2ab4fbff9d29db799ac462cfbca53591da62cf"
+    objectCount: 18
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 19
+    uploadedManifestFiles: 19
+    separatedSecretFiles: 0
+    semanticObjectMatches: "18/18"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||ingress-nginx"
+      classification: "installer-support-object"
+      disposition: "allowed"
+    -
+      identity: "v1|ServiceAccount|ingress-nginx|ingress-nginx-admission"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "hook annotations removed; an ordinary resource"
+    -
+      identity: "rbac.authorization.k8s.io/v1|Role|ingress-nginx|ingress-nginx-admission"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "hook annotations removed; an ordinary resource"
+    -
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|ingress-nginx|ingress-nginx-admission"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "hook annotations removed; an ordinary resource"
+    -
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||ingress-nginx-admission"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "hook annotations removed; an ordinary resource"
+    -
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||ingress-nginx-admission"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "hook annotations removed; an ordinary resource"
+    -
+      identity: "batch/v1|Job|ingress-nginx|ingress-nginx-admission-create"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "Helm hook annotations replaced by an Argo CD Sync hook; ttlSecondsAfterFinished removed"
+    -
+      identity: "batch/v1|Job|ingress-nginx|ingress-nginx-admission-patch"
+      classification: "package-base-patch"
+      disposition: "allowed"
+      change: "Helm hook annotations replaced by an Argo CD Sync hook; ttlSecondsAfterFinished removed"
+  result: "pass"
+  evidenceCommand: "npm run ingress-nginx:compare"

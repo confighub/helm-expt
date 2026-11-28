@@ -55,6 +55,48 @@ spelling for a package that exists and the `v` rule for anything new.
 repository against the rule, and the publisher refuses a new package that does
 not follow it.
 
+## Package revisions
+
+A published tag is never overwritten. When a package version turns out to be
+wrong, the usual fix is the next chart version, built by the corrected proof
+declaration. When there is no next chart version, because upstream has stopped
+publishing the chart, the fix is a package revision: the same chart version,
+packaged again with the correction, beside the version it corrects.
+
+Revision `n` of chart version `V` lives in `packages/<repo>/<chart>/V-rn/` and
+`recipes/<repo>/<chart>/V-rn/`, and is published with the tag `vV-rn`. The
+version it corrects stays where it is, published under its own tag, with its
+receipts unchanged. The revision's source lock names it `V-rn`, like
+everything else in the catalog, so it is an entry of its own, and records the
+chart version it was rendered from as `chartVersion: V` and the revision as
+`packageRevision: n`. The catalog orders `V-rn` after `V` and before the next
+chart version.
+
+A proof declaration builds a revision by passing `packageRevision` to
+`scripts/lib/proof-kit.mjs`, and keeps building the version it corrects
+without it. The first is `ingress-nginx/ingress-nginx` `4.15.1-r1`: the
+ingress-nginx repository is archived, so 4.15.1 is its last chart version, and
+the published 4.15.1 default base leaves out the Jobs that create the admission
+webhook certificate. `HELM_EXPT_PACKAGE_REVISION=1 node
+scripts/ingress-nginx-proof.mjs` builds and checks the revision.
+
+`cub package install <name>` without a version installs the highest tag of the
+form `vX.Y.Z`, and a revision tag is not of that form. A revision is installed
+by naming it, as in `cub package install ingress-nginx:v4.15.1-r1`, until the
+installer treats a `-rN` tag as a revision of its release.
+
+## Base patches
+
+A base is the Helm render of one preset, and the package check compares what
+`cub installer setup` renders from it with Helm, object by object. A base may
+also carry kustomize patches in its `kustomization.yaml`, declared as the
+variant's `basePatches`, when the Helm render cannot be delivered as it is. The
+declaration then says exactly which differences the patches make
+(`allowedSemanticDiff`), the package check fails on any other difference, and
+the Helm equivalence receipt classifies each patched object as
+`package-base-patch`. The ingress-nginx `4.15.1-r1` default base uses them to
+turn the chart's admission certificate hooks into Argo CD Sync hooks.
+
 ## The matrix taxonomy
 
 The master matrix keeps one row per chart, version, and base. Layer marks the

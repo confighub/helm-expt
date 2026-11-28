@@ -14,35 +14,39 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 181
+charts: 184
 supported (Level 2, all 6): 176
-not yet supported: 5
-variant-rich (enhancement, >1 variant): 120
+not yet supported: 8
+variant-rich (enhancement, >1 variant): 123
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 181/181
-- `behaviorally_complete`: 176/181
-- `readable`: 181/181
-- `usable`: 181/181
-- `verifiable`: 181/181
-- `honestly_scoped`: 181/181
-- _enhancement_ `variant_complete`: 120/181  (not a support criterion)
+- `render_equivalent`: 184/184
+- `behaviorally_complete`: 178/184
+- `readable`: 181/184
+- `usable`: 184/184
+- `verifiable`: 184/184
+- `honestly_scoped`: 184/184
+- _enhancement_ `variant_complete`: 123/184  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 
-- `behaviorally_complete`: 5
+- `behaviorally_complete`: 6
+- `readable`: 3
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
 | `external-secrets/external-secrets@2.10.0` | 5/6 | behaviorally_complete |
+| `external-secrets/external-secrets@2.15.0` | 4/6 | behaviorally_complete, readable |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.8.0` | 5/6 | behaviorally_complete |
+| `ingress-nginx/ingress-nginx@4.15.1-r1` | 5/6 | readable |
 | `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
+| `jetstack/cert-manager@v1.21.3` | 5/6 | readable |
 
 ## Notes
 

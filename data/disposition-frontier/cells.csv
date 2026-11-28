@@ -695,6 +695,18 @@ external-secrets/external-secrets@2.10.0,no-crds,local_live,L,missing,missing,no
 external-secrets/external-secrets@2.10.0,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 external-secrets/external-secrets@2.10.0,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 external-secrets/external-secrets@2.10.0,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.5.0 (pass) — runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml,"none — the variant is proven on 2.5.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+external-secrets/external-secrets@2.15.0,default,render_parity,R,pass,pass,no,,,
+external-secrets/external-secrets@2.15.0,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.15.0 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+external-secrets/external-secrets@2.15.0,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.5.0 (pass) — runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml,"none — the variant is proven on 2.5.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+external-secrets/external-secrets@2.15.0,no-crds,render_parity,R,pass,pass,no,,,
+external-secrets/external-secrets@2.15.0,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for external-secrets/external-secrets@2.15.0 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+external-secrets/external-secrets@2.15.0,no-crds,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+external-secrets/external-secrets@2.15.0,no-crds,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 2.5.0 (pass) — runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml,"none — the variant is proven on 2.5.0; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 external-secrets/external-secrets@2.5.0,default,render_parity,R,pass,pass,no,,,
 external-secrets/external-secrets@2.5.0,default,in_confighub,C,pass,pass,no,,,
 external-secrets/external-secrets@2.5.0,default,local_live,L,pass,pass,no,,,
@@ -947,6 +959,24 @@ hashicorp/vault@0.32.0,ha-raft-ui,local_live,L,blocked,blocked,no,,,
 hashicorp/vault@0.32.0,ha-raft-ui,gitops_oci_live,G,watch,watch,no,,,
 hashicorp/vault@0.32.0,ha-raft-ui,live_helm_vs_confighub_parity,P,watch,watch,no,,,
 hashicorp/vault@0.32.0,ha-raft-ui,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,render_parity,R,pass,pass,no,,,
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 admission-disabled (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,admission-disabled,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 4.15.1 (pass) — runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml,"none — the variant is proven on 4.15.1; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+ingress-nginx/ingress-nginx@4.15.1-r1,default,render_parity,R,pass,pass,no,,,
+ingress-nginx/ingress-nginx@4.15.1-r1,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+ingress-nginx/ingress-nginx@4.15.1-r1,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 4.15.1 (pass) — runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml,"none — the variant is proven on 4.15.1; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,render_parity,R,pass,pass,no,,,
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for ingress-nginx/ingress-nginx@4.15.1-r1 internal-clusterip (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+ingress-nginx/ingress-nginx@4.15.1-r1,internal-clusterip,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on 4.15.1 (pass) — runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml,"none — the variant is proven on 4.15.1; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
 ingress-nginx/ingress-nginx@4.15.1,admission-disabled,render_parity,R,pass,pass,no,,,
 ingress-nginx/ingress-nginx@4.15.1,admission-disabled,in_confighub,C,pass,pass,no,,,
 ingress-nginx/ingress-nginx@4.15.1,admission-disabled,local_live,L,pass,pass,no,,,
@@ -1043,6 +1073,24 @@ jetstack/cert-manager@v1.21.1,default,local_live,L,missing,missing,no,no recorde
 jetstack/cert-manager@v1.21.1,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 jetstack/cert-manager@v1.21.1,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 jetstack/cert-manager@v1.21.1,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+jetstack/cert-manager@v1.21.3,crds-enabled,render_parity,R,pass,pass,no,,,
+jetstack/cert-manager@v1.21.3,crds-enabled,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 crds-enabled (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+jetstack/cert-manager@v1.21.3,crds-enabled,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,crds-enabled,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,crds-enabled,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,crds-enabled,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+jetstack/cert-manager@v1.21.3,default,render_parity,R,pass,pass,no,,,
+jetstack/cert-manager@v1.21.3,default,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 default (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+jetstack/cert-manager@v1.21.3,default,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,default,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,default,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,default,two_cluster_kind_parity,K,missing,n/a,yes,variant-keyed K rig: this version has no own receipt but the chart-variant is proven by the two-cluster kind parity receipt on v1.20.2 (pass) — runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml,"none — the variant is proven on v1.20.2; the K rig keys receipts by chart-variant (no version), so re-running this version would overwrite that receipt (net-negative)",kind-parity
+jetstack/cert-manager@v1.21.3,no-crds,render_parity,R,pass,pass,no,,,
+jetstack/cert-manager@v1.21.3,no-crds,in_confighub,C,missing,todo,yes,ConfigHub proof not yet recorded,run scripts/run-top20-confighub-proof.mjs for jetstack/cert-manager@v1.21.3 no-crds (loop's bitnami/prometheus-community/elastic candidate pipeline),loop
+jetstack/cert-manager@v1.21.3,no-crds,local_live,L,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,no-crds,gitops_oci_live,G,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,no-crds,live_helm_vs_confighub_parity,P,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
+jetstack/cert-manager@v1.21.3,no-crds,two_cluster_kind_parity,K,missing,missing,no,no recorded disposition and no rule applies yet,record this lane or declare it n/a/refused,
 jetstack/trust-manager@v0.22.1,default,render_parity,R,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,default,in_confighub,C,pass,pass,no,,,
 jetstack/trust-manager@v0.22.1,default,local_live,L,fail,fail,no,,,

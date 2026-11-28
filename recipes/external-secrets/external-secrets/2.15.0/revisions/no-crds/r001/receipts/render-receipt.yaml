@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "external-secrets-no-crds-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "2879fa69015cb94b943551e11223e33020c1d2a744612867492f483182d9a4c3"
+    dependencyLockSHA256: "edaebc967de8e2f0ccb681ac50c495a99a5db9c1fe40e741f7b57128aaf2c50b"
+    effectiveValuesSHA256: "0d7ac71933086cf9e7159fbb05d4cf1a8b0a1de4066dac857f4c89ebc10908c1"
+  outputs:
+    renderedObjectSetSHA256: "281080bf2613190099636859de76cbaf8109499a4dc9c3d85bd47e7dcab4a886"
+    renderedObjectInventorySHA256: "306cd02d3aee929673aa46bd2cd2ac2206060029fe0e1f017415f53b960ff8ab"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 24
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

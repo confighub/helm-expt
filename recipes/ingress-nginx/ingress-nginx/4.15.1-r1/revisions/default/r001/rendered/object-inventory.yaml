@@ -1,0 +1,117 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-r1-default-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "bd8eaecf1947090d776de86bef2ab4fbff9d29db799ac462cfbca53591da62cf"
+  objectCount: 18
+  objects:
+    -
+      apiVersion: "admissionregistration.k8s.io/v1"
+      identity: "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission"
+      kind: "ValidatingWebhookConfiguration"
+      name: "ingress-nginx-admission"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|ingress-nginx|ingress-nginx-controller"
+      kind: "Deployment"
+      name: "ingress-nginx-controller"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "batch/v1"
+      identity: "batch/v1|Job|ingress-nginx|ingress-nginx-admission-create"
+      kind: "Job"
+      name: "ingress-nginx-admission-create"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "batch/v1"
+      identity: "batch/v1|Job|ingress-nginx|ingress-nginx-admission-patch"
+      kind: "Job"
+      name: "ingress-nginx-admission-patch"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|IngressClass||nginx"
+      kind: "IngressClass"
+      name: "nginx"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||ingress-nginx"
+      kind: "ClusterRoleBinding"
+      name: "ingress-nginx"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||ingress-nginx-admission"
+      kind: "ClusterRoleBinding"
+      name: "ingress-nginx-admission"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||ingress-nginx"
+      kind: "ClusterRole"
+      name: "ingress-nginx"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||ingress-nginx-admission"
+      kind: "ClusterRole"
+      name: "ingress-nginx-admission"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|ingress-nginx|ingress-nginx"
+      kind: "RoleBinding"
+      name: "ingress-nginx"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|ingress-nginx|ingress-nginx-admission"
+      kind: "RoleBinding"
+      name: "ingress-nginx-admission"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|ingress-nginx|ingress-nginx"
+      kind: "Role"
+      name: "ingress-nginx"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|ingress-nginx|ingress-nginx-admission"
+      kind: "Role"
+      name: "ingress-nginx-admission"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|ingress-nginx|ingress-nginx-controller"
+      kind: "ConfigMap"
+      name: "ingress-nginx-controller"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|ingress-nginx|ingress-nginx"
+      kind: "ServiceAccount"
+      name: "ingress-nginx"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|ingress-nginx|ingress-nginx-admission"
+      kind: "ServiceAccount"
+      name: "ingress-nginx-admission"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|ingress-nginx|ingress-nginx-controller"
+      kind: "Service"
+      name: "ingress-nginx-controller"
+      namespace: "ingress-nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|ingress-nginx|ingress-nginx-controller-admission"
+      kind: "Service"
+      name: "ingress-nginx-controller-admission"
+      namespace: "ingress-nginx"

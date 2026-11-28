@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "internal-clusterip-r001"
+spec:
+  variant: "../../../variants/internal-clusterip/variant.yaml"
+  revision: "r001"
+  digest: "9b74be76b136d786a561734ee1da858485269e5fdcd149c817c9415ffbffa2d7"
+  digestInputs:
+    recipeSHA256: "9b3e585e0ccc3157832479fe71f45b8556884452784671cd8db881e31dc9b7fb"
+    variantSHA256: "76203a2c5f1d659f8b37eeced1a34633c5a875beee8256ccd6dd84b955ac714c"
+    effectiveValuesSHA256: "bd038d2193fc3fe201d456c0947f5ace4d5630feab69d17f2cb9d9760cb55433"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 9

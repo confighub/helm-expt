@@ -1,15 +1,7 @@
 {
   "schemaVersion": 1,
-  "observedAt": "2026-11-27T12:25:36.249Z",
-  "changesSinceLastSurvey": [
-    {
-      "chart": "mysql-operator",
-      "version": "2.3.0",
-      "from": "unsigned",
-      "to": "unknown",
-      "reason": "version-not-in-index"
-    }
-  ],
+  "observedAt": "2026-11-28T14:11:13.796Z",
+  "changesSinceLastSurvey": [],
   "method": "For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.",
   "repositories": 68,
   "charts": [
@@ -673,6 +665,18 @@
       "detail": ""
     },
     {
+      "lock": "recipes/external-secrets/external-secrets/2.15.0/source-lock.yaml",
+      "repositoryURL": "https://charts.external-secrets.io",
+      "chart": "external-secrets",
+      "version": "2.15.0",
+      "sourceType": "HelmChart",
+      "tarball": "https://github.com/external-secrets/external-secrets/releases/download/helm-chart-2.15.0/external-secrets-2.15.0.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
       "lock": "recipes/external-secrets/external-secrets/2.5.0/source-lock.yaml",
       "repositoryURL": "https://charts.external-secrets.io",
       "chart": "external-secrets",
@@ -985,6 +989,16 @@
       "detail": ""
     },
     {
+      "lock": "recipes/ingress-nginx/ingress-nginx/4.15.1-r1/source-lock.yaml",
+      "repositoryURL": "https://kubernetes.github.io/ingress-nginx",
+      "chart": "ingress-nginx",
+      "version": "4.15.1-r1",
+      "sourceType": "HelmChart",
+      "provenance": "unknown",
+      "reason": "version-not-in-index",
+      "detail": ""
+    },
+    {
       "lock": "recipes/ingress-nginx/ingress-nginx/4.15.1/source-lock.yaml",
       "repositoryURL": "https://kubernetes.github.io/ingress-nginx",
       "chart": "ingress-nginx",
@@ -1087,6 +1101,18 @@
       "version": "v1.21.1",
       "sourceType": "HelmChart",
       "tarball": "https://charts.jetstack.io/charts/cert-manager-v1.21.1.tgz",
+      "provStatus": 200,
+      "provenance": "signed",
+      "reason": "provenance-file-published",
+      "detail": ""
+    },
+    {
+      "lock": "recipes/jetstack/cert-manager/v1.21.3/source-lock.yaml",
+      "repositoryURL": "https://charts.jetstack.io",
+      "chart": "cert-manager",
+      "version": "v1.21.3",
+      "sourceType": "HelmChart",
+      "tarball": "https://charts.jetstack.io/charts/cert-manager-v1.21.3.tgz",
       "provStatus": 200,
       "provenance": "signed",
       "reason": "provenance-file-published",
