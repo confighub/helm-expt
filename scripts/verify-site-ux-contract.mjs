@@ -941,16 +941,27 @@ if (fs.existsSync(homePath)) {
   }
 }
 
-// The packages page lists every package the site publishes, one row each, read
-// from the list the publish workflow publishes from.
+// The packages page lists every package in ghcr.io/confighub/packages, one row
+// each: the ones this site publishes, read from the list the publish workflow
+// publishes from, and the ones other repositories build, read from
+// data/ghcr-packages/built-elsewhere.yaml.
 const packagesPagePath = path.join(root, "site/packages.html");
 if (fs.existsSync(packagesPagePath)) {
   const packagesPage = fs.readFileSync(packagesPagePath, "utf8");
-  const packageNames = fs.readFileSync(path.join(root, "data/ghcr-packages/packages.csv"), "utf8").trim().split(/\r?\n/).slice(1).map((line) => line.split(",")[0]);
+  const packages = fs.readFileSync(path.join(root, "data/ghcr-packages/packages.csv"), "utf8").trim().split(/\r?\n/).slice(1).map((line) => {
+    const name = line.split(",")[0];
+    return { name, namespace: name };
+  });
+  const elsewhereText = fs.readFileSync(path.join(root, "data/ghcr-packages/built-elsewhere.yaml"), "utf8");
+  for (const block of elsewhereText.split(/\n\s*- name: /).slice(1)) {
+    const name = block.split("\n")[0].trim();
+    const namespace = (block.match(/\n\s*namespace:\s*(\S+)/) ?? [])[1] ?? "";
+    packages.push({ name, namespace });
+  }
   const rowCount = (packagesPage.match(/<span id="package-/g) ?? []).length;
-  if (rowCount !== packageNames.length) failures.push(`site/packages.html: the Every package table has ${rowCount} rows, and data/ghcr-packages/packages.csv lists ${packageNames.length} packages`);
-  for (const name of packageNames) {
-    if (!packagesPage.includes(`<code>cub package install ${name} --space ${name} --namespace ${name}</code>`)) failures.push(`site/packages.html: no install command for the package ${name}`);
+  if (rowCount !== packages.length) failures.push(`site/packages.html: the Every package table has ${rowCount} rows, and the package lists hold ${packages.length} packages`);
+  for (const { name, namespace } of packages) {
+    if (!packagesPage.includes(`<code>cub package install ${name} --space ${name} --namespace ${namespace}</code>`)) failures.push(`site/packages.html: no install command for the package ${name}`);
   }
 }
 

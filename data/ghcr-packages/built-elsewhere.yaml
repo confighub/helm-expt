@@ -1,0 +1,37 @@
+# Packages in ghcr.io/confighub/packages that another repository builds and
+# publishes. The catalog lists them beside its own, so every ConfigHub package
+# is in one list, and the publisher never takes one of these names: GHCR ties a
+# package name to the repository that first pushed it.
+#
+# `node scripts/refresh-registry-packages.mjs --check` compares this list with
+# what the registry holds, using GitHub's package API, and names any package
+# built elsewhere that is missing here.
+packages:
+  - name: argocd
+    builtBy: confighub/packages
+    namespace: argocd
+    what: Argo CD, built from Argo CD's own install manifests, with bases for a cluster-wide, namespace-only or high-availability install.
+  - name: flux
+    builtBy: confighub/packages
+    namespace: flux-system
+    what: Flux, built from the Flux release's install manifests, with every controller and its CRDs.
+  - name: sveltos
+    builtBy: confighub/packages
+    namespace: projectsveltos
+    what: Sveltos for a management cluster, built from Sveltos's own manifests, with every controller and its CRDs.
+  - name: k8sbot
+    builtBy: confighub/k8sbot
+    namespace: confighubbot
+    what: k8sbot, which tells a cluster's Argo CD, Flux or Sveltos to pick up a new release as soon as it is published. It reads its key from a Secret you create.
+  - name: argobot
+    builtBy: confighub/argobot
+    namespace: argobot
+    what: argobot, a ConfigHub bot that runs beside a cluster's GitOps controller. It reads its key from a Secret you create.
+  - name: registrybot
+    builtBy: confighub/registrybot
+    namespace: registrybot
+    what: registrybot, a ConfigHub bot that receives webhooks. It reads its credentials from a Secret you create.
+  - name: confighub
+    builtBy: confighub/cub-server
+    namespace: confighub
+    what: The ConfigHub server and web UI, for running ConfigHub yourself. It reads its database address and signing key from a Secret you create.
