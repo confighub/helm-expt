@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml",
-      "sha256": "sha256:d3d254f65e96108354a0f69d784ee74a4055c0b396ef75f274e8ec3f324afea7",
+      "sha256": "sha256:12d9dd4b3212fecaedf71d563bca195e94b3b31c83b313651f9ed64a9b1fc1a7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/karpenter-karpenter-1-14-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "karpenter/karpenter",
     "version": "1.14.0",
     "reference": "karpenter/karpenter@1.14.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",
+    "ociRef": "oci://ghcr.io/confighub/packages/karpenter:v1.14.0@sha256:ed76ef24cdd694540116b0672781fff725c4f23b0fee6b4ff9a85cf577dc980c",
     "record": "data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/karpenter-karpenter-1-14-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0@sha256:9df71774cdd0dec1b03d8f417d28176833a14f1bb3d094e01502f46101e777cc",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/karpenter:v1.14.0@sha256:ed76ef24cdd694540116b0672781fff725c4f23b0fee6b4ff9a85cf577dc980c",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default:bundle-efbac1ddc87f@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
           "manifestDigest": "sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-karpenter-karpenter-1-14-0-default/bundle-efbac1ddc87f.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-karpenter-karpenter-1-14-0-default/bundle-efbac1ddc87f.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
           "sameDigestAsEarlier": true
@@ -646,12 +648,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
+          "command": "cub variant upload --dry-run --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --namespace kube-system oci://ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default:bundle-efbac1ddc87f@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
+          "command": "cub variant upload --component karpenter-karpenter --variant default --space karpenter-karpenter-1-14-0-default --namespace kube-system oci://ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-default:bundle-efbac1ddc87f@sha256:efbac1ddc87fe3f81d3ccf11ad1ff9a03b6ac9d8d484681fbb4ea58182a5fb7d",
           "needsAccount": true,
           "writes": true
         }

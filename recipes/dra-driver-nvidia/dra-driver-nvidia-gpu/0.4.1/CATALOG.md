@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613` |
+| Install into a Space | `cub package install dra-driver-nvidia-gpu:v0.4.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98` |
+| Installer package publication | [runs/ghcr-packages/dra-driver-nvidia-gpu/v0.4.1.yaml](../../../../runs/ghcr-packages/dra-driver-nvidia-gpu/v0.4.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613` |
 | Installer package source | [packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1](../../../../packages/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1) |
 | Installer package receipt | [recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/dra-driver-nvidia/dra-driver-nvidia-gpu/0.4.1/artifact-index.yaml](artifact-index.yaml) |
@@ -89,12 +92,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install dra-driver-nvidia-gpu:v0.4.1 --space dra-driver-nvidia-gpu --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/dra-driver-nvidia-gpu@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

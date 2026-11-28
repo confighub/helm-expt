@@ -32,7 +32,11 @@
 // Usage:
 //   node scripts/publish-catalog-oci.mjs --plan [--offline] [--only <name,...>] [--kind <kind>]
 //   node scripts/publish-catalog-oci.mjs --publish [--only <name,...>] [--kind <kind>]
-//   node scripts/publish-catalog-oci.mjs --observe [--only <name,...>] [--kind <kind>]
+//   node scripts/publish-catalog-oci.mjs --observe [--missing] [--only <name,...>] [--kind <kind>]
+//
+// --observe --missing leaves a receipt that already exists alone, so the
+// nightly package job adds the receipts of what was published since its last
+// run and rewrites nothing else.
 //   node scripts/publish-catalog-oci.mjs --generate | --verify | --self-test
 
 import { spawnSync } from "node:child_process";
@@ -78,7 +82,7 @@ const args = process.argv.slice(2);
 const MODES = ["--plan", "--publish", "--observe", "--generate", "--verify", "--self-test"];
 const mode = args.find((arg) => MODES.includes(arg)) ?? "--plan";
 const valueOf = (flag) => (args.includes(flag) ? args[args.indexOf(flag) + 1] ?? "" : "");
-const known = new Set([...MODES, "--offline", "--only", "--kind"]);
+const known = new Set([...MODES, "--offline", "--missing", "--only", "--kind"]);
 const unknown = args.filter((arg, index) => (arg.startsWith("--") ? !known.has(arg) : !["--only", "--kind"].includes(args[index - 1])));
 if (unknown.length > 0) {
   console.error(`publish-catalog-oci: unknown argument ${unknown.join(" ")}`);
@@ -233,7 +237,12 @@ async function registryModes() {
       return;
     }
     const worker = mode === "--publish" ? publishOne : observeOne;
-    const results = await pool(artifacts, (artifact) => worker(artifact, { work, anonymous }));
+    const missingOnly = mode === "--observe" && args.includes("--missing");
+    const results = await pool(artifacts, (artifact) => (
+      missingOnly && receiptsDir && existsSync(join(receiptsDir, `${artifact.name}/${artifact.tag}.yaml`))
+        ? { status: "recorded" }
+        : worker(artifact, { work, anonymous })
+    ));
     const tally = {};
     const failures = [];
     const lines = [];

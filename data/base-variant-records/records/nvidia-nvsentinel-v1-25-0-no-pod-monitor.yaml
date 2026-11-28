@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nvsentinel"
     version: "v1.25.0"
     record: "data/helm-render-intents/intents/nvidia-nvsentinel-v1-25-0-no-pod-monitor.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.25.0@sha256:5b6363f704e89c754c2901a85ade183312afca87a94d97aa22f55d2f4d23189e"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nvsentinel:v1.25.0@sha256:6f4535bf812888a1c3b80429225b42d0a77f8afbeafa15d0e2e1002d35f4f9d3"
     selection:
       name: "no-pod-monitor"
       kind: "catalog-preset"

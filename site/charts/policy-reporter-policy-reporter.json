@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0@sha256:9e0c8f5e055f2f67bca6a0f8854fb89b0b92f2f7215671e05cf96b0d2a26641e"
+        "ociRef": "oci://ghcr.io/confighub/packages/policy-reporter:v3.10.0@sha256:beaa74825e71fe6ab36f5f1ec204be80fea6dcd8073bbc202b1a8b22268b47ac",
+        "installCommand": "cub package install policy-reporter:v3.10.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef"
+        "ociRef": "oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1",
+        "installCommand": "cub package install policy-reporter:v3.9.1 --space <space>"
       },
       "bases": [
         {

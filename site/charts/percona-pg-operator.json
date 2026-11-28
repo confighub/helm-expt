@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
+        "ociRef": "oci://ghcr.io/confighub/packages/pg-operator:v3.0.0@sha256:d4a8211c8be599f062d12fe369a54d3e11df2be5d1a3e73ef62e09415745148b",
+        "installCommand": "cub package install pg-operator:v3.0.0 --space <space>"
       },
       "bases": [
         {

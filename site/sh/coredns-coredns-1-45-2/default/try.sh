@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./coredns-coredns-1-45-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc --base default --work-dir ./coredns-coredns-1-45-2-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b --base default --work-dir ./coredns-coredns-1-45-2-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./coredns-coredns-1-45-2-default/out/manifests

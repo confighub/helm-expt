@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>bitnami/mongodb</code> 19.1.0, pre-rendered as 10 Kubernetes objects in its <code>existing-secret-replicaset</code> preset.</p>
+      <p><strong>Install mongodb into ConfigHub.</strong> <code>cub package install mongodb:v19.1.0 --space mongodb --namespace mongodb</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -871,7 +874,7 @@ b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongod
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 19.1.0, the newest version, on its existing-secret-replicaset base.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 19.1.0, the newest version, on its existing-secret-replicaset base.</p>
       <div data-entry-steps="bitnami-mongodb-19-1-0-existing-secret-replicaset">
         <details class="entry-inputs" data-entry-inputs="bitnami-mongodb-19-1-0-existing-secret-replicaset" open>
         <summary>What is fixed, and what you supply</summary>
@@ -902,7 +905,7 @@ b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongod
 b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongodb-19-1-0-existing-secret-replicaset.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406 --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive --namespace mongodb</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/mongodb:v19.1.0@sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136 --base existing-secret-replicaset --work-dir ./bitnami-mongodb-19-1-0-existing-secret-replicaset --non-interactive --namespace mongodb</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -930,7 +933,7 @@ b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd  bitnami-mongod
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406 --base existing-secret-replicaset --space &lt;your-space&gt; --namespace mongodb --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/mongodb:v19.1.0@sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136 --base existing-secret-replicaset --space &lt;your-space&gt; --namespace mongodb --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-mongodb-19-1-0-existing-secret-replicaset --space &lt;your-space&gt; --component &lt;your-component&gt;

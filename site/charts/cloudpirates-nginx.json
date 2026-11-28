@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1@sha256:1a036db1dcd66cd0a75e8496bd0310d853b98b4e5c16103956de5e620909b183"
+        "ociRef": "oci://ghcr.io/confighub/packages/cloudpirates-nginx:v0.16.1@sha256:bf39237c23bf915310e9e7b4c8ded8d14bc7285e32142a3a969b53c13fcb2c70",
+        "installCommand": "cub package install cloudpirates-nginx:v0.16.1 --space <space>"
       },
       "bases": [
         {

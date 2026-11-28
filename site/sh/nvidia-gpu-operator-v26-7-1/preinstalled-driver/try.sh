@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the preinstalled-driver base variant into ./nvidia-gpu-operator-v26-7-1-preinstalled-driver"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver --non-interactive --namespace gpu-operator
+cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base preinstalled-driver --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver --non-interactive --namespace gpu-operator
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./nvidia-gpu-operator-v26-7-1-preinstalled-driver/out/manifests

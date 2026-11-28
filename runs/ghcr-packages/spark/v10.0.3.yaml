@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "spark"
+spec:
+  chart: "bitnami/spark"
+  version: "10.0.3"
+  packagePath: "packages/bitnami/spark/10.0.3"
+  tag: "v10.0.3"
+  reference: "ghcr.io/confighub/packages/spark:v10.0.3"
+  immutableReference: "ghcr.io/confighub/packages/spark@sha256:4b7d3352f4263426fdb74ae4edc5ee722feef05699ecd09cc0dedca224fa0a95"
+  manifestDigest: "sha256:4b7d3352f4263426fdb74ae4edc5ee722feef05699ecd09cc0dedca224fa0a95"
+  layerDigest: "sha256:edc478b7b0db5e36dcbeeb74a10967d9cb1d8d646fd02b51567d4548fb120d38"
+  installCommand: "cub package install spark:v10.0.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4b7d3352f4263426fdb74ae4edc5ee722feef05699ecd09cc0dedca224fa0a95"
+  observedAt: "2026-11-27T19:43:02.236Z"
+status:
+  result: "pass"

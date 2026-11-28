@@ -13,7 +13,7 @@ spec:
     name: "kai-scheduler/kai-scheduler"
     version: "v0.14.1"
     record: "data/helm-render-intents/intents/kai-scheduler-kai-scheduler-v0-14-1-aicr-eks-training.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.14.1@sha256:5e7b31be9fa573c1d9eba1e990ac6ff678388be26754ab55b0fe0d4593f37510"
+    packageOciRef: "oci://ghcr.io/confighub/packages/kai-scheduler:v0.14.1@sha256:154b4d44ff1fb860a2bd12dc255b255c37d904a9ba0a1c95c71e5ce6b04740e0"
     selection:
       name: "aicr-eks-training"
       kind: "catalog-preset"

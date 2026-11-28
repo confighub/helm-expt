@@ -64,11 +64,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/metrics-server/metrics-server/3.14.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0"
-    manifestDigest: "sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3"
-    layerDigest: "sha256:fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935"
-    publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.14.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/metrics-server:v3.14.0@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/metrics-server:v3.14.0"
+    manifestDigest: "sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+    layerDigest: "sha256:9120089d196bc3096757bdbf57f5842bbf7d47909261f596a887ed2b9b2bc149"
+    publicationReceipt: "runs/ghcr-packages/metrics-server/v3.14.0.yaml"
+    name: "metrics-server"
+    tag: "v3.14.0"
+    installCommand: "cub package install metrics-server:v3.14.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/metrics-server@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3"
+      publicationReceipt: "runs/installer-oci/metrics-server-metrics-server/3.14.0/installer-package-publication-receipt.yaml"
     installer: "packages/metrics-server/metrics-server/3.14.0/installer.yaml"
     receipt: "recipes/metrics-server/metrics-server/3.14.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "fc74c0ba1a4a6223e3ebdf82a64a5b10456de7a40cea69578d66321a5cfc4935"
@@ -105,7 +112,7 @@ spec:
         default: true
         description: "metrics-server default variant rendered from metrics-server/metrics-server@3.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.14.0@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -183,7 +190,7 @@ spec:
         default: false
         description: "metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.14.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/metrics-server:v3.14.0@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

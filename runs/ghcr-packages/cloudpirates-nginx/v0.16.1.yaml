@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cloudpirates-nginx"
+spec:
+  chart: "cloudpirates/nginx"
+  version: "0.16.1"
+  packagePath: "packages/cloudpirates/nginx/0.16.1"
+  tag: "v0.16.1"
+  reference: "ghcr.io/confighub/packages/cloudpirates-nginx:v0.16.1"
+  immutableReference: "ghcr.io/confighub/packages/cloudpirates-nginx@sha256:bf39237c23bf915310e9e7b4c8ded8d14bc7285e32142a3a969b53c13fcb2c70"
+  manifestDigest: "sha256:bf39237c23bf915310e9e7b4c8ded8d14bc7285e32142a3a969b53c13fcb2c70"
+  layerDigest: "sha256:39069c5cfaa14d7482dd2ee21c994b6fe067fd8332da65b7daf2305ff0baf643"
+  installCommand: "cub package install cloudpirates-nginx:v0.16.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bf39237c23bf915310e9e7b4c8ded8d14bc7285e32142a3a969b53c13fcb2c70"
+  observedAt: "2026-11-27T19:43:03.000Z"
+status:
+  result: "pass"

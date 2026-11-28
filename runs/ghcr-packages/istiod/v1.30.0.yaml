@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "istiod"
+spec:
+  chart: "istio/istiod"
+  version: "1.30.0"
+  packagePath: "packages/istio/istiod/1.30.0"
+  tag: "v1.30.0"
+  reference: "ghcr.io/confighub/packages/istiod:v1.30.0"
+  immutableReference: "ghcr.io/confighub/packages/istiod@sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+  manifestDigest: "sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+  layerDigest: "sha256:59388de222a8bd98e0a3318cbc358b50335c4bf38f5e456efcba5f05e567c5cf"
+  installCommand: "cub package install istiod:v1.30.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:fa43441c76b72e895418de4148a1df3a241bca0dcb0c0bd0abd587031750fc57"
+  observedAt: "2026-11-27T19:43:24.524Z"
+status:
+  result: "pass"

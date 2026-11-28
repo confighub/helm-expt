@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "descheduler"
+spec:
+  chart: "descheduler/descheduler"
+  version: "0.36.0"
+  packagePath: "packages/descheduler/descheduler/0.36.0"
+  tag: "v0.36.0"
+  reference: "ghcr.io/confighub/packages/descheduler:v0.36.0"
+  immutableReference: "ghcr.io/confighub/packages/descheduler@sha256:c65becc8ba755fe5e77ecd9937a266f1cea3f3e64eca84906871c947ad326a56"
+  manifestDigest: "sha256:c65becc8ba755fe5e77ecd9937a266f1cea3f3e64eca84906871c947ad326a56"
+  layerDigest: "sha256:61b951fa5bf3449f38d6aa1051acbdafca014b4a3f5da642ca286df763000736"
+  installCommand: "cub package install descheduler:v0.36.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c65becc8ba755fe5e77ecd9937a266f1cea3f3e64eca84906871c947ad326a56"
+  observedAt: "2026-11-27T19:43:05.637Z"
+status:
+  result: "pass"

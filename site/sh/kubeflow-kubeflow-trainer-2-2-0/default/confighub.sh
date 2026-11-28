@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./kubeflow-kubeflow-trainer-2-2-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base default --work-dir ./kubeflow-kubeflow-trainer-2-2-0-default --non-interactive --namespace kubeflow
+cub installer setup --pull oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7 --base default --work-dir ./kubeflow-kubeflow-trainer-2-2-0-default --non-interactive --namespace kubeflow
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./kubeflow-kubeflow-trainer-2-2-0-default --space "${SPACE}"

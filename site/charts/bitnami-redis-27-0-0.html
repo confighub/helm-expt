@@ -741,9 +741,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>bitnami/redis</code> 27.0.0, pre-rendered as 13 Kubernetes objects in its <code>reuse-existing-secret</code> preset. (2 presets available.)</p>
+      <p><strong>Install bitnami-redis into ConfigHub.</strong> <code>cub package install bitnami-redis:v27.0.0 --space bitnami-redis --namespace redis</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-redis.html">Worked walkthrough</a>.</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="retained-page-summary">
@@ -774,30 +777,35 @@
 
     <section aria-labelledby="try-retained-chart">
       <h2 id="try-retained-chart">Try This Chart</h2>
+      <h3>Install it into ConfigHub</h3>
+      <pre><code>cub package install bitnami-redis:v27.0.0 --space bitnami-redis --namespace redis</code></pre>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <code>cub package install</code> is part of cub, with no plugin to add. <a href="../packages.html">How packages work</a>.</p>
+      <h3>Or render it locally</h3>
       <p>Inspect the exact package first, then choose one of the packaged configurations. The version remains readable in the reference, and the manifest digest prevents the registry from returning different package bytes. The setup command renders files locally; it does not apply them to Kubernetes.</p>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --json
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base reuse-existing-secret --work-dir ./bitnami-redis-27-0-0-reuse-existing-secret --non-interactive</code></pre>
+  <pre><code>cub installer inspect oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --json
+cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base reuse-existing-secret --work-dir ./bitnami-redis-27-0-0-reuse-existing-secret --non-interactive</code></pre>
       <p><strong>Run shared local configuration checks</strong> after the package has written its Kubernetes YAML:</p>
       <pre><code>cub plugin install confighub/homebrew-tap@cub-scan-v0.7.3 --name scan
 cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</code></pre>
       <p>The check is advisory and does not apply anything.</p>
-      <p>Version tag: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0</code></p>
-      <p>Exact package: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></p>
+      <p>Version tag: <code>oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0</code></p>
+      <p>Exact package: <code>oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691</code></p>
       <p>The manifest digest comes from the committed publication receipt. <code>cub installer</code> refuses the pull if that exact manifest is not available.</p>
       <details>
         <summary><strong>Verify the package publisher</strong></summary>
-        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
-        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/bitnami/redis/27.0.0 --annotations confighub.com/package-sha256=6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4 europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></pre>
+        <p>Run this command with <code>cosign</code>. It checks that the package publish workflow on <code>main</code> of this repository signed this exact manifest digest.</p>
+        <pre><code>cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/bitnami-redis@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691</code></pre>
         <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
-        <p><a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+        <p><a href="../../runs/ghcr-packages/bitnami-redis/v27.0.0.yaml">Publication receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/packages-publish.yml">Publish workflow</a></p>
       </details>
+      <p><strong>Earlier location.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code>, the Google registry copy this package was first published to, signed by a Google service account (<a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml">signature receipt</a>). It stays readable; the package above is the one the Catalog names.</p>
     </section>
 
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 2 entries below. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="bitnami-redis-27-0-0-reuse-existing-secret" open>
         <summary>Helm chart, base <strong>reuse-existing-secret</strong>, version 27.0.0</summary>
         <details class="entry-inputs" data-entry-inputs="bitnami-redis-27-0-0-reuse-existing-secret" open>
@@ -828,7 +836,7 @@ cub check --format json --output cub-check.json &lt;work-dir&gt;/out/manifests</
 ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-27-0-0-reuse-existing-secret.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base reuse-existing-secret --work-dir ./bitnami-redis-27-0-0-reuse-existing-secret --non-interactive --namespace redis</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base reuse-existing-secret --work-dir ./bitnami-redis-27-0-0-reuse-existing-secret --non-interactive --namespace redis</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -856,7 +864,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base reuse-existing-secret --space &lt;your-space&gt; --namespace redis --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base reuse-existing-secret --space &lt;your-space&gt; --namespace redis --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-redis-27-0-0-reuse-existing-secret --space &lt;your-space&gt; --component &lt;your-component&gt;
@@ -919,7 +927,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
 758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0  bitnami-redis-27-0-0-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --work-dir ./bitnami-redis-27-0-0-default --non-interactive --namespace redis</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base default --work-dir ./bitnami-redis-27-0-0-default --non-interactive --namespace redis</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -947,7 +955,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --space &lt;your-space&gt; --namespace redis --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base default --space &lt;your-space&gt; --namespace redis --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./bitnami-redis-27-0-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;
@@ -1057,7 +1065,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
         <tbody><tr>
           <td data-label="Question">Can I pull these exact package bytes again?</td>
           <td data-label="Status">Checked</td>
-          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml">Package receipt</a></td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/bitnami-redis/v27.0.0.yaml">Evidence</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
           <td data-label="Status">Not checked</td>
@@ -1122,7 +1130,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
           }
         }
       </style>
-      <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4</code> and manifest <code>sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code>, and records an inspect-result digest.</p>
+      <p>A committed receipt records the package on GitHub's registry at manifest <code>sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691</code>, pulled with no credentials and signed by the publish workflow. The earlier location's publication receipt binds this package path and OCI ref to layer <code>sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4</code> and manifest <code>sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code>, and records an inspect-result digest.</p>
       <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./bitnami-redis-25-5-3.html">25.5.3 evidence page</a>.</p>
     </section>
@@ -1142,7 +1150,7 @@ ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4  bitnami-redis-
       <h2 id="retained-files">Source And Evidence Files</h2>
       <div class="card"><table>
         <thead><tr><th>Record</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/redis/27.0.0">packages/bitnami/redis/27.0.0</a></td></tr><tr><td>Machine-readable listing (default)</td><td><a href="../../site/listings/bitnami-redis-27-0-0-default.json">site/listings/bitnami-redis-27-0-0-default.json</a></td></tr><tr><td>Machine-readable listing (reuse-existing-secret)</td><td><a href="../../site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json">site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/bitnami/redis/27.0.0/installer.yaml">packages/bitnami/redis/27.0.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml">runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Publisher signature</td><td><a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml">runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml</a></td></tr><tr><td>Sigstore bundle</td><td><a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json">runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json</a></td></tr><tr><td>Version tag</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0</code></td></tr><tr><td>Exact OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></td></tr><tr><td>Layer digest</td><td><code>sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></td></tr></tbody>
+        <tbody><tr><td>Retained package source</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/redis/27.0.0">packages/bitnami/redis/27.0.0</a></td></tr><tr><td>Machine-readable listing (default)</td><td><a href="../../site/listings/bitnami-redis-27-0-0-default.json">site/listings/bitnami-redis-27-0-0-default.json</a></td></tr><tr><td>Machine-readable listing (reuse-existing-secret)</td><td><a href="../../site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json">site/listings/bitnami-redis-27-0-0-reuse-existing-secret.json</a></td></tr><tr><td>Installer metadata</td><td><a href="../../packages/bitnami/redis/27.0.0/installer.yaml">packages/bitnami/redis/27.0.0/installer.yaml</a></td></tr><tr><td>Publication receipt</td><td><a href="../../runs/ghcr-packages/bitnami-redis/v27.0.0.yaml">runs/ghcr-packages/bitnami-redis/v27.0.0.yaml</a></td></tr><tr><td>Version tag</td><td><code>oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0</code></td></tr><tr><td>Exact OCI ref</td><td><code>oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691</code></td></tr><tr><td>Layer digest</td><td><code>sha256:fc574bdfe34b60b8de4a1fb764bfa28e95ac2bd518007491985f4567a4d1bd5d</code></td></tr><tr><td>Manifest digest</td><td><code>sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691</code></td></tr><tr><td>Earlier location: publication receipt</td><td><a href="../../runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml">runs/installer-oci/bitnami-redis/27.0.0/installer-package-publication-receipt.yaml</a></td></tr><tr><td>Earlier location: publisher signature</td><td><a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml">runs/installer-oci-signatures/bitnami-redis/27.0.0/signature-receipt.yaml</a></td></tr><tr><td>Earlier location: Sigstore bundle</td><td><a href="../../runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json">runs/installer-oci-signatures/bitnami-redis/27.0.0/signature.sigstore.json</a></td></tr><tr><td>Earlier location: version tag</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0</code></td></tr><tr><td>Earlier location: exact OCI ref</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></td></tr><tr><td>Earlier location: layer digest</td><td><code>sha256:6acadb79462876cae51d10d0c13e8783aa8340f01f35c1b3b06ae229158462f4</code></td></tr><tr><td>Earlier location: manifest digest</td><td><code>sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6</code></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

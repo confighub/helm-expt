@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "falco"
+spec:
+  chart: "falcosecurity/falco"
+  version: "9.0.0"
+  packagePath: "packages/falcosecurity/falco/9.0.0"
+  tag: "v9.0.0"
+  reference: "ghcr.io/confighub/packages/falco:v9.0.0"
+  immutableReference: "ghcr.io/confighub/packages/falco@sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3"
+  manifestDigest: "sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3"
+  layerDigest: "sha256:5224fbf630a61c8c2ba22ea3c7813f8be9bacc977d98c8a8adee73071e015e06"
+  installCommand: "cub package install falco:v9.0.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:17bc18c0895ef6020fc4976c52dd9c37f31247179dc6f415900c8323315b9ad3"
+  observedAt: "2026-11-27T19:43:13.531Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "victoria-logs-single"
+spec:
+  chart: "vm/victoria-logs-single"
+  version: "0.12.5"
+  packagePath: "packages/vm/victoria-logs-single/0.12.5"
+  tag: "v0.12.5"
+  reference: "ghcr.io/confighub/packages/victoria-logs-single:v0.12.5"
+  immutableReference: "ghcr.io/confighub/packages/victoria-logs-single@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2"
+  manifestDigest: "sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2"
+  layerDigest: "sha256:75fb46b84acaec776d1c92e3a3481a7daa2e37792bb7907917a7dfe277594f65"
+  installCommand: "cub package install victoria-logs-single:v0.12.5 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2"
+  observedAt: "2026-11-27T19:44:05.862Z"
+status:
+  result: "pass"

@@ -51,7 +51,10 @@ for exact base-variant evidence.
 | Value model | [recipes/cloudnative-pg/cloudnative-pg/0.29.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/cloudnative-pg/cloudnative-pg/0.29.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/cloudnative-pg/cloudnative-pg/0.29.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178` |
+| Install into a Space | `cub package install cloudnative-pg:v0.29.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/cloudnative-pg:v0.29.0@sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef` |
+| Installer package publication | [runs/ghcr-packages/cloudnative-pg/v0.29.0.yaml](../../../../runs/ghcr-packages/cloudnative-pg/v0.29.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178` |
 | Installer package source | [packages/cloudnative-pg/cloudnative-pg/0.29.0](../../../../packages/cloudnative-pg/cloudnative-pg/0.29.0) |
 | Installer package receipt | [recipes/cloudnative-pg/cloudnative-pg/0.29.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/cloudnative-pg/cloudnative-pg/0.29.0/artifact-index.yaml](artifact-index.yaml) |
@@ -79,12 +82,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install cloudnative-pg:v0.29.0 --space cloudnative-pg --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/cloudnative-pg:v0.29.0@sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/cloudnative-pg@sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

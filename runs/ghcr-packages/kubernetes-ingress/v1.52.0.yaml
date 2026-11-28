@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kubernetes-ingress"
+spec:
+  chart: "haproxytech/kubernetes-ingress"
+  version: "1.52.0"
+  packagePath: "packages/haproxytech/kubernetes-ingress/1.52.0"
+  tag: "v1.52.0"
+  reference: "ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0"
+  immutableReference: "ghcr.io/confighub/packages/kubernetes-ingress@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+  manifestDigest: "sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+  layerDigest: "sha256:7cd925a1a97da3913cee64259c603b17add915a01f817a1382b2769b0e41cb1f"
+  installCommand: "cub package install kubernetes-ingress:v1.52.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+  observedAt: "2026-11-27T19:43:21.848Z"
+status:
+  result: "pass"

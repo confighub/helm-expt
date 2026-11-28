@@ -13,7 +13,7 @@ spec:
     name: "argo-cd/argo-cd"
     version: "10.2.1"
     record: "data/helm-render-intents/intents/argo-cd-argo-cd-10-2-1-no-crds.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8"
+    packageOciRef: "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.2.1@sha256:b4ca81e720ebd1a195d1a97f65b1c7d6cb054fd5981e80fb3d607ec9e98172bb"
     selection:
       name: "no-crds"
       kind: "catalog-preset"

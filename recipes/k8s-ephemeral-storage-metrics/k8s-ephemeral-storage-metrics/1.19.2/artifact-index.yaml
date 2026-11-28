@@ -61,11 +61,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2"
-    manifestDigest: "sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
-    layerDigest: "sha256:70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
-    publicationReceipt: "runs/installer-oci/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics/1.19.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2"
+    manifestDigest: "sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0"
+    layerDigest: "sha256:154b8edca534e3bd050732247536f532c3ff7119efd59b34ff958598c8a47b08"
+    publicationReceipt: "runs/ghcr-packages/k8s-ephemeral-storage-metrics/v1.19.2.yaml"
+    name: "k8s-ephemeral-storage-metrics"
+    tag: "v1.19.2"
+    installCommand: "cub package install k8s-ephemeral-storage-metrics:v1.19.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d"
+      publicationReceipt: "runs/installer-oci/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics/1.19.2/installer-package-publication-receipt.yaml"
     installer: "packages/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/installer.yaml"
     receipt: "recipes/k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics/1.19.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "70fe17878cfba5380dfa145c35f07eaf3f0a911213b45d1c4d7be39a9ff2bbfe"
@@ -118,7 +125,7 @@ spec:
         default: true
         description: "k8s-ephemeral-storage-metrics chart defaults variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -191,7 +198,7 @@ spec:
         default: false
         description: "k8s-ephemeral-storage-metrics AICR v0.20.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -264,7 +271,7 @@ spec:
         default: false
         description: "k8s-ephemeral-storage-metrics AICR v1.0.0 EKS training values variant rendered from k8s-ephemeral-storage-metrics/k8s-ephemeral-storage-metrics@1.19.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/k8s-ephemeral-storage-metrics-k8s-ephemeral-storage-metrics:1.19.2@sha256:d869a5ff9e363ef5624db8145215f4b369d41f3a8f9d20849258af39f4adb21d --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-ephemeral-storage-metrics:v1.19.2@sha256:e6c3b48eac0969b12efc8c2e1f59c8f3b80beb446d50dec56c84d12d1c4dd9f0 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

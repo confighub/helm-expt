@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the aicr-eks-training base variant into ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base aicr-eks-training --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --non-interactive --namespace kai-scheduler
+cub installer setup --pull oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259 --base aicr-eks-training --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --non-interactive --namespace kai-scheduler
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-aicr-eks-training --space "${SPACE}"

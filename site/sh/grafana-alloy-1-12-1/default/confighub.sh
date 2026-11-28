@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./grafana-alloy-1-12-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3 --base default --work-dir ./grafana-alloy-1-12-1-default --non-interactive --namespace alloy
+cub installer setup --pull oci://ghcr.io/confighub/packages/alloy:v1.12.1@sha256:854d386eb65b6163afaecf21f4653fba06522ac9c0c15816e69723a55ef10964 --base default --work-dir ./grafana-alloy-1-12-1-default --non-interactive --namespace alloy
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./grafana-alloy-1-12-1-default --space "${SPACE}"

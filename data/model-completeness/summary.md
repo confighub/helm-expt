@@ -15,8 +15,8 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 
 ```text
 charts: 181
-supported (Level 2, all 6): 175
-not yet supported: 6
+supported (Level 2, all 6): 176
+not yet supported: 5
 variant-rich (enhancement, >1 variant): 120
 ```
 
@@ -24,7 +24,7 @@ variant-rich (enhancement, >1 variant): 120
 
 - `render_equivalent`: 181/181
 - `behaviorally_complete`: 176/181
-- `readable`: 180/181
+- `readable`: 181/181
 - `usable`: 181/181
 - `verifiable`: 181/181
 - `honestly_scoped`: 181/181
@@ -33,13 +33,11 @@ variant-rich (enhancement, >1 variant): 120
 ## Gap by criterion (how many charts each one blocks)
 
 - `behaviorally_complete`: 5
-- `readable`: 1
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
-| `argo-cd/argo-cd@10.20.0` | 5/6 | readable |
 | `external-secrets/external-secrets@2.10.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
 | `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |

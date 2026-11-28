@@ -1,6 +1,6 @@
 {
   "schemaVersion": "catalog-shared-check-index-v1",
-  "generatedAt": "2026-10-08T21:07:53Z",
+  "generatedAt": "2026-11-27T20:43:31Z",
   "scope": "Exact rendered Kubernetes objects for every maintained Helm base revision under recipes/.",
   "authority": "advisory-local-check",
   "scanner": {
@@ -13,14 +13,14 @@
     "catalogSHA256": "7ff79a126ad99bba2505fec8b2b7711c03f50eb362141128ec1c83e27a5036ba"
   },
   "summary": {
-    "configurations": 344,
-    "configurationsWithFindings": 331,
+    "configurations": 346,
+    "configurationsWithFindings": 333,
     "configurationsWithoutFindings": 13,
-    "findings": 3639,
+    "findings": 3733,
     "severityCounts": {
-      "critical": 970,
-      "warning": 2080,
-      "info": 589
+      "critical": 994,
+      "warning": 2130,
+      "info": 609
     },
     "distinctControls": 48
   },
@@ -29,43 +29,50 @@
       "id": "CCVE-2025-3746",
       "name": "Deployment does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 242,
-      "findingCount": 447
+      "configurationCount": 244,
+      "findingCount": 455
     },
     {
       "id": "CCVE-2025-3740",
       "name": "Deployment explicitly sets replicas to 1",
       "severity": "info",
-      "configurationCount": 241,
-      "findingCount": 422
+      "configurationCount": 243,
+      "findingCount": 434
     },
     {
       "id": "CCVE-2025-3728",
       "name": "Deployment containers omit resource limits",
       "severity": "warning",
-      "configurationCount": 161,
-      "findingCount": 291
+      "configurationCount": 163,
+      "findingCount": 303
     },
     {
       "id": "CCVE-2025-3732",
       "name": "Deployment containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 146,
-      "findingCount": 271
+      "configurationCount": 148,
+      "findingCount": 283
     },
     {
       "id": "CCVE-2025-4078",
       "name": "ClusterRole grants secrets read permissions",
       "severity": "critical",
-      "configurationCount": 131,
-      "findingCount": 250
+      "configurationCount": 133,
+      "findingCount": 254
     },
     {
       "id": "CCVE-2025-4005",
       "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
       "severity": "warning",
-      "configurationCount": 59,
-      "findingCount": 153
+      "configurationCount": 61,
+      "findingCount": 163
+    },
+    {
+      "id": "CCVE-2025-3745",
+      "name": "emptyDir volume has no sizeLimit",
+      "severity": "info",
+      "configurationCount": 112,
+      "findingCount": 155
     },
     {
       "id": "CCVE-2025-3735",
@@ -73,13 +80,6 @@
       "severity": "warning",
       "configurationCount": 137,
       "findingCount": 148
-    },
-    {
-      "id": "CCVE-2025-3745",
-      "name": "emptyDir volume has no sizeLimit",
-      "severity": "info",
-      "configurationCount": 110,
-      "findingCount": 147
     },
     {
       "id": "CCVE-2025-3758",
@@ -117,6 +117,13 @@
       "findingCount": 95
     },
     {
+      "id": "CCVE-2025-4075",
+      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+      "severity": "critical",
+      "configurationCount": 63,
+      "findingCount": 81
+    },
+    {
       "id": "CCVE-2025-3726",
       "name": "Deployment omits pod and container securityContext baseline",
       "severity": "warning",
@@ -124,11 +131,11 @@
       "findingCount": 80
     },
     {
-      "id": "CCVE-2025-4075",
-      "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+      "id": "CCVE-2025-4076",
+      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
       "severity": "critical",
-      "configurationCount": 61,
-      "findingCount": 77
+      "configurationCount": 62,
+      "findingCount": 76
     },
     {
       "id": "CCVE-2025-4001",
@@ -138,18 +145,11 @@
       "findingCount": 72
     },
     {
-      "id": "CCVE-2025-4076",
-      "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
-      "severity": "critical",
-      "configurationCount": 60,
-      "findingCount": 72
-    },
-    {
       "id": "CCVE-2025-3752",
       "name": "StatefulSet does not disable automountServiceAccountToken",
       "severity": "warning",
-      "configurationCount": 40,
-      "findingCount": 53
+      "configurationCount": 42,
+      "findingCount": 55
     },
     {
       "id": "CCVE-2025-3756",
@@ -173,38 +173,45 @@
       "findingCount": 46
     },
     {
-      "id": "CCVE-2025-3749",
-      "name": "StatefulSet containers omit resource limits",
-      "severity": "warning",
-      "configurationCount": 35,
-      "findingCount": 40
-    },
-    {
       "id": "CCVE-2025-4081",
       "name": "ClusterRole uses wildcard resources with broad verbs",
       "severity": "critical",
-      "configurationCount": 23,
-      "findingCount": 39
+      "configurationCount": 25,
+      "findingCount": 43
+    },
+    {
+      "id": "CCVE-2025-3749",
+      "name": "StatefulSet containers omit resource limits",
+      "severity": "warning",
+      "configurationCount": 37,
+      "findingCount": 42
     },
     {
       "id": "CCVE-2025-4079",
       "name": "ClusterRole grants serviceaccounts/token create",
       "severity": "critical",
-      "configurationCount": 27,
-      "findingCount": 38
+      "configurationCount": 29,
+      "findingCount": 40
     },
     {
       "id": "CCVE-2025-3750",
       "name": "StatefulSet containers omit resource requests",
       "severity": "warning",
-      "configurationCount": 35,
-      "findingCount": 36
+      "configurationCount": 37,
+      "findingCount": 38
     },
     {
       "id": "CCVE-2025-3743",
       "name": "Deployment uses Recreate strategy",
       "severity": "warning",
-      "configurationCount": 33,
+      "configurationCount": 35,
+      "findingCount": 37
+    },
+    {
+      "id": "CCVE-2025-4080",
+      "name": "ClusterRole grants CSR approval update permissions",
+      "severity": "critical",
+      "configurationCount": 21,
       "findingCount": 35
     },
     {
@@ -215,18 +222,11 @@
       "findingCount": 32
     },
     {
-      "id": "CCVE-2025-4080",
-      "name": "ClusterRole grants CSR approval update permissions",
-      "severity": "critical",
-      "configurationCount": 19,
-      "findingCount": 31
-    },
-    {
       "id": "CCVE-2025-4077",
       "name": "ClusterRole grants pods/exec create",
       "severity": "critical",
-      "configurationCount": 27,
-      "findingCount": 29
+      "configurationCount": 29,
+      "findingCount": 31
     },
     {
       "id": "CCVE-2025-2704",
@@ -1195,6 +1195,254 @@
       "renderPath": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/rendered/release-objects.yaml",
       "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/receipts/scan-receipt.yaml",
       "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-2-1-no-crds.json"
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-default",
+      "chart": "argo-cd/argo-cd",
+      "version": "10.20.0",
+      "base": "default",
+      "outcome": "findings",
+      "findingCount": 47,
+      "severityCounts": {
+        "critical": 12,
+        "warning": 25,
+        "info": 10
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4080",
+          "name": "ClusterRole grants CSR approval update permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4081",
+          "name": "ClusterRole uses wildcard resources with broad verbs",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
+          "severity": "warning",
+          "count": 5
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 4
+        },
+        {
+          "id": "CCVE-2025-3743",
+          "name": "Deployment uses Recreate strategy",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3749",
+          "name": "StatefulSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3750",
+          "name": "StatefulSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3752",
+          "name": "StatefulSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 4
+        }
+      ],
+      "objectCount": 54,
+      "objectSetSHA256": "sha256:90cc4dea7c8b0db4e9efa70a6ac4abad2f24da0f1b5231037f9f269371b8b737",
+      "renderFileSHA256": "sha256:fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612",
+      "scanTime": "2026-11-27T20:43:30Z",
+      "renderPath": "recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-20-0-default.json"
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-no-crds",
+      "chart": "argo-cd/argo-cd",
+      "version": "10.20.0",
+      "base": "no-crds",
+      "outcome": "findings",
+      "findingCount": 47,
+      "severityCounts": {
+        "critical": 12,
+        "warning": 25,
+        "info": 10
+      },
+      "findings": [
+        {
+          "id": "CCVE-2025-4075",
+          "name": "ClusterRole grants nodes/proxy enabling Kubelet API RCE",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4076",
+          "name": "ClusterRoleBinding binds nodes/proxy ClusterRole to subjects",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4078",
+          "name": "ClusterRole grants secrets read permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4080",
+          "name": "ClusterRole grants CSR approval update permissions",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4081",
+          "name": "ClusterRole uses wildcard resources with broad verbs",
+          "severity": "critical",
+          "count": 2
+        },
+        {
+          "id": "CCVE-2025-4077",
+          "name": "ClusterRole grants pods/exec create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-4079",
+          "name": "ClusterRole grants serviceaccounts/token create",
+          "severity": "critical",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3728",
+          "name": "Deployment containers omit resource limits",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3732",
+          "name": "Deployment containers omit resource requests",
+          "severity": "warning",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-4005",
+          "name": "Volume argocd-repo-server-tls references Secret argocd/argocd-repo-server-tls which is not present in scanned documents",
+          "severity": "warning",
+          "count": 5
+        },
+        {
+          "id": "CCVE-2025-3746",
+          "name": "Deployment does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 4
+        },
+        {
+          "id": "CCVE-2025-3743",
+          "name": "Deployment uses Recreate strategy",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3749",
+          "name": "StatefulSet containers omit resource limits",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3750",
+          "name": "StatefulSet containers omit resource requests",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3752",
+          "name": "StatefulSet does not disable automountServiceAccountToken",
+          "severity": "warning",
+          "count": 1
+        },
+        {
+          "id": "CCVE-2025-3740",
+          "name": "Deployment explicitly sets replicas to 1",
+          "severity": "info",
+          "count": 6
+        },
+        {
+          "id": "CCVE-2025-3745",
+          "name": "emptyDir volume has no sizeLimit",
+          "severity": "info",
+          "count": 4
+        }
+      ],
+      "objectCount": 51,
+      "objectSetSHA256": "sha256:afe150fe66b117d687a5ee9dc29ef13ed7aa4d5acc0e1ddc56e313e6d2baf85b",
+      "renderFileSHA256": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f",
+      "scanTime": "2026-11-27T20:43:31Z",
+      "renderPath": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "catalogReceiptPath": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/receipts/scan-receipt.yaml",
+      "sharedReceiptPath": "data/catalog-shared-checks/receipts/argo-cd-argo-cd-10-20-0-no-crds.json"
     },
     {
       "id": "argo-cd-argo-cd-10-7-0-default",

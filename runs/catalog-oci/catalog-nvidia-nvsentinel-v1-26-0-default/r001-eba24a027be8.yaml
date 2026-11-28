@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-nvsentinel-v1-26-0-default"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-nvsentinel-v1-26-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-nvsentinel-v1-26-0-default:r001-eba24a027be8"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-nvsentinel-v1-26-0-default@sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb"
+  manifestDigest: "sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-nvsentinel-v1-26-0-default/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvsentinel-v1-26-0-default@sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb"
+    receipt: "runs/catalog-literal-bundles/nvidia-nvsentinel-v1-26-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:eba24a027be8108c16fec07e1c3797f1f34a17676ef3b41d4cfbce528b5a5aeb"
+  observedAt: "2026-11-27T19:36:13.573Z"
+status:
+  result: "pass"

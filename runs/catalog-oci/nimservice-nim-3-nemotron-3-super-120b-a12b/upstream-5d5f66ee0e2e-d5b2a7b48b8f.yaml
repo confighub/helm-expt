@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-nim-3-nemotron-3-super-120b-a12b"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-nim-3-nemotron-3-super-120b-a12b"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-nim-3-nemotron-3-super-120b-a12b:upstream-5d5f66ee0e2e-d5b2a7b48b8f"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-nim-3-nemotron-3-super-120b-a12b@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+  manifestDigest: "sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/nim-3-nemotron-3-super-120b-a12b/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-nim-3-nemotron-3-super-120b-a12b@sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+    receipt: "runs/nimservice-variants/nimservice-nim-3-nemotron-3-super-120b-a12b/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d5b2a7b48b8fcb7bcd9848fb73b7979eb5a317a4b31f030ee757f313e044cd35"
+  observedAt: "2026-11-27T19:36:25.513Z"
+status:
+  result: "pass"

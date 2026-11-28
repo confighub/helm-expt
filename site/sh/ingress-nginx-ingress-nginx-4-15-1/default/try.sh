@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./ingress-nginx-ingress-nginx-4-15-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx
+cub installer setup --pull oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./ingress-nginx-ingress-nginx-4-15-1-default/out/manifests

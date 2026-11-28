@@ -58,11 +58,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/grafana/alloy/1.11.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
-    manifestDigest: "sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
-    layerDigest: "sha256:75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
-    publicationReceipt: "runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/alloy:v1.11.0@sha256:c7b932034083033c2dbd41a9c383de3f37864d87efd1682ab658e51a52ea770a"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/alloy:v1.11.0"
+    manifestDigest: "sha256:c7b932034083033c2dbd41a9c383de3f37864d87efd1682ab658e51a52ea770a"
+    layerDigest: "sha256:c17c34cd9a4cf3e813cc305abfa9781cabee001e9bdc3b7262bb21bc2ffcaca1"
+    publicationReceipt: "runs/ghcr-packages/alloy/v1.11.0.yaml"
+    name: "alloy"
+    tag: "v1.11.0"
+    installCommand: "cub package install alloy:v1.11.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/alloy@sha256:c7b932034083033c2dbd41a9c383de3f37864d87efd1682ab658e51a52ea770a"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
+      publicationReceipt: "runs/installer-oci/grafana-alloy/1.11.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/alloy/1.11.0/installer.yaml"
     receipt: "recipes/grafana/alloy/1.11.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "75ce791134245455f1982bb83532cd0ff6c0f7ef15da09059eead35a1303206a"
@@ -94,7 +101,7 @@ spec:
         default: true
         description: "alloy chart defaults variant rendered from grafana/alloy@1.11.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808 --base default --work-dir <tmp> --non-interactive --namespace alloy"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/alloy:v1.11.0@sha256:c7b932034083033c2dbd41a9c383de3f37864d87efd1682ab658e51a52ea770a --base default --work-dir <tmp> --non-interactive --namespace alloy"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

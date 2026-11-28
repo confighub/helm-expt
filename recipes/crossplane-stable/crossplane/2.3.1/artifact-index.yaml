@@ -63,11 +63,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/crossplane-stable/crossplane/2.3.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
-    manifestDigest: "sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616"
-    layerDigest: "sha256:c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051"
-    publicationReceipt: "runs/installer-oci/crossplane-stable-crossplane/2.3.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/crossplane:v2.3.1@sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/crossplane:v2.3.1"
+    manifestDigest: "sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+    layerDigest: "sha256:c5ca25523a9566ab0441921e91a13d6528c94baa1b8ef7c6fd58a1673f6f9873"
+    publicationReceipt: "runs/ghcr-packages/crossplane/v2.3.1.yaml"
+    name: "crossplane"
+    tag: "v2.3.1"
+    installCommand: "cub package install crossplane:v2.3.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/crossplane@sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616"
+      publicationReceipt: "runs/installer-oci/crossplane-stable-crossplane/2.3.1/installer-package-publication-receipt.yaml"
     installer: "packages/crossplane-stable/crossplane/2.3.1/installer.yaml"
     receipt: "recipes/crossplane-stable/crossplane/2.3.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c6fbe8d8b416736ddfaac6a244b2d733695fdbefdd1c5b1cacd9c673c349f051"
@@ -99,7 +106,7 @@ spec:
         default: true
         description: "crossplane-stable/crossplane default variant rendered from crossplane-stable/crossplane@2.3.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/crossplane:v2.3.1@sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

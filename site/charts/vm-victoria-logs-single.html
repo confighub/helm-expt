@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>vm/victoria-logs-single</code> 0.12.5, pre-rendered as 2 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install victoria-logs-single into ConfigHub.</strong> <code>cub package install victoria-logs-single:v0.12.5 --space victoria-logs-single --namespace default</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -829,7 +832,7 @@
 edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04  vm-victoria-logs-single-0-12-5-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2 --base default --work-dir ./vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-available">
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
@@ -846,7 +849,7 @@ edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04  vm-victoria-lo
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5@sha256:600a3ea933d9ffa94358d653ab77560ad1356d48c4b3b3f06cbbfb0845438686 --base default --space &lt;your-space&gt; --namespace default --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/victoria-logs-single:v0.12.5@sha256:38f09fe2fa038edb5bc191ae1e5b2beaa0e469fed976969b2ef0edd20ce5b8c2 --base default --space &lt;your-space&gt; --namespace default --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./vm-victoria-logs-single-0-12-5-default --space &lt;your-space&gt; --component &lt;your-component&gt;

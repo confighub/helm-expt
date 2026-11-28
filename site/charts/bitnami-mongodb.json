@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0@sha256:1804b3a7dbfcdb7879564e9961eddc7c5e15e6020358332f20be9927ea7f8406"
+        "ociRef": "oci://ghcr.io/confighub/packages/mongodb:v19.1.0@sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136",
+        "installCommand": "cub package install mongodb:v19.1.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9@sha256:37930a411e8fbd975677a68a10a1790bacfbd20d4661848d4cbbec3d728061a1"
+        "ociRef": "oci://ghcr.io/confighub/packages/mongodb:v19.0.9@sha256:7091e6d9cf346125321c1043e4684a459ed61d4f3fc1806a9125398a997c839c",
+        "installCommand": "cub package install mongodb:v19.0.9 --space <space>"
       },
       "bases": [
         {
@@ -115,7 +117,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+        "ociRef": "oci://ghcr.io/confighub/packages/mongodb:v19.0.7@sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b",
+        "installCommand": "cub package install mongodb:v19.0.7 --space <space>"
       },
       "bases": [
         {

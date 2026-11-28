@@ -766,10 +766,13 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>prometheus-community/kube-prometheus-stack</code> 88.6.3, pre-rendered as 125 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install kube-prometheus-stack into ConfigHub.</strong> <code>cub package install kube-prometheus-stack:v88.6.3 --space kube-prometheus-stack --namespace monitoring</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/prometheus-community/kube-prometheus-stack/88.6.3/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-kube-prometheus-stack.html">Worked walkthrough</a>.</p>
       <p><strong>Needs first.</strong> The package applies the locked CRDs before the chart objects that use them. Plan below lists 7 more.</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -920,7 +923,7 @@ f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99  prometheus-com
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 88.6.3, the newest version, on its default base.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 88.6.3, the newest version, on its default base.</p>
       <div data-entry-steps="prometheus-community-kube-prometheus-stack-88-6-3-default">
         <details class="entry-inputs" data-entry-inputs="prometheus-community-kube-prometheus-stack-88-6-3-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -953,7 +956,7 @@ f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99  prometheus-com
 7b1bb6bd944ccfff3fa9e42b82a1fe442ddffefccf28f08f670b841c12906f4d  prometheus-community-kube-prometheus-stack-88-6-3-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a --base default --work-dir ./prometheus-community-kube-prometheus-stack-88-6-3-default --non-interactive --namespace monitoring</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/kube-prometheus-stack:v88.6.3@sha256:bd17a6b056c031e067590a6315db7ba80bb103e94314328f20fc1814ebff4aa0 --base default --work-dir ./prometheus-community-kube-prometheus-stack-88-6-3-default --non-interactive --namespace monitoring</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -981,7 +984,7 @@ f93812ce23b92c73c0bcc223d5c4efd125e80430b846dc41aa874eee09f67d99  prometheus-com
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a --base default --space &lt;your-space&gt; --namespace monitoring --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/kube-prometheus-stack:v88.6.3@sha256:bd17a6b056c031e067590a6315db7ba80bb103e94314328f20fc1814ebff4aa0 --base default --space &lt;your-space&gt; --namespace monitoring --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./prometheus-community-kube-prometheus-stack-88-6-3-default --space &lt;your-space&gt; --component &lt;your-component&gt;

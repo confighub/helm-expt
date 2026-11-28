@@ -65,11 +65,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
-    manifestDigest: "sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
-    layerDigest: "sha256:5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49"
-    publicationReceipt: "runs/installer-oci/strimzi-strimzi-kafka-operator/1.0.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/strimzi-kafka-operator:v1.0.0@sha256:3f65e8da5b2c1a490e294ff02bf76c25f6e105e866b996a4de068f089c6d0fe8"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/strimzi-kafka-operator:v1.0.0"
+    manifestDigest: "sha256:3f65e8da5b2c1a490e294ff02bf76c25f6e105e866b996a4de068f089c6d0fe8"
+    layerDigest: "sha256:a78ea389e5d43e37fa1fbf688130e1156aac32205ab57e48c44221d08e84a95e"
+    publicationReceipt: "runs/ghcr-packages/strimzi-kafka-operator/v1.0.0.yaml"
+    name: "strimzi-kafka-operator"
+    tag: "v1.0.0"
+    installCommand: "cub package install strimzi-kafka-operator:v1.0.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/strimzi-kafka-operator@sha256:3f65e8da5b2c1a490e294ff02bf76c25f6e105e866b996a4de068f089c6d0fe8"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848"
+      publicationReceipt: "runs/installer-oci/strimzi-strimzi-kafka-operator/1.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/strimzi/strimzi-kafka-operator/1.0.0/installer.yaml"
     receipt: "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "5a7fc089e0557c9fcebb59a24e107e1429a93940ab95d52c59a79bac9af12d49"
@@ -106,7 +113,7 @@ spec:
         default: true
         description: "strimzi/strimzi-kafka-operator default variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/strimzi-kafka-operator:v1.0.0@sha256:3f65e8da5b2c1a490e294ff02bf76c25f6e105e866b996a4de068f089c6d0fe8 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"
@@ -268,7 +275,7 @@ spec:
         default: false
         description: "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0@sha256:40ed335861aea2a9559c150936ea3eb2eeca59c4015bda3b40160890a0632848 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/strimzi-kafka-operator:v1.0.0@sha256:3f65e8da5b2c1a490e294ff02bf76c25f6e105e866b996a4de068f089c6d0fe8 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

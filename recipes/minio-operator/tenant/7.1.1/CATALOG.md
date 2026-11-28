@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/minio-operator/tenant/7.1.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/minio-operator/tenant/7.1.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a` |
+| Install into a Space | `cub package install minio-tenant:v7.1.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/minio-tenant:v7.1.1@sha256:a53bb2f8ee0292ceae40d5abb0d3c60a3662fb0df7f586e301f75a970444778d` |
+| Installer package publication | [runs/ghcr-packages/minio-tenant/v7.1.1.yaml](../../../../runs/ghcr-packages/minio-tenant/v7.1.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a` |
 | Installer package source | [packages/minio-operator/tenant/7.1.1](../../../../packages/minio-operator/tenant/7.1.1) |
 | Installer package receipt | [recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/minio-operator/tenant/7.1.1/artifact-index.yaml](artifact-index.yaml) |
@@ -78,12 +81,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install minio-tenant:v7.1.1 --space minio-tenant --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/minio-tenant:v7.1.1@sha256:a53bb2f8ee0292ceae40d5abb0d3c60a3662fb0df7f586e301f75a970444778d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/minio-tenant@sha256:a53bb2f8ee0292ceae40d5abb0d3c60a3662fb0df7f586e301f75a970444778d`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/runix-pgadmin4-1-62-0-default.yaml",
-      "sha256": "sha256:ecbe09d9518bbf24316f1865ad070bed451569f6d755831aa407ebc69e68b3ef",
+      "sha256": "sha256:bab0f03e0e7da9a6d024b4de378289fb6227aed816b6918b2f541eb4778a1eec",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/runix-pgadmin4-1-62-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "runix/pgadmin4",
     "version": "1.62.0",
     "reference": "runix/pgadmin4@1.62.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd",
+    "ociRef": "oci://ghcr.io/confighub/packages/pgadmin4:v1.62.0@sha256:5c52065cbbd719aca9924d6ba6d127ae5edfa35d42fa8ec51fae14dcaec55e39",
     "record": "data/helm-render-intents/intents/runix-pgadmin4-1-62-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/runix-pgadmin4-1-62-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/pgadmin4:v1.62.0@sha256:5c52065cbbd719aca9924d6ba6d127ae5edfa35d42fa8ec51fae14dcaec55e39",
     "bundles": [
       {
         "role": "source-package",
@@ -438,7 +438,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd --base default --work-dir ./runix-pgadmin4-1-62-0-default --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/pgadmin4:v1.62.0@sha256:5c52065cbbd719aca9924d6ba6d127ae5edfa35d42fa8ec51fae14dcaec55e39 --base default --work-dir ./runix-pgadmin4-1-62-0-default --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -478,7 +478,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0@sha256:1cd9dc2c01444724376921ec8f500ecd7791282ac0dfe50e51e041bf13c8c0fd --base default --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/pgadmin4:v1.62.0@sha256:5c52065cbbd719aca9924d6ba6d127ae5edfa35d42fa8ec51fae14dcaec55e39 --base default --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/kyverno/kyverno-policies/3.9.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kyverno/kyverno-policies/3.9.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kyverno/kyverno-policies/3.9.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.9.0@sha256:64effafc30ac1a1d0f702bd52ec8acf5b858ee4f2d3eba5978b718adfec55751` |
+| Install into a Space | `cub package install kyverno-policies:v3.9.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/kyverno-policies:v3.9.0@sha256:c4b7287064e42b0ac43cf6d1c2a1452f7ec2666bf0506d2eaffdd9fa53fc654f` |
+| Installer package publication | [runs/ghcr-packages/kyverno-policies/v3.9.0.yaml](../../../../runs/ghcr-packages/kyverno-policies/v3.9.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.9.0@sha256:64effafc30ac1a1d0f702bd52ec8acf5b858ee4f2d3eba5978b718adfec55751` |
 | Installer package source | [packages/kyverno/kyverno-policies/3.9.0](../../../../packages/kyverno/kyverno-policies/3.9.0) |
 | Installer package receipt | [recipes/kyverno/kyverno-policies/3.9.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kyverno/kyverno-policies/3.9.0/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.9.0@sha256:64effafc30ac1a1d0f702bd52ec8acf5b858ee4f2d3eba5978b718adfec55751 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install kyverno-policies:v3.9.0 --space kyverno-policies --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/kyverno-policies:v3.9.0@sha256:c4b7287064e42b0ac43cf6d1c2a1452f7ec2666bf0506d2eaffdd9fa53fc654f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kyverno-policies@sha256:c4b7287064e42b0ac43cf6d1c2a1452f7ec2666bf0506d2eaffdd9fa53fc654f`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

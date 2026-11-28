@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "mysql"
+spec:
+  chart: "bitnami/mysql"
+  version: "14.0.3"
+  packagePath: "packages/bitnami/mysql/14.0.3"
+  tag: "v14.0.3"
+  reference: "ghcr.io/confighub/packages/mysql:v14.0.3"
+  immutableReference: "ghcr.io/confighub/packages/mysql@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+  manifestDigest: "sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+  layerDigest: "sha256:7b82d2d7bd695c9450700a1d0bb5a9e02f15ba9faa865ec129abd7b4db1b9a29"
+  installCommand: "cub package install mysql:v14.0.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+  observedAt: "2026-11-27T19:42:56.629Z"
+status:
+  result: "pass"

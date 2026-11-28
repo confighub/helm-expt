@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/vm/victoria-metrics-single/0.39.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/vm/victoria-metrics-single/0.39.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/vm/victoria-metrics-single/0.39.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195` |
+| Install into a Space | `cub package install victoria-metrics-single:v0.39.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b` |
+| Installer package publication | [runs/ghcr-packages/victoria-metrics-single/v0.39.0.yaml](../../../../runs/ghcr-packages/victoria-metrics-single/v0.39.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195` |
 | Installer package source | [packages/vm/victoria-metrics-single/0.39.0](../../../../packages/vm/victoria-metrics-single/0.39.0) |
 | Installer package receipt | [recipes/vm/victoria-metrics-single/0.39.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/vm/victoria-metrics-single/0.39.0/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install victoria-metrics-single:v0.39.0 --space victoria-metrics-single --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/victoria-metrics-single@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

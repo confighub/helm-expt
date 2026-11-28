@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/policy-reporter/policy-reporter/3.9.1/value-model.yaml](../../../../../../../recipes/policy-reporter/policy-reporter/3.9.1/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef` |
+| Install into a Space | `cub package install policy-reporter:v3.9.1 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1` |
+| Installer package publication | [runs/ghcr-packages/policy-reporter/v3.9.1.yaml](../../../../../../../runs/ghcr-packages/policy-reporter/v3.9.1.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef` |
 | Installer package source | [packages/policy-reporter/policy-reporter/3.9.1](../../../../../../../packages/policy-reporter/policy-reporter/3.9.1) |
 | Installer package receipt | [recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml](../../../../../../../recipes/policy-reporter/policy-reporter/3.9.1/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1@sha256:b23e9c4e3b73724a1f08b413937e1596aac5d21b23ccf3ddce5a67f7774e0fef --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install policy-reporter:v3.9.1 --space policy-reporter --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/policy-reporter:v3.9.1@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/policy-reporter@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

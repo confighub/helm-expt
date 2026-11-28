@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.14.0@sha256:806f198aca52dc7db180a04354dd7895873cad5c1811a45532d7e27077e3a0a3"
+        "ociRef": "oci://ghcr.io/confighub/packages/metrics-server:v3.14.0@sha256:9f99668caf5862399d4ecd6d3099cb9b25bed2c56a1f15e12b845fc9735d015c",
+        "installCommand": "cub package install metrics-server:v3.14.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1@sha256:ae2c7fad50add92edd4864cfe08ec92c46eb041d9e8f7014a4504a77297b409f"
+        "ociRef": "oci://ghcr.io/confighub/packages/metrics-server:v3.13.1@sha256:731c52c403c9b7cc7abd45dd389ea3685c4a33e21466690a91904917c395f80e",
+        "installCommand": "cub package install metrics-server:v3.13.1 --space <space>"
       },
       "bases": [
         {
@@ -115,7 +117,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0@sha256:682e4610d70e6ad31dfc87c1a04ec2172cd2e5446ae3ff1e2ecaa8c6c2356127"
+        "ociRef": "oci://ghcr.io/confighub/packages/metrics-server:v3.13.0@sha256:147aad673532ea989d6e1a55e1e499236606cd0014c1f3eaf9f48eb154487e61",
+        "installCommand": "cub package install metrics-server:v3.13.0 --space <space>"
       },
       "bases": [
         {

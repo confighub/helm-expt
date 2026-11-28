@@ -752,11 +752,14 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>nvidia/gpu-operator</code> v26.7.1, pre-rendered as 27 Kubernetes objects in its <code>default</code> preset. (7 presets available.)</p>
+      <p><strong>Install gpu-operator into ConfigHub.</strong> <code>cub package install gpu-operator:v26.7.1 --space gpu-operator --namespace gpu-operator</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../d/docs/user/deploy-gpu-operator-from-catalog.html">Deploy GPU Operator guide</a>.</p>
       <p><strong>Needs first.</strong> Nothing. Standard Kubernetes objects apply directly.</p>
-      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/nvidia-gpu-operator-v26-7-1/default/try-objects.sh">cluster test script</a>)</p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default:r001@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code></p>
-      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default:r001-e62fa1a18361@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
+      <p><strong>Check it locally (no account, nothing is installed).</strong> <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/nvidia-gpu-operator-v26-7-1/default/try-objects.sh">cluster test script</a>)</p>
+      <p><strong>OCI bundle.</strong> <code>oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default:r001-e62fa1a18361@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code>, signed by the <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a>: <code>cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code></p>
+      <p><strong>Earlier location.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default:r001@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code></p>
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; bundle for <code>cub variant upload</code>, Argo CD or Flux; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="pillars-here">
@@ -781,7 +784,7 @@
       <p>The chart needs manual review before a user-facing recommendation is made.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>v26.7.1</td></tr><tr><td>Exact installer package</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code></td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>publisher signature recorded and verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td><code>default;driver-580.105.08;driver-580.126.20;preinstalled-driver;preinstalled-driver-and-toolkit;external-nfd;aicr-eks-training</code></td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>gpu-operator</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Review before use</td></tr><tr><td>Chart version</td><td>v26.7.1</td></tr><tr><td>Exact installer package</td><td><code>oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25</code></td></tr><tr><td>OCI publication status</td><td>published on GitHub's registry; publication receipt recorded</td></tr><tr><td>Publisher signature</td><td>signed by the package publish workflow, verified</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td><code>default;driver-580.105.08;driver-580.126.20;preinstalled-driver;preinstalled-driver-and-toolkit;external-nfd;aicr-eks-training</code></td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>gpu-operator</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -853,7 +856,7 @@
       <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code></td><td>The exact installer package for this chart version. The version tag is readable, and the manifest digest makes a published pull immutable. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>8 CRDs<br>Included in the OCI package as <code>prerequisites/target-facts/default-crds.yaml</code>. It applies missing CRDs server-side. The generated try script leaves existing CRDs under their current owner and waits for them before the workload.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../../data/base-variant-records/records/nvidia-gpu-operator-v26-7-1-default.yaml">default base-variant record</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25</code></td><td>The exact installer package for this chart version. The version tag is readable, and the manifest digest makes a published pull immutable. Catalog packages are published on GitHub's registry, ghcr.io/confighub/packages, with anonymous read access. Installing one into a Space needs a ConfigHub sign-in; the local setup path needs no account and no registry login.</td></tr><tr><td>Required before apply</td><td>8 CRDs<br>Included in the OCI package as <code>prerequisites/target-facts/default-crds.yaml</code>. It applies missing CRDs server-side. The generated try script leaves existing CRDs under their current owner and waits for them before the workload.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/nvidia/gpu-operator/v26.7.1/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/nvidia-gpu-operator-v26-7-1-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../../data/base-variant-records/records/nvidia-gpu-operator-v26-7-1-default.yaml">default base-variant record</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -874,25 +877,30 @@
       <h2 id="run-this">Try This Chart</h2>
       <p>Review <strong>default</strong> before use. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
+        <h3>Install it into ConfigHub</h3>
+        <pre><code>cub package install gpu-operator:v26.7.1 --space gpu-operator --namespace gpu-operator</code></pre>
+        <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <code>cub package install</code> is part of cub, with no plugin to add. <a href="../packages.html">How packages work</a>.</p>
+        <p>The rest of this card renders the same package on your machine, without a Space.</p>
         <h3>Package image</h3>
-        <p><strong>Exact package:</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded · <a href="../../runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml">open the exact publication receipt</a></span></p>
-        <p>Readable version tag: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
+        <p><strong>Exact package:</strong> <code>oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25</code><br><span style="color:var(--muted);font-size:.9rem">published on GitHub's registry; publication receipt recorded · <a href="../../runs/ghcr-packages/gpu-operator/v26.7.1.yaml">open the exact publication receipt</a></span></p>
+        <p>Readable version tag: <code>oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1</code>. The package is pinned so a republished tag cannot change what you get. The command below uses the exact manifest digest, so <code>cub installer</code> refuses different package bytes.</p>
         <h3>Check the package identity</h3>
-        <pre><code>cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --json</code></pre>
+        <pre><code>cub installer inspect oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --json</code></pre>
         <h3>Read how each configuration was made</h3>
-        <pre><code>cub installer pull 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71' --work-dir ./package-review
+        <pre><code>cub installer pull 'oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25' --work-dir ./package-review
 less ./package-review/package/records/README.md</code></pre>
         <p>The package's <code>records/</code> directory connects every base to its source choices, Helm render intent, Kubernetes objects, prerequisites, lifecycle work, and checks. These are supporting records, not Kubernetes objects.</p>
         <details>
         <summary><strong>Verify the package publisher</strong></summary>
-        <p>Run this command with <code>cosign</code>. It checks the expected publisher, the exact manifest digest, and the package annotations.</p>
-        <pre><code>cosign verify --certificate-identity helm-expt-package-signer@nth-fort-499605-q5.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com --annotations confighub.com/package-path=packages/nvidia/gpu-operator/v26.7.1 --annotations confighub.com/package-sha256=3a3722f1ad3ceaa7280c765c22b2f57ce7f2cd08f9911f283474a35238aa10bd europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code></pre>
+        <p>Run this command with <code>cosign</code>. It checks that the package publish workflow on <code>main</code> of this repository signed this exact manifest digest.</p>
+        <pre><code>cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/gpu-operator@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25</code></pre>
         <p>A valid signature identifies who signed these package bytes. It does not show that the configuration is suitable for your cluster; use this page's checks and setup instructions for that decision.</p>
-        <p><a href="../../runs/installer-oci-signatures/nvidia-gpu-operator/v26.7.1/signature-receipt.yaml">Signature receipt</a> · <a href="../../runs/installer-oci-signatures/nvidia-gpu-operator/v26.7.1/signature.sigstore.json">Sigstore bundle</a> · <a href="../d/docs/reference/installer-package-signing.html">How signature verification works</a></p>
+        <p><a href="../../runs/ghcr-packages/gpu-operator/v26.7.1.yaml">Publication receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/packages-publish.yml">Publish workflow</a></p>
       </details>
-        <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
+      <p><strong>Earlier location.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code>, the Google registry copy this package was first published to, signed by a Google service account (<a href="../../runs/installer-oci-signatures/nvidia-gpu-operator/v26.7.1/signature-receipt.yaml">signature receipt</a>). It stays readable; the package above is the one the Catalog names.</p>
+        <p>Catalog packages are published on GitHub's registry, ghcr.io/confighub/packages, with anonymous read access. Installing one into a Space needs a ConfigHub sign-in; the local setup path needs no account and no registry login.</p>
         <h3>First recorded command</h3>
-        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base default --work-dir ./nvidia-gpu-operator-v26-7-1-default --non-interactive --namespace gpu-operator</code></p>
+        <p><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base default --work-dir ./nvidia-gpu-operator-v26-7-1-default --non-interactive --namespace gpu-operator</code></p>
         <details title="Additional scripts: apply it or upload it"><summary><strong>Advanced: apply it or upload it</strong></summary><p>Run the whole sequence as one script, prerequisites included: <a href="../sh/nvidia-gpu-operator-v26-7-1/default/try.sh">try.sh</a> renders and applies to Kubernetes without an account; <a href="../sh/nvidia-gpu-operator-v26-7-1/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p></details>
         <h3>You should see something like this</h3>
         <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
@@ -906,7 +914,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 7 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Expand any of the 7 entries below. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run.</p>
       <details class="entry-steps-base" data-entry-steps="nvidia-gpu-operator-v26-7-1-default" open>
         <summary>Helm chart, base <strong>default</strong>, version v26.7.1</summary>
         <details class="entry-inputs" data-entry-inputs="nvidia-gpu-operator-v26-7-1-default" open>
@@ -961,10 +969,10 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant default --space nvidia-gpu-operator-v26-7-1-default --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default:r001@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant default --space nvidia-gpu-operator-v26-7-1-default --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default:r001-e62fa1a18361@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant default --space nvidia-gpu-operator-v26-7-1-default --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default:r001@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant default --space nvidia-gpu-operator-v26-7-1-default --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default:r001-e62fa1a18361@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1055,10 +1063,10 @@ a3d4cab291e48e0d0e667ef49116c6d7ecff91600cd13c1e9c4c23290fcd78dd  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant aicr-eks-training --space nvidia-gpu-operator-v26-7-1-aicr-eks-training --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-aicr-eks-training:r001@sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant aicr-eks-training --space nvidia-gpu-operator-v26-7-1-aicr-eks-training --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-aicr-eks-training:r001-5db53fc18c86@sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant aicr-eks-training --space nvidia-gpu-operator-v26-7-1-aicr-eks-training --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-aicr-eks-training:r001@sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant aicr-eks-training --space nvidia-gpu-operator-v26-7-1-aicr-eks-training --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-aicr-eks-training:r001-5db53fc18c86@sha256:5db53fc18c8684c062b43a5c2142fa4e2137febcd7eecd486ea3709cc3741cc7</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1149,10 +1157,10 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant driver-580.105.08 --space nvidia-gpu-operator-v26-7-1-driver-580-105-08 --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant driver-580.105.08 --space nvidia-gpu-operator-v26-7-1-driver-580-105-08 --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001-655b69ee53a0@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant driver-580.105.08 --space nvidia-gpu-operator-v26-7-1-driver-580-105-08 --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant driver-580.105.08 --space nvidia-gpu-operator-v26-7-1-driver-580-105-08 --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001-655b69ee53a0@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1243,10 +1251,10 @@ a7c7497145609bb16a06dda26b387625f75b388360ba9589d19ad6e6459a63f6  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant driver-580.126.20 --space nvidia-gpu-operator-v26-7-1-driver-580-126-20 --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-126-20:r001@sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant driver-580.126.20 --space nvidia-gpu-operator-v26-7-1-driver-580-126-20 --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-126-20:r001-8c7bf2ca0700@sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant driver-580.126.20 --space nvidia-gpu-operator-v26-7-1-driver-580-126-20 --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-126-20:r001@sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant driver-580.126.20 --space nvidia-gpu-operator-v26-7-1-driver-580-126-20 --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-126-20:r001-8c7bf2ca0700@sha256:8c7bf2ca070058ebc6697e63cec878a52826d806bd84a817c166700ffa57b1b1</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1337,10 +1345,10 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant external-nfd --space nvidia-gpu-operator-v26-7-1-external-nfd --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-external-nfd:r001@sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant external-nfd --space nvidia-gpu-operator-v26-7-1-external-nfd --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-external-nfd:r001-0f8043da91b1@sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant external-nfd --space nvidia-gpu-operator-v26-7-1-external-nfd --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-external-nfd:r001@sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant external-nfd --space nvidia-gpu-operator-v26-7-1-external-nfd --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-external-nfd:r001-0f8043da91b1@sha256:0f8043da91b1e4b5921e5034a8d531fb071f068460d0fddc47cd39d396551b36</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1431,10 +1439,10 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant preinstalled-driver --space nvidia-gpu-operator-v26-7-1-preinstalled-driver --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver:r001@sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant preinstalled-driver --space nvidia-gpu-operator-v26-7-1-preinstalled-driver --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver:r001-31379641c19a@sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant preinstalled-driver --space nvidia-gpu-operator-v26-7-1-preinstalled-driver --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver:r001@sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant preinstalled-driver --space nvidia-gpu-operator-v26-7-1-preinstalled-driver --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver:r001-31379641c19a@sha256:31379641c19aa01c33e39ee88d67dba1968183f0815df58c59a8323fff30ecc7</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1525,10 +1533,10 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant preinstalled-driver-and-toolkit --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774
+<span class="term-prompt">$</span> cub variant upload --dry-run --component nvidia-gpu-operator --variant preinstalled-driver-and-toolkit --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001-709f91885ebb@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774
 
 <span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant preinstalled-driver-and-toolkit --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --namespace gpu-operator --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774</code></pre>
+<span class="term-prompt">$</span> cub variant upload --component nvidia-gpu-operator --variant preinstalled-driver-and-toolkit --space nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --namespace gpu-operator --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit:r001-709f91885ebb@sha256:709f91885ebb96ce1af1205fb75c4c07c697f0e0cf64ef5a8d63df81ea8de774</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
@@ -1627,7 +1635,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values.yaml">effective-values.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base default --work-dir ./nvidia-gpu-operator-v26-7-1-default --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base default --work-dir ./nvidia-gpu-operator-v26-7-1-default --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1654,7 +1662,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-aicr-eks-training.yaml">effective-values-aicr-eks-training.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base aicr-eks-training --work-dir ./nvidia-gpu-operator-v26-7-1-aicr-eks-training --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base aicr-eks-training --work-dir ./nvidia-gpu-operator-v26-7-1-aicr-eks-training --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/aicr-eks-training/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/aicr-eks-training/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1681,7 +1689,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-driver-580.105.08.yaml">effective-values-driver-580.105.08.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.105.08 --work-dir ./nvidia-gpu-operator-v26-7-1-driver-580-105-08 --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base driver-580.105.08 --work-dir ./nvidia-gpu-operator-v26-7-1-driver-580-105-08 --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-105-08/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-105-08/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1708,7 +1716,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-driver-580.126.20.yaml">effective-values-driver-580.126.20.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base driver-580.126.20 --work-dir ./nvidia-gpu-operator-v26-7-1-driver-580-126-20 --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base driver-580.126.20 --work-dir ./nvidia-gpu-operator-v26-7-1-driver-580-126-20 --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-126-20/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/driver-580-126-20/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1735,7 +1743,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-external-nfd.yaml">effective-values-external-nfd.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base external-nfd --work-dir ./nvidia-gpu-operator-v26-7-1-external-nfd --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base external-nfd --work-dir ./nvidia-gpu-operator-v26-7-1-external-nfd --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/external-nfd/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/external-nfd/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1762,7 +1770,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-preinstalled-driver.yaml">effective-values-preinstalled-driver.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base preinstalled-driver --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1789,7 +1797,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>Helm values</dt><dd><a href="../../recipes/nvidia/gpu-operator/v26.7.1/effective-values-preinstalled-driver-and-toolkit.yaml">effective-values-preinstalled-driver-and-toolkit.yaml</a></dd>
           <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71 --base preinstalled-driver-and-toolkit --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --non-interactive --namespace gpu-operator</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25 --base preinstalled-driver-and-toolkit --work-dir ./nvidia-gpu-operator-v26-7-1-preinstalled-driver-and-toolkit --non-interactive --namespace gpu-operator</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver-and-toolkit/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/nvidia-gpu-operator-v26-7-1/preinstalled-driver-and-toolkit/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Helm render parity receipt</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
@@ -1866,7 +1874,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
       <p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71</code></td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 7/7; Local live 0/7; Live parity 0/7)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>nothing beyond a cluster and namespace</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>review chart analysis and create a recipe candidate</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Works with operator review</td></tr><tr><td>Can I use it?</td><td>Review before recommending.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Exact installer package</td><td><code>oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25</code></td></tr><tr><td>Tests completed</td><td>Not in current catalog test (render parity 7/7; Local live 0/7; Live parity 0/7)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>nothing beyond a cluster and namespace</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts</td></tr><tr><td>Next action</td><td>review chart analysis and create a recipe candidate</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -1886,7 +1894,7 @@ a6331c4c2f27f1b5124c97a8e5074375ff58e0dbfcb48c0a12104dba2617b489  nvidia-gpu-ope
         <tbody><tr>
           <td data-label="Question">Can I pull these exact package bytes again?</td>
           <td data-label="Status">Checked</td>
-          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/nvidia-gpu-operator/v26.7.1/installer-package-publication-receipt.yaml">Package receipt</a></td>
+          <td data-label="Evidence"><a href="https://github.com/confighub/helm-expt/blob/main/runs/ghcr-packages/gpu-operator/v26.7.1.yaml">Evidence</a></td>
         </tr><tr>
           <td data-label="Question">What does this chart contain?</td>
           <td data-label="Status">Partly checked</td>

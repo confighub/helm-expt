@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training"
+spec:
+  kind: "certified-bundle"
+  record: "eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training:bundle-2f4cd78ec0f1"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+  manifestDigest: "sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/aws-efa-k8s-device-plugin-v0.5.29-aicr-eks-training/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training@sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+    receipt: "runs/certified-bundles/catalog-eks-aws-efa-k8s-device-plugin-v0-5-29-aicr-eks-training/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2f4cd78ec0f161535c50cd4cfcc53597fd4b026f0387e5382157ccb3f5b54461"
+  observedAt: "2026-11-27T19:35:07.537Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "argo-rollouts"
+spec:
+  chart: "argo-cd/argo-rollouts"
+  version: "2.40.9"
+  packagePath: "packages/argo-cd/argo-rollouts/2.40.9"
+  tag: "v2.40.9"
+  reference: "ghcr.io/confighub/packages/argo-rollouts:v2.40.9"
+  immutableReference: "ghcr.io/confighub/packages/argo-rollouts@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+  manifestDigest: "sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+  layerDigest: "sha256:60cb66eca735eab9fd97d73726360580f571bb43f48e898ac945f17ad31e9bef"
+  installCommand: "cub package install argo-rollouts:v2.40.9 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+  observedAt: "2026-11-27T19:42:48.662Z"
+status:
+  result: "pass"

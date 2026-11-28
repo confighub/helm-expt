@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>ingress-nginx/ingress-nginx</code> 4.15.1, pre-rendered as 11 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install ingress-nginx into ConfigHub.</strong> <code>cub package install ingress-nginx:v4.15.1 --space ingress-nginx --namespace ingress-nginx</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-ingress-nginx.html">Worked walkthrough</a>.</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -836,7 +839,7 @@ ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e  ingress-nginx-
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 4.15.1, the newest version, on its default base.</p>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 4.15.1, the newest version, on its default base.</p>
       <div data-entry-steps="ingress-nginx-ingress-nginx-4-15-1-default">
         <details class="entry-inputs" data-entry-inputs="ingress-nginx-ingress-nginx-4-15-1-default" open>
         <summary>What is fixed, and what you supply</summary>
@@ -867,7 +870,7 @@ ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e  ingress-nginx-
 257503d94cea6b1d59e1564805f03a59c5a2d8fdf2de2b340676df03c295a80d  ingress-nginx-ingress-nginx-4-15-1-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38 --base default --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --non-interactive --namespace ingress-nginx</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
@@ -889,7 +892,7 @@ ad133758fa1985241f9dd1fe766f6ca9f17e199bf7562e37b3c2834a6588c25e  ingress-nginx-
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1@sha256:dc0f6c1a8158230957c1cae1b26073339b009b220c79cff0e3df31e9f21c73e4 --base default --space &lt;your-space&gt; --namespace ingress-nginx --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/ingress-nginx:v4.15.1@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38 --base default --space &lt;your-space&gt; --namespace ingress-nginx --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --space &lt;your-space&gt; --component &lt;your-component&gt;

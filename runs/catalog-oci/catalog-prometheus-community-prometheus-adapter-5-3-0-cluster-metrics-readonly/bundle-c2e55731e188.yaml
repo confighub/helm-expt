@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly:bundle-c2e55731e188"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly@sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+  manifestDigest: "sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/prometheus-adapter-5.3.0-cluster-metrics-readonly/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly@sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:c2e55731e188df4fbb5bc70b376a21b72e1c9a0f2a2899d51113f43a2f50d210"
+  observedAt: "2026-11-27T19:35:48.538Z"
+status:
+  result: "pass"

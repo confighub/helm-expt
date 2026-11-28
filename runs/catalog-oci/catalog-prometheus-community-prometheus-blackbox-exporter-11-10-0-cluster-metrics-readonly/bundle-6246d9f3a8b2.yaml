@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:bundle-6246d9f3a8b2"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+  manifestDigest: "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.10.0-cluster-metrics-readonly/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb"
+  observedAt: "2026-11-27T19:35:48.887Z"
+status:
+  result: "pass"

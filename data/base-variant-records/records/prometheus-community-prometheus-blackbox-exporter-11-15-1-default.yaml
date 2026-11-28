@@ -13,7 +13,7 @@ spec:
     name: "prometheus-community/prometheus-blackbox-exporter"
     version: "11.15.1"
     record: "data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-15-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189"
+    packageOciRef: "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e"
     selection:
       name: "default"
       kind: "catalog-preset"

@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/kai-scheduler/kai-scheduler/v0.16.9/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/kai-scheduler/kai-scheduler/v0.16.9/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/kai-scheduler/kai-scheduler/v0.16.9/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab` |
+| Install into a Space | `cub package install kai-scheduler:v0.16.9 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259` |
+| Installer package publication | [runs/ghcr-packages/kai-scheduler/v0.16.9.yaml](../../../../runs/ghcr-packages/kai-scheduler/v0.16.9.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab` |
 | Installer package source | [packages/kai-scheduler/kai-scheduler/v0.16.9](../../../../packages/kai-scheduler/kai-scheduler/v0.16.9) |
 | Installer package receipt | [recipes/kai-scheduler/kai-scheduler/v0.16.9/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/kai-scheduler/kai-scheduler/v0.16.9/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install kai-scheduler:v0.16.9 --space kai-scheduler --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kai-scheduler@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

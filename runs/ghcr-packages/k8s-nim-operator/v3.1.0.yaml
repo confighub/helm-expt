@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "k8s-nim-operator"
+spec:
+  chart: "nvidia/k8s-nim-operator"
+  version: "3.1.0"
+  packagePath: "packages/nvidia/k8s-nim-operator/3.1.0"
+  tag: "v3.1.0"
+  reference: "ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0"
+  immutableReference: "ghcr.io/confighub/packages/k8s-nim-operator@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+  manifestDigest: "sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+  layerDigest: "sha256:e04e339a3057cad6421afe29257aa888683c2a267fbca386669326ac6fc4d0eb"
+  installCommand: "cub package install k8s-nim-operator:v3.1.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+  observedAt: "2026-11-27T19:43:42.059Z"
+status:
+  result: "pass"

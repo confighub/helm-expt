@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.4.0@sha256:90bc2edf8dbea78d770b7917c7bc80c796cfcd603a02e90f3d9969a219377272"
+        "ociRef": "oci://ghcr.io/confighub/packages/traefik:v41.4.0@sha256:823849a629fe434aedd151aeb753b2e1a650cbe2f36c8ce7e8f75dcf1e46dd35",
+        "installCommand": "cub package install traefik:v41.4.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
+        "ociRef": "oci://ghcr.io/confighub/packages/traefik:v41.0.2@sha256:740850f521fe40a8fa44ac7bc023fd4d3eff3de4739adac38f716da49d43a666",
+        "installCommand": "cub package install traefik:v41.0.2 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0@sha256:b127b8df699116a6e6252bcf5a1199c2a32640b7e99de2e45fd507dd29022535"
+        "ociRef": "oci://ghcr.io/confighub/packages/traefik:v40.2.0@sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52",
+        "installCommand": "cub package install traefik:v40.2.0 --space <space>"
       },
       "bases": [
         {

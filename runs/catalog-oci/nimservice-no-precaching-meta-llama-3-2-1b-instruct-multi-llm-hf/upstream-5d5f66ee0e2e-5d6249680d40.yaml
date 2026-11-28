@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf:upstream-5d5f66ee0e2e-5d6249680d40"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8"
+  manifestDigest: "sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf@sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8"
+    receipt: "runs/nimservice-variants/nimservice-no-precaching-meta-llama-3-2-1b-instruct-multi-llm-hf/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:5d6249680d40c73985c06348f9da5b928e3ef08e195bc166fa9ce989664df1e8"
+  observedAt: "2026-11-27T19:36:26.908Z"
+status:
+  result: "pass"

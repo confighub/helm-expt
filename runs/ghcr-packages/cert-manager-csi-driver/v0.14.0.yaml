@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cert-manager-csi-driver"
+spec:
+  chart: "jetstack/cert-manager-csi-driver"
+  version: "v0.14.0"
+  packagePath: "packages/jetstack/cert-manager-csi-driver/v0.14.0"
+  tag: "v0.14.0"
+  reference: "ghcr.io/confighub/packages/cert-manager-csi-driver:v0.14.0"
+  immutableReference: "ghcr.io/confighub/packages/cert-manager-csi-driver@sha256:01fbad8d2b70487cd2f5350abe67ed9e97aa8175c445111e9ae1dce0f8b10489"
+  manifestDigest: "sha256:01fbad8d2b70487cd2f5350abe67ed9e97aa8175c445111e9ae1dce0f8b10489"
+  layerDigest: "sha256:0e7e2fa1a27f0d47d72df636b7fe26f478b0b1f11a66ccaeb27cb5c387afd854"
+  installCommand: "cub package install cert-manager-csi-driver:v0.14.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:01fbad8d2b70487cd2f5350abe67ed9e97aa8175c445111e9ae1dce0f8b10489"
+  observedAt: "2026-11-27T19:43:25.262Z"
+status:
+  result: "pass"

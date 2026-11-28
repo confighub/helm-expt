@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-gitlab-gitlab-runner-0-89-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "gitlab-gitlab-runner-0-89-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-gitlab-gitlab-runner-0-89-0-default:bundle-0f4e3172af8e"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-gitlab-gitlab-runner-0-89-0-default@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+  manifestDigest: "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/gitlab-runner-0.89.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gitlab-gitlab-runner-0-89-0-default@sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+    receipt: "runs/certified-bundles/catalog-gitlab-gitlab-runner-0-89-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0f4e3172af8e9224510a7719890421f1e584397ad7c6e62300405bf9a0668710"
+  observedAt: "2026-11-27T19:35:16.818Z"
+status:
+  result: "pass"

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "reloader"
+spec:
+  chart: "stakater/reloader"
+  version: "2.2.16"
+  packagePath: "packages/stakater/reloader/2.2.16"
+  tag: "v2.2.16"
+  reference: "ghcr.io/confighub/packages/reloader:v2.2.16"
+  immutableReference: "ghcr.io/confighub/packages/reloader@sha256:7aadcdbb573aef383790b45c110ad8e728190c6ab22abfd9de9479b9c64fc402"
+  manifestDigest: "sha256:7aadcdbb573aef383790b45c110ad8e728190c6ab22abfd9de9479b9c64fc402"
+  layerDigest: "sha256:48b40e57a63d2cbe5171df91f3d5fb798e638252da9b877964b6a3fe44ba3e1a"
+  installCommand: "cub package install reloader:v2.2.16 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7aadcdbb573aef383790b45c110ad8e728190c6ab22abfd9de9479b9c64fc402"
+  observedAt: "2026-11-27T19:44:01.818Z"
+status:
+  result: "pass"

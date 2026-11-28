@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml",
-      "sha256": "sha256:b2e60d8ed2aa198112bdd9e19d1bf173496a75c6308334cd72f8626ffd7cbb21",
+      "sha256": "sha256:3327e486afdb6cad6d6a36596ea282ca418cda81f336376b44bd1b894faed0ce",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "prometheus-community/prometheus-blackbox-exporter",
     "version": "11.10.0",
     "reference": "prometheus-community/prometheus-blackbox-exporter@11.10.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559",
+    "ociRef": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.10.0@sha256:4de3f14cd6a354d878e2101078543dc66cbb3c129899c697d63ad886118c6f37",
     "record": "data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.10.0@sha256:4de3f14cd6a354d878e2101078543dc66cbb3c129899c697d63ad886118c6f37",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:bundle-6246d9f3a8b2@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
           "manifestDigest": "sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly/bundle-6246d9f3a8b2.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly/bundle-6246d9f3a8b2.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
           "sameDigestAsEarlier": true
@@ -549,12 +551,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-blackbox-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:latest@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
+          "command": "cub variant upload --dry-run --component prometheus-community-prometheus-blackbox-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:bundle-6246d9f3a8b2@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component prometheus-community-prometheus-blackbox-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:latest@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
+          "command": "cub variant upload --component prometheus-community-prometheus-blackbox-exporter --variant cluster-metrics-readonly --space prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly:bundle-6246d9f3a8b2@sha256:6246d9f3a8b2ffedbde2770340eceb5c5e2d9f47499bd87692814fcf4739c6bb",
           "needsAccount": true,
           "writes": true
         }

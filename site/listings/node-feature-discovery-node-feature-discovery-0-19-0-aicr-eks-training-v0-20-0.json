@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml",
-      "sha256": "sha256:903999ebe16b18095e80c9b995fe9629e48b3fe828f1e047e014457376ae7f20",
+      "sha256": "sha256:fc0dd4943e5ac5320dc170b5118b7679644c996838470545c1ef2c267a68f501",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "node-feature-discovery/node-feature-discovery",
     "version": "0.19.0",
     "reference": "node-feature-discovery/node-feature-discovery@0.19.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63",
+    "ociRef": "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d",
     "record": "data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/node-feature-discovery-node-feature-discovery:0.19.0@sha256:44e9888786f6d0c52a1351f8dcae597b1c91d68ddaf135049e9637fdbd76ea63",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/node-feature-discovery:v0.19.0@sha256:cea7c9e8f01fab415b3cc6ac4959e8a6fe5153e933699b764a6e5349a121a75d",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:bundle-e7db115f2932@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
           "manifestDigest": "sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0/bundle-e7db115f2932.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0/bundle-e7db115f2932.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
           "sameDigestAsEarlier": true
@@ -657,12 +659,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component node-feature-discovery-node-feature-discovery --variant aicr-eks-training-v0-20-0 --space node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --namespace node-feature-discovery --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:latest@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
+          "command": "cub variant upload --dry-run --component node-feature-discovery-node-feature-discovery --variant aicr-eks-training-v0-20-0 --space node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --namespace node-feature-discovery --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:bundle-e7db115f2932@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component node-feature-discovery-node-feature-discovery --variant aicr-eks-training-v0-20-0 --space node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --namespace node-feature-discovery --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:latest@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
+          "command": "cub variant upload --component node-feature-discovery-node-feature-discovery --variant aicr-eks-training-v0-20-0 --space node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0 --namespace node-feature-discovery --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v0-20-0:bundle-e7db115f2932@sha256:e7db115f2932c784e272e71cccc57c613402c659603f06068d7e8d2c2daf97ab",
           "needsAccount": true,
           "writes": true
         }

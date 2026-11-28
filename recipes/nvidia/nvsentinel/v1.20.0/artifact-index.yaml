@@ -61,11 +61,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/nvidia/nvsentinel/v1.20.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0"
-    manifestDigest: "sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
-    layerDigest: "sha256:26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277"
-    publicationReceipt: "runs/installer-oci/nvidia-nvsentinel/v1.20.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0"
+    manifestDigest: "sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802"
+    layerDigest: "sha256:bf8a61728257d8436f6b9c37e8c3022b4ad193b4d5a8849a6fc9cceb1568f1dc"
+    publicationReceipt: "runs/ghcr-packages/nvsentinel/v1.20.0.yaml"
+    name: "nvsentinel"
+    tag: "v1.20.0"
+    installCommand: "cub package install nvsentinel:v1.20.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nvsentinel@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+      publicationReceipt: "runs/installer-oci/nvidia-nvsentinel/v1.20.0/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/nvsentinel/v1.20.0/installer.yaml"
     receipt: "recipes/nvidia/nvsentinel/v1.20.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "26435988c6f62a7a84fc05ed4e97907489627a51469d638d0ed4c44fb9e0c277"
@@ -117,7 +124,7 @@ spec:
         default: true
         description: "nvsentinel chart defaults variant rendered from nvidia/nvsentinel@v1.20.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802 --base default --work-dir <tmp> --non-interactive --namespace nvsentinel"
         helmReleaseObjectCount: 22
         cubInstallObjectCountIncludingSupport: 23
         semanticObjectMatches: "22/22"
@@ -179,7 +186,7 @@ spec:
         default: false
         description: "nvsentinel no PodMonitor, for a cluster without the Prometheus Operator variant rendered from nvidia/nvsentinel@v1.20.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802 --base no-pod-monitor --work-dir <tmp> --non-interactive --namespace nvsentinel"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -251,7 +258,7 @@ spec:
         default: false
         description: "nvsentinel AICR EKS training values variant rendered from nvidia/nvsentinel@v1.20.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvsentinel"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace nvsentinel"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-fdd734abbade"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65"
+  manifestDigest: "sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/knative-meta-llama-3-2-1b-instruct-multi-llm/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm@sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65"
+    receipt: "runs/nimservice-variants/nimservice-knative-meta-llama-3-2-1b-instruct-multi-llm/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:fdd734abbade3c9cba0d52b80bb458d4097d643f045a70cd1df767dc8a538a65"
+  observedAt: "2026-11-27T19:36:22.686Z"
+status:
+  result: "pass"

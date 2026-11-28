@@ -66,11 +66,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/aqua/trivy-operator/0.32.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
-    manifestDigest: "sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
-    layerDigest: "sha256:ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
-    publicationReceipt: "runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1"
+    manifestDigest: "sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+    layerDigest: "sha256:80d4567b1766e15f07d29de56cf2f560c59d71ee8a5c15905d0182ecfc7d004d"
+    publicationReceipt: "runs/ghcr-packages/trivy-operator/v0.32.1.yaml"
+    name: "trivy-operator"
+    tag: "v0.32.1"
+    installCommand: "cub package install trivy-operator:v0.32.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/trivy-operator@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0"
+      publicationReceipt: "runs/installer-oci/aqua-trivy-operator/0.32.1/installer-package-publication-receipt.yaml"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ffed1c0724d57e60706c9d65f281038874859f075f9de64cf4baac3ee78dab6a"
@@ -107,7 +114,7 @@ spec:
         default: true
         description: "aqua/trivy-operator default variant rendered from aqua/trivy-operator@0.32.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 33
         cubInstallObjectCountIncludingSupport: 34
         semanticObjectMatches: "33/33"
@@ -241,7 +248,7 @@ spec:
         default: false
         description: "aqua/trivy-operator no-crds variant rendered from aqua/trivy-operator@0.32.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1@sha256:473c9b5a9803e80f6554db0cb7cd7f5c64c1ffdd1b04dd0216fdb4a657552ed0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/trivy-operator:v0.32.1@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/rollout-operator/0.49.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/rollout-operator/0.49.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d` |
+| Install into a Space | `cub package install rollout-operator:v0.49.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e` |
+| Installer package publication | [runs/ghcr-packages/rollout-operator/v0.49.0.yaml](../../../../runs/ghcr-packages/rollout-operator/v0.49.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d` |
 | Installer package source | [packages/grafana/rollout-operator/0.49.0](../../../../packages/grafana/rollout-operator/0.49.0) |
 | Installer package receipt | [recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/rollout-operator/0.49.0/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install rollout-operator:v0.49.0 --space rollout-operator --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/rollout-operator@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

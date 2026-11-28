@@ -67,11 +67,18 @@ spec:
     nextAction: "run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt"
   installerPackage:
     path: "packages/kedacore/keda/2.19.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
-    manifestDigest: "sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
-    layerDigest: "sha256:58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8"
-    publicationReceipt: "runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/keda:v2.19.0@sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/keda:v2.19.0"
+    manifestDigest: "sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa"
+    layerDigest: "sha256:2e1c2879f81a8f083446f531788a5dc9ce948970e2f683f3492d59cd80ba0563"
+    publicationReceipt: "runs/ghcr-packages/keda/v2.19.0.yaml"
+    name: "keda"
+    tag: "v2.19.0"
+    installCommand: "cub package install keda:v2.19.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/keda@sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9"
+      publicationReceipt: "runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"
     receipt: "recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "58a5f496684e8ac91f439b0f1d77f240178a19d21dcc1246130b917baafaf4e8"
@@ -108,7 +115,7 @@ spec:
         default: true
         description: "kedacore/keda default variant rendered from kedacore/keda@2.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/keda:v2.19.0@sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 29
         cubInstallObjectCountIncludingSupport: 30
         semanticObjectMatches: "29/29"
@@ -236,7 +243,7 @@ spec:
         default: false
         description: "kedacore/keda no-crds variant rendered from kedacore/keda@2.19.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0@sha256:69335ae19106baebe131e86d2e409df6965f8f855927396d5079622d01ab7ba9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/keda:v2.19.0@sha256:ce1a1c8a77f7ed421d7e40fcc038f342ae242d80e65be0d56061b2da4d8dabfa --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

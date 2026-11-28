@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-grafana-alloy-1-11-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "grafana-alloy-1-11-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-grafana-alloy-1-11-0-default:bundle-af59c8b254e8"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-grafana-alloy-1-11-0-default@sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+  manifestDigest: "sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/alloy-1.11.0-default/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default@sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+    receipt: "runs/certified-bundles/catalog-grafana-alloy-1-11-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:af59c8b254e865706e4f3535d473dd7252b64671cf047c47aea25afb8c41bd8f"
+  observedAt: "2026-11-27T19:35:17.484Z"
+status:
+  result: "pass"

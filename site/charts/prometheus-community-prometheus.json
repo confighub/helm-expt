@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0@sha256:0be296fd83670ed5469a2ef2abca19cb515546daf7bcb262f6d0142f9269310c"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus:v29.9.0@sha256:9fadf73b91209d98d3ad0e2715ab80c2a8c9d33ea1e88ba34f810470a2b12746",
+        "installCommand": "cub package install prometheus:v29.9.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0@sha256:2e329a09d75c78f2b078df4314a18a7ef1259082bc7f0cca9a62642e62113af3"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus:v29.8.0@sha256:879053950be6c46c8ed5c0043c143b752f9cf1de9ac0ad3c462178690771f5e5",
+        "installCommand": "cub package install prometheus:v29.8.0 --space <space>"
       },
       "bases": [
         {

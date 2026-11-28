@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/bitnami/mysql/14.0.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/bitnami/mysql/14.0.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884` |
+| Install into a Space | `cub package install mysql:v14.0.3 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9` |
+| Installer package publication | [runs/ghcr-packages/mysql/v14.0.3.yaml](../../../../runs/ghcr-packages/mysql/v14.0.3.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884` |
 | Installer package source | [packages/bitnami/mysql/14.0.3](../../../../packages/bitnami/mysql/14.0.3) |
 | Installer package receipt | [recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/mysql/14.0.3/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install mysql:v14.0.3 --space mysql --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/mysql@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

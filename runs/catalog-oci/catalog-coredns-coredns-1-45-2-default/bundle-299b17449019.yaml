@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-coredns-coredns-1-45-2-default"
+spec:
+  kind: "certified-bundle"
+  record: "coredns-coredns-1-45-2-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-coredns-coredns-1-45-2-default:bundle-299b17449019"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-coredns-coredns-1-45-2-default@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+  manifestDigest: "sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/coredns-1.45.2-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default@sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+    receipt: "runs/certified-bundles/catalog-coredns-coredns-1-45-2-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+  observedAt: "2026-11-27T19:35:03.249Z"
+status:
+  result: "pass"

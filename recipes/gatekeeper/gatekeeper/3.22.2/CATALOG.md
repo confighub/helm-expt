@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/gatekeeper/gatekeeper/3.22.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/gatekeeper/gatekeeper/3.22.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5` |
+| Install into a Space | `cub package install gatekeeper:v3.22.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e` |
+| Installer package publication | [runs/ghcr-packages/gatekeeper/v3.22.2.yaml](../../../../runs/ghcr-packages/gatekeeper/v3.22.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5` |
 | Installer package source | [packages/gatekeeper/gatekeeper/3.22.2](../../../../packages/gatekeeper/gatekeeper/3.22.2) |
 | Installer package receipt | [recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/gatekeeper/gatekeeper/3.22.2/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install gatekeeper:v3.22.2 --space gatekeeper --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/gatekeeper@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

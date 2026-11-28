@@ -64,11 +64,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.8.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0"
-    manifestDigest: "sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c"
-    layerDigest: "sha256:7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb"
-    publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.8.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.8.0@sha256:4a4394f82b53fffab0b95733152a80c3fed84cdc72e39b09bc4429bae0051748"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.8.0"
+    manifestDigest: "sha256:4a4394f82b53fffab0b95733152a80c3fed84cdc72e39b09bc4429bae0051748"
+    layerDigest: "sha256:2acab4174103cd5fa2433eec42756e8b4d7d2210461a1a96fba53bb7762384af"
+    publicationReceipt: "runs/ghcr-packages/external-secrets/v2.8.0.yaml"
+    name: "external-secrets"
+    tag: "v2.8.0"
+    installCommand: "cub package install external-secrets:v2.8.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/external-secrets@sha256:4a4394f82b53fffab0b95733152a80c3fed84cdc72e39b09bc4429bae0051748"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c"
+      publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.8.0/installer-package-publication-receipt.yaml"
     installer: "packages/external-secrets/external-secrets/2.8.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.8.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "7377e1de207b4ff5286e8753766668d122b4172f9fed3bb43f1f3f868afffbeb"
@@ -117,7 +124,7 @@ spec:
         default: true
         description: "external-secrets default variant rendered from external-secrets/external-secrets@2.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.8.0@sha256:4a4394f82b53fffab0b95733152a80c3fed84cdc72e39b09bc4429bae0051748 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 44
         cubInstallObjectCountIncludingSupport: 45
         semanticObjectMatches: "44/44"
@@ -417,7 +424,7 @@ spec:
         default: false
         description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0@sha256:3d807ceebf3de0146dddfa1de3b024139f5fac3869877a2a57ddd1d9550f228c --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.8.0@sha256:4a4394f82b53fffab0b95733152a80c3fed84cdc72e39b09bc4429bae0051748 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

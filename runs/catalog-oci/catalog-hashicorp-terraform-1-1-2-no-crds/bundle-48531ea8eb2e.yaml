@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-hashicorp-terraform-1-1-2-no-crds"
+spec:
+  kind: "certified-bundle"
+  record: "hashicorp-terraform-1-1-2-no-crds"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-hashicorp-terraform-1-1-2-no-crds:bundle-48531ea8eb2e"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-hashicorp-terraform-1-1-2-no-crds@sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+  manifestDigest: "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/terraform-1.1.2-no-crds/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-terraform-1-1-2-no-crds@sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+    receipt: "runs/certified-bundles/catalog-hashicorp-terraform-1-1-2-no-crds/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:48531ea8eb2ecf7fb0dffb1b2f9c1ab62886af8ebbfe06e9bb6d9c787274ceb8"
+  observedAt: "2026-11-27T19:35:20.108Z"
+status:
+  result: "pass"

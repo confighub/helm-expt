@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/grafana/alloy/1.8.2/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/grafana/alloy/1.8.2/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/alloy/1.8.2/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314` |
+| Install into a Space | `cub package install alloy:v1.8.2 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/alloy:v1.8.2@sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102` |
+| Installer package publication | [runs/ghcr-packages/alloy/v1.8.2.yaml](../../../../runs/ghcr-packages/alloy/v1.8.2.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314` |
 | Installer package source | [packages/grafana/alloy/1.8.2](../../../../packages/grafana/alloy/1.8.2) |
 | Installer package receipt | [recipes/grafana/alloy/1.8.2/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/alloy/1.8.2/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install alloy:v1.8.2 --space alloy --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/alloy:v1.8.2@sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/alloy@sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

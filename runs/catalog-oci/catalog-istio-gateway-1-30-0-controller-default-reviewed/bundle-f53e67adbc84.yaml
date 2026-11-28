@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-istio-gateway-1-30-0-controller-default-reviewed"
+spec:
+  kind: "certified-bundle"
+  record: "istio-gateway-1-30-0-controller-default-reviewed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-istio-gateway-1-30-0-controller-default-reviewed:bundle-f53e67adbc84"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-istio-gateway-1-30-0-controller-default-reviewed@sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a"
+  manifestDigest: "sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/gateway-1.30.0-controller-default-reviewed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-istio-gateway-1-30-0-controller-default-reviewed@sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a"
+    receipt: "runs/certified-bundles/catalog-istio-gateway-1-30-0-controller-default-reviewed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f53e67adbc84604582bde61738edcaa57fe3fa1e8c8bb6228119b2722bf4633a"
+  observedAt: "2026-11-27T19:35:22.398Z"
+status:
+  result: "pass"

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm:upstream-5d5f66ee0e2e-9fb50465a3a9"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e"
+  manifestDigest: "sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/autoscaling-meta-llama-3-2-1b-instruct-multi-llm/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm@sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e"
+    receipt: "runs/nimservice-variants/nimservice-autoscaling-meta-llama-3-2-1b-instruct-multi-llm/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9fb50465a3a976158ee69dadb22c2b4d5932741eec8f35341ef874e86ff59d3e"
+  observedAt: "2026-11-27T19:36:15.910Z"
+status:
+  result: "pass"

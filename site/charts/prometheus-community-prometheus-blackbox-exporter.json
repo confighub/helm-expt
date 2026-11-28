@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.18.0@sha256:0d53ebcff8bbbe1b51c3f26503dff990e89a0bb7f28f34f7edc1b423551ee972"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.18.0@sha256:4d5551df06ad366a94c5ddc42016a2296c890cea87e33dbcc4ac7176732f0c95",
+        "installCommand": "cub package install prometheus-blackbox-exporter:v11.18.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1@sha256:d6f157912a513718a387c822a21ab9b9b7bd45b595fe35ee257586a2661c4189"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.15.1@sha256:c3145a6ca3e6ff14988019720c0a03705543e13c57849a9b27e6d5b307263d6e",
+        "installCommand": "cub package install prometheus-blackbox-exporter:v11.15.1 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0@sha256:7e8bd0d4ad90ebf5cea264686245c4e486f2721aa72fb172e28735f85fa35559"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-blackbox-exporter:v11.10.0@sha256:4de3f14cd6a354d878e2101078543dc66cbb3c129899c697d63ad886118c6f37",
+        "installCommand": "cub package install prometheus-blackbox-exporter:v11.10.0 --space <space>"
       },
       "bases": [
         {

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "goldilocks"
+spec:
+  chart: "fairwinds-stable/goldilocks"
+  version: "10.3.0"
+  packagePath: "packages/fairwinds-stable/goldilocks/10.3.0"
+  tag: "v10.3.0"
+  reference: "ghcr.io/confighub/packages/goldilocks:v10.3.0"
+  immutableReference: "ghcr.io/confighub/packages/goldilocks@sha256:66273e31b41a69d4b6d7c132a5083bfcae0d9bf4dbda45353b5aaebc844909ed"
+  manifestDigest: "sha256:66273e31b41a69d4b6d7c132a5083bfcae0d9bf4dbda45353b5aaebc844909ed"
+  layerDigest: "sha256:26e38a359ccbce86f243e19b82dd998549b6b1fe220d290fa174e1addf7b0748"
+  installCommand: "cub package install goldilocks:v10.3.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:66273e31b41a69d4b6d7c132a5083bfcae0d9bf4dbda45353b5aaebc844909ed"
+  observedAt: "2026-11-27T19:43:13.265Z"
+status:
+  result: "pass"

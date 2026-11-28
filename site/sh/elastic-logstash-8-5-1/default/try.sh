@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./elastic-logstash-8-5-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3 --base default --work-dir ./elastic-logstash-8-5-1-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8 --base default --work-dir ./elastic-logstash-8-5-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./elastic-logstash-8-5-1-default/out/manifests

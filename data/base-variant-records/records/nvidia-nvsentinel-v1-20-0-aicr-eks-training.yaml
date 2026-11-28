@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nvsentinel"
     version: "v1.20.0"
     record: "data/helm-render-intents/intents/nvidia-nvsentinel-v1-20-0-aicr-eks-training.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvsentinel:v1.20.0@sha256:d17f99a1d606e58f80cd2bf6cf9fc736d72554eab18a6e3c22cb5f2fc96586f4"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nvsentinel:v1.20.0@sha256:8c298a0ab44f554c515ca838daed0308e8bbd469e449a9b6b8319caa8845c802"
     selection:
       name: "aicr-eks-training"
       kind: "catalog-preset"

@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./crossplane-stable-crossplane-2-3-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1@sha256:fe65a685251072dfacd02537aaea511371f70117324c5c6151bceb919756a616 --base default --work-dir ./crossplane-stable-crossplane-2-3-1-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/crossplane:v2.3.1@sha256:0b2065d1b6dacbac7a738ef0f5cc7916420713e7c8cce86c05571ee73b213e16 --base default --work-dir ./crossplane-stable-crossplane-2-3-1-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./crossplane-stable-crossplane-2-3-1-default/out/manifests

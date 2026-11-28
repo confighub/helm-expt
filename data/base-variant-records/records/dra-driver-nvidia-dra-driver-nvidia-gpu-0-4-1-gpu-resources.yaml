@@ -13,7 +13,7 @@ spec:
     name: "dra-driver-nvidia/dra-driver-nvidia-gpu"
     version: "0.4.1"
     record: "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-gpu-resources.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613"
+    packageOciRef: "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98"
     selection:
       name: "gpu-resources"
       kind: "catalog-preset"

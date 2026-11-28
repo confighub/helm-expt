@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "opentelemetry-operator"
+spec:
+  chart: "open-telemetry/opentelemetry-operator"
+  version: "0.114.0"
+  packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+  tag: "v0.114.0"
+  reference: "ghcr.io/confighub/packages/opentelemetry-operator:v0.114.0"
+  immutableReference: "ghcr.io/confighub/packages/opentelemetry-operator@sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25"
+  manifestDigest: "sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25"
+  layerDigest: "sha256:45ef01c0d87a22f274390c64d44a918b64f4a8076b82998225cc549f544a098f"
+  installCommand: "cub package install opentelemetry-operator:v0.114.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:10b8c19c061ecd12604a36af141d00d41c99c872aa5c6b4411d1456c1ab24e25"
+  observedAt: "2026-11-27T19:43:46.672Z"
+status:
+  result: "pass"

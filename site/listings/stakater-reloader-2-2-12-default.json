@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/stakater-reloader-2-2-12-default.yaml",
-      "sha256": "sha256:4a9e0fadbfe7570705d2be469d08c3175764e9afdada1458df00d35b76f95a41",
+      "sha256": "sha256:76d06409dfb7af0b6e08b044287a3da9b1a21a0b31db83badb7babc8d1d19a71",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/stakater-reloader-2-2-12-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "stakater/reloader",
     "version": "2.2.12",
     "reference": "stakater/reloader@2.2.12",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb",
+    "ociRef": "oci://ghcr.io/confighub/packages/reloader:v2.2.12@sha256:be3625810598bce7de5028ca56e5d75b49c6eecf23f9441543d7324da12fb45e",
     "record": "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/reloader:v2.2.12@sha256:be3625810598bce7de5028ca56e5d75b49c6eecf23f9441543d7324da12fb45e",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-default:bundle-aae7896c9fef@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
           "manifestDigest": "sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-stakater-reloader-2-2-12-default/bundle-aae7896c9fef.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-stakater-reloader-2-2-12-default/bundle-aae7896c9fef.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-default@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
           "sameDigestAsEarlier": true
@@ -549,12 +551,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-default:latest@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
+          "command": "cub variant upload --dry-run --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-default:bundle-aae7896c9fef@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-default:latest@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
+          "command": "cub variant upload --component stakater-reloader --variant default --space stakater-reloader-2-2-12-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-default:bundle-aae7896c9fef@sha256:aae7896c9fef230c76ffdde42041efdf2f6aa7b0b59bb79d61877289de9f47bf",
           "needsAccount": true,
           "writes": true
         }

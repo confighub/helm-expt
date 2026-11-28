@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+        "ociRef": "oci://ghcr.io/confighub/packages/alloy:v1.12.1@sha256:854d386eb65b6163afaecf21f4653fba06522ac9c0c15816e69723a55ef10964",
+        "installCommand": "cub package install alloy:v1.12.1 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0@sha256:01110b6ce36bc7f75b9c638d85b49ffc86fe7989016966092b19f3bd04ae8808"
+        "ociRef": "oci://ghcr.io/confighub/packages/alloy:v1.11.0@sha256:c7b932034083033c2dbd41a9c383de3f37864d87efd1682ab658e51a52ea770a",
+        "installCommand": "cub package install alloy:v1.11.0 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2@sha256:cc9dcba1e9400579cac0968b166baf86e98b80d3394993171616ea8374eeb314"
+        "ociRef": "oci://ghcr.io/confighub/packages/alloy:v1.8.2@sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102",
+        "installCommand": "cub package install alloy:v1.8.2 --space <space>"
       },
       "bases": [
         {

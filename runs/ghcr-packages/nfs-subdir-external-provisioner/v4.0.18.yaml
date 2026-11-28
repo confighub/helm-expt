@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nfs-subdir-external-provisioner"
+spec:
+  chart: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner"
+  version: "4.0.18"
+  packagePath: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+  tag: "v4.0.18"
+  reference: "ghcr.io/confighub/packages/nfs-subdir-external-provisioner:v4.0.18"
+  immutableReference: "ghcr.io/confighub/packages/nfs-subdir-external-provisioner@sha256:7fb39f34c64d2f0c8276203cb421621eac4a1911667b71a63c3731cd3872b0e8"
+  manifestDigest: "sha256:7fb39f34c64d2f0c8276203cb421621eac4a1911667b71a63c3731cd3872b0e8"
+  layerDigest: "sha256:519bf425c34bb65afdd274190bf320302e5c925a63049f7ca913670104d7e330"
+  installCommand: "cub package install nfs-subdir-external-provisioner:v4.0.18 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7fb39f34c64d2f0c8276203cb421621eac4a1911667b71a63c3731cd3872b0e8"
+  observedAt: "2026-11-27T19:43:38.579Z"
+status:
+  result: "pass"

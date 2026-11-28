@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the reuse-existing-secret base variant into ./bitnami-redis-25-5-3-reuse-existing-secret"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3@sha256:a216ce212424e05b341ef5000f1798e6014b72b8bc3dce9f315285871037af2a --base reuse-existing-secret --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis
+cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v25.5.3@sha256:f5e5253f42772718b159244b55ec68ba6526484fea540224f1a110aa6e763a8f --base reuse-existing-secret --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --space "${SPACE}"

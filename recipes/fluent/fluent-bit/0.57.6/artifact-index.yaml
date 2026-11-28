@@ -63,11 +63,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fluent/fluent-bit/0.57.6"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
-    manifestDigest: "sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
-    layerDigest: "sha256:bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b"
-    publicationReceipt: "runs/installer-oci/fluent-fluent-bit/0.57.6/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/fluent-bit:v0.57.6@sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/fluent-bit:v0.57.6"
+    manifestDigest: "sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+    layerDigest: "sha256:191b9e8b565246cb7249327c403dab187571c78c349c003475a9118893d86928"
+    publicationReceipt: "runs/ghcr-packages/fluent-bit/v0.57.6.yaml"
+    name: "fluent-bit"
+    tag: "v0.57.6"
+    installCommand: "cub package install fluent-bit:v0.57.6 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/fluent-bit@sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
+      publicationReceipt: "runs/installer-oci/fluent-fluent-bit/0.57.6/installer-package-publication-receipt.yaml"
     installer: "packages/fluent/fluent-bit/0.57.6/installer.yaml"
     receipt: "recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "bedeb8f7e3babb28e9b36cd4586ce526a42835534405a37221fb6a1ddf8b733b"
@@ -99,7 +106,7 @@ spec:
         default: true
         description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/fluent-bit:v0.57.6@sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

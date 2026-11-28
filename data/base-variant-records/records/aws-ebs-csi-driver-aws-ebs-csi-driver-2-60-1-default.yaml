@@ -13,7 +13,7 @@ spec:
     name: "aws-ebs-csi-driver/aws-ebs-csi-driver"
     version: "2.60.1"
     record: "data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0"
+    packageOciRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a"
     selection:
       name: "default"
       kind: "catalog-preset"

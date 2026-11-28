@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "nimservice-example2-meta-llama3-2-1b-instruct"
+spec:
+  kind: "nimservice-variant"
+  record: "nimservice-example2-meta-llama3-2-1b-instruct"
+  reference: "ghcr.io/confighub/configs/catalog/nimservice-example2-meta-llama3-2-1b-instruct:upstream-5d5f66ee0e2e-ecbf1815fff4"
+  immutableReference: "ghcr.io/confighub/configs/catalog/nimservice-example2-meta-llama3-2-1b-instruct@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6"
+  manifestDigest: "sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/aicr-nim-operator-models/catalog-entries/example2-meta-llama3-2-1b-instruct/literal-config-oci.yaml and its 3 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/nimservice-example2-meta-llama3-2-1b-instruct@sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6"
+    receipt: "runs/nimservice-variants/nimservice-example2-meta-llama3-2-1b-instruct/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ecbf1815fff42af67f7fe9327ef74fc5fd4e958ba8aaacd340a71008e4858ff6"
+  observedAt: "2026-11-27T19:36:19.311Z"
+status:
+  result: "pass"

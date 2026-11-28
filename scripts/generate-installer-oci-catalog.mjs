@@ -5,6 +5,15 @@ import { existsSync, readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256, sha256File, write } from "./lib/proof-common.mjs";
+import {
+  GHCR_PACKAGES_IDENTITY_REGEXP,
+  GHCR_PACKAGES_OIDC_ISSUER,
+  GHCR_PACKAGES_RECEIPT_ROOT,
+  GHCR_PACKAGES_REGISTRY,
+  GHCR_PACKAGES_WORKFLOW,
+  ghcrPackageIdentity,
+  ghcrPackagePublication,
+} from "./lib/ghcr-packages.mjs";
 import { pendingPublicationRecipes } from "./lib/installer-oci-publication.mjs";
 import {
   DEFAULT_INSTALLER_OCI_REGISTRY,
@@ -37,7 +46,7 @@ if (mode === "--generate") {
   rmSync(root, { recursive: true, force: true });
   write(outputs.summary, report.summary);
   write(outputs.csv, report.csv);
-  write(outputs.json, catalogJson(report));
+  write(outputs.json, catalogJson(report.index));
   console.log(`wrote installer OCI catalog -> ${relativeRepo(root)} (${report.rows.length} package(s))`);
 } else if (mode === "--verify") {
   const report = buildReport();
@@ -46,7 +55,7 @@ if (mode === "--generate") {
   check(existsSync(outputs.json), `${relativeRepo(outputs.json)} is missing; run npm run installer-oci:catalog`);
   check(readFileSync(outputs.summary, "utf8") === report.summary, `${relativeRepo(outputs.summary)} is stale; run npm run installer-oci:catalog`);
   check(readFileSync(outputs.csv, "utf8") === report.csv, `${relativeRepo(outputs.csv)} is stale; run npm run installer-oci:catalog`);
-  check(readFileSync(outputs.json, "utf8") === catalogJson(report), `${relativeRepo(outputs.json)} is stale; run npm run installer-oci:catalog`);
+  check(readFileSync(outputs.json, "utf8") === catalogJson(report.index), `${relativeRepo(outputs.json)} is stale; run npm run installer-oci:catalog`);
   console.log(`verified installer OCI catalog for ${report.rows.length} package(s)`);
 } else if (mode === "--self-test") {
   selfTest();
@@ -103,7 +112,7 @@ function buildReport() {
     const signed = signatureReceipts.get(ref);
     const publicationStatus = receipt ? "published-receipt" : "assigned-ref";
     const pullRef = receipt?.digestPinnedRef ?? ref;
-    return {
+    const earlier = {
       chart,
       version,
       package_path: packagePath,
@@ -138,12 +147,69 @@ function buildReport() {
       verify_command: receipt ? `cub installer inspect ${pullRef} --json` : "",
       list_command: `cub installer list ${ref.replace(/:[^/:]+$/, "")}`,
     };
+    return { earlier, row: catalogRow(earlier, ghcrPackagePublication(chart, version), ghcrPackageIdentity(chart, version), catalogEntry) };
   });
-  const generatedAt = latestRecordedTime(rows);
-  const partial = { rows, csv: toCsv(rows), generatedAt };
-  const indexSignature = indexSignatureStatus(catalogJson(partial));
-  return { ...partial, summary: summaryMd(rows, indexSignature), indexSignature };
+  // The signed index lists the packages in the earlier registry, with the
+  // columns it was signed with, so its bytes and its signature stay valid
+  // while GHCR becomes the published location (see summaryMd).
+  const indexRows = rows.map((item) => item.earlier).filter((row) => row.publication_status === "published-receipt");
+  const index = { rows: indexRows, generatedAt: latestRecordedTime(indexRows) };
+  const catalogRows = rows.map((item) => item.row);
+  const indexSignature = indexSignatureStatus(catalogJson(index));
+  return { rows: catalogRows, csv: toCsv(catalogRows), index, summary: summaryMd(catalogRows, index.rows, indexSignature), indexSignature };
 }
+
+// A catalog row names the GHCR package when a receipt records it there: the
+// name and tag `cub package install` takes, the digest-pinned reference for
+// anyone who wants exact bytes, and the command that checks its signature.
+// The installer_oci_*, publication_*, signature_* and digest columns describe
+// the earlier Google registry copy, which stays where it is; a version that
+// was never published there has them empty.
+function catalogRow(earlier, ghcr, identity, catalogEntry) {
+  const inEarlier = earlier.publication_status === "published-receipt";
+  const earlierOnly = new Set([
+    "installer_oci_ref",
+    "publication_receipt",
+    "published_digest",
+    "manifest_digest",
+    "layer_digest",
+    "digest_pinned_ref",
+    "published_at",
+    "signature_receipt",
+    "signature_bundle",
+    "signature_observed_at",
+    "signature_verification_command",
+  ]);
+  const earlierColumns = ghcr && !inEarlier
+    ? Object.fromEntries(Object.entries(earlier).map(([key, value]) => [key, earlierOnly.has(key) ? "" : value]))
+    : earlier;
+  const row = {
+    ...earlierColumns,
+    publication_status: ghcr && !inEarlier ? "not-in-earlier-registry" : earlier.publication_status,
+    signature_status: ghcr && !inEarlier ? "unsigned" : earlier.signature_status,
+    package_name: identity?.name ?? "",
+    package_tag: identity?.tag ?? "",
+    install_command: ghcr?.installCommand ?? "",
+    ghcr_status: ghcr ? "published-signed" : "not-published",
+    ghcr_ref: identity ? `oci://${identity.reference}` : "",
+    ghcr_digest_pinned_ref: ghcr?.exactRef ?? "",
+    ghcr_manifest_digest: ghcr?.manifestDigest ?? "",
+    ghcr_layer_digest: ghcr?.layerDigest ?? "",
+    ghcr_receipt: ghcr?.receiptPath ?? "",
+    ghcr_observed_at: ghcr?.observedAt ?? "",
+    ghcr_verify_command: ghcr?.verifyCommand ?? "",
+  };
+  if (!ghcr) return row;
+  const pullRef = ghcr.exactRef;
+  return {
+    ...row,
+    setup_command: `cub installer setup --pull ${pullRef} --base ${earlier.default_base} --work-dir ./${demoStem(earlier.chart, earlier.version, earlier.default_base)} --non-interactive${catalogEntry?.namespace ? ` --namespace ${catalogEntry.namespace}` : ""}`,
+    inspect_command: `cub installer inspect ${pullRef} --json`,
+    verify_command: `cub installer inspect ${pullRef} --json`,
+    list_command: `cub installer list ${ghcr.tagRef.replace(/:[^/:]+$/, "")}`,
+  };
+}
+
 
 function verifyPackageSignatureEvidence() {
   execFileSync(process.execPath, ["scripts/generate-installer-package-signatures.mjs", "--verify"], {
@@ -174,44 +240,66 @@ function publicationReceiptMap() {
   return result;
 }
 
-function summaryMd(rows, indexSignature) {
+function summaryMd(rows, indexRows, indexSignature) {
   const publicRows = rows.filter((row) => row.public_catalog === "yes");
-  const publishedRows = rows.filter((row) => row.publication_status === "published-receipt");
+  const ghcrRows = rows.filter((row) => row.ghcr_status === "published-signed");
+  const earlierRows = rows.filter((row) => row.publication_status === "published-receipt");
   const signedRows = rows.filter((row) => row.signature_status === "signed-receipt");
   return `# Installer OCI Packages
 
 Generated by \`scripts/generate-installer-oci-catalog.mjs\`.
 
-This is the package-pull surface for the upstream installer consumer path. A user
-should pull the exact digest-pinned package, choose a base, and render locally:
+Every catalog package version is published to GitHub's registry as
+\`oci://${GHCR_PACKAGES_REGISTRY}/<name>:<tag>\` by the
+[package publish workflow](../../${GHCR_PACKAGES_WORKFLOW}), and signed
+keylessly as that workflow. That is where \`cub package install\` looks a
+package up by name, so installing one into a Space takes its name and tag:
 
 ~~~sh
-cub installer inspect oci://...:<version>@sha256:<manifest-digest> --json
-cub installer setup --pull oci://...:<version>@sha256:<manifest-digest> --base default --work-dir ./out --non-interactive
+cub package install <name>:<tag> --space <space>
 ~~~
 
-The package OCI ref points at the package root. The package contains
-\`installer.yaml\`, the available bases, and the files needed to render those
-bases. A base still has its own name because the same package can contain
-\`default\`, \`no-crds\`, \`existing-secret\`, \`ha\`, or other preset chart
-configurations.
+For exact bytes, pin the manifest digest, or pull the package and render it
+locally without a Space:
 
-Registry prefix:
-
-~~~text
-${DEFAULT_INSTALLER_OCI_REGISTRY}
+~~~sh
+cub installer inspect oci://${GHCR_PACKAGES_REGISTRY}/<name>:<tag>@sha256:<manifest-digest> --json
+cub installer setup --pull oci://${GHCR_PACKAGES_REGISTRY}/<name>:<tag>@sha256:<manifest-digest> --base default --work-dir ./out --non-interactive
 ~~~
 
-Public read access is enabled for this Artifact Registry repository. Users can
-run \`cub installer inspect\` and \`cub installer setup --pull\` against these
-refs without a ConfigHub account, a Google Cloud account, or a local repo clone.
-Maintainers still need registry write credentials to publish or replace
-packages.
+Check who published it:
 
-Published rows keep the readable version tag and add the manifest digest to the
-same reference. The digest makes the pull immutable. \`cub installer inspect\`
-prints the manifest and layer digests and refuses the pull when the registry
-does not return the requested manifest.
+~~~sh
+cosign verify \\
+  --certificate-identity-regexp '${GHCR_PACKAGES_IDENTITY_REGEXP}' \\
+  --certificate-oidc-issuer ${GHCR_PACKAGES_OIDC_ISSUER} \\
+  ${GHCR_PACKAGES_REGISTRY}/<name>@sha256:<manifest-digest>
+~~~
+
+A package contains \`installer.yaml\`, its bases, and the files needed to
+render them. A base has its own name because one package can hold
+\`default\`, \`no-crds\`, \`existing-secret\`, \`ha\`, or other
+preset chart configurations.
+
+A version is listed as published on GitHub once a receipt under
+\`${GHCR_PACKAGES_RECEIPT_ROOT}/<name>/<tag>.yaml\` records an anonymous
+pull of the tag at its digest and a signature verified against the workflow
+identity. The nightly package job writes those receipts with
+\`node scripts/publish-ghcr-packages.mjs --observe --missing\`, which needs no
+credential.
+
+## Earlier location
+
+Packages were first published to a Google Artifact Registry repository,
+\`${DEFAULT_INSTALLER_OCI_REGISTRY}\`, signed by a Google service account.
+Those copies stay where they are, readable without credentials, with their
+receipts. In [packages.csv](./packages.csv) the \`installer_oci_ref\`,
+\`digest_pinned_ref\`, \`manifest_digest\`, \`publication_*\` and
+\`signature_*\` columns describe that earlier copy; the \`ghcr_*\` columns,
+\`package_name\`, \`package_tag\` and \`install_command\` describe the
+GitHub one, and the setup and inspect commands use it. The two are different
+bytes: the GitHub build writes the published name and tag into its
+\`installer.yaml\`.
 
 ## Counts
 
@@ -219,27 +307,29 @@ does not return the requested manifest.
 | --- | ---: |
 | Installer packages | ${rows.length} |
 | Public catalog packages | ${publicRows.length} |
-| Package refs with publication receipts | ${publishedRows.length} |
-| Assigned refs without publication receipts yet | ${rows.length - publishedRows.length} |
-| Published manifests with signature receipts | ${signedRows.length} |
-| Published manifests without signature receipts | ${publishedRows.length - signedRows.length} |
+| Published and signed on GitHub's registry | ${ghcrRows.length} |
+| Not yet published on GitHub's registry | ${rows.length - ghcrRows.length} |
+| Also in the earlier Google registry | ${earlierRows.length} |
+| Earlier copies with signature receipts | ${signedRows.length} |
 
 ## Public Examples
 
-| Chart | Package OCI ref | First command |
+| Chart | Install | Exact package |
 | --- | --- | --- |
-${publicRows.slice(0, 12).map((row) => `| ${row.chart}@${row.version} | \`${row.digest_pinned_ref || row.installer_oci_ref}\` | \`${row.setup_command}\` |`).join("\n")}
+${publicRows.slice(0, 12).map((row) => `| ${row.chart}@${row.version} | \`${row.install_command || "not published on GitHub yet"}\` | \`${row.ghcr_digest_pinned_ref || row.digest_pinned_ref || row.installer_oci_ref}\` |`).join("\n")}
 
 ## Files
 
-- [packages.csv](./packages.csv)
-- [packages.json](./packages.json)
+- [packages.csv](./packages.csv): one row per package version, both locations
+- [packages.json](./packages.json): the signed index of the earlier location
 
 ## Signed Index
 
 Status: **${indexSignature.status}**
 
-The JSON index is signed separately after all package signatures are recorded:
+\`packages.json\` lists the ${indexRows.length} packages in the earlier
+registry, with the columns it was signed with, and is signed as a blob by the
+same Google service account:
 
 ~~~sh
 ${indexSignature.command}
@@ -249,18 +339,8 @@ ${indexSignature.status === "signed-receipt"
     ? `Evidence: [signature receipt](../../${indexSignature.receipt}) · [Sigstore bundle](../../${indexSignature.bundle})`
     : "The index must be regenerated and signed after the package evidence changes."}
 
-## Publication Status
-
-\`assigned-ref\` means the repo knows the public ref that should be pushed, but
-does not have a committed publication receipt for that package yet.
-\`published-receipt\` means a receipt records a package push and inspect for
-that ref. The current repository grants anonymous read access to published
-public catalog refs.
-
-\`signed-receipt\` means the exact published manifest digest also has a committed
-Sigstore bundle and a successful Cosign verification record. It identifies who
-signed the package bytes. The chart page separately explains whether a preset
-is suitable for a particular use.
+A version published only on GitHub is not in it; its own signature, made by
+the publish workflow, is checked with the \`cosign verify\` command above.
 `;
 }
 
@@ -331,6 +411,17 @@ function toCsv(rows) {
     "version",
     "package_path",
     "installer_yaml",
+    "package_name",
+    "package_tag",
+    "install_command",
+    "ghcr_status",
+    "ghcr_ref",
+    "ghcr_digest_pinned_ref",
+    "ghcr_manifest_digest",
+    "ghcr_layer_digest",
+    "ghcr_receipt",
+    "ghcr_observed_at",
+    "ghcr_verify_command",
     "installer_oci_ref",
     "publication_status",
     "publication_receipt",
@@ -381,8 +472,19 @@ function selfTest() {
   const report = buildReport();
   for (const row of report.rows.filter((candidate) => candidate.publication_status === "published-receipt")) {
     check(row.digest_pinned_ref === `${row.installer_oci_ref}@${row.manifest_digest}`, `${row.chart}@${row.version}: exact ref drifted`);
-    check(row.setup_command.includes(`--pull ${row.digest_pinned_ref} `), `${row.chart}@${row.version}: setup command uses a mutable ref`);
+  }
+  for (const row of report.rows) {
+    const exact = row.ghcr_status === "published-signed" ? row.ghcr_digest_pinned_ref : row.digest_pinned_ref;
+    if (row.ghcr_status === "published-signed") {
+      check(row.ghcr_digest_pinned_ref === `${row.ghcr_ref}@${row.ghcr_manifest_digest}`, `${row.chart}@${row.version}: exact GHCR ref drifted`);
+      check(row.install_command === `cub package install ${row.package_name}:${row.package_tag} --space <space>`, `${row.chart}@${row.version}: install command does not name the GHCR package`);
+    }
+    if (!exact) continue;
+    check(row.setup_command.includes(`--pull ${exact} `), `${row.chart}@${row.version}: setup command uses a mutable ref`);
     check(row.inspect_command === row.verify_command, `${row.chart}@${row.version}: inspect and verify commands differ`);
+  }
+  for (const row of report.index.rows) {
+    check(row.setup_command.includes(`--pull ${row.digest_pinned_ref} `), `${row.chart}@${row.version}: the signed index's setup command uses a mutable ref`);
   }
   console.log(`installer OCI catalog self-test passed for ${report.rows.length} package(s)`);
 }

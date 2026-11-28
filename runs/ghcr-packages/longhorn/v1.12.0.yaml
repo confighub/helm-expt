@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "longhorn"
+spec:
+  chart: "longhorn/longhorn"
+  version: "1.12.0"
+  packagePath: "packages/longhorn/longhorn/1.12.0"
+  tag: "v1.12.0"
+  reference: "ghcr.io/confighub/packages/longhorn:v1.12.0"
+  immutableReference: "ghcr.io/confighub/packages/longhorn@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+  manifestDigest: "sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+  layerDigest: "sha256:cda84cdb7ed3ca4a29a3c7c36be3e5111f2a9d0c7d75f6def788c96f35fb580a"
+  installCommand: "cub package install longhorn:v1.12.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+  observedAt: "2026-11-27T19:43:32.974Z"
+status:
+  result: "pass"

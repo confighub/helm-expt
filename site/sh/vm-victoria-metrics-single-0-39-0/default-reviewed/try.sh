@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default-reviewed base variant into ./vm-victoria-metrics-single-0-39-0-default-reviewed"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default-reviewed --work-dir ./vm-victoria-metrics-single-0-39-0-default-reviewed --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b --base default-reviewed --work-dir ./vm-victoria-metrics-single-0-39-0-default-reviewed --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./vm-victoria-metrics-single-0-39-0-default-reviewed/out/manifests

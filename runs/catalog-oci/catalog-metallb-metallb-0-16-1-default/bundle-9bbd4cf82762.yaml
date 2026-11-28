@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-metallb-metallb-0-16-1-default"
+spec:
+  kind: "certified-bundle"
+  record: "metallb-metallb-0-16-1-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-metallb-metallb-0-16-1-default:bundle-9bbd4cf82762"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-metallb-metallb-0-16-1-default@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+  manifestDigest: "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/metallb-0.16.1-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metallb-metallb-0-16-1-default@sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+    receipt: "runs/certified-bundles/catalog-metallb-metallb-0-16-1-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:9bbd4cf82762e2d81e5628e022bc18022bb3b406cd57d8003d4378709bbc0d9a"
+  observedAt: "2026-11-27T19:35:34.486Z"
+status:
+  result: "pass"

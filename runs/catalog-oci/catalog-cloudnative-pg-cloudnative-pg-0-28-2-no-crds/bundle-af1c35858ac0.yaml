@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds"
+spec:
+  kind: "certified-bundle"
+  record: "cloudnative-pg-cloudnative-pg-0-28-2-no-crds"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:bundle-af1c35858ac0"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+  manifestDigest: "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/cloudnative-pg-0.28.2-no-crds/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+    receipt: "runs/certified-bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0"
+  observedAt: "2026-11-27T19:35:01.044Z"
+status:
+  result: "pass"

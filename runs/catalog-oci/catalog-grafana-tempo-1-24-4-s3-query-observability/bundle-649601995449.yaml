@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-grafana-tempo-1-24-4-s3-query-observability"
+spec:
+  kind: "certified-bundle"
+  record: "grafana-tempo-1-24-4-s3-query-observability"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-grafana-tempo-1-24-4-s3-query-observability:bundle-649601995449"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-grafana-tempo-1-24-4-s3-query-observability@sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+  manifestDigest: "sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/tempo-1.24.4-s3-query-observability/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-tempo-1-24-4-s3-query-observability@sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+    receipt: "runs/certified-bundles/catalog-grafana-tempo-1-24-4-s3-query-observability/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6496019954496183d360d6c26af2b497e83dfa407ad1368ceaa91153bb8a4e69"
+  observedAt: "2026-11-27T19:35:19.879Z"
+status:
+  result: "pass"

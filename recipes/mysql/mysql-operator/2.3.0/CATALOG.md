@@ -51,7 +51,10 @@ for exact base-variant evidence.
 | Value model | [recipes/mysql/mysql-operator/2.3.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/mysql/mysql-operator/2.3.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/mysql/mysql-operator/2.3.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5` |
+| Install into a Space | `cub package install mysql-operator:v2.3.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6` |
+| Installer package publication | [runs/ghcr-packages/mysql-operator/v2.3.0.yaml](../../../../runs/ghcr-packages/mysql-operator/v2.3.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5` |
 | Installer package source | [packages/mysql/mysql-operator/2.3.0](../../../../packages/mysql/mysql-operator/2.3.0) |
 | Installer package receipt | [recipes/mysql/mysql-operator/2.3.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/mysql/mysql-operator/2.3.0/artifact-index.yaml](artifact-index.yaml) |
@@ -79,12 +82,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/mysql-mysql-operator:2.3.0@sha256:59116d8ebabcf485c7d0f38b659c3ec93e8aacb0a35db02a4f2e3226c7c8a6c5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install mysql-operator:v2.3.0 --space mysql-operator --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/mysql-operator:v2.3.0@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/mysql-operator@sha256:1b5b4cd74ac616c2b8e60f6e95fd439294ebc0898f027c5ec451f55162e93aa6`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

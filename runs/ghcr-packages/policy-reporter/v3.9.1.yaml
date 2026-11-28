@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "policy-reporter"
+spec:
+  chart: "policy-reporter/policy-reporter"
+  version: "3.9.1"
+  packagePath: "packages/policy-reporter/policy-reporter/3.9.1"
+  tag: "v3.9.1"
+  reference: "ghcr.io/confighub/packages/policy-reporter:v3.9.1"
+  immutableReference: "ghcr.io/confighub/packages/policy-reporter@sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+  manifestDigest: "sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+  layerDigest: "sha256:65d2df4152ab633cfb0d10e4317189238622cf8d4646095aa4710ea8d5d00ff0"
+  installCommand: "cub package install policy-reporter:v3.9.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ea3a17de77d3575076f97d19390e47f41ca0ef4a4c7450e8dd5bcb6cefe26af1"
+  observedAt: "2026-11-27T19:43:49.336Z"
+status:
+  result: "pass"

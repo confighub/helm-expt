@@ -63,11 +63,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/coredns/coredns/1.45.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2"
-    manifestDigest: "sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
-    layerDigest: "sha256:623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
-    publicationReceipt: "runs/installer-oci/coredns-coredns/1.45.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/coredns:v1.45.2"
+    manifestDigest: "sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b"
+    layerDigest: "sha256:36cc5d6a72ba1c584b6b3733782ca9d4d475b7dba03f3a1e149738532d37c89f"
+    publicationReceipt: "runs/ghcr-packages/coredns/v1.45.2.yaml"
+    name: "coredns"
+    tag: "v1.45.2"
+    installCommand: "cub package install coredns:v1.45.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/coredns@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc"
+      publicationReceipt: "runs/installer-oci/coredns-coredns/1.45.2/installer-package-publication-receipt.yaml"
     installer: "packages/coredns/coredns/1.45.2/installer.yaml"
     receipt: "recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "623602f54f93da3991b59cb870d21e80a79364e9d4f84e311caed0a085b24ea3"
@@ -99,7 +106,7 @@ spec:
         default: true
         description: "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2@sha256:2e99a7e9923a5365c803e3ffaede5b97731ac209423d8572f4d373274f4b31bc --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/coredns:v1.45.2@sha256:81d61eda614fc017bdbd858a710a9d27ac2c4d369a77589e10d742595414664b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

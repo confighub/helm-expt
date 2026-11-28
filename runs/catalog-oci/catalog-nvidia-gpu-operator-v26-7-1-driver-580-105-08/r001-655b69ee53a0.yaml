@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-gpu-operator-v26-7-1-driver-580-105-08"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08:r001-655b69ee53a0"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6"
+  manifestDigest: "sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/literal-config-oci.yaml and its 5 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-driver-580-105-08@sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6"
+    receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-driver-580-105-08/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:655b69ee53a0d426899f700db453b99a05ac74d1c126ac5594752e82802359a6"
+  observedAt: "2026-11-27T19:36:08.038Z"
+status:
+  result: "pass"

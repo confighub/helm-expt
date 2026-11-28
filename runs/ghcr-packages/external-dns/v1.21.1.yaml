@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "external-dns"
+spec:
+  chart: "external-dns/external-dns"
+  version: "1.21.1"
+  packagePath: "packages/external-dns/external-dns/1.21.1"
+  tag: "v1.21.1"
+  reference: "ghcr.io/confighub/packages/external-dns:v1.21.1"
+  immutableReference: "ghcr.io/confighub/packages/external-dns@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+  manifestDigest: "sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+  layerDigest: "sha256:5db3852e15bb654e3190130be666f5967b47d7742ea95e99c13fa9a8c5c52d5f"
+  installCommand: "cub package install external-dns:v1.21.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b"
+  observedAt: "2026-11-27T19:43:10.775Z"
+status:
+  result: "pass"

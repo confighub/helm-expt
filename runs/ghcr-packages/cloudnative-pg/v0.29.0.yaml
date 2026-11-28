@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cloudnative-pg"
+spec:
+  chart: "cloudnative-pg/cloudnative-pg"
+  version: "0.29.0"
+  packagePath: "packages/cloudnative-pg/cloudnative-pg/0.29.0"
+  tag: "v0.29.0"
+  reference: "ghcr.io/confighub/packages/cloudnative-pg:v0.29.0"
+  immutableReference: "ghcr.io/confighub/packages/cloudnative-pg@sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef"
+  manifestDigest: "sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef"
+  layerDigest: "sha256:ccc49777d1b453c6418df45dab11d5d18903f115407953a53ce3002c387f19f2"
+  installCommand: "cub package install cloudnative-pg:v0.29.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef"
+  observedAt: "2026-11-27T19:43:02.700Z"
+status:
+  result: "pass"

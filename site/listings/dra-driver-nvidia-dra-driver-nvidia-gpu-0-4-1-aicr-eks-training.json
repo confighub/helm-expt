@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml",
-      "sha256": "sha256:92a0ec5591d8026e69d8fae221b2602003254da937f7ded1ab047e66b189dc89",
+      "sha256": "sha256:eea5a08e64ff41d0ce31c6d85ded80374ea1b3024f2a45be1df53cb57a7376e7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -47,7 +47,7 @@
     "name": "dra-driver-nvidia/dra-driver-nvidia-gpu",
     "version": "0.4.1",
     "reference": "dra-driver-nvidia/dra-driver-nvidia-gpu@0.4.1",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613",
+    "ociRef": "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98",
     "record": "data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training.yaml",
     "selection": {
@@ -103,7 +103,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.4.1@sha256:f34f1d656504e54d412f5091852db2289ffc2f3a06f522ac524c06ff21ea2613",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.4.1@sha256:d63673d2615dca05bcab5ccb3961ec97226184b48e7325ed6f5d59c599da0f98",
     "bundles": [
       {
         "role": "source-package",
@@ -148,7 +148,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:bundle-78a1a7a2ecf5@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
           "manifestDigest": "sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training/bundle-78a1a7a2ecf5.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training/bundle-78a1a7a2ecf5.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
           "sameDigestAsEarlier": true
@@ -634,12 +636,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant aicr-eks-training --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training --namespace nvidia-dra-driver --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:latest@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
+          "command": "cub variant upload --dry-run --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant aicr-eks-training --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training --namespace nvidia-dra-driver --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:bundle-78a1a7a2ecf5@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant aicr-eks-training --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training --namespace nvidia-dra-driver --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:latest@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
+          "command": "cub variant upload --component dra-driver-nvidia-dra-driver-nvidia-gpu --variant aicr-eks-training --space dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training --namespace nvidia-dra-driver --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-dra-driver-nvidia-dra-driver-nvidia-gpu-0-4-1-aicr-eks-training:bundle-78a1a7a2ecf5@sha256:78a1a7a2ecf501238e8fc070d1528b7fd3452e76956193e8d0dbc9e1f3fd6b0c",
           "needsAccount": true,
           "writes": true
         }

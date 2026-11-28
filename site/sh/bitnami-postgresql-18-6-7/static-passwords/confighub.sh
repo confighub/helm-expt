@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the static-passwords base variant into ./bitnami-postgresql-18-6-7-static-passwords"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
+cub installer setup --pull oci://ghcr.io/confighub/packages/postgresql:v18.6.7@sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./bitnami-postgresql-18-6-7-static-passwords --space "${SPACE}"

@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.29.0@sha256:e93ea31c853c4189fe2a553a452221a9f79f82d89f5526f234ba130215731178"
+        "ociRef": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.29.0@sha256:0b81eaf4a0ef721ee0f3d1f5dadb5fa801dd3bf60c6948079fac4f2c183749ef",
+        "installCommand": "cub package install cloudnative-pg:v0.29.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2"
+        "ociRef": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2",
+        "installCommand": "cub package install cloudnative-pg:v0.28.2 --space <space>"
       },
       "bases": [
         {

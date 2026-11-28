@@ -13,7 +13,7 @@ spec:
     name: "gitlab/gitlab-runner"
     version: "0.89.0"
     record: "data/helm-render-intents/intents/gitlab-gitlab-runner-0-89-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0@sha256:859e448412141120ea26e90c4d80fb772755dd6bc5f579a70ddd3c321da5fa7a"
+    packageOciRef: "oci://ghcr.io/confighub/packages/gitlab-runner:v0.89.0@sha256:c7e2dd82b911ec8f3510b0b179835df8cf196a5d809ce25b1ef0333d54863d4a"
     selection:
       name: "default"
       kind: "catalog-preset"

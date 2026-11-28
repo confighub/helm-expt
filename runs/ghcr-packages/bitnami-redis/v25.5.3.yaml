@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "bitnami-redis"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  packagePath: "packages/bitnami/redis/25.5.3"
+  tag: "v25.5.3"
+  reference: "ghcr.io/confighub/packages/bitnami-redis:v25.5.3"
+  immutableReference: "ghcr.io/confighub/packages/bitnami-redis@sha256:f5e5253f42772718b159244b55ec68ba6526484fea540224f1a110aa6e763a8f"
+  manifestDigest: "sha256:f5e5253f42772718b159244b55ec68ba6526484fea540224f1a110aa6e763a8f"
+  layerDigest: "sha256:2aa9623275f6e9965155b4800d1e0c170985a7fde8251094c657aa39f2a66ce8"
+  installCommand: "cub package install bitnami-redis:v25.5.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f5e5253f42772718b159244b55ec68ba6526484fea540224f1a110aa6e763a8f"
+  observedAt: "2026-11-27T19:43:00.260Z"
+status:
+  result: "pass"

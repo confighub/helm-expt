@@ -13,7 +13,7 @@ spec:
     name: "stakater/reloader"
     version: "2.2.12"
     record: "data/helm-render-intents/intents/stakater-reloader-2-2-12-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+    packageOciRef: "oci://ghcr.io/confighub/packages/reloader:v2.2.12@sha256:be3625810598bce7de5028ca56e5d75b49c6eecf23f9441543d7324da12fb45e"
     selection:
       name: "default"
       kind: "catalog-preset"

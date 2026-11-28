@@ -65,11 +65,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/haproxytech/kubernetes-ingress/1.52.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0"
-    manifestDigest: "sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
-    layerDigest: "sha256:62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
-    publicationReceipt: "runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0"
+    manifestDigest: "sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+    layerDigest: "sha256:7cd925a1a97da3913cee64259c603b17add915a01f817a1382b2769b0e41cb1f"
+    publicationReceipt: "runs/ghcr-packages/kubernetes-ingress/v1.52.0.yaml"
+    name: "kubernetes-ingress"
+    tag: "v1.52.0"
+    installCommand: "cub package install kubernetes-ingress:v1.52.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kubernetes-ingress@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38"
+      publicationReceipt: "runs/installer-oci/haproxytech-kubernetes-ingress/1.52.0/installer-package-publication-receipt.yaml"
     installer: "packages/haproxytech/kubernetes-ingress/1.52.0/installer.yaml"
     receipt: "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "62403b6795324b44298cf3ec2322916c55a6c80c7c3e04921168c59c6f270d9e"
@@ -101,7 +108,7 @@ spec:
         default: true
         description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

@@ -63,11 +63,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/filebeat/8.5.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
-    manifestDigest: "sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
-    layerDigest: "sha256:a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
-    publicationReceipt: "runs/installer-oci/elastic-filebeat/8.5.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/filebeat:v8.5.1"
+    manifestDigest: "sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be"
+    layerDigest: "sha256:d0119db48dabb62849b5f0539ad67ad869c892488ce4ce1bda4811f5007b07a5"
+    publicationReceipt: "runs/ghcr-packages/filebeat/v8.5.1.yaml"
+    name: "filebeat"
+    tag: "v8.5.1"
+    installCommand: "cub package install filebeat:v8.5.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/filebeat@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47"
+      publicationReceipt: "runs/installer-oci/elastic-filebeat/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a6182ad06bc42cf50c9b83a77e77891d43000123a2497c6ba68000e630b3eb51"
@@ -135,7 +142,7 @@ spec:
         default: true
         description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -228,7 +235,7 @@ spec:
         default: false
         description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1@sha256:16db362566c51934e9807a7f2f2f57dfc20df88318658f5e7106d0f45bca2e47 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/filebeat:v8.5.1@sha256:8d07c3cc6d0d78ad22681505d6c2c55633d74473282b511ef490307c776da9be --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

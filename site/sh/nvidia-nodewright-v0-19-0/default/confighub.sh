@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./nvidia-nodewright-v0-19-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358 --base default --work-dir ./nvidia-nodewright-v0-19-0-default --non-interactive --namespace nodewright
+cub installer setup --pull oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e --base default --work-dir ./nvidia-nodewright-v0-19-0-default --non-interactive --namespace nodewright
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-nodewright-v0-19-0-default --space "${SPACE}"

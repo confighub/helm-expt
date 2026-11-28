@@ -62,11 +62,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/kubeflow/kubeflow-trainer/2.2.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0"
-    manifestDigest: "sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
-    layerDigest: "sha256:76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c"
-    publicationReceipt: "runs/installer-oci/kubeflow-kubeflow-trainer/2.2.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0"
+    manifestDigest: "sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7"
+    layerDigest: "sha256:b4145e50f6230b3a09f6a4b748c6d467f447b4e316863ab6428e7493c73918e5"
+    publicationReceipt: "runs/ghcr-packages/kubeflow-trainer/v2.2.0.yaml"
+    name: "kubeflow-trainer"
+    tag: "v2.2.0"
+    installCommand: "cub package install kubeflow-trainer:v2.2.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kubeflow-trainer@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6"
+      publicationReceipt: "runs/installer-oci/kubeflow-kubeflow-trainer/2.2.0/installer-package-publication-receipt.yaml"
     installer: "packages/kubeflow/kubeflow-trainer/2.2.0/installer.yaml"
     receipt: "recipes/kubeflow/kubeflow-trainer/2.2.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "76bef1e49a819db1f630d7440c80db5f97c32cc6ee9de87c2f2a3d22a7f81c5c"
@@ -148,7 +155,7 @@ spec:
         default: true
         description: "kubeflow-trainer chart defaults variant rendered from kubeflow/kubeflow-trainer@2.2.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base default --work-dir <tmp> --non-interactive --namespace kubeflow"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7 --base default --work-dir <tmp> --non-interactive --namespace kubeflow"
         helmReleaseObjectCount: 28
         cubInstallObjectCountIncludingSupport: 29
         semanticObjectMatches: "28/28"
@@ -250,7 +257,7 @@ spec:
         default: false
         description: "kubeflow-trainer AICR v0.20.0 EKS training values variant rendered from kubeflow/kubeflow-trainer@2.2.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7 --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
         helmReleaseObjectCount: 28
         cubInstallObjectCountIncludingSupport: 29
         semanticObjectMatches: "28/28"
@@ -352,7 +359,7 @@ spec:
         default: false
         description: "kubeflow-trainer AICR v1.0.0 EKS training values variant rendered from kubeflow/kubeflow-trainer@2.2.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kubeflow-kubeflow-trainer:2.2.0@sha256:5bfc86cf6c84e972ffdf41aab3b6c467d6cc0be157066e70bc0440f43dc08df6 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kubeflow-trainer:v2.2.0@sha256:d230d833dddfd6f821b99e6d3fef3b8baa3a10bcd906c6fdc4eb222252f926b7 --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kubeflow"
         helmReleaseObjectCount: 28
         cubInstallObjectCountIncludingSupport: 29
         semanticObjectMatches: "28/28"

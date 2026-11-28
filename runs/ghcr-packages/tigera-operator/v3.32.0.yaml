@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "tigera-operator"
+spec:
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+  packagePath: "packages/projectcalico/tigera-operator/v3.32.0"
+  tag: "v3.32.0"
+  reference: "ghcr.io/confighub/packages/tigera-operator:v3.32.0"
+  immutableReference: "ghcr.io/confighub/packages/tigera-operator@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+  manifestDigest: "sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+  layerDigest: "sha256:0ca2fe9cacc4021f5eda68f03a91cc67a543a9f418d40f61fb6df04990810296"
+  installCommand: "cub package install tigera-operator:v3.32.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+  observedAt: "2026-11-27T19:43:50.377Z"
+status:
+  result: "pass"

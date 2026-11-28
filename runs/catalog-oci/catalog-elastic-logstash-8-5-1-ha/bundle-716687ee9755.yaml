@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-elastic-logstash-8-5-1-ha"
+spec:
+  kind: "certified-bundle"
+  record: "elastic-logstash-8-5-1-ha"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-elastic-logstash-8-5-1-ha:bundle-716687ee9755"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-elastic-logstash-8-5-1-ha@sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+  manifestDigest: "sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/logstash-8.5.1-ha/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-logstash-8-5-1-ha@sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+    receipt: "runs/certified-bundles/catalog-elastic-logstash-8-5-1-ha/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:716687ee9755443135c15b2d3d391bcebf2c801ce7bf3858750fa4ce60a58eef"
+  observedAt: "2026-11-27T19:35:10.253Z"
+status:
+  result: "pass"

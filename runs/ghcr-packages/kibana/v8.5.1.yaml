@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kibana"
+spec:
+  chart: "elastic/kibana"
+  version: "8.5.1"
+  packagePath: "packages/elastic/kibana/8.5.1"
+  tag: "v8.5.1"
+  reference: "ghcr.io/confighub/packages/kibana:v8.5.1"
+  immutableReference: "ghcr.io/confighub/packages/kibana@sha256:573fb3224dcd4ba1b9176be0a0879a76657b5b2c2c1520127a58f04403a563d1"
+  manifestDigest: "sha256:573fb3224dcd4ba1b9176be0a0879a76657b5b2c2c1520127a58f04403a563d1"
+  layerDigest: "sha256:bd3306cc52eaa4535545de7eda7ef977af4b64691962d4bf068ad7b52b68ebe7"
+  installCommand: "cub package install kibana:v8.5.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:573fb3224dcd4ba1b9176be0a0879a76657b5b2c2c1520127a58f04403a563d1"
+  observedAt: "2026-11-27T19:43:08.531Z"
+status:
+  result: "pass"

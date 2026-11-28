@@ -60,11 +60,18 @@ spec:
     nextAction: "review chart analysis and create a recipe candidate"
   installerPackage:
     path: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29"
-    manifestDigest: "sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
-    layerDigest: "sha256:a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
-    publicationReceipt: "runs/installer-oci/eks-aws-efa-k8s-device-plugin/v0.5.29/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29"
+    manifestDigest: "sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14"
+    layerDigest: "sha256:e5f1c5a69e636daa258825f91cda76cc7e3e3cc61a11b677a873610fd96074bb"
+    publicationReceipt: "runs/ghcr-packages/aws-efa-k8s-device-plugin/v0.5.29.yaml"
+    name: "aws-efa-k8s-device-plugin"
+    tag: "v0.5.29"
+    installCommand: "cub package install aws-efa-k8s-device-plugin:v0.5.29 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/aws-efa-k8s-device-plugin@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c"
+      publicationReceipt: "runs/installer-oci/eks-aws-efa-k8s-device-plugin/v0.5.29/installer-package-publication-receipt.yaml"
     installer: "packages/eks/aws-efa-k8s-device-plugin/v0.5.29/installer.yaml"
     receipt: "recipes/eks/aws-efa-k8s-device-plugin/v0.5.29/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a3dcd8fc7e1afda264126a18edb7d26176a4beeecdb280bb09bafef118860454"
@@ -101,7 +108,7 @@ spec:
         default: true
         description: "aws-efa-k8s-device-plugin chart defaults variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 1
         cubInstallObjectCountIncludingSupport: 2
         semanticObjectMatches: "1/1"
@@ -163,7 +170,7 @@ spec:
         default: false
         description: "aws-efa-k8s-device-plugin AICR v0.20.0 and AICR v1.0.0 EKS training values variant rendered from eks/aws-efa-k8s-device-plugin@v0.5.29"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/eks-aws-efa-k8s-device-plugin:v0.5.29@sha256:5ae84f9bb5ee745360393d7b9b3f4955f37ec75503f5f7b26ae0bc2c287ce24c --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin:v0.5.29@sha256:fae58dd06ae5ba3f35ceb776658367d9753f2f59488e085e0bfa62b7b4295c14 --base aicr-eks-training --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 1
         cubInstallObjectCountIncludingSupport: 2
         semanticObjectMatches: "1/1"

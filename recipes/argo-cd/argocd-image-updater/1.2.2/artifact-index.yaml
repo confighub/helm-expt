@@ -64,11 +64,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/argo-cd/argocd-image-updater/1.2.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2"
-    manifestDigest: "sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa"
-    layerDigest: "sha256:734237e77d319a0be616920ae63494d6e704289765328677775687f74272befe"
-    publicationReceipt: "runs/installer-oci/argo-cd-argocd-image-updater/1.2.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/argocd-image-updater:v1.2.2@sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/argocd-image-updater:v1.2.2"
+    manifestDigest: "sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+    layerDigest: "sha256:58924e05a6bd04c4403d713fc3636c164db3c279cf02d7e2c30c7656d3773635"
+    publicationReceipt: "runs/ghcr-packages/argocd-image-updater/v1.2.2.yaml"
+    name: "argocd-image-updater"
+    tag: "v1.2.2"
+    installCommand: "cub package install argocd-image-updater:v1.2.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/argocd-image-updater@sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa"
+      publicationReceipt: "runs/installer-oci/argo-cd-argocd-image-updater/1.2.2/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argocd-image-updater/1.2.2/installer.yaml"
     receipt: "recipes/argo-cd/argocd-image-updater/1.2.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "734237e77d319a0be616920ae63494d6e704289765328677775687f74272befe"
@@ -100,7 +107,7 @@ spec:
         default: true
         description: "argo-cd/argocd-image-updater default variant rendered from argo-cd/argocd-image-updater@1.2.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/argocd-image-updater:v1.2.2@sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

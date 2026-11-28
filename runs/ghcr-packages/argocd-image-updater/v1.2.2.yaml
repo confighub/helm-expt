@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "argocd-image-updater"
+spec:
+  chart: "argo-cd/argocd-image-updater"
+  version: "1.2.2"
+  packagePath: "packages/argo-cd/argocd-image-updater/1.2.2"
+  tag: "v1.2.2"
+  reference: "ghcr.io/confighub/packages/argocd-image-updater:v1.2.2"
+  immutableReference: "ghcr.io/confighub/packages/argocd-image-updater@sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+  manifestDigest: "sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+  layerDigest: "sha256:58924e05a6bd04c4403d713fc3636c164db3c279cf02d7e2c30c7656d3773635"
+  installCommand: "cub package install argocd-image-updater:v1.2.2 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
+  observedAt: "2026-11-27T19:42:48.460Z"
+status:
+  result: "pass"

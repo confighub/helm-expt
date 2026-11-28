@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nodewright"
+spec:
+  chart: "nvidia/nodewright"
+  version: "v0.19.0"
+  packagePath: "packages/nvidia/nodewright/v0.19.0"
+  tag: "v0.19.0"
+  reference: "ghcr.io/confighub/packages/nodewright:v0.19.0"
+  immutableReference: "ghcr.io/confighub/packages/nodewright@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+  manifestDigest: "sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+  layerDigest: "sha256:3a412d6108d7a085df96933bd483a51441bb2087dcbed681e9233f777bf7fb2c"
+  installCommand: "cub package install nodewright:v0.19.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
+  observedAt: "2026-11-27T19:43:42.958Z"
+status:
+  result: "pass"

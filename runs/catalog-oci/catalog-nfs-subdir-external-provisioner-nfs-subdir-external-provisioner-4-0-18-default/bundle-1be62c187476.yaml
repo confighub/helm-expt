@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default"
+spec:
+  kind: "certified-bundle"
+  record: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default:bundle-1be62c187476"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+  manifestDigest: "sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/nfs-subdir-external-provisioner-4.0.18-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default@sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+    receipt: "runs/certified-bundles/catalog-nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:1be62c187476deb5b21ac3102b7321fe7a73665bef60f6e95096916519ce204d"
+  observedAt: "2026-11-27T19:35:38.641Z"
+status:
+  result: "pass"

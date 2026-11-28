@@ -7,8 +7,8 @@ spec:
     Package versions built and checked in this repository that the catalog
     registry does not hold yet. scripts/package-updates.mjs adds each version it
     builds. The catalog maps leave a version listed here out until its
-    publication receipt exists; an entry whose receipt exists fails the chain
-    until it is removed.
-  packages:
-    - chart: "argo-cd/argo-cd"
-      version: "10.20.0"
+    publication receipt exists. The nightly job records the GHCR receipt of
+    each version published since its last run and removes the version from
+    this list; an entry whose receipt exists fails the chain until it is
+    removed.
+  packages: []

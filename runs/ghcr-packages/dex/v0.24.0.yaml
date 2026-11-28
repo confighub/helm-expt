@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "dex"
+spec:
+  chart: "dex/dex"
+  version: "0.24.0"
+  packagePath: "packages/dex/dex/0.24.0"
+  tag: "v0.24.0"
+  reference: "ghcr.io/confighub/packages/dex:v0.24.0"
+  immutableReference: "ghcr.io/confighub/packages/dex@sha256:e2202b1edbf744d0adfe6771365bb513965a5f21430bf1688427d52bbcd445d0"
+  manifestDigest: "sha256:e2202b1edbf744d0adfe6771365bb513965a5f21430bf1688427d52bbcd445d0"
+  layerDigest: "sha256:6ef5f91a2a4fdeacc889639defa0783cd6a8fd0a57dd5497587dcd40c75cb9c0"
+  installCommand: "cub package install dex:v0.24.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e2202b1edbf744d0adfe6771365bb513965a5f21430bf1688427d52bbcd445d0"
+  observedAt: "2026-11-27T19:43:05.785Z"
+status:
+  result: "pass"

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
-      "sha256": "sha256:f9e444a0c43ec56f2c60ce380843059e96164675fbaaf056aa379ea3c5d0a8fe",
+      "sha256": "sha256:cd3190d9e8099e9edf10322b5df494cbd8ff10ca4569f73fa37d2ba1b0a7f0f6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/jetstack-cert-manager-v1-21-0-crds-enabled.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -47,7 +47,7 @@
     "name": "jetstack/cert-manager",
     "version": "v1.21.0",
     "reference": "jetstack/cert-manager@v1.21.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc",
+    "ociRef": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd",
     "record": "data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-21-0-crds-enabled.yaml",
     "selection": {
@@ -103,7 +103,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0@sha256:c6ebd798984a15a6bf3e856b02cc1f3806c48cb2ee714d655ea3dd312c939ecc",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/cert-manager:v1.21.0@sha256:fbe39726d4146e107f692ef1841b57bbf27570a4a49ae25b89979d9feb28d0cd",
     "bundles": [
       {
         "role": "source-package",
@@ -148,7 +148,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:bundle-1b7bad904233@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
           "manifestDigest": "sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-jetstack-cert-manager-v1-21-0-crds-enabled/bundle-1b7bad904233.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-jetstack-cert-manager-v1-21-0-crds-enabled/bundle-1b7bad904233.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-crds-enabled@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
           "sameDigestAsEarlier": true
@@ -635,12 +637,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-0-crds-enabled --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
+          "command": "cub variant upload --dry-run --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-0-crds-enabled --namespace cert-manager --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:bundle-1b7bad904233@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-0-crds-enabled --namespace cert-manager --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
+          "command": "cub variant upload --component jetstack-cert-manager --variant crds-enabled --space jetstack-cert-manager-v1-21-0-crds-enabled --namespace cert-manager --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:bundle-1b7bad904233@sha256:1b7bad90423389f168ebf44e7ab7458164fcea2abcb07ac8c70c4bc5bc363322",
           "needsAccount": true,
           "writes": true
         }

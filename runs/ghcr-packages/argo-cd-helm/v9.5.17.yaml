@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "argo-cd-helm"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.17"
+  packagePath: "packages/argo-cd/argo-cd/9.5.17"
+  tag: "v9.5.17"
+  reference: "ghcr.io/confighub/packages/argo-cd-helm:v9.5.17"
+  immutableReference: "ghcr.io/confighub/packages/argo-cd-helm@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+  manifestDigest: "sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+  layerDigest: "sha256:c57f016dafceb8e27e19ec28341fbb81561908b4c442fe5a98785489cc8a7e97"
+  installCommand: "cub package install argo-cd-helm:v9.5.17 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4"
+  observedAt: "2026-11-27T19:42:37.582Z"
+status:
+  result: "pass"

@@ -731,7 +731,7 @@
 <p>The Catalog holds no cluster, no Secrets and nothing of yours. It doesn't replace a generator. It runs each generator once and keeps the result, because the result is what you need to read, compare and deliver.</p>
 <h3 id="every-type-of-config-ends-up-as-objects">Every type of config ends up as objects</h3>
 <p>A <b>generator</b> is the tool that turns a type of config into Kubernetes objects. Some types have no generator, because they are already objects.</p>
-<table><thead><tr><th>Type of config</th><th>Generator</th><th>What you choose</th><th>What the Catalog keeps</th><th>Entries</th></tr></thead><tbody><tr><td>Helm chart</td><td><code>helm template</code></td><td>A version and values</td><td>Plain objects, for each preset</td><td>345</td></tr>
+<table><thead><tr><th>Type of config</th><th>Generator</th><th>What you choose</th><th>What the Catalog keeps</th><th>Entries</th></tr></thead><tbody><tr><td>Helm chart</td><td><code>helm template</code></td><td>A version and values</td><td>Plain objects, for each preset</td><td>347</td></tr>
 <tr><td>NVIDIA AICR recipe</td><td><code>aicr</code>, then <code>helm template</code></td><td>Five criteria: service, accelerator, OS, intent and platform</td><td>Argo CD Applications. Most still name a chart that Argo CD renders later.</td><td>138</td></tr>
 <tr><td>Plain YAML</td><td>None</td><td>Which file</td><td>The objects as they are</td><td>39</td></tr>
 <tr><td>Timoni module</td><td><code>timoni build</code></td><td>A version and values</td><td>Plain objects</td><td>2</td></tr>
@@ -795,7 +795,7 @@ cub release publish my-app-prod</code></pre>
 <h2 id="installer-packages">Installer packages</h2>
 <p>ConfigHub's installer packages come from two repositories. Both use the same format, the same installer and the same registry, <code>ghcr.io/confighub/packages</code>, which is where <code>cub package install &lt;name&gt;</code> looks a name up. They differ in where a package's objects come from.</p>
 <table><thead><tr><th>Repository</th><th>Builds packages for</th><th>Takes the objects from</th></tr></thead><tbody><tr><td><code>confighub/packages</code></td><td>Software whose project publishes its own install manifests: Argo CD, Flux, Sveltos</td><td>Those manifests, copied at each upstream release</td></tr>
-<tr><td>This Catalog</td><td>Software installed from a Helm chart: 124 charts, 180 chart versions</td><td>The chart, flattened once per preset</td></tr></tbody></table>
+<tr><td>This Catalog</td><td>Software installed from a Helm chart: 124 charts, 181 chart versions</td><td>The chart, flattened once per preset</td></tr></tbody></table>
 <p><code>confighub/packages</code> plans chart packages as its &quot;Helm charts&quot; milestone. This Catalog is where they are built.</p>
 <h3 id="package-names">Package names</h3>
 <p>A package is named after its chart: <code>jetstack/cert-manager</code> is <code>cert-manager</code>. There are three exceptions:</p>
@@ -810,7 +810,11 @@ cub release publish my-app-prod</code></pre>
 <pre><code>cosign verify ghcr.io/confighub/packages/cert-manager:v1.21.1 \
   --certificate-identity-regexp '^https://github.com/confighub/helm-expt/\.github/workflows/packages-publish\.yml@refs/heads/main$' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com</code></pre>
-<p>The published package is the package directory with two fields of <code>installer.yaml</code> set: <code>metadata.name</code> to the package's name, which names the installer record, and <code>installerMetadata.version</code> to its version, which <code>cub package show</code> reports. Nothing else changes. The same packages were first published to a Google registry under names like <code>jetstack-cert-manager</code>; <a href="installer-oci-packages.html">Installer Package OCI Refs</a> lists those copies.</p>
+<p>The published package is the package directory with two fields of <code>installer.yaml</code> set: <code>metadata.name</code> to the package's name, which names the installer record, and <code>installerMetadata.version</code> to its version, which <code>cub package show</code> reports. Nothing else changes.</p>
+<p>Each published version has a receipt under <code>runs/ghcr-packages/&lt;name&gt;/&lt;tag&gt;.yaml</code> recording its manifest digest, read with no credentials, and its signature, verified against the workflow. The nightly package job writes those receipts for whatever was published since its last run and carries them in its pull request, so no person commits them. Every Catalog page, chart map and record names a version by its GHCR package, with <code>cub package install &lt;name&gt;:&lt;tag&gt;</code> as the command and the digest-pinned reference for anyone who wants exact bytes:</p>
+<pre><code>cub package install cert-manager:v1.21.1 --space cert-manager --namespace cert-manager
+cub installer inspect oci://ghcr.io/confighub/packages/cert-manager:v1.21.1@sha256:&lt;manifest digest&gt; --json</code></pre>
+<p>The same packages were first published to a Google registry, <code>europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt</code>, under names like <code>jetstack-cert-manager</code> and signed by a Google service account. Those copies stay readable there, and pages show them as the earlier location; they are different bytes, because they lack the two fields above. <a href="installer-oci-packages.html">Installer Package OCI Refs</a> lists them.</p>
 <h2 id="what-is-reproducible-and-what-is-live">What is reproducible, and what is live</h2>
 <p>Ask whether you could get the same answer on a laptop, with no cluster and no account. If you could, it is reproducible.</p>
 <table><thead><tr><th></th><th>Reproducible</th><th>Live-dependent</th></tr></thead><tbody><tr><td><b>Install</b></td><td>The chart version, values, preset and AICR criteria</td><td>Cluster facts a package reads as it renders</td></tr>

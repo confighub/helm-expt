@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Runtime review | [recipes/nats/surveyor/0.20.9/runtime-review.yaml](runtime-review.yaml) |
 | Catalog status | [recipes/nats/surveyor/0.20.9/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nats/surveyor/0.20.9/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d` |
+| Install into a Space | `cub package install nats-surveyor:v0.20.9 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450` |
+| Installer package publication | [runs/ghcr-packages/nats-surveyor/v0.20.9.yaml](../../../../runs/ghcr-packages/nats-surveyor/v0.20.9.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d` |
 | Installer package source | [packages/nats/surveyor/0.20.9](../../../../packages/nats/surveyor/0.20.9) |
 | Installer package receipt | [recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/surveyor/0.20.9/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install nats-surveyor:v0.20.9 --space nats-surveyor --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nats-surveyor@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

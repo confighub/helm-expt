@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "trivy-operator"
+spec:
+  chart: "aqua/trivy-operator"
+  version: "0.32.1"
+  packagePath: "packages/aqua/trivy-operator/0.32.1"
+  tag: "v0.32.1"
+  reference: "ghcr.io/confighub/packages/trivy-operator:v0.32.1"
+  immutableReference: "ghcr.io/confighub/packages/trivy-operator@sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+  manifestDigest: "sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+  layerDigest: "sha256:80d4567b1766e15f07d29de56cf2f560c59d71ee8a5c15905d0182ecfc7d004d"
+  installCommand: "cub package install trivy-operator:v0.32.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:7e349c9b338908232ab79a54ece2767575d4cfd2e4a81647d0239b20b99f58d1"
+  observedAt: "2026-11-27T19:42:48.397Z"
+status:
+  result: "pass"

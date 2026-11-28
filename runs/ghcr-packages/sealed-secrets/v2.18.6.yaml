@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "sealed-secrets"
+spec:
+  chart: "sealed-secrets/sealed-secrets"
+  version: "2.18.6"
+  packagePath: "packages/sealed-secrets/sealed-secrets/2.18.6"
+  tag: "v2.18.6"
+  reference: "ghcr.io/confighub/packages/sealed-secrets:v2.18.6"
+  immutableReference: "ghcr.io/confighub/packages/sealed-secrets@sha256:b425f4a11af901e6ee5dcb0c7b98b7aa124011943a4c3a11c0280b36f138ebfa"
+  manifestDigest: "sha256:b425f4a11af901e6ee5dcb0c7b98b7aa124011943a4c3a11c0280b36f138ebfa"
+  layerDigest: "sha256:1cca9eec696c8451066a650601828b3fe4fa86328ffbadcaf79877efba2c0d76"
+  installCommand: "cub package install sealed-secrets:v2.18.6 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:b425f4a11af901e6ee5dcb0c7b98b7aa124011943a4c3a11c0280b36f138ebfa"
+  observedAt: "2026-11-27T19:44:00.469Z"
+status:
+  result: "pass"

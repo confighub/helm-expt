@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-policy-reporter-policy-reporter-3-10-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "policy-reporter-policy-reporter-3-10-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-policy-reporter-policy-reporter-3-10-0-default:bundle-002013367248"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-policy-reporter-policy-reporter-3-10-0-default@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+  manifestDigest: "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/policy-reporter-3.10.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-10-0-default@sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+    receipt: "runs/certified-bundles/catalog-policy-reporter-policy-reporter-3-10-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0020133672486656c7e22a428bd3555b6e8a0d764ea06af0e1bd9a1d4e761234"
+  observedAt: "2026-11-27T19:35:43.604Z"
+status:
+  result: "pass"

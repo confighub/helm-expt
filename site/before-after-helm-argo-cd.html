@@ -943,7 +943,7 @@ Schema
       <h3 id="live-own-account">With your own account</h3>
       <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-comment"># render the base from the signed package</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24 --base default --work-dir ./argo-cd-argo-cd-10-7-0-default --non-interactive --namespace argocd
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v10.7.0@sha256:cd2dc9e7bcffdb1fb892993eab2d9dc7be36ca73c87849bd3f9a395ac4c2e4e5 --base default --work-dir ./argo-cd-argo-cd-10-7-0-default --non-interactive --namespace argocd
 
 <span class="term-comment"># sign in to your organization</span>
 <span class="term-prompt">$</span> cub auth login

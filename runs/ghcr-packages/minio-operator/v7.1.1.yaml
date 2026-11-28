@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "minio-operator"
+spec:
+  chart: "minio-operator/operator"
+  version: "7.1.1"
+  packagePath: "packages/minio-operator/operator/7.1.1"
+  tag: "v7.1.1"
+  reference: "ghcr.io/confighub/packages/minio-operator:v7.1.1"
+  immutableReference: "ghcr.io/confighub/packages/minio-operator@sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+  manifestDigest: "sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+  layerDigest: "sha256:df5dce69e2fde4fff6d53f54fa6316b85fea47f43de8285867ea94b6862bc978"
+  installCommand: "cub package install minio-operator:v7.1.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:efdf0556d18bfa40c180b236176df3246721d4ef76860303f173bb1c19b76d5a"
+  observedAt: "2026-11-27T19:43:35.870Z"
+status:
+  result: "pass"

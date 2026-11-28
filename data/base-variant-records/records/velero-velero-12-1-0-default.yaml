@@ -13,7 +13,7 @@ spec:
     name: "velero/velero"
     version: "12.1.0"
     record: "data/helm-render-intents/intents/velero-velero-12-1-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
+    packageOciRef: "oci://ghcr.io/confighub/packages/velero:v12.1.0@sha256:68ff855f40f1d44e3cc8336c673a927196b3a70f65df463bd5522ec79a095109"
     selection:
       name: "default"
       kind: "catalog-preset"

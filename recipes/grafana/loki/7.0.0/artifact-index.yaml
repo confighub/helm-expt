@@ -66,11 +66,18 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/grafana/loki/7.0.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0"
-    manifestDigest: "sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
-    layerDigest: "sha256:48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507"
-    publicationReceipt: "runs/installer-oci/grafana-loki/7.0.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/loki:v7.0.0@sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/loki:v7.0.0"
+    manifestDigest: "sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a"
+    layerDigest: "sha256:28ca2629cd89422d15fb007f7b4eac2712393413e539b26bc5de35f98e98b518"
+    publicationReceipt: "runs/ghcr-packages/loki/v7.0.0.yaml"
+    name: "loki"
+    tag: "v7.0.0"
+    installCommand: "cub package install loki:v7.0.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/loki@sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
+      publicationReceipt: "runs/installer-oci/grafana-loki/7.0.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/loki/7.0.0/installer.yaml"
     receipt: "recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "48497f183fce3117cf94c79d6c472c1b3f9c6719e0809ae002c670f2f6bf8507"
@@ -107,7 +114,7 @@ spec:
         default: true
         description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/loki:v7.0.0@sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -169,7 +176,7 @@ spec:
         default: false
         description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/loki:v7.0.0@sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 33
         cubInstallObjectCountIncludingSupport: 34
         semanticObjectMatches: "33/33"

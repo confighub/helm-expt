@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0@sha256:923b79c94ab4d966ae66cc7b6e2ddc199d042ebe5ea16942d197dc2a12fdec42"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v29.0.0@sha256:2d19b5fa9d5085952ddda6abf6387e6edca4c1fce88ef21ef733d6f7d9c50cbd",
+        "installCommand": "cub package install prometheus-operator-crds:v29.0.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:28.0.1@sha256:666c7cf9a3928b3e47c7b01832cb9dcec116029710a8d4a4a358211aaf238aea"
+        "ociRef": "oci://ghcr.io/confighub/packages/prometheus-operator-crds:v28.0.1@sha256:d1d77f2d31a9f35156b8277a5767e6371a19d4a20e6658c7e5ae19aed18da678",
+        "installCommand": "cub package install prometheus-operator-crds:v28.0.1 --space <space>"
       },
       "bases": [
         {

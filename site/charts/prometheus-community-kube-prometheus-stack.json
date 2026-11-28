@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:88.6.3@sha256:ee4622c4d2a34dbe1a85a6fbaa56cc47a9440dcdf88047b5776dd6689bfff44a"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v88.6.3@sha256:bd17a6b056c031e067590a6315db7ba80bb103e94314328f20fc1814ebff4aa0",
+        "installCommand": "cub package install kube-prometheus-stack:v88.6.3 --space <space>"
       },
       "bases": [
         {
@@ -85,7 +86,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2@sha256:df91aefaac87edd2bcd625ec9a87f7142d49fc2d7ffc70878dfb1d92bc885987"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.19.2@sha256:c6efc87e7fed1b1c8f7b6072c2264a312f50d7b6bc9f7a1bf040f96fe4051297",
+        "installCommand": "cub package install kube-prometheus-stack:v87.19.2 --space <space>"
       },
       "bases": [
         {
@@ -151,7 +153,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1@sha256:94a97814a7b82f12ab6294b51d8d70d9fbb176ee8cbd951be2e275dd63cd9858"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v87.15.1@sha256:a253094343d45b3f85206fb32fd85faf0ed3ac29b80bfc072a7cf423a84a71c9",
+        "installCommand": "cub package install kube-prometheus-stack:v87.15.1 --space <space>"
       },
       "bases": [
         {
@@ -217,7 +220,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0@sha256:8ed23f666f651c0acaddb55713c582dbc154730470b23c107a01ce86250d9e56"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v86.1.0@sha256:fc41c0ca1314a1586300279791d82e2c45fc63841b03eeb0804fba1a9723509b",
+        "installCommand": "cub package install kube-prometheus-stack:v86.1.0 --space <space>"
       },
       "bases": [
         {
@@ -265,7 +269,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3@sha256:d2da5e6ee7bb7cebe256d494b67a05911b940d1a1c69793886a9e99e60112b85"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v85.3.3@sha256:27200adce3d7c5fa9cde7d9e8219d605c6b7c14e092925e69c208784cdd6c2cf",
+        "installCommand": "cub package install kube-prometheus-stack:v85.3.3 --space <space>"
       },
       "bases": [
         {
@@ -313,7 +318,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:84.4.0@sha256:e466955464cf236106ed17b445bc7e918386b508ab3a5bd9bfa578e5546468c8"
+        "ociRef": "oci://ghcr.io/confighub/packages/kube-prometheus-stack:v84.4.0@sha256:fd62d9f200df2a8a10494301ef27c766c17f09b4ff9fe2791305164b71016b65",
+        "installCommand": "cub package install kube-prometheus-stack:v84.4.0 --space <space>"
       },
       "bases": [
         {

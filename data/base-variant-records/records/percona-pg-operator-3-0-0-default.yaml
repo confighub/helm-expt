@@ -13,7 +13,7 @@ spec:
     name: "percona/pg-operator"
     version: "3.0.0"
     record: "data/helm-render-intents/intents/percona-pg-operator-3-0-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0@sha256:c3afc463cdf2fe0d978fd0f2513dab3e03279dafbd1827bcb8013cd692173db1"
+    packageOciRef: "oci://ghcr.io/confighub/packages/pg-operator:v3.0.0@sha256:d4a8211c8be599f062d12fe369a54d3e11df2be5d1a3e73ef62e09415745148b"
     selection:
       name: "default"
       kind: "catalog-preset"

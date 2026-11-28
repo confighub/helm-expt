@@ -13,7 +13,7 @@ spec:
     name: "bitnami/zookeeper"
     version: "13.8.7"
     record: "data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7@sha256:bdae202754e9af6bf276216c3002b4bae869988024ef8db33e792b90fa7bb5c0"
+    packageOciRef: "oci://ghcr.io/confighub/packages/zookeeper:v13.8.7@sha256:951f5a82c20c8b4a644d3344c177c4468acd05bd0d91a62d644f6a723632190b"
     selection:
       name: "default"
       kind: "catalog-preset"

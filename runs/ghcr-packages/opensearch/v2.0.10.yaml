@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "opensearch"
+spec:
+  chart: "bitnami/opensearch"
+  version: "2.0.10"
+  packagePath: "packages/bitnami/opensearch/2.0.10"
+  tag: "v2.0.10"
+  reference: "ghcr.io/confighub/packages/opensearch:v2.0.10"
+  immutableReference: "ghcr.io/confighub/packages/opensearch@sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+  manifestDigest: "sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+  layerDigest: "sha256:0bc5a5375b915d78da1f1c6a7eb3e72a6b309251702a2d30e96a650067b1c3ca"
+  installCommand: "cub package install opensearch:v2.0.10 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:0e6fdc9b2eb17a096c4cee18110f18ab5347fb29f049c7322d005ce07da80c78"
+  observedAt: "2026-11-27T19:42:57.558Z"
+status:
+  result: "pass"

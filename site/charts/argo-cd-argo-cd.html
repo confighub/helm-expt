@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>argo-cd/argo-cd Helm chart · ConfigHub Workshop</title>
-  <meta name="description" content="The ConfigHub Workshop Catalog holds five versions and 10 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
+  <meta name="description" content="The ConfigHub Workshop Catalog holds six versions and 12 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.html">
   <link rel="sitemap" type="application/xml" href="https://confighub.github.io/helm-expt/site/sitemap.xml">
   <link rel="alternate" type="text/plain" href="https://confighub.github.io/helm-expt/site/llms.txt" title="ConfigHub Workshop LLM index">
   <meta property="og:title" content="argo-cd/argo-cd Helm chart · ConfigHub Workshop">
-  <meta property="og:description" content="The ConfigHub Workshop Catalog holds five versions and 10 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
+  <meta property="og:description" content="The ConfigHub Workshop Catalog holds six versions and 12 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.html">
   <style>
@@ -728,7 +728,7 @@
     .cw-mobile-nav { display: block; }
   }</style>
 </head>
-<body data-chart-page="argo-cd/argo-cd" data-chart-description="The ConfigHub Workshop Catalog holds five versions and 10 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
+<body data-chart-page="argo-cd/argo-cd" data-chart-description="The ConfigHub Workshop Catalog holds six versions and 12 bases of the Helm chart argo-cd/argo-cd. See what changes between them, then use one in ConfigHub.">
 <a class="cw-skip" href="#cw-content">Skip to content</a>
 <div class="cw-header" role="banner"><div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Workshop</a><span class="site-purpose">UNOFFICIAL CATALOG</span><span class="navlinks"><a href="../packages.html">Packages</a><a href="../../ai-agents/">Coding Agents</a><a href="../charts/index.html">Configs</a><a href="../stack.html">Stacks</a><a href="../apps.html">Apps</a><a href="../plugins.html">Plugins</a><a href="../guides.html">Guides</a><a href="../docs.html">Docs</a><a class="nav-cta" href="../confighub.html">ConfigHub Server</a></span></nav></div></div>
 <div class="cw-layout no-toc">
@@ -756,29 +756,45 @@
   <header>
     
     <h1>Find, compare and use argo-cd/argo-cd</h1>
-    <p class="lead">The Catalog holds five versions of the Helm chart argo-cd/argo-cd, with 10 bases across them. The newest is 10.7.0. Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
+    <p class="lead">The Catalog holds six versions of the Helm chart argo-cd/argo-cd, with 12 bases across them. The newest is 10.20.0. Each packaged preset pre-renders explicit Kubernetes YAML, and loading its OCI bundle into ConfigHub creates a shared base for environment variants.</p>
     <p data-chart-what>Filed under Delivery and automation. Use these pre-rendered manifests alongside upstream Helm or GitOps to inspect exact RBAC rules, CRDs, hook Jobs, and version-to-version YAML diffs before upgrading.</p>
-    <p data-chart-run-state>The Catalog pre-rendered all 10 presets to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account. Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.</p>
+    <p data-chart-run-state>The Catalog pre-rendered all 12 presets to plain Kubernetes YAML and recorded SHA-256 digests you can inspect or diff with no account. Static rendering and package checks ran offline; live cluster deployment has not been executed here, so verify CRDs, hooks, and Secrets before applying.</p>
     <p class="entry-steps-link"><a href="#use-in-confighub">Use this entry in ConfigHub</a> in five steps, from fetching its exact objects to promoting a change.</p>
     <p><a href="#versions">Pick a version</a> · <a href="#see-what-changes">See what changes</a> · <a href="./index.html">Back to the Catalog</a></p>
     <p class="chart-guide-links"><strong>Guides.</strong> <a href="../example-argo-cd.html">Open the worked Argo CD YAML walkthrough</a> to inspect all 55 rendered objects, 3 CRDs, and the Redis password Secret generator before installing. <a href="../d/docs/user/workshop-stack-from-catalog-guide.html">Make a stack from Catalog entries</a> shows how to combine this chart with others and check them together.</p>
   </header>
   <main>
     <section class="at-a-glance" aria-label="At a glance">
-      <p><strong>What it is.</strong> <code>argo-cd/argo-cd</code> 10.7.0, pre-rendered as 55 Kubernetes objects in its <code>default</code> preset.</p>
-      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-argo-cd.html">Worked walkthrough</a>.</p>
-      <p><strong>Needs first.</strong> Secret argocd/argocd-redis must exist before apply. Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly.</p>
-      <p><strong>Install it.</strong> Download YAML and dry-run locally: <code>curl -fsSLO https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml &amp;&amp; kubectl apply --dry-run=client -f release-objects.yaml</code> (<a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-10-7-0/default/try-objects.sh">cluster test script</a>)</p>
-      <p><strong>OCI bundle.</strong> <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a</code></p>
-      <p><strong>GitHub registry copy.</strong> The <a href="https://github.com/confighub/helm-expt/blob/main/.github/workflows/catalog-oci-publish.yml">catalog OCI workflow</a> publishes this bundle as <code>oci://ghcr.io/confighub/configs/catalog/catalog-argo-cd-argo-cd-10-7-0-default:bundle-573ef4572325@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a</code> and signs it after a merge. No receipt records that copy yet, so use the reference above.</p>
+      <p><strong>What it is.</strong> <code>argo-cd/argo-cd</code> 10.20.0, pre-rendered as 54 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install argo-cd-helm into ConfigHub.</strong> <code>cub package install argo-cd-helm:v10.20.0 --space argo-cd-helm --namespace argocd</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
+      <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install) · <a href="../example-argo-cd.html">Worked walkthrough</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
       <h2 id="versions">Pick a version and a preset</h2>
       <p>Versions are listed newest first. Click Read YAML in any row to inspect the exact Kubernetes objects on GitHub, or pass the JSON record to your AI agent.</p>
       <p>Flattening (rendering once to plain YAML) shows whether manifests deliver directly via OCI, Argo CD, Flux, or kubectl, or carry a plan for ordered CRD and Secret setup.</p>
+      <article class="chart-version" data-chart-version="10.20.0">
+        <h3 id="version-10-20-0">10.20.0 <span class="status good">newest</span></h3>
+        <p>2 rendered presets. The installer package has a reserved reference and is not published yet. <a href="./argo-cd-argo-cd-10-20-0.html">Open version detail page for 10.20.0</a>.</p>
+        <div class="card"><table>
+        <thead><tr><th>Preset</th><th>K8s objects</th><th>Flattening &amp; GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
+        <tbody><tr><td>default <span class="status">default</span></td><td>54</td><td>not-assessed</td><td>Not published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/effective-values.yaml">Values</a> · <a href="../listings/argo-cd-argo-cd-10-20-0-default.json">JSON</a></td></tr><tr><td>no-crds</td><td>51</td><td>not-assessed</td><td>Not published</td><td>None</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml">Read YAML</a> · <a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/effective-values-no-crds.yaml">Values</a> · <a href="../listings/argo-cd-argo-cd-10-20-0-no-crds.json">JSON</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: break-word; }
+        td code, td a { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      </article>
       <article class="chart-version" data-chart-version="10.7.0">
-        <h3 id="version-10-7-0">10.7.0 <span class="status good">newest</span></h3>
+        <h3 id="version-10-7-0">10.7.0</h3>
         <p>2 rendered presets. The installer package is published and signed. <a href="./argo-cd-argo-cd-10-7-0.html">Open version detail page for 10.7.0</a>.</p>
         <div class="card"><table>
         <thead><tr><th>Preset</th><th>K8s objects</th><th>Flattening &amp; GitOps status</th><th>OCI bundle</th><th>Review flag</th><th>Inspect</th></tr></thead>
@@ -860,12 +876,12 @@
       <form class="chart-compare-control" data-compare-control hidden>
         <fieldset>
           <legend>Before</legend>
-          <label>Version <select name="from-version"><option value="10.7.0">10.7.0</option><option value="10.2.1" selected>10.2.1</option><option value="10.1.3">10.1.3</option><option value="9.5.17">9.5.17</option><option value="9.5.15">9.5.15</option></select></label>
+          <label>Version <select name="from-version"><option value="10.20.0">10.20.0</option><option value="10.7.0" selected>10.7.0</option><option value="10.2.1">10.2.1</option><option value="10.1.3">10.1.3</option><option value="9.5.17">9.5.17</option><option value="9.5.15">9.5.15</option></select></label>
           <label>Base <select name="from-base"><option value="default" selected>default (default)</option><option value="no-crds">no-crds</option></select></label>
         </fieldset>
         <fieldset>
           <legend>After</legend>
-          <label>Version <select name="to-version"><option value="10.7.0" selected>10.7.0</option><option value="10.2.1">10.2.1</option><option value="10.1.3">10.1.3</option><option value="9.5.17">9.5.17</option><option value="9.5.15">9.5.15</option></select></label>
+          <label>Version <select name="to-version"><option value="10.20.0" selected>10.20.0</option><option value="10.7.0">10.7.0</option><option value="10.2.1">10.2.1</option><option value="10.1.3">10.1.3</option><option value="9.5.17">9.5.17</option><option value="9.5.15">9.5.15</option></select></label>
           <label>Base <select name="to-base"><option value="default" selected>default (default)</option><option value="no-crds">no-crds</option></select></label>
         </fieldset>
         <button class="button primary" type="submit">Compare</button>
@@ -875,24 +891,25 @@
       <h3 id="compare-command">Run the same diff yourself</h3>
       <p>These commands fetch the same two files and compare them on your machine, with no account. They follow the pair you choose above. <code>cub plugin install confighub/cub-workshop@v0.6.61</code> adds <code>cub config diff</code>.</p>
       <div data-compare-command><pre class="terminal-body"><code><span class="term-comment"># fetch the first retained file</span>
-<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-2-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
-
-<span class="term-comment"># fetch the second retained file</span>
 <span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-7-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml
 
+<span class="term-comment"># fetch the second retained file</span>
+<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-20-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml
+
 <span class="term-comment"># check the bytes against the two listings</span>
-<span class="term-prompt">$</span> shasum -a 256 argo-cd-argo-cd-10-2-1-default.yaml argo-cd-argo-cd-10-7-0-default.yaml
-a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780  argo-cd-argo-cd-10-2-1-default.yaml
+<span class="term-prompt">$</span> shasum -a 256 argo-cd-argo-cd-10-7-0-default.yaml argo-cd-argo-cd-10-20-0-default.yaml
 5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface  argo-cd-argo-cd-10-7-0-default.yaml
+fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612  argo-cd-argo-cd-10-20-0-default.yaml
 
 <span class="term-comment"># count what changes</span>
-<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-2-1-default.yaml argo-cd-argo-cd-10-7-0-default.yaml --summary
+<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-7-0-default.yaml argo-cd-argo-cd-10-20-0-default.yaml --summary
 
 <span class="term-comment"># list every changed field</span>
-<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-2-1-default.yaml argo-cd-argo-cd-10-7-0-default.yaml</code></pre></div>
+<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-7-0-default.yaml argo-cd-argo-cd-10-20-0-default.yaml</code></pre></div>
       <h3 id="stored-summaries">Read one line for each version step</h3>
       <p>These lines are the only diff content this page stores. Each one was computed when the site was generated, by the same code, on the default base of both versions.</p>
       <ul class="chart-summaries">
+        <li data-chart-summary="10.7.0/default 10.20.0/default">From 10.7.0 to 10.20.0 on the default base, 53 of 55 objects change, 1 is added and 2 are removed. <a href="?from=10.7.0%2Fdefault&amp;to=10.20.0%2Fdefault#see-what-changes" data-compare-from="10.7.0/default" data-compare-to="10.20.0/default">Compute this diff</a>.</li>
         <li data-chart-summary="10.2.1/default 10.7.0/default">From 10.2.1 to 10.7.0 on the default base, 55 of 55 objects change. <a href="?from=10.2.1%2Fdefault&amp;to=10.7.0%2Fdefault#see-what-changes" data-compare-from="10.2.1/default" data-compare-to="10.7.0/default">Compute this diff</a>.</li>
         <li data-chart-summary="10.1.3/default 10.2.1/default">From 10.1.3 to 10.2.1 on the default base, 52 of 55 objects change. <a href="?from=10.1.3%2Fdefault&amp;to=10.2.1%2Fdefault#see-what-changes" data-compare-from="10.1.3/default" data-compare-to="10.2.1/default">Compute this diff</a>.</li>
         <li data-chart-summary="9.5.17/default 10.1.3/default">From 9.5.17 to 10.1.3 on the default base, 46 of 49 objects change and 6 are added. <a href="?from=9.5.17%2Fdefault&amp;to=10.1.3%2Fdefault#see-what-changes" data-compare-from="9.5.17/default" data-compare-to="10.1.3/default">Compute this diff</a>.</li>
@@ -905,107 +922,108 @@ a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780  argo-cd-argo-c
     <section class="entry-steps" aria-labelledby="use-in-confighub">
       <h2 id="use-in-confighub">Use this entry in ConfigHub</h2>
       <p>Every Catalog entry follows the same five-step model across Helm, NVIDIA AICR, Timoni, and YAML, whether run by you or your agent. Steps 1 and 2 inspect and diff rendered objects locally with no account; steps 3 to 5 load a ConfigHub base, customize variants, and deliver via OCI.</p>
-      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Step 2 uses <code>cub config diff</code> from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for steps 3 to 5 comes from a <a href="../d/docs/user/live-walk-entry-steps-2026-10-08.html">recorded CLI walkthrough (2026-10-08)</a>, and applies to this entry only where a step badge says Run. These are the steps for 10.7.0, the newest version, on its default base.</p>
-      <div data-entry-steps="argo-cd-argo-cd-10-7-0-default">
-        <details class="entry-inputs" data-entry-inputs="argo-cd-argo-cd-10-7-0-default" open>
+      <p><a href="../try.html#install-cub">Install the cub CLI</a> before running <code>cub</code> commands. Only step 2 needs a plugin: <code>cub config diff</code> comes from <code>cub plugin install confighub/cub-workshop@v0.6.61</code>. Command syntax for step 3 comes from a <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">recorded run (2026-11-26)</a>, and for steps 4 and 5 from a <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">recorded run (2026-11-27)</a>. It applies to this entry only where a step badge says Run. These are the steps for 10.20.0, the newest version, on its default base.</p>
+      <div data-entry-steps="argo-cd-argo-cd-10-20-0-default">
+        <details class="entry-inputs" data-entry-inputs="argo-cd-argo-cd-10-20-0-default" open>
         <summary>What is fixed, and what you supply</summary>
         <p><strong>Fixed when this entry was built.</strong> These went into the build, so the objects already carry them. To change one, build the entry again from its source.</p>
-        <ul class="entry-inputs-list"><li><code>chart</code> is <code>argo-cd/argo-cd</code></li><li><code>version</code> is <code>10.7.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/argo-cd/argo-cd/10.7.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>argocd</code></li><li><code>releaseName</code> is <code>argo-cd</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
+        <ul class="entry-inputs-list"><li><code>chart</code> is <code>argo-cd/argo-cd</code></li><li><code>version</code> is <code>10.20.0</code></li><li><code>base</code> is <code>default</code></li><li><code>valuesProfile</code> is <code>recipes/argo-cd/argo-cd/10.20.0/effective-values.yaml</code></li><li><code>namespace</code> is <code>argocd</code></li><li><code>releaseName</code> is <code>argo-cd</code></li><li><code>capabilityProfile</code> is <code>{&quot;apiVersions&quot;:[],&quot;kubeVersion&quot;:&quot;1.30.0&quot;}</code></li></ul>
         <p><strong>Yours to supply or check.</strong> The destination must have these before the objects are applied. The words in italics say what the Catalog knows about each.</p>
         <ul class="entry-inputs-list"><li><code>argocd-redis</code>: Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly <em>Declared. Not checked on any destination.</em></li></ul>
         
       </details>
-        <span id="plan"></span><details class="entry-inputs" id="plan-argo-cd-argo-cd-10-7-0-default" data-entry-plan="argo-cd-argo-cd-10-7-0-default" open>
+        <span id="plan"></span><details class="entry-inputs" id="plan-argo-cd-argo-cd-10-20-0-default" data-entry-plan="argo-cd-argo-cd-10-20-0-default" open>
         <summary>This entry's plan, and how to test it</summary>
-        <p>These are the steps that plain objects cannot carry. ConfigHub stores them and does not carry them out. The words in italics say what the Catalog knows about each.</p>
-        <ul class="entry-inputs-list"><li><strong>Before you deliver.</strong> Secret argocd/argocd-redis must exist before apply. Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly. Who: operator. <em>Written down. Not run by the Catalog.</em></li><li><strong>When you deliver.</strong> Apply the 3 CustomResourceDefinition objects first. Wait until every named definition reports the Established condition. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li><li><strong>Once the destination is known.</strong> Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it. Who: whatever applies the objects. <em>Written down. Not run by the Catalog.</em></li></ul>
+        <p>The record lists no plan step for this entry.</p>
         
-        
-        <p><strong>Test the plain objects yourself.</strong> <a href="../sh/argo-cd-argo-cd-10-7-0/default/try-objects.sh">This script</a> tests the retained objects themselves with <code>kubectl</code>, and it needs no <code>cub</code> and no account. Read it first and use a throwaway cluster. The Catalog has no recorded run of this script.</p>
         
         
         <p><a href="../config.html#why-routes">Read what a plan is, and why some entries have one</a>.</p>
       </details>
         <div class="entry-step" data-step="get-objects" data-state="run-for-this-entry">
           <h3>1. Get the exact objects <span class="status good">Run for this entry</span></h3>
-          <p>The Catalog rendered this entry and retains its 55 objects in one file.</p>
-          <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
-<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-7-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml
+          <p>The Catalog rendered this entry and retains its 54 objects in one file.</p>
+          <p>An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record.</p>
+          <p class="install-cub-note installer-command-note"><strong>Here is what the command does.</strong> cub installer is an open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally, leaving delivery to kubectl, Argo CD or Flux. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre class="terminal-body"><code><span class="term-comment"># fetch the retained objects for this entry</span>
+<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-20-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># check the bytes against the listing</span>
-<span class="term-prompt">$</span> shasum -a 256 argo-cd-argo-cd-10-7-0-default.yaml
-5642d162c6718874a310acebeaaa75dbd1f0825e6188418b36d8b06357fdface  argo-cd-argo-cd-10-7-0-default.yaml</code></pre>
+<span class="term-prompt">$</span> shasum -a 256 argo-cd-argo-cd-10-20-0-default.yaml
+fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612  argo-cd-argo-cd-10-20-0-default.yaml
+
+<span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29 --base default --work-dir ./argo-cd-argo-cd-10-20-0-default --non-interactive --namespace argocd</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-run-for-this-entry">
           <h3>2. Compare with another version or base <span class="status open">Not run for this entry</span></h3>
-          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, no-crds. The Catalog holds 4 other versions, 9.5.15, 9.5.17, 10.1.3 and 10.2.1.</p>
+          <p>The listing records no comparison for this entry. The commands run on the retained files, with no account. This version has one other base in the Catalog, no-crds. The Catalog holds 5 other versions, 9.5.15, 9.5.17, 10.1.3, 10.2.1 and 10.7.0.</p>
           <pre class="terminal-body"><code><span class="term-comment"># fetch the no-crds base of the same version</span>
-<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-7-0-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml
+<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-20-0-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml
 
 <span class="term-comment"># list what differs between the two bases</span>
-<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-7-0-default.yaml argo-cd-argo-cd-10-7-0-no-crds.yaml --summary
+<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-20-0-default.yaml argo-cd-argo-cd-10-20-0-no-crds.yaml --summary
 
-<span class="term-comment"># fetch the default base at version 10.2.1</span>
-<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-2-1-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/rendered/release-objects.yaml
+<span class="term-comment"># fetch the default base at version 10.7.0</span>
+<span class="term-prompt">$</span> curl -fsSL -o argo-cd-argo-cd-10-7-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/default/r001/rendered/release-objects.yaml
 
-<span class="term-comment"># list what changed from 10.2.1 to 10.7.0</span>
-<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-2-1-default.yaml argo-cd-argo-cd-10-7-0-default.yaml --summary</code></pre>
+<span class="term-comment"># list what changed from 10.7.0 to 10.20.0</span>
+<span class="term-prompt">$</span> cub config diff argo-cd-argo-cd-10-7-0-default.yaml argo-cd-argo-cd-10-20-0-default.yaml --summary</code></pre>
         </div>
         <div class="entry-step" data-step="upload" data-state="not-run-for-this-entry">
           <h3>3. Upload it as a variant <span class="status open">Not run for this entry</span></h3>
-          <p>The Catalog has not uploaded this entry. The commands use its published literal configuration bundle.</p>
+          <p>The Catalog has not uploaded this entry. The commands use its signed installer package. <a href="../d/docs/user/live-walk-cub-package-install-2026-11-26.html">Read the log of the live walk on 2026-11-26</a>.</p>
+          <p>Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.</p>
+          <p><code>cub package install</code> names the Component after the package. To choose its name, run step 1's <code>cub installer setup</code> and then <code>cub installer upload</code> with <code>--component</code>. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.</p>
+          <p>In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.</p>
+          <p>The cub installer plugin reads your organization from <code>CUB_CONTEXT</code> and ignores <code>--context</code>. If you use a context other than your default, export <code>CUB_CONTEXT</code> first, or the plugin works in your default organization.</p>
           <pre class="terminal-body"><code><span class="term-comment"># sign in; steps 3 to 5 write to your ConfigHub organization</span>
 <span class="term-prompt">$</span> cub auth login
 
-<span class="term-comment"># preview the upload of the published bundle; nothing is written</span>
-<span class="term-prompt">$</span> cub variant upload --dry-run --component argo-cd-argo-cd --variant default --space argo-cd-argo-cd-10-7-0-default --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a
+<span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29 --base default --space &lt;your-space&gt; --namespace argocd --non-interactive
 
-<span class="term-comment"># upload the bundle as a base Space of Units</span>
-<span class="term-prompt">$</span> cub variant upload --component argo-cd-argo-cd --variant default --space argo-cd-argo-cd-10-7-0-default --namespace argocd --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-10-7-0-default:latest@sha256:573ef457232508892dc5b94dc4706c2c86d97adc9ba57b59271da90acd20089a</code></pre>
+<span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
+<span class="term-prompt">$</span> cub installer upload --work-dir ./argo-cd-argo-cd-10-20-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;
+
+<span class="term-comment"># list the Units the upload created</span>
+<span class="term-prompt">$</span> cub unit list --space &lt;your-space&gt;</code></pre>
         </div>
         <div class="entry-step" data-step="deploy" data-state="not-run-for-this-entry">
           <h3>4. Deploy it <span class="status open">Not run for this entry</span></h3>
-          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
-          <p>The target <code>workshop/target</code> comes from <code>cub cluster up --name workshop --no-k8sbot</code>, which makes a local kind cluster with Argo CD. In a run with cub v0.9.0, the same command without <code>--no-k8sbot</code> failed while it installed argobot.</p>
+          <p>No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run. The commands name the Target <code>workshop/target</code>, which <code>cub cluster up --name workshop</code> creates on a local kind cluster with Argo CD. Use your own Target for a real destination. The listing records one input that the destination must supply, so read it before you deploy. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a>.</p>
+          <p>Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named <code>installer</code>. The variant does not clone it, so one publish deploys the rendered objects.</p>
+          <p>ConfigHub shows nothing when Argo CD fails to read a Release. Run <code>kubectl -n argocd get applications.argoproj.io</code> and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.</p>
+          <p>Make the cluster with <code>cub cluster up --name workshop --no-k8sbot</code>. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it.</p>
           <pre class="terminal-body"><code><span class="term-comment"># clone the base onto a Target as a dev variant</span>
-<span class="term-prompt">$</span> cub variant create dev argo-cd-argo-cd-10-7-0-default --target workshop/target --space-pattern &quot;template:argo-cd-argo-cd-10-7-0-default-dev&quot;
+<span class="term-prompt">$</span> cub variant create dev &lt;your-space&gt; --target workshop/target --space-pattern &quot;template:&lt;your-space&gt;-dev&quot;
 
-<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
-<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-10-7-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
-
-<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
-<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-10-7-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
-
-<span class="term-comment"># publish the Release that Argo CD or Flux pulls</span>
-<span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-10-7-0-default-dev</code></pre>
+<span class="term-comment"># publish the Release that the cluster's Argo CD pulls</span>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
         <div class="entry-step" data-step="promote" data-state="not-run-for-this-entry">
           <h3>5. Promote a change <span class="status open">Not run for this entry</span></h3>
-          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-bundle-route-2026-11-02.html">Read the log of the live walk on 2026-11-02</a>.</p>
-          <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. In a run on another entry, an edit made to the variant survived the promotion.</p>
+          <p>No promotion is recorded for this entry. Promotion copies a reviewed change from the shared base configuration to the dev environment variant without re-running Helm. <a href="../d/docs/user/live-walk-entry-deploy-promote-2026-11-27.html">Read the log of the live walk on 2026-11-27</a>.</p>
+          <p>The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden <code>installer</code> Unit to the dev Space, without a Target, and the Release leaves it out.</p>
+          <p>The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record.</p>
           <pre class="terminal-body"><code><span class="term-comment"># preview what the dev variant would take from the base</span>
-<span class="term-prompt">$</span> cub variant promote argo-cd-argo-cd-10-7-0-default-dev --dry-run -o mutations
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --dry-run -o mutations
 
 <span class="term-comment"># promote once you have read the preview</span>
-<span class="term-prompt">$</span> cub variant promote argo-cd-argo-cd-10-7-0-default-dev --change-desc &quot;Pull the reviewed base forward&quot;
-
-<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
-<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-10-7-0-default-dev --where &quot;Slug LIKE '%-bundleroute'&quot;
-
-<span class="term-comment"># keep the plan's documents out of the Release, because Argo CD cannot apply them</span>
-<span class="term-prompt">$</span> cub unit delete --space argo-cd-argo-cd-10-7-0-default-dev --where &quot;Slug LIKE '%-bundletargetrequirements'&quot;
+<span class="term-prompt">$</span> cub variant promote &lt;your-space&gt;-dev --change-desc &quot;Pull the reviewed base forward&quot;
 
 <span class="term-comment"># publish the Release that carries the change</span>
-<span class="term-prompt">$</span> cub release publish argo-cd-argo-cd-10-7-0-default-dev</code></pre>
+<span class="term-prompt">$</span> cub release publish &lt;your-space&gt;-dev</code></pre>
         </div>
       </div>
-      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/argo-cd-argo-cd-10-7-0-default.json">argo-cd-argo-cd-10-7-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
+      <aside class="agent-note" aria-label="For agents"><span class="agent-note-label">For agents</span> These steps are the <code>nextSteps</code> array of <a href="../listings/argo-cd-argo-cd-10-20-0-default.json">argo-cd-argo-cd-10-20-0-default.json</a>. Each state was read from <code>flattened.retainedObjects</code>, <code>flattened.inventory</code>, <code>source.ociRef</code>, <code>oci.bundles</code>, <code>oci.runtimes</code>, <code>lifecycle.promotion</code>, <code>lifecycle.coverage</code> and <code>variants.known</code> in the same listing. A command marked <code>needsAccount</code> there contacts ConfigHub. A step&#39;s <code>notes</code> hold its cautions, <code>carries</code> lists the CRDs the base brings, and <code>liveWalk</code> links the dated log that ran its commands.</aside>
     </section>
     <section aria-labelledby="other-bases" class="chart-other-bases">
       <h2 id="other-bases">Use another version or base</h2>
       <p>Every other base carries the same five steps, with its own states and commands, on the page of its version.</p>
       <ul>
-        <li><a href="./argo-cd-argo-cd-10-7-0.html#use-in-confighub">The same five steps on the page for 10.7.0</a> cover the base no-crds.</li>
+        <li><a href="./argo-cd-argo-cd-10-20-0.html#use-in-confighub">The same five steps on the page for 10.20.0</a> cover the base no-crds.</li>
+        <li><a href="./argo-cd-argo-cd-10-7-0.html#use-in-confighub">The same five steps on the page for 10.7.0</a> cover the bases default, no-crds.</li>
         <li><a href="./argo-cd-argo-cd-10-2-1.html#use-in-confighub">The same five steps on the page for 10.2.1</a> cover the bases default, no-crds.</li>
         <li><a href="./argo-cd-argo-cd-10-1-3.html#use-in-confighub">The same five steps on the page for 10.1.3</a> cover the bases default, no-crds.</li>
         <li><a href="./argo-cd-argo-cd-9-5-17.html#use-in-confighub">The same five steps on the page for 9.5.17</a> cover the bases default, no-crds.</li>
@@ -1023,7 +1041,7 @@ a2ba05a7684443115b1516e1b01a03ebe845cdfcf956722539ae0d3f5bff8780  argo-cd-argo-c
   <section class="technical-notes" aria-labelledby="technical-notes">
       <h2 id="technical-notes">Technical notes and disclaimers</h2>
       <ul>
-        <li>The plain-objects script stops before it applies anything. One step of the plan is yours to do first, and it prints it. When you run it again it applies the objects and ends. It does not wait for the workloads to start. The script does not run the steps the plan names for an upgrade or a delete.</li>
+        <li>The Catalog has not decided how this entry is kept, so it has no plain-objects test.</li>
       </ul>
     </section>
   </main>

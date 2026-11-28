@@ -1010,7 +1010,7 @@ Schema
           <p class="installer-command-note">If you want to try linked environment copies and approvals in hosted ConfigHub, sign in and paste the commands below. In your workspace, this creates the base folder <code>metrics-server-example</code> and two copies, <code>metrics-server-example-dev</code> and <code>metrics-server-example-prod</code>. That base folder holds 10 items, including all 9 Kubernetes objects, a README. Prod runs three replicas of its Deployment. It touches no cluster.</p>
           <pre class="terminal-body"><code><span class="term-prompt">$</span> cub auth login
 
-<span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-14-0-default:latest@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c
+<span class="term-prompt">$</span> cub variant upload --component metrics-server-example --variant base --space metrics-server-example --namespace kube-system oci://ghcr.io/confighub/configs/catalog/catalog-metrics-server-metrics-server-3-14-0-default:bundle-4eff46882ccc@sha256:4eff46882cccf94b92d702d2e85ea84bc34658f78622b8d3c4b68b7be2be5f0c
 
 <span class="term-prompt">$</span> cub variant create dev metrics-server-example --change-desc &quot;Clone the base as dev&quot;
 

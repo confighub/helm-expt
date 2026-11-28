@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1-14-0-crds-managed"
+spec:
+  kind: "certified-bundle"
+  record: "karpenter-karpenter-1-14-0-crds-managed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-crds-managed:bundle-ab854b5a41bd"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-karpenter-karpenter-1-14-0-crds-managed@sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+  manifestDigest: "sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/karpenter-1.14.0-crds-managed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed@sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+    receipt: "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-crds-managed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+  observedAt: "2026-11-27T19:35:31.955Z"
+status:
+  result: "pass"

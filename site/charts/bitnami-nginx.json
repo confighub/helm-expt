@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0@sha256:69f2ad1adc8f92a5453bebb34bd5bfec6673d944447114879efb52a12d11fb70"
+        "ociRef": "oci://ghcr.io/confighub/packages/bitnami-nginx:v25.0.0@sha256:33f86268b804fd49da59d2a45c6645c1942a6b259219757cd20d73f61a489808",
+        "installCommand": "cub package install bitnami-nginx:v25.0.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
+        "ociRef": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb",
+        "installCommand": "cub package install bitnami-nginx:v24.0.4 --space <space>"
       },
       "bases": [
         {
@@ -115,7 +117,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2@sha256:7cf08c0348a32d577ffa0e16069ec6c2510ce773b372008d25b938f9546c5f67"
+        "ociRef": "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.2@sha256:87c91cee1f4bacd3fee5ff77f01a61956e98d3a357f4f5c2f73dd8a5e65553e0",
+        "installCommand": "cub package install bitnami-nginx:v24.0.2 --space <space>"
       },
       "bases": [
         {

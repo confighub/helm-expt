@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "eck-operator"
+spec:
+  chart: "elastic/eck-operator"
+  version: "3.4.0"
+  packagePath: "packages/elastic/eck-operator/3.4.0"
+  tag: "v3.4.0"
+  reference: "ghcr.io/confighub/packages/eck-operator:v3.4.0"
+  immutableReference: "ghcr.io/confighub/packages/eck-operator@sha256:ba5c168f903397ce2097ccd36efbb9c300e4a0ee56d25dc4b3cd2707248cded0"
+  manifestDigest: "sha256:ba5c168f903397ce2097ccd36efbb9c300e4a0ee56d25dc4b3cd2707248cded0"
+  layerDigest: "sha256:87d2e933ca35f9fb8c06d8479a9c25e2ee4ab80025388b248a035e69cf8815e9"
+  installCommand: "cub package install eck-operator:v3.4.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ba5c168f903397ce2097ccd36efbb9c300e4a0ee56d25dc4b3cd2707248cded0"
+  observedAt: "2026-11-27T19:43:08.040Z"
+status:
+  result: "pass"

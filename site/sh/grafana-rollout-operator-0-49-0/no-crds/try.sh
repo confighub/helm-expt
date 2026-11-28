@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the no-crds base variant into ./grafana-rollout-operator-0-49-0-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e --base no-crds --work-dir ./grafana-rollout-operator-0-49-0-no-crds --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./grafana-rollout-operator-0-49-0-no-crds/out/manifests

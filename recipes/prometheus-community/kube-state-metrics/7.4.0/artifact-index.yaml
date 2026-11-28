@@ -64,11 +64,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/kube-state-metrics/7.4.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0"
-    manifestDigest: "sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
-    layerDigest: "sha256:f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
-    publicationReceipt: "runs/installer-oci/prometheus-community-kube-state-metrics/7.4.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0"
+    manifestDigest: "sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+    layerDigest: "sha256:d5c0403be799354e5e50592bb4d17b7800d312e90ef562dfabcdc03a4f6f5d36"
+    publicationReceipt: "runs/ghcr-packages/kube-state-metrics/v7.4.0.yaml"
+    name: "kube-state-metrics"
+    tag: "v7.4.0"
+    installCommand: "cub package install kube-state-metrics:v7.4.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/kube-state-metrics@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251"
+      publicationReceipt: "runs/installer-oci/prometheus-community-kube-state-metrics/7.4.0/installer-package-publication-receipt.yaml"
     installer: "packages/prometheus-community/kube-state-metrics/7.4.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-state-metrics/7.4.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f8dcdb550be7cc2b5d0c5088ff7e9a25cd04c2cb4c13c1d6a6013bc24ebe0562"
@@ -105,7 +112,7 @@ spec:
         default: true
         description: "prometheus-community/kube-state-metrics default variant rendered from prometheus-community/kube-state-metrics@7.4.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -167,7 +174,7 @@ spec:
         default: false
         description: "prometheus-community/kube-state-metrics cluster-metrics-readonly useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0@sha256:85624ed1be4b2eab3e3316b1fe23242f4007a06abde190351f939c9ae915c251 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/kube-state-metrics:v7.4.0@sha256:2e3c35170be8a38d360ef6fb8fae6859d8b01aa01bd34103b06c8c069d984de0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

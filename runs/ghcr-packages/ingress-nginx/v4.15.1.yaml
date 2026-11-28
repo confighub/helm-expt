@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "ingress-nginx"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  packagePath: "packages/ingress-nginx/ingress-nginx/4.15.1"
+  tag: "v4.15.1"
+  reference: "ghcr.io/confighub/packages/ingress-nginx:v4.15.1"
+  immutableReference: "ghcr.io/confighub/packages/ingress-nginx@sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38"
+  manifestDigest: "sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38"
+  layerDigest: "sha256:22a45237159170207709b899a6041f667b79ec6a14ae6fd7788d2575b1caeb3e"
+  installCommand: "cub package install ingress-nginx:v4.15.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:644621e316d9bd6c2803b7f1677cb2aee6d074432bdea9156e65c06794a1fe38"
+  observedAt: "2026-11-27T19:43:24.052Z"
+status:
+  result: "pass"

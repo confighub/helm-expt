@@ -16,18 +16,18 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "recordKind": "BaseVariantRecord"
   },
   "counts": {
-    "listings": 528,
+    "listings": 530,
     "formats": {
       "aicr": 138,
       "configuration-oci": 1,
       "cub-installer": 1,
-      "helm": 345,
+      "helm": 347,
       "kubara": 1,
       "kubernetes-yaml": 39,
       "sveltos": 1,
@@ -2204,6 +2204,40 @@
       "objectCount": 52,
       "digest": "sha256:51d717634a2d0098d0791629aad974dc79b1ec0de68e4adfe00005de2003ca14",
       "flatteningVerdict": "flatten-with-routes",
+      "images": 3,
+      "imagesNamedByTag": 3
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-default",
+      "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-default.json",
+      "name": "argo-cd/argo-cd",
+      "format": "helm",
+      "version": "10.20.0",
+      "base": "default",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 54,
+      "digest": "sha256:fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612",
+      "flatteningVerdict": "not-assessed",
+      "images": 3,
+      "imagesNamedByTag": 3
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-no-crds",
+      "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-no-crds.json",
+      "name": "argo-cd/argo-cd",
+      "format": "helm",
+      "version": "10.20.0",
+      "base": "no-crds",
+      "discovery": {
+        "status": "not-classified",
+        "roles": []
+      },
+      "objectCount": 51,
+      "digest": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f",
+      "flatteningVerdict": "not-assessed",
       "images": 3,
       "imagesNamedByTag": 3
     },

@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+        "ociRef": "oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9",
+        "installCommand": "cub package install mysql:v14.0.3 --space <space>"
       },
       "bases": [
         {

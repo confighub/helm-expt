@@ -69,11 +69,18 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/grafana/pyroscope/2.0.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2"
-    manifestDigest: "sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
-    layerDigest: "sha256:a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
-    publicationReceipt: "runs/installer-oci/grafana-pyroscope/2.0.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/pyroscope:v2.0.2"
+    manifestDigest: "sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+    layerDigest: "sha256:cba17cafbd3021d13f668ed4b75f66ebe186b76c94062ed845e30f6bf6b78d02"
+    publicationReceipt: "runs/ghcr-packages/pyroscope/v2.0.2.yaml"
+    name: "pyroscope"
+    tag: "v2.0.2"
+    installCommand: "cub package install pyroscope:v2.0.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/pyroscope@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab"
+      publicationReceipt: "runs/installer-oci/grafana-pyroscope/2.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/pyroscope/2.0.2/installer.yaml"
     receipt: "recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a6b86f39c7adc52c0a9bd1cbf5231f8d7bf43042e497b16bf838a2eb85921ebf"
@@ -115,7 +122,7 @@ spec:
         default: true
         description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -177,7 +184,7 @@ spec:
         default: false
         description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -239,7 +246,7 @@ spec:
         default: false
         description: "grafana/pyroscope no-crds variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2@sha256:e62d4337c210afe39b013694e528b68cc15b98e9cd3735dbcf40535b11874fab --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/pyroscope:v2.0.2@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

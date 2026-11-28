@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the legacy base variant into ./bitnami-contour-21-1-4-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4@sha256:3afcba580f100c30273c3cc718ce0fe51aa1c0dd351a94cdb449a080be89ba2e --base legacy --work-dir ./bitnami-contour-21-1-4-legacy --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/contour:v21.1.4@sha256:29bfe42a66fec9f4e9d94b620853915cfba05cc67b5fc24702d9d559b1e25a59 --base legacy --work-dir ./bitnami-contour-21-1-4-legacy --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-contour-21-1-4-legacy/out/manifests

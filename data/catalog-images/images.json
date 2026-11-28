@@ -5,13 +5,13 @@
   "method": "Read from each entry's committed rendered objects: every image key whose value is a registry reference, under containers, initContainers, ephemeralContainers or a custom resource.",
   "boundary": "What the objects name, not what a registry holds. A tag can answer to different bytes later, and this index resolves nothing; cub config check --images asks the registry.",
   "summary": {
-    "entries": 528,
-    "entriesRead": 389,
+    "entries": 530,
+    "entriesRead": 391,
     "entriesWithoutRetainedObjects": 139,
-    "imageReferences": 734,
-    "distinctImages": 309,
+    "imageReferences": 740,
+    "distinctImages": 311,
     "pinnedByDigest": 50,
-    "namedByTag": 684
+    "namedByTag": 690
   },
   "entries": [
     {
@@ -936,6 +936,44 @@
         },
         {
           "reference": "quay.io/argoproj/argocd:v3.4.5",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-default",
+      "objects": "recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.6.4-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.46.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.6.3",
+          "pinned": false
+        }
+      ]
+    },
+    {
+      "id": "argo-cd-argo-cd-10-20-0-no-crds",
+      "objects": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "read": true,
+      "images": [
+        {
+          "reference": "ecr-public.aws.com/docker/library/redis:8.6.4-alpine",
+          "pinned": false
+        },
+        {
+          "reference": "ghcr.io/dexidp/dex:v2.46.1",
+          "pinned": false
+        },
+        {
+          "reference": "quay.io/argoproj/argocd:v3.6.3",
           "pinned": false
         }
       ]

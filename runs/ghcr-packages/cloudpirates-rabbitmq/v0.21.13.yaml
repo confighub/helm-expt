@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cloudpirates-rabbitmq"
+spec:
+  chart: "cloudpirates/rabbitmq"
+  version: "0.21.13"
+  packagePath: "packages/cloudpirates/rabbitmq/0.21.13"
+  tag: "v0.21.13"
+  reference: "ghcr.io/confighub/packages/cloudpirates-rabbitmq:v0.21.13"
+  immutableReference: "ghcr.io/confighub/packages/cloudpirates-rabbitmq@sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+  manifestDigest: "sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+  layerDigest: "sha256:e65fa6eaefe445c3dc40b48e6610e12a16a03ddfc20de4f7bac2753526349d32"
+  installCommand: "cub package install cloudpirates-rabbitmq:v0.21.13 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:8337f77a74ca90b01e8255c58f797feb6544d7c96d66276fa17efd720d776a78"
+  observedAt: "2026-11-27T19:43:04.867Z"
+status:
+  result: "pass"

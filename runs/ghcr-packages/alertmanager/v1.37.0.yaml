@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "alertmanager"
+spec:
+  chart: "prometheus-community/alertmanager"
+  version: "1.37.0"
+  packagePath: "packages/prometheus-community/alertmanager/1.37.0"
+  tag: "v1.37.0"
+  reference: "ghcr.io/confighub/packages/alertmanager:v1.37.0"
+  immutableReference: "ghcr.io/confighub/packages/alertmanager@sha256:6cf9736b2ca80b814959f88ba7bc177f5e603e5aec34a24a6155bb96cae54fcb"
+  manifestDigest: "sha256:6cf9736b2ca80b814959f88ba7bc177f5e603e5aec34a24a6155bb96cae54fcb"
+  layerDigest: "sha256:98564eb3a7ac6be6d556bf9c581a0a99e94fe3f831f8270ae0ac03d873d2c275"
+  installCommand: "cub package install alertmanager:v1.37.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:6cf9736b2ca80b814959f88ba7bc177f5e603e5aec34a24a6155bb96cae54fcb"
+  observedAt: "2026-11-27T19:43:50.831Z"
+status:
+  result: "pass"

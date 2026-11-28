@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15@sha256:fc038da08ab8544cdf8d3c08fd981e542de4d5e0f8ae61e21f163a9eb9956cc3"
+        "ociRef": "oci://ghcr.io/confighub/packages/grafana:v10.5.15@sha256:6b4a5d1ebf104fb5214504017f3bea306aa604e97aa2b7830248da821232c3c3",
+        "installCommand": "cub package install grafana:v10.5.15 --space <space>"
       },
       "bases": [
         {

@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "contour"
+spec:
+  chart: "bitnami/contour"
+  version: "21.1.4"
+  packagePath: "packages/bitnami/contour/21.1.4"
+  tag: "v21.1.4"
+  reference: "ghcr.io/confighub/packages/contour:v21.1.4"
+  immutableReference: "ghcr.io/confighub/packages/contour@sha256:29bfe42a66fec9f4e9d94b620853915cfba05cc67b5fc24702d9d559b1e25a59"
+  manifestDigest: "sha256:29bfe42a66fec9f4e9d94b620853915cfba05cc67b5fc24702d9d559b1e25a59"
+  layerDigest: "sha256:572ae671c6a706c23b529ccc1efe26ed21a6e3ca77cbb7ac2a3ba3fe867becd0"
+  installCommand: "cub package install contour:v21.1.4 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:29bfe42a66fec9f4e9d94b620853915cfba05cc67b5fc24702d9d559b1e25a59"
+  observedAt: "2026-11-27T19:42:54.527Z"
+status:
+  result: "pass"

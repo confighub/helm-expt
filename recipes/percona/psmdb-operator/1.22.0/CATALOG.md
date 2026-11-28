@@ -51,7 +51,10 @@ for exact base-variant evidence.
 | Value model | [recipes/percona/psmdb-operator/1.22.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/percona/psmdb-operator/1.22.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/percona/psmdb-operator/1.22.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30` |
+| Install into a Space | `cub package install psmdb-operator:v1.22.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb` |
+| Installer package publication | [runs/ghcr-packages/psmdb-operator/v1.22.0.yaml](../../../../runs/ghcr-packages/psmdb-operator/v1.22.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30` |
 | Installer package source | [packages/percona/psmdb-operator/1.22.0](../../../../packages/percona/psmdb-operator/1.22.0) |
 | Installer package receipt | [recipes/percona/psmdb-operator/1.22.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/percona/psmdb-operator/1.22.0/artifact-index.yaml](artifact-index.yaml) |
@@ -85,12 +88,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install psmdb-operator:v1.22.0 --space psmdb-operator --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/psmdb-operator@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

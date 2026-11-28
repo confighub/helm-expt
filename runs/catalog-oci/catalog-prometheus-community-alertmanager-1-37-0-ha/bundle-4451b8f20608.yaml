@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-alertmanager-1-37-0-ha"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-alertmanager-1-37-0-ha"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-alertmanager-1-37-0-ha:bundle-4451b8f20608"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-alertmanager-1-37-0-ha@sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de"
+  manifestDigest: "sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/alertmanager-1.37.0-ha/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-alertmanager-1-37-0-ha@sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-alertmanager-1-37-0-ha/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4451b8f2060818267840a0540ba36ad47da88077899f4fa436a2f37c5793c2de"
+  observedAt: "2026-11-27T19:35:44.334Z"
+status:
+  result: "pass"

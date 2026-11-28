@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "traefik"
+spec:
+  chart: "traefik/traefik"
+  version: "40.2.0"
+  packagePath: "packages/traefik/traefik/40.2.0"
+  tag: "v40.2.0"
+  reference: "ghcr.io/confighub/packages/traefik:v40.2.0"
+  immutableReference: "ghcr.io/confighub/packages/traefik@sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52"
+  manifestDigest: "sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52"
+  layerDigest: "sha256:932a1b8bd8ff4ae52cbc86fb1a46d49ceb034e4efa9d40fec10a0a7b9714c2bc"
+  installCommand: "cub package install traefik:v40.2.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:071be19434f6cebeb38d5ba1e24bde461761dce02913ebefa975823ff2d0ca52"
+  observedAt: "2026-11-27T19:44:03.129Z"
+status:
+  result: "pass"

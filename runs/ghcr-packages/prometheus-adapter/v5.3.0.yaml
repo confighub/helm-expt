@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "prometheus-adapter"
+spec:
+  chart: "prometheus-community/prometheus-adapter"
+  version: "5.3.0"
+  packagePath: "packages/prometheus-community/prometheus-adapter/5.3.0"
+  tag: "v5.3.0"
+  reference: "ghcr.io/confighub/packages/prometheus-adapter:v5.3.0"
+  immutableReference: "ghcr.io/confighub/packages/prometheus-adapter@sha256:57fa9714a15a2ccc5e68e04e9aac0d05828fc77e325be9b6116640ac90a359cd"
+  manifestDigest: "sha256:57fa9714a15a2ccc5e68e04e9aac0d05828fc77e325be9b6116640ac90a359cd"
+  layerDigest: "sha256:2425f3b767679cf7480fb44a83f7830ef73b9a439d4b9b9659d15ba6bdfdb2d3"
+  installCommand: "cub package install prometheus-adapter:v5.3.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:57fa9714a15a2ccc5e68e04e9aac0d05828fc77e325be9b6116640ac90a359cd"
+  observedAt: "2026-11-27T19:43:55.417Z"
+status:
+  result: "pass"

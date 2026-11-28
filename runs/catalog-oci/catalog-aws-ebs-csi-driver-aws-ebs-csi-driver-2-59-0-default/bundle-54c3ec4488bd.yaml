@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default:bundle-54c3ec4488bd"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default@sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+  manifestDigest: "sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/aws-ebs-csi-driver-2.59.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default@sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+    receipt: "runs/certified-bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-59-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:54c3ec4488bd0daaa577b86af64f9670981078bd1273538c7727e3c80f469bbd"
+  observedAt: "2026-11-27T19:34:58.288Z"
+status:
+  result: "pass"

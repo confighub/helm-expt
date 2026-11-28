@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0@sha256:4f79e7fbd3e4a3564746dcfdc45091f43cb8faeb1a569e5cd6825576fcdd3882"
+        "ociRef": "oci://ghcr.io/confighub/packages/velero:v12.1.0@sha256:68ff855f40f1d44e3cc8336c673a927196b3a70f65df463bd5522ec79a095109",
+        "installCommand": "cub package install velero:v12.1.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e"
+        "ociRef": "oci://ghcr.io/confighub/packages/velero:v12.0.1@sha256:8350533c4df2b805bf9a1f35ff79e22d99bd3e3e6c87b5e36d22e144b309371c",
+        "installCommand": "cub package install velero:v12.0.1 --space <space>"
       },
       "bases": [
         {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/grafana-promtail-6-17-1-default.yaml",
-      "sha256": "sha256:39a4dda51198c61fd7b8c9d4aa6769024164846f6275eee36ef038501114f2f5",
+      "sha256": "sha256:b1ae4349c009756a342e79f2e03a0faaff47ab1e69f7258660a147bd378321f4",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/grafana-promtail-6-17-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -47,7 +47,7 @@
     "name": "grafana/promtail",
     "version": "6.17.1",
     "reference": "grafana/promtail@6.17.1",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647",
+    "ociRef": "oci://ghcr.io/confighub/packages/promtail:v6.17.1@sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1",
     "record": "data/helm-render-intents/intents/grafana-promtail-6-17-1-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-promtail-6-17-1-default.yaml",
     "selection": {
@@ -103,7 +103,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1@sha256:94c1d1c38ab69b006974816eded3380ec3e3a6a042398f8214615d42fb79f647",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/promtail:v6.17.1@sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1",
     "bundles": [
       {
         "role": "source-package",
@@ -148,7 +148,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default:bundle-77c54084c317@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
           "manifestDigest": "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-grafana-promtail-6-17-1-default/bundle-77c54084c317.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-grafana-promtail-6-17-1-default/bundle-77c54084c317.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
           "sameDigestAsEarlier": true
@@ -514,12 +516,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+          "command": "cub variant upload --dry-run --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default:bundle-77c54084c317@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
+          "command": "cub variant upload --component grafana-promtail --variant default --space grafana-promtail-6-17-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-grafana-promtail-6-17-1-default:bundle-77c54084c317@sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727",
           "needsAccount": true,
           "writes": true
         }

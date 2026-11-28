@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "karpenter"
+spec:
+  chart: "karpenter/karpenter"
+  version: "1.14.0"
+  packagePath: "packages/karpenter/karpenter/1.14.0"
+  tag: "v1.14.0"
+  reference: "ghcr.io/confighub/packages/karpenter:v1.14.0"
+  immutableReference: "ghcr.io/confighub/packages/karpenter@sha256:ed76ef24cdd694540116b0672781fff725c4f23b0fee6b4ff9a85cf577dc980c"
+  manifestDigest: "sha256:ed76ef24cdd694540116b0672781fff725c4f23b0fee6b4ff9a85cf577dc980c"
+  layerDigest: "sha256:1ed4583141c23f7a992d982428651f5ad972eb3b87d29e21680a5bd5e270d956"
+  installCommand: "cub package install karpenter:v1.14.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:ed76ef24cdd694540116b0672781fff725c4f23b0fee6b4ff9a85cf577dc980c"
+  observedAt: "2026-11-27T19:43:27.856Z"
+status:
+  result: "pass"

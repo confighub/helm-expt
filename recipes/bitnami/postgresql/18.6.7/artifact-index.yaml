@@ -65,11 +65,18 @@ spec:
     nextAction: "choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/postgresql/18.6.7"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7"
-    manifestDigest: "sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8"
-    layerDigest: "sha256:56169f744055cad7e0b8cf1e7c381a8116911b1e3a3e2057a755234a84fc8255"
-    publicationReceipt: "runs/installer-oci/bitnami-postgresql/18.6.7/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/postgresql:v18.6.7@sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/postgresql:v18.6.7"
+    manifestDigest: "sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00"
+    layerDigest: "sha256:4512623f66c605f558fd6a4d13c167ae79d5f55ff59004f0a6f8b1ca525f589e"
+    publicationReceipt: "runs/ghcr-packages/postgresql/v18.6.7.yaml"
+    name: "postgresql"
+    tag: "v18.6.7"
+    installCommand: "cub package install postgresql:v18.6.7 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/postgresql@sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8"
+      publicationReceipt: "runs/installer-oci/bitnami-postgresql/18.6.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/postgresql/18.6.7/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.6.7/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "56169f744055cad7e0b8cf1e7c381a8116911b1e3a3e2057a755234a84fc8255"
@@ -106,7 +113,7 @@ spec:
         default: false
         description: "postgresql static password demo variant rendered from bitnami/postgresql@18.6.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/postgresql:v18.6.7@sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -174,7 +181,7 @@ spec:
         default: true
         description: "postgresql existing Secret default variant rendered from bitnami/postgresql@18.6.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7@sha256:fccd0da443cb3d0360e6a15f6ada67162f04261da38a071eaad2e97786b307d8 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/postgresql:v18.6.7@sha256:ba96ec56f86c900cd4bece06bcd27545cdf2ce6065bcf7153486a62abd89be00 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

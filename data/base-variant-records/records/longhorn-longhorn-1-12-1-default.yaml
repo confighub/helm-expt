@@ -13,7 +13,7 @@ spec:
     name: "longhorn/longhorn"
     version: "1.12.1"
     record: "data/helm-render-intents/intents/longhorn-longhorn-1-12-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.1@sha256:88c9a55f464591c7288cf4794ec3473ffc589d81a0851bef5616cb25693640ad"
+    packageOciRef: "oci://ghcr.io/confighub/packages/longhorn:v1.12.1@sha256:617b2aa407c54c4a645624bbc05a1e4cf3aa44c762684e06d6ba4bfebaebb6b5"
     selection:
       name: "default"
       kind: "catalog-preset"

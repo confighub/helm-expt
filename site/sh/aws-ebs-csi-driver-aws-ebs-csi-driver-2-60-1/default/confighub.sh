@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0 --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a --base default --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --space "${SPACE}"

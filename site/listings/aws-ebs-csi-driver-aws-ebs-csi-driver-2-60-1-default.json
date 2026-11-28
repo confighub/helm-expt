@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml",
-      "sha256": "sha256:ab07880d88b892b8a4c747f35b7c55edffe99732caf5f1c5b6c2ecb851ce1825",
+      "sha256": "sha256:36ad0b83d62dd7e10817375b2386ec236d3b7ecf68440b5066d320bd4fcbf6e7",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "aws-ebs-csi-driver/aws-ebs-csi-driver",
     "version": "2.60.1",
     "reference": "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0",
+    "ociRef": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a",
     "record": "data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1@sha256:aa07d92ad91345ba7401a70b82dfdf9d2c9ca22ade4de23db3b370c77a3b88a0",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.60.1@sha256:f73bc079d243a235e5b03ef0559a644c6080ca6ffb85a4452ee16f344b6ab24a",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:bundle-1e889188241a@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
           "manifestDigest": "sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default/bundle-1e889188241a.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default/bundle-1e889188241a.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
           "sameDigestAsEarlier": true
@@ -554,12 +556,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:latest@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
+          "command": "cub variant upload --dry-run --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:bundle-1e889188241a@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:latest@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
+          "command": "cub variant upload --component aws-ebs-csi-driver-aws-ebs-csi-driver --variant default --space aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default:bundle-1e889188241a@sha256:1e889188241ac312a6d64ba9df07a5d39e2b0b7b668fb069a3ac0239f210a780",
           "needsAccount": true,
           "writes": true
         }

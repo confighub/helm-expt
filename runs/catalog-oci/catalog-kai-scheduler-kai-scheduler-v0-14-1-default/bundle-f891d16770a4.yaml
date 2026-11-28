@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-kai-scheduler-kai-scheduler-v0-14-1-default"
+spec:
+  kind: "certified-bundle"
+  record: "kai-scheduler-kai-scheduler-v0-14-1-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-14-1-default:bundle-f891d16770a4"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-kai-scheduler-kai-scheduler-v0-14-1-default@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+  manifestDigest: "sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/kai-scheduler-v0.14.1-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-default@sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+    receipt: "runs/certified-bundles/catalog-kai-scheduler-kai-scheduler-v0-14-1-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:f891d16770a42343d82ccfe06b51030e04987468b6c0349fa33750f21c4d5830"
+  observedAt: "2026-11-27T19:35:29.948Z"
+status:
+  result: "pass"

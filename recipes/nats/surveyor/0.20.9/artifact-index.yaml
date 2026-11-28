@@ -61,11 +61,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/nats/surveyor/0.20.9"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
-    manifestDigest: "sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
-    layerDigest: "sha256:5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321"
-    publicationReceipt: "runs/installer-oci/nats-surveyor/0.20.9/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9"
+    manifestDigest: "sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450"
+    layerDigest: "sha256:f8e87137156dac5b000412493e4e671b859cc365e164aedd2a28db82e6992190"
+    publicationReceipt: "runs/ghcr-packages/nats-surveyor/v0.20.9.yaml"
+    name: "nats-surveyor"
+    tag: "v0.20.9"
+    installCommand: "cub package install nats-surveyor:v0.20.9 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/nats-surveyor@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
+      publicationReceipt: "runs/installer-oci/nats-surveyor/0.20.9/installer-package-publication-receipt.yaml"
     installer: "packages/nats/surveyor/0.20.9/installer.yaml"
     receipt: "recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "5fb53feeea148cb74518c3b31ee189c6a26b671174ccce9229e18f825c07a321"
@@ -102,7 +109,7 @@ spec:
         default: true
         description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -164,7 +171,7 @@ spec:
         default: false
         description: "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

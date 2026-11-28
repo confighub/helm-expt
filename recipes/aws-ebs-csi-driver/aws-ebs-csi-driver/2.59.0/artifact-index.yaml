@@ -61,11 +61,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0"
-    manifestDigest: "sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
-    layerDigest: "sha256:ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92"
-    publicationReceipt: "runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.59.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0"
+    manifestDigest: "sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+    layerDigest: "sha256:2e6c823e7f41466e40a42aa1b0287c1d1751fc38ad85083d3b4acb43c2ad2dfa"
+    publicationReceipt: "runs/ghcr-packages/aws-ebs-csi-driver/v2.59.0.yaml"
+    name: "aws-ebs-csi-driver"
+    tag: "v2.59.0"
+    installCommand: "cub package install aws-ebs-csi-driver:v2.59.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/aws-ebs-csi-driver@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd"
+      publicationReceipt: "runs/installer-oci/aws-ebs-csi-driver-aws-ebs-csi-driver/2.59.0/installer-package-publication-receipt.yaml"
     installer: "packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/installer.yaml"
     receipt: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.59.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ee8fa30fb080e2214afd4ffb3e6c997c4d34aa9c3a3bb0f0d2e15efd13ec9a92"
@@ -107,7 +114,7 @@ spec:
         default: true
         description: "aws-ebs-csi-driver chart defaults variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e --base default --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -169,7 +176,7 @@ spec:
         default: false
         description: "aws-ebs-csi-driver AICR v0.20.0 EKS training values variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e --base aicr-eks-training-v0-20-0 --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -231,7 +238,7 @@ spec:
         default: false
         description: "aws-ebs-csi-driver AICR v1.0.0 EKS training values variant rendered from aws-ebs-csi-driver/aws-ebs-csi-driver@2.59.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.59.0@sha256:f409faa3e5e43425f2d2cb9a544b7b0dc304b4b95ff3e6520b596dbbd23c3edd --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kube-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/aws-ebs-csi-driver:v2.59.0@sha256:bd14d5f4650e45fe83ee3d35139cefa308424ebba21bec401a94b861da4cd00e --base aicr-eks-training-v1-0-0 --work-dir <tmp> --non-interactive --namespace kube-system"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

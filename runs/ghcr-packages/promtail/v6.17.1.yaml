@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "promtail"
+spec:
+  chart: "grafana/promtail"
+  version: "6.17.1"
+  packagePath: "packages/grafana/promtail/6.17.1"
+  tag: "v6.17.1"
+  reference: "ghcr.io/confighub/packages/promtail:v6.17.1"
+  immutableReference: "ghcr.io/confighub/packages/promtail@sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1"
+  manifestDigest: "sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1"
+  layerDigest: "sha256:5aef405f79c87a119ee89888729566c30e80a86aa8c23c07ceba08f9cf899cc1"
+  installCommand: "cub package install promtail:v6.17.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e335ce9a54e56c518f9fecc9eba9afcb784b7593a4e7661185af9c5cb89fb7a1"
+  observedAt: "2026-11-27T19:43:19.267Z"
+status:
+  result: "pass"

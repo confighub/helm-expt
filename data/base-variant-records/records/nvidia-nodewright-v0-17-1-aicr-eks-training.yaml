@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nodewright"
     version: "v0.17.1"
     record: "data/helm-render-intents/intents/nvidia-nodewright-v0-17-1-aicr-eks-training.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.17.1@sha256:a087936fec519d6a0897726c585069849eaa58c35c34b2052c6afd3b50935cab"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nodewright:v0.17.1@sha256:abec22230d8240a9e275d634a976ed05f267fd3036f7866075ebb9507038442e"
     selection:
       name: "aicr-eks-training"
       kind: "catalog-preset"

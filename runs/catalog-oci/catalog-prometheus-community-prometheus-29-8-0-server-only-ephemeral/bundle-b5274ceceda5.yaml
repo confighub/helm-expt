@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral:bundle-b5274ceceda5"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral@sha256:b5274ceceda58eec63a609081b65f355088e85829e8c4537175151b87399e1e9"
+  manifestDigest: "sha256:b5274ceceda58eec63a609081b65f355088e85829e8c4537175151b87399e1e9"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/prometheus-29.8.0-server-only-ephemeral/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral@sha256:b5274ceceda58eec63a609081b65f355088e85829e8c4537175151b87399e1e9"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-prometheus-29-8-0-server-only-ephemeral/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:b5274ceceda58eec63a609081b65f355088e85829e8c4537175151b87399e1e9"
+  observedAt: "2026-11-27T19:35:46.499Z"
+status:
+  result: "pass"

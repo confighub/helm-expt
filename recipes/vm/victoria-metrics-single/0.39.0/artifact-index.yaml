@@ -63,11 +63,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/vm/victoria-metrics-single/0.39.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
-    manifestDigest: "sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
-    layerDigest: "sha256:7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
-    publicationReceipt: "runs/installer-oci/vm-victoria-metrics-single/0.39.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0"
+    manifestDigest: "sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b"
+    layerDigest: "sha256:6172b2c820d7e2a2600642c63b3e97875fefc19cc435fe25c9daa2d5f54cb626"
+    publicationReceipt: "runs/ghcr-packages/victoria-metrics-single/v0.39.0.yaml"
+    name: "victoria-metrics-single"
+    tag: "v0.39.0"
+    installCommand: "cub package install victoria-metrics-single:v0.39.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/victoria-metrics-single@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195"
+      publicationReceipt: "runs/installer-oci/vm-victoria-metrics-single/0.39.0/installer-package-publication-receipt.yaml"
     installer: "packages/vm/victoria-metrics-single/0.39.0/installer.yaml"
     receipt: "recipes/vm/victoria-metrics-single/0.39.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "7294935240e2ff163885aea2397de334950f90124ec254fa3ab19bdb9491f1f4"
@@ -104,7 +111,7 @@ spec:
         default: true
         description: "vm/victoria-metrics-single default variant rendered from vm/victoria-metrics-single@0.39.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -166,7 +173,7 @@ spec:
         default: false
         description: "vm/victoria-metrics-single default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0@sha256:b90babd40294c989155732abdc1848634c2478d0496e14a3eaec08d5a91f9195 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/victoria-metrics-single:v0.39.0@sha256:99801c3e1c5f64c71e4f3e088c33e07b49a09932bd10493ffaef4d35c89b856b --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

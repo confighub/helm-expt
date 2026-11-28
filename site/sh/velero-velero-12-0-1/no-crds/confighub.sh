@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./velero-velero-12-0-1-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1@sha256:8ef67eb54e2a8457c08fdaa97ad41edea5b85c5f7e0b600fa157f3e64f19017e --base no-crds --work-dir ./velero-velero-12-0-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/velero:v12.0.1@sha256:8350533c4df2b805bf9a1f35ff79e22d99bd3e3e6c87b5e36d22e144b309371c --base no-crds --work-dir ./velero-velero-12-0-1-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./velero-velero-12-0-1-no-crds --space "${SPACE}"

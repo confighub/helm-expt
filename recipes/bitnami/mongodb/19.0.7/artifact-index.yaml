@@ -68,11 +68,18 @@ spec:
     nextAction: "choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/mongodb/19.0.7"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7"
-    manifestDigest: "sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
-    layerDigest: "sha256:9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
-    publicationReceipt: "runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/mongodb:v19.0.7@sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/mongodb:v19.0.7"
+    manifestDigest: "sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b"
+    layerDigest: "sha256:3a57a25a2999d7db9571bfcf7b27d121826ed61bc660319b5eb642b557c66db9"
+    publicationReceipt: "runs/ghcr-packages/mongodb/v19.0.7.yaml"
+    name: "mongodb"
+    tag: "v19.0.7"
+    installCommand: "cub package install mongodb:v19.0.7 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/mongodb@sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35"
+      publicationReceipt: "runs/installer-oci/bitnami-mongodb/19.0.7/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "9db4d08d103736553226912b3ee8529545e4779cabeb1b9c930b62c791ab1bff"
@@ -109,7 +116,7 @@ spec:
         default: false
         description: "mongodb static password demo variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/mongodb:v19.0.7@sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -178,7 +185,7 @@ spec:
         default: true
         description: "mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7@sha256:1cf506fe86a28ec2fe06badacd29ee69e35747d2a228f040af432ea3c6f65c35 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/mongodb:v19.0.7@sha256:23c993363973c64d37e17b5383502e6a8ec181c5d97412ade2c8ab0f56d0d66b --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

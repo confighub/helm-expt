@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "ack-iam-controller"
+spec:
+  chart: "aws-controllers-k8s/iam-chart"
+  version: "1.7.3"
+  packagePath: "packages/aws-controllers-k8s/iam-chart/1.7.3"
+  tag: "v1.7.3"
+  reference: "ghcr.io/confighub/packages/ack-iam-controller:v1.7.3"
+  immutableReference: "ghcr.io/confighub/packages/ack-iam-controller@sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+  manifestDigest: "sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+  layerDigest: "sha256:da90356895acc2ce3a2f84c882651ed7587f05108b9ae6c5a015564d53dd45b7"
+  installCommand: "cub package install ack-iam-controller:v1.7.3 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:08ebdbbe384f2aca21fc0bc6cefd42d5ec546f6bf696ebc33e58de2d50bfd243"
+  observedAt: "2026-11-27T19:42:51.205Z"
+status:
+  result: "pass"

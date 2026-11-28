@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./kai-scheduler-kai-scheduler-v0-16-9-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kai-scheduler-kai-scheduler:v0.16.9@sha256:7d360f97ada7c492e506acdd433c9212d21f5a6d26d8d8cbf1f0b68a268e94ab --base default --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-default --non-interactive --namespace kai-scheduler
+cub installer setup --pull oci://ghcr.io/confighub/packages/kai-scheduler:v0.16.9@sha256:2a1a31d900f268647c9efc9e0b691df4a5247cb7ebfb393e6a6d16d63d9b6259 --base default --work-dir ./kai-scheduler-kai-scheduler-v0-16-9-default --non-interactive --namespace kai-scheduler
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kai-scheduler-kai-scheduler-v0-16-9-default/out/manifests

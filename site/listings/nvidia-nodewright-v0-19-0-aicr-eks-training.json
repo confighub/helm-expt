@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
-      "sha256": "sha256:dfd343fec9cfd5006337e5bba2bb63ad67b624579377ce3a95acd114dcef0472",
+      "sha256": "sha256:24841b1b5556fe8946a55df94b967fb5a74b84b38f989ee8719003bca1a66b31",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "nvidia/nodewright",
     "version": "v0.19.0",
     "reference": "nvidia/nodewright@v0.19.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358",
+    "ociRef": "oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e",
     "record": "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-aicr-eks-training.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e",
     "bundles": [
       {
         "role": "source-package",
@@ -137,7 +137,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:bundle-1dbd6832be47@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
           "manifestDigest": "sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training/bundle-1dbd6832be47.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training/bundle-1dbd6832be47.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
           "sameDigestAsEarlier": true
@@ -726,12 +728,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --namespace nodewright --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:latest@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
+          "command": "cub variant upload --dry-run --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --namespace nodewright --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:bundle-1dbd6832be47@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --namespace nodewright --create-namespace oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:latest@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
+          "command": "cub variant upload --component nvidia-nodewright --variant aicr-eks-training --space nvidia-nodewright-v0-19-0-aicr-eks-training --namespace nodewright --create-namespace oci://ghcr.io/confighub/configs/catalog/catalog-nvidia-nodewright-v0-19-0-aicr-eks-training:bundle-1dbd6832be47@sha256:1dbd6832be476dfd1a7a603b4c05ff3e5d9e0f68b0a50f10c528f317993a4bfb",
           "needsAccount": true,
           "writes": true
         }

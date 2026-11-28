@@ -128,7 +128,9 @@ const recordRoot = join(repoRoot, "data", "base-variant-records", "records");
 const listingRoot = join(repoRoot, "site", "listings");
 const schemaPath = join(repoRoot, "schemas", "catalog-listing.schema.json");
 const chartPageRoot = join(repoRoot, "site", "charts");
-const packageIndexPath = join(repoRoot, "data", "installer-oci-packages", "packages.json");
+// Every package version the catalog lists, published on GHCR or earlier; the
+// signed packages.json lists only the earlier registry's.
+const packageIndexPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 // Page names the package index guarantees, read once by chartPagesInPackageIndex().
 let indexedChartPages = null;
 
@@ -545,8 +547,12 @@ function chartPagesInPackageIndex() {
   if (indexedChartPages) return indexedChartPages;
   indexedChartPages = new Set();
   if (existsSync(packageIndexPath)) {
-    for (const row of JSON.parse(readFileSync(packageIndexPath, "utf8")).packages ?? []) {
-      indexedChartPages.add(`${slug(row.chart ?? "")}-${slug(row.version ?? "")}.html`);
+    // chart and version are the first two columns and never quoted.
+    const [header, ...lines] = readFileSync(packageIndexPath, "utf8").trimEnd().split("\n");
+    check(header.startsWith("chart,version,"), "data/installer-oci-packages/packages.csv does not start with chart,version");
+    for (const line of lines) {
+      const [chart, version] = line.split(",");
+      indexedChartPages.add(`${slug(chart)}-${slug(version)}.html`);
     }
   }
   return indexedChartPages;

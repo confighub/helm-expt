@@ -112,7 +112,7 @@ const checks = [
   // about each step, and link the script that tests the install steps.
   {
     file: "site/charts/nvidia-gpu-operator-v26-7-1.html",
-    terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "carried out this entry's upgrade and delete steps by hand", "Technical notes and disclaimers", "What it is.", "Install it.", "Needs first.", "It does not wait for the workloads to start", "It does not show the workload using a GPU"],
+    terms: ["This entry's plan, and how to test it", "ConfigHub stores them and does not carry them out", "Written down. Not run by the Catalog.", "Test the install steps yourself", "sh/nvidia-gpu-operator-v26-7-1/default/try.sh", "live-walk-test-a-plan-gpu-operator-2026-10-10.html", "carried out this entry's upgrade and delete steps by hand", "Technical notes and disclaimers", "What it is.", "Check it locally (no account, nothing is installed).", "Needs first.", "It does not wait for the workloads to start", "It does not show the workload using a GPU"],
   },
   // An entry with no packaged base still has a script that tests its retained
   // objects. Its page must offer that script, say what it needs, and link the
@@ -2056,9 +2056,11 @@ const ENTRY_STEPS_COMMENT_MAX = 88;
       const firstHeading = main.search(/<h2[\s>]/);
       if (firstHeading >= 0 && main.indexOf(box) > firstHeading) failures.push(`${rel}: the answer-first box must come before the first heading`);
       if (!/What it is\./.test(box)) failures.push(`${rel}: the answer-first box must say what the entry is`);
-      if (!/Install (it|one)\./.test(box)) failures.push(`${rel}: the answer-first box must say how to install the entry`);
+      if (!/Install (it|one)\.|Install \S+ into ConfigHub\.|Check it locally|Render it locally/.test(box)) failures.push(`${rel}: the answer-first box must say how to install the entry`);
+      // The box carries the ConfigHub install line and one sentence saying
+      // which of package, bundle and YAML is for what, which readers needed.
       const words = skimWords(box);
-      if (words > 110) failures.push(`${rel}: the answer-first box has ${words} words outside code, and the limit is 110`);
+      if (words > 135) failures.push(`${rel}: the answer-first box has ${words} words outside code, and the limit is 135`);
     }
     if (/<h[2-4][^>]*>\s*What (this|these|it)[^<]*(does|do) not show/i.test(main)) {
       failures.push(`${rel}: limits go in the last section, "Technical notes and disclaimers", and not under a "does not show" heading`);

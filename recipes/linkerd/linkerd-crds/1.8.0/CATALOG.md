@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | GitOps runtime review | [recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Catalog status | [recipes/linkerd/linkerd-crds/1.8.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/linkerd/linkerd-crds/1.8.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c` |
+| Install into a Space | `cub package install linkerd-crds:v1.8.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/linkerd-crds:v1.8.0@sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8` |
+| Installer package publication | [runs/ghcr-packages/linkerd-crds/v1.8.0.yaml](../../../../runs/ghcr-packages/linkerd-crds/v1.8.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c` |
 | Installer package source | [packages/linkerd/linkerd-crds/1.8.0](../../../../packages/linkerd/linkerd-crds/1.8.0) |
 | Installer package receipt | [recipes/linkerd/linkerd-crds/1.8.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/linkerd/linkerd-crds/1.8.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,12 +81,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0@sha256:344c86888edbd4ef9b4dba594415ed4210a52fd69cdb33efef2f302d1129989c --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install linkerd-crds:v1.8.0 --space linkerd-crds --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/linkerd-crds:v1.8.0@sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/linkerd-crds@sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

@@ -64,11 +64,18 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.5.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0"
-    manifestDigest: "sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001"
-    layerDigest: "sha256:c071847c2e9e7815915cd8a102f3daddc31880f822c7ddc49e23e29581fdcb3a"
-    publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.5.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.5.0@sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/external-secrets:v2.5.0"
+    manifestDigest: "sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+    layerDigest: "sha256:532dfb680111169860bc91a089cb8b360b6d33d55473939193b5a6587a9fae6a"
+    publicationReceipt: "runs/ghcr-packages/external-secrets/v2.5.0.yaml"
+    name: "external-secrets"
+    tag: "v2.5.0"
+    installCommand: "cub package install external-secrets:v2.5.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/external-secrets@sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001"
+      publicationReceipt: "runs/installer-oci/external-secrets-external-secrets/2.5.0/installer-package-publication-receipt.yaml"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c071847c2e9e7815915cd8a102f3daddc31880f822c7ddc49e23e29581fdcb3a"
@@ -117,7 +124,7 @@ spec:
         default: true
         description: "external-secrets default variant rendered from external-secrets/external-secrets@2.5.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.5.0@sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"
@@ -399,7 +406,7 @@ spec:
         default: false
         description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0@sha256:3360d8a7d2d83748808b0f4a66969feaa33b305312dcb8bbe956fec08407b001 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/external-secrets:v2.5.0@sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

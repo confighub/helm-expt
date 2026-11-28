@@ -13,7 +13,7 @@ spec:
     name: "grafana/alloy"
     version: "1.12.1"
     record: "data/helm-render-intents/intents/grafana-alloy-1-12-1-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.12.1@sha256:ccce74fea2d96aa240eeb109cc8e4d15d8636c16fea3e3eddc0f1571937505f3"
+    packageOciRef: "oci://ghcr.io/confighub/packages/alloy:v1.12.1@sha256:854d386eb65b6163afaecf21f4653fba06522ac9c0c15816e69723a55ef10964"
     selection:
       name: "default"
       kind: "catalog-preset"

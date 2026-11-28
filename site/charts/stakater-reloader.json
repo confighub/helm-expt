@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.16@sha256:66bffd7fc23fea77b8ce4682734e6850457bbb16743e324c371cbc1798677052"
+        "ociRef": "oci://ghcr.io/confighub/packages/reloader:v2.2.16@sha256:7aadcdbb573aef383790b45c110ad8e728190c6ab22abfd9de9479b9c64fc402",
+        "installCommand": "cub package install reloader:v2.2.16 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4"
+        "ociRef": "oci://ghcr.io/confighub/packages/reloader:v2.2.14@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d",
+        "installCommand": "cub package install reloader:v2.2.14 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12@sha256:323738c02d856ca2fdcb958802e14af4b13ed2cfd3b5e863549d4ad1bf257ffb"
+        "ociRef": "oci://ghcr.io/confighub/packages/reloader:v2.2.12@sha256:be3625810598bce7de5028ca56e5d75b49c6eecf23f9441543d7324da12fb45e",
+        "installCommand": "cub package install reloader:v2.2.12 --space <space>"
       },
       "bases": [
         {

@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/bitnami-redis-27-0-0-default.yaml",
-      "sha256": "sha256:ec3b78d0efad5893ee67eddba04967e0f914252eaed5f5b5edeed764d87798eb",
+      "sha256": "sha256:f19545440258e69ebee4ff8b7ff602cfd014ae253a53a253561641a71bcc4838",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/bitnami-redis-27-0-0-default.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "bitnami/redis",
     "version": "27.0.0",
     "reference": "bitnami/redis@27.0.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6",
+    "ociRef": "oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691",
     "record": "data/helm-render-intents/intents/bitnami-redis-27-0-0-default.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-redis-27-0-0-default.yaml",
     "selection": {
@@ -92,7 +92,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691",
     "bundles": [
       {
         "role": "source-package",
@@ -466,7 +466,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --work-dir ./bitnami-redis-27-0-0-default --non-interactive --namespace redis"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base default --work-dir ./bitnami-redis-27-0-0-default --non-interactive --namespace redis"
         }
       ],
       "notes": [
@@ -545,7 +545,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0@sha256:d38f3fecadcc4c4cb26d9fb6c1fc58402c7dfa1cf08673afe7b00041c7614ae6 --base default --space <your-space> --namespace redis --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/bitnami-redis:v27.0.0@sha256:dbd4b911f409488209fe8ade9d45c81a195b5da0106a7ae781b99c9462f66691 --base default --space <your-space> --namespace redis --non-interactive",
           "needsAccount": true,
           "writes": true
         },

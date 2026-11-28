@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "oauth2-proxy"
+spec:
+  chart: "oauth2-proxy/oauth2-proxy"
+  version: "10.7.0"
+  packagePath: "packages/oauth2-proxy/oauth2-proxy/10.7.0"
+  tag: "v10.7.0"
+  reference: "ghcr.io/confighub/packages/oauth2-proxy:v10.7.0"
+  immutableReference: "ghcr.io/confighub/packages/oauth2-proxy@sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+  manifestDigest: "sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+  layerDigest: "sha256:a72093cdb19fdf883bfa5b353bc8899b2d2c382a312df1ae231ac7397827cdc6"
+  installCommand: "cub package install oauth2-proxy:v10.7.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bb1d413df85d11af6e663eb555d3c787b68302327a5a8e63e4d3bf82c32ae560"
+  observedAt: "2026-11-27T19:43:45.711Z"
+status:
+  result: "pass"

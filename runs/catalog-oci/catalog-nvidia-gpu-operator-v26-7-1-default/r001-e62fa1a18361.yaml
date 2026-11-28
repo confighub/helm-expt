@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-gpu-operator-v26-7-1-default"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-gpu-operator-v26-7-1-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default:r001-e62fa1a18361"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-gpu-operator-v26-7-1-default@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872"
+  manifestDigest: "sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-gpu-operator-v26-7-1-default/literal-config-oci.yaml and its 5 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-gpu-operator-v26-7-1-default@sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872"
+    receipt: "runs/catalog-literal-bundles/nvidia-gpu-operator-v26-7-1-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e62fa1a183616cf7c7274d40abb043e1c6aee34eceb9061763b75d3b3d501872"
+  observedAt: "2026-11-27T19:36:07.690Z"
+status:
+  result: "pass"

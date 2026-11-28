@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.3.0@sha256:4f07ad7b36c9d4b8cf3ced158c24d031684279800889766941afbd33c46e799b"
+        "ociRef": "oci://ghcr.io/confighub/packages/loki:v7.3.0@sha256:429c098f35e16a0a1851f38e2dd4d204e91028921aa37c52dbb0b232fd5cc2c4",
+        "installCommand": "cub package install loki:v7.3.0 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0@sha256:339ccdc3af897709b0749b5d5e197dec640081870b4f369fd3a5ca0617bd7ce6"
+        "ociRef": "oci://ghcr.io/confighub/packages/loki:v7.1.0@sha256:cdb7cf1e2c3741ca04897daadde7f1c66335bfa43ef5afe4099fe7e290d613a1",
+        "installCommand": "cub package install loki:v7.1.0 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0@sha256:c89f127344879cdb6c7e4033735bcde8eaca3257d5c16bdcca89aad2a0f602da"
+        "ociRef": "oci://ghcr.io/confighub/packages/loki:v7.0.0@sha256:7aff5d06c8c241f307494406f7119da9e74c5a6871de2ff7da9e385a1abf3f2a",
+        "installCommand": "cub package install loki:v7.0.0 --space <space>"
       },
       "bases": [
         {

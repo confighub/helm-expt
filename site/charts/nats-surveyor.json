@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9@sha256:7d989d267c54979f5cfdc133ac9f83ea6fd520a649aa584651c60c46bc29ca4d"
+        "ociRef": "oci://ghcr.io/confighub/packages/nats-surveyor:v0.20.9@sha256:61b976981244b85fa2ffae297c1b70f3501ab37391163c47882d51be2d17c450",
+        "installCommand": "cub package install nats-surveyor:v0.20.9 --space <space>"
       },
       "bases": [
         {

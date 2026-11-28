@@ -13,7 +13,7 @@ spec:
     name: "nvidia/nodewright"
     version: "v0.19.0"
     record: "data/helm-render-intents/intents/nvidia-nodewright-v0-19-0-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nodewright:v0.19.0@sha256:58195953ff73a8e8b55b92b44504655b0cbfcee1b1196ac7730776c244136358"
+    packageOciRef: "oci://ghcr.io/confighub/packages/nodewright:v0.19.0@sha256:1fecb1c5a94f978ba896c6470b408c3ef6f38208b727848d3b6cb1a29409ec8e"
     selection:
       name: "default"
       kind: "catalog-preset"

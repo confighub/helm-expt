@@ -66,11 +66,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/gatekeeper/gatekeeper/3.22.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
-    manifestDigest: "sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
-    layerDigest: "sha256:a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
-    publicationReceipt: "runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2"
+    manifestDigest: "sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e"
+    layerDigest: "sha256:ce5a3dfe251ad3bb8552b38186e7a96ee9cdf22781e70fde00fba56213361cae"
+    publicationReceipt: "runs/ghcr-packages/gatekeeper/v3.22.2.yaml"
+    name: "gatekeeper"
+    tag: "v3.22.2"
+    installCommand: "cub package install gatekeeper:v3.22.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/gatekeeper@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5"
+      publicationReceipt: "runs/installer-oci/gatekeeper-gatekeeper/3.22.2/installer-package-publication-receipt.yaml"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a3e59845419c6c3e2fcb857c1370df675ad88c10cdf5b03b1839c435e3026756"
@@ -107,7 +114,7 @@ spec:
         default: true
         description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 30
         cubInstallObjectCountIncludingSupport: 31
         semanticObjectMatches: "30/30"
@@ -356,7 +363,7 @@ spec:
         default: false
         description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2@sha256:ce4877c260225419e22d820f9d15652ad48ed5f205117099e88abb3f590241a5 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/gatekeeper:v3.22.2@sha256:608e779b1c55a7c92dd2e660198fd41aa5f75141d45a166548e52db39ce1ec7e --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

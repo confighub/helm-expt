@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "nats"
+spec:
+  chart: "nats/nats"
+  version: "2.14.0"
+  packagePath: "packages/nats/nats/2.14.0"
+  tag: "v2.14.0"
+  reference: "ghcr.io/confighub/packages/nats:v2.14.0"
+  immutableReference: "ghcr.io/confighub/packages/nats@sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144"
+  manifestDigest: "sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144"
+  layerDigest: "sha256:8ceba0d4dd3978bb0e71646c7dabeaa1ab6062a199a0d4b11270ab2658d74654"
+  installCommand: "cub package install nats:v2.14.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:2df68d23252873e33c1481ab5ed25b88be1356bfd3b0549e5ece673a9c3ee144"
+  observedAt: "2026-11-27T19:43:37.655Z"
+status:
+  result: "pass"

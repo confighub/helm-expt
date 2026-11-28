@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cluster-autoscaler"
+spec:
+  chart: "autoscaler/cluster-autoscaler"
+  version: "9.57.0"
+  packagePath: "packages/autoscaler/cluster-autoscaler/9.57.0"
+  tag: "v9.57.0"
+  reference: "ghcr.io/confighub/packages/cluster-autoscaler:v9.57.0"
+  immutableReference: "ghcr.io/confighub/packages/cluster-autoscaler@sha256:bd6321569236ba1310d90223d45b5333acfd86c6111bdc39153bf6a1d025b1fa"
+  manifestDigest: "sha256:bd6321569236ba1310d90223d45b5333acfd86c6111bdc39153bf6a1d025b1fa"
+  layerDigest: "sha256:0ce0375c58d2282efdad2b8f34ae79a61b34ca8c9b9c0543f25a850f667f8083"
+  installCommand: "cub package install cluster-autoscaler:v9.57.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bd6321569236ba1310d90223d45b5333acfd86c6111bdc39153bf6a1d025b1fa"
+  observedAt: "2026-11-27T19:42:48.502Z"
+status:
+  result: "pass"

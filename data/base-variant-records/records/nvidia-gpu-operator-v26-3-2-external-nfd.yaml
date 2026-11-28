@@ -13,7 +13,7 @@ spec:
     name: "nvidia/gpu-operator"
     version: "v26.3.2"
     record: "data/helm-render-intents/intents/nvidia-gpu-operator-v26-3-2-external-nfd.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+    packageOciRef: "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.2@sha256:2d0d1f63a9d708d1965b616a9fba297d1b5cf163a16ae2e44498d955a4173360"
     selection:
       name: "external-nfd"
       kind: "catalog-preset"

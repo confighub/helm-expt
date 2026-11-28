@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/percona-psmdb-operator-1-22-0-no-crds.yaml",
-      "sha256": "sha256:5942afc7a7a3a7ea4cf2be1f31d8bf17b5c58917145bb4bc02b6aab489f29c5c",
+      "sha256": "sha256:150bc605fb5ebe3085c52a010aabcb32c58bedea90ed00a7e505b68ece92fc1b",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/percona-psmdb-operator-1-22-0-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "percona/psmdb-operator",
     "version": "1.22.0",
     "reference": "percona/psmdb-operator@1.22.0",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30",
+    "ociRef": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb",
     "record": "data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-no-crds.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-psmdb-operator-1-22-0-no-crds.yaml",
     "selection": {
@@ -91,7 +91,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb",
     "bundles": [
       {
         "role": "source-package",
@@ -444,7 +444,7 @@
         },
         {
           "comment": "render this base from the signed package; step 3 can upload this directory",
-          "command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --base no-crds --work-dir ./percona-psmdb-operator-1-22-0-no-crds --non-interactive --namespace default"
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb --base no-crds --work-dir ./percona-psmdb-operator-1-22-0-no-crds --non-interactive --namespace default"
         }
       ],
       "notes": [
@@ -516,7 +516,7 @@
         },
         {
           "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
-          "command": "cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0@sha256:9a90a52074a6eef6c5a25f4bfc52b25a56441d73f5d980482a34709194f7cb30 --base no-crds --space <your-space> --namespace default --non-interactive",
+          "command": "cub package install oci://ghcr.io/confighub/packages/psmdb-operator:v1.22.0@sha256:3cb086f9d2bbc672222badcab0f307381d63d889b364afb1d0f258e7ec67d0cb --base no-crds --space <your-space> --namespace default --non-interactive",
           "needsAccount": true,
           "writes": true
         },

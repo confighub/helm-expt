@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./nvidia-cluster-readiness-engine-v0-6-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-cluster-readiness-engine:v0.6.0@sha256:6a1a75b2d243ee4bd2cbea79a91052dfb36beb3e0bc4da0a03b2b589a4dab501 --base default --work-dir ./nvidia-cluster-readiness-engine-v0-6-0-default --non-interactive --namespace nvcre
+cub installer setup --pull oci://ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a --base default --work-dir ./nvidia-cluster-readiness-engine-v0-6-0-default --non-interactive --namespace nvcre
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-cluster-readiness-engine-v0-6-0-default --space "${SPACE}"

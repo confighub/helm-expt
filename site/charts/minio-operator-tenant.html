@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>minio-operator/tenant</code> 7.1.1, pre-rendered as 2 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install minio-tenant into ConfigHub.</strong> <code>cub package install minio-tenant:v7.1.1 --space minio-tenant --namespace default</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -831,7 +834,7 @@
 4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a  minio-operator-tenant-7-1-1-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/minio-tenant:v7.1.1@sha256:a53bb2f8ee0292ceae40d5abb0d3c60a3662fb0df7f586e301f75a970444778d --base default --work-dir ./minio-operator-tenant-7-1-1-default --non-interactive --namespace default</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-available">
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
@@ -848,7 +851,7 @@
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1@sha256:361029cb96cff90bd11dbda2f31e357a3df9287f2f7eb6f461322b36e8e7da7a --base default --space &lt;your-space&gt; --namespace default --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/minio-tenant:v7.1.1@sha256:a53bb2f8ee0292ceae40d5abb0d3c60a3662fb0df7f586e301f75a970444778d --base default --space &lt;your-space&gt; --namespace default --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./minio-operator-tenant-7-1-1-default --space &lt;your-space&gt; --component &lt;your-component&gt;

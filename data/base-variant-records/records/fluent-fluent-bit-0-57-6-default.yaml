@@ -13,7 +13,7 @@ spec:
     name: "fluent/fluent-bit"
     version: "0.57.6"
     record: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6@sha256:f16e4d5c2df83b3ccd8629fbcab340b84a499303d5308eedac009ed8b40ef634"
+    packageOciRef: "oci://ghcr.io/confighub/packages/fluent-bit:v0.57.6@sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
     selection:
       name: "default"
       kind: "catalog-preset"

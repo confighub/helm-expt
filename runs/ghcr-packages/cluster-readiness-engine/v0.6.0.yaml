@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "cluster-readiness-engine"
+spec:
+  chart: "nvidia/cluster-readiness-engine"
+  version: "v0.6.0"
+  packagePath: "packages/nvidia/cluster-readiness-engine/v0.6.0"
+  tag: "v0.6.0"
+  reference: "ghcr.io/confighub/packages/cluster-readiness-engine:v0.6.0"
+  immutableReference: "ghcr.io/confighub/packages/cluster-readiness-engine@sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+  manifestDigest: "sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+  layerDigest: "sha256:add7e31cd07242aaaf2b70a53a907ce77ec1bb62544c780a80076eab17597d95"
+  installCommand: "cub package install cluster-readiness-engine:v0.6.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:443bf15c743552fe576cb7b981b058d5d7b08b984e0e7633e2156489ab72374a"
+  observedAt: "2026-11-27T19:43:39.630Z"
+status:
+  result: "pass"

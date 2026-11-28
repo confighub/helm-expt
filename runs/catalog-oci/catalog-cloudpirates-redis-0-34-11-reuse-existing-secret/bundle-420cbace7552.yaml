@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-cloudpirates-redis-0-34-11-reuse-existing-secret"
+spec:
+  kind: "certified-bundle"
+  record: "cloudpirates-redis-0-34-11-reuse-existing-secret"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret:bundle-420cbace7552"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret@sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+  manifestDigest: "sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/redis-0.34.11-reuse-existing-secret/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret@sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+    receipt: "runs/certified-bundles/catalog-cloudpirates-redis-0-34-11-reuse-existing-secret/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:420cbace7552f50cdbfe5a10f7a087d3264ad50924182936182d1c1b4bc80f3d"
+  observedAt: "2026-11-27T19:35:03.164Z"
+status:
+  result: "pass"

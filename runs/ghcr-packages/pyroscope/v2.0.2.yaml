@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "pyroscope"
+spec:
+  chart: "grafana/pyroscope"
+  version: "2.0.2"
+  packagePath: "packages/grafana/pyroscope/2.0.2"
+  tag: "v2.0.2"
+  reference: "ghcr.io/confighub/packages/pyroscope:v2.0.2"
+  immutableReference: "ghcr.io/confighub/packages/pyroscope@sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+  manifestDigest: "sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+  layerDigest: "sha256:cba17cafbd3021d13f668ed4b75f66ebe186b76c94062ed845e30f6bf6b78d02"
+  installCommand: "cub package install pyroscope:v2.0.2 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:56e56426ee1f2d649bdf08991da65fa80f7969786fb91fe1753e991599ec7e66"
+  observedAt: "2026-11-27T19:43:19.495Z"
+status:
+  result: "pass"

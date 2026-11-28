@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "kyverno"
+spec:
+  chart: "kyverno/kyverno"
+  version: "3.8.1"
+  packagePath: "packages/kyverno/kyverno/3.8.1"
+  tag: "v3.8.1"
+  reference: "ghcr.io/confighub/packages/kyverno:v3.8.1"
+  immutableReference: "ghcr.io/confighub/packages/kyverno@sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c"
+  manifestDigest: "sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c"
+  layerDigest: "sha256:6b04094796192aac19b5d5035ab78e868b007c653b233962235d98b90f4ff311"
+  installCommand: "cub package install kyverno:v3.8.1 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:8cd77fd290ab9d896a04299f087a7fc4e925e810db844665e8befcee7705430c"
+  observedAt: "2026-11-27T19:43:29.595Z"
+status:
+  result: "pass"

@@ -888,8 +888,8 @@
 
   <section aria-labelledby="signing">
     <h2 id="signing">3. See what a signature actually proves</h2>
-    <p>Every currently published installer package has a committed publication receipt, and the Google Artifact Registry repository grants <code>roles/artifactregistry.reader</code> to <code>allUsers</code>. <a href="./d/docs/user/installer-oci-packages.html#public-pull-access">Read the full access note</a>.</p>
-    <p>A user can run <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against the public catalog refs with no Google Cloud credentials. Write access stays private, so maintainers still need registry credentials to publish or replace a package.</p>
+    <p>Every catalog package is published on GitHub's registry, <code>ghcr.io/confighub/packages</code>, by the package publish workflow after a merge, and signed keylessly as that workflow. A committed receipt records each one, read with no credentials and with its signature verified. <a href="./d/docs/reference/installer-package-signing.html">Read how signing works</a>.</p>
+    <p>A user can run <code>cub package install</code>, <code>cub installer inspect</code> or <code>cub installer setup --pull</code> against those packages with no registry login. Nobody pushes them by hand: only the workflow can publish. The copies first published to a Google Artifact Registry repository stay readable there as the earlier location, signed by a Google service account.</p>
     <p>A successful <code>cosign verify</code> proves four things. The named service account signed the exact OCI manifest digest. The signed payload records the expected package path and package SHA-256. The registry served the signature with no credentials when the receipt was written, and Sigstore recorded the signing event. <a href="./d/docs/reference/installer-package-signing.html#what-a-valid-signature-shows">Read the full list</a>.</p>
     <p>It does not show that a selected preset is suitable for a particular cluster. It also does not prove that a hook, CRD, Secret, or later rollout will succeed.</p>
     <h3 id="signing-coverage">What is signed today</h3>

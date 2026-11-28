@@ -8,10 +8,59 @@
   "url": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.json",
   "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd.html",
   "counts": {
-    "versions": 5,
-    "bases": 10
+    "versions": 6,
+    "bases": 12
   },
   "versions": [
+    {
+      "version": "10.20.0",
+      "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-20-0.html",
+      "defaultBase": "default",
+      "package": {
+        "published": true,
+        "signed": true,
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29",
+        "installCommand": "cub package install argo-cd-helm:v10.20.0 --space <space>"
+      },
+      "bases": [
+        {
+          "base": "default",
+          "default": true,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-20-0-default",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-default.json"
+          },
+          "objectCount": 54,
+          "verdict": "not-assessed",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612",
+            "objectSetDigest": "sha256:fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612"
+          }
+        },
+        {
+          "base": "no-crds",
+          "default": false,
+          "listing": {
+            "id": "argo-cd-argo-cd-10-20-0-no-crds",
+            "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-no-crds.json"
+          },
+          "objectCount": 51,
+          "verdict": "not-assessed",
+          "published": false,
+          "flagged": false,
+          "objects": {
+            "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "sha256": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f",
+            "objectSetDigest": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f"
+          }
+        }
+      ]
+    },
     {
       "version": "10.7.0",
       "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-7-0.html",
@@ -19,7 +68,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.7.0@sha256:0e75c12f38108e3606fd8fa410232e89c02858ac466414f361a6599295cb6c24"
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.7.0@sha256:cd2dc9e7bcffdb1fb892993eab2d9dc7be36ca73c87849bd3f9a395ac4c2e4e5",
+        "installCommand": "cub package install argo-cd-helm:v10.7.0 --space <space>"
       },
       "bases": [
         {
@@ -67,7 +117,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1@sha256:b933436ed879e10c1b684a2d5f89670a35e759264849ec7bfd7c2f2cec1dd5f8"
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.2.1@sha256:b4ca81e720ebd1a195d1a97f65b1c7d6cb054fd5981e80fb3d607ec9e98172bb",
+        "installCommand": "cub package install argo-cd-helm:v10.2.1 --space <space>"
       },
       "bases": [
         {
@@ -115,7 +166,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3@sha256:33eee3ec734e11dad3a95f8a4cba5999106a54b0dcc51a477b5cebe7e0d45a4e"
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.1.3@sha256:7431e6cdbd7a91a6b02f3f62adfdc6be5f29ff083ea536571159d923adba0aaf",
+        "installCommand": "cub package install argo-cd-helm:v10.1.3 --space <space>"
       },
       "bases": [
         {
@@ -163,7 +215,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17@sha256:e32948e407f2003dd6a97ba3d6a0e362514bca13c51cbb16b7338c570fdde40f"
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.17@sha256:fe4ceda053593289aea2e12da5a65360c22cf171dd1e9d6ff3944cb59f7d5df4",
+        "installCommand": "cub package install argo-cd-helm:v9.5.17 --space <space>"
       },
       "bases": [
         {
@@ -211,7 +264,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d"
+        "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e",
+        "installCommand": "cub package install argo-cd-helm:v9.5.15 --space <space>"
       },
       "bases": [
         {
@@ -254,6 +308,23 @@
     }
   ],
   "summaries": [
+    {
+      "from": {
+        "version": "10.7.0",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-7-0-default"
+      },
+      "to": {
+        "version": "10.20.0",
+        "base": "default",
+        "listing": "argo-cd-argo-cd-10-20-0-default"
+      },
+      "added": 1,
+      "removed": 2,
+      "changed": 53,
+      "unchanged": 0,
+      "line": "From 10.7.0 to 10.20.0 on the default base, 53 of 55 objects change, 1 is added and 2 are removed."
+    },
     {
       "from": {
         "version": "10.2.1",

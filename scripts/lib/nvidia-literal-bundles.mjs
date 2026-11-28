@@ -30,6 +30,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { installerOciPublication } from "./installer-oci-publication.mjs";
 import { check, readYamlFiles, readYamlText, repoRoot, serializeYaml, trackedExists } from "./proof-common.mjs";
 import { deterministicGzip, deterministicTar, readLayerFiles, writeNimServiceOciLayout } from "./nimservice-publication.mjs";
 
@@ -165,7 +166,11 @@ function buildEntry(intent, { root, inventories, verdicts, lifecycles }) {
     kubeVersion: spec.renderInputs.capabilityProfile?.kubeVersion ?? "",
     hookPolicy: spec.renderInputs.hookPolicy ?? "",
     valuesProfileRel: spec.renderInputs.valuesProfile ?? "",
-    installerPackageRef: spec.renderInputs.installerPackageOciRef ?? "",
+    // A bundle's files name the installer package it was rendered from, and
+    // its published bytes were built from the Google registry copy. That
+    // copy stays the bundle's source while the Catalog names the package on
+    // GHCR, so the bundle keeps its digest.
+    installerPackageRef: installerOciPublication(chart, version).earlier?.exactRef ?? spec.renderInputs.installerPackageOciRef ?? "",
     objectsRel: spec.renderOutput.renderedObjects,
     inventoryRel: spec.renderOutput.objectInventory,
     upstreamRel: `${spec.renderOutput.packageBase}/upstream.yaml`,

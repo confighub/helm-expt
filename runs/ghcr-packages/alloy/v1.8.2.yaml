@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "alloy"
+spec:
+  chart: "grafana/alloy"
+  version: "1.8.2"
+  packagePath: "packages/grafana/alloy/1.8.2"
+  tag: "v1.8.2"
+  reference: "ghcr.io/confighub/packages/alloy:v1.8.2"
+  immutableReference: "ghcr.io/confighub/packages/alloy@sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102"
+  manifestDigest: "sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102"
+  layerDigest: "sha256:9b305785fdb6e6bdb9b7538036530f957a97330f3eb2620feb4401f3f15971af"
+  installCommand: "cub package install alloy:v1.8.2 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:14efca9d42ff199bcc64b8065dfc44e9c94bd820e2cd90ab48b0e568fcef4102"
+  observedAt: "2026-11-27T19:43:16.592Z"
+status:
+  result: "pass"

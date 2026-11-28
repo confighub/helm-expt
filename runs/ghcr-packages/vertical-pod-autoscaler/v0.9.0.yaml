@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "vertical-pod-autoscaler"
+spec:
+  chart: "autoscaler/vertical-pod-autoscaler"
+  version: "0.9.0"
+  packagePath: "packages/autoscaler/vertical-pod-autoscaler/0.9.0"
+  tag: "v0.9.0"
+  reference: "ghcr.io/confighub/packages/vertical-pod-autoscaler:v0.9.0"
+  immutableReference: "ghcr.io/confighub/packages/vertical-pod-autoscaler@sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454"
+  manifestDigest: "sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454"
+  layerDigest: "sha256:5015523464e99d9b3b24ef355de09dccd5bf3cd06049c43dd7a3b4e8fd632e19"
+  installCommand: "cub package install vertical-pod-autoscaler:v0.9.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:e16dcf411cf4ec428b98df74c123d0134277e9875e827bf2d72f2d9a3fd60454"
+  observedAt: "2026-11-27T19:42:51.035Z"
+status:
+  result: "pass"

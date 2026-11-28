@@ -61,11 +61,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/nvidia/k8s-nim-operator/3.1.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0"
-    manifestDigest: "sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
-    layerDigest: "sha256:0d487bab6f732bb5176775d222e9006c47ed58a35d72548acece8e98ab7d1efd"
-    publicationReceipt: "runs/installer-oci/nvidia-k8s-nim-operator/3.1.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0"
+    manifestDigest: "sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+    layerDigest: "sha256:e04e339a3057cad6421afe29257aa888683c2a267fbca386669326ac6fc4d0eb"
+    publicationReceipt: "runs/ghcr-packages/k8s-nim-operator/v3.1.0.yaml"
+    name: "k8s-nim-operator"
+    tag: "v3.1.0"
+    installCommand: "cub package install k8s-nim-operator:v3.1.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/k8s-nim-operator@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3"
+      publicationReceipt: "runs/installer-oci/nvidia-k8s-nim-operator/3.1.0/installer-package-publication-receipt.yaml"
     installer: "packages/nvidia/k8s-nim-operator/3.1.0/installer.yaml"
     receipt: "recipes/nvidia/k8s-nim-operator/3.1.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "0d487bab6f732bb5176775d222e9006c47ed58a35d72548acece8e98ab7d1efd"
@@ -192,7 +199,7 @@ spec:
         default: true
         description: "k8s-nim-operator chart defaults variant rendered from nvidia/k8s-nim-operator@3.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3 --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97 --base default --work-dir <tmp> --non-interactive --namespace nvidia-nim"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"
@@ -366,7 +373,7 @@ spec:
         default: false
         description: "k8s-nim-operator AICR EKS NIM inference values variant rendered from nvidia/k8s-nim-operator@3.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.0@sha256:51b150bffea022e1cf3b6a21db9d9443b7c3067ee5fd9ce3fbdf96bbef9712b3 --base aicr-eks-inference --work-dir <tmp> --non-interactive --namespace nvidia-nim"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.0@sha256:263730dd9bd0def4d13539aab07e1feea79492cdad875fa1fa7f44281a0d2b97 --base aicr-eks-inference --work-dir <tmp> --non-interactive --namespace nvidia-nim"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"

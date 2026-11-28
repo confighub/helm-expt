@@ -50,7 +50,10 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/argo-cd/argo-cd/9.5.15/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/argo-cd/argo-cd/9.5.15/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d` |
+| Install into a Space | `cub package install argo-cd-helm:v9.5.15 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e` |
+| Installer package publication | [runs/ghcr-packages/argo-cd-helm/v9.5.15.yaml](../../../../runs/ghcr-packages/argo-cd-helm/v9.5.15.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d` |
 | Installer package source | [packages/argo-cd/argo-cd/9.5.15](../../../../packages/argo-cd/argo-cd/9.5.15) |
 | Installer package receipt | [recipes/argo-cd/argo-cd/9.5.15/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-cd/9.5.15/artifact-index.yaml](artifact-index.yaml) |
@@ -84,12 +87,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15@sha256:9ec6bd1950e4b8b300ac61a62b85943a462dd7fc80d64e5bc79995f054c2ce4d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install argo-cd-helm:v9.5.15 --space argo-cd-helm --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v9.5.15@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/argo-cd-helm@sha256:99905bdd2e18e2a2dd221b57a9ced594e610b7db551ae5667e935be17f5b798e`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

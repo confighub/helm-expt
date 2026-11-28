@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./policy-reporter-policy-reporter-3-10-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.10.0@sha256:9e0c8f5e055f2f67bca6a0f8854fb89b0b92f2f7215671e05cf96b0d2a26641e --base default --work-dir ./policy-reporter-policy-reporter-3-10-0-default --non-interactive --namespace policy-reporter
+cub installer setup --pull oci://ghcr.io/confighub/packages/policy-reporter:v3.10.0@sha256:beaa74825e71fe6ab36f5f1ec204be80fea6dcd8073bbc202b1a8b22268b47ac --base default --work-dir ./policy-reporter-policy-reporter-3-10-0-default --non-interactive --namespace policy-reporter
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./policy-reporter-policy-reporter-3-10-0-default --space "${SPACE}"

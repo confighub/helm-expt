@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the default base variant into ./descheduler-descheduler-0-36-0-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0@sha256:3d1b7443b1e8ea2d011c2d1791a7ab984f848c70157aed1ef15b2562a11416d2 --base default --work-dir ./descheduler-descheduler-0-36-0-default --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/descheduler:v0.36.0@sha256:c65becc8ba755fe5e77ecd9937a266f1cea3f3e64eca84906871c947ad326a56 --base default --work-dir ./descheduler-descheduler-0-36-0-default --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./descheduler-descheduler-0-36-0-default/out/manifests

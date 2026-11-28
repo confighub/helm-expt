@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the default base variant into ./nvidia-k8s-nim-operator-3-1-2-default"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-k8s-nim-operator:3.1.2@sha256:3539d06bc051040cc6afd8759af2a5b406a5d2f2a79a7a8621918da92de2e93d --base default --work-dir ./nvidia-k8s-nim-operator-3-1-2-default --non-interactive --namespace nvidia-nim
+cub installer setup --pull oci://ghcr.io/confighub/packages/k8s-nim-operator:v3.1.2@sha256:1cd086887e2e8306294dc65c790cf1a92a83d7d09a9ac52016ce3fcd75f248cb --base default --work-dir ./nvidia-k8s-nim-operator-3-1-2-default --non-interactive --namespace nvidia-nim
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./nvidia-k8s-nim-operator-3-1-2-default --space "${SPACE}"

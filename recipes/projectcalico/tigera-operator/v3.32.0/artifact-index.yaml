@@ -62,11 +62,18 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/projectcalico/tigera-operator/v3.32.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
-    manifestDigest: "sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
-    layerDigest: "sha256:4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
-    publicationReceipt: "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0"
+    manifestDigest: "sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+    layerDigest: "sha256:0ca2fe9cacc4021f5eda68f03a91cc67a543a9f418d40f61fb6df04990810296"
+    publicationReceipt: "runs/ghcr-packages/tigera-operator/v3.32.0.yaml"
+    name: "tigera-operator"
+    tag: "v3.32.0"
+    installCommand: "cub package install tigera-operator:v3.32.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/tigera-operator@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a"
+      publicationReceipt: "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml"
     installer: "packages/projectcalico/tigera-operator/v3.32.0/installer.yaml"
     receipt: "recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "4dc00a5d37c824f654345c0a089c6b8fb55af33540d9be496aed9d47178e0797"
@@ -130,7 +137,7 @@ spec:
         default: true
         description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0@sha256:c349b9f235ee64ae4743b81d2cb2d01eb5a36e765d3c634b912323ce6c7a135a --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/tigera-operator:v3.32.0@sha256:d3e129a914498070c0792d7ac804edf48dff3a4464eb961677af1a9805d90ab2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

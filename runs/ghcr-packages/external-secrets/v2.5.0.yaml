@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "external-secrets"
+spec:
+  chart: "external-secrets/external-secrets"
+  version: "2.5.0"
+  packagePath: "packages/external-secrets/external-secrets/2.5.0"
+  tag: "v2.5.0"
+  reference: "ghcr.io/confighub/packages/external-secrets:v2.5.0"
+  immutableReference: "ghcr.io/confighub/packages/external-secrets@sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+  manifestDigest: "sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+  layerDigest: "sha256:532dfb680111169860bc91a089cb8b360b6d33d55473939193b5a6587a9fae6a"
+  installCommand: "cub package install external-secrets:v2.5.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:96a836a741789de4ec810585923d6774cc63c459f949be65ee2e4f894a1417eb"
+  observedAt: "2026-11-27T19:43:10.848Z"
+status:
+  result: "pass"

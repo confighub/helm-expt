@@ -5,12 +5,12 @@
   "generatedFrom": {
     "catalog": {
       "path": "data/base-variant-records/records.json",
-      "sha256": "sha256:33e9d603109b517560aaa5e244acc3a825977fd5e417b436da07b63930ac2a78",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
     },
     "record": {
       "path": "data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
-      "sha256": "sha256:ee462a7e125589b9bff71e73f8c641ab4f339e8dff1d045c5e782d881e81ad17",
+      "sha256": "sha256:2f12d508fc930bc54ce3674d3025285574bede72da9fdaf5e30891a113411bd6",
       "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml"
     },
     "recordKind": "BaseVariantRecord",
@@ -36,7 +36,7 @@
     "name": "cloudnative-pg/cloudnative-pg",
     "version": "0.28.2",
     "reference": "cloudnative-pg/cloudnative-pg@0.28.2",
-    "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2",
+    "ociRef": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2",
     "record": "data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
     "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml",
     "selection": {
@@ -91,7 +91,7 @@
     }
   },
   "oci": {
-    "sourcePackageRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2@sha256:30cfcee4ff1d5467c4df45d8223d2b98e9a8d316fa5ec9978533d9ffdcff8dc2",
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/cloudnative-pg:v0.28.2@sha256:9771e69482c744aafe536590a435f63206d541c0ef0017c5f47707145f139da2",
     "bundles": [
       {
         "role": "source-package",
@@ -136,7 +136,9 @@
         "ghcr": {
           "reference": "oci://ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:bundle-af1c35858ac0@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
           "manifestDigest": "sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
-          "state": "awaits-workflow-publication",
+          "state": "published-signed",
+          "receipt": "runs/catalog-oci/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds/bundle-af1c35858ac0.yaml",
+          "receiptUrl": "https://github.com/confighub/helm-expt/blob/main/runs/catalog-oci/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds/bundle-af1c35858ac0.yaml",
           "publisher": ".github/workflows/catalog-oci-publish.yml",
           "verifyCommand": "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
           "sameDigestAsEarlier": true
@@ -742,12 +744,12 @@
         },
         {
           "comment": "preview the upload of the published bundle; nothing is written",
-          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
+          "command": "cub variant upload --dry-run --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:bundle-af1c35858ac0@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
           "needsAccount": true
         },
         {
           "comment": "upload the bundle as a base Space of Units",
-          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --namespace default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:latest@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
+          "command": "cub variant upload --component cloudnative-pg-cloudnative-pg --variant no-crds --space cloudnative-pg-cloudnative-pg-0-28-2-no-crds --namespace default oci://ghcr.io/confighub/configs/catalog/catalog-cloudnative-pg-cloudnative-pg-0-28-2-no-crds:bundle-af1c35858ac0@sha256:af1c35858ac0266c0356196522ca16ddbb8f82b71b6946260d6940dd58aa95b0",
           "needsAccount": true,
           "writes": true
         }

@@ -1,0 +1,748 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "CatalogListing",
+  "listingVersion": "1",
+  "generatedFrom": {
+    "catalog": {
+      "path": "data/base-variant-records/records.json",
+      "sha256": "sha256:168547f46c3c4c20ef028a08b6d32d3ad3eef87df4443bb53c51310553722cc3",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records.json"
+    },
+    "record": {
+      "path": "data/base-variant-records/records/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+      "sha256": "sha256:7e2852254674335ec93211abd77efad73ec9f4a7599dedbe2c6943c5756235f7",
+      "url": "https://github.com/confighub/helm-expt/blob/main/data/base-variant-records/records/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+    },
+    "recordKind": "BaseVariantRecord",
+    "recordSchema": "schemas/base-variant-record.schema.json"
+  },
+  "identity": {
+    "id": "argo-cd-argo-cd-10-20-0-no-crds",
+    "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-no-crds.json",
+    "name": "argo-cd/argo-cd",
+    "format": "helm",
+    "formatLabel": "Helm chart",
+    "version": "10.20.0",
+    "base": "no-crds",
+    "page": "https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-10-20-0.html"
+  },
+  "discovery": {
+    "status": "not-classified",
+    "roles": [],
+    "boundary": "Discovery only: a role does not establish readiness, compatibility or support. An operator needs custom resources; an agent needs its destination. Read the listing prerequisites and coverage before composing."
+  },
+  "source": {
+    "format": "helm",
+    "name": "argo-cd/argo-cd",
+    "version": "10.20.0",
+    "reference": "argo-cd/argo-cd@10.20.0",
+    "ociRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29",
+    "record": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+    "selection": {
+      "name": "no-crds",
+      "kind": "catalog-preset",
+      "provider": "Config Workshop",
+      "record": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+    },
+    "pin": {
+      "digest": "sha256:68a19e0df6415508edb1409083537a28e64921981e6feb78d011dd5ae49d6e08",
+      "role": "helm-variant-revision",
+      "revision": "r001",
+      "record": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml",
+      "recordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml"
+    },
+    "fixedAtBuildTime": [
+      "chart=argo-cd/argo-cd",
+      "version=10.20.0",
+      "base=no-crds",
+      "valuesProfile=recipes/argo-cd/argo-cd/10.20.0/effective-values-no-crds.yaml",
+      "namespace=argocd",
+      "releaseName=argo-cd",
+      "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    ]
+  },
+  "flattened": {
+    "method": "helm-render",
+    "materializationStatus": "captured",
+    "format": "kubernetes-yaml",
+    "objectCount": 51,
+    "digest": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f",
+    "digestRole": "canonical-object-set",
+    "verdict": "not-assessed",
+    "verdictStatus": "not-assessed",
+    "action": "assessment-required",
+    "scope": "argo-cd/argo-cd@10.20.0/no-crds; recheck after source, lifecycle-sensitive variant, destination, or delivery-runtime changes",
+    "boundaries": [
+      "Helm rendered the pinned chart and values into the exact objects retained by this base."
+    ],
+    "objects": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "objectsUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "inventory": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "inventoryUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+    "digestRecord": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml",
+    "digestRecordUrl": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml",
+    "retainedObjects": {
+      "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "url": "https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+      "sha256": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f"
+    }
+  },
+  "oci": {
+    "sourcePackageRef": "oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29",
+    "bundles": [
+      {
+        "role": "source-package",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "literal-config",
+        "state": "not-published",
+        "status": "not-published-in-this-record",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+      },
+      {
+        "role": "confighub-upload",
+        "state": "not-recorded",
+        "status": "not-recorded",
+        "reference": "",
+        "referenceState": "none",
+        "digests": []
+      },
+      {
+        "role": "confighub-release",
+        "state": "not-published",
+        "status": "not-recorded-for-this-base",
+        "reference": "",
+        "referenceState": "none",
+        "digests": [],
+        "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+      }
+    ],
+    "runtimes": [
+      {
+        "runtime": "argo-cd",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "flux",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      },
+      {
+        "runtime": "direct",
+        "state": "not-run",
+        "status": "not-recorded-for-this-base"
+      }
+    ]
+  },
+  "images": {
+    "count": 3,
+    "pinnedByDigest": 0,
+    "namedByTag": 3,
+    "references": [
+      {
+        "reference": "ecr-public.aws.com/docker/library/redis:8.6.4-alpine",
+        "pinned": false
+      },
+      {
+        "reference": "ghcr.io/dexidp/dex:v2.46.1",
+        "pinned": false
+      },
+      {
+        "reference": "quay.io/argoproj/argocd:v3.6.3",
+        "pinned": false
+      }
+    ],
+    "readFrom": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+    "record": "data/catalog-images/images.json",
+    "recordUrl": "https://github.com/confighub/helm-expt/blob/main/data/catalog-images/images.json",
+    "boundary": "what the objects name, not what the registry holds now; cub config check --images resolves a tag to the bytes behind it"
+  },
+  "variants": {
+    "base": "no-crds",
+    "known": [
+      {
+        "id": "argo-cd-argo-cd-10-20-0-default",
+        "base": "default",
+        "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-default.json",
+        "self": false,
+        "digest": "sha256:fc28048aad6b8d9792abeffb70e6ae43ff4436a8168873573ee4e130cfb8b612"
+      },
+      {
+        "id": "argo-cd-argo-cd-10-20-0-no-crds",
+        "base": "no-crds",
+        "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-no-crds.json",
+        "self": true,
+        "digest": "sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f"
+      }
+    ],
+    "howToMakeOne": {
+      "model": "The catalog builds a base by pinning one source version, fixing one set of inputs, and retaining the exact objects that come out. A new variant starts from a retained base and changes only the fields it owns, so the base stays comparable and the change stays reviewable.",
+      "steps": [
+        "Materialize this base and confirm the object set hashes to sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f. The exact objects are recorded at recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml.",
+        "Put those objects in a local directory called rendered, then preview the retention before writing anything.",
+        "Retain the base in ConfigHub, carrying the object-set hash as an annotation so the accepted identity travels with it.",
+        "Create the new variant from that base and change only the fields the variant owns.",
+        "Preview the promotion and read the mutations before any write command runs."
+      ],
+      "commands": [
+        {
+          "step": "Preview the retention",
+          "command": "cub variant upload --dry-run --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-10-20-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f ./rendered",
+          "writes": false
+        },
+        {
+          "step": "Retain this base",
+          "command": "cub variant upload --component argo-cd-argo-cd --variant no-crds --space argo-cd-argo-cd-10-20-0-no-crds --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f ./rendered",
+          "writes": true
+        },
+        {
+          "step": "Create a staging variant",
+          "command": "cub variant create staging argo-cd-argo-cd-10-20-0-no-crds --space-pattern template:argo-cd-argo-cd-10-20-0-no-crds-staging --environment Staging --unit-annotation workshop.confighub.com/object-set-sha256=sha256:e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f",
+          "writes": true
+        },
+        {
+          "step": "Preview the promotion",
+          "command": "cub variant promote argo-cd-argo-cd-10-20-0-no-crds-staging --dry-run -o mutations",
+          "writes": false
+        }
+      ],
+      "reference": "https://github.com/confighub/helm-expt/blob/main/data/config-workshop-command-contract/summary.md"
+    }
+  },
+  "routing": {
+    "routeStatus": "required-at-destination",
+    "requirementsStatus": "recorded",
+    "targetFactsStatus": "recorded",
+    "resolutionStatus": "awaits-variant-and-target",
+    "resolutionRule": "Re-resolve after a lifecycle-sensitive variant change, destination assignment, or delivery-runtime change; bind the result to the exact configuration digest.",
+    "requirements": [
+      {
+        "id": "applications.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Argo CD CRD managed outside this no-crds base"
+      },
+      {
+        "id": "applicationsets.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Argo CD CRD managed outside this no-crds base"
+      },
+      {
+        "id": "appprojects.argoproj.io",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Argo CD CRD managed outside this no-crds base"
+      },
+      {
+        "id": "argocd/argocd-redis",
+        "type": "target-fact",
+        "origin": "base",
+        "detail": "Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly"
+      }
+    ],
+    "routes": [],
+    "records": [
+      {
+        "name": "argo-cd-argo-cd-10-20-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+      }
+    ]
+  },
+  "lifecycle": {
+    "installTimeStatus": "partly-declared",
+    "installTimeInputs": [
+      {
+        "name": "applications.argoproj.io",
+        "kind": "requiredCRDs",
+        "detail": "Argo CD CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "applicationsets.argoproj.io",
+        "kind": "requiredCRDs",
+        "detail": "Argo CD CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "appprojects.argoproj.io",
+        "kind": "requiredCRDs",
+        "detail": "Argo CD CRD managed outside this no-crds base",
+        "status": "declared-not-checked"
+      },
+      {
+        "name": "argocd-redis",
+        "kind": "requiredSecrets",
+        "detail": "Redis auth Secret normally generated by the chart secret-init hook; config-only delivery lanes stage it explicitly",
+        "status": "declared-not-checked"
+      }
+    ],
+    "promotion": {
+      "state": "not-recorded",
+      "status": "missing-confighub-proof"
+    },
+    "coverage": {
+      "render_parity": {
+        "status": "checked",
+        "declared": "yes"
+      },
+      "confighub_scan_ops": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "local_kubernetes": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "lifecycle_observation": {
+        "status": "not_applicable",
+        "declared": "n/a"
+      },
+      "gitops_oci_live": {
+        "status": "not_checked",
+        "declared": "no"
+      },
+      "live_dual_parity": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "two_cluster_kind": {
+        "status": "not_checked",
+        "declared": "todo"
+      },
+      "variant_promotion": {
+        "status": "not_checked",
+        "declared": "missing-confighub-proof"
+      }
+    },
+    "policy": {
+      "profile": "catalog-standard",
+      "productionAdds": [
+        "workflow-approval"
+      ]
+    },
+    "operations": {
+      "resourceClass": "not-yet-classified",
+      "ownerClass": "not-yet-classified",
+      "changeCadence": "not-yet-classified"
+    },
+    "ownership": {
+      "status": "partly-declared",
+      "sourceControlled": [
+        "Fields produced from the recorded chart values and render context"
+      ],
+      "variantControlled": [
+        "Post-render object fields recorded in ConfigHub after upload"
+      ],
+      "targetSupplied": [
+        "applications.argoproj.io",
+        "applicationsets.argoproj.io",
+        "appprojects.argoproj.io",
+        "argocd/argocd-redis"
+      ],
+      "deliveryProtected": [],
+      "rule": "Re-evaluate ownership when the source, variant, destination, or delivery behavior changes; overlapping source and variant edits require review."
+    },
+    "notes": []
+  },
+  "assessment": {
+    "stages": [
+      {
+        "id": "inspection",
+        "question": "What do I have?",
+        "answer": "Inspect the helm source, choices, locks, and any existing output before selecting a destination.",
+        "evidenceState": "completed",
+        "resultState": "available",
+        "nextAction": "Inspect or compare the source and exact files before choosing a destination.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The chart and values, a rendered object set, or a package that contains them"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+          },
+          {
+            "name": "release-objects.yaml",
+            "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          },
+          {
+            "name": "object-inventory.yaml",
+            "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+          }
+        ]
+      },
+      {
+        "id": "materialization",
+        "question": "What will it produce?",
+        "answer": "Run the recorded Helm render step to produce the exact Kubernetes objects for this configuration.",
+        "evidenceState": "completed",
+        "resultState": "pass",
+        "nextAction": "Review the exact object set and its digest.",
+        "destinationAccessRequired": false,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The pinned chart, version, values, namespace, release name, and render capabilities"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+          },
+          {
+            "name": "variant-revision.yaml",
+            "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml"
+          }
+        ]
+      },
+      {
+        "id": "destination",
+        "question": "Can this destination accept it?",
+        "answer": "The destination has not been checked for this exact configuration. A recorded source or render result is not a destination pass.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Choose a destination and check its APIs, prerequisites, policies, credentials, controllers, and hardware before apply.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": false,
+        "requiredInputs": [
+          "The exact candidate configuration",
+          "The selected destination and its current APIs, prerequisites, policies, credentials, controllers, and hardware facts"
+        ],
+        "records": [
+          {
+            "name": "argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "path": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+            "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+          }
+        ]
+      },
+      {
+        "id": "post-deployment",
+        "question": "Did it work?",
+        "answer": "No post-deployment result is recorded for this exact configuration. Publication, upload, or rendering is not proof that it ran correctly.",
+        "evidenceState": "not-run",
+        "resultState": "not-run",
+        "nextAction": "Deliver the exact revision, then record controller, resource, health, runtime, drift, and rollback results separately.",
+        "destinationAccessRequired": true,
+        "deploymentRequired": true,
+        "requiredInputs": [
+          "The exact delivered revision and destination",
+          "Live controller, resource, health, runtime, drift, and rollback observations required by the claim"
+        ],
+        "records": []
+      }
+    ]
+  },
+  "evidence": {
+    "links": [
+      {
+        "name": "argo-cd-argo-cd-10-20-0-no-crds.yaml",
+        "path": "data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-10-20-0-no-crds.yaml"
+      },
+      {
+        "name": "object-inventory.yaml",
+        "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+      },
+      {
+        "name": "release-objects.yaml",
+        "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      },
+      {
+        "name": "variant-revision.yaml",
+        "path": "recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml",
+        "url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/variant-revision.yaml"
+      }
+    ],
+    "attributes": []
+  },
+  "nextSteps": [
+    {
+      "id": "get-objects",
+      "label": "Get the exact objects",
+      "state": "run-for-this-entry",
+      "summary": "The Catalog rendered this entry and retains its 51 objects in one file.",
+      "basis": [
+        "flattened.materializationStatus",
+        "flattened.retainedObjects",
+        "flattened.inventory",
+        "flattened.digest"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the retained objects for this entry",
+          "command": "curl -fsSL -o argo-cd-argo-cd-10-20-0-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "check the bytes against the listing",
+          "command": "shasum -a 256 argo-cd-argo-cd-10-20-0-no-crds.yaml",
+          "expect": "e1ba7cc116bd26a50288a2e038f59f976b4699b2047db1db11a8af1dca6a218f  argo-cd-argo-cd-10-20-0-no-crds.yaml"
+        },
+        {
+          "comment": "render this base from the signed package; step 3 can upload this directory",
+          "command": "cub installer setup --pull oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29 --base no-crds --work-dir ./argo-cd-argo-cd-10-20-0-no-crds --non-interactive --namespace argocd"
+        }
+      ],
+      "notes": [
+        "An upload can create more Units than the objects counted here. The installer renders a Namespace, and the upload adds a Unit that holds the installer record."
+      ]
+    },
+    {
+      "id": "compare",
+      "label": "Compare with another version or base",
+      "state": "not-run-for-this-entry",
+      "summary": "The listing records no comparison for this entry. The commands run on the retained files, with no account.",
+      "basis": [
+        "variants.known",
+        "source.name",
+        "flattened.format"
+      ],
+      "commands": [
+        {
+          "comment": "fetch the default base of the same version",
+          "command": "curl -fsSL -o argo-cd-argo-cd-10-20-0-default.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.20.0/revisions/default/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what differs between the two bases",
+          "command": "cub config diff argo-cd-argo-cd-10-20-0-no-crds.yaml argo-cd-argo-cd-10-20-0-default.yaml --summary"
+        },
+        {
+          "comment": "fetch the no-crds base at version 10.7.0",
+          "command": "curl -fsSL -o argo-cd-argo-cd-10-7-0-no-crds.yaml https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/argo-cd/argo-cd/10.7.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+        },
+        {
+          "comment": "list what changed from 10.7.0 to 10.20.0",
+          "command": "cub config diff argo-cd-argo-cd-10-7-0-no-crds.yaml argo-cd-argo-cd-10-20-0-no-crds.yaml --summary"
+        }
+      ],
+      "siblings": [
+        {
+          "id": "argo-cd-argo-cd-9-5-15-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-15-default.json",
+          "version": "9.5.15",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-9-5-15-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-15-no-crds.json",
+          "version": "9.5.15",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-9-5-17-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-17-default.json",
+          "version": "9.5.17",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-9-5-17-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-9-5-17-no-crds.json",
+          "version": "9.5.17",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-1-3-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-1-3-default.json",
+          "version": "10.1.3",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-1-3-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-1-3-no-crds.json",
+          "version": "10.1.3",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-2-1-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-default.json",
+          "version": "10.2.1",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-2-1-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-2-1-no-crds.json",
+          "version": "10.2.1",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-7-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-default.json",
+          "version": "10.7.0",
+          "base": "default",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-7-0-no-crds",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-7-0-no-crds.json",
+          "version": "10.7.0",
+          "base": "no-crds",
+          "relation": "other-version"
+        },
+        {
+          "id": "argo-cd-argo-cd-10-20-0-default",
+          "url": "https://confighub.github.io/helm-expt/site/listings/argo-cd-argo-cd-10-20-0-default.json",
+          "version": "10.20.0",
+          "base": "default",
+          "relation": "other-base"
+        }
+      ]
+    },
+    {
+      "id": "upload",
+      "label": "Upload it as a variant",
+      "state": "not-run-for-this-entry",
+      "summary": "The Catalog has not uploaded this entry. The commands use its signed installer package.",
+      "basis": [
+        "source.ociRef",
+        "oci.bundles[literal-config]",
+        "oci.bundles[confighub-upload]",
+        "oci.bundles[confighub-release]",
+        "lifecycle.coverage.confighub_scan_ops"
+      ],
+      "commands": [
+        {
+          "comment": "sign in; steps 3 to 5 write to your ConfigHub organization",
+          "command": "cub auth login",
+          "needsAccount": true
+        },
+        {
+          "comment": "put the signed package into a Space in one command: it pulls, renders and uploads",
+          "command": "cub package install oci://ghcr.io/confighub/packages/argo-cd-helm:v10.20.0@sha256:c2b3d56b46a6cf53a09ccec757755f31a3060ac0549fdd1af4b9bec2ab6f0f29 --base no-crds --space <your-space> --namespace argocd --non-interactive",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "or, to name the Component yourself, upload step 1's directory instead",
+          "command": "cub installer upload --work-dir ./argo-cd-argo-cd-10-20-0-no-crds --space <your-space> --component <your-component>",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "list the Units the upload created",
+          "command": "cub unit list --space <your-space>",
+          "needsAccount": true
+        }
+      ],
+      "notes": [
+        "Replace each value in angle brackets with a name of your own. The entry id may already exist as a Space in your organization, and the package name as a Component.",
+        "`cub package install` names the Component after the package. To choose its name, run step 1's `cub installer setup` and then `cub installer upload` with `--component`. In the run of 2026-11-26 for the nginx entry, both forms created the same Units.",
+        "In the walk of 2026-10-08, a Space named for the nginx entry's id and a Component named bitnami-nginx already existed, so the walk chose its own names.",
+        "The cub installer plugin reads your organization from `CUB_CONTEXT` and ignores `--context`. If you use a context other than your default, export `CUB_CONTEXT` first, or the plugin works in your default organization."
+      ],
+      "liveWalk": {
+        "date": "2026-11-26",
+        "path": "docs/user/live-walk-cub-package-install-2026-11-26.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-cub-package-install-2026-11-26.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1 and installer plugin 0.6.1"
+      }
+    },
+    {
+      "id": "deploy",
+      "label": "Deploy it",
+      "state": "not-run-for-this-entry",
+      "summary": "No delivery run is recorded for this entry. Argo CD has not run, Flux has not run, and kubectl has not run.",
+      "basis": [
+        "oci.runtimes",
+        "lifecycle.installTimeInputs"
+      ],
+      "commands": [
+        {
+          "comment": "clone the base onto a Target as a dev variant",
+          "command": "cub variant create dev <your-space> --target workshop/target --space-pattern \"template:<your-space>-dev\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that the cluster's Argo CD pulls",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "Use the Space name you chose in step 3. The upload also keeps a record of the package as a hidden Unit named `installer`. The variant does not clone it, so one publish deploys the rendered objects.",
+        "ConfigHub shows nothing when Argo CD fails to read a Release. Run `kubectl -n argocd get applications.argoproj.io` and read the Sync column, because Healthy alone is not a pass. In the walk, the Application was Synced and Healthy about 4.5 minutes after the publish, on a cluster made without k8sbot.",
+        "Make the cluster with `cub cluster up --name workshop --no-k8sbot`. That command creates two Spaces, a Target, a service account and a Trigger, opens ten ports on the machine, and installs Argo CD from an unpinned upstream manifest. Argo CD in the cluster pulls each Release from the ConfigHub server, so the cluster has to reach it."
+      ],
+      "liveWalk": {
+        "date": "2026-11-27",
+        "path": "docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1, installer plugin 0.6.1 and kind v0.31.0"
+      },
+      "needs": [
+        "applications.argoproj.io",
+        "applicationsets.argoproj.io",
+        "appprojects.argoproj.io",
+        "argocd-redis"
+      ]
+    },
+    {
+      "id": "promote",
+      "label": "Promote a change",
+      "state": "not-run-for-this-entry",
+      "summary": "No promotion is recorded for this entry.",
+      "basis": [
+        "lifecycle.promotion"
+      ],
+      "commands": [
+        {
+          "comment": "preview what the dev variant would take from the base",
+          "command": "cub variant promote <your-space>-dev --dry-run -o mutations",
+          "needsAccount": true
+        },
+        {
+          "comment": "promote once you have read the preview",
+          "command": "cub variant promote <your-space>-dev --change-desc \"Pull the reviewed base forward\"",
+          "needsAccount": true,
+          "writes": true
+        },
+        {
+          "comment": "publish the Release that carries the change",
+          "command": "cub release publish <your-space>-dev",
+          "needsAccount": true,
+          "writes": true
+        }
+      ],
+      "notes": [
+        "The promotion changes the dev Space and publishes nothing. The change reaches the cluster only after the publish. The promotion also adds the hidden `installer` Unit to the dev Space, without a Target, and the Release leaves it out.",
+        "The preview lists the whole installer record as added. In the walk, the preview of a one-field change to nginx ran to 57 lines, and about 50 of them were that record."
+      ],
+      "liveWalk": {
+        "date": "2026-11-27",
+        "path": "docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "url": "https://github.com/confighub/helm-expt/blob/main/docs/user/live-walk-entry-deploy-promote-2026-11-27.md",
+        "versions": "cub v0.11.23, ConfigHub server v0.11.1, installer plugin 0.6.1 and kind v0.31.0"
+      }
+    }
+  ]
+}

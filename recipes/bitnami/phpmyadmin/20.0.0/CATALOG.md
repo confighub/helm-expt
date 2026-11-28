@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/phpmyadmin/20.0.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/phpmyadmin/20.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/phpmyadmin/20.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b` |
+| Install into a Space | `cub package install phpmyadmin:v20.0.0 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f` |
+| Installer package publication | [runs/ghcr-packages/phpmyadmin/v20.0.0.yaml](../../../../runs/ghcr-packages/phpmyadmin/v20.0.0.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b` |
 | Installer package source | [packages/bitnami/phpmyadmin/20.0.0](../../../../packages/bitnami/phpmyadmin/20.0.0) |
 | Installer package receipt | [recipes/bitnami/phpmyadmin/20.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/phpmyadmin/20.0.0/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0@sha256:920d98ee4cb958782095688f69a573134ae55cdef731b3c8fa96e859fd59c06b --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install phpmyadmin:v20.0.0 --space phpmyadmin --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/phpmyadmin:v20.0.0@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/phpmyadmin@sha256:b09f49035e0c37eff30ca211b53eb94a1c214280e202ff1437f847886810bd8f`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

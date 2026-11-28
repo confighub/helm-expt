@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/stakater/reloader/2.2.14/value-model.yaml](../../../../../../../recipes/stakater/reloader/2.2.14/value-model.yaml) |
 | Catalog status | [data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4` |
+| Install into a Space | `cub package install reloader:v2.2.14 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/reloader:v2.2.14@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d` |
+| Installer package publication | [runs/ghcr-packages/reloader/v2.2.14.yaml](../../../../../../../runs/ghcr-packages/reloader/v2.2.14.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4` |
 | Installer package source | [packages/stakater/reloader/2.2.14](../../../../../../../packages/stakater/reloader/2.2.14) |
 | Installer package receipt | [recipes/stakater/reloader/2.2.14/publication/installer-package-receipt.yaml](../../../../../../../recipes/stakater/reloader/2.2.14/publication/installer-package-receipt.yaml) |
 | Machine index | [data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14@sha256:8be0cb9b152ba3e0e80b81c9e19b1f5d2e4d05091e8d0577356fc94a495e74d4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install reloader:v2.2.14 --space reloader --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/reloader:v2.2.14@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/reloader@sha256:549bc2e8d0cf16eaa90b64e9b68c183de66d6aa11d885e5aac603e8bd0ad891d`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

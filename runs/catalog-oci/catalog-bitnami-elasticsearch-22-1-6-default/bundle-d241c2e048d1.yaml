@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-bitnami-elasticsearch-22-1-6-default"
+spec:
+  kind: "certified-bundle"
+  record: "bitnami-elasticsearch-22-1-6-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default:bundle-d241c2e048d1"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+  manifestDigest: "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default@sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+    receipt: "runs/certified-bundles/catalog-bitnami-elasticsearch-22-1-6-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+  observedAt: "2026-11-27T19:34:58.493Z"
+status:
+  result: "pass"

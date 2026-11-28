@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0@sha256:79a341b9ba34bf1de694eb2094ef19be67454f3783c6eea3792f651501b4808f"
+        "ociRef": "oci://ghcr.io/confighub/packages/valkey:v0.11.0@sha256:fb1551e069fa6248ce85abfec11aed5fa67ccab580ffb20ef328abf5c79224cb",
+        "installCommand": "cub package install valkey:v0.11.0 --space <space>"
       },
       "bases": [
         {

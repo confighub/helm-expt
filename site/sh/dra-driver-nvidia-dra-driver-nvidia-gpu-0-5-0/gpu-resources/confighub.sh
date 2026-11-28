@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the gpu-resources base variant into ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dra-driver-nvidia-dra-driver-nvidia-gpu:0.5.0@sha256:f7e5c5b64875eab480936e1d3845de368e334fd144857b5f5d79b619a63e6a5e --base gpu-resources --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources --non-interactive --namespace nvidia-dra-driver
+cub installer setup --pull oci://ghcr.io/confighub/packages/dra-driver-nvidia-gpu:v0.5.0@sha256:f5c4712103632e82675da95f20f0fb3cfd1fb3ffd8655f0084294a4e73055d38 --base gpu-resources --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources --non-interactive --namespace nvidia-dra-driver
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./dra-driver-nvidia-dra-driver-nvidia-gpu-0-5-0-gpu-resources --space "${SPACE}"

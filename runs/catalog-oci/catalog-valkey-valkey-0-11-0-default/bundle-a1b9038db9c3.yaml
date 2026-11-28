@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-valkey-valkey-0-11-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "valkey-valkey-0-11-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-valkey-valkey-0-11-0-default:bundle-a1b9038db9c3"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-valkey-valkey-0-11-0-default@sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+  manifestDigest: "sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/valkey-0.11.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-valkey-valkey-0-11-0-default@sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+    receipt: "runs/certified-bundles/catalog-valkey-valkey-0-11-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:a1b9038db9c3c76d68d34fa91609f06b528bfb2df2a928dd9387f692e402cdb6"
+  observedAt: "2026-11-27T19:35:58.136Z"
+status:
+  result: "pass"

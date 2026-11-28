@@ -62,11 +62,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/hashicorp/terraform/1.1.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2"
-    manifestDigest: "sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
-    layerDigest: "sha256:8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
-    publicationReceipt: "runs/installer-oci/hashicorp-terraform/1.1.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/hashicorp-terraform:v1.1.2@sha256:e4c1bb7b1b79bff716ac86bf5607e49fc904e83a7e9da52d4372ea86c9fbdd06"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/hashicorp-terraform:v1.1.2"
+    manifestDigest: "sha256:e4c1bb7b1b79bff716ac86bf5607e49fc904e83a7e9da52d4372ea86c9fbdd06"
+    layerDigest: "sha256:aa212b7b3686fbaaf0457f5fa68122324b8f8b3deca0ce2e6ba3f4e6f14af0a7"
+    publicationReceipt: "runs/ghcr-packages/hashicorp-terraform/v1.1.2.yaml"
+    name: "hashicorp-terraform"
+    tag: "v1.1.2"
+    installCommand: "cub package install hashicorp-terraform:v1.1.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/hashicorp-terraform@sha256:e4c1bb7b1b79bff716ac86bf5607e49fc904e83a7e9da52d4372ea86c9fbdd06"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9"
+      publicationReceipt: "runs/installer-oci/hashicorp-terraform/1.1.2/installer-package-publication-receipt.yaml"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "8f7175cd6abb05aaa6b63fe365c3118428a28b40462afbbd93d775453dffcf10"
@@ -133,7 +140,7 @@ spec:
         default: true
         description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/hashicorp-terraform:v1.1.2@sha256:e4c1bb7b1b79bff716ac86bf5607e49fc904e83a7e9da52d4372ea86c9fbdd06 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -239,7 +246,7 @@ spec:
         default: false
         description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2@sha256:0e51444dda2d64c54e8d09b63fbb8076e1da39681f996968f90d8c7145d778b9 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/hashicorp-terraform:v1.1.2@sha256:e4c1bb7b1b79bff716ac86bf5607e49fc904e83a7e9da52d4372ea86c9fbdd06 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

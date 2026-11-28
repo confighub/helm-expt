@@ -58,11 +58,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/traefik/traefik/41.0.2"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
-    manifestDigest: "sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
-    layerDigest: "sha256:7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
-    publicationReceipt: "runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/traefik:v41.0.2@sha256:740850f521fe40a8fa44ac7bc023fd4d3eff3de4739adac38f716da49d43a666"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/traefik:v41.0.2"
+    manifestDigest: "sha256:740850f521fe40a8fa44ac7bc023fd4d3eff3de4739adac38f716da49d43a666"
+    layerDigest: "sha256:f24e37943132ae7df856cceb7a2c1f03f3d9079affc065f6e724a696087ef881"
+    publicationReceipt: "runs/ghcr-packages/traefik/v41.0.2.yaml"
+    name: "traefik"
+    tag: "v41.0.2"
+    installCommand: "cub package install traefik:v41.0.2 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/traefik@sha256:740850f521fe40a8fa44ac7bc023fd4d3eff3de4739adac38f716da49d43a666"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9"
+      publicationReceipt: "runs/installer-oci/traefik-traefik/41.0.2/installer-package-publication-receipt.yaml"
     installer: "packages/traefik/traefik/41.0.2/installer.yaml"
     receipt: "recipes/traefik/traefik/41.0.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "7e6a972b6c45aad5031fb6baf7173a8cd9bd5317ec7c704bfb44f8ab7033ac5b"
@@ -94,7 +101,7 @@ spec:
         default: true
         description: "traefik chart defaults variant rendered from traefik/traefik@41.0.2"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2@sha256:1eaa111b935f026954acd370b50b9d560c546c992ce14babb581650c295a7cd9 --base default --work-dir <tmp> --non-interactive --namespace traefik"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/traefik:v41.0.2@sha256:740850f521fe40a8fa44ac7bc023fd4d3eff3de4739adac38f716da49d43a666 --base default --work-dir <tmp> --non-interactive --namespace traefik"
         helmReleaseObjectCount: 31
         cubInstallObjectCountIncludingSupport: 32
         semanticObjectMatches: "31/31"

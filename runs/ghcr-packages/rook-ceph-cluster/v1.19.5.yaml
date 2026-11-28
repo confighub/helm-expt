@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "rook-ceph-cluster"
+spec:
+  chart: "rook-release/rook-ceph-cluster"
+  version: "v1.19.5"
+  packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5"
+  tag: "v1.19.5"
+  reference: "ghcr.io/confighub/packages/rook-ceph-cluster:v1.19.5"
+  immutableReference: "ghcr.io/confighub/packages/rook-ceph-cluster@sha256:95ec5165d9b80ef7d692a786af5b108d939d0a4cae851aee0d25279c511f7d33"
+  manifestDigest: "sha256:95ec5165d9b80ef7d692a786af5b108d939d0a4cae851aee0d25279c511f7d33"
+  layerDigest: "sha256:9a1f4d766ad8702b4077999c79a1446dff62307e7a25e3082ad7e9b4a20ddcd5"
+  installCommand: "cub package install rook-ceph-cluster:v1.19.5 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:95ec5165d9b80ef7d692a786af5b108d939d0a4cae851aee0d25279c511f7d33"
+  observedAt: "2026-11-27T19:43:59.025Z"
+status:
+  result: "pass"

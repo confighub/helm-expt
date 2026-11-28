@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-jetstack-cert-manager-v1-21-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "jetstack-cert-manager-v1-21-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-default:bundle-bf7146fc654f"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-jetstack-cert-manager-v1-21-0-default@sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+  manifestDigest: "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml with the space guide as committed; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default@sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+    receipt: "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:bf7146fc654f3bc16c7f144d5279ca36869e659fd199ddf54550ec72ed47830e"
+  observedAt: "2026-11-27T19:35:27.329Z"
+status:
+  result: "pass"

@@ -58,11 +58,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/longhorn/longhorn/1.12.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0"
-    manifestDigest: "sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
-    layerDigest: "sha256:ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282"
-    publicationReceipt: "runs/installer-oci/longhorn-longhorn/1.12.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/longhorn:v1.12.0"
+    manifestDigest: "sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+    layerDigest: "sha256:cda84cdb7ed3ca4a29a3c7c36be3e5111f2a9d0c7d75f6def788c96f35fb580a"
+    publicationReceipt: "runs/ghcr-packages/longhorn/v1.12.0.yaml"
+    name: "longhorn"
+    tag: "v1.12.0"
+    installCommand: "cub package install longhorn:v1.12.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/longhorn@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
+      publicationReceipt: "runs/installer-oci/longhorn-longhorn/1.12.0/installer-package-publication-receipt.yaml"
     installer: "packages/longhorn/longhorn/1.12.0/installer.yaml"
     receipt: "recipes/longhorn/longhorn/1.12.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ab0f7a2bb409a3c3cb867c39f1835746d9b0d71edb626d50efc3f5a27d936282"
@@ -94,7 +101,7 @@ spec:
         default: true
         description: "longhorn chart defaults variant rendered from longhorn/longhorn@1.12.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"

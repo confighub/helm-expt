@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "loki"
+spec:
+  chart: "grafana/loki"
+  version: "7.3.0"
+  packagePath: "packages/grafana/loki/7.3.0"
+  tag: "v7.3.0"
+  reference: "ghcr.io/confighub/packages/loki:v7.3.0"
+  immutableReference: "ghcr.io/confighub/packages/loki@sha256:429c098f35e16a0a1851f38e2dd4d204e91028921aa37c52dbb0b232fd5cc2c4"
+  manifestDigest: "sha256:429c098f35e16a0a1851f38e2dd4d204e91028921aa37c52dbb0b232fd5cc2c4"
+  layerDigest: "sha256:a8fae0c846e67bb4e2bdee2187837628c6cc76f323dfc6dbd8adb478aa639b50"
+  installCommand: "cub package install loki:v7.3.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:429c098f35e16a0a1851f38e2dd4d204e91028921aa37c52dbb0b232fd5cc2c4"
+  observedAt: "2026-11-27T19:43:19.333Z"
+status:
+  result: "pass"

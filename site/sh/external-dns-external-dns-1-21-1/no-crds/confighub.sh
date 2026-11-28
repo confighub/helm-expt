@@ -34,7 +34,7 @@ if ! cub auth status >/dev/null 2>&1; then
 fi
 
 say "Render the no-crds base variant into ./external-dns-external-dns-1-21-1-no-crds"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1@sha256:7683722340b073403d7fbb313f139f44d7e01e03f1fbb1606283758876d33bf9 --base no-crds --work-dir ./external-dns-external-dns-1-21-1-no-crds --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/external-dns:v1.21.1@sha256:faba9e8ed8830397b849de92de94ed6c8a7b456a8860515a9236ae0ddbd2974b --base no-crds --work-dir ./external-dns-external-dns-1-21-1-no-crds --non-interactive --namespace default
 
 say "Upload the rendered objects to Space ${SPACE} (created on first upload)"
 cub installer upload --work-dir ./external-dns-external-dns-1-21-1-no-crds --space "${SPACE}"

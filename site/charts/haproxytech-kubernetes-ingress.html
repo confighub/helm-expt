@@ -766,9 +766,12 @@
   <main>
     <section class="at-a-glance" aria-label="At a glance">
       <p><strong>What it is.</strong> <code>haproxytech/kubernetes-ingress</code> 1.52.0, pre-rendered as 7 Kubernetes objects in its <code>default</code> preset.</p>
+      <p><strong>Install kubernetes-ingress into ConfigHub.</strong> <code>cub package install kubernetes-ingress:v1.52.0 --space kubernetes-ingress --namespace default</code></p>
+      <p>Needs a ConfigHub sign-in (<code>cub auth login</code>). Nothing reaches a cluster until you <a href="../packages.html#run-it">release it</a>. <a href="../packages.html">How packages work</a>.</p>
       <p><strong>Inspect YAML.</strong> <a href="https://raw.githubusercontent.com/confighub/helm-expt/main/recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml">Read rendered YAML on GitHub</a> (zero install).</p>
-      <p><strong>Install it.</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
+      <p><strong>Render it locally (no account).</strong> Pull locally with <code>cub installer</code>. <a href="#use-in-confighub">Five steps below</a>.</p>
       
+      <p><strong>Which to use.</strong> Package to install into ConfigHub; YAML to read or apply by hand.</p>
       <p><strong>Docs.</strong> <a href="../d/docs/user/model-and-vocabulary.html">Model</a> · <a href="../config.html">Helm in the Catalog</a>.</p>
     </section>
     <section aria-labelledby="versions">
@@ -829,7 +832,7 @@
 d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544  haproxytech-kubernetes-ingress-1-52-0-default.yaml
 
 <span class="term-comment"># render this base from the signed package; step 3 can upload this directory</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default</code></pre>
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0 --base default --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --non-interactive --namespace default</code></pre>
         </div>
         <div class="entry-step" data-step="compare" data-state="not-available">
           <h3>2. Compare with another version or base <span class="status none">Not available yet</span></h3>
@@ -846,7 +849,7 @@ d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544  haproxytech-ku
 <span class="term-prompt">$</span> cub auth login
 
 <span class="term-comment"># put the signed package into a Space in one command: it pulls, renders and uploads</span>
-<span class="term-prompt">$</span> cub package install oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0@sha256:11f127344006f2e249cac8f7e4aa58d844246322b2e48f90343221eb20118a38 --base default --space &lt;your-space&gt; --namespace default --non-interactive
+<span class="term-prompt">$</span> cub package install oci://ghcr.io/confighub/packages/kubernetes-ingress:v1.52.0@sha256:61712a9fd7cf6fde96066738daea296ad17c8598244a8c09518ef2672cc2edc0 --base default --space &lt;your-space&gt; --namespace default --non-interactive
 
 <span class="term-comment"># or, to name the Component yourself, upload step 1's directory instead</span>
 <span class="term-prompt">$</span> cub installer upload --work-dir ./haproxytech-kubernetes-ingress-1-52-0-default --space &lt;your-space&gt; --component &lt;your-component&gt;

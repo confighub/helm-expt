@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "postgresql"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.7.0"
+  packagePath: "packages/bitnami/postgresql/18.7.0"
+  tag: "v18.7.0"
+  reference: "ghcr.io/confighub/packages/postgresql:v18.7.0"
+  immutableReference: "ghcr.io/confighub/packages/postgresql@sha256:40d2f3d8b167f4d9c95b95e32250c6fd292a778cc3fdd93bbbe795476cd5dd7c"
+  manifestDigest: "sha256:40d2f3d8b167f4d9c95b95e32250c6fd292a778cc3fdd93bbbe795476cd5dd7c"
+  layerDigest: "sha256:6f11f818bcd23fd830836f14880482613267f9ad7e8744f6b67f8deb4f35db38"
+  installCommand: "cub package install postgresql:v18.7.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:40d2f3d8b167f4d9c95b95e32250c6fd292a778cc3fdd93bbbe795476cd5dd7c"
+  observedAt: "2026-11-27T19:42:59.768Z"
+status:
+  result: "pass"

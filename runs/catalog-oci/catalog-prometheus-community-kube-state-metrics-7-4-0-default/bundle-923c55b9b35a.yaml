@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-kube-state-metrics-7-4-0-default"
+spec:
+  kind: "certified-bundle"
+  record: "prometheus-community-kube-state-metrics-7-4-0-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default:bundle-923c55b9b35a"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-prometheus-community-kube-state-metrics-7-4-0-default@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+  manifestDigest: "sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/kube-state-metrics-7.4.0-default/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default@sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+    receipt: "runs/certified-bundles/catalog-prometheus-community-kube-state-metrics-7-4-0-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:923c55b9b35ab1c4419fae4ddfc3f7baee033e835d7829087b68009d79d25df2"
+  observedAt: "2026-11-27T19:35:46.007Z"
+status:
+  result: "pass"

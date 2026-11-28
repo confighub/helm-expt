@@ -63,11 +63,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/logstash/8.5.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
-    manifestDigest: "sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
-    layerDigest: "sha256:2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa"
-    publicationReceipt: "runs/installer-oci/elastic-logstash/8.5.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/logstash:v8.5.1"
+    manifestDigest: "sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+    layerDigest: "sha256:99f13315b2ef63db4a8fab6bc5678de28525defb9cc9876c980b44daf5b66349"
+    publicationReceipt: "runs/ghcr-packages/logstash/v8.5.1.yaml"
+    name: "logstash"
+    tag: "v8.5.1"
+    installCommand: "cub package install logstash:v8.5.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/logstash@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3"
+      publicationReceipt: "runs/installer-oci/elastic-logstash/8.5.1/installer-package-publication-receipt.yaml"
     installer: "packages/elastic/logstash/8.5.1/installer.yaml"
     receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "2e32a43c4d49f678ea5950fb35f7e2687dbeb6f97590f29d1ca1d07c58934caa"
@@ -104,7 +111,7 @@ spec:
         default: true
         description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -172,7 +179,7 @@ spec:
         default: false
         description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1@sha256:fd909b18b84b947213f291f209e93f75dcd94dc25324a28211b2afd8960895b3 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/logstash:v8.5.1@sha256:152db8eba6155270700cb5cc508ec8c2b0b7d241def20d36b94dec494e45dac8 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

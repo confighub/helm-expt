@@ -64,11 +64,18 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/bitnami/mysql/14.0.3"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3"
-    manifestDigest: "sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
-    layerDigest: "sha256:b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
-    publicationReceipt: "runs/installer-oci/bitnami-mysql/14.0.3/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/mysql:v14.0.3"
+    manifestDigest: "sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+    layerDigest: "sha256:7b82d2d7bd695c9450700a1d0bb5a9e02f15ba9faa865ec129abd7b4db1b9a29"
+    publicationReceipt: "runs/ghcr-packages/mysql/v14.0.3.yaml"
+    name: "mysql"
+    tag: "v14.0.3"
+    installCommand: "cub package install mysql:v14.0.3 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/mysql@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884"
+      publicationReceipt: "runs/installer-oci/bitnami-mysql/14.0.3/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "b4853b8df0cc7c7c174bcf4cfce89a13f7380980f1372629d26591c14eaa7cb0"
@@ -105,7 +112,7 @@ spec:
         default: false
         description: "mysql static password demo variant rendered from bitnami/mysql@14.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base static-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9 --base static-passwords --work-dir <tmp> --non-interactive --namespace mysql"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -175,7 +182,7 @@ spec:
         default: true
         description: "mysql existing Secret default variant rendered from bitnami/mysql@14.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3@sha256:d6f28a53019fe3768773ec9e58210ed5ba160f3338cb9ae746343cf47dc1c884 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/mysql:v14.0.3@sha256:3c72e1c46034bcbeb759237da02a4ba9736ec972e2170b862a17ab7138a6d6f9 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

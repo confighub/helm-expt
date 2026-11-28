@@ -63,11 +63,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/percona/pxc-operator/1.19.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
-    manifestDigest: "sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
-    layerDigest: "sha256:858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
-    publicationReceipt: "runs/installer-oci/percona-pxc-operator/1.19.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1@sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1"
+    manifestDigest: "sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b"
+    layerDigest: "sha256:898b8f3050ff775895bc5817f81a655b473482b06564b7d523430780d87e2d2f"
+    publicationReceipt: "runs/ghcr-packages/pxc-operator/v1.19.1.yaml"
+    name: "pxc-operator"
+    tag: "v1.19.1"
+    installCommand: "cub package install pxc-operator:v1.19.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/pxc-operator@sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597"
+      publicationReceipt: "runs/installer-oci/percona-pxc-operator/1.19.1/installer-package-publication-receipt.yaml"
     installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
     receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "858f3e304e9a7e2ca7c4a603e4a1b03729717d55fcb92a426f10c3edc28e6629"
@@ -104,7 +111,7 @@ spec:
         default: true
         description: "percona/pxc-operator default variant rendered from percona/pxc-operator@1.19.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1@sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -196,7 +203,7 @@ spec:
         default: false
         description: "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1@sha256:bb1357840683c3f15451aa40c5af978395ed31cf45aa18ac71c1f44c3e4a7597 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/pxc-operator:v1.19.1@sha256:8d65158eec2ac91f5351cc1a6d0b428df6f6c272c12a0ee4c4250449fe6c528b --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

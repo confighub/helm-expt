@@ -65,11 +65,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/bitnami/nginx/24.0.4"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4"
-    manifestDigest: "sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
-    layerDigest: "sha256:8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705"
-    publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.4/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4"
+    manifestDigest: "sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+    layerDigest: "sha256:d915c4392205de801fc90cc4dfe6848d76874d6629a1c13285a62b9d6e410125"
+    publicationReceipt: "runs/ghcr-packages/bitnami-nginx/v24.0.4.yaml"
+    name: "bitnami-nginx"
+    tag: "v24.0.4"
+    installCommand: "cub package install bitnami-nginx:v24.0.4 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/bitnami-nginx@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b"
+      publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.4/installer-package-publication-receipt.yaml"
     installer: "packages/bitnami/nginx/24.0.4/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.4/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "8a888a43351f144ac3900b833a6be01479c534945eb334141dbfffb9ec02a705"
@@ -106,7 +113,7 @@ spec:
         default: true
         description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -183,7 +190,7 @@ spec:
         default: false
         description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.4"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4@sha256:ec8972b525425bdcd5f2ecdff2a6e6e23ddd219d2736a2cff0b5bacdb54a498b --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/bitnami-nginx:v24.0.4@sha256:b9bd2662c75e13374bfa4b7e5720e635183018876eb1146b519b750c227ad7fb --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

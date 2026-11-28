@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "fluent-bit"
+spec:
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  packagePath: "packages/fluent/fluent-bit/0.57.6"
+  tag: "v0.57.6"
+  reference: "ghcr.io/confighub/packages/fluent-bit:v0.57.6"
+  immutableReference: "ghcr.io/confighub/packages/fluent-bit@sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+  manifestDigest: "sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+  layerDigest: "sha256:191b9e8b565246cb7249327c403dab187571c78c349c003475a9118893d86928"
+  installCommand: "cub package install fluent-bit:v0.57.6 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:5c3cd9ba76826509df482ff735183638d77d83b96ca966201871f62e3f7864ea"
+  observedAt: "2026-11-27T19:43:13.837Z"
+status:
+  result: "pass"

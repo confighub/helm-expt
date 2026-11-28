@@ -30,7 +30,7 @@ if ! command -v kubectl >/dev/null 2>&1; then
 fi
 
 say "Pull the package and render the legacy base variant into ./bitnami-elasticsearch-22-1-6-legacy"
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6@sha256:8732b35275c000b5df0e1a57907a46ffa6c15c3ecbc081cdbc12e12d321e3719 --base legacy --work-dir ./bitnami-elasticsearch-22-1-6-legacy --non-interactive --namespace default
+cub installer setup --pull oci://ghcr.io/confighub/packages/elasticsearch:v22.1.6@sha256:ca175b4de6df70d60d872913a15cfb4ab4eda96c44fd1d80a2f29376cba8a763 --base legacy --work-dir ./bitnami-elasticsearch-22-1-6-legacy --non-interactive --namespace default
 
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./bitnami-elasticsearch-22-1-6-legacy/out/manifests

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-stakater-reloader-2-2-12-controller-default-reviewed"
+spec:
+  kind: "certified-bundle"
+  record: "stakater-reloader-2-2-12-controller-default-reviewed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-controller-default-reviewed:bundle-95600b1a0e44"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-stakater-reloader-2-2-12-controller-default-reviewed@sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+  manifestDigest: "sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/reloader-2.2.12-controller-default-reviewed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed@sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+    receipt: "runs/certified-bundles/catalog-stakater-reloader-2-2-12-controller-default-reviewed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:95600b1a0e44658310544413e2b5b52bca35ab59ad1bd2b0ccfc34dda61984d1"
+  observedAt: "2026-11-27T19:35:55.114Z"
+status:
+  result: "pass"

@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/argo-cd/argo-events/2.4.21/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-events/2.4.21/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-events/2.4.21/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47` |
+| Install into a Space | `cub package install argo-events:v2.4.21 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/argo-events:v2.4.21@sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db` |
+| Installer package publication | [runs/ghcr-packages/argo-events/v2.4.21.yaml](../../../../runs/ghcr-packages/argo-events/v2.4.21.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47` |
 | Installer package source | [packages/argo-cd/argo-events/2.4.21](../../../../packages/argo-cd/argo-events/2.4.21) |
 | Installer package receipt | [recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-events/2.4.21/artifact-index.yaml](artifact-index.yaml) |
@@ -83,12 +86,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21@sha256:d17322319fd2884cdd914aa580ab94aed8ce7b948af51325a4d9973f7c001b47 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install argo-events:v2.4.21 --space argo-events --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/argo-events:v2.4.21@sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/argo-events@sha256:0450f33d53d534b19a08e3ef98a28132b3dc45a8682c18ad8e84885783f005db`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

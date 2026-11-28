@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "mongodb"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.1.0"
+  packagePath: "packages/bitnami/mongodb/19.1.0"
+  tag: "v19.1.0"
+  reference: "ghcr.io/confighub/packages/mongodb:v19.1.0"
+  immutableReference: "ghcr.io/confighub/packages/mongodb@sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136"
+  manifestDigest: "sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136"
+  layerDigest: "sha256:ae266a27bc0eaaa356e3fd70f955ed98738faa0266c71fc2f4519cf76448563a"
+  installCommand: "cub package install mongodb:v19.1.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:11b7b8cfbb1813ba1f90a1a28fd0ff000caea028caea6fdbe0eeadba6852a136"
+  observedAt: "2026-11-27T19:42:57.075Z"
+status:
+  result: "pass"

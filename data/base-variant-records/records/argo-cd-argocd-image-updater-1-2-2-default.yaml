@@ -13,7 +13,7 @@ spec:
     name: "argo-cd/argocd-image-updater"
     version: "1.2.2"
     record: "data/helm-render-intents/intents/argo-cd-argocd-image-updater-1-2-2-default.yaml"
-    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2@sha256:525b479c83d1f34cb049de230d2925bb494437ca0a0aa20c782b29a6baa382fa"
+    packageOciRef: "oci://ghcr.io/confighub/packages/argocd-image-updater:v1.2.2@sha256:6e78d3e592eedcb265e4cff3d9a9982f7583e889ddcf6b2922ca82587c1c626b"
     selection:
       name: "default"
       kind: "catalog-preset"

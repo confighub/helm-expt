@@ -64,11 +64,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/grafana/rollout-operator/0.49.0"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
-    manifestDigest: "sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
-    layerDigest: "sha256:2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
-    publicationReceipt: "runs/installer-oci/grafana-rollout-operator/0.49.0/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0"
+    manifestDigest: "sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e"
+    layerDigest: "sha256:040adab4553fcf8641416d9f65d0c1b8d650d69d24ab5721788e6a5e8cae6dd5"
+    publicationReceipt: "runs/ghcr-packages/rollout-operator/v0.49.0.yaml"
+    name: "rollout-operator"
+    tag: "v0.49.0"
+    installCommand: "cub package install rollout-operator:v0.49.0 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/rollout-operator@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d"
+      publicationReceipt: "runs/installer-oci/grafana-rollout-operator/0.49.0/installer-package-publication-receipt.yaml"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "2148082a318f8a2f65d3a4691d5797246e69828e1a5068c461d1ec8906c881da"
@@ -105,7 +112,7 @@ spec:
         default: true
         description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"
@@ -187,7 +194,7 @@ spec:
         default: false
         description: "grafana/rollout-operator no-crds variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0@sha256:c52e103a893728c2d18971206a6452034d3b8f2c820f94942c0b54240214fa6d --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/rollout-operator:v0.49.0@sha256:b0b8fe250898bab80633c806f1bfc949c7156df44ae9c538d71d137fe9380f0e --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

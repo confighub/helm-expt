@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-elastic-eck-operator-3-4-0-no-crds"
+spec:
+  kind: "certified-bundle"
+  record: "elastic-eck-operator-3-4-0-no-crds"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-elastic-eck-operator-3-4-0-no-crds:bundle-82c154310a8b"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-elastic-eck-operator-3-4-0-no-crds@sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+  manifestDigest: "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/eck-operator-3.4.0-no-crds/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-elastic-eck-operator-3-4-0-no-crds@sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+    receipt: "runs/certified-bundles/catalog-elastic-eck-operator-3-4-0-no-crds/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:82c154310a8bfa0d307117f8b49e34939828d3b79e8526629e1f8476d4c4063c"
+  observedAt: "2026-11-27T19:35:07.935Z"
+status:
+  result: "pass"

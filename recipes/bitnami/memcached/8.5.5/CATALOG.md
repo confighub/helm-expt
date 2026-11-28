@@ -49,7 +49,10 @@ for exact base-variant evidence.
 | Value model | [recipes/bitnami/memcached/8.5.5/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/bitnami/memcached/8.5.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/bitnami/memcached/8.5.5/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4` |
+| Install into a Space | `cub package install memcached:v8.5.5 --space <space>` |
+| Installer package OCI | `oci://ghcr.io/confighub/packages/memcached:v8.5.5@sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157` |
+| Installer package publication | [runs/ghcr-packages/memcached/v8.5.5.yaml](../../../../runs/ghcr-packages/memcached/v8.5.5.yaml) |
+| Earlier location | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4` |
 | Installer package source | [packages/bitnami/memcached/8.5.5](../../../../packages/bitnami/memcached/8.5.5) |
 | Installer package receipt | [recipes/bitnami/memcached/8.5.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/bitnami/memcached/8.5.5/artifact-index.yaml](artifact-index.yaml) |
@@ -77,12 +80,22 @@ for exact base-variant evidence.
 
 ## Current Install Shape
 
+Install the package into a ConfigHub Space, which renders it and uploads
+one Unit per resource:
+
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5@sha256:52e3841ddc88cb3b0577c50d7f87bb8b6727c3193d5da524472732df205476b4 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub package install memcached:v8.5.5 --space memcached --base <variant> --namespace <namespace>
+```
+
+Or render it locally from the exact package bytes, with no Space:
+
+```sh
+cub installer setup --pull oci://ghcr.io/confighub/packages/memcached:v8.5.5@sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is
-the public package users pull; the `packages/...` path is the repo source path
+the public package users pull, signed by the package publish workflow; check it with
+`cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/memcached@sha256:a84973a47bdff47c1ed09b350a3f44f5c2409d57d45e0750029ad2d3045a7157`. The `packages/...` path is the repo source path
 used by maintainers and proof scripts. The proof path compares regular Helm
 output with real `cub installer setup` output and explains every intentional
 difference, such as the Namespace support object or separated Secrets.

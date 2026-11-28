@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nats-surveyor-0-20-9-default-reviewed"
+spec:
+  kind: "certified-bundle"
+  record: "nats-surveyor-0-20-9-default-reviewed"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nats-surveyor-0-20-9-default-reviewed:bundle-34ff9a186ba2"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nats-surveyor-0-20-9-default-reviewed@sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+  manifestDigest: "sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/surveyor-0.20.9-default-reviewed/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-surveyor-0-20-9-default-reviewed@sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+    receipt: "runs/certified-bundles/catalog-nats-surveyor-0-20-9-default-reviewed/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:34ff9a186ba2351c0e8b7dfe9c8df5e06add8c4663f5dd3df291e4e7d5e9c156"
+  observedAt: "2026-11-27T19:35:38.154Z"
+status:
+  result: "pass"

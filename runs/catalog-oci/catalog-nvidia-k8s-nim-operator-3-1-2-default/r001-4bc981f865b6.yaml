@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-nvidia-k8s-nim-operator-3-1-2-default"
+spec:
+  kind: "nvidia-literal-bundle"
+  record: "nvidia-k8s-nim-operator-3-1-2-default"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-k8s-nim-operator-3-1-2-default:r001-4bc981f865b6"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-nvidia-k8s-nim-operator-3-1-2-default@sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3"
+  manifestDigest: "sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/nvidia-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/literal-config-oci.yaml and its 5 staged files; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-k8s-nim-operator-3-1-2-default@sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3"
+    receipt: "runs/catalog-literal-bundles/nvidia-k8s-nim-operator-3-1-2-default/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:4bc981f865b68c2a454b228cdef0bb205562aab69682d080e1ba6f23ccff07e3"
+  observedAt: "2026-11-27T19:36:10.839Z"
+status:
+  result: "pass"

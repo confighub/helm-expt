@@ -59,11 +59,18 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/metallb/metallb/0.16.1"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1"
-    manifestDigest: "sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee"
-    layerDigest: "sha256:30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652"
-    publicationReceipt: "runs/installer-oci/metallb-metallb/0.16.1/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/metallb:v0.16.1@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/metallb:v0.16.1"
+    manifestDigest: "sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+    layerDigest: "sha256:feb07282e6f7ab37a9f3764f26f7a8db9ce5a9587beeda57e1b06c19c13e4f63"
+    publicationReceipt: "runs/ghcr-packages/metallb/v0.16.1.yaml"
+    name: "metallb"
+    tag: "v0.16.1"
+    installCommand: "cub package install metallb:v0.16.1 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/metallb@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee"
+      publicationReceipt: "runs/installer-oci/metallb-metallb/0.16.1/installer-package-publication-receipt.yaml"
     installer: "packages/metallb/metallb/0.16.1/installer.yaml"
     receipt: "recipes/metallb/metallb/0.16.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "30841c447f2f76e9b7f8665e87c1ae3a9f3cef457818705ff35a3015114ed652"
@@ -95,7 +102,7 @@ spec:
         default: true
         description: "metallb chart defaults variant rendered from metallb/metallb@0.16.1"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1@sha256:79b8a8a87f82e56caed0a630e46b84caf688cf50f5b18b7a7a930c7c31ba4bee --base default --work-dir <tmp> --non-interactive --namespace metallb-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/metallb:v0.16.1@sha256:01f137f8067b6c5390509cdfe051ada3c4e2dc2f0066ff56f690abd7cd79e77b --base default --work-dir <tmp> --non-interactive --namespace metallb-system"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"

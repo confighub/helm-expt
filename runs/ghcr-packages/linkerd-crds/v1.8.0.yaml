@@ -1,0 +1,26 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "GhcrPackagePublicationReceipt"
+metadata:
+  name: "linkerd-crds"
+spec:
+  chart: "linkerd/linkerd-crds"
+  version: "1.8.0"
+  packagePath: "packages/linkerd/linkerd-crds/1.8.0"
+  tag: "v1.8.0"
+  reference: "ghcr.io/confighub/packages/linkerd-crds:v1.8.0"
+  immutableReference: "ghcr.io/confighub/packages/linkerd-crds@sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8"
+  manifestDigest: "sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8"
+  layerDigest: "sha256:36aefd24c909278aaadca3c7f6ee0616187f56f7d1f579dc32362b97d1e93539"
+  installCommand: "cub package install linkerd-crds:v1.8.0 --space <space>"
+  publisher: ".github/workflows/packages-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:76dd64d6357398e12ca939982fe6ff7d54b3fa99d64e3fc09b42811977b330d8"
+  observedAt: "2026-11-27T19:43:32.266Z"
+status:
+  result: "pass"

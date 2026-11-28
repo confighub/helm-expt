@@ -43,7 +43,8 @@
             "properties": {
               "published": { "type": "boolean", "description": "True when the installer package of this version has a committed publication receipt." },
               "signed": { "type": "boolean" },
-              "ociRef": { "type": "string" }
+              "ociRef": { "type": "string", "description": "The package pinned to its manifest digest: on GitHub's registry when it is published there, else in the earlier registry." },
+              "installCommand": { "type": "string", "description": "The cub package install command for the package on GitHub's registry, when it is published there." }
             }
           },
           "bases": {

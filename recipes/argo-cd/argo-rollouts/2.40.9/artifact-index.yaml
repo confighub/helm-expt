@@ -64,11 +64,18 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/argo-cd/argo-rollouts/2.40.9"
-    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab"
-    taggedOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9"
-    manifestDigest: "sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab"
-    layerDigest: "sha256:cec22be9190fc18c4ab4d6a936a53f836df66cf270f1b2497c557ee2de595c63"
-    publicationReceipt: "runs/installer-oci/argo-cd-argo-rollouts/2.40.9/installer-package-publication-receipt.yaml"
+    ociRef: "oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+    taggedOciRef: "oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9"
+    manifestDigest: "sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+    layerDigest: "sha256:60cb66eca735eab9fd97d73726360580f571bb43f48e898ac945f17ad31e9bef"
+    publicationReceipt: "runs/ghcr-packages/argo-rollouts/v2.40.9.yaml"
+    name: "argo-rollouts"
+    tag: "v2.40.9"
+    installCommand: "cub package install argo-rollouts:v2.40.9 --space <space>"
+    signatureVerifyCommand: "cosign verify --certificate-identity-regexp '^https://github.com/confighub/helm-expt/.github/workflows/packages-publish.yml@refs/heads/main$' --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/confighub/packages/argo-rollouts@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7"
+    earlierLocation:
+      ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab"
+      publicationReceipt: "runs/installer-oci/argo-cd-argo-rollouts/2.40.9/installer-package-publication-receipt.yaml"
     installer: "packages/argo-cd/argo-rollouts/2.40.9/installer.yaml"
     receipt: "recipes/argo-cd/argo-rollouts/2.40.9/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "cec22be9190fc18c4ab4d6a936a53f836df66cf270f1b2497c557ee2de595c63"
@@ -105,7 +112,7 @@ spec:
         default: true
         description: "argo-cd/argo-rollouts default variant rendered from argo-cd/argo-rollouts@2.40.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -167,7 +174,7 @@ spec:
         default: false
         description: "argo-cd/argo-rollouts no-crds variant rendered from argo-cd/argo-rollouts@2.40.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9@sha256:e77d2622b0c73818226779e719ecd8841bc282c710b5cc193940ff5cb8ee00ab --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/packages/argo-rollouts:v2.40.9@sha256:8dd6969b19930a78f7a4976ac13f0a6e02fb2aa2c5d4d9eeeb1d14f1f1ed30b7 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

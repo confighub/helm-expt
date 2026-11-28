@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.7.1@sha256:03fa8aec9221b64cc5c25f3334775338a9f98c0529bad66f12340d124c238b71"
+        "ociRef": "oci://ghcr.io/confighub/packages/gpu-operator:v26.7.1@sha256:4ed84ef6638e41bb2df3afb9c4f30012104a079215e39f16445f611ee1053f25",
+        "installCommand": "cub package install gpu-operator:v26.7.1 --space <space>"
       },
       "bases": [
         {
@@ -157,7 +158,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.3@sha256:abd8475d6bfeabe88acc2d6a319a04054a9e84046d69926dcee4717674329a8f"
+        "ociRef": "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.3@sha256:f9562ec32d98a81f28ba2bf5a38ce9c18f347af8809958b966c0f7081dfe7a6d",
+        "installCommand": "cub package install gpu-operator:v26.3.3 --space <space>"
       },
       "bases": [
         {
@@ -295,7 +297,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v26.3.2@sha256:866ff5d529383dcdbeb5fd28e152f2a10ab50ce9b45acebf2b5ff2dc95f19767"
+        "ociRef": "oci://ghcr.io/confighub/packages/gpu-operator:v26.3.2@sha256:2d0d1f63a9d708d1965b616a9fba297d1b5cf163a16ae2e44498d955a4173360",
+        "installCommand": "cub package install gpu-operator:v26.3.2 --space <space>"
       },
       "bases": [
         {
@@ -415,7 +418,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-gpu-operator:v25.10.1@sha256:35774151264bf1b5998330ca4290ae306e89470c7eb05a4e4c8fc18401c9e155"
+        "ociRef": "oci://ghcr.io/confighub/packages/gpu-operator:v25.10.1@sha256:34940c221c3f5b0c0f2cf5b99e1355d2571ec6da72ec4b77c7262c2e5953d4ee",
+        "installCommand": "cub package install gpu-operator:v25.10.1 --space <space>"
       },
       "bases": [
         {

@@ -1,0 +1,28 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CatalogOciPublicationReceipt"
+metadata:
+  name: "catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0"
+spec:
+  kind: "certified-bundle"
+  record: "node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0"
+  reference: "ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0:bundle-64f8c934cb7e"
+  immutableReference: "ghcr.io/confighub/configs/catalog/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0@sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+  manifestDigest: "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+  source: "rebuilt"
+  sourceNote: "rebuilt from data/certified-bundles/receipts/catalog/node-feature-discovery-0.19.0-aicr-eks-training-v1-0-0/receipt.yaml with the space guide as written before publication; the same digest as the earlier publication"
+  earlierLocation:
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0@sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+    receipt: "runs/certified-bundles/catalog-node-feature-discovery-node-feature-discovery-0-19-0-aicr-eks-training-v1-0-0/publication-receipt.yaml"
+    sameDigest: true
+  publisher: ".github/workflows/catalog-oci-publish.yml"
+  signature:
+    result: "verified"
+    identityRegexp: "^https://github.com/confighub/helm-expt/.github/workflows/catalog-oci-publish.yml@refs/heads/main$"
+    issuer: "https://token.actions.githubusercontent.com"
+    command: "cosign verify --certificate-identity-regexp <identity> --certificate-oidc-issuer <issuer> <immutable reference>"
+  anonymousPull:
+    result: "pass"
+    digest: "sha256:64f8c934cb7e7621f063b666b416f67ec6ab539d601446177c9ed89621ef0eac"
+  observedAt: "2026-11-27T19:35:39.199Z"
+status:
+  result: "pass"

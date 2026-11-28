@@ -18,23 +18,26 @@ reported, and does not stop the others.
 1. Checks that upstream has not changed the bytes behind a version the catalog
    already locked (`npm run flattening-witnesses:recheck`). Drift without a
    recorded decision stops the run.
-2. For each packaged chart, compares the newest packaged version with the
+2. Records what the publish workflows put on GitHub's registry since the last
+   run (see [Recording Publications](#recording-publications)) and commits the
+   receipts on their own.
+3. For each packaged chart, compares the newest packaged version with the
    newest stable version upstream publishes. A Helm repository is read through
    its `index.yaml`; an OCI repository through the registry's tag list.
-3. For each chart that moved, in a family the job can update (below):
+4. For each chart that moved, in a family the job can update (below):
    generates the new version with the generator that built the chart's newest
    package, runs that generator's own checks, checks that the new package
    keeps every base the previous version has, and commits the chart's files on
    their own. On any failure the chart's files are put back and the failure is
    reported. The pull request holds at most eight new versions a night
    (`--max`), so it stays reviewable; the rest follow once it is merged.
-4. Regenerates the catalog views the new versions leave stale and commits
+5. Regenerates the catalog views the new versions and receipts leave stale and commits
    them once (see [Catalog Views](#catalog-views)).
-5. Pushes the commits to a `bot/package-updates-<date>` branch and opens one
+6. Pushes the commits to a `bot/package-updates-<date>` branch and opens one
    pull request, or replaces the branch and description of the one already
    open. It dispatches `full-verify.yml` and `site-verify.yml` on the branch,
    because a pull request opened with the workflow token starts no checks.
-6. Opens an issue for each chart whose update failed, unless an open issue has
+7. Opens an issue for each chart whose update failed, unless an open issue has
    the same title, and keeps one issue listing the charts that moved but need
    a person. The run ends red when an update failed.
 
@@ -44,8 +47,9 @@ is published under, in the same commit as the version.
 
 The job never pushes to `main` and publishes nothing. Merging the pull request
 publishes: the publish workflow publishes every package version the registry
-does not have on a push to `main`. So the pull request is reviewed as a
-release.
+does not have on a push to `main`, as
+`oci://ghcr.io/confighub/packages/<name>:<tag>`, signed as that workflow. So
+the pull request is reviewed as a release.
 
 ## What The Reviewer Reads
 
@@ -93,17 +97,49 @@ charts) or decides a base by a list of versions (kube-prometheus-stack's
 existing-Secret base) fails for a new version, and the failure is the report:
 a person extends the declaration, then reruns `--update`.
 
-## Not Yet In The Catalog Registry
+## Not Yet Published
 
 A catalog entry names the digest a user pulls, so the catalog maps cannot list
-a version before the catalog registry holds it, and their generators refused
-any recipe without a publication receipt. Each version the update builds is
-added to `data/package-updates/pending-publication.yaml`. The chart maps, the
-signed package index and the Catalog records leave a listed version out until
-its publication receipt exists. A missing receipt for a version not listed
-still fails, and a listed version whose receipt exists fails the chain until
-its entry is removed, so the register only ever holds versions that are truly
-waiting.
+a version before it is published, and their generators refuse any recipe
+without a publication receipt. Each version the update builds is added to
+`data/package-updates/pending-publication.yaml`. The chart maps and the
+Catalog records leave a listed version out until its publication receipt
+exists. A missing receipt for a version not listed still fails, and a listed
+version whose receipt exists fails the chain until its entry is removed, so
+the register only ever holds versions that are truly waiting.
+
+A version is published when a receipt records it on GitHub's registry
+(`runs/ghcr-packages/<name>/<tag>.yaml`), or in the earlier Google registry
+(`runs/installer-oci/<name>/<tag>/installer-package-publication-receipt.yaml`).
+A GitHub receipt makes GitHub the location every page, command and record
+names; the Google copy, when there is one, is shown as the earlier location.
+
+## Recording Publications
+
+The publish workflows can read the repository but not write to it, so they
+cannot commit the receipts of what they publish. The nightly job does it at
+the start of each run, with no credential:
+
+- `node scripts/publish-ghcr-packages.mjs --observe --missing` reads each
+  catalog package version on `ghcr.io/confighub/packages` that has no receipt,
+  with no credentials, verifies its signature against
+  `packages-publish.yml@refs/heads/main`, and writes its receipt.
+- `node scripts/publish-catalog-oci.mjs --observe --missing` does the same for
+  the configuration artifacts on `ghcr.io/confighub/configs/catalog`
+  ([Catalog configuration OCI on GitHub's registry](catalog-oci-on-ghcr.md)).
+- A package version that now has a receipt comes off the pending register.
+
+These are committed together, before any new version, and the catalog views
+are regenerated with the rest. So a version merged one night is published by
+the merge, and the next night's pull request carries its receipt; once that
+pull request is merged, the Catalog names the version on GitHub with no person
+involved. A version the registry does not serve yet is reported and left for a
+later night. `node scripts/package-updates.mjs --record-publications` does the
+same on a laptop and stages the receipts; run `--refresh-views` after it.
+
+The signed package index, `data/installer-oci-packages/packages.json`, lists
+the packages in the earlier registry and is signed by a Google service
+account, so it is not changed by a GitHub publication.
 
 ## Catalog Views
 

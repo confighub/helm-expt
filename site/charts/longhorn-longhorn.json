@@ -19,7 +19,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.1@sha256:88c9a55f464591c7288cf4794ec3473ffc589d81a0851bef5616cb25693640ad"
+        "ociRef": "oci://ghcr.io/confighub/packages/longhorn:v1.12.1@sha256:617b2aa407c54c4a645624bbc05a1e4cf3aa44c762684e06d6ba4bfebaebb6b5",
+        "installCommand": "cub package install longhorn:v1.12.1 --space <space>"
       },
       "bases": [
         {
@@ -49,7 +50,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0@sha256:f0ca4ef7a625739a763933ede5edd882e26c9ff6ebb0dd0ef6e500adfd4ed717"
+        "ociRef": "oci://ghcr.io/confighub/packages/longhorn:v1.12.0@sha256:d9e3f68993dfdb7d0f23cef168135633a63302ce0624153d5fcebe18ac34443c",
+        "installCommand": "cub package install longhorn:v1.12.0 --space <space>"
       },
       "bases": [
         {
@@ -79,7 +81,8 @@
       "package": {
         "published": true,
         "signed": true,
-        "ociRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2@sha256:0617a692620540d997f515cba0ffc86c9cccd3b2b254d0a56698667cfc957b7f"
+        "ociRef": "oci://ghcr.io/confighub/packages/longhorn:v1.11.2@sha256:d7117fae9bcc789db08e87c8dfc8548228b7d6fa2e5237c1edef943a0d8c3d67",
+        "installCommand": "cub package install longhorn:v1.11.2 --space <space>"
       },
       "bases": [
         {
