@@ -20,3 +20,5 @@ spec:
       version: "8.8.8"
     - chart: "bitnami/mongodb"
       version: "20.0.23"
+    - chart: "bitnami/nginx"
+      version: "25.2.19"

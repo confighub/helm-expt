@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nginx-http-clusterip-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "15c133110b76ee4059114bd906cef0562752500b1df2a04210d2aab761255a82"
+    dependencyLockSHA256: "ef4259367339d8c13a7e766460cab7996c33f068ca2ded62b48d2b7f64b35303"
+    effectiveValuesSHA256: "612067ed69773a59d57d30a6c899f4d26c35e39ad6e23cbafbb9b55c2560ab1b"
+  outputs:
+    renderedObjectSetSHA256: "957aa0d636d1d3f5663067c471a1b8da9ebaea4374e62c1c1f28c4ea7876c75d"
+    renderedObjectInventorySHA256: "cd8d03ddb294d9979aa2d5afb19f3d82bae9116e050a903cb955234743f7cbc0"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

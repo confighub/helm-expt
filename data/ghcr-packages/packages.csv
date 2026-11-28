@@ -12,7 +12,7 @@ argo-workflows,argo-cd/argo-workflows,https://argoproj.github.io/argo-helm,v1.0.
 argocd-image-updater,argo-cd/argocd-image-updater,https://argoproj.github.io/argo-helm,v1.5.0,v1.2.2 v1.5.0,oci://ghcr.io/confighub/packages/argocd-image-updater
 aws-ebs-csi-driver,aws-ebs-csi-driver/aws-ebs-csi-driver,https://kubernetes-sigs.github.io/aws-ebs-csi-driver,v2.68.1,v2.59.0 v2.60.1 v2.68.1,oci://ghcr.io/confighub/packages/aws-ebs-csi-driver
 aws-efa-k8s-device-plugin,eks/aws-efa-k8s-device-plugin,https://aws.github.io/eks-charts,v0.5.29,v0.5.29,oci://ghcr.io/confighub/packages/aws-efa-k8s-device-plugin
-bitnami-nginx,bitnami/nginx,https://charts.bitnami.com/bitnami,v25.0.0,v24.0.2 v24.0.4 v25.0.0,oci://ghcr.io/confighub/packages/bitnami-nginx
+bitnami-nginx,bitnami/nginx,https://charts.bitnami.com/bitnami,v25.2.19,v24.0.2 v24.0.4 v25.0.0 v25.2.19,oci://ghcr.io/confighub/packages/bitnami-nginx
 bitnami-rabbitmq,bitnami/rabbitmq,https://charts.bitnami.com/bitnami,v16.0.14,v16.0.14,oci://ghcr.io/confighub/packages/bitnami-rabbitmq
 bitnami-redis,bitnami/redis,https://charts.bitnami.com/bitnami,v27.0.0,v25.5.3 v27.0.0,oci://ghcr.io/confighub/packages/bitnami-redis
 cert-manager,jetstack/cert-manager,https://charts.jetstack.io,v1.21.1,v1.20.2 v1.21.0 v1.21.1,oci://ghcr.io/confighub/packages/cert-manager

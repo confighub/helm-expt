@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-nginx-25.2.19"
+spec:
+  chart: "bitnami/nginx"
+  version: "25.2.19"
+  dependencies:
+    -
+      name: "common"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
+      version: "2.41.0"
+  chartLockDigest: null
+  chartLockProvenance:
+    status: "source-derived-from-packaged-chart-yaml"
+    packageSHA256: "e1a4c1abc8cd8f26bc067df11ac122475cb9250aee70c9b37867ca202d583b08"
+    packageContainsChartLock: false
+    dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml"
